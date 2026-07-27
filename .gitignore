@@ -1,5 +1,6 @@
-# Project docs (local only — not committed)
-docs/
+﻿# Project docs (local only — not committed)
+docs/*
+!docs/aws-setup.md
 
 # Compiled class file
 *.class
@@ -25,3 +26,11 @@ docs/
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Local AWS / secrets
+.env
+.env.*
+!.env.example
+
+# Editor / agent local (optional commit of shared settings only via .vscode)
+.cursor/

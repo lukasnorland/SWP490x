@@ -1,0 +1,7 @@
+﻿{
+    "terminal.integrated.env.windows":  {
+                                            "AWS_DEFAULT_REGION":  "ap-southeast-1",
+                                            "AWS_REGION":  "ap-southeast-1",
+                                            "AWS_PROFILE":  "mrs-admin"
+                                        }
+}
