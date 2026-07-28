@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/auth :: auth(~{::content})}">
+<body>
+<div th:fragment="content">
+  <div class="card">
+    <div class="card-body d-flex flex-column gap-4">
+      <h1 class="h2">This page is not available</h1>
+      <p class="small text-secondary">
+        The page you asked for does not exist.
+      </p>
+      <a class="btn btn-primary btn-lg w-100" th:href="@{/}">Back to my workspace</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

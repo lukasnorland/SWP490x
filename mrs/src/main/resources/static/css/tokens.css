@@ -1,0 +1,131 @@
+/* ==========================================================================
+   MRS design tokens — Screen Design Spec v1.0.0, Part 1
+   Every value here traces back to a row in Part 1.2 / 1.3 / 1.4.
+   Screens must consume tokens, never raw hex values.
+   ========================================================================== */
+
+:root {
+  /* --- 1.2 Brand / primary ---------------------------------------------- */
+  --color-primary: #6366f1;
+  --color-primary-bright: #818cf8;
+  --color-primary-deep: #312e81;
+  --gradient-accent: linear-gradient(135deg, #6366f1 0%, #d946ef 100%);
+
+  /* --- 1.2 Semantic / feedback ------------------------------------------
+     The spec lists deep fills. Design principle 3 pairs each deep fill with
+     bright text so badges stay legible on dark surfaces without glowing
+     louder than the content, so each fill carries a -text companion. */
+  --color-success: #14532d;
+  --color-success-text: #86efac;
+  --color-warning: #78350f;
+  --color-warning-text: #fcd34d;
+  --color-error: #7f1d1d;
+  --color-error-text: #fca5a5;
+  --color-info: #0c4a6e;
+  --color-info-text: #7dd3fc;
+
+  /* --- 1.2 Neutral / text / surface -------------------------------------- */
+  --color-bg: #0b1120;
+  --color-surface: #1e293b;
+  --color-surface-raised: #334155;
+  --color-glass: rgba(11, 17, 32, 0.8);
+  --color-border: #334155;
+  --color-border-strong: #475569;
+  --color-text: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-text-disabled: #64748b;
+  --color-overlay: rgba(2, 6, 23, 0.6);
+  --blur-glass: 12px;
+
+  /* --- 1.3 Typography ---------------------------------------------------
+     Inter is self-hosted (see static/fonts) so the internal tool carries no
+     external font dependency; the stack degrades to system UI faces. */
+  --font-sans: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", Consolas, monospace;
+
+  --text-h1-size: 28px;
+  --text-h1-weight: 700;
+  --text-h1-leading: 1.25;
+  --text-h2-size: 22px;
+  --text-h2-weight: 700;
+  --text-h2-leading: 1.3;
+  --text-h3-size: 18px;
+  --text-h3-weight: 600;
+  --text-h3-leading: 1.4;
+  --text-h4-size: 16px;
+  --text-h4-weight: 600;
+  --text-h4-leading: 1.4;
+  --text-body-lg-size: 16px;
+  --text-body-lg-leading: 1.6;
+  --text-body-size: 14px;
+  --text-body-leading: 1.5;
+  --text-body-sm-size: 13px;
+  --text-body-sm-leading: 1.5;
+  --text-label-size: 12px;
+  --text-label-weight: 600;
+  --text-label-leading: 1.3;
+  --text-badge-size: 12px;
+  --text-badge-weight: 600;
+  --text-badge-leading: 1.2;
+  --text-mono-size: 13px;
+  --text-mono-leading: 1.5;
+
+  /* --- 1.4 Spacing — 8px base unit --------------------------------------- */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* --- 1.4 Layout zones -------------------------------------------------- */
+  --sidebar-width: 240px;
+  --sidebar-rail-width: 64px;
+  --content-max: 1200px;
+  --auth-card-max: 400px;
+  --card-max: 720px;
+  --stepper-card-max: 900px;
+  --modal-sm: 400px;
+  --modal-md: 600px;
+  --modal-lg: 720px;
+  --row-height: 44px;
+  --row-height-clickable: 48px;
+  --preview-bar-height: 72px;
+  --topbar-height: 56px;
+
+  /* --- Radius ------------------------------------------------------------ */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  /* --- Elevation --------------------------------------------------------- */
+  --shadow-card: 0 1px 2px rgba(2, 6, 23, 0.4);
+  --shadow-raised: 0 4px 12px rgba(2, 6, 23, 0.5);
+  --shadow-modal: 0 24px 48px rgba(2, 6, 23, 0.7);
+
+  /* --- Motion ------------------------------------------------------------ */
+  --transition-fast: 120ms ease;
+  --transition-base: 180ms ease;
+
+  /* --- 1.5 Iconography --------------------------------------------------- */
+  --icon-sm: 16px;
+  --icon-md: 20px;
+  --icon-lg: 24px;
+  --icon-stroke: 2;
+}
+
+/* 5.4 Typography scaling — headings shrink below desktop, body never drops
+   under the 14px floor. */
+@media (max-width: 1024px) {
+  :root {
+    --text-h1-size: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --text-h1-size: 22px;
+    --text-h2-size: 18px;
+  }
+}

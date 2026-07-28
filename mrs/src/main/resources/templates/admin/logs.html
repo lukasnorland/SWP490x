@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
+<!--/* P-06e Admin — Audit & Recommendation Log — spec 4.13 (FT-09, FT-04). */-->
+<body>
+<div th:fragment="content">
+
+  <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
+    <div class="d-flex flex-column gap-1">
+      <h1>Audit &amp; Recommendation Log</h1>
+      <p class="small text-secondary">
+        Entries are retained for 12 months and purged automatically — there is no manual deletion.
+      </p>
+    </div>
+  </header>
+
+  <div class="d-flex flex-column gap-4">
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
+        'Tabs and filters',
+        'Underline tabs Audit and Recommendation. Filters: date range, actor, and either action type (Audit) or LLM outcome success/fallback (Recommendation).')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C — Audit',
+        'Audit table',
+        'Timestamp, actor, action, target, and an expandable before/after diff. Covers user administration, song and metadata edits, configuration changes and playlist status changes (BR-10, NFR-SEC04).')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C — Recommendation',
+        'Recommendation table',
+        'Timestamp, user, raw query, interpreted filters, and whether the LLM was used or the keyword fallback fired. Filtering on fallback supports LLM quality review (FT-04, BR-07).')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone D',
+        'Pagination',
+        'Newest entries first.')}"></section>
+  </div>
+
+</div>
+</body>
+</html>

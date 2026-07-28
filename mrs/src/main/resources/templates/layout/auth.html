@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org" th:fragment="auth(content)">
+<!--/*
+  Unauthenticated layout for P-00 and P-01: brand mark above a centred card,
+  48px top padding (spacing token 2xl), no sidebar and no preview bar.
+*/-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${pageTitle} != null ? ${pageTitle} + ' · MRS' : 'MRS'">MRS</title>
+  <link rel="stylesheet" th:href="@{/vendor/bootstrap/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/tokens.css}">
+  <link rel="stylesheet" th:href="@{/css/theme.css}">
+  <link rel="stylesheet" th:href="@{/css/mrs.css}">
+  <link rel="stylesheet" th:href="@{/css/shell.css}">
+  <script defer th:src="@{/vendor/bootstrap/bootstrap.bundle.min.js}"></script>
+  <script defer th:src="@{/js/mrs.js}"></script>
+</head>
+
+<body class="auth">
+
+<svg th:replace="~{fragments/icons :: sprite}"></svg>
+
+<p class="auth__brand">
+  <span class="sidebar__mark">M</span>
+  <span>MRS</span>
+</p>
+
+<div class="auth__card" th:insert="${content}">
+  <!-- page content -->
+</div>
+
+</body>
+</html>

@@ -60,7 +60,7 @@ MRS closes those gaps with centralized catalog + playlist management, metadata/L
 | Layer | Choice |
 |-------|--------|
 | Backend | Java 25, Spring Boot 4.x, Spring Security, Spring Data JPA |
-| Frontend | Thymeleaf (server-side rendered) |
+| Frontend | Thymeleaf (server-side rendered), Bootstrap 5.3 (self-hosted) |
 | Database | MySQL 8.x |
 | Object storage | Amazon S3 (audio/asset keys; pre-signed URLs for export) |
 | LLM | External API (e.g. Gemini) for query interpretation only |
@@ -79,7 +79,9 @@ SWP490x/
 │   ├── src/main/java/…   # Application code
 │   ├── src/main/resources/
 │   │   ├── application.properties
-│   │   └── db/migration/ # Schema + seed SQL (V1, V2)
+│   │   ├── db/migration/ # Schema + seed SQL (V1, V2)
+│   │   ├── static/       # Design tokens, theme, CSS, JS, vendored Bootstrap
+│   │   └── templates/    # Thymeleaf layouts, fragments, screens
 │   └── pom.xml
 ├── .github/workflows/    # CI
 └── README.md
@@ -112,7 +114,9 @@ Detailed requirements and design live under [`docs/`](docs/):
 CREATE DATABASE mrs CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 ```
 
-Apply migrations under `mrs/src/main/resources/db/migration/` (V1 schema, V2 sample data), or configure Flyway if you enable it in the app.
+Flyway applies the migrations under `mrs/src/main/resources/db/migration/` (V1 schema, V2 sample data) on every startup — create the empty database and run the app.
+
+If you applied V1/V2 by hand before Flyway was wired in, no action is needed: the app baselines an existing schema at V2 (`spring.flyway.baseline-version`) so those two migrations are not replayed over your tables.
 
 ### Configuration
 
@@ -123,6 +127,17 @@ Defaults in `mrs/src/main/resources/application.properties` (override with env v
 | `DB_URL` | `jdbc:mysql://localhost:3306/mrs?...` |
 | `DB_USERNAME` | `root` |
 | `DB_PASSWORD` | *(empty)* |
+
+If you would rather not export variables, create `mrs/local.properties` and put
+the same keys there in Spring form:
+
+```properties
+spring.datasource.username=your_user
+spring.datasource.password=your_password
+```
+
+`application.properties` imports that file when it exists, and it is gitignored,
+so real credentials never reach the repository.
 
 ### Run
 
@@ -164,7 +179,47 @@ Three two-week iterations after design:
 2. **Iteration 2** — Search/filter, recommendation & ranking, playlists, concurrency  
 3. **Iteration 3** — Web UI, LLM-assisted search, shared workspace, CSV export  
 
-Current codebase is early-stage (Spring Boot skeleton, schema, and sample catalog for the vertical prototype).
+### UI implementation status
+
+The UI follows **Report 3.2 — Screen Design Spec**. Its foundation is in place: the design tokens of Part 1, the authenticated shell of section 4.0 with role-aware navigation (2.1), and the responsive rules of Part 5.
+
+#### Styling approach
+
+Bootstrap 5.3 supplies the component layer — buttons, forms, cards, tables, modals, dropdowns, tabs, pagination, toasts — and its JavaScript bundle supplies their behaviour. Report 3.2 does not name a CSS framework, so this is an implementation decision, made on three grounds: Bootstrap needs no Node toolchain, so the build stays `./mvnw` alone; it covers the accessible interactive components the spec calls for without hand-rolling them; and 5.3's dark mode plus CSS-variable theming let the spec's own palette drive it rather than the reverse.
+
+Both Bootstrap files are vendored under `static/vendor/bootstrap/` rather than loaded from a CDN, so the app renders correctly with no internet access and carries no third-party runtime dependency — the same reasoning already applied to the self-hosted Inter font.
+
+The stylesheets load in this order, and the order matters:
+
+| File | Role |
+|------|------|
+| `vendor/bootstrap/bootstrap.min.css` | Bootstrap 5.3.8, unmodified |
+| `css/tokens.css` | Every value from Part 1, and the only place a spec value is written down |
+| `css/theme.css` | Re-points Bootstrap's `--bs-*` variables at those tokens under `data-bs-theme="dark"` |
+| `css/mrs.css` | Only what Bootstrap cannot express — see below |
+| `css/shell.css` | The application shell of 4.0 — sidebar, glass top bar, preview bar — and the responsive rules of Part 5 |
+
+Because `theme.css` rebinds Bootstrap's variables instead of overriding component rules one by one, a spec change means editing `tokens.css` and nothing else. Screens use ordinary Bootstrap class names and utilities, so they can be read against the Bootstrap documentation directly.
+
+Components are taken from Bootstrap wherever it has one, including several that are easy to miss: the sidebar is an `offcanvas` (so the mobile drawer gets a focus trap, Escape handling and scroll lock without custom code), its entries are `nav-pills`, the breadcrumb trail is `breadcrumb` with the spec's `>` divider, the top bar is `sticky-top`, the preview bar is `fixed-bottom` with a `progress` element, in-page tabs are `nav-underline`, loading states are `placeholder`, and the password show/hide control is an `input-group`. Shell stacking deliberately uses Bootstrap's z-index scale so it cannot collide with dropdowns, modals or the offcanvas backdrop.
+
+What remains in `mrs.css` needs a CSS property or selector Bootstrap has no utility for, and each rule says which:
+
+- SVG stroke and sizing for the Lucide icon set (1.5)
+- arbitrary `linear-gradient` fills, for the accent gradient — Bootstrap's `.bg-gradient` is a fixed white overlay
+- `border-style: dashed`, for the zone placeholders
+- `font-variant-numeric: tabular-nums`, for numeric table columns
+- `backdrop-filter: blur()`, for the Glass surfaces of 1.2
+- hover-revealed row actions, and the fixed dimensions of 1.4 that fall between Bootstrap's spacer steps
+
+| Screen | State |
+|--------|-------|
+| P-00 Login | Implemented — all five screen states, lockout after 5 failures in 15 min |
+| P-01 Password Reset | Implemented — both steps, live BR-12 checklist (reset link is logged, not emailed) |
+| Forced password change (FT-09) | Implemented |
+| P-02 – P-06e | Scaffolded — real headings and navigation, with each specified zone marked as outstanding |
+
+Each scaffolded screen renders its zones from the spec as dashed placeholders, so what remains on that screen is visible in the running app. Data-backed zones arrive with their feature slice.
 
 ---
 

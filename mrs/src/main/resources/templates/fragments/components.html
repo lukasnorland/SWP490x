@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/*
+  Reusable pieces of the design language (Part 1) shared by the screens in
+  Part 4. Fragments read `activeNav` and `currentUser` from the model, which
+  ShellModelAdvice and each controller supply.
+
+  These are composed from Bootstrap components and utilities; only the handful
+  of properties Bootstrap cannot express carry an MRS class (see mrs.css).
+*/-->
+<body>
+
+<!--/*
+  Sidebar entry — a Bootstrap nav-pill. `active` drives the fill, aria-current
+  states it for assistive technology, and `sub` indents items inside the Admin
+  group (2.3).
+*/-->
+<a th:fragment="navItem(key, href, icon, label, sub)"
+   class="nav-link sidebar__item"
+   th:classappend="${(activeNav == key ? 'active ' : '') + (sub ? 'sidebar__item--sub' : '')}"
+   th:href="@{${href}}"
+   th:attr="aria-current=${activeNav == key} ? 'page' : null"
+   th:title="${label}">
+  <svg th:replace="~{fragments/icons :: icon(${icon}, '')}"></svg>
+  <span class="sidebar__item-label" th:text="${label}">Label</span>
+</a>
+
+<!--/* Playlist / account status badge — deep fill, bright text (principle 3). */-->
+<span th:fragment="statusBadge(status)"
+      class="badge"
+      th:classappend="'badge-' + ${#strings.toLowerCase(status)}"
+      th:text="${status}">STATUS</span>
+
+<!--/*
+  Banner slot used by the notice zones across Part 4. `variant` is a Bootstrap
+  contextual name (info, success, warning, danger); theme.css points those at
+  the spec's semantic colour pairs.
+*/-->
+<div th:fragment="notice(variant, icon, message)"
+     class="alert"
+     th:classappend="'alert-' + ${variant}"
+     role="status">
+  <svg th:replace="~{fragments/icons :: icon(${icon}, 'icon--sm')}"></svg>
+  <span th:text="${message}">Message</span>
+</div>
+
+<!--/* Empty state: always explains what to do next, never a blank panel. */-->
+<div th:fragment="emptyState(icon, title, message)"
+     class="d-flex flex-column align-items-center gap-3 px-4 py-5 text-center text-secondary">
+  <svg th:replace="~{fragments/icons :: icon(${icon}, 'icon--lg text-body-tertiary')}"></svg>
+  <p class="h3 text-body" th:text="${title}">Nothing here yet</p>
+  <p class="small" th:text="${message}">Message</p>
+</div>
+
+<!--/*
+  Live BR-12 / BV-02 checklist. mrs.js marks each met rule by toggling
+  .text-success-emphasis as the user types, and PasswordPolicy re-checks the
+  same four rules server-side. `inputId` is the id of the password field it
+  watches.
+*/-->
+<div th:fragment="passwordChecklist(inputId)"
+     class="row row-cols-1 row-cols-md-2 g-2 small text-secondary"
+     th:attr="data-password-policy=${inputId}">
+  <div class="col d-flex align-items-center gap-1" data-rule="length">
+    <svg th:replace="~{fragments/icons :: icon('circle-check', 'icon--sm')}"></svg>
+    <span>8–64 characters</span>
+  </div>
+  <div class="col d-flex align-items-center gap-1" data-rule="uppercase">
+    <svg th:replace="~{fragments/icons :: icon('circle-check', 'icon--sm')}"></svg>
+    <span>An uppercase letter</span>
+  </div>
+  <div class="col d-flex align-items-center gap-1" data-rule="digit">
+    <svg th:replace="~{fragments/icons :: icon('circle-check', 'icon--sm')}"></svg>
+    <span>A digit</span>
+  </div>
+  <div class="col d-flex align-items-center gap-1" data-rule="special">
+    <svg th:replace="~{fragments/icons :: icon('circle-check', 'icon--sm')}"></svg>
+    <span>A special character</span>
+  </div>
+</div>
+
+<!--/* Server-side rejections, naming the specific unmet rule (FT-01 NAC-04). */-->
+<div th:fragment="violations(violations)" class="alert alert-danger" role="alert">
+  <svg th:replace="~{fragments/icons :: icon('alert-triangle', 'icon--sm')}"></svg>
+  <div class="d-flex flex-column gap-2">
+    <p class="alert-heading">This password was not accepted</p>
+    <ul class="mb-0">
+      <li th:each="violation : ${violations}" th:text="${violation}">Rule</li>
+    </ul>
+  </div>
+</div>
+
+<!--/*
+  Marks a screen zone that is specified but not yet built. Keeps the spec's
+  zone breakdown visible in the running app, so what is outstanding on each
+  screen is obvious. Delete each one as its zone is implemented.
+*/-->
+<section th:fragment="zonePlaceholder(zone, title, description)"
+         class="zone-placeholder d-flex flex-column gap-1 p-4 rounded-3">
+  <p class="label zone-placeholder__zone" th:text="${zone}">Zone A</p>
+  <p class="h4" th:text="${title}">Zone title</p>
+  <p class="small text-secondary" th:text="${description}">What this zone contains.</p>
+</section>
+
+</body>
+</html>

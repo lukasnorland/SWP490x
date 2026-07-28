@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
+<!--/* P-06d Admin — System Settings — spec 4.12 (FT-09). */-->
+<body>
+<div th:fragment="content">
+
+  <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
+    <div class="d-flex flex-column gap-1">
+      <h1>System Settings</h1>
+      <p class="small text-secondary">
+        Every change is audited with actor, timestamp and before/after values (BR-10).
+      </p>
+    </div>
+  </header>
+
+  <div class="d-flex flex-column gap-4">
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A',
+        'Search &amp; LLM',
+        'LLM API endpoint and key (masked), interpretation timeout (default 5 s, FT-04), default page size (20).')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
+        'Security',
+        'Session inactivity window (default 8 h), lockout threshold and window (5 attempts / 15 min), reset-link validity (30 min, BV-01). These currently live in application.properties and PasswordPolicy; this screen takes them over.')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C',
+        'Export',
+        'Pre-signed URL expiry (default 24 h, NFR-SEC06).')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone D',
+        'Save bar',
+        'Validates, applies and audits in one action.')}"></section>
+  </div>
+
+</div>
+</body>
+</html>

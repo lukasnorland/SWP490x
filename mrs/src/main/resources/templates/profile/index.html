@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
+<!--/* P-05 My Profile & Playlist History — spec 4.8 (FT-02). */-->
+<body>
+<div th:fragment="content">
+
+  <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
+    <div class="d-flex flex-column gap-1">
+      <h1>My Profile</h1>
+      <p class="small text-secondary">Your account details and playlist history.</p>
+    </div>
+  </header>
+
+  <div class="d-flex flex-column gap-4">
+
+    <!-- The identity half of Zone A is already backed by the authenticated
+         principal, so it renders for real. -->
+    <section class="card card-narrow" th:if="${currentUser != null}">
+      <div class="card-header">
+        <h2 class="h3">Account</h2>
+      </div>
+      <div class="card-body d-flex flex-column gap-4">
+        <div class="d-flex flex-column gap-1">
+          <p class="label text-secondary">Display name</p>
+          <p th:text="${currentUser.displayName}">Name</p>
+        </div>
+        <div class="d-flex flex-column gap-1">
+          <p class="label text-secondary">Email</p>
+          <p class="font-monospace" th:text="${currentUser.email}">email</p>
+        </div>
+        <div class="d-flex flex-column gap-1">
+          <p class="label text-secondary">Role</p>
+          <p>
+            <span class="badge badge-role" th:text="${currentUser.role.displayName}">ROLE</span>
+          </p>
+        </div>
+        <p class="small text-secondary">
+          Role and email are never self-editable — only an ADMIN can change them (BR-01).
+        </p>
+      </div>
+    </section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A',
+        'Editable display name and change password',
+        'Display name becomes an editable input that reflects across the UI within 2 s without re-login (FT-02 AC-01). The change-password sub-form takes current, new and confirm with the same live BR-12 checklist as P-01.')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
+        'Playlist history card',
+        'Every playlist the user owns or has edited, sorted by last updated descending (FT-02 AC-02): name, status badge, last updated, and own-role tag (Owner / Collaborator). Rows open P-03b or P-04b depending on status and role.')}"></section>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,5 +1,8 @@
 HELP.md
 target/
+
+# Local database credentials, imported by application.properties when present.
+local.properties
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
+<!--/* P-02 Search & Recommendation — spec 4.3 (FT-03, FT-04, FT-05). */-->
+<body>
+<div th:fragment="content">
+
+  <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
+    <div class="d-flex flex-column gap-1">
+      <h1>Search the catalog</h1>
+      <p class="small text-secondary">
+        Describe the context you are curating for, or filter by metadata directly.
+      </p>
+    </div>
+  </header>
+
+  <div class="d-flex flex-column gap-4">
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A',
+        'Contextual query box',
+        'Sparkles-marked input, 10–200 characters with a live counter. Sends the raw query to the LLM for interpretation (FT-04 BV).')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
+        'Filter panel — 240px rail',
+        'Genre, Mood, Theme, Artist and Event multi-selects. Songs must match every category set; values inside one category are OR (FT-03). Below it, the Top-N recommendation input, positive integers only (FT-05 NAC-03).')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C',
+        'Interpreted chips and results table',
+        'Removable LLM filter chips with a confidence indicator, then the results table: cover, title, artist, duration, matched tags, popularity. Default sort popularity desc, toggle to relevance without re-filtering. Unscored songs show a dash and always sort last (BR-08). 20 rows per page.')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone D',
+        'Sticky selection bar',
+        '&quot;Add N selected to playlist&quot; with a dropdown offering a new playlist or an existing editable Draft (BR-03). The whole loop must stay within five actions (NFR-U01).')}"></section>
+  </div>
+
+</div>
+</body>
+</html>

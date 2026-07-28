@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
+<!--/* P-04a Shared Workspace — spec 4.6 (FT-07). */-->
+<body>
+<div th:fragment="content">
+
+  <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
+    <div class="d-flex flex-column gap-1">
+      <h1>Shared Workspace</h1>
+      <p class="small text-secondary">Published playlists you can view.</p>
+    </div>
+  </header>
+
+  <div class="d-flex flex-column gap-4">
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
+        'Search, owner filter, sort',
+        'Name search, filter by owner, sort by published date (default, descending).')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C',
+        'Card grid — 3 columns',
+        'Each card leads with a 2x2 mosaic of the first four covers, then name, owner, song count, publishedAt and the top three tag chips. Hover lifts the card. Actions: Open, Duplicate. Customers see only playlists inside their granted scope (BR-04).')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone D',
+        'Pagination',
+        '12 cards per page.')}"></section>
+  </div>
+
+</div>
+</body>
+</html>
