@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
+<!--/* P-06b Admin — Song Catalog & Metadata — spec 4.10 (FT-09, FT-03). */-->
+<body>
+<div th:fragment="content">
+
+  <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
+    <div class="d-flex flex-column gap-1">
+      <h1>Song Catalog &amp; Metadata</h1>
+      <p class="small text-secondary">
+        The catalog behind every search. Untagged songs stay out of filtered results (DC-03).
+      </p>
+    </div>
+  </header>
+
+  <div class="d-flex flex-column gap-4">
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A',
+        'New song and import shortcut',
+        'Primary &quot;New song&quot; button plus a link through to P-06c Catalog Import.')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
+        'Tabs and filters',
+        'Underline tabs Songs and Tags. Filters: provider, tag category and value, &quot;untagged only&quot;, and &quot;no audio&quot; (audioS3Key null).')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C — Songs',
+        'Dense song table',
+        'Title, artist, provider and external reference in mono, tag chips, popularity, audio present, version in mono, and edit. Untagged rows carry a warning icon (DC-03). The edit modal submits the loaded version; a stale save returns HTTP 409 with refresh only — songs have no clone option (BR-06, DC-02).')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C — Tags',
+        'Tag dictionary',
+        'Per-category tag lists (Genre, Mood, Theme, Artist, Event) with add, rename and delete. Deleting warns when the tag is still attached to songs.')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone D',
+        'Pagination',
+        '20 rows per page.')}"></section>
+  </div>
+
+</div>
+</body>
+</html>

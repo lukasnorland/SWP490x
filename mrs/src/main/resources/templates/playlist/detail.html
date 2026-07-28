@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
+<!--/* P-03b Playlist Detail / Editor — spec 4.5 (FT-06, FT-07, FT-08). */-->
+<body>
+<div th:fragment="content">
+
+  <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
+    <div class="d-flex flex-column gap-1">
+      <h1>Playlist detail</h1>
+      <p class="small text-secondary">
+        Playlist <span class="font-monospace" th:text="${playlistId}">0</span> — not yet loaded from the database.
+      </p>
+    </div>
+  </header>
+
+  <div class="d-flex flex-column gap-4">
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A',
+        'Header and actions',
+        'Inline-editable name (Draft only), status badge, version in mono, and last modified by/at (FT-06 AC-06). Actions: Export CSV, Publish (enabled only at 1+ song, BR-05) or Unpublish, Duplicate, Delete, and ADMIN-only Reassign owner (BR-14).')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
+        'Songs tab — ordered table',
+        'Drag handle, position, cover art, title, artist, duration, tags, hover preview, and remove. Reordering renumbers 1..N atomically (FT-06 AC-03, DC-04). &quot;Add songs&quot; routes to P-02 with this playlist preselected.')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C',
+        'Collaborators &amp; Details tab',
+        'Collaborator list with grant and revoke, restricted to active Content Designers (FT-06 NAC-08/09). Details: createdBy and createdAt (immutable), lineage link when sourcePlaylistId is set (DC-07), publishedAt.')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone D',
+        'Footer',
+        'Add-songs shortcut, song count, total duration.')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Blocking state',
+        'Conflict dialog (720px)',
+        'On HTTP 409: &quot;This playlist changed while you were editing&quot; with two equal-weight options — refresh and reapply, or clone my edits. No other action is possible until one is chosen (BR-06, BR-11, flow F-02).')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Locked state',
+        'Published lock banner',
+        'A Published playlist is read-only: every mutating control is disabled behind &quot;Published playlists are locked — unpublish to edit&quot; (FT-06 NAC-06, DC-08).')}"></section>
+  </div>
+
+</div>
+</body>
+</html>

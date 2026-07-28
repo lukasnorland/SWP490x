@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org" th:fragment="shell(content)">
+<!--/*
+  Authenticated shell — Screen Design Spec 4.0.
+
+  Fixed 240px sidebar, glass sticky top bar, content column capped at 1200px,
+  and the 72px preview bar above everything. Responsive behaviour lives in
+  shell.css (Part 5).
+
+  The sidebar is a Bootstrap offcanvas: below 768px it is a drawer with
+  Bootstrap's backdrop, focus trap, Escape handling and scroll lock, and above
+  that width shell.css pins it open as the permanent rail.
+
+  data-bs-theme="dark" puts Bootstrap into its dark mode; theme.css then points
+  that mode's variables at the tokens, so components arrive in the spec palette.
+
+  Pages use it like this:
+
+    <html th:replace="~{layout/shell :: shell(~{::content})}">
+      <body>
+        <div th:fragment="content"> … </div>
+      </body>
+    </html>
+
+  and set these model attributes:
+    pageTitle            — page heading and browser title
+    activeNav            — nav key of the current section
+    breadcrumbParent     — optional label of the parent level (deep pages)
+    breadcrumbParentUrl  — optional URL of that parent
+*/-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${pageTitle} != null ? ${pageTitle} + ' · MRS' : 'MRS'">MRS</title>
+  <link rel="stylesheet" th:href="@{/vendor/bootstrap/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/tokens.css}">
+  <link rel="stylesheet" th:href="@{/css/theme.css}">
+  <link rel="stylesheet" th:href="@{/css/mrs.css}">
+  <link rel="stylesheet" th:href="@{/css/shell.css}">
+  <script defer th:src="@{/vendor/bootstrap/bootstrap.bundle.min.js}"></script>
+  <script defer th:src="@{/js/mrs.js}"></script>
+</head>
+
+<body class="shell">
+
+<svg th:replace="~{fragments/icons :: sprite}"></svg>
+
+<!-- Primary navigation (4.0). Only the sections this role can use are
+     rendered; the API rejects out-of-role requests regardless (2.1). -->
+<aside class="sidebar offcanvas offcanvas-start" tabindex="-1" id="sidebar"
+       aria-label="Navigation">
+  <a class="sidebar__brand" th:href="@{/}">
+    <span class="sidebar__mark">M</span>
+    <span class="sidebar__brand-text">MRS</span>
+  </a>
+
+  <nav class="nav nav-pills flex-column sidebar__nav" aria-label="Main">
+    <th:block th:if="${currentUser != null and currentUser.curator}">
+      <a th:replace="~{fragments/components :: navItem('search', '/search', 'search', 'Search', false)}"></a>
+    </th:block>
+    <a th:replace="~{fragments/components :: navItem('playlists', '/playlists', 'list-music', 'My Playlists', false)}"></a>
+    <a th:replace="~{fragments/components :: navItem('workspace', '/workspace', 'users', 'Shared Workspace', false)}"></a>
+  </nav>
+
+  <div th:if="${currentUser != null and currentUser.admin}">
+    <p class="sidebar__group-label">Admin</p>
+    <nav class="nav nav-pills flex-column sidebar__nav" aria-label="Admin">
+      <a th:replace="~{fragments/components :: navItem('admin-users', '/admin/users', 'shield', 'Users', true)}"></a>
+      <a th:replace="~{fragments/components :: navItem('admin-catalog', '/admin/catalog', 'music', 'Songs &amp; Metadata', true)}"></a>
+      <a th:replace="~{fragments/components :: navItem('admin-import', '/admin/import', 'upload', 'Catalog Import', true)}"></a>
+      <a th:replace="~{fragments/components :: navItem('admin-settings', '/admin/settings', 'settings', 'System Settings', true)}"></a>
+      <a th:replace="~{fragments/components :: navItem('admin-logs', '/admin/logs', 'scroll-text', 'Audit Log', true)}"></a>
+    </nav>
+  </div>
+
+  <div class="flex-grow-1"></div>
+
+  <div class="sidebar__divider"></div>
+  <nav class="nav nav-pills flex-column sidebar__nav" aria-label="Account">
+    <a th:replace="~{fragments/components :: navItem('profile', '/profile', 'user', 'My Profile', false)}"></a>
+    <form th:action="@{/logout}" method="post">
+      <button type="submit" class="nav-link sidebar__item sidebar__item--button" title="Log out">
+        <svg th:replace="~{fragments/icons :: icon('log-out', '')}"></svg>
+        <span class="sidebar__item-label">Log out</span>
+      </button>
+    </form>
+  </nav>
+</aside>
+
+<div class="shell__main">
+
+  <header class="topbar sticky-top">
+    <button type="button" class="btn btn-icon topbar__toggle" data-bs-toggle="offcanvas"
+            data-bs-target="#sidebar" aria-controls="sidebar" aria-label="Open navigation">
+      <svg th:replace="~{fragments/icons :: icon('menu', '')}"></svg>
+    </button>
+
+    <!-- Breadcrumbs (2.3): parent levels link, the current page is plain text.
+         Below desktop only the back affordance remains. -->
+    <nav aria-label="Breadcrumb">
+      <a class="breadcrumb-back" th:if="${breadcrumbParent != null}" th:href="@{${breadcrumbParentUrl}}">
+        <svg th:replace="~{fragments/icons :: icon('arrow-left', 'icon--sm')}"></svg>
+        <span th:text="${breadcrumbParent}">Section</span>
+      </a>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item breadcrumb__trail" th:if="${breadcrumbParent != null}">
+          <a th:href="@{${breadcrumbParentUrl}}" th:text="${breadcrumbParent}">Section</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page" th:text="${pageTitle}">Current page</li>
+      </ol>
+    </nav>
+
+    <div class="flex-grow-1"></div>
+
+    <div class="d-flex align-items-center gap-2" th:if="${currentUser != null}">
+      <span class="topbar__user-name" th:text="${currentUser.displayName}">User</span>
+      <span class="badge badge-role" th:text="${currentUser.role.displayName}">ROLE</span>
+    </div>
+  </header>
+
+  <main class="content" th:insert="${content}">
+    <!-- page content -->
+  </main>
+</div>
+
+<!-- Preview bar (4.0 / glossary): internal curation playback of the licensed
+     S3 file through a short-lived pre-signed URL, never public streaming. -->
+<div class="preview-bar fixed-bottom">
+  <div class="preview-bar__art" aria-hidden="true"></div>
+  <div class="preview-bar__meta d-flex flex-column">
+    <span class="preview-bar__title text-secondary">Nothing playing</span>
+    <span class="small text-body-tertiary">Preview a song from any result or playlist row</span>
+  </div>
+  <button type="button" class="btn btn-icon" disabled title="Play preview">
+    <svg th:replace="~{fragments/icons :: icon('play', '')}"></svg>
+  </button>
+  <div class="progress flex-fill" role="progressbar" aria-label="Preview position"
+       aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar"></div>
+  </div>
+  <span class="preview-bar__time">0:00</span>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
+<!--/* P-06c Admin — Catalog Import — spec 4.11 (FT-09, flow F-05). */-->
+<body>
+<div th:fragment="content">
+
+  <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
+    <div class="d-flex flex-column gap-1">
+      <h1>Catalog Import</h1>
+      <p class="small text-secondary">
+        Upload a provider export, review what will change, then apply the batch.
+      </p>
+    </div>
+  </header>
+
+  <div class="d-flex flex-column gap-4">
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A',
+        'Stepper',
+        'Three steps: 1 Upload, 2 Preview, 3 Summary. One centred card per step, capped at 900px.')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B — step 1',
+        'Provider select and file dropzone',
+        'Registered providers only; an unregistered source rejects the whole batch with a prompt to register it first (SC-05 exception). Accepts the CSV or XLSX export produced by the provider.')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C — step 2',
+        'Preview table',
+        'Rows to add, rows to update, and rejected rows with a per-row reason such as &quot;missing title&quot;. Confirm or cancel.')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone D — step 3',
+        'Import summary',
+        'Added, updated and skipped counts, with validation failures and version conflicts listed separately (FT-09 NAC-03). Row report download, and an audit entry (BR-10). A row that conflicts with an in-flight edit is skipped and reported, never force-applied (BR-06).')}"></section>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,519 @@
+/* ==========================================================================
+   MRS theme — binds Bootstrap 5.3 to the design tokens of Screen Design
+   Spec Part 1.
+
+   Bootstrap ships its own dark palette under [data-bs-theme="dark"]. This file
+   loads after bootstrap.min.css and re-points those same custom properties at
+   the tokens, so every Bootstrap component inherits the spec palette instead of
+   being restyled component by component. tokens.css stays the single place a
+   spec value is written down.
+
+   Load order matters: bootstrap.min.css, tokens.css, theme.css, mrs.css.
+   ========================================================================== */
+
+/* --- Global palette and scale ------------------------------------------- */
+
+[data-bs-theme="dark"] {
+  --bs-body-bg: var(--color-bg);
+  --bs-body-bg-rgb: 11, 17, 32;
+  --bs-body-color: var(--color-text);
+  --bs-body-color-rgb: 248, 250, 252;
+
+  --bs-body-font-family: var(--font-sans);
+  --bs-body-font-size: var(--text-body-size);
+  --bs-body-line-height: var(--text-body-leading);
+  --bs-font-monospace: var(--font-mono);
+
+  /* Bootstrap's three text tiers map onto the spec's text ramp, which is what
+     .text-secondary and .text-body-tertiary resolve through. */
+  --bs-emphasis-color: var(--color-text);
+  --bs-secondary-color: var(--color-text-secondary);
+  --bs-tertiary-color: var(--color-text-disabled);
+
+  --bs-secondary-bg: var(--color-surface);
+  --bs-tertiary-bg: var(--color-surface-raised);
+
+  --bs-border-color: var(--color-border);
+  --bs-border-color-translucent: var(--color-border);
+
+  --bs-primary: var(--color-primary);
+  --bs-primary-rgb: 99, 102, 241;
+  --bs-primary-text-emphasis: var(--color-primary-bright);
+  --bs-primary-bg-subtle: var(--color-primary-deep);
+  --bs-primary-border-subtle: var(--color-primary);
+
+  --bs-link-color: var(--color-primary-bright);
+  --bs-link-color-rgb: 129, 140, 248;
+  --bs-link-hover-color: var(--color-primary-bright);
+  --bs-link-hover-color-rgb: 129, 140, 248;
+
+  /* 1.2 semantic pairs. Bootstrap composes .alert-*, .text-bg-*-subtle and the
+     emphasis utilities from this trio, so setting it once carries the deep
+     fill / bright text rule (principle 3) across those components. */
+  --bs-success-bg-subtle: var(--color-success);
+  --bs-success-text-emphasis: var(--color-success-text);
+  --bs-success-border-subtle: var(--color-success);
+  --bs-warning-bg-subtle: var(--color-warning);
+  --bs-warning-text-emphasis: var(--color-warning-text);
+  --bs-warning-border-subtle: var(--color-warning);
+  --bs-danger-bg-subtle: var(--color-error);
+  --bs-danger-text-emphasis: var(--color-error-text);
+  --bs-danger-border-subtle: var(--color-error);
+  --bs-info-bg-subtle: var(--color-info);
+  --bs-info-text-emphasis: var(--color-info-text);
+  --bs-info-border-subtle: var(--color-info);
+
+  --bs-border-radius: var(--radius-sm);
+  --bs-border-radius-sm: var(--radius-sm);
+  --bs-border-radius-lg: var(--radius-md);
+  --bs-border-radius-xl: var(--radius-lg);
+  --bs-border-radius-2xl: var(--radius-lg);
+  --bs-border-radius-pill: var(--radius-pill);
+
+  --bs-box-shadow-sm: var(--shadow-card);
+  --bs-box-shadow: var(--shadow-raised);
+  --bs-box-shadow-lg: var(--shadow-modal);
+
+  --bs-focus-ring-color: rgba(129, 140, 248, 0.25);
+}
+
+/* --- 1.3 Type scale -----------------------------------------------------
+   Reboot sizes headings in rem with a viewport-scaled floor. The spec fixes
+   them, and handles its own reduction below desktop in tokens.css. */
+
+h1, .h1 {
+  font-size: var(--text-h1-size);
+  font-weight: var(--text-h1-weight);
+  line-height: var(--text-h1-leading);
+}
+
+h2, .h2 {
+  font-size: var(--text-h2-size);
+  font-weight: var(--text-h2-weight);
+  line-height: var(--text-h2-leading);
+}
+
+h3, .h3 {
+  font-size: var(--text-h3-size);
+  font-weight: var(--text-h3-weight);
+  line-height: var(--text-h3-leading);
+}
+
+h4, .h4 {
+  font-size: var(--text-h4-size);
+  font-weight: var(--text-h4-weight);
+  line-height: var(--text-h4-leading);
+}
+
+small, .small {
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-leading);
+}
+
+.font-monospace {
+  font-size: var(--text-mono-size);
+  line-height: var(--text-mono-leading);
+}
+
+/* MRS composes vertical rhythm from flex gaps rather than trailing margins, so
+   Reboot's block margins are dropped to avoid doubling the spacing scale. */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+p, ul, ol, dl, figure, hr {
+  margin-bottom: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Keyboard focus stays visible everywhere — the curation loop is
+   keyboard-driven (design principle 2). */
+:focus-visible {
+  outline: 2px solid var(--color-primary-bright);
+  outline-offset: 2px;
+}
+
+/* --- Buttons ------------------------------------------------------------- */
+
+.btn {
+  --bs-btn-font-size: var(--text-body-size);
+  --bs-btn-font-weight: 600;
+  --bs-btn-padding-x: var(--space-md);
+  --bs-btn-disabled-bg: var(--color-surface);
+  --bs-btn-disabled-color: var(--color-text-disabled);
+  --bs-btn-disabled-border-color: var(--color-border);
+  /* Flex rather than Bootstrap's inline-block: buttons across Part 4 pair an
+     icon with a label, and icon-only controls need to centre on a fixed box. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  min-height: 40px;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--color-primary);
+  --bs-btn-border-color: var(--color-primary);
+  --bs-btn-color: #fff;
+  --bs-btn-hover-bg: var(--color-primary-bright);
+  --bs-btn-hover-border-color: var(--color-primary-bright);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-active-bg: var(--color-primary);
+  --bs-btn-active-border-color: var(--color-primary);
+}
+
+/* Principle 5: the gradient appears on the main CTA hover state, and on at most
+   one hero element per view. */
+.btn-primary:hover:not(:disabled):not(.disabled) {
+  background: var(--gradient-accent);
+  border-color: transparent;
+}
+
+.btn-secondary {
+  --bs-btn-bg: var(--color-surface);
+  --bs-btn-border-color: var(--color-border-strong);
+  --bs-btn-color: var(--color-text);
+  --bs-btn-hover-bg: var(--color-surface-raised);
+  --bs-btn-hover-border-color: var(--color-border-strong);
+  --bs-btn-hover-color: var(--color-text);
+  --bs-btn-active-bg: var(--color-surface-raised);
+  --bs-btn-active-border-color: var(--color-border-strong);
+  --bs-btn-active-color: var(--color-text);
+}
+
+.btn-outline-secondary {
+  --bs-btn-color: var(--color-text-secondary);
+  --bs-btn-border-color: var(--color-border);
+  --bs-btn-hover-bg: var(--color-surface-raised);
+  --bs-btn-hover-border-color: var(--color-border-strong);
+  --bs-btn-hover-color: var(--color-text);
+  --bs-btn-active-bg: var(--color-surface-raised);
+  --bs-btn-active-border-color: var(--color-border-strong);
+  --bs-btn-active-color: var(--color-text);
+}
+
+.btn-danger {
+  --bs-btn-bg: var(--color-error);
+  --bs-btn-border-color: var(--color-error);
+  --bs-btn-color: var(--color-error-text);
+  --bs-btn-hover-bg: #991b1b;
+  --bs-btn-hover-border-color: #991b1b;
+  --bs-btn-hover-color: var(--color-error-text);
+  --bs-btn-active-bg: #991b1b;
+  --bs-btn-active-border-color: #991b1b;
+  --bs-btn-active-color: var(--color-error-text);
+}
+
+.btn-sm {
+  --bs-btn-padding-x: var(--space-sm);
+  --bs-btn-font-size: var(--text-body-sm-size);
+  min-height: 32px;
+}
+
+.btn-lg {
+  --bs-btn-font-size: var(--text-body-size);
+  min-height: 44px;
+}
+
+/* --- Forms --------------------------------------------------------------- */
+
+.form-control,
+.form-select {
+  min-height: 40px;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--text-body-size);
+  background-color: var(--color-bg);
+  border-color: var(--color-border);
+  color: var(--color-text);
+  transition: border-color var(--transition-fast);
+}
+
+.form-control:hover,
+.form-select:hover {
+  border-color: var(--color-border-strong);
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--color-bg);
+  border-color: var(--color-primary-bright);
+  color: var(--color-text);
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
+}
+
+.form-control::placeholder {
+  color: var(--color-text-disabled);
+}
+
+.form-control[aria-invalid="true"] {
+  border-color: var(--color-error-text);
+}
+
+/* 1.3 `label`: 12px, 600, uppercase, letter-spaced. */
+.form-label {
+  margin-bottom: var(--space-sm);
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  line-height: var(--text-label-leading);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.form-text {
+  font-size: var(--text-body-sm-size);
+  color: var(--color-text-secondary);
+}
+
+.form-check-input {
+  background-color: var(--color-bg);
+  border-color: var(--color-border-strong);
+}
+
+.form-check-input:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* --- Cards --------------------------------------------------------------- */
+
+.card {
+  --bs-card-bg: var(--color-surface);
+  --bs-card-border-color: var(--color-border);
+  --bs-card-border-radius: var(--radius-md);
+  --bs-card-inner-border-radius: calc(var(--radius-md) - 1px);
+  --bs-card-cap-bg: transparent;
+  --bs-card-spacer-x: var(--space-lg);
+  --bs-card-spacer-y: var(--space-lg);
+  --bs-card-cap-padding-x: var(--space-lg);
+  --bs-card-cap-padding-y: var(--space-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.card-footer {
+  padding: var(--space-md) var(--space-lg);
+  color: var(--color-text-secondary);
+}
+
+/* --- Tables -------------------------------------------------------------- */
+
+.table {
+  --bs-table-bg: var(--color-surface);
+  --bs-table-color: var(--color-text);
+  --bs-table-border-color: var(--color-border);
+  --bs-table-hover-bg: var(--color-surface-raised);
+  --bs-table-hover-color: var(--color-text);
+  --bs-table-active-bg: var(--color-primary-deep);
+  --bs-table-active-color: var(--color-text);
+  margin-bottom: 0;
+}
+
+.table > thead > tr > th {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom-color: var(--color-border-strong);
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.table > tbody > tr > td {
+  height: var(--row-height);
+  padding: var(--space-sm) var(--space-md);
+}
+
+.table > tbody > tr:last-child > td {
+  border-bottom-width: 0;
+}
+
+.table > tbody > tr[data-clickable="true"] {
+  cursor: pointer;
+}
+
+.table > tbody > tr[data-clickable="true"] > td {
+  height: var(--row-height-clickable);
+}
+
+/* --- Badges (1.3 `badge`, principle 3) ---------------------------------- */
+
+.badge {
+  --bs-badge-font-size: var(--text-badge-size);
+  --bs-badge-font-weight: var(--text-badge-weight);
+  --bs-badge-padding-x: var(--space-sm);
+  --bs-badge-padding-y: var(--space-xs);
+  --bs-badge-border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  line-height: var(--text-badge-leading);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.badge-role {
+  background-color: var(--color-primary-deep);
+  color: var(--color-primary-bright);
+}
+
+.badge-draft {
+  background-color: var(--color-warning);
+  color: var(--color-warning-text);
+}
+
+.badge-published,
+.badge-active {
+  background-color: var(--color-success);
+  color: var(--color-success-text);
+}
+
+.badge-deactivated,
+.badge-locked {
+  background-color: var(--color-error);
+  color: var(--color-error-text);
+}
+
+.badge-neutral {
+  background-color: var(--color-surface-raised);
+  color: var(--color-text-secondary);
+}
+
+/* --- Alerts (the banner slots of Part 4) -------------------------------- */
+
+.alert {
+  --bs-alert-padding-x: var(--space-md);
+  --bs-alert-padding-y: var(--space-md);
+  --bs-alert-border-radius: var(--radius-sm);
+  --bs-alert-margin-bottom: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  font-size: var(--text-body-sm-size);
+}
+
+.alert-heading {
+  font-size: var(--text-body-sm-size);
+  font-weight: 600;
+  color: inherit;
+}
+
+/* --- In-page tabs (2.3) ------------------------------------------------- */
+
+.nav-underline {
+  --bs-nav-underline-gap: var(--space-lg);
+  --bs-nav-underline-border-width: 2px;
+  --bs-nav-underline-link-active-color: var(--color-primary-bright);
+  --bs-nav-link-color: var(--color-text-secondary);
+  --bs-nav-link-hover-color: var(--color-text);
+  --bs-nav-link-font-weight: 600;
+  margin-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+  overflow-x: auto;
+}
+
+.nav-underline .nav-link.active {
+  border-bottom-color: var(--color-primary);
+}
+
+/* --- Modals — 1.4 fixes the three widths -------------------------------- */
+
+.modal {
+  --bs-modal-width: var(--modal-md);
+  --bs-modal-bg: var(--color-surface);
+  --bs-modal-border-color: var(--color-border-strong);
+  --bs-modal-border-radius: var(--radius-md);
+  --bs-modal-box-shadow: var(--shadow-modal);
+  --bs-modal-header-border-color: var(--color-border);
+  --bs-modal-footer-border-color: var(--color-border);
+  --bs-modal-padding: var(--space-lg);
+}
+
+.modal-sm {
+  --bs-modal-width: var(--modal-sm);
+}
+
+.modal-lg,
+.modal-xl {
+  --bs-modal-width: var(--modal-lg);
+}
+
+.modal-backdrop {
+  --bs-backdrop-bg: var(--color-overlay);
+  --bs-backdrop-opacity: 1;
+}
+
+/* --- Dropdowns, pagination, toasts, progress ---------------------------- */
+
+.dropdown-menu {
+  --bs-dropdown-bg: var(--color-surface);
+  --bs-dropdown-border-color: var(--color-border-strong);
+  --bs-dropdown-border-radius: var(--radius-sm);
+  --bs-dropdown-box-shadow: var(--shadow-raised);
+  --bs-dropdown-link-color: var(--color-text);
+  --bs-dropdown-link-hover-bg: var(--color-surface-raised);
+  --bs-dropdown-link-hover-color: var(--color-text);
+  --bs-dropdown-link-active-bg: var(--color-primary-deep);
+  --bs-dropdown-link-active-color: var(--color-primary-bright);
+  --bs-dropdown-header-color: var(--color-text-disabled);
+}
+
+.pagination {
+  --bs-pagination-bg: transparent;
+  --bs-pagination-border-color: transparent;
+  --bs-pagination-color: var(--color-text-secondary);
+  --bs-pagination-hover-bg: var(--color-surface-raised);
+  --bs-pagination-hover-color: var(--color-text);
+  --bs-pagination-hover-border-color: transparent;
+  --bs-pagination-focus-bg: var(--color-surface-raised);
+  --bs-pagination-focus-color: var(--color-text);
+  --bs-pagination-active-bg: var(--color-primary-deep);
+  --bs-pagination-active-color: var(--color-primary-bright);
+  --bs-pagination-active-border-color: transparent;
+  --bs-pagination-disabled-bg: transparent;
+  --bs-pagination-disabled-color: var(--color-text-disabled);
+  --bs-pagination-disabled-border-color: transparent;
+  --bs-pagination-border-radius: var(--radius-sm);
+  justify-content: center;
+}
+
+.toast {
+  --bs-toast-bg: var(--color-surface);
+  --bs-toast-color: var(--color-text);
+  --bs-toast-border-color: var(--color-border-strong);
+  --bs-toast-border-radius: var(--radius-sm);
+  --bs-toast-box-shadow: var(--shadow-raised);
+  --bs-toast-header-bg: transparent;
+  --bs-toast-header-color: var(--color-text-secondary);
+}
+
+.progress {
+  --bs-progress-bg: var(--color-surface-raised);
+  --bs-progress-height: 4px;
+  --bs-progress-border-radius: var(--radius-pill);
+}
+
+.progress-bar {
+  background: var(--gradient-accent);
+}
+
+/* --- 5.5 Touch targets -------------------------------------------------- */
+
+@media (max-width: 767px) {
+  .btn,
+  .btn-sm {
+    min-height: 44px;
+  }
+
+  .form-check-input {
+    /* 18px visual, 44px tap area. */
+    padding: 13px;
+    background-clip: content-box;
+  }
+}

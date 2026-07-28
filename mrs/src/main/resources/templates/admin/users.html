@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
+<!--/* P-06a Admin — User Management — spec 4.9 (FT-09, FT-01). */-->
+<body>
+<div th:fragment="content">
+
+  <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
+    <div class="d-flex flex-column gap-1">
+      <h1>User Management</h1>
+      <p class="small text-secondary">
+        Internal accounts only — there is no public self-registration (BR-01).
+      </p>
+    </div>
+  </header>
+
+  <div class="d-flex flex-column gap-4">
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A',
+        'New user action',
+        'Opens the 600px create modal: name, internal email, role, and an initial password with the live BR-12 checklist and a generate button. Saving creates an Active account within 2 s that must change its password at first login (FT-09 AC-01).')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
+        'Filters',
+        'Role (All / ADMIN / Content Designer / Customer), status (Active / Deactivated), and email or name search.')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C',
+        'User table',
+        'Name, email in mono, role badge, status badge, created, and actions (Edit, Deactivate/Reactivate). Accounts are never hard-deleted in v1.0. A duplicate email returns HTTP 409 and links the conflicting account (DC-06). Deactivation warns that sessions end within 60 s and that playlists stay owned until reassigned (BR-14).')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone D',
+        'Pagination',
+        '20 rows per page.')}"></section>
+  </div>
+
+</div>
+</body>
+</html>

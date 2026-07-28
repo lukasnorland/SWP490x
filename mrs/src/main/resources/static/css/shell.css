@@ -1,0 +1,388 @@
+/* ==========================================================================
+   MRS shell — the authenticated layout of spec 4.0, plus the responsive rules
+   of Part 5.
+
+   Bootstrap has no application shell, but most of its parts map onto Bootstrap
+   components that are configured here rather than reimplemented: the sidebar is
+   an offcanvas, its entries are nav-pills, the top bar is sticky-top and the
+   preview bar is fixed-bottom. What is left is the glass blur, the gradient
+   accents and the fixed dimensions of 1.4, none of which Bootstrap expresses.
+
+   Stacking follows Bootstrap's z-index scale so the shell cannot collide with
+   dropdowns, modals or offcanvas backdrops:
+     top bar 1020 (sticky-top) < sidebar rail 1025 < preview bar 1030
+     (fixed-bottom) < offcanvas drawer 1045.
+   ========================================================================== */
+
+body.shell {
+  /* The preview bar sits above all content, so the page reserves its height. */
+  padding-bottom: var(--preview-bar-height);
+}
+
+/* --- Sidebar ------------------------------------------------------------
+   Below 768px this is a Bootstrap offcanvas drawer (5.1) — Bootstrap supplies
+   the backdrop, focus trap, Escape handling and scroll lock. */
+
+.sidebar {
+  --bs-offcanvas-width: var(--sidebar-width);
+  --bs-offcanvas-bg: var(--color-surface);
+  --bs-offcanvas-border-color: var(--color-border);
+  padding: var(--space-md) 0;
+  overflow-y: auto;
+}
+
+/* At tablet and above the same element is a permanent rail. Bootstrap's
+   offcanvas is already position:fixed, which 4.0 wants, so only its hidden
+   state, transition and stacking need neutralising. */
+@media (min-width: 768px) {
+  .sidebar.offcanvas {
+    visibility: visible;
+    transform: none;
+    transition: none;
+    bottom: var(--preview-bar-height);
+    z-index: 1025;
+  }
+}
+
+.sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md) var(--space-lg);
+  color: var(--color-text);
+  font-size: var(--text-h3-size);
+  font-weight: 700;
+}
+
+.sidebar__brand:hover {
+  text-decoration: none;
+}
+
+.sidebar__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  /* The brand mark is the one gradient element on screens whose CTA is plain
+     (principle 5). */
+  background: var(--gradient-accent);
+  color: #fff;
+  font-size: var(--text-body-sm-size);
+  font-weight: 700;
+}
+
+/* Nav entries are Bootstrap nav-pills; 2.3's colours arrive through its
+   variables rather than through overriding rules. */
+.sidebar__nav {
+  --bs-nav-link-color: var(--color-text-secondary);
+  --bs-nav-link-hover-color: var(--color-text);
+  --bs-nav-link-font-weight: 500;
+  --bs-nav-link-padding-x: var(--space-sm);
+  --bs-nav-link-padding-y: 0;
+  --bs-nav-pills-border-radius: var(--radius-sm);
+  --bs-nav-pills-link-active-bg: var(--color-primary-deep);
+  --bs-nav-pills-link-active-color: var(--color-primary-bright);
+  gap: var(--space-xs);
+  padding: 0 var(--space-sm);
+}
+
+.sidebar__group-label {
+  padding: var(--space-md) var(--space-sm) var(--space-xs);
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-disabled);
+}
+
+.sidebar__divider {
+  height: 1px;
+  margin: var(--space-md) var(--space-sm);
+  background-color: var(--color-border);
+}
+
+/* Named sidebar__item rather than nav-item so it cannot collide with
+   Bootstrap's nav component. */
+.sidebar__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-height: 40px;
+}
+
+.sidebar__item:hover {
+  background-color: var(--color-surface-raised);
+  text-decoration: none;
+}
+
+/* 2.3 active state: the Primary Deep fill and Primary Bright label come from
+   nav-pills; the 3px gradient left border has no Bootstrap equivalent. */
+.sidebar__item.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: var(--space-xs);
+  bottom: var(--space-xs);
+  width: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--gradient-accent);
+}
+
+.sidebar__item--sub {
+  padding-left: var(--space-lg);
+}
+
+/* Log out posts a form, so its trigger is a button styled as a sidebar item. */
+.sidebar__item--button {
+  width: 100%;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sidebar__item-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- Top bar ------------------------------------------------------------
+   Positioning comes from .sticky-top; the glass fill does not exist in
+   Bootstrap (1.2 Glass token). */
+
+.shell__main {
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  min-height: var(--topbar-height);
+  padding: 0 var(--space-xl);
+  background-color: var(--color-glass);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  border-bottom: 1px solid var(--color-border);
+}
+
+.topbar__toggle {
+  display: none;
+}
+
+.topbar__user-name {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* --- Breadcrumbs (2.3) --------------------------------------------------
+   Bootstrap's breadcrumb, themed: the spec's ">" separator instead of the
+   default "/", and no trailing margin since it sits inside the top bar. */
+
+.breadcrumb {
+  --bs-breadcrumb-margin-bottom: 0;
+  --bs-breadcrumb-divider: ">";
+  --bs-breadcrumb-divider-color: var(--color-text-disabled);
+  --bs-breadcrumb-item-padding-x: var(--space-xs);
+  --bs-breadcrumb-item-active-color: var(--color-text);
+  align-items: center;
+  font-size: var(--text-body-sm-size);
+}
+
+.breadcrumb-item {
+  color: var(--color-text-secondary);
+}
+
+/* Below desktop the trail collapses to a single back affordance (5.1). */
+.breadcrumb-back {
+  display: none;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--text-body-sm-size);
+}
+
+/* --- Content area ------------------------------------------------------- */
+
+.content {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-xl);
+}
+
+/* --- Preview bar (72px, glass) ------------------------------------------
+   Positioning comes from .fixed-bottom. */
+
+.preview-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  height: var(--preview-bar-height);
+  padding: 0 var(--space-lg);
+  background-color: var(--color-glass);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  border-top: 1px solid var(--color-border);
+}
+
+.preview-bar__art {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  background: var(--gradient-accent);
+  opacity: 0.4;
+}
+
+/* A flex item needs min-width:0 before a child can ellipsise; Bootstrap has no
+   utility for it. */
+.preview-bar__meta {
+  min-width: 0;
+}
+
+.preview-bar__title {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.preview-bar__time {
+  font-family: var(--font-mono);
+  font-size: var(--text-body-sm-size);
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Auth layout (P-00, P-01) ------------------------------------------- */
+
+.auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: var(--space-2xl) var(--space-md);
+}
+
+.auth__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+  font-size: var(--text-h2-size);
+  font-weight: 700;
+}
+
+.auth__card {
+  width: 100%;
+  max-width: var(--auth-card-max);
+}
+
+/* --- 5.3 Data tables: first column pinned while scrolling ---------------
+   Bootstrap's sticky utilities only pin to the top, not the inline start. */
+
+@media (max-width: 1024px) {
+  .table-scroll .table > thead > tr > th:first-child,
+  .table-scroll .table > tbody > tr > td:first-child {
+    position: sticky;
+    left: 0;
+    background-color: var(--color-surface);
+  }
+
+  .table-scroll .table > tbody > tr:hover > td:first-child {
+    background-color: var(--color-surface-raised);
+  }
+}
+
+/* --- 5.1 / 5.2 Responsive navigation and layout ------------------------- */
+
+/* Tablet: icon-only rail, labels become tooltips. */
+@media (max-width: 1024px) and (min-width: 768px) {
+  .sidebar {
+    --bs-offcanvas-width: var(--sidebar-rail-width);
+    align-items: stretch;
+  }
+
+  .sidebar__brand {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .sidebar__brand-text,
+  .sidebar__item-label,
+  .sidebar__group-label {
+    display: none;
+  }
+
+  .sidebar__item {
+    justify-content: center;
+  }
+
+  .sidebar__item--sub {
+    padding-left: var(--space-sm);
+  }
+
+  .shell__main {
+    margin-left: var(--sidebar-rail-width);
+  }
+
+  .content,
+  .topbar {
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+  }
+}
+
+/* Mobile: the sidebar is Bootstrap's offcanvas drawer, so only the surrounding
+   layout changes here. */
+@media (max-width: 767px) {
+  .sidebar .sidebar__item {
+    min-height: 48px;
+  }
+
+  .shell__main {
+    margin-left: 0;
+  }
+
+  .topbar__toggle {
+    display: inline-flex;
+  }
+
+  .content,
+  .topbar {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+
+  .content {
+    padding-top: var(--space-lg);
+  }
+
+  .breadcrumb__trail {
+    display: none;
+  }
+
+  /* With the parent level hidden, its separator would otherwise lead the trail. */
+  .breadcrumb__trail + .breadcrumb-item::before {
+    content: none;
+    padding-right: 0;
+  }
+
+  .breadcrumb-back {
+    display: inline-flex;
+  }
+}
+
+/* Wide: content stays centred at 1200px with a wider gutter. */
+@media (min-width: 1441px) {
+  .content {
+    padding-left: var(--space-xl);
+    padding-right: var(--space-xl);
+  }
+}

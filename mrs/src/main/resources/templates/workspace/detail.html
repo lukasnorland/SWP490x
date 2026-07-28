@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
+<!--/* P-04b Published Playlist View — spec 4.7 (FT-07, FT-08). */-->
+<body>
+<div th:fragment="content">
+
+  <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
+    <div class="d-flex flex-column gap-1">
+      <h1>Published playlist</h1>
+      <p class="small text-secondary">
+        Playlist <span class="font-monospace" th:text="${playlistId}">0</span> — not yet loaded from the database.
+      </p>
+    </div>
+  </header>
+
+  <div class="d-flex flex-column gap-4">
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A',
+        'Header and role-scoped actions',
+        'Name, Published badge, owner, publishedAt. Duplicate for every viewer; Export CSV for Content Designer and ADMIN only, hidden for Customer (BR-09); Unpublish for owner and ADMIN only.')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
+        'Read-only song table',
+        'Position, title, artist, duration, tags, popularity. No drag handles and no remove controls.')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C',
+        'Lineage note',
+        'Shown when this playlist was itself duplicated: &quot;Based on …&quot; with the source link (DC-07).')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Forbidden state',
+        'Out-of-scope direct link',
+        'A playlist outside the granted scope of the viewer returns HTTP 403 and a generic &quot;not available&quot; page that does not confirm the playlist exists (SC-06 exception).')}"></section>
+  </div>
+
+</div>
+</body>
+</html>

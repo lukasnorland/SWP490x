@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
+<!--/* P-03a My Playlists — spec 4.4 (FT-06). */-->
+<body>
+<div th:fragment="content">
+
+  <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
+    <div class="d-flex flex-column gap-1">
+      <h1>My Playlists</h1>
+      <p class="small text-secondary">
+        Playlists you own, plus those shared with you as a collaborator.
+      </p>
+    </div>
+  </header>
+
+  <div class="d-flex flex-column gap-4">
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A',
+        'New playlist action',
+        'Primary &quot;New playlist&quot; button, rendered for Content Designer and ADMIN only — never for Customer (FT-06 NAC-03).')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
+        'Status filter and name search',
+        'All / Draft / Published filter plus a name search box.')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C',
+        'Playlist table',
+        'Name, status badge, song count, version, last modified by and at, collaborator count, and row actions (Open, Export CSV, Delete). Delete is Draft-only; Published rows disable it with an &quot;Unpublish first&quot; tooltip (DC-05). Collaborator rows carry a &quot;Shared with me&quot; tag (BR-03).')}"></section>
+
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone D',
+        'Pagination',
+        '20 rows per page.')}"></section>
+  </div>
+
+</div>
+</body>
+</html>
