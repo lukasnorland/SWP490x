@@ -40,7 +40,7 @@ public class SecurityConfig {
                 // creation mid-render.
                 .addFilterAfter(new EagerCsrfTokenFilter(), CsrfFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(EagerCsrfTokenFilter.STATIC_ASSET_PATTERNS)
+                        .requestMatchers(Routes.STATIC_ASSETS)
                         .permitAll()
                         .requestMatchers(Routes.LOGIN, Routes.PASSWORD_RESET, Routes.PASSWORD_RESET + "/**")
                         .permitAll()
