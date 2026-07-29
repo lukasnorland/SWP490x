@@ -1,5 +1,6 @@
 package com.funix.swp490x.mrs.security;
 
+import com.funix.swp490x.mrs.web.Routes;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,21 +30,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
  */
 public class EagerCsrfTokenFilter extends OncePerRequestFilter {
 
-    /**
-     * Static asset roots. These never render a form, and priming a session for
-     * each stylesheet or icon request would be waste. {@code SecurityConfig}
-     * permits the same set anonymously.
-     */
-    public static final String[] STATIC_ASSET_PATTERNS = {
-        "/css/**", "/js/**", "/vendor/**", "/fonts/**", "/images/**", "/favicon.ico"
-    };
-
     private final AntPathMatcher matcher = new AntPathMatcher();
 
+    /** Assets never render a form, so priming a session for each would be waste. */
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
-        return Arrays.stream(STATIC_ASSET_PATTERNS)
+        return Arrays.stream(Routes.STATIC_ASSETS)
                 .anyMatch(pattern -> matcher.match(pattern, path));
     }
 

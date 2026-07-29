@@ -26,6 +26,8 @@ import com.funix.swp490x.mrs.security.PasswordResetTokenService;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
@@ -134,6 +136,21 @@ class LoginFlowTest {
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Include an uppercase letter")));
+    }
+
+    /**
+     * The interceptor holds a pending account on the change-password screen by
+     * redirecting everything else, so assets have to be exempt. When
+     * {@code /vendor/**} was missing from the exemptions, Bootstrap's stylesheet
+     * answered with a redirect to that screen and it rendered unstyled.
+     */
+    @ParameterizedTest
+    @ValueSource(strings = {"/vendor/bootstrap/bootstrap.min.css", "/css/tokens.css", "/js/mrs.js"})
+    void assetsStayReachableWhileAPasswordChangeIsPending(String asset) throws Exception {
+        User pending = account(Role.CONTENT_DESIGNER, true);
+
+        mockMvc.perform(get(asset).with(user(new MrsUserDetails(pending, true))))
+                .andExpect(status().isOk());
     }
 
     @Test

@@ -35,6 +35,20 @@ public final class Routes {
     /** P-06e Admin — Audit & Recommendation Log. */
     public static final String ADMIN_LOGS = "/admin/logs";
 
+    /**
+     * Roots serving static assets rather than pages.
+     *
+     * <p>Held in one place because every request-scoped rule has to agree about
+     * them: they are permitted anonymously, they are not held back by the forced
+     * password change, and they do not need a CSRF token primed. Listing them
+     * separately let {@code /vendor/**} reach the security config but not the
+     * interceptor, which redirected Bootstrap's stylesheet to the change-password
+     * page and left that screen unstyled.
+     */
+    public static final String[] STATIC_ASSETS = {
+        "/css/**", "/js/**", "/vendor/**", "/fonts/**", "/images/**", "/favicon.ico"
+    };
+
     private Routes() {
     }
 }
