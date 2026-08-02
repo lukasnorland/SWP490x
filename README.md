@@ -171,14 +171,47 @@ spring.mail.password=your_ses_smtp_password
 mrs.mail.from=the_verified_address
 ```
 
-`spring.mail.host` is the switch: omit it and the logging transport stays. A new
-SES account also starts in the sandbox, where every *recipient* must be verified
-as well, which makes a real create-user run awkward to rehearse.
-`success@simulator.amazonses.com` and `bounce@simulator.amazonses.com` are
-exempt from that rule and are the cheapest way to exercise both outcomes of
-UC-07 E3.
+`spring.mail.host` is the switch: omit it and the logging transport stays, which
+is the quickest way to review either flow without an AWS account at all, since
+the whole message including the reset link lands in the console.
 
-Two message settings have their own defaults:
+#### Reaching a real inbox while SES is in the sandbox
+
+A new SES account sits in the *sandbox*, and the restriction that catches people
+out is that it applies to the recipient, not only to the sender: SES refuses to
+deliver to any address it has not verified. Verification is per address and only
+needed once, but the owner of the mailbox has to follow the link themselves.
+
+The order matters, because the credentials message goes out the moment *Create
+account* is pressed. Replace the region below with the one your SMTP host points
+at:
+
+```bash
+aws sesv2 create-email-identity --email-identity someone@example.com --region ap-southeast-1
+# the owner opens the message from AWS and follows the link, which expires after
+# 24 hours; run the command again to issue a fresh one
+aws sesv2 get-email-identity --email-identity someone@example.com --region ap-southeast-1
+```
+
+Once `VerificationStatus` reads `SUCCESS`, create the account in P-06a and the
+message arrives. Do it the other way round and the send is rejected, so the
+screen reports MSG_022: the account exists but nobody was told about it. That is
+UC-07 E3 behaving as specified rather than a defect, and it recovers without
+deleting anything — verify the address, then press *Resend credentials* in the
+user table. A resend issues a *new* initial password, because only the hash is
+kept and the original cannot be repeated.
+
+Two ways to skip the dance. `success@simulator.amazonses.com` and
+`bounce@simulator.amazonses.com` need no verification and simulate a clean
+delivery and a hard bounce, which is the cheapest way to exercise both outcomes
+of UC-07 E3. Alternatively an address such as `you+designer@gmail.com` does need
+its own verification, but the confirmation lands in your own inbox, so one
+person can stand up several distinct test users unaided.
+
+Requesting production access lifts the recipient restriction altogether, at the
+cost of an AWS support review.
+
+Three message settings have their own defaults:
 
 | Property | Default | Purpose |
 |----------|---------|---------|
