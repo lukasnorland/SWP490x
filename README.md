@@ -139,6 +139,57 @@ spring.datasource.password=your_password
 `application.properties` imports that file when it exists, and it is gitignored,
 so real credentials never reach the repository.
 
+### Email
+
+The app sends two messages: the password-reset link (UC-02) and the login email
+and initial password for an account an ADMIN has just created (BR-15).
+
+**Without configuration it sends neither.** When `spring.mail.host` is unset, a
+logging transport takes over and writes each message to the application log
+instead, so a fresh checkout and the test suite run without a mail server and
+you can still follow a reset link or read an initial password off the console.
+
+To send for real, the app talks to Amazon SES over SMTP. Two things must be true
+before a message leaves: SES has verified the sender address in the region you
+point at, and you hold SMTP credentials for that region. Those credentials are
+not an IAM access key — the SES console derives them from one under *SMTP
+settings → Create SMTP credentials*, and a key pasted in their place only ever
+fails authentication.
+
+The block is not committed, since both the credentials and the verified sender
+belong to whoever set the AWS account up. Put it in `mrs/local.properties`
+beside the database account:
+
+```properties
+spring.mail.host=email-smtp.ap-southeast-1.amazonaws.com
+spring.mail.port=587
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.starttls.required=true
+spring.mail.username=your_ses_smtp_user
+spring.mail.password=your_ses_smtp_password
+mrs.mail.from=the_verified_address
+```
+
+`spring.mail.host` is the switch: omit it and the logging transport stays. A new
+SES account also starts in the sandbox, where every *recipient* must be verified
+as well, which makes a real create-user run awkward to rehearse.
+`success@simulator.amazonses.com` and `bounce@simulator.amazonses.com` are
+exempt from that rule and are the cheapest way to exercise both outcomes of
+UC-07 E3.
+
+Two message settings have their own defaults:
+
+| Property | Default | Purpose |
+|----------|---------|---------|
+| `mrs.mail.from` | `no-reply@mrs.local` | Sender address |
+| `mrs.mail.from-name` | `MRS` | Sender display name |
+| `mrs.mail.base-url` | `http://localhost:8080` | Origin for links in messages |
+
+`mrs.mail.base-url` matters as soon as the app is not read on the machine it
+runs on: a message is opened outside any request, so links are built against
+this value rather than the incoming host.
+
 ### Run
 
 ```bash
@@ -215,8 +266,9 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 | Screen | State |
 |--------|-------|
 | P-00 Login | Implemented — all five screen states, lockout after 5 failures in 15 min |
-| P-01 Password Reset | Implemented — both steps, live BR-12 checklist (reset link is logged, not emailed) |
+| P-01 Password Reset | Implemented — both steps, live BR-12 checklist, link emailed |
 | Forced password change (FT-09) | Implemented |
+| P-06a User Management | Partly implemented — account creation with the credentials email of BR-15, the account table, and resend; filters and pagination outstanding |
 | P-02 – P-06e | Scaffolded — real headings and navigation, with each specified zone marked as outstanding |
 
 Each scaffolded screen renders its zones from the spec as dashed placeholders, so what remains on that screen is visible in the running app. Data-backed zones arrive with their feature slice.

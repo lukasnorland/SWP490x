@@ -16,6 +16,7 @@ import com.funix.swp490x.mrs.config.WebConfig;
 import com.funix.swp490x.mrs.domain.Role;
 import com.funix.swp490x.mrs.domain.User;
 import com.funix.swp490x.mrs.domain.UserStatus;
+import com.funix.swp490x.mrs.mail.NotificationService;
 import com.funix.swp490x.mrs.repository.UserRepository;
 import com.funix.swp490x.mrs.security.LoginAttemptService;
 import com.funix.swp490x.mrs.security.LoginFailureHandler;
@@ -54,6 +55,9 @@ class LoginFlowTest {
 
     @MockitoBean
     private UserRepository userRepository;
+
+    @MockitoBean
+    private NotificationService notificationService;
 
     private User account(Role role, boolean mustChangePassword) {
         User user = new User();

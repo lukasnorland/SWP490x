@@ -6,21 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * The ADMIN area, P-06a – P-06e.
+ * The ADMIN area, P-06b – P-06e. P-06a has its own controller now that it does
+ * more than render.
  *
  * <p>Access is granted by SecurityConfig on {@code /admin/**}, so a non-ADMIN
  * request is rejected before any handler here runs (FT-09 NAC-02, BR-01).
  */
 @Controller
 public class AdminController {
-
-    /** P-06a — User Management, the ADMIN landing page. */
-    @GetMapping(Routes.ADMIN_USERS)
-    public String users(Model model) {
-        model.addAttribute("pageTitle", "User Management");
-        model.addAttribute("activeNav", "admin-users");
-        return "admin/users";
-    }
 
     /** P-06b — Song Catalog & Metadata (tabs: Songs · Tags). */
     @GetMapping(Routes.ADMIN_CATALOG)
