@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
-<!--/* P-06a Admin — User Management — spec 4.9 (FT-09, FT-01). */-->
+<!--/* P-06a Admin — User Management — spec 4.9 (UC-06, UC-07, BR-15). */-->
 <body>
 <div th:fragment="content">
 
@@ -11,24 +11,145 @@
         Internal accounts only — there is no public self-registration (BR-01).
       </p>
     </div>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUser">
+      <svg th:replace="~{fragments/icons :: icon('plus', 'icon--sm')}"></svg>
+      <span>New user</span>
+    </button>
   </header>
 
   <div class="d-flex flex-column gap-4">
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A',
-        'New user action',
-        'Opens the 600px create modal: name, internal email, role, and an initial password with the live BR-12 checklist and a generate button. Saving creates an Active account within 2 s that must change its password at first login (FT-09 AC-01).')}"></section>
+
+    <!-- Outcome of the last create or resend (MSG_012, MSG_021, MSG_022). -->
+    <th:block th:if="${flash != null}">
+      <div th:replace="~{fragments/components :: notice(${flashVariant},
+          ${flashVariant == 'success'} ? 'circle-check' : 'alert-triangle', ${flash})}"></div>
+    </th:block>
 
     <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
         'Filters',
         'Role (All / ADMIN / Content Designer / Customer), status (Active / Deactivated), and email or name search.')}"></section>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C',
-        'User table',
-        'Name, email in mono, role badge, status badge, created, and actions (Edit, Deactivate/Reactivate). Accounts are never hard-deleted in v1.0. A duplicate email returns HTTP 409 and links the conflicting account (DC-06). Deactivation warns that sessions end within 60 s and that playlists stay owned until reassigned (BR-14).')}"></section>
+    <!-- Zone C -->
+    <section class="card">
+      <div class="table-responsive">
+        <table class="table align-middle mb-0">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Role</th>
+              <th scope="col">Status</th>
+              <th scope="col">Created</th>
+              <th scope="col" class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="account : ${users}">
+              <td th:text="${account.username}">Name</td>
+              <td class="font-monospace" th:text="${account.email}">name@mrs.local</td>
+              <td>
+                <span class="badge badge-role" th:text="${account.role.displayName}">ROLE</span>
+              </td>
+              <td>
+                <span th:replace="~{fragments/components :: statusBadge(${account.status.name()})}"></span>
+              </td>
+              <td class="table__numeric small text-secondary"
+                  th:text="${#temporals.format(account.createdAt, 'dd MMM yyyy')}">01 Jan 2026</td>
+              <td class="text-end">
+                <!-- UC-07 E3: a credentials message that never arrived can be
+                     sent again, with a new initial password. -->
+                <form class="table__actions d-inline"
+                      th:action="@{|/admin/users/${account.id}/resend-credentials|}" method="post">
+                  <button type="submit" class="btn btn-icon"
+                          title="Resend the credentials email with a new initial password">
+                    <svg th:replace="~{fragments/icons :: icon('refresh', 'icon--sm')}"></svg>
+                    <span class="visually-hidden">Resend credentials</span>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(users)}">
+              <td colspan="6">
+                <div th:replace="~{fragments/components :: emptyState('users', 'No accounts yet',
+                    'Create the first internal account to get started.')}"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
     <section th:replace="~{fragments/components :: zonePlaceholder('Zone D',
         'Pagination',
         '20 rows per page.')}"></section>
+  </div>
+
+  <!-- Zone A: the 600px create dialog. Reopens itself when the submission came
+       back rejected, so the message sits with the fields that caused it. -->
+  <div class="modal modal--create-user" id="createUser" tabindex="-1"
+       aria-labelledby="createUserTitle" aria-hidden="true"
+       th:attr="data-modal-autoshow=${reopenCreateForm}">
+    <div class="modal-dialog modal-dialog-centered">
+      <form class="modal-content" th:action="@{/admin/users}" method="post"
+            data-busy-label="Creating…">
+        <div class="modal-header">
+          <h2 class="modal-title h4" id="createUserTitle">New user</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body d-flex flex-column gap-3">
+          <th:block th:if="${violations != null}">
+            <div th:replace="~{fragments/components :: violations(${violations})}"></div>
+          </th:block>
+
+          <div>
+            <label class="form-label" for="newUserName">Name</label>
+            <input class="form-control" type="text" id="newUserName" name="name"
+                   maxlength="100" required th:value="${submittedName}">
+          </div>
+
+          <div>
+            <label class="form-label" for="newUserEmail">Internal email</label>
+            <input class="form-control" type="email" id="newUserEmail" name="email"
+                   maxlength="255" required th:value="${submittedEmail}">
+            <p class="form-text">Must not already belong to an account (DC-06).</p>
+          </div>
+
+          <div>
+            <label class="form-label" for="newUserRole">Role</label>
+            <select class="form-select" id="newUserRole" name="role" required>
+              <option th:each="role : ${assignableRoles}"
+                      th:value="${role.name()}"
+                      th:text="${role.displayName}"
+                      th:selected="${role == submittedRole}">Role</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="form-label" for="newUserPassword">Initial password</label>
+            <div class="input-group">
+              <input class="form-control font-monospace" type="text" id="newUserPassword"
+                     name="password" autocomplete="off" required th:value="${suggestedPassword}">
+              <button type="button" class="btn btn-outline-secondary"
+                      data-password-generate="newUserPassword" title="Generate another password">
+                <svg th:replace="~{fragments/icons :: icon('refresh', 'icon--sm')}"></svg>
+                <span class="visually-hidden">Generate another password</span>
+              </button>
+            </div>
+            <p class="form-text">
+              Emailed to the new user, who must replace it at first login (BR-15, FT-09).
+            </p>
+          </div>
+
+          <div th:replace="~{fragments/components :: passwordChecklist('newUserPassword')}"></div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create account</button>
+        </div>
+      </form>
+    </div>
   </div>
 
 </div>

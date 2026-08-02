@@ -26,6 +26,8 @@ public final class Routes {
 
     /** P-06a Admin — User Management. */
     public static final String ADMIN_USERS = "/admin/users";
+    /** P-06a — resend the credentials message for an account (UC-07 E3). */
+    public static final String ADMIN_USER_RESEND = "/admin/users/{id}/resend-credentials";
     /** P-06b Admin — Song Catalog & Metadata. */
     public static final String ADMIN_CATALOG = "/admin/catalog";
     /** P-06c Admin — Catalog Import. */

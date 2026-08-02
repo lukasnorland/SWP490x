@@ -7,25 +7,19 @@ import java.util.Base64;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
  * Issues the time-limited reset links behind P-01 (BV-01: valid for 30 minutes).
  *
- * <p>No mail transport is configured yet, so the link is written to the
- * application log instead of being emailed. Tokens live in memory, which means
- * they do not survive a restart. Both are deliberate placeholders: swapping in
- * a mail sender and a {@code password_reset_token} table replaces this class
- * without touching the screens.
+ * <p>Tokens live in memory, so they do not survive a restart. That is a
+ * deliberate placeholder: a {@code password_reset_token} table replaces this
+ * class without touching the screens.
  */
 @Service
 public class PasswordResetTokenService {
 
     public static final Duration VALIDITY = Duration.ofMinutes(30);
-
-    private static final Logger log = LoggerFactory.getLogger(PasswordResetTokenService.class);
 
     private final SecureRandom random = new SecureRandom();
     private final Map<String, Token> tokens = new ConcurrentHashMap<>();
@@ -39,9 +33,6 @@ public class PasswordResetTokenService {
         random.nextBytes(bytes);
         String token = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
         tokens.put(token, new Token(email, Instant.now().plus(VALIDITY)));
-
-        log.info("Password reset link for {} (valid {} minutes): /password-reset/set?token={}",
-                email, VALIDITY.toMinutes(), token);
         return token;
     }
 

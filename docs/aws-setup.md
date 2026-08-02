@@ -46,7 +46,7 @@ Local secrets (not in git): `%USERPROFILE%\.mrs-aws\`
 | VPC (default) | `vpc-05efb2e5d79a3bf39` |
 | Subnet | `subnet-074e862b4ef766b0a` (`ap-southeast-1c`) |
 | Security group | `mrs-ec2-sg` → `sg-097a8fd0a5fd0cbe1` (inbound **8080** only; MySQL not public) |
-| IAM role | `mrs-ec2-role` (SSM + S3 least privilege) |
+| IAM role | `mrs-ec2-role` (SSM + S3 + SES send) |
 | Instance profile | `mrs-ec2-profile` |
 | EC2 | `i-0d7e63cb4552af32d` (`t3.small`, Amazon Linux 2023, 30 GB encrypted gp3) |
 | S3 bucket | `mrs-133857166188-assets` (prefix `song-data/`) |
@@ -77,6 +77,8 @@ DB_PASSWORD=<from mrs-db-credentials.txt>
 ```
 
 S3 bucket for assets: `mrs-133857166188-assets` (objects under `song-data/`).
+
+SES: EC2 role inline policy `mrs-ses-send` allows `ses:SendEmail` / `ses:SendRawEmail` (plus identity read). Still verify a from-address in SES (sandbox) before the app can send mail.
 
 Apply SQL under `mrs/src/main/resources/db/migration/` when you first bring the app up (V1 schema, V2 seed).
 
@@ -135,6 +137,7 @@ aws iam remove-role-from-instance-profile --instance-profile-name mrs-ec2-profil
 aws iam delete-instance-profile --instance-profile-name mrs-ec2-profile --profile mrs-admin
 aws iam detach-role-policy --role-name mrs-ec2-role --policy-arn arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore --profile mrs-admin
 aws iam delete-role-policy --role-name mrs-ec2-role --policy-name mrs-s3-assets --profile mrs-admin
+aws iam delete-role-policy --role-name mrs-ec2-role --policy-name mrs-ses-send --profile mrs-admin
 aws iam delete-role --role-name mrs-ec2-role --profile mrs-admin
 
 # 5. Budget + alarm

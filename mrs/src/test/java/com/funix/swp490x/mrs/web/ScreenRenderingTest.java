@@ -13,6 +13,7 @@ import com.funix.swp490x.mrs.config.WebConfig;
 import com.funix.swp490x.mrs.domain.Role;
 import com.funix.swp490x.mrs.domain.User;
 import com.funix.swp490x.mrs.domain.UserStatus;
+import com.funix.swp490x.mrs.mail.NotificationService;
 import com.funix.swp490x.mrs.repository.UserRepository;
 import com.funix.swp490x.mrs.security.LoginAttemptService;
 import com.funix.swp490x.mrs.security.LoginFailureHandler;
@@ -20,7 +21,9 @@ import com.funix.swp490x.mrs.security.LoginSuccessHandler;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.security.MrsUserDetailsService;
 import com.funix.swp490x.mrs.security.PasswordResetTokenService;
+import com.funix.swp490x.mrs.service.UserAccountService;
 import com.funix.swp490x.mrs.web.admin.AdminController;
+import com.funix.swp490x.mrs.web.admin.AdminUserController;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -39,7 +42,7 @@ import org.springframework.test.web.servlet.MockMvc;
  */
 @WebMvcTest(controllers = {AuthController.class, HomeController.class, SearchController.class,
         PlaylistController.class, WorkspaceController.class, ProfileController.class,
-        AdminController.class, AccountPasswordController.class})
+        AdminController.class, AdminUserController.class, AccountPasswordController.class})
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
         LoginFailureHandler.class, LoginAttemptService.class, MrsUserDetailsService.class,
         PasswordResetTokenService.class})
@@ -50,6 +53,12 @@ class ScreenRenderingTest {
 
     @MockitoBean
     private UserRepository userRepository;
+
+    @MockitoBean
+    private UserAccountService userAccountService;
+
+    @MockitoBean
+    private NotificationService notificationService;
 
     private static MrsUserDetails principal(Role role) {
         User user = new User();

@@ -61,6 +61,65 @@
     });
   }
 
+  /* --- Initial password generator (P-06a Zone A) ------------------------
+     Mirrors InitialPasswordGenerator, which is the authority: the field is
+     already prefilled server-side, so this only offers another one. */
+  var PASSWORD_ALPHABETS = [
+    "ABCDEFGHJKLMNPQRSTUVWXYZ",
+    "abcdefghijkmnopqrstuvwxyz",
+    "23456789",
+    "!@#$%^&*"
+  ];
+  var GENERATED_LENGTH = 16;
+
+  function generatePassword() {
+    var everything = PASSWORD_ALPHABETS.join("");
+    var characters = PASSWORD_ALPHABETS.map(pick);
+    while (characters.length < GENERATED_LENGTH) {
+      characters.push(pick(everything));
+    }
+    for (var i = characters.length - 1; i > 0; i--) {
+      var j = randomBelow(i + 1);
+      var held = characters[i];
+      characters[i] = characters[j];
+      characters[j] = held;
+    }
+    return characters.join("");
+  }
+
+  function pick(alphabet) {
+    return alphabet.charAt(randomBelow(alphabet.length));
+  }
+
+  function randomBelow(bound) {
+    var values = new Uint32Array(1);
+    window.crypto.getRandomValues(values);
+    return values[0] % bound;
+  }
+
+  function initPasswordGenerators(root) {
+    root.querySelectorAll("[data-password-generate]").forEach(function (button) {
+      var input = document.getElementById(button.getAttribute("data-password-generate"));
+      if (!input || !window.crypto) {
+        return;
+      }
+      button.addEventListener("click", function () {
+        input.value = generatePassword();
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+    });
+  }
+
+  /* --- Dialogs a rejected submission has to reopen (P-06a) --------------- */
+  function initAutoShownModals(root) {
+    if (!window.bootstrap) {
+      return;
+    }
+    root.querySelectorAll("[data-modal-autoshow]").forEach(function (element) {
+      window.bootstrap.Modal.getOrCreateInstance(element).show();
+    });
+  }
+
   /* --- Submitting state (P-00 "loading": spinner, inputs disabled) ------- */
   function initSubmitStates(root) {
     root.querySelectorAll("form[data-busy-label]").forEach(function (form) {
@@ -88,6 +147,8 @@
   document.addEventListener("DOMContentLoaded", function () {
     initPasswordToggles(document);
     initPasswordPolicy(document);
+    initPasswordGenerators(document);
+    initAutoShownModals(document);
     initSubmitStates(document);
   });
 })();

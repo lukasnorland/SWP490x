@@ -7,6 +7,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 
@@ -51,6 +52,18 @@ public class User {
     /** Maintained by MySQL via ON UPDATE CURRENT_TIMESTAMP. */
     @Column(name = "updated_at", nullable = false, insertable = false, updatable = false)
     private LocalDateTime updatedAt;
+
+    /**
+     * The column defaults to CURRENT_TIMESTAMP, but an insert from JPA sends
+     * the field explicitly and a null would be rejected outright rather than
+     * defaulted.
+     */
+    @PrePersist
+    void stampCreatedAt() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+    }
 
     public Long getId() {
         return id;

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="message(content)">
+<!--/*
+  Shared wrapper for the messages in NotificationService.
+
+  Mail clients strip <link> tags and most ignore custom properties, so this is
+  deliberately the one place in the project that hard-codes colours from
+  tokens.css rather than referencing them, and styles inline rather than by
+  class. It is also light rather than dark: a dark message renders
+  unpredictably across clients that impose their own background.
+
+  Used like the app shell:
+
+    <html th:replace="~{email/layout :: message(~{::content})}">
+      <body><div th:fragment="content"> … </div></body>
+    </html>
+*/-->
+<head>
+  <meta charset="UTF-8">
+</head>
+
+<body style="margin:0; padding:24px 12px; background-color:#f1f5f9;
+             font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif; color:#0f172a;">
+
+<div style="max-width:560px; margin:0 auto; background-color:#ffffff;
+            border:1px solid #e2e8f0; border-radius:12px; overflow:hidden;">
+
+  <div style="padding:20px 32px; background-color:#312e81; color:#ffffff;
+              font-size:18px; font-weight:600; letter-spacing:0.02em;">
+    MRS
+  </div>
+
+  <div style="padding:32px; font-size:15px; line-height:1.6;" th:insert="${content}">
+    <!-- message body -->
+  </div>
+
+  <div style="padding:20px 32px; border-top:1px solid #e2e8f0;
+              font-size:12px; line-height:1.5; color:#64748b;">
+    This is an automated message from the Music Recommendation System.
+    Please do not reply to it.
+  </div>
+</div>
+
+</body>
+</html>

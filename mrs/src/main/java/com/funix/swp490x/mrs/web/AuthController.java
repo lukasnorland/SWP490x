@@ -1,12 +1,16 @@
 package com.funix.swp490x.mrs.web;
 
 import com.funix.swp490x.mrs.domain.User;
+import com.funix.swp490x.mrs.mail.MailDeliveryException;
+import com.funix.swp490x.mrs.mail.NotificationService;
 import com.funix.swp490x.mrs.repository.UserRepository;
 import com.funix.swp490x.mrs.security.PasswordPolicy;
 import com.funix.swp490x.mrs.security.PasswordResetTokenService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,14 +29,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AuthController {
 
+    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
+
     private final UserRepository userRepository;
     private final PasswordResetTokenService tokenService;
+    private final NotificationService notificationService;
     private final PasswordEncoder passwordEncoder;
 
     public AuthController(UserRepository userRepository, PasswordResetTokenService tokenService,
-            PasswordEncoder passwordEncoder) {
+            NotificationService notificationService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.tokenService = tokenService;
+        this.notificationService = notificationService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -57,13 +65,27 @@ public class AuthController {
      */
     @PostMapping(Routes.PASSWORD_RESET)
     public String resetRequestSubmit(@RequestParam String email, Model model) {
-        userRepository.findByEmail(email.trim())
-                .ifPresent(user -> tokenService.issue(user.getEmail()));
+        userRepository.findByEmail(email.trim()).ifPresent(this::sendResetLink);
 
         model.addAttribute("pageTitle", "Reset your password");
         model.addAttribute("sent", true);
         model.addAttribute("email", email.trim());
         return "auth/password-reset-request";
+    }
+
+    /**
+     * A delivery failure is logged and swallowed rather than surfaced: the
+     * screen shows the same confirmation whether or not the address is
+     * registered, so it cannot start reporting mail outcomes without giving
+     * that away.
+     */
+    private void sendResetLink(User user) {
+        String token = tokenService.issue(user.getEmail());
+        try {
+            notificationService.sendPasswordResetLink(user.getEmail(), token);
+        } catch (MailDeliveryException e) {
+            log.error("Could not deliver the reset link for {}", user.getEmail(), e);
+        }
     }
 
     /** P-01 step 2 — set a new password from an emailed link. */
