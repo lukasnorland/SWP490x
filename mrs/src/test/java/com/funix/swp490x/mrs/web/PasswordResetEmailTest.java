@@ -11,6 +11,7 @@ import static org.mockito.Mockito.never;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.funix.swp490x.mrs.config.SecurityConfig;
@@ -53,6 +54,7 @@ class PasswordResetEmailTest {
 
     private static final String EMAIL = "designer@mrs.local";
     private static final String CONFIRMATION = "a reset link is on its way";
+    private static final String ADMIN_MAILBOX = "no-reply@mrs.local";
 
     @Autowired
     private MockMvc mockMvc;
@@ -114,5 +116,25 @@ class PasswordResetEmailTest {
         mockMvc.perform(post(Routes.PASSWORD_RESET).param("email", EMAIL).with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(CONFIRMATION)));
+    }
+
+    @Test
+    void aRegisterRequestIsMailedToTheConfiguredAdminMailbox() throws Exception {
+        String candidateEmail = "candidate@example.com";
+
+        mockMvc.perform(post(Routes.REGISTER_REQUEST).param("email", candidateEmail).with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(Routes.LOGIN));
+
+        ArgumentCaptor<String> to = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<String> subject = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<String> body = ArgumentCaptor.forClass(String.class);
+        then(mailTransport).should().send(to.capture(), subject.capture(), body.capture());
+
+        assertThat(to.getValue()).isEqualTo(ADMIN_MAILBOX);
+        assertThat(subject.getValue()).isEqualTo("New MRS registration request");
+        assertThat(body.getValue())
+                .contains(candidateEmail)
+                .contains("http://localhost:8080" + Routes.LOGIN);
     }
 }

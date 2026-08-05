@@ -42,7 +42,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(Routes.STATIC_ASSETS)
                         .permitAll()
-                        .requestMatchers(Routes.LOGIN, Routes.PASSWORD_RESET, Routes.PASSWORD_RESET + "/**")
+                        .requestMatchers(Routes.LOGIN, Routes.REGISTER_REQUEST,
+                                Routes.PASSWORD_RESET, Routes.PASSWORD_RESET + "/**")
                         .permitAll()
                         // P-06a–e: ADMIN area (BR-01, BR-02, FT-09 NAC-02).
                         .requestMatchers("/admin/**").hasRole("ADMIN")

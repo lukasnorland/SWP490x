@@ -57,6 +57,21 @@ public class NotificationService {
                 templateEngine.process("email/account-credentials", context));
     }
 
+    /**
+     * Public registration intent from the login landing page.
+     *
+     * <p>The notification goes to the configured main mailbox ({@code mrs.mail.from}),
+     * which is the ADMIN-maintained email identity already used for outbound credentials.
+     */
+    public void sendRegistrationRequest(String requesterEmail) {
+        Context context = new Context(Locale.ENGLISH);
+        context.setVariable("email", requesterEmail);
+        context.setVariable("loginUrl", absolute(Routes.LOGIN));
+
+        transport.send(properties.getFrom(), "New MRS registration request",
+                templateEngine.process("email/register-request", context));
+    }
+
     private String absolute(String path) {
         String base = properties.getBaseUrl();
         return base.endsWith("/") ? base.substring(0, base.length() - 1) + path : base + path;

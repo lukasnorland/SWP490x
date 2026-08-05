@@ -1,80 +1,137 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/auth :: auth(~{::content})}">
 <!--/*
-  P-00 Login — spec 4.1.
+  P-00 Login as an anonymous landing page.
 
-  Zones: A heading, D banner slot, B credentials, C sign-in + reset link.
-  The banner is chosen by the query parameter the security handlers redirect
-  with, which covers the invalid-credentials, locked, and session-expired
-  states. "Submitting" is applied client-side by mrs.js.
+  A compact landing surface shows a primary Login CTA and a secondary Register
+  link. Both open overlay panels (Bootstrap modals) on top of the same page.
 */-->
 <body>
 <div th:fragment="content">
 
   <div class="card">
-    <div class="card-body d-flex flex-column gap-4">
-
-      <!-- Zone A -->
+    <div class="card-body d-flex flex-column align-items-center text-center gap-4 p-4 p-md-5">
       <div class="d-flex flex-column gap-2">
-        <h1 class="h2">Sign in to MRS</h1>
-        <p class="small text-secondary">
-          Internal accounts only — contact your ADMIN for access.
+        <h1 class="h2 mb-0">Music Recommendation System</h1>
+        <p class="small text-secondary mb-0">
+          Internal platform for playlist curation.
         </p>
       </div>
 
-      <!-- Zone D: banner slot. Wrong credentials never disclose whether the
-           email exists. -->
-      <th:block th:if="${param.error != null}">
-        <div th:replace="~{fragments/components :: notice('danger', 'alert-triangle', 'Email or password is incorrect')}"></div>
-      </th:block>
-      <th:block th:if="${param.locked != null}">
-        <div th:replace="~{fragments/components :: notice('danger', 'lock', 'Too many attempts — try again in 15 minutes')}"></div>
-      </th:block>
-      <th:block th:if="${param.expired != null}">
-        <div th:replace="~{fragments/components :: notice('info', 'info', 'Your session expired after 8 hours of inactivity. Sign in again to continue.')}"></div>
-      </th:block>
-      <th:block th:if="${param.logout != null}">
-        <div th:replace="~{fragments/components :: notice('info', 'info', 'You have been signed out.')}"></div>
-      </th:block>
-      <th:block th:if="${param.reset != null}">
-        <div th:replace="~{fragments/components :: notice('success', 'circle-check', 'Password updated. Sign in with your new password.')}"></div>
+      <th:block th:if="${flash != null}">
+        <div class="w-100"
+             th:replace="~{fragments/components :: notice(${flashVariant}, ${flashVariant == 'success'} ? 'circle-check' : 'alert-triangle', ${flash})}"></div>
       </th:block>
 
-      <!-- Zones B and C -->
-      <form th:action="@{/login}" method="post" class="d-flex flex-column gap-3"
-            data-busy-label="Signing in…">
-        <div>
-          <label class="form-label" for="email">Email</label>
-          <input class="form-control" type="email" id="email" name="email" autocomplete="username"
-                 required autofocus th:disabled="${param.locked != null}">
+      <div class="d-flex flex-column align-items-center gap-3">
+        <button type="button" class="btn btn-primary btn-lg px-5"
+                data-bs-toggle="modal" data-bs-target="#loginPanel">
+          Login
+        </button>
+        <a href="#" class="small text-decoration-underline" data-bs-toggle="modal"
+           data-bs-target="#registerPanel">Register</a>
+      </div>
+
+      <p class="small text-secondary mb-0">
+        Need access? Send your email through Register and ADMIN will review.
+      </p>
+    </div>
+  </div>
+
+  <!-- Login panel shown on top of the landing page. -->
+  <div class="modal fade" id="loginPanel" tabindex="-1" aria-labelledby="loginPanelTitle" aria-hidden="true"
+       th:attr="data-modal-autoshow=${(param.error != null or param.locked != null or param.expired != null or param.logout != null or param.reset != null) ? 'true' : null}">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h4" id="loginPanelTitle">Sign in to MRS</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body d-flex flex-column gap-3">
+          <!-- Wrong credentials never disclose whether the email exists. -->
+          <th:block th:if="${param.error != null}">
+            <div th:replace="~{fragments/components :: notice('danger', 'alert-triangle', 'Email or password is incorrect')}"></div>
+          </th:block>
+          <th:block th:if="${param.locked != null}">
+            <div th:replace="~{fragments/components :: notice('danger', 'lock', 'Too many attempts — try again in 15 minutes')}"></div>
+          </th:block>
+          <th:block th:if="${param.expired != null}">
+            <div th:replace="~{fragments/components :: notice('info', 'info', 'Your session expired after 8 hours of inactivity. Sign in again to continue.')}"></div>
+          </th:block>
+          <th:block th:if="${param.logout != null}">
+            <div th:replace="~{fragments/components :: notice('info', 'info', 'You have been signed out.')}"></div>
+          </th:block>
+          <th:block th:if="${param.reset != null}">
+            <div th:replace="~{fragments/components :: notice('success', 'circle-check', 'Password updated. Sign in with your new password.')}"></div>
+          </th:block>
 
-        <div>
-          <label class="form-label" for="password">Password</label>
-          <div class="input-group">
-            <input class="form-control" type="password" id="password" name="password"
-                   autocomplete="current-password" required th:disabled="${param.locked != null}">
-            <button type="button" class="btn btn-outline-secondary" data-password-toggle="password"
-                    aria-pressed="false" title="Show password">
-              <span class="visually-hidden">Show password</span>
-              <span data-when="hidden">
-                <svg th:replace="~{fragments/icons :: icon('eye', 'icon--sm')}"></svg>
-              </span>
-              <span data-when="visible" hidden>
-                <svg th:replace="~{fragments/icons :: icon('eye-off', 'icon--sm')}"></svg>
-              </span>
-            </button>
+          <form th:action="@{/login}" method="post" class="d-flex flex-column gap-3"
+                data-busy-label="Signing in…">
+            <div>
+              <label class="form-label" for="email">Email</label>
+              <input class="form-control" type="email" id="email" name="email" autocomplete="username"
+                     required autofocus th:disabled="${param.locked != null}">
+            </div>
+
+            <div>
+              <label class="form-label" for="password">Password</label>
+              <div class="input-group">
+                <input class="form-control" type="password" id="password" name="password"
+                       autocomplete="current-password" required th:disabled="${param.locked != null}">
+                <button type="button" class="btn btn-outline-secondary" data-password-toggle="password"
+                        aria-pressed="false" title="Show password">
+                  <span class="visually-hidden">Show password</span>
+                  <span data-when="hidden">
+                    <svg th:replace="~{fragments/icons :: icon('eye', 'icon--sm')}"></svg>
+                  </span>
+                  <span data-when="visible" hidden>
+                    <svg th:replace="~{fragments/icons :: icon('eye-off', 'icon--sm')}"></svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100"
+                    th:disabled="${param.locked != null}">Sign in</button>
+          </form>
+
+          <p class="small text-center mb-0">
+            <a th:href="@{/password-reset}">Forgot password?</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Register panel: collect only email and notify ADMIN mailbox. -->
+  <div class="modal fade" id="registerPanel" tabindex="-1" aria-labelledby="registerPanelTitle" aria-hidden="true"
+       th:attr="data-modal-autoshow=${reopenRegisterModal ? 'true' : null}">
+    <div class="modal-dialog modal-dialog-centered">
+      <form class="modal-content" th:action="@{/register-request}" method="post" data-busy-label="Sending…">
+        <div class="modal-header">
+          <h2 class="modal-title h4" id="registerPanelTitle">Request access</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body d-flex flex-column gap-3">
+          <p class="small text-secondary mb-0">
+            Enter your email. We will send this request to ADMIN for account creation.
+          </p>
+
+          <th:block th:if="${registerEmailError != null}">
+            <div th:replace="~{fragments/components :: notice('danger', 'alert-triangle', ${registerEmailError})}"></div>
+          </th:block>
+
+          <div>
+            <label class="form-label" for="registerEmail">Email</label>
+            <input class="form-control" type="email" id="registerEmail" name="email"
+                   maxlength="255" required autocomplete="email" th:value="${submittedRegisterEmail}">
           </div>
         </div>
-
-        <button type="submit" class="btn btn-primary btn-lg w-100"
-                th:disabled="${param.locked != null}">Sign in</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Register</button>
+        </div>
       </form>
-
-      <p class="small text-center">
-        <a th:href="@{/password-reset}">Forgot password?</a>
-      </p>
-
     </div>
   </div>
 

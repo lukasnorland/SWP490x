@@ -3,11 +3,14 @@ package com.funix.swp490x.mrs.web;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.never;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -80,6 +83,32 @@ class LoginFlowTest {
     void loginFormCarriesACsrfToken() throws Exception {
         mockMvc.perform(get(Routes.LOGIN))
                 .andExpect(content().string(containsString("_csrf")));
+    }
+
+    @Test
+    void aValidRegisterRequestIsForwardedToTheAdminMailbox() throws Exception {
+        mockMvc.perform(post(Routes.REGISTER_REQUEST)
+                        .param("email", "new.user@example.com")
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(Routes.LOGIN))
+                .andExpect(flash().attribute("flashVariant", "success"))
+                .andExpect(flash().attribute("flash", Messages.REGISTER_REQUEST_SENT));
+
+        then(notificationService).should().sendRegistrationRequest("new.user@example.com");
+    }
+
+    @Test
+    void anInvalidRegisterRequestDoesNotSendMailAndReopensThePanel() throws Exception {
+        mockMvc.perform(post(Routes.REGISTER_REQUEST)
+                        .param("email", "not-an-email")
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(Routes.LOGIN))
+                .andExpect(flash().attribute("registerEmailError", Messages.REGISTER_REQUEST_INVALID_EMAIL))
+                .andExpect(flash().attribute("reopenRegisterModal", true));
+
+        then(notificationService).should(never()).sendRegistrationRequest(anyString());
     }
 
     @Test

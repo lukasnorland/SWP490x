@@ -8,6 +8,8 @@ public final class Routes {
 
     /** P-00 Login. */
     public static final String LOGIN = "/login";
+    /** Public registration intent request from the login landing page. */
+    public static final String REGISTER_REQUEST = "/register-request";
     /** P-01 Password Reset — step 1, request a link. */
     public static final String PASSWORD_RESET = "/password-reset";
     /** P-01 Password Reset — step 2, set a new password from an emailed link. */
