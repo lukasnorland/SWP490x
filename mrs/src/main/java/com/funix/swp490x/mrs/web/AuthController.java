@@ -48,8 +48,16 @@ public class AuthController {
 
     /** P-00 Login / anonymous landing page. */
     @GetMapping(Routes.LOGIN)
-    public String login(Model model) {
+    public String login(@RequestParam(required = false) String error,
+            @RequestParam(required = false) String locked,
+            @RequestParam(required = false) String expired,
+            @RequestParam(required = false) String logout,
+            @RequestParam(required = false) String reset,
+            Model model) {
+
         model.addAttribute("pageTitle", "Welcome");
+        model.addAttribute("openLoginModal", error != null || locked != null || expired != null
+                || logout != null || reset != null);
         return "auth/login";
     }
 

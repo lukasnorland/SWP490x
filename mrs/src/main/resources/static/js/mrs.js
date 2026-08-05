@@ -116,6 +116,9 @@
       return;
     }
     root.querySelectorAll("[data-modal-autoshow]").forEach(function (element) {
+      if (element.getAttribute("data-modal-autoshow") !== "true") {
+        return;
+      }
       window.bootstrap.Modal.getOrCreateInstance(element).show();
     });
   }
