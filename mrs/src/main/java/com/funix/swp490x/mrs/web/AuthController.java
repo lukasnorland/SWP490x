@@ -58,6 +58,7 @@ public class AuthController {
         model.addAttribute("pageTitle", "Welcome");
         model.addAttribute("openLoginModal", error != null || locked != null || expired != null
                 || logout != null || reset != null);
+        model.addAttribute("showLandingScene", true);
         return "auth/login";
     }
 

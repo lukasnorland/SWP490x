@@ -270,6 +270,10 @@ body.shell {
   position: relative;
   overflow-x: hidden;
   isolation: isolate;
+  background:
+      radial-gradient(circle at 14% 14%, rgba(99, 102, 241, 0.28), transparent 42%),
+      radial-gradient(circle at 86% 20%, rgba(217, 70, 239, 0.22), transparent 40%),
+      linear-gradient(160deg, #0b1120 0%, #101933 46%, #0b1120 100%);
 }
 
 .auth__brand {
@@ -307,13 +311,13 @@ body.shell {
   position: absolute;
   inset: 0;
   background:
-      radial-gradient(circle at 25% 20%, rgba(129, 140, 248, 0.12), transparent 45%),
-      radial-gradient(circle at 75% 78%, rgba(217, 70, 239, 0.1), transparent 45%);
+      radial-gradient(circle at 25% 20%, rgba(129, 140, 248, 0.2), transparent 45%),
+      radial-gradient(circle at 75% 78%, rgba(217, 70, 239, 0.16), transparent 45%);
 }
 
 .landing-card {
   background-color: rgba(30, 41, 59, 0.78);
-  border-color: rgba(148, 163, 184, 0.32);
+  border-color: rgba(148, 163, 184, 0.5);
   box-shadow: 0 24px 64px rgba(2, 6, 23, 0.6);
   backdrop-filter: blur(var(--blur-glass));
   -webkit-backdrop-filter: blur(var(--blur-glass));
@@ -323,7 +327,7 @@ body.shell {
   position: absolute;
   border-radius: 50%;
   filter: blur(80px);
-  opacity: 0.4;
+  opacity: 0.62;
   animation: landing-aurora-float 20s ease-in-out infinite alternate;
 }
 
@@ -402,16 +406,17 @@ body.shell {
   display: flex;
   align-items: flex-end;
   gap: 8px;
-  opacity: 0.55;
+  opacity: 0.82;
 }
 
 .landing-scene__bar {
-  width: 6px;
+  width: 7px;
   height: 84px;
   border-radius: var(--radius-pill);
   background: var(--gradient-accent);
   transform-origin: bottom;
   animation: landing-equalizer 1.7s ease-in-out infinite;
+  box-shadow: 0 0 24px rgba(129, 140, 248, 0.5);
 }
 
 .landing-scene__bar--1 { animation-delay: -0.5s; }
@@ -525,7 +530,7 @@ body.shell {
   }
 
   .landing-scene__bar {
-    width: 5px;
+    width: 6px;
     height: 62px;
   }
 
