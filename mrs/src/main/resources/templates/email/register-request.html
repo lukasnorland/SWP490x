@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{email/layout :: message(~{::content})}">
+<!--/* Public landing-page request to ask ADMIN for a new account. */-->
+<body>
+<div th:fragment="content">
+
+  <p style="margin:0 0 16px; font-size:20px; font-weight:600;">
+    New registration request
+  </p>
+
+  <p style="margin:0 0 24px;">
+    Someone on the MRS landing page asked for access with this email:
+  </p>
+
+  <p style="margin:0 0 24px; padding:12px 16px; border-radius:8px;
+            border:1px solid #e2e8f0; background-color:#f8fafc;
+            font-family:Consolas,Menlo,monospace;"
+     th:text="${email}">requester@example.com</p>
+
+  <p style="margin:0; color:#475569;">
+    Review this request and, if approved, create an account from the ADMIN User
+    Management screen. Sign in:
+    <a th:href="${loginUrl}" th:text="${loginUrl}">http://localhost:8080/login</a>
+  </p>
+
+</div>
+</body>
+</html>

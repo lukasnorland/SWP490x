@@ -6,6 +6,7 @@ import com.funix.swp490x.mrs.mail.NotificationService;
 import com.funix.swp490x.mrs.repository.UserRepository;
 import com.funix.swp490x.mrs.security.PasswordPolicy;
 import com.funix.swp490x.mrs.security.PasswordResetTokenService;
+import com.funix.swp490x.mrs.service.EmailPolicy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * P-00 Login and P-01 Password Reset.
@@ -44,11 +46,42 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    /** P-00 Login. */
+    /** P-00 Login / anonymous landing page. */
     @GetMapping(Routes.LOGIN)
     public String login(Model model) {
-        model.addAttribute("pageTitle", "Sign in");
+        model.addAttribute("pageTitle", "Welcome");
         return "auth/login";
+    }
+
+    /**
+     * Landing-page register intent: captures one email and notifies ADMIN.
+     *
+     * <p>The destination mailbox is the configured main sender identity
+     * ({@code mrs.mail.from}), so this shares the same operational mailbox used
+     * by account-credentials delivery.
+     */
+    @PostMapping(Routes.REGISTER_REQUEST)
+    public String registerRequest(@RequestParam String email, RedirectAttributes redirectAttributes) {
+        String address = email == null ? "" : email.trim();
+        if (!EmailPolicy.isWellFormed(address)) {
+            redirectAttributes.addFlashAttribute("registerEmailError", Messages.REGISTER_REQUEST_INVALID_EMAIL);
+            redirectAttributes.addFlashAttribute("submittedRegisterEmail", address);
+            redirectAttributes.addFlashAttribute("reopenRegisterModal", true);
+            return "redirect:" + Routes.LOGIN;
+        }
+
+        try {
+            notificationService.sendRegistrationRequest(address);
+            redirectAttributes.addFlashAttribute("flashVariant", "success");
+            redirectAttributes.addFlashAttribute("flash", Messages.REGISTER_REQUEST_SENT);
+        } catch (MailDeliveryException e) {
+            log.error("Could not deliver registration request for {}", address, e);
+            redirectAttributes.addFlashAttribute("flashVariant", "warning");
+            redirectAttributes.addFlashAttribute("flash", Messages.REGISTER_REQUEST_EMAIL_FAILED);
+            redirectAttributes.addFlashAttribute("submittedRegisterEmail", address);
+            redirectAttributes.addFlashAttribute("reopenRegisterModal", true);
+        }
+        return "redirect:" + Routes.LOGIN;
     }
 
     /** P-01 step 1 — request a reset link. */

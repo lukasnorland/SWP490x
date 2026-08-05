@@ -41,6 +41,16 @@ public final class Messages {
             + "the notification email could not be sent. The previous password no longer works, "
             + "so please try resending.";
 
+    /** Landing-page self-registration request outcome messages. */
+    public static final String REGISTER_REQUEST_SENT = "Your registration request has been sent. "
+            + "An ADMIN will review it and contact you.";
+
+    public static final String REGISTER_REQUEST_INVALID_EMAIL =
+            "Enter a valid email address so ADMIN can contact you.";
+
+    public static final String REGISTER_REQUEST_EMAIL_FAILED =
+            "Your request could not be sent right now. Please try again.";
+
     private Messages() {
     }
 }
