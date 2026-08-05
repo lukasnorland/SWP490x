@@ -289,10 +289,13 @@ body.shell {
   max-width: var(--auth-card-max);
 }
 
-.auth__brand,
-.auth__card {
+.auth__brand {
   position: relative;
   z-index: 2;
+}
+
+.auth__card {
+  position: relative;
 }
 
 /* --- Animated login landing background ---------------------------------- */
