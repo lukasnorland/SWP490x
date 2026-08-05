@@ -40,7 +40,7 @@
 
   <!-- Login panel shown on top of the landing page. -->
   <div class="modal fade" id="loginPanel" tabindex="-1" aria-labelledby="loginPanelTitle" aria-hidden="true"
-       th:attr="data-modal-autoshow=${(param.error != null or param.locked != null or param.expired != null or param.logout != null or param.reset != null) ? 'true' : null}">
+       th:attr="data-modal-autoshow=${openLoginModal}">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -105,7 +105,7 @@
 
   <!-- Register panel: collect only email and notify ADMIN mailbox. -->
   <div class="modal fade" id="registerPanel" tabindex="-1" aria-labelledby="registerPanelTitle" aria-hidden="true"
-       th:attr="data-modal-autoshow=${reopenRegisterModal ? 'true' : null}">
+       th:attr="data-modal-autoshow=${reopenRegisterModal}">
     <div class="modal-dialog modal-dialog-centered">
       <form class="modal-content" th:action="@{/register-request}" method="post" data-busy-label="Sending…">
         <div class="modal-header">
