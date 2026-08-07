@@ -14,6 +14,7 @@ import com.funix.swp490x.mrs.domain.Role;
 import com.funix.swp490x.mrs.domain.User;
 import com.funix.swp490x.mrs.domain.UserStatus;
 import com.funix.swp490x.mrs.mail.NotificationService;
+import com.funix.swp490x.mrs.mail.SesIdentityService;
 import com.funix.swp490x.mrs.repository.UserRepository;
 import com.funix.swp490x.mrs.security.LoginAttemptService;
 import com.funix.swp490x.mrs.security.LoginFailureHandler;
@@ -59,6 +60,9 @@ class ScreenRenderingTest {
 
     @MockitoBean
     private NotificationService notificationService;
+
+    @MockitoBean
+    private SesIdentityService sesIdentityService;
 
     private static MrsUserDetails principal(Role role) {
         User user = new User();

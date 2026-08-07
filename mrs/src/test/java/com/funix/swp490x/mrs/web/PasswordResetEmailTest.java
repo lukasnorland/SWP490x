@@ -36,6 +36,7 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -50,6 +51,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
         LoginFailureHandler.class, LoginAttemptService.class, MrsUserDetailsService.class,
         PasswordResetTokenService.class, MailConfig.class, NotificationService.class})
+@TestPropertySource(properties = "mrs.mail.from=no-reply@mrs.local")
 class PasswordResetEmailTest {
 
     private static final String EMAIL = "designer@mrs.local";

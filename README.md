@@ -182,14 +182,21 @@ out is that it applies to the recipient, not only to the sender: SES refuses to
 deliver to any address it has not verified. Verification is per address and only
 needed once, but the owner of the mailbox has to follow the link themselves.
 
-The order matters, because the credentials message goes out the moment *Create
-account* is pressed. Replace the region below with the one your SMTP host points
-at:
+**Preferred path for a live demo:** on P-06a, open *New user*, type the internal
+email, and click **Verify for SES**. That button calls
+`ses:CreateEmailIdentity` through the app (SES API credentials from
+`AWS_PROFILE` / the EC2 instance role — not the SMTP username in
+`local.properties`). AWS emails the confirmation link; after the owner confirms
+it, press *Create account*.
+
+The order still matters, because the credentials message goes out the moment
+*Create account* is pressed. The CLI remains available if the button cannot
+reach AWS:
 
 ```bash
 aws sesv2 create-email-identity --email-identity someone@example.com --region ap-southeast-1
 # the owner opens the message from AWS and follows the link, which expires after
-# 24 hours; run the command again to issue a fresh one
+# 24 hours; run the command again (or click Verify for SES again) to issue a fresh one
 aws sesv2 get-email-identity --email-identity someone@example.com --region ap-southeast-1
 ```
 
@@ -209,15 +216,17 @@ its own verification, but the confirmation lands in your own inbox, so one
 person can stand up several distinct test users unaided.
 
 Requesting production access lifts the recipient restriction altogether, at the
-cost of an AWS support review.
+cost of an AWS support review. The Verify for SES button is then unnecessary for
+recipients (the sender identity must still be verified).
 
-Three message settings have their own defaults:
+Message settings and their defaults:
 
 | Property | Default | Purpose |
 |----------|---------|---------|
 | `mrs.mail.from` | `no-reply@mrs.local` | Sender address |
 | `mrs.mail.from-name` | `MRS` | Sender display name |
 | `mrs.mail.base-url` | `http://localhost:8080` | Origin for links in messages |
+| `mrs.mail.ses-region` | `ap-southeast-1` | Region for the Verify for SES API call |
 
 `mrs.mail.base-url` matters as soon as the app is not read on the machine it
 runs on: a message is opened outside any request, so links are built against

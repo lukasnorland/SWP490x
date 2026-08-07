@@ -22,6 +22,14 @@ public class MailProperties {
      */
     private String baseUrl = "http://localhost:8080";
 
+    /**
+     * Region the SES v2 API client talks to when ADMIN prepares a recipient
+     * identity from P-06a. Must match the region of {@code spring.mail.host}
+     * and of every identity already verified there — SES does not share
+     * identities across regions.
+     */
+    private String sesRegion = "ap-southeast-1";
+
     public String getFrom() {
         return from;
     }
@@ -44,5 +52,13 @@ public class MailProperties {
 
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
+    }
+
+    public String getSesRegion() {
+        return sesRegion;
+    }
+
+    public void setSesRegion(String sesRegion) {
+        this.sesRegion = sesRegion;
     }
 }
