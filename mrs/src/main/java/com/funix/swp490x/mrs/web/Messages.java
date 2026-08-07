@@ -53,8 +53,14 @@ public final class Messages {
     public static final String SES_ALREADY_VERIFIED =
             "That address is already verified with Amazon SES — you can create the account now.";
 
+    public static final String SES_RECIPIENT_NOT_VERIFIED =
+            "Verify that address with SES before creating the account. Click Verify for SES, "
+                    + "wait for the owner to confirm the AWS link, then click Verify for SES again.";
+
     public static final String SES_VERIFICATION_FAILED =
-            "Could not start SES verification for that address. Check AWS credentials and try again.";
+            "Could not start SES verification for that address. Run "
+                    + "'aws login --profile mrs-admin', confirm that profile still works, "
+                    + "then try again.";
 
     /** Landing-page self-registration request outcome messages. */
     public static final String REGISTER_REQUEST_SENT = "Your registration request has been sent. "

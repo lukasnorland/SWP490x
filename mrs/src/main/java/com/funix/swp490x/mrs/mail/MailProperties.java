@@ -30,6 +30,13 @@ public class MailProperties {
      */
     private String sesRegion = "ap-southeast-1";
 
+    /**
+     * Named profile for the SES API client. Defaults to {@code mrs-admin} so a
+     * developer checkout never falls through to an unrelated AWS account.
+     * Clear it (empty string) on EC2 so the instance role is used instead.
+     */
+    private String awsProfile = "mrs-admin";
+
     public String getFrom() {
         return from;
     }
@@ -60,5 +67,13 @@ public class MailProperties {
 
     public void setSesRegion(String sesRegion) {
         this.sesRegion = sesRegion;
+    }
+
+    public String getAwsProfile() {
+        return awsProfile;
+    }
+
+    public void setAwsProfile(String awsProfile) {
+        this.awsProfile = awsProfile;
     }
 }

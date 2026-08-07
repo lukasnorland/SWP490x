@@ -91,7 +91,8 @@
        th:attr="data-modal-autoshow=${reopenCreateForm}">
     <div class="modal-dialog modal-dialog-centered">
       <form class="modal-content" th:action="@{/admin/users}" method="post"
-            data-busy-label="Creating…">
+            data-busy-label="Creating…"
+            th:attr="data-ses-gate-create=${requireSesRecipient}">
         <div class="modal-header">
           <h2 class="modal-title h4" id="createUserTitle">New user</h2>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -122,9 +123,12 @@
               </button>
             </div>
             <p class="form-text mb-1">
-              Must not already belong to an account (DC-06). While SES is in the
-              sandbox, click <em>Verify for SES</em> after typing the address and
-              wait for the owner to confirm the AWS link before creating the account.
+              Must not already belong to an account (DC-06).
+              <th:block th:if="${requireSesRecipient}">
+                Click <em>Verify for SES</em>, wait for the owner to confirm the
+                AWS link, then click <em>Verify for SES</em> again until it says
+                the address is verified — only then can you create the account.
+              </th:block>
             </p>
             <p id="newUserEmailStatus" class="small mb-0" role="status" aria-live="polite" hidden></p>
           </div>
@@ -160,7 +164,8 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary">Create account</button>
+          <button type="submit" class="btn btn-primary"
+                  th:disabled="${requireSesRecipient}">Create account</button>
         </div>
       </form>
     </div>

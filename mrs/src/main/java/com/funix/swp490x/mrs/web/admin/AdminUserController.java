@@ -21,9 +21,11 @@ import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,13 +53,16 @@ public class AdminUserController {
     private final UserAccountService userAccountService;
     private final NotificationService notificationService;
     private final SesIdentityService sesIdentityService;
+    private final ObjectProvider<JavaMailSender> mailSender;
 
     public AdminUserController(UserAccountService userAccountService,
             NotificationService notificationService,
-            SesIdentityService sesIdentityService) {
+            SesIdentityService sesIdentityService,
+            ObjectProvider<JavaMailSender> mailSender) {
         this.userAccountService = userAccountService;
         this.notificationService = notificationService;
         this.sesIdentityService = sesIdentityService;
+        this.mailSender = mailSender;
     }
 
     @GetMapping(Routes.ADMIN_USERS)
@@ -82,6 +87,19 @@ public class AdminUserController {
         if (!ASSIGNABLE_ROLES.contains(role)) {
             return reject(model, response, HttpStatus.UNPROCESSABLE_ENTITY,
                     "New accounts can be assigned the Content Designer or Customer role only.");
+        }
+
+        if (outboundMailEnabled()) {
+            String address = email == null ? "" : email.trim();
+            try {
+                if (!sesIdentityService.isVerified(address)) {
+                    return reject(model, response, HttpStatus.UNPROCESSABLE_ENTITY,
+                            Messages.SES_RECIPIENT_NOT_VERIFIED);
+                }
+            } catch (SesIdentityException e) {
+                log.error("Could not confirm SES verification for {}", address, e);
+                return reject(model, response, HttpStatus.BAD_GATEWAY, Messages.SES_VERIFICATION_FAILED);
+            }
         }
 
         User created;
@@ -166,7 +184,14 @@ public class AdminUserController {
         // Offered as the default so the flow works without JavaScript; the
         // generate button replaces it in the browser.
         model.addAttribute("suggestedPassword", InitialPasswordGenerator.generate());
+        // When real SMTP is on, Create account is gated on SES recipient
+        // verification (UI + server). Logging transport leaves the gate open.
+        model.addAttribute("requireSesRecipient", outboundMailEnabled());
         return "admin/users";
+    }
+
+    private boolean outboundMailEnabled() {
+        return mailSender.getIfAvailable() != null;
     }
 
     private String reject(Model model, HttpServletResponse response, HttpStatus status,

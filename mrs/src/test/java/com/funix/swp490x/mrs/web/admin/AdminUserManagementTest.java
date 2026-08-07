@@ -47,6 +47,7 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -78,6 +79,9 @@ class AdminUserManagementTest {
     @MockitoBean
     private SesIdentityService sesIdentityService;
 
+    @MockitoBean
+    private JavaMailSender javaMailSender;
+
     private static MrsUserDetails admin() {
         User user = new User();
         user.setId(1L);
@@ -97,6 +101,9 @@ class AdminUserManagementTest {
             saved.setId(42L);
             return saved;
         });
+        // Real SMTP is present in this slice, so create() requires a verified
+        // SES recipient unless a test overrides this stub.
+        given(sesIdentityService.isVerified(anyString())).willReturn(true);
     }
 
     private MockHttpServletRequestBuilder createRequest(String email, String password) {
@@ -305,5 +312,17 @@ class AdminUserManagementTest {
                 .andExpect(jsonPath("$.message").value(Messages.SES_VERIFICATION_FAILED));
 
         then(userRepository).should(never()).save(any(User.class));
+    }
+
+    @Test
+    void createIsBlockedUntilTheRecipientIsVerifiedWithSes() throws Exception {
+        given(sesIdentityService.isVerified("nina@example.com")).willReturn(false);
+
+        mockMvc.perform(createRequest("nina@example.com", STRONG_PASSWORD))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(containsString(Messages.SES_RECIPIENT_NOT_VERIFIED)));
+
+        then(userRepository).should(never()).save(any(User.class));
+        then(mailTransport).should(never()).send(anyString(), anyString(), anyString());
     }
 }

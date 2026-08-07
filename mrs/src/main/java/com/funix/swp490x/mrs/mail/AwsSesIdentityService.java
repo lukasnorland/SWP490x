@@ -2,8 +2,6 @@ package com.funix.swp490x.mrs.mail;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import software.amazon.awssdk.awscore.exception.AwsServiceException;
-import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.services.sesv2.SesV2Client;
 import software.amazon.awssdk.services.sesv2.model.AlreadyExistsException;
 import software.amazon.awssdk.services.sesv2.model.CreateEmailIdentityRequest;
@@ -34,11 +32,31 @@ public class AwsSesIdentityService implements SesIdentityService {
     public Outcome prepareRecipient(String email) {
         String address = email.trim();
         try {
-            return create(address);
-        } catch (AlreadyExistsException existing) {
-            return handleExisting(address);
-        } catch (AwsServiceException | SdkClientException e) {
+            try {
+                return create(address);
+            } catch (AlreadyExistsException existing) {
+                return handleExisting(address);
+            }
+        } catch (RuntimeException e) {
+            // Includes SdkClientException and IllegalStateException from a
+            // failed ProcessCredentialsProvider refresh (e.g. aws login expired
+            // or the CLI missing from PATH).
             throw new SesIdentityException("SES rejected the identity request for " + address, e);
+        }
+    }
+
+    @Override
+    public boolean isVerified(String email) {
+        String address = email.trim();
+        try {
+            GetEmailIdentityResponse identity = ses.getEmailIdentity(GetEmailIdentityRequest.builder()
+                    .emailIdentity(address)
+                    .build());
+            return isVerified(identity);
+        } catch (NotFoundException missing) {
+            return false;
+        } catch (RuntimeException e) {
+            throw new SesIdentityException("SES could not read the identity for " + address, e);
         }
     }
 

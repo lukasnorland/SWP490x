@@ -18,6 +18,14 @@ public interface SesIdentityService {
      */
     Outcome prepareRecipient(String email);
 
+    /**
+     * Whether SES already accepts {@code email} as a sandbox recipient.
+     *
+     * @return {@code false} when the identity is missing or still pending
+     * @throws SesIdentityException when SES cannot be reached or rejects the call
+     */
+    boolean isVerified(String email);
+
     /** What happened for the address ADMIN just typed. */
     enum Outcome {
         /** A fresh verification link was emailed by AWS. */
