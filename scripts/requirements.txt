@@ -1,0 +1,2 @@
+# Optional deps for scripts/epidemic_pages_to_s3.py (--upload)
+boto3>=1.34
