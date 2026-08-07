@@ -78,7 +78,12 @@ DB_PASSWORD=<from mrs-db-credentials.txt>
 
 S3 bucket for assets: `mrs-133857166188-assets` (objects under `song-data/`).
 
-SES: EC2 role inline policy `mrs-ses-send` allows `ses:SendEmail` / `ses:SendRawEmail` (plus identity read). Still verify a from-address in SES (sandbox) before the app can send mail.
+SES: EC2 role inline policy `mrs-ses-send` allows send (`ses:SendEmail` /
+`ses:SendRawEmail`), identity read, and identity manage
+(`ses:CreateEmailIdentity`, `ses:DeleteEmailIdentity`) so P-06a's
+*Verify for SES* button works on the instance. Still verify a from-address in
+SES (sandbox) before the app can send mail; recipients need the same until
+production access is approved.
 
 Apply SQL under `mrs/src/main/resources/db/migration/` when you first bring the app up (V1 schema, V2 seed).
 

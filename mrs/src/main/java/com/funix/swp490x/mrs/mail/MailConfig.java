@@ -1,10 +1,14 @@
 package com.funix.swp490x.mrs.mail;
 
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.sesv2.SesV2Client;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
+import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 
 @Configuration
 @EnableConfigurationProperties(MailProperties.class)
@@ -24,5 +28,26 @@ public class MailConfig {
         return configured == null
                 ? new LoggingMailTransport()
                 : new SmtpMailTransport(configured, properties);
+    }
+
+    /**
+     * API client for declaring recipient identities from P-06a. Uses the
+     * default credential chain ({@code AWS_PROFILE}, environment variables,
+     * instance role) — not the SMTP username/password in
+     * {@code local.properties}, which cannot call CreateEmailIdentity.
+     */
+    @Bean(destroyMethod = "close")
+    @ConditionalOnMissingBean(SesV2Client.class)
+    public SesV2Client sesV2Client(MailProperties properties) {
+        return SesV2Client.builder()
+                .region(Region.of(properties.getSesRegion()))
+                .credentialsProvider(DefaultCredentialsProvider.create())
+                .build();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(SesIdentityService.class)
+    public SesIdentityService sesIdentityService(SesV2Client sesV2Client) {
+        return new AwsSesIdentityService(sesV2Client);
     }
 }

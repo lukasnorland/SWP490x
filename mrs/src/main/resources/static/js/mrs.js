@@ -123,6 +123,85 @@
     });
   }
 
+  /* --- SES sandbox recipient verification (P-06a) ------------------------
+     Calls CreateEmailIdentity through the app so ADMIN does not need the CLI.
+     Requires AWS API credentials in the process (AWS_PROFILE / instance role),
+     not the SMTP pair used to send mail. */
+  function initSesRecipientPreparation(root) {
+    root.querySelectorAll("[data-ses-prepare-recipient]").forEach(function (button) {
+      var input = document.getElementById(button.getAttribute("data-ses-prepare-recipient"));
+      var status = document.getElementById(button.getAttribute("data-ses-status-target"));
+      if (!input || !status) {
+        return;
+      }
+      button.addEventListener("click", function () {
+        var email = input.value.trim();
+        if (!email) {
+          input.focus();
+          return;
+        }
+
+        var form = button.closest("form");
+        var csrf = form && form.querySelector('input[name="_csrf"]');
+        if (!csrf) {
+          showSesStatus(status, "error", "Could not start SES verification — reload the page and try again.");
+          return;
+        }
+
+        var label = button.querySelector("span") || button;
+        var previous = label.textContent;
+        button.disabled = true;
+        label.textContent = button.getAttribute("data-busy-label") || "Sending…";
+        showSesStatus(status, "pending", "Contacting Amazon SES…");
+
+        var body = new URLSearchParams();
+        body.set("email", email);
+        body.set("_csrf", csrf.value);
+
+        fetch("/admin/users/prepare-recipient", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Accept": "application/json"
+          },
+          body: body.toString(),
+          credentials: "same-origin"
+        })
+          .then(function (response) {
+            return response.json().then(function (payload) {
+              return { ok: response.ok, payload: payload };
+            });
+          })
+          .then(function (result) {
+            var variant = result.ok
+                ? (result.payload.status === "already_verified" ? "success" : "info")
+                : "error";
+            showSesStatus(status, variant, result.payload.message || "Unexpected response from the server.");
+          })
+          .catch(function () {
+            showSesStatus(status, "error", "Could not reach the server. Try again.");
+          })
+          .finally(function () {
+            button.disabled = false;
+            label.textContent = previous;
+          });
+      });
+    });
+  }
+
+  function showSesStatus(element, variant, message) {
+    element.hidden = false;
+    element.textContent = message;
+    element.classList.remove("text-success-emphasis", "text-danger-emphasis", "text-secondary");
+    if (variant === "success") {
+      element.classList.add("text-success-emphasis");
+    } else if (variant === "error") {
+      element.classList.add("text-danger-emphasis");
+    } else {
+      element.classList.add("text-secondary");
+    }
+  }
+
   /* --- Submitting state (P-00 "loading": spinner, inputs disabled) ------- */
   function initSubmitStates(root) {
     root.querySelectorAll("form[data-busy-label]").forEach(function (form) {
@@ -152,6 +231,7 @@
     initPasswordPolicy(document);
     initPasswordGenerators(document);
     initAutoShownModals(document);
+    initSesRecipientPreparation(document);
     initSubmitStates(document);
   });
 })();

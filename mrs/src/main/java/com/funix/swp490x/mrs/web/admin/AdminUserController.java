@@ -4,8 +4,12 @@ import com.funix.swp490x.mrs.domain.Role;
 import com.funix.swp490x.mrs.domain.User;
 import com.funix.swp490x.mrs.mail.MailDeliveryException;
 import com.funix.swp490x.mrs.mail.NotificationService;
+import com.funix.swp490x.mrs.mail.SesIdentityException;
+import com.funix.swp490x.mrs.mail.SesIdentityService;
+import com.funix.swp490x.mrs.mail.SesIdentityService.Outcome;
 import com.funix.swp490x.mrs.security.InitialPasswordGenerator;
 import com.funix.swp490x.mrs.service.DuplicateEmailException;
+import com.funix.swp490x.mrs.service.EmailPolicy;
 import com.funix.swp490x.mrs.service.InvalidEmailException;
 import com.funix.swp490x.mrs.service.UserAccountService;
 import com.funix.swp490x.mrs.service.UserAccountService.InitialCredentials;
@@ -14,15 +18,19 @@ import com.funix.swp490x.mrs.web.Messages;
 import com.funix.swp490x.mrs.web.Routes;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -42,11 +50,14 @@ public class AdminUserController {
 
     private final UserAccountService userAccountService;
     private final NotificationService notificationService;
+    private final SesIdentityService sesIdentityService;
 
     public AdminUserController(UserAccountService userAccountService,
-            NotificationService notificationService) {
+            NotificationService notificationService,
+            SesIdentityService sesIdentityService) {
         this.userAccountService = userAccountService;
         this.notificationService = notificationService;
+        this.sesIdentityService = sesIdentityService;
     }
 
     @GetMapping(Routes.ADMIN_USERS)
@@ -96,6 +107,41 @@ public class AdminUserController {
         }
 
         return "redirect:" + Routes.ADMIN_USERS;
+    }
+
+    /**
+     * Declares the typed address with Amazon SES before the account exists.
+     *
+     * <p>Returns JSON so the create dialog can stay open with the other fields
+     * intact — this step is deliberately separate from Create account.
+     */
+    @PostMapping(path = Routes.ADMIN_USER_PREPARE_RECIPIENT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> prepareRecipient(@RequestParam String email) {
+        String address = email == null ? "" : email.trim();
+        if (!EmailPolicy.isWellFormed(address)) {
+            return ResponseEntity.unprocessableEntity().body(Map.of(
+                    "status", "error",
+                    "message", Messages.INVALID_EMAIL));
+        }
+
+        try {
+            Outcome outcome = sesIdentityService.prepareRecipient(address);
+            if (outcome == Outcome.ALREADY_VERIFIED) {
+                return ResponseEntity.ok(Map.of(
+                        "status", "already_verified",
+                        "message", Messages.SES_ALREADY_VERIFIED));
+            }
+            return ResponseEntity.ok(Map.of(
+                    "status", "sent",
+                    "message", Messages.SES_VERIFICATION_SENT));
+        } catch (SesIdentityException e) {
+            log.error("SES identity preparation failed for {}", address, e);
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(Map.of(
+                    "status", "error",
+                    "message", Messages.SES_VERIFICATION_FAILED));
+        }
     }
 
     /** UC-07 E3 — send the credentials message again after a failed delivery. */

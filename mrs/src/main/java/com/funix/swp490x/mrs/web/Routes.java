@@ -30,6 +30,11 @@ public final class Routes {
     public static final String ADMIN_USERS = "/admin/users";
     /** P-06a — resend the credentials message for an account (UC-07 E3). */
     public static final String ADMIN_USER_RESEND = "/admin/users/{id}/resend-credentials";
+    /**
+     * P-06a — declare the typed address with Amazon SES so the sandbox will
+     * accept mail to it (CreateEmailIdentity). Separate from account creation.
+     */
+    public static final String ADMIN_USER_PREPARE_RECIPIENT = "/admin/users/prepare-recipient";
     /** P-06b Admin — Song Catalog & Metadata. */
     public static final String ADMIN_CATALOG = "/admin/catalog";
     /** P-06c Admin — Catalog Import. */

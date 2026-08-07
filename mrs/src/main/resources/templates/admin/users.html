@@ -110,9 +110,23 @@
 
           <div>
             <label class="form-label" for="newUserEmail">Internal email</label>
-            <input class="form-control" type="email" id="newUserEmail" name="email"
-                   maxlength="255" required th:value="${submittedEmail}">
-            <p class="form-text">Must not already belong to an account (DC-06).</p>
+            <div class="input-group">
+              <input class="form-control" type="email" id="newUserEmail" name="email"
+                     maxlength="255" required th:value="${submittedEmail}">
+              <button type="button" class="btn btn-outline-secondary"
+                      data-ses-prepare-recipient="newUserEmail"
+                      data-ses-status-target="newUserEmailStatus"
+                      data-busy-label="Sending…"
+                      title="Ask Amazon SES to email a verification link to this address">
+                <span>Verify for SES</span>
+              </button>
+            </div>
+            <p class="form-text mb-1">
+              Must not already belong to an account (DC-06). While SES is in the
+              sandbox, click <em>Verify for SES</em> after typing the address and
+              wait for the owner to confirm the AWS link before creating the account.
+            </p>
+            <p id="newUserEmailStatus" class="small mb-0" role="status" aria-live="polite" hidden></p>
           </div>
 
           <div>

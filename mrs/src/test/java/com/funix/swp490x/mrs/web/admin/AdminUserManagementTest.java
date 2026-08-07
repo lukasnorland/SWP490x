@@ -14,6 +14,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -26,6 +27,9 @@ import com.funix.swp490x.mrs.mail.MailConfig;
 import com.funix.swp490x.mrs.mail.MailDeliveryException;
 import com.funix.swp490x.mrs.mail.MailTransport;
 import com.funix.swp490x.mrs.mail.NotificationService;
+import com.funix.swp490x.mrs.mail.SesIdentityException;
+import com.funix.swp490x.mrs.mail.SesIdentityService;
+import com.funix.swp490x.mrs.mail.SesIdentityService.Outcome;
 import com.funix.swp490x.mrs.repository.UserRepository;
 import com.funix.swp490x.mrs.security.LoginAttemptService;
 import com.funix.swp490x.mrs.security.LoginFailureHandler;
@@ -70,6 +74,9 @@ class AdminUserManagementTest {
 
     @MockitoBean
     private MailTransport mailTransport;
+
+    @MockitoBean
+    private SesIdentityService sesIdentityService;
 
     private static MrsUserDetails admin() {
         User user = new User();
@@ -239,6 +246,63 @@ class AdminUserManagementTest {
                         .with(user(new MrsUserDetails(designer, true)))
                         .with(csrf()))
                 .andExpect(status().isForbidden());
+
+        then(userRepository).should(never()).save(any(User.class));
+    }
+
+    @Test
+    void preparingARecipientAsksSesToVerifyTheAddress() throws Exception {
+        given(sesIdentityService.prepareRecipient("nina@example.com"))
+                .willReturn(Outcome.VERIFICATION_SENT);
+
+        mockMvc.perform(post(Routes.ADMIN_USER_PREPARE_RECIPIENT)
+                        .param("email", "nina@example.com")
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("sent"))
+                .andExpect(jsonPath("$.message").value(Messages.SES_VERIFICATION_SENT));
+    }
+
+    @Test
+    void preparingAnAlreadyVerifiedRecipientIsReportedAsReady() throws Exception {
+        given(sesIdentityService.prepareRecipient("nina@example.com"))
+                .willReturn(Outcome.ALREADY_VERIFIED);
+
+        mockMvc.perform(post(Routes.ADMIN_USER_PREPARE_RECIPIENT)
+                        .param("email", "nina@example.com")
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("already_verified"))
+                .andExpect(jsonPath("$.message").value(Messages.SES_ALREADY_VERIFIED));
+    }
+
+    @Test
+    void preparingAMalformedRecipientIsRejectedWithoutCallingSes() throws Exception {
+        mockMvc.perform(post(Routes.ADMIN_USER_PREPARE_RECIPIENT)
+                        .param("email", "not-an-email")
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.status").value("error"))
+                .andExpect(jsonPath("$.message").value(Messages.INVALID_EMAIL));
+
+        then(sesIdentityService).should(never()).prepareRecipient(anyString());
+    }
+
+    @Test
+    void aSesFailureIsReportedWithoutCreatingAnAccount() throws Exception {
+        given(sesIdentityService.prepareRecipient("nina@example.com"))
+                .willThrow(new SesIdentityException("no credentials"));
+
+        mockMvc.perform(post(Routes.ADMIN_USER_PREPARE_RECIPIENT)
+                        .param("email", "nina@example.com")
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().isBadGateway())
+                .andExpect(jsonPath("$.status").value("error"))
+                .andExpect(jsonPath("$.message").value(Messages.SES_VERIFICATION_FAILED));
 
         then(userRepository).should(never()).save(any(User.class));
     }
