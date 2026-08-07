@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "80b107c7-081f-4604-8132-ba33a6fe229b",
+  "epidemicTrackId": 252054,
+  "sourceProvider": "EpidemicSound",
+  "title": "Panacea",
+  "artist": "The Foundling",
+  "duration": 228,
+  "bpm": 152,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403083",
+  "publicSlug": "Su7gv76Jtg",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPBW44A3BX3Q3SKCF6XXPZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13056/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock"
+  ],
+  "moods": [
+    "Happy",
+    "Eccentric"
+  ],
+  "tags": [
+    "classic rock",
+    "bluesy",
+    "cheecky",
+    "sarcastic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

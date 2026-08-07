@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "3d4bfd57-d3c8-4c1b-8462-33d607d47d59",
+  "epidemicTrackId": 277565,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Been That (Clean Version)",
+  "artist": "Katori Walker",
+  "duration": 174,
+  "bpm": 148,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502729",
+  "publicSlug": "aVnH2p0Aa6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFVFEFPV1PA22FMDM9ARAMW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15608/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop"
+  ],
+  "moods": [
+    "Quirky",
+    "Restless"
+  ],
+  "tags": [
+    "piano",
+    "powerful"
+  ]
+}

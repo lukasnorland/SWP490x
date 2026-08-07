@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "e9f51d92-7e37-3fd8-8c81-8a9271fbade8",
+  "epidemicTrackId": 98099,
+  "sourceProvider": "EpidemicSound",
+  "title": "Write You A Love Song",
+  "artist": "Candelion",
+  "duration": 169,
+  "bpm": 125,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828896",
+  "publicSlug": "sYwyLuv1iC",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFPZWA4311TPF980EJ6REEG.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4552/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "high school",
+    "warm",
+    "cute",
+    "ballad",
+    "male vocals",
+    "lead vocals"
+  ]
+}

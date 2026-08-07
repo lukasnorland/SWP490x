@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "ab030455-ca40-4c70-834d-bfb289b0248b",
+  "epidemicTrackId": 283943,
+  "sourceProvider": "EpidemicSound",
+  "title": "Oh My God (Adam Taal Rework)",
+  "artist": "Zorro, Adam Taal",
+  "duration": 155,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600472",
+  "publicSlug": "Bl3tl8CeLw",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KQY71HK6CW5W4VDRK6JA2WFY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15386/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Electropop",
+    "2020s",
+    "2010s"
+  ],
+  "moods": [
+    "Romantic",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

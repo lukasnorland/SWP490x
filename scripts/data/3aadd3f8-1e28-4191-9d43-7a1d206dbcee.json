@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "3aadd3f8-1e28-4191-9d43-7a1d206dbcee",
+  "epidemicTrackId": 105800,
+  "sourceProvider": "EpidemicSound",
+  "title": "Pretty Carolina",
+  "artist": "Jontha Links",
+  "duration": 171,
+  "bpm": 134,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003205",
+  "publicSlug": "PtnwrbDmkO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQ6JKNCJ8D9TZNBDJAC42G.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5611/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "indie",
+    "male vocals",
+    "lead vocals",
+    "driving",
+    "electronic",
+    "rap"
+  ]
+}

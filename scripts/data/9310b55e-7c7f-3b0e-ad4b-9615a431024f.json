@@ -1,0 +1,39 @@
+{
+  "externalSourceId": "9310b55e-7c7f-3b0e-ad4b-9615a431024f",
+  "epidemicTrackId": 62237,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Love U",
+  "artist": "Loving Caliber",
+  "duration": 193,
+  "bpm": 130,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51800138",
+  "publicSlug": "ADlOWsuTRn",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNTZ03C3AS5BDJJWKPPD2V.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6112/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Eccentric"
+  ],
+  "tags": [
+    "workout",
+    "uplifting",
+    "catchy",
+    "pushing",
+    "driving",
+    "joyful",
+    "friends",
+    "party",
+    "feel good",
+    "female vocals",
+    "lead vocals",
+    "empowering",
+    "male vocals"
+  ]
+}

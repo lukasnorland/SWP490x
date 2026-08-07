@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "94f069a3-7bc8-44b2-86c8-d0df85e41ca2",
+  "epidemicTrackId": 150090,
+  "sourceProvider": "EpidemicSound",
+  "title": "He Doesn't Belong to Me",
+  "artist": "Zorro",
+  "duration": 175,
+  "bpm": 140,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400046",
+  "publicSlug": "tP3zWaswYY",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFCW94ZATHRN7H0ES7HEF2H.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11870/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Synth-pop"
+  ],
+  "moods": [
+    "Dreamy",
+    "Restless"
+  ],
+  "tags": [
+    "female vocals",
+    "eccentric",
+    "heartbreak",
+    "lead vocals"
+  ]
+}

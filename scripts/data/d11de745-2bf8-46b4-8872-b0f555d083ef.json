@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "d11de745-2bf8-46b4-8872-b0f555d083ef",
+  "epidemicTrackId": 151694,
+  "sourceProvider": "EpidemicSound",
+  "title": "After Hours, After Love",
+  "artist": "Anna Landström",
+  "duration": 263,
+  "bpm": 112,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401650",
+  "publicSlug": "jFS5kJ8leI",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG1GMNEYXYH9G108GS9YNH1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12238/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "ballad",
+    "heartfelt",
+    "lead vocals",
+    "female vocals"
+  ]
+}

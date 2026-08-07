@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "21cac9dd-a72e-41f2-80d1-953e20944fc2",
+  "epidemicTrackId": 283870,
+  "sourceProvider": "EpidemicSound",
+  "title": "SON DEL GTO",
+  "artist": "Loreana",
+  "duration": 163,
+  "bpm": 96,
+  "energyLevel": "variable",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600398",
+  "publicSlug": "lHk3CkuVVC",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KY22EQAA1E3X1PX2AHYZAJNE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15416/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Hip Hop",
+    "Latin",
+    "Beats"
+  ],
+  "moods": [
+    "Dreamy",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals"
+  ]
+}

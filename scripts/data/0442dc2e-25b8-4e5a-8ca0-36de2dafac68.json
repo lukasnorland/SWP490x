@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "0442dc2e-25b8-4e5a-8ca0-36de2dafac68",
+  "epidemicTrackId": 106438,
+  "sourceProvider": "EpidemicSound",
+  "title": "World Tour",
+  "artist": "Nbhd Nick",
+  "duration": 180,
+  "bpm": 140,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003843",
+  "publicSlug": "AF7bsozlUA",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGD4XAHJB9XAZV9DTM5BHKJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5905/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "driving",
+    "rap"
+  ]
+}

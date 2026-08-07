@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "64f872d9-342b-3004-8e8c-51207d175d4f",
+  "epidemicTrackId": 29825,
+  "sourceProvider": "EpidemicSound",
+  "title": "Vagabond Heart",
+  "artist": "Arch Tremors",
+  "duration": 276,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51827843",
+  "publicSlug": "S8Pas32uCS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMG2ADS1NJVTBGJ945KC7X.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3184/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Roots Rock"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "female vocals",
+    "slide",
+    "guitar",
+    "organ",
+    "piano",
+    "restlessness",
+    "moving on",
+    "lead vocals",
+    "semi-ballad",
+    "piano",
+    "rhodes",
+    "genuine",
+    "male vocals"
+  ]
+}

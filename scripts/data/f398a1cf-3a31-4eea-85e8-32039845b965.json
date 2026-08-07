@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "f398a1cf-3a31-4eea-85e8-32039845b965",
+  "epidemicTrackId": 277051,
+  "sourceProvider": "EpidemicSound",
+  "title": "Brahms: Zigeunerlieder, Op. 103: No. 1, He, Zigeuner, greife in die Saiten ein! Allegro agitato",
+  "artist": "Erika Sax",
+  "duration": 57,
+  "bpm": 0,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502215",
+  "publicSlug": "4iJETCGQXk",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEKZ19KM5KYNB67HNS678PP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14719/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Opera",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "piano",
+    "lead vocals",
+    "female vocals"
+  ]
+}

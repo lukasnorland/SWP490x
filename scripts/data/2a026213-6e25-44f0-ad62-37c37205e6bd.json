@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "2a026213-6e25-44f0-ad62-37c37205e6bd",
+  "epidemicTrackId": 249328,
+  "sourceProvider": "EpidemicSound",
+  "title": "Vacay Vibe",
+  "artist": "House Of Say",
+  "duration": 213,
+  "bpm": 127,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402048",
+  "publicSlug": "LSZ8yDOSCF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQ9W8RMG022DNC0VAP52VD.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12696/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance-pop"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "female vocals",
+    "dance",
+    "feel good",
+    "party",
+    "vacation",
+    "lead vocals"
+  ]
+}

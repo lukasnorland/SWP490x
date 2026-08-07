@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "edd35c2c-7ac9-3a5a-b4e3-47242f72205b",
+  "epidemicTrackId": 63311,
+  "sourceProvider": "EpidemicSound",
+  "title": "Rolling Up My Window",
+  "artist": "Jett Everill",
+  "duration": 228,
+  "bpm": 98,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828236",
+  "publicSlug": "bSOqAjZa9Y",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQBSQCBRE01P5SA76E67QV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/1736/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Classic Blues"
+  ],
+  "moods": [
+    "Relaxing",
+    "Marching"
+  ],
+  "tags": [
+    "laid back",
+    "cool",
+    "steady",
+    "male vocals",
+    "lead vocals"
+  ]
+}

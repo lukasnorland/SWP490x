@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "c9d45aff-f6f2-4890-9c2d-30572371bc62",
+  "epidemicTrackId": 103143,
+  "sourceProvider": "EpidemicSound",
+  "title": "Why We Work",
+  "artist": "Thyra",
+  "duration": 179,
+  "bpm": 109,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000556",
+  "publicSlug": "Ab445UEO6e",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGS7X3RHERT1G3V66BYH2YH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4712/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Country",
+    "Country Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "country pop",
+    "uplifting",
+    "driving",
+    "duo",
+    "male vocals"
+  ]
+}

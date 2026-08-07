@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "cbacbd1f-c00b-4e6e-9c32-90b6ebf0d9e6",
+  "epidemicTrackId": 144442,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lo Que Siento Por Ti",
+  "artist": "Caro Luna",
+  "duration": 245,
+  "bpm": 103,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203052",
+  "publicSlug": "p8ILz2CVxJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGV8HC6NVSSCNB4SMGET2JK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10582/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Salsa"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "soft lounge salsa",
+    "acoustic guitar",
+    "love song",
+    "chorus",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

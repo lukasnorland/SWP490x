@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "ec0351dc-1a76-4753-99c8-4ee884e743fa",
+  "epidemicTrackId": 150203,
+  "sourceProvider": "EpidemicSound",
+  "title": "Kaleidoscope",
+  "artist": "Kylie Dailey",
+  "duration": 176,
+  "bpm": 117,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400159",
+  "publicSlug": "RWCxNxixkv",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFBB4B4ZFRWFCHHSHYF77HG.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11719/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "mellow",
+    "slide guitar",
+    "female vocals",
+    "lead vocals"
+  ]
+}

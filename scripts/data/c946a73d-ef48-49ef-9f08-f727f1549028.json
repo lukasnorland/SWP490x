@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "c946a73d-ef48-49ef-9f08-f727f1549028",
+  "epidemicTrackId": 283121,
+  "sourceProvider": "EpidemicSound",
+  "title": "Just Watch",
+  "artist": "Katori Walker",
+  "duration": 175,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52503261",
+  "publicSlug": "3QyttqU57j",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE48FEBC57WYFVYT2X4V12F.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15899/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "West Coast Hip Hop",
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "restless"
+  ]
+}

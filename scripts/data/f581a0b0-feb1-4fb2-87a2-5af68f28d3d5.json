@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "f581a0b0-feb1-4fb2-87a2-5af68f28d3d5",
+  "epidemicTrackId": 138435,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lonely Party",
+  "artist": "Arc De Soleil",
+  "duration": 178,
+  "bpm": 107,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52101825",
+  "publicSlug": "K2a09lu7Mo",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGKP582EH8GW778HM6T62KQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6547/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Balearic Beat",
+    "R&B"
+  ],
+  "moods": [
+    "Restless",
+    "Smooth"
+  ],
+  "tags": [
+    "Balearic",
+    "indie pop",
+    "lead vocals",
+    "male vocals"
+  ]
+}

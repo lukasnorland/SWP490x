@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "fab21fd0-95ac-3a70-93b0-ede5ec071983",
+  "epidemicTrackId": 101335,
+  "sourceProvider": "EpidemicSound",
+  "title": "Good Vibes Only",
+  "artist": "Nbhd Nick",
+  "duration": 148,
+  "bpm": 92,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51902901",
+  "publicSlug": "GonknWen4d",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTES8BJ280JWC94ETJRFRG2G.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4182/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop"
+  ],
+  "moods": [
+    "Relaxing",
+    "Sentimental"
+  ],
+  "tags": [
+    "old school",
+    "trap",
+    "electronic",
+    "rap"
+  ]
+}

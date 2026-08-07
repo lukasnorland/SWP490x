@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "ae6c3432-d174-363e-a420-2253abaf20bc",
+  "epidemicTrackId": 65805,
+  "sourceProvider": "EpidemicSound",
+  "title": "Her Search For The Sun",
+  "artist": "OTE",
+  "duration": 227,
+  "bpm": 79,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51827293",
+  "publicSlug": "MSaN9s0FW1",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE1C36GKKR0MB2J8EJ9030N.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15566/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Sad",
+    "Dreamy"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "sentimental",
+    "reminiscence",
+    "gloomy",
+    "male vocals"
+  ]
+}

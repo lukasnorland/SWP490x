@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "8ca0b243-f5ed-4645-be97-9747d4404cf4",
+  "epidemicTrackId": 106974,
+  "sourceProvider": "EpidemicSound",
+  "title": "Thank You!",
+  "artist": "JOYSPRING",
+  "duration": 236,
+  "bpm": 82,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52100134",
+  "publicSlug": "0wDzXYm8BP",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG5MFKWV2EF455GCKE93BZK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6048/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "thankful",
+    "humble",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

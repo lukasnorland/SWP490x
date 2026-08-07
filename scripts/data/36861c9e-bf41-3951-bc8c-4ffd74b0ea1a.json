@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "36861c9e-bf41-3951-bc8c-4ffd74b0ea1a",
+  "epidemicTrackId": 65554,
+  "sourceProvider": "EpidemicSound",
+  "title": "A Song",
+  "artist": "Lars Lowe",
+  "duration": 211,
+  "bpm": 85,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51800278",
+  "publicSlug": "7fCWIQWfYG",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH8AQ3BD88TKPE4BDPRAX3A.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/366/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Dreamy",
+    "Mysterious"
+  ],
+  "tags": [
+    "ballad",
+    "contemporay",
+    "minimal",
+    "beautiful",
+    "lead vocals",
+    "female vocals",
+    "pop",
+    "slow",
+    "male vocals"
+  ]
+}

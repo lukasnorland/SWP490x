@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "f8750f4e-0c89-43cf-9ea2-bd5a5b2db7f2",
+  "epidemicTrackId": 143674,
+  "sourceProvider": "EpidemicSound",
+  "title": "Summer Love",
+  "artist": "Kylie Dailey",
+  "duration": 216,
+  "bpm": 103,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52202288",
+  "publicSlug": "mdQqFrBln2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEF59TCRH8ZAXKWB1SGZ9AT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8883/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Contemporary Folk",
+    "Acoustic"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "smooth",
+    "guitar",
+    "laid back",
+    "sentimental",
+    "indie",
+    "downtempo",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "b947de3c-b1b1-4ebc-9f2c-a8b6626629db",
+  "epidemicTrackId": 145626,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Cycle",
+  "artist": "Sleepaway Camp",
+  "duration": 181,
+  "bpm": 59,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52204236",
+  "publicSlug": "o5F3ILhyYF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEWD3J3R88T2BD3C9HA6N5K.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9965/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Sad",
+    "Hopeful"
+  ],
+  "tags": [
+    "indie",
+    "pop",
+    "laid back",
+    "piano",
+    "sentimental",
+    "acoustic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

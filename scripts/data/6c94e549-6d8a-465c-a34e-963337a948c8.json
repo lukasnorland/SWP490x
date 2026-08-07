@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "6c94e549-6d8a-465c-a34e-963337a948c8",
+  "epidemicTrackId": 252398,
+  "sourceProvider": "EpidemicSound",
+  "title": "Tú No Me Querías (Clean Version)",
+  "artist": "Ratchetón",
+  "duration": 138,
+  "bpm": 86,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403427",
+  "publicSlug": "wF93KiCTrK",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHGWNBVAPG1DQB7GVB74Q6A.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13803/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Cumbia Mexicana",
+    "Acoustic",
+    "Mexico"
+  ],
+  "moods": [
+    "Happy",
+    "Quirky"
+  ],
+  "tags": [
+    "laid back",
+    "cowbell",
+    "percussion",
+    "accordion",
+    "lead vocals",
+    "male vocals"
+  ]
+}

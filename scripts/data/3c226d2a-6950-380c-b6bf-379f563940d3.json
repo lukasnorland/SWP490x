@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "3c226d2a-6950-380c-b6bf-379f563940d3",
+  "epidemicTrackId": 97037,
+  "sourceProvider": "EpidemicSound",
+  "title": "Feeling Free",
+  "artist": "Jesse Lawrence",
+  "duration": 274,
+  "bpm": 113,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51825407",
+  "publicSlug": "F4uWKJ1d6F",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG10BZ426ZQ0M08S0SRH08J.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/689/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul",
+    "R&B"
+  ],
+  "moods": [
+    "Hopeful",
+    "Euphoric"
+  ],
+  "tags": [
+    "driving",
+    "uplifting",
+    "lead vocals",
+    "moog",
+    "flying",
+    "drums",
+    "big choir",
+    "female vocals",
+    "male vocals"
+  ]
+}

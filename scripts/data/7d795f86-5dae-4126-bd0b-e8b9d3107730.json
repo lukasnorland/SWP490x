@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "7d795f86-5dae-4126-bd0b-e8b9d3107730",
+  "epidemicTrackId": 105474,
+  "sourceProvider": "EpidemicSound",
+  "title": "D.A.D",
+  "artist": "Nbhd Nick",
+  "duration": 139,
+  "bpm": 140,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002879",
+  "publicSlug": "9ClIFnI78r",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGSZY2MY2E6VF2K2XEHZH7Q.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5702/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "rap",
+    "electronic",
+    "driving"
+  ]
+}

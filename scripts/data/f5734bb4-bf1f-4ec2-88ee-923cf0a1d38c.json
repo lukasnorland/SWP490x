@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "f5734bb4-bf1f-4ec2-88ee-923cf0a1d38c",
+  "epidemicTrackId": 140660,
+  "sourceProvider": "EpidemicSound",
+  "title": "Love Will Save the Day",
+  "artist": "House Of Say",
+  "duration": 192,
+  "bpm": 127,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52103935",
+  "publicSlug": "3A17T67BJV",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPZJWQRN7CP4KF6CD13QVF.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8357/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "House",
+    "Dance-pop"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "energetic",
+    "vibrant",
+    "clap",
+    "moving on",
+    "strong",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

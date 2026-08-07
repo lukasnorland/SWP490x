@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "b8efaad1-37e2-4b53-a805-c80e9dc05266",
+  "epidemicTrackId": 199900,
+  "sourceProvider": "EpidemicSound",
+  "title": "Chichal (Clean Version)",
+  "artist": "Lawd Ito",
+  "duration": 172,
+  "bpm": 125,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401785",
+  "publicSlug": "3i6MsTMgGv",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE54F5KHRNSDA47V4WNZWBN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13793/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dembow",
+    "Dominican Republic"
+  ],
+  "moods": [
+    "Eccentric",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "powerful",
+    "dark"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "28c34a5c-6fd0-4d8d-a57a-52fb9c5c4ca1",
+  "epidemicTrackId": 144872,
+  "sourceProvider": "EpidemicSound",
+  "title": "O Que Ficou",
+  "artist": "Clara Mendes",
+  "duration": 186,
+  "bpm": 102,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203482",
+  "publicSlug": "yHRLmFNc5P",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEKTBRFZKE092MVVVNJQG0X.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9390/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Bossa Nova"
+  ],
+  "moods": [
+    "Romantic",
+    "Dreamy"
+  ],
+  "tags": [
+    "coffee shop",
+    "bossa nova",
+    "classical guitar",
+    "piano",
+    "laid back",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

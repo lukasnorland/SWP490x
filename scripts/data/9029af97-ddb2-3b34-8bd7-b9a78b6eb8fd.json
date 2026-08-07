@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "9029af97-ddb2-3b34-8bd7-b9a78b6eb8fd",
+  "epidemicTrackId": 64915,
+  "sourceProvider": "EpidemicSound",
+  "title": "Heart Made of Stone",
+  "artist": "Ten Towers",
+  "duration": 238,
+  "bpm": 65,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828345",
+  "publicSlug": "SAiMfIa6Aa",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGN2TYER70716N1HXMPKVX9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2223/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Contemporary Folk"
+  ],
+  "moods": [
+    "Romantic",
+    "Dreamy"
+  ],
+  "tags": [
+    "slow",
+    "ballad",
+    "lead vocals",
+    "male vocals",
+    "slide",
+    "acoustic",
+    "sleeping"
+  ]
+}

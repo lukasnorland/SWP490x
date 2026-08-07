@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "3f26993c-b839-481d-ad9e-19d30f1214ec",
+  "epidemicTrackId": 254091,
+  "sourceProvider": "EpidemicSound",
+  "title": "Arrebatao (Clean Version)",
+  "artist": "Lawd Ito",
+  "duration": 235,
+  "bpm": 180,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500745",
+  "publicSlug": "5XSYC0eirh",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH410S8JW88DAR34DN1J98K.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13934/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Salsa",
+    "Latin Pop",
+    "Acoustic",
+    "Cuba"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "bongos",
+    "trumpet",
+    "percussion",
+    "piano",
+    "lead vocals",
+    "male vocals"
+  ]
+}

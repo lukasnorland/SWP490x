@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "5b7d1e23-e612-37f5-92c4-bf8f923fbc14",
+  "epidemicTrackId": 28414,
+  "sourceProvider": "EpidemicSound",
+  "title": "Number One",
+  "artist": "Romaro",
+  "duration": 183,
+  "bpm": 80,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51806381",
+  "publicSlug": "LSoOzkJiJI",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFZWQMTETT7KRXGM81CRFVP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "R&B"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "happy",
+    "relationship",
+    "love",
+    "sun",
+    "epic",
+    "lead vocals",
+    "ballad",
+    "female vocals",
+    "male vocals"
+  ]
+}

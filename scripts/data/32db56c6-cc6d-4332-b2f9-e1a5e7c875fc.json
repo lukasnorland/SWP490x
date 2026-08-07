@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "32db56c6-cc6d-4332-b2f9-e1a5e7c875fc",
+  "epidemicTrackId": 150314,
+  "sourceProvider": "EpidemicSound",
+  "title": "truth is",
+  "artist": "SRA",
+  "duration": 205,
+  "bpm": 115,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400270",
+  "publicSlug": "dhDaLCrC2h",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFEC13AZZW1T26ZQBHT910D.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11607/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "korean",
+    "hopeful",
+    "upbeat",
+    "feelgood",
+    "jazzy",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

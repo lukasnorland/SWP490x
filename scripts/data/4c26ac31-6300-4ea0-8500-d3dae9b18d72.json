@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "4c26ac31-6300-4ea0-8500-d3dae9b18d72",
+  "epidemicTrackId": 149390,
+  "sourceProvider": "EpidemicSound",
+  "title": "Crucified",
+  "artist": "Heyson",
+  "duration": 232,
+  "bpm": 135,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52304524",
+  "publicSlug": "V0Ibkqqxv2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGRVRNBZW1MQD97H5BFJ715.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11558/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Eurodance",
+    "1990s"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "upbeat",
+    "energetic",
+    "90s",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "e64d0558-4897-48ef-bb42-9a27b5ebe9a8",
+  "epidemicTrackId": 106037,
+  "sourceProvider": "EpidemicSound",
+  "title": "Let Me Be Somebody Else",
+  "artist": "Nikki Gee",
+  "duration": 217,
+  "bpm": 114,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003442",
+  "publicSlug": "Ce57ujb5FK",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEA484SXMKG1M0PHQ5EEWXX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5642/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "1980s"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "groove",
+    "funky",
+    "driving"
+  ]
+}

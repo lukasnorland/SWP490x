@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "2a1abfe8-9d5e-3f8d-a23a-5cded842dcd0",
+  "epidemicTrackId": 59943,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Just Don't",
+  "artist": "Martin Hall",
+  "duration": 225,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51825747",
+  "publicSlug": "Fq5HIim9Kw",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFT3F0HFYNX88JVKFX8G8FQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14332/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s",
+    "Drama"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "relationship",
+    "reminisce",
+    "piano",
+    "male vocals",
+    "lead vocals"
+  ]
+}

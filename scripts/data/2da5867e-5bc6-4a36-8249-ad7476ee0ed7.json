@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "2da5867e-5bc6-4a36-8249-ad7476ee0ed7",
+  "epidemicTrackId": 253645,
+  "sourceProvider": "EpidemicSound",
+  "title": "Time Will Tell",
+  "artist": "King Sis",
+  "duration": 168,
+  "bpm": 103,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500299",
+  "publicSlug": "yRekHLgS4O",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGD6VCJ6BES43TTZQZKS3JA.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14639/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats",
+    "Contemporary R&B"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "upbeat",
+    "laid back",
+    "guitar",
+    "percussion",
+    "lead vocals",
+    "female vocals"
+  ]
+}

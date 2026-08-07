@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "4411548a-c8b5-3c19-9309-e1d7c72bee58",
+  "epidemicTrackId": 59484,
+  "sourceProvider": "EpidemicSound",
+  "title": "As the Sun Goes Down",
+  "artist": "Tomas Skyldeberg",
+  "duration": 342,
+  "bpm": 118,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51818557",
+  "publicSlug": "USLDST6mKb",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJZQ8QV6CYBQNVTVF2QZC4E2.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/1840/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soft House"
+  ],
+  "moods": [
+    "Relaxing",
+    "Dreamy"
+  ],
+  "tags": [
+    "contemporary",
+    "sun",
+    "clouds",
+    "air",
+    "wind",
+    "walking",
+    "electronic"
+  ]
+}

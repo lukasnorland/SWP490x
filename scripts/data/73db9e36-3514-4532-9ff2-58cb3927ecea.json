@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "73db9e36-3514-4532-9ff2-58cb3927ecea",
+  "epidemicTrackId": 151584,
+  "sourceProvider": "EpidemicSound",
+  "title": "CHASE",
+  "artist": "Nyck Caution",
+  "duration": 122,
+  "bpm": 157,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52401540",
+  "publicSlug": "2quNbR2V7y",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPV9WYVYD2RCBSDZJ0D8H3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12228/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Angry",
+    "Dark"
+  ],
+  "tags": [
+    "powerful",
+    "aggressive",
+    "lead vocals",
+    "male vocals"
+  ]
+}

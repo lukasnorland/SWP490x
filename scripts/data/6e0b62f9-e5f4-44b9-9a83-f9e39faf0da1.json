@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "6e0b62f9-e5f4-44b9-9a83-f9e39faf0da1",
+  "epidemicTrackId": 276522,
+  "sourceProvider": "EpidemicSound",
+  "title": "PTSD (Clean Version)",
+  "artist": "Katori Walker",
+  "duration": 180,
+  "bpm": 88,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501677",
+  "publicSlug": "qdYuRJJxg6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJKHZAZT38YWANBTCPHJ05A.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14783/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "West Coast Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Angry",
+    "Dreamy"
+  ],
+  "tags": [
+    "dark",
+    "powerful"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "e463e87c-b9d5-4b0a-b2cf-55829f502b5e",
+  "epidemicTrackId": 253970,
+  "sourceProvider": "EpidemicSound",
+  "title": "Heavenly",
+  "artist": "Ludlów",
+  "duration": 217,
+  "bpm": 96,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500624",
+  "publicSlug": "pxz4Ia2qVC",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEVAP52T7KRBPA9TREM83WR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14121/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Laid Back",
+    "Quirky"
+  ],
+  "tags": [
+    "guitar",
+    "dreamy",
+    "woodblock",
+    "alternative",
+    "lead vocals",
+    "female vocals"
+  ]
+}

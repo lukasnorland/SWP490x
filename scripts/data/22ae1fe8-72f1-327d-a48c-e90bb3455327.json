@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "22ae1fe8-72f1-327d-a48c-e90bb3455327",
+  "epidemicTrackId": 96053,
+  "sourceProvider": "EpidemicSound",
+  "title": "Can I Help It",
+  "artist": "John T. Graham",
+  "duration": 196,
+  "bpm": 126,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51825706",
+  "publicSlug": "KV340xKiNT",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEREE2K4A3N3C6NC3SVH5Y4.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3697/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Classic Blues",
+    "Modern Blues",
+    "Usa"
+  ],
+  "moods": [
+    "Happy",
+    "Romantic"
+  ],
+  "tags": [
+    "steady",
+    "groovy",
+    "energetic",
+    "bar",
+    "twelve bar",
+    "confident",
+    "lead vocals",
+    "romance",
+    "texas",
+    "stratocaster",
+    "male vocals"
+  ]
+}

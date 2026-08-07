@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "ec53ddd0-f9c1-4ea8-b6b2-464d9264b5e6",
+  "epidemicTrackId": 149207,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Get in My Own Way",
+  "artist": "Kylie Dailey",
+  "duration": 280,
+  "bpm": 145,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52303503",
+  "publicSlug": "vpqbnIGFDA",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE2AK61H5B6XTTGE6PH79ZS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11688/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Americana",
+    "2020s"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "female vocals",
+    "acoustic",
+    "relaxing",
+    "guitar",
+    "bass",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "4535e68e-006a-3f82-9eed-e9b140d4b2d0",
+  "epidemicTrackId": 102521,
+  "sourceProvider": "EpidemicSound",
+  "title": "Toxic Love",
+  "artist": "Lvly",
+  "duration": 205,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51904062",
+  "publicSlug": "EVZwkc2SwJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFTSY2X73FCWZYG5BN7GG3Y.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4590/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Dance",
+    "2010s"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "finger snaps",
+    "hopeful",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

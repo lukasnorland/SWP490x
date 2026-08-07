@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "4fa7c008-b3e2-4c6e-aade-011c102ac206",
+  "epidemicTrackId": 254242,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dawn of Eternity",
+  "artist": "DEX 1200",
+  "duration": 183,
+  "bpm": 52,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500896",
+  "publicSlug": "HJLM7dS2ry",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH4RMNP3R3WXB6CT890E5YR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13973/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Ambient Pop",
+    "Ambient"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "piano",
+    "romantic",
+    "violin",
+    "lead vocals",
+    "female vocals"
+  ]
+}

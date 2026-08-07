@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "57e2d79b-f2b9-41ca-bcb8-3e2d4709410a",
+  "epidemicTrackId": 150278,
+  "sourceProvider": "EpidemicSound",
+  "title": "Snakes and Fire",
+  "artist": "Pär Hagström",
+  "duration": 261,
+  "bpm": 132,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52400234",
+  "publicSlug": "mQVfx1feGP",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMDZ3TYR3J5BYZXEJ3Y15V.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11887/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "retro",
+    "religion",
+    "lead vocals",
+    "male vocals"
+  ]
+}

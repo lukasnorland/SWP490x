@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "a6e46225-222c-4e37-8b8b-33257977d5db",
+  "epidemicTrackId": 254434,
+  "sourceProvider": "EpidemicSound",
+  "title": "Make a Way",
+  "artist": "Hector Gabriel",
+  "duration": 325,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501088",
+  "publicSlug": "FeJMMUWtyq",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE4BE54CE98JFKCE6QDAD9P.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14116/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian",
+    "Praise & Worship"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "sentimental",
+    "guitar",
+    "christian pop",
+    "piano",
+    "lead vocals",
+    "male vocals"
+  ]
+}

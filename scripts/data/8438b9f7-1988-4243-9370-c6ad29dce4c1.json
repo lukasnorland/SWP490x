@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "8438b9f7-1988-4243-9370-c6ad29dce4c1",
+  "epidemicTrackId": 140053,
+  "sourceProvider": "EpidemicSound",
+  "title": "Need Your Touch",
+  "artist": "Basixx",
+  "duration": 187,
+  "bpm": 104,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52103328",
+  "publicSlug": "dJrlFmBqHH",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEPCPW2HPZXERVPM7MM6DAN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7835/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance",
+    "Dance-pop"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "Spin",
+    "Gym",
+    "synth",
+    "energetic",
+    "euphoric",
+    "upbeat",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

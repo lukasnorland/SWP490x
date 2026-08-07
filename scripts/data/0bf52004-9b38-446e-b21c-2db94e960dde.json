@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "0bf52004-9b38-446e-b21c-2db94e960dde",
+  "epidemicTrackId": 277433,
+  "sourceProvider": "EpidemicSound",
+  "title": "Clever",
+  "artist": "Bankston",
+  "duration": 168,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502597",
+  "publicSlug": "KlFyuMySLg",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ7RNEKHACYK1Y00HXZ9R3S.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14838/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dark"
+  ],
+  "tags": [
+    "upbeat",
+    "lead vocals",
+    "male vocals"
+  ]
+}

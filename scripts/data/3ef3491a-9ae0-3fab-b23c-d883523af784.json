@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "3ef3491a-9ae0-3fab-b23c-d883523af784",
+  "epidemicTrackId": 100943,
+  "sourceProvider": "EpidemicSound",
+  "title": "Mexico",
+  "artist": "Gamma Skies",
+  "duration": 185,
+  "bpm": 100,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51902502",
+  "publicSlug": "QCxuw1BAba",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGSK1ZXHM5FNQGXMF9B1JHN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3903/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Electronic",
+    "Beats"
+  ],
+  "moods": [
+    "Mysterious",
+    "Laid Back"
+  ],
+  "tags": [
+    "sexy",
+    "sad",
+    "ambient",
+    "chill",
+    "dark",
+    "dreamy",
+    "vibes",
+    "cool",
+    "underground",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

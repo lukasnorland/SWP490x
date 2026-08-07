@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "00da76b3-a360-4215-835d-9bc40d235692",
+  "epidemicTrackId": 146115,
+  "sourceProvider": "EpidemicSound",
+  "title": "Show Me Life",
+  "artist": "Siine",
+  "duration": 177,
+  "bpm": 118,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300411",
+  "publicSlug": "oiRSyTYRR1",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJFBXKE2587SSKZFE89WZVA.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9877/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "upbeat",
+    "pumped",
+    "positive",
+    "joyful",
+    "lead vocals",
+    "male vocals",
+    "heart17",
+    "heart 17"
+  ]
+}

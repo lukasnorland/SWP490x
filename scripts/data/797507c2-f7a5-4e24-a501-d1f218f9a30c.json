@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "797507c2-f7a5-4e24-a501-d1f218f9a30c",
+  "epidemicTrackId": 104108,
+  "sourceProvider": "EpidemicSound",
+  "title": "Falling Through",
+  "artist": "Particle House",
+  "duration": 190,
+  "bpm": 106,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52001516",
+  "publicSlug": "MmSGr1ovcY",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTETBPE89PDN7Z9P21K8MEK2.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5170/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Alternative Pop",
+    "1980s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "driving",
+    "electric guitar",
+    "retro"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "57571221-6142-3215-b37e-37ccac465416",
+  "epidemicTrackId": 97843,
+  "sourceProvider": "EpidemicSound",
+  "title": "Here I Go",
+  "artist": "Wildflowers",
+  "duration": 229,
+  "bpm": 116,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51827514",
+  "publicSlug": "7FfEpj6ao8",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGKZJAJP73FM7XSEJDTETRW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2603/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Country"
+  ],
+  "moods": [
+    "Happy",
+    "Euphoric"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "driving",
+    "uplfting"
+  ]
+}

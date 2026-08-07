@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "a3dea336-b08f-4763-827b-dd1f5e33dfbe",
+  "epidemicTrackId": 150495,
+  "sourceProvider": "EpidemicSound",
+  "title": "WYWD",
+  "artist": "Baha Bank$",
+  "duration": 149,
+  "bpm": 94,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52400451",
+  "publicSlug": "AhWP307gKk",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHB3BRT7FNYE0FGQYQCDCQB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11796/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Smooth"
+  ],
+  "tags": [
+    "rap",
+    "female rapper",
+    "happy"
+  ]
+}

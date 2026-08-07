@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "76c8482f-081c-4eb9-9df8-01ab20d909f6",
+  "epidemicTrackId": 253780,
+  "sourceProvider": "EpidemicSound",
+  "title": "Original Grind",
+  "artist": "Janset",
+  "duration": 165,
+  "bpm": 150,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500434",
+  "publicSlug": "96TxJi221i",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGSK1MBVR4HXFRRX87J5B3X.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14284/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Phonk",
+    "Britain",
+    "Beats"
+  ],
+  "moods": [
+    "Angry",
+    "Dark"
+  ],
+  "tags": [
+    "attitude",
+    "synth",
+    "bass line",
+    "drum kit"
+  ]
+}

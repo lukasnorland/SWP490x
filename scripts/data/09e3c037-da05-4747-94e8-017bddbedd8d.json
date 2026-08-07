@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "09e3c037-da05-4747-94e8-017bddbedd8d",
+  "epidemicTrackId": 254369,
+  "sourceProvider": "EpidemicSound",
+  "title": "Flaws",
+  "artist": "Tommy Ljungberg",
+  "duration": 209,
+  "bpm": 111,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501023",
+  "publicSlug": "dsTTwb32i1",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH8AQ7D87G8SHY58N22MN7A.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14048/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Rock",
+    "Acoustic Rock",
+    "Acoustic"
+  ],
+  "moods": [
+    "Dark",
+    "Sentimental"
+  ],
+  "tags": [
+    "nostalgic",
+    "violins",
+    "lead vocals",
+    "male vocals"
+  ]
+}

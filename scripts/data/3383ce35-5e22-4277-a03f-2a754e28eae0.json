@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "3383ce35-5e22-4277-a03f-2a754e28eae0",
+  "epidemicTrackId": 277609,
+  "sourceProvider": "EpidemicSound",
+  "title": "FXCKX OUR NIGHT (Clean Version)",
+  "artist": "Zorro",
+  "duration": 169,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502772",
+  "publicSlug": "DQOARKOOlt",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFR629QVYCX5Z1SYPPF1NCQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15090/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance-pop"
+  ],
+  "moods": [
+    "Chasing",
+    "Dark"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals"
+  ]
+}

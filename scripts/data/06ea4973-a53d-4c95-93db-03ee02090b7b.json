@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "06ea4973-a53d-4c95-93db-03ee02090b7b",
+  "epidemicTrackId": 249179,
+  "sourceProvider": "EpidemicSound",
+  "title": "Whatever Will Become of You and I?",
+  "artist": "Roy Williams",
+  "duration": 155,
+  "bpm": 85,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401899",
+  "publicSlug": "tMlVCbo6Rx",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG5MFNVJ03K8069NCVDYG10.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12698/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Country Folk",
+    "Usa"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "duet",
+    "electric guitar",
+    "violin",
+    "strings",
+    "calm",
+    "smooth",
+    "relaxing",
+    "female vocals",
+    "male vocals",
+    "lead vocals"
+  ]
+}

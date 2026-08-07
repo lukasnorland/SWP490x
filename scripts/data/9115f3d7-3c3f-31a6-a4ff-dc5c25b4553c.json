@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "9115f3d7-3c3f-31a6-a4ff-dc5c25b4553c",
+  "epidemicTrackId": 99368,
+  "sourceProvider": "EpidemicSound",
+  "title": "This Is The Time (Cospe Remix)",
+  "artist": "Sugar Blizz",
+  "duration": 203,
+  "bpm": 54,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51900924",
+  "publicSlug": "uDT505OCeQ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFCMY3E9M5KDM3JWEMSGMK0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2593/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Electronic",
+    "Beats"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sexy"
+  ],
+  "tags": [
+    "modern",
+    "female vocals",
+    "sexy",
+    "indie",
+    "electronic",
+    "chilled",
+    "lead vocals",
+    "male vocals"
+  ]
+}

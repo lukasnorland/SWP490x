@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "fe333894-50dc-36bd-a4ae-1a45dcf903ed",
+  "epidemicTrackId": 97659,
+  "sourceProvider": "EpidemicSound",
+  "title": "I'm Falling In Love",
+  "artist": "Wildflowers",
+  "duration": 184,
+  "bpm": 96,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828647",
+  "publicSlug": "pzXmtTHWfH",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTET876R1JMQHF8CKYVRA9T2.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/707/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Country"
+  ],
+  "moods": [
+    "Happy",
+    "Romantic"
+  ],
+  "tags": [
+    "confident",
+    "uplifting",
+    "driving",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

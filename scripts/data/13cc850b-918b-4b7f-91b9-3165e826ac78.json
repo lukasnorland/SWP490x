@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "13cc850b-918b-4b7f-91b9-3165e826ac78",
+  "epidemicTrackId": 284206,
+  "sourceProvider": "EpidemicSound",
+  "title": "Heart Mantra",
+  "artist": "Aks & Lakshmi",
+  "duration": 175,
+  "bpm": 64,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600680",
+  "publicSlug": "QiFf0d3wGJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KKGVGVVKB6C4QWWFV1XJ45H0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15777/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Meditation"
+  ],
+  "moods": [
+    "Relaxing",
+    "Peaceful"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals"
+  ]
+}

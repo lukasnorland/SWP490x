@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "794d13ff-14b1-3733-a65e-210ddbfc5f82",
+  "epidemicTrackId": 96824,
+  "sourceProvider": "EpidemicSound",
+  "title": "Christmas Memories",
+  "artist": "Loving Caliber",
+  "duration": 207,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51801050",
+  "publicSlug": "TJyn0fsIh2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEP2SE8FM8T3D31P2G23AZ0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/597/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Christmas"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "uplifting",
+    "lead vocals",
+    "female vocals",
+    "holiday",
+    "love",
+    "positive",
+    "warm",
+    "male vocals"
+  ]
+}

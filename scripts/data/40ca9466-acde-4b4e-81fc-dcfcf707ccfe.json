@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "40ca9466-acde-4b4e-81fc-dcfcf707ccfe",
+  "epidemicTrackId": 104095,
+  "sourceProvider": "EpidemicSound",
+  "title": "Evil Rise",
+  "artist": "Sightless in Shadow",
+  "duration": 291,
+  "bpm": 173,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52001503",
+  "publicSlug": "ZMokHiIG6c",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE6M7H7N8N6QMBH39SQ9BBG.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5080/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Metal"
+  ],
+  "moods": [
+    "Angry",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "running",
+    "aggressive",
+    "male vocals",
+    "lead vocals",
+    "driving"
+  ]
+}

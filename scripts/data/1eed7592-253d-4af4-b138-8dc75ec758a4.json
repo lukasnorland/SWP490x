@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "1eed7592-253d-4af4-b138-8dc75ec758a4",
+  "epidemicTrackId": 283451,
+  "sourceProvider": "EpidemicSound",
+  "title": "That's Love",
+  "artist": "Mr. Steve, The Music Man",
+  "duration": 189,
+  "bpm": 107,
+  "energyLevel": "variable",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503591",
+  "publicSlug": "FHiCedRXBX",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KNPPT4S0ETBW1157W5GZXAY3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15612/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Singer-songwriter",
+    "Nostalgia"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

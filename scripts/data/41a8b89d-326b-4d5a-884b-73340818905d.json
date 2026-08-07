@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "41a8b89d-326b-4d5a-884b-73340818905d",
+  "epidemicTrackId": 145940,
+  "sourceProvider": "EpidemicSound",
+  "title": "Matter of Time",
+  "artist": "Zorro",
+  "duration": 198,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300236",
+  "publicSlug": "9z97TlfYM6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFJJ3RHVEESDGH6VQG8WGMA.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10550/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "upbeat",
+    "sweet",
+    "positive",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

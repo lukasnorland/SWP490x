@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "2ef59d19-9737-47d4-9330-34c149a39dee",
+  "epidemicTrackId": 141816,
+  "sourceProvider": "EpidemicSound",
+  "title": "A Mi Madre",
+  "artist": "Caro Luna",
+  "duration": 272,
+  "bpm": 0,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200430",
+  "publicSlug": "UCyim1Cnwt",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF818N8AYSH0QT0H0KVZN9B.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8725/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Salsa"
+  ],
+  "moods": [
+    "Relaxing",
+    "Laid Back"
+  ],
+  "tags": [
+    "spanish",
+    "español",
+    "strings",
+    "violin",
+    "mother",
+    "piano",
+    "dreamy",
+    "cello",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

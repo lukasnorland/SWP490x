@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "ba5b557f-cbbc-48bf-a40c-99525ac7453c",
+  "epidemicTrackId": 104772,
+  "sourceProvider": "EpidemicSound",
+  "title": "Love Love Love",
+  "artist": "OTE",
+  "duration": 202,
+  "bpm": 121,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002177",
+  "publicSlug": "0AVtDJUa2C",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFJC5EW3NM5FYA3221VCDN8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5281/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Hopeful",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "guitar",
+    "heavy",
+    "driving",
+    "happy"
+  ]
+}

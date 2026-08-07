@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "a70ce3b7-2c48-4d69-bb68-d9627323db00",
+  "epidemicTrackId": 107592,
+  "sourceProvider": "EpidemicSound",
+  "title": "Present",
+  "artist": "Adelyn Paik",
+  "duration": 237,
+  "bpm": 63,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52100752",
+  "publicSlug": "b1Oq8Scoei",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNH8PCV14SG7VQ9W7YC1G9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6232/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful",
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "ballad",
+    "korean",
+    "sweet",
+    "piano",
+    "strings",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

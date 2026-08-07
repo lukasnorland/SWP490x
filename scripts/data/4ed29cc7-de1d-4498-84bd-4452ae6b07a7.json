@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "4ed29cc7-de1d-4498-84bd-4452ae6b07a7",
+  "epidemicTrackId": 104674,
+  "sourceProvider": "EpidemicSound",
+  "title": "Summer State of Mind",
+  "artist": "Katnip",
+  "duration": 196,
+  "bpm": 114,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002079",
+  "publicSlug": "ihWP8Cs3Ls",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG44G70YBDKQJ9DY28WCERG.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5252/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Electronic",
+    "Dance-pop",
+    "Beats"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "pop",
+    "female vocals",
+    "lead vocals",
+    "driving",
+    "electronic",
+    "male vocals"
+  ]
+}

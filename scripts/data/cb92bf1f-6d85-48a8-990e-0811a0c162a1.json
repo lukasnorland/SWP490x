@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "cb92bf1f-6d85-48a8-990e-0811a0c162a1",
+  "epidemicTrackId": 104371,
+  "sourceProvider": "EpidemicSound",
+  "title": "Vibrations of the Universe",
+  "artist": "Psüche",
+  "duration": 174,
+  "bpm": 174,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52001776",
+  "publicSlug": "40RRc97QOW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH7S3N40VXM6JFCZYPARRX9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5250/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Punk Rock",
+    "Punk",
+    "Psychedelic Rock",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Eccentric",
+    "Euphoric"
+  ],
+  "tags": [
+    "psuche",
+    "male vocals",
+    "lead vocals",
+    "dist",
+    "driving"
+  ]
+}

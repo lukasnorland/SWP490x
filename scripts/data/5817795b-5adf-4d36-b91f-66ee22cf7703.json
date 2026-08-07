@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "5817795b-5adf-4d36-b91f-66ee22cf7703",
+  "epidemicTrackId": 284400,
+  "sourceProvider": "EpidemicSound",
+  "title": "Back to Blue",
+  "artist": "Victor Lundberg",
+  "duration": 161,
+  "bpm": 88,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600874",
+  "publicSlug": "FFmu1j2WsN",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KPZ7ACDMHKSXZ09M1FVX9XA2.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15818/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Acoustic",
+    "Nostalgia"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

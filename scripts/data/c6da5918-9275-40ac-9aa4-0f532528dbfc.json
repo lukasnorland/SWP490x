@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "c6da5918-9275-40ac-9aa4-0f532528dbfc",
+  "epidemicTrackId": 142122,
+  "sourceProvider": "EpidemicSound",
+  "title": "Slide On Me",
+  "artist": "Zorro",
+  "duration": 191,
+  "bpm": 153,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200736",
+  "publicSlug": "bGszvphooL",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHRQS5R6RSZ6CB43TD4AZW7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8581/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hyperpop",
+    "Electronic",
+    "Beats"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "empowering",
+    "energetic",
+    "fierce",
+    "pop",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

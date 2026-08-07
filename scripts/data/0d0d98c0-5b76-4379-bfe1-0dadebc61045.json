@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "0d0d98c0-5b76-4379-bfe1-0dadebc61045",
+  "epidemicTrackId": 149286,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Would Give Anything",
+  "artist": "Roy Williams",
+  "duration": 175,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52304420",
+  "publicSlug": "WA0mWaaZk9",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGWNMRTFWWKPRQ3B9TWYQKA.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12422/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop Rock",
+    "1960s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "laid back",
+    "hopeful",
+    "lead vocals",
+    "female vocals"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "d7cdbdf3-a910-41d1-91a0-25ec31541af7",
+  "epidemicTrackId": 282928,
+  "sourceProvider": "EpidemicSound",
+  "title": "Not Holding Space",
+  "artist": "Kylie Dailey",
+  "duration": 187,
+  "bpm": 90,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503068",
+  "publicSlug": "DA1eHof3Vz",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFFM7WA96Y2HVSZBR24B49B.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15620/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk"
+  ],
+  "moods": [
+    "Relaxing",
+    "Romantic",
+    "Dreamy"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "piano",
+    "electric guitar",
+    "lead vocals",
+    "female vocals"
+  ]
+}

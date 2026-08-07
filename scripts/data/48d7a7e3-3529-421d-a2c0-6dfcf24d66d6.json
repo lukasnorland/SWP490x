@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "48d7a7e3-3529-421d-a2c0-6dfcf24d66d6",
+  "epidemicTrackId": 148983,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dream Darling Dream",
+  "artist": "Gamma Skies",
+  "duration": 198,
+  "bpm": 98,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52303279",
+  "publicSlug": "0oX6762Wf1",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE39ZKC5D2NX6WSB3XFFG8X.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11420/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Children'S Music",
+    "Lullabies"
+  ],
+  "moods": [
+    "Dreamy",
+    "Peaceful"
+  ],
+  "tags": [
+    "female vocal",
+    "sweet",
+    "sleep",
+    "relaxing",
+    "acoustic",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

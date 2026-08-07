@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "c7204f5a-4a35-4d96-a58a-ef84f6697edb",
+  "epidemicTrackId": 149142,
+  "sourceProvider": "EpidemicSound",
+  "title": "Joyas de Oro",
+  "artist": "Ramiro LR",
+  "duration": 128,
+  "bpm": 142,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52303438",
+  "publicSlug": "5yn7UNA46b",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE89NK1XT9T9KCYH4GMH30P.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11049/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Corrido Tumbado",
+    "Acoustic",
+    "Mexico"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "guitar",
+    "brass",
+    "trumpet",
+    "restless",
+    "standup bass",
+    "lead vocals",
+    "male vocals"
+  ]
+}

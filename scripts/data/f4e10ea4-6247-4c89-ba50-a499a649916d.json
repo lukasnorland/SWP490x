@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "f4e10ea4-6247-4c89-ba50-a499a649916d",
+  "epidemicTrackId": 141842,
+  "sourceProvider": "EpidemicSound",
+  "title": "Guajira a la Esperanza",
+  "artist": "Caro Luna",
+  "duration": 274,
+  "bpm": 0,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200456",
+  "publicSlug": "rDDfbTSm5m",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTET0MF3H0WG6415MKE39NTP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9000/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Salsa"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "spanish",
+    "español",
+    "trumpet",
+    "relaxing",
+    "beat",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

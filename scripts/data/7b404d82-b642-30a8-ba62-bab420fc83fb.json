@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "7b404d82-b642-30a8-ba62-bab420fc83fb",
+  "epidemicTrackId": 102633,
+  "sourceProvider": "EpidemicSound",
+  "title": "Trust Me",
+  "artist": "Mama Zula",
+  "duration": 201,
+  "bpm": 130,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000054",
+  "publicSlug": "FTvcb62ywS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEP83DKHSQMXYPC2NPEBBFR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4432/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Reggae",
+    "Caribbean"
+  ],
+  "moods": [
+    "Mysterious",
+    "Sneaking"
+  ],
+  "tags": [
+    "female vocals",
+    "roots",
+    "lead vocals",
+    "bass",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "c4f4c58d-11e4-46cb-be74-cf624fca41e3",
+  "epidemicTrackId": 253377,
+  "sourceProvider": "EpidemicSound",
+  "title": "Boom (Clean Version)",
+  "artist": "Nyck Caution, Humblebee",
+  "duration": 137,
+  "bpm": 127,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500033",
+  "publicSlug": "bwffhVP9MR",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPPVFKAAGC0G9G6Q3DEDS8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14148/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Epic",
+    "Dark"
+  ],
+  "tags": [
+    "heavy",
+    "tense",
+    "powerful",
+    "restless",
+    "lead vocals",
+    "male vocals"
+  ]
+}

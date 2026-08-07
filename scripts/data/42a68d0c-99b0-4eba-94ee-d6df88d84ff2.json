@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "42a68d0c-99b0-4eba-94ee-d6df88d84ff2",
+  "epidemicTrackId": 253809,
+  "sourceProvider": "EpidemicSound",
+  "title": "EZ4U",
+  "artist": "dasloe, NINEXCIX",
+  "duration": 155,
+  "bpm": 165,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500463",
+  "publicSlug": "BYJCQPXd2G",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGB7ZHQQ48JH89E52W9323X.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13918/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "upbeat",
+    "hopeful",
+    "quirky",
+    "lead vocals",
+    "male vocals"
+  ]
+}

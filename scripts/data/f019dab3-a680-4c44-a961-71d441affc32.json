@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "f019dab3-a680-4c44-a961-71d441affc32",
+  "epidemicTrackId": 147364,
+  "sourceProvider": "EpidemicSound",
+  "title": "Como Tú",
+  "artist": "Nico Rengifo",
+  "duration": 155,
+  "bpm": 170,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301660",
+  "publicSlug": "Tc4lihVRpL",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQX2E9407Y3PND8JQVXW57.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10955/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Latin",
+    "Colombia"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "latin pop",
+    "energetic",
+    "romantic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

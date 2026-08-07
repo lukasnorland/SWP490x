@@ -1,0 +1,43 @@
+{
+  "externalSourceId": "92bcec11-4961-31ef-b0e7-f616a7cb1825",
+  "epidemicTrackId": 61373,
+  "sourceProvider": "EpidemicSound",
+  "title": "Baby You Are Really Hurting Me",
+  "artist": "OTE",
+  "duration": 182,
+  "bpm": 121,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51814683",
+  "publicSlug": "0kZYur6stI",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK5GE4HDXHTVNGBS4MSRPFWR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "R&B",
+    "Motown",
+    "1960s",
+    "Usa"
+  ],
+  "moods": [
+    "Romantic",
+    "Dreamy"
+  ],
+  "tags": [
+    "60s",
+    "lead vocals",
+    "female vocals",
+    "break up",
+    "relationship",
+    "choir",
+    "piano",
+    "band",
+    "questions",
+    "looking back",
+    "sigh",
+    "retro",
+    "nostalgia",
+    "male vocals"
+  ]
+}

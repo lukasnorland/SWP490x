@@ -1,0 +1,26 @@
+{
+  "externalSourceId": "2b6fc0d7-1a19-43a9-beac-5f02c78e8cdf",
+  "epidemicTrackId": 283470,
+  "sourceProvider": "EpidemicSound",
+  "title": "Reflection",
+  "artist": "David Edward",
+  "duration": 140,
+  "bpm": 0,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503610",
+  "publicSlug": "4Qp970EZ74",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK7G3AP1BN732X2AFNMCGEF1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15411/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Meditation",
+    "Beautiful",
+    "Cinematic"
+  ],
+  "moods": [
+    "Floating",
+    "Peaceful"
+  ],
+  "tags": []
+}

@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "31127343-141d-38e5-9221-77adb66981fa",
+  "epidemicTrackId": 99080,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sundown Love",
+  "artist": "Sugar Blizz",
+  "duration": 207,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51900640",
+  "publicSlug": "hiSiuo9JPw",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE1MV0EFGQ35QDWT2N6EDYB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2593/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soft House"
+  ],
+  "moods": [
+    "Dreamy",
+    "Quirky"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "summer",
+    "driving",
+    "male vocals"
+  ]
+}

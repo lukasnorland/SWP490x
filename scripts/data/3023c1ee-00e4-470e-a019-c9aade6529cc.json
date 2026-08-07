@@ -1,0 +1,26 @@
+{
+  "externalSourceId": "3023c1ee-00e4-470e-a019-c9aade6529cc",
+  "epidemicTrackId": 249917,
+  "sourceProvider": "EpidemicSound",
+  "title": "Nervous",
+  "artist": "Torii Wolf",
+  "duration": 210,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402637",
+  "publicSlug": "4UDbtMHR1u",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH6NZ7ME1Y2B5GXZM1SFSNK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12819/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "laid back"
+  ]
+}

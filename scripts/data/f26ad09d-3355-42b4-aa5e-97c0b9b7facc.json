@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "f26ad09d-3355-42b4-aa5e-97c0b9b7facc",
+  "epidemicTrackId": 107468,
+  "sourceProvider": "EpidemicSound",
+  "title": "Rumba Columbia",
+  "artist": "Son Habana",
+  "duration": 167,
+  "bpm": 121,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52100628",
+  "publicSlug": "Y8Aw1HmVeJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFYR47CJ6Q079JZ99BDP2RB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5271/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Salsa",
+    "Cuba"
+  ],
+  "moods": [
+    "Chasing",
+    "Restless"
+  ],
+  "tags": [
+    "percussion",
+    "congo",
+    "bongos",
+    "polyrhythmic",
+    "afro-latin",
+    "lead vocals",
+    "male vocals"
+  ]
+}

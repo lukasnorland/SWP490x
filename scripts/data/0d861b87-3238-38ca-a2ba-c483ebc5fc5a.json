@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "0d861b87-3238-38ca-a2ba-c483ebc5fc5a",
+  "epidemicTrackId": 62444,
+  "sourceProvider": "EpidemicSound",
+  "title": "Cut Up",
+  "artist": "Blanches",
+  "duration": 205,
+  "bpm": 123,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51811210",
+  "publicSlug": "0VWzwffedl",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEWXGBYPWBE9G4N3K5SRDHB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2188/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Eccentric",
+    "Quirky"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "marching",
+    "weird",
+    "male vocals"
+  ]
+}

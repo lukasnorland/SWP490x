@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "535fb3a5-2d17-4dda-8bcf-12b88395d1b9",
+  "epidemicTrackId": 141439,
+  "sourceProvider": "EpidemicSound",
+  "title": "One Ride",
+  "artist": "Roy Williams",
+  "duration": 215,
+  "bpm": 143,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200054",
+  "publicSlug": "NiIDExPJGI",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFW90ZQ8ZDB7M5T72DPMBDE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7916/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Folk Pop",
+    "Contemporary Folk",
+    "1970s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "acoustic",
+    "guitar",
+    "piano",
+    "happy",
+    "steel guitar",
+    "country",
+    "70s",
+    "lead vocals",
+    "male vocals"
+  ]
+}

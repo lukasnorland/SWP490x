@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "d7c127f5-6ab4-40f9-814c-e30a157a227e",
+  "epidemicTrackId": 145865,
+  "sourceProvider": "EpidemicSound",
+  "title": "El Silencio",
+  "artist": "Caro Luna",
+  "duration": 207,
+  "bpm": 119,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300161",
+  "publicSlug": "QIQ56JaWNK",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGVBTFQTHGHSEXV57YRATKM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11981/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Folk",
+    "Latin Pop",
+    "Singer-songwriter",
+    "Mexico"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "rancheras",
+    "backing vocals",
+    "acoustic guitar",
+    "lead vocals",
+    "female vocals"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "43d9bf8d-b250-40a0-bb26-557c2b944f6a",
+  "epidemicTrackId": 150297,
+  "sourceProvider": "EpidemicSound",
+  "title": "For All I Know",
+  "artist": "Anna Landström, Hanna Ekström, Anna Dager",
+  "duration": 230,
+  "bpm": 85,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400253",
+  "publicSlug": "mSB5MMU5El",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE9J8QS0HKH6B36Y322TRKE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12019/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Sad",
+    "Sentimental"
+  ],
+  "tags": [
+    "friendship",
+    "piano",
+    "crossroads",
+    "strings",
+    "drama",
+    "lead vocals",
+    "female vocals"
+  ]
+}

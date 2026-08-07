@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "7a3704a9-2b91-387b-8b54-1c18426e6ba9",
+  "epidemicTrackId": 63657,
+  "sourceProvider": "EpidemicSound",
+  "title": "A Little Longer",
+  "artist": "Windshield",
+  "duration": 261,
+  "bpm": 88,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51824857",
+  "publicSlug": "GU9Nod4sWl",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE8D7JHQGCX7RYE4EKDTBD5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7545/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "acoustic",
+    "indie",
+    "folk",
+    "female vocals",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

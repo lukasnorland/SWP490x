@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "ff1a97f6-4b86-4816-bed5-6e0b82f3cc73",
+  "epidemicTrackId": 106525,
+  "sourceProvider": "EpidemicSound",
+  "title": "Run Boy Run",
+  "artist": "Snake City",
+  "duration": 202,
+  "bpm": 124,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003930",
+  "publicSlug": "XgoasodyGc",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHEGJRT4WN5PYPVRNBT8H02.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5780/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Dance-pop",
+    "2020s"
+  ],
+  "moods": [
+    "Restless",
+    "Sexy"
+  ],
+  "tags": [
+    "driving",
+    "eccentric",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

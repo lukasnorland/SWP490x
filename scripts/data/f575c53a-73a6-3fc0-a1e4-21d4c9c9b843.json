@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "f575c53a-73a6-3fc0-a1e4-21d4c9c9b843",
+  "epidemicTrackId": 29376,
+  "sourceProvider": "EpidemicSound",
+  "title": "A Real Bad Dream",
+  "artist": "Lionel Quick",
+  "duration": 137,
+  "bpm": 93,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51806851",
+  "publicSlug": "Re1fed4RuS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE6XRADTM7NB307AQCZ5CSW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/1825/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul",
+    "Funk"
+  ],
+  "moods": [
+    "Laid Back",
+    "Smooth"
+  ],
+  "tags": [
+    "trumpet",
+    "male vocals",
+    "lead vocals",
+    "betrayal",
+    "memories",
+    "soft vocals",
+    "blue",
+    "denial",
+    "soft"
+  ]
+}

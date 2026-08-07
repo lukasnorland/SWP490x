@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "1b1324f6-87be-3c37-b83a-9a84fa3ab693",
+  "epidemicTrackId": 98727,
+  "sourceProvider": "EpidemicSound",
+  "title": "Wait on You",
+  "artist": "L.M. Styles",
+  "duration": 222,
+  "bpm": 117,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51900287",
+  "publicSlug": "FrBRj8isSY",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGVQ3BE7VCGGK6F9YCF8828.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4305/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Neo Soul",
+    "R&B"
+  ],
+  "moods": [
+    "Laid Back",
+    "Smooth"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "ballad",
+    "emotional",
+    "neo soul",
+    "choir",
+    "mellow piano",
+    "half tempo feel",
+    "loose",
+    "falsetto"
+  ]
+}

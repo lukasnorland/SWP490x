@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "bb0d6426-d38e-39e7-9398-6568d357c03e",
+  "epidemicTrackId": 28746,
+  "sourceProvider": "EpidemicSound",
+  "title": "Light Of My Life",
+  "artist": "Jesse Lawrence",
+  "duration": 168,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51825383",
+  "publicSlug": "2ekmZCJEPW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK79RZR333DKMVCTTR2J5RK7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3213/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul",
+    "R&B",
+    "Motown",
+    "1970s"
+  ],
+  "moods": [
+    "Happy",
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "hammond b3",
+    "horns",
+    "love for your children",
+    "male vocals",
+    "lead vocals"
+  ]
+}

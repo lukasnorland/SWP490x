@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "78299628-0317-4082-b0a0-8e773fce4df5",
+  "epidemicTrackId": 282912,
+  "sourceProvider": "EpidemicSound",
+  "title": "Skateboard (Clean Version)",
+  "artist": "APE",
+  "duration": 207,
+  "bpm": 135,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503051",
+  "publicSlug": "5bgm6J7W8K",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEKTBTRAAK57PEVQPSF2M7W.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15060/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Punk Rock",
+    "Hard Rock"
+  ],
+  "moods": [
+    "Happy",
+    "Eccentric"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

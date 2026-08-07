@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "a83be75a-c6bf-4f48-9c1a-c531f7a1a198",
+  "epidemicTrackId": 149038,
+  "sourceProvider": "EpidemicSound",
+  "title": "Not Done with You",
+  "artist": "House Of Say",
+  "duration": 188,
+  "bpm": 130,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52303334",
+  "publicSlug": "oKXXBT6hye",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMKJS0877ZZB5EH7R9R4KB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11355/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "House"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "energetic",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

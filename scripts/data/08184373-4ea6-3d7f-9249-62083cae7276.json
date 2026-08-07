@@ -1,0 +1,41 @@
+{
+  "externalSourceId": "08184373-4ea6-3d7f-9249-62083cae7276",
+  "epidemicTrackId": 29543,
+  "sourceProvider": "EpidemicSound",
+  "title": "To Rome",
+  "artist": "Duplex Heart",
+  "duration": 172,
+  "bpm": 108,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51825017",
+  "publicSlug": "jZDuIHWfvH",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGD4XA27NDN29WBFZHN7HV0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2335/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Indie Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Euphoric"
+  ],
+  "tags": [
+    "lead vocals",
+    "puslating",
+    "pumping",
+    "organ",
+    "vocoder",
+    "bass",
+    "male vocals",
+    "alternative",
+    "airy",
+    "driving",
+    "transition",
+    "steady",
+    "flowing",
+    "synths"
+  ]
+}

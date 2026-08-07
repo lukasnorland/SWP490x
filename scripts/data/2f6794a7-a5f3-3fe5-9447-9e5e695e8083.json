@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "2f6794a7-a5f3-3fe5-9447-9e5e695e8083",
+  "epidemicTrackId": 95910,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Best Of Myself",
+  "artist": "Daniel Gunnarsson",
+  "duration": 195,
+  "bpm": 159,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828430",
+  "publicSlug": "t5d2hrqrXN",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNH8TTZSRC5WHYBXB04F8M.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3745/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul",
+    "Modern Blues"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "soft",
+    "smooth",
+    "cozy",
+    "warm",
+    "feelgood",
+    "calm",
+    "ballad",
+    "lead vocals",
+    "uplifting",
+    "chill",
+    "male vocals",
+    "peaceful"
+  ]
+}

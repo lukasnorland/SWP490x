@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "31d3f758-e7fd-4e61-8f06-19f8df059c08",
+  "epidemicTrackId": 276950,
+  "sourceProvider": "EpidemicSound",
+  "title": "Reverend Jack's Freedom Train",
+  "artist": "Pär Hagström",
+  "duration": 321,
+  "bpm": 113,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502114",
+  "publicSlug": "k4puSq0AnI",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFHZA9EN7VR8BVHG5ZEMDMR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14692/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Psychedelic Rock",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Eccentric",
+    "Restless"
+  ],
+  "tags": [
+    "powerful",
+    "quirky",
+    "hammond",
+    "lead vocals",
+    "male vocals"
+  ]
+}

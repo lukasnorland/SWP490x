@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "87fe8bef-def0-457b-9907-788016c7f86d",
+  "epidemicTrackId": 105042,
+  "sourceProvider": "EpidemicSound",
+  "title": "Skip the Small Talk",
+  "artist": "Gamma Skies",
+  "duration": 197,
+  "bpm": 130,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002447",
+  "publicSlug": "uH5AFwAiYU",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG99ERXVAZDX6XKD04D410T.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5362/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Folk Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "romantic",
+    "ballad",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

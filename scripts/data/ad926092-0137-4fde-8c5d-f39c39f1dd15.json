@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "ad926092-0137-4fde-8c5d-f39c39f1dd15",
+  "epidemicTrackId": 144850,
+  "sourceProvider": "EpidemicSound",
+  "title": "Encontrei a Paz",
+  "artist": "Clara Mendes",
+  "duration": 166,
+  "bpm": 118,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203460",
+  "publicSlug": "1JbtXf9pwG",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJK361Y46JZND120Z77J3S3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9390/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Bossa Nova"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "portuguese",
+    "classical guitar",
+    "piano",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

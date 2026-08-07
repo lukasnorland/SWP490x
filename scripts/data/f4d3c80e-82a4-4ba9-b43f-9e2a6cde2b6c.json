@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "f4d3c80e-82a4-4ba9-b43f-9e2a6cde2b6c",
+  "epidemicTrackId": 283147,
+  "sourceProvider": "EpidemicSound",
+  "title": "Raw Interlude",
+  "artist": "King Sis",
+  "duration": 112,
+  "bpm": 130,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503287",
+  "publicSlug": "TeZ52KKRGf",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPRCVC7V0KCNP5MMSCTHNY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15301/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary R&B"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "piano",
+    "scratch",
+    "lead vocals",
+    "female vocals"
+  ]
+}

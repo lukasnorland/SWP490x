@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "c15e38c1-6f59-3a4f-8b7d-4266dc808bdf",
+  "epidemicTrackId": 62576,
+  "sourceProvider": "EpidemicSound",
+  "title": "Live On",
+  "artist": "OTE",
+  "duration": 200,
+  "bpm": 113,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828186",
+  "publicSlug": "0B1jlMVBHl",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHAAH03BD323FKVPH2A2462.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14330/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2000s"
+  ],
+  "moods": [
+    "Happy",
+    "Running"
+  ],
+  "tags": [
+    "acoustic pop",
+    "female vocals",
+    "lead vocals",
+    "hopeful",
+    "driving",
+    "acoustic",
+    "strings",
+    "flowing",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "9cdf09de-0792-4379-b9ef-6294d7020d3f",
+  "epidemicTrackId": 277053,
+  "sourceProvider": "EpidemicSound",
+  "title": "Strauss: 8 Gedichte aus \"Letzte Blätter\", Op. 10: No. 1, Zueignung",
+  "artist": "Erika Sax",
+  "duration": 105,
+  "bpm": 0,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502217",
+  "publicSlug": "3tQ379bx1x",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFGV7GFMN5VRHP2B47AXAQV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14805/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Opera",
+    "Acoustic"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "piano",
+    "lead vocals",
+    "female vocals"
+  ]
+}

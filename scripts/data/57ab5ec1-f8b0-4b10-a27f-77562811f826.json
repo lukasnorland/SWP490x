@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "57ab5ec1-f8b0-4b10-a27f-77562811f826",
+  "epidemicTrackId": 104167,
+  "sourceProvider": "EpidemicSound",
+  "title": "Something That Was Changing Your Mind",
+  "artist": "Paper Twins",
+  "duration": 199,
+  "bpm": 124,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52001572",
+  "publicSlug": "be3IjWIlfk",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH4CS057T1E8TJDF48RT7AH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5103/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Indie Pop"
+  ],
+  "moods": [
+    "Sad",
+    "Restless"
+  ],
+  "tags": [
+    "retro",
+    "male vocals",
+    "lead vocals"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "4b98b797-225a-4637-a1c6-0e8d44c03d8b",
+  "epidemicTrackId": 282917,
+  "sourceProvider": "EpidemicSound",
+  "title": "White Gold",
+  "artist": "APE",
+  "duration": 219,
+  "bpm": 162,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503057",
+  "publicSlug": "VouZFfwRy2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGJMWR00NT0DPXBBB12A8XN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15060/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Punk Rock",
+    "Hard Rock"
+  ],
+  "moods": [
+    "Happy",
+    "Eccentric"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

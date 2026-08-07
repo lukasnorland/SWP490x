@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "afc1c6b3-07db-4f3c-8b59-66623b18a523",
+  "epidemicTrackId": 276404,
+  "sourceProvider": "EpidemicSound",
+  "title": "When You Smile",
+  "artist": "SCENE",
+  "duration": 195,
+  "bpm": 66,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501561",
+  "publicSlug": "zHI0Rs2673",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEM4Q417WETCWHP91XN1K5G.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14498/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Korean Ballad",
+    "K-pop"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "drum kit",
+    "saxophone",
+    "lead vocals",
+    "female vocals"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "externalSourceId": "43222717-b69e-3d9b-84d6-e2fe4b05bc85",
+  "epidemicTrackId": 28407,
+  "sourceProvider": "EpidemicSound",
+  "title": "Hit the Dance Floor",
+  "artist": "Romaro",
+  "duration": 165,
+  "bpm": 125,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51815950",
+  "publicSlug": "iy4zXsuvma",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFAT3QQGCATY5ZVFX9A4AYP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "R&B",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Running"
+  ],
+  "tags": [
+    "teens",
+    "crystal",
+    "night",
+    "cool",
+    "champagne",
+    "club",
+    "dance",
+    "party",
+    "lead vocals",
+    "hit chart",
+    "night club",
+    "young adults",
+    "female vocals",
+    "male vocals"
+  ]
+}

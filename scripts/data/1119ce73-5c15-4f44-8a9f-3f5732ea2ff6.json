@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "1119ce73-5c15-4f44-8a9f-3f5732ea2ff6",
+  "epidemicTrackId": 283001,
+  "sourceProvider": "EpidemicSound",
+  "title": "endless",
+  "artist": "Victor Lundberg",
+  "duration": 221,
+  "bpm": 73,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503141",
+  "publicSlug": "TmfGsv61Ds",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGSFVR9FJ79KDRZSZKFGRYN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15445/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian",
+    "Folk Pop",
+    "Contemporary Folk",
+    "Funerals",
+    "Praise & Worship",
+    "Acoustic"
+  ],
+  "moods": [
+    "Sad",
+    "Sentimental"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "lead vocals",
+    "male vocals"
+  ]
+}

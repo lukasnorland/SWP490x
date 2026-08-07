@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "498333d2-68db-32e5-a2a6-63c9de6e71c7",
+  "epidemicTrackId": 101180,
+  "sourceProvider": "EpidemicSound",
+  "title": "What Can I Do",
+  "artist": "Victor Lundberg",
+  "duration": 233,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51902742",
+  "publicSlug": "uwuaulAJwy",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQEPCTR019Q69TFC0MKX5V.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4034/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "driving",
+    "feelgood",
+    "funky"
+  ]
+}

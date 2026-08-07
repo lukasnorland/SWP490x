@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "b04f1159-77d2-4ebd-a906-c975b741fdea",
+  "epidemicTrackId": 252991,
+  "sourceProvider": "EpidemicSound",
+  "title": "Looking for You",
+  "artist": "First Timer",
+  "duration": 183,
+  "bpm": 112,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403994",
+  "publicSlug": "k6o85nSVtQ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGDNM16ZTSD5C3V7AB1D3PH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13438/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "distortion",
+    "electric guitar",
+    "male vocals",
+    "drum kit",
+    "lead vocals"
+  ]
+}

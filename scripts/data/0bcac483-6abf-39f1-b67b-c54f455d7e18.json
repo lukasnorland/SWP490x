@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "0bcac483-6abf-39f1-b67b-c54f455d7e18",
+  "epidemicTrackId": 62538,
+  "sourceProvider": "EpidemicSound",
+  "title": "My Bucket List",
+  "artist": "Arch Tremors",
+  "duration": 224,
+  "bpm": 62,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828176",
+  "publicSlug": "EtLL60C6cg",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH2ZJHYP9HG2ZAW21F3HPCF.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3182/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Big Band",
+    "Classic Jazz",
+    "1960s"
+  ],
+  "moods": [
+    "Relaxing",
+    "Romantic"
+  ],
+  "tags": [
+    "nostalgic",
+    "laid back",
+    "vintage",
+    "heartfelt",
+    "warm",
+    "sweet"
+  ]
+}

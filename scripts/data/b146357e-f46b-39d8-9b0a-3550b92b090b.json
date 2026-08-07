@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "b146357e-f46b-39d8-9b0a-3550b92b090b",
+  "epidemicTrackId": 99484,
+  "sourceProvider": "EpidemicSound",
+  "title": "Keep Standing",
+  "artist": "Origo",
+  "duration": 199,
+  "bpm": 153,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51901041",
+  "publicSlug": "RCFgTgR8nx",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTECZ8VMT6Q06XJTCE68C7B6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4281/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "running",
+    "driving",
+    "retro",
+    "60s",
+    "male vocals",
+    "lead vocals"
+  ]
+}

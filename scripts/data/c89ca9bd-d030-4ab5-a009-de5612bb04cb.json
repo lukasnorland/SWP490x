@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "c89ca9bd-d030-4ab5-a009-de5612bb04cb",
+  "epidemicTrackId": 148044,
+  "sourceProvider": "EpidemicSound",
+  "title": "Time Out",
+  "artist": "Adelyn Paik",
+  "duration": 178,
+  "bpm": 97,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52302340",
+  "publicSlug": "EhSIUgEmsM",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJCTE7ECT0YTMY9GG61BJQF.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10557/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "korean",
+    "upbeat",
+    "energetic",
+    "dreamy",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

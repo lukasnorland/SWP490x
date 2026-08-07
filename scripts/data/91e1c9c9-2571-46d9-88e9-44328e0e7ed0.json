@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "91e1c9c9-2571-46d9-88e9-44328e0e7ed0",
+  "epidemicTrackId": 151527,
+  "sourceProvider": "EpidemicSound",
+  "title": "La Chuki (Clean Version)",
+  "artist": "Lawd Ito",
+  "duration": 180,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401483",
+  "publicSlug": "z5zcKNeahS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG5MFH8QE54APCY7KW7SCDA.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13085/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Reggaeton",
+    "Puerto Rico"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "upbeat",
+    "powerful",
+    "trumpet",
+    "lead vocals",
+    "male vocals"
+  ]
+}

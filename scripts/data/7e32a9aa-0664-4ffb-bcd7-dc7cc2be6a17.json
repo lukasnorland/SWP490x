@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "7e32a9aa-0664-4ffb-bcd7-dc7cc2be6a17",
+  "epidemicTrackId": 151389,
+  "sourceProvider": "EpidemicSound",
+  "title": "What's on My Mind",
+  "artist": "John Runefelt",
+  "duration": 178,
+  "bpm": 87,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401345",
+  "publicSlug": "S6hSNFRp4g",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPBW1HBM8G8WEP31KNWP7D.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12065/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul",
+    "1970s"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "soulful dinner",
+    "choir",
+    "vocals",
+    "lead vocals"
+  ]
+}

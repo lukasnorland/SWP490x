@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "5fb8308e-b13a-44be-be63-605b507570c5",
+  "epidemicTrackId": 284496,
+  "sourceProvider": "EpidemicSound",
+  "title": "It'll All Pass",
+  "artist": "Sully Bright",
+  "duration": 267,
+  "bpm": 83,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600970",
+  "publicSlug": "OpI7rAw30y",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KQESJENY47YHA87ER96Y3F0J.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15854/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Contemporary Folk"
+  ],
+  "moods": [
+    "Relaxing",
+    "Sentimental"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "ed910539-dbf4-4f31-8acb-d245c3ef6b45",
+  "epidemicTrackId": 150276,
+  "sourceProvider": "EpidemicSound",
+  "title": "Snakes and Fire (Clean Version)",
+  "artist": "Pär Hagström",
+  "duration": 261,
+  "bpm": 132,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400232",
+  "publicSlug": "WyZBzIFcGG",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH4RMX6SN1F3Q9WQNKM46ZM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12979/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "retro",
+    "religion",
+    "lead vocals",
+    "male vocals"
+  ]
+}

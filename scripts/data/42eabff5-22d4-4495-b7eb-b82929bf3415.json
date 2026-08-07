@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "42eabff5-22d4-4495-b7eb-b82929bf3415",
+  "epidemicTrackId": 142207,
+  "sourceProvider": "EpidemicSound",
+  "title": "Tired",
+  "artist": "Mindme",
+  "duration": 189,
+  "bpm": 97,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200821",
+  "publicSlug": "PEySUFNE0T",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGP2C9A6ZQEZ3QKT7N2G7FY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8329/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Bedroom Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "laid back",
+    "guitar",
+    "sentimental",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

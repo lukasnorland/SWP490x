@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "8420ad3d-5e31-4c63-86b9-dd9a84407647",
+  "epidemicTrackId": 141862,
+  "sourceProvider": "EpidemicSound",
+  "title": "Mi Palomita",
+  "artist": "Caro Luna",
+  "duration": 208,
+  "bpm": 0,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200476",
+  "publicSlug": "rlYkLveRBY",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG6221C4Z4ZT4XNF5MKS9Y7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8772/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Salsa"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "spanish",
+    "español",
+    "drum",
+    "relaxing",
+    "dove",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

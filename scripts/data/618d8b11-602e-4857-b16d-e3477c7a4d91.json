@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "618d8b11-602e-4857-b16d-e3477c7a4d91",
+  "epidemicTrackId": 282902,
+  "sourceProvider": "EpidemicSound",
+  "title": "My Dog Was Still Alive",
+  "artist": "rakey",
+  "duration": 225,
+  "bpm": 175,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503042",
+  "publicSlug": "mvADiysOMB",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGKZJCQXT4AEXKW7K6XEQD1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15003/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Folk Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "guitar",
+    "singer-songwriter",
+    "lead vocals",
+    "female vocals"
+  ]
+}

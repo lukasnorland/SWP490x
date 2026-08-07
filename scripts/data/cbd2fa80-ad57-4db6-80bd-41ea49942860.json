@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "cbd2fa80-ad57-4db6-80bd-41ea49942860",
+  "epidemicTrackId": 253775,
+  "sourceProvider": "EpidemicSound",
+  "title": "Before It Begins",
+  "artist": "Hennie Hun",
+  "duration": 160,
+  "bpm": 150,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500429",
+  "publicSlug": "giQGmPlLgC",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEA9X22ZPFTMCXF7T35YMW4.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13717/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "calm",
+    "minimal",
+    "drum kit",
+    "lead vocals",
+    "female vocals"
+  ]
+}

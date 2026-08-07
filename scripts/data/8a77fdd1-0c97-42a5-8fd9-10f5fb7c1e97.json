@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "8a77fdd1-0c97-42a5-8fd9-10f5fb7c1e97",
+  "epidemicTrackId": 147429,
+  "sourceProvider": "EpidemicSound",
+  "title": "History",
+  "artist": "King Sis",
+  "duration": 204,
+  "bpm": 88,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301725",
+  "publicSlug": "k8rAXZ8pQL",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGP5QN3KC3MR1WK2GQ4A9SZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10278/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Neo Soul"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "guitar",
+    "strings",
+    "dreamy",
+    "r&b",
+    "pop",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

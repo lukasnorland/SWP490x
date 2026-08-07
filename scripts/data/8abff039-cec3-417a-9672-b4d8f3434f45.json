@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "8abff039-cec3-417a-9672-b4d8f3434f45",
+  "epidemicTrackId": 253773,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dududu",
+  "artist": "Ikhana",
+  "duration": 190,
+  "bpm": 174,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500427",
+  "publicSlug": "PweQqdyFX0",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGRVRHY54VXFVHNW6A4DZ1Z.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14289/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Drum And Bass",
+    "Liquid Drum And Bass"
+  ],
+  "moods": [
+    "Romantic",
+    "Restless"
+  ],
+  "tags": [
+    "energetic",
+    "laid back vocals",
+    "lead vocals",
+    "female vocals"
+  ]
+}

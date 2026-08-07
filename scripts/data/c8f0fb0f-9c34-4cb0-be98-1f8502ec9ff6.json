@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "c8f0fb0f-9c34-4cb0-be98-1f8502ec9ff6",
+  "epidemicTrackId": 252327,
+  "sourceProvider": "EpidemicSound",
+  "title": "Be OK",
+  "artist": "Hector Gabriel",
+  "duration": 220,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403356",
+  "publicSlug": "2VeKFTpzRc",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGDTGNNFDK3MEJQVC4Z1CY3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13581/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "inspirational",
+    "romantic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

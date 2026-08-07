@@ -1,0 +1,26 @@
+{
+  "externalSourceId": "d7f33e8b-5ab4-4206-af5d-49ba4c4aa2f9",
+  "epidemicTrackId": 283656,
+  "sourceProvider": "EpidemicSound",
+  "title": "uap",
+  "artist": "Onoe Caponoe",
+  "duration": 148,
+  "bpm": 147,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600183",
+  "publicSlug": "emERtIpUYY",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJPVX74RV5M96V9XTYWWEMHV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15538/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Grime",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": []
+}

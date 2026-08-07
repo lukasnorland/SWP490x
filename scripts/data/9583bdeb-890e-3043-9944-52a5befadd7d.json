@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "9583bdeb-890e-3043-9944-52a5befadd7d",
+  "epidemicTrackId": 65236,
+  "sourceProvider": "EpidemicSound",
+  "title": "Hurt Me",
+  "artist": "Matt Sierra",
+  "duration": 220,
+  "bpm": 88,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51819115",
+  "publicSlug": "cRcOLca5Bk",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH7KJMN3PHVG7TYTH2GWMJQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "lifting",
+    "happy",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

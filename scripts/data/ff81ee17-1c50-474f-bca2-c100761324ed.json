@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "ff81ee17-1c50-474f-bca2-c100761324ed",
+  "epidemicTrackId": 149893,
+  "sourceProvider": "EpidemicSound",
+  "title": "Country Girl",
+  "artist": "Wildflowers",
+  "duration": 211,
+  "bpm": 115,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52305027",
+  "publicSlug": "Ud9CgKDBL8",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGDNM4Q21KMJ3AFX1QHMHPS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11581/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Country"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "upbeat",
+    "male vocals",
+    "country pop",
+    "guitar",
+    "lead vocals"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "071c17b9-f912-4291-9bab-1838e9a239ef",
+  "epidemicTrackId": 144173,
+  "sourceProvider": "EpidemicSound",
+  "title": "RNA",
+  "artist": "Katori Walker",
+  "duration": 105,
+  "bpm": 110,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52202783",
+  "publicSlug": "gpeekPhqPO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH5NYG9WYBN4MKWM76TM39Q.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9118/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "West Coast Hip Hop"
+  ],
+  "moods": [
+    "Busy & Frantic",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "rap",
+    "restless",
+    "energetic",
+    "powerful",
+    "angry"
+  ]
+}

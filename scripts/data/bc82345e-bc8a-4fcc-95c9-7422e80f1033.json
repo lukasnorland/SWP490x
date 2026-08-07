@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "bc82345e-bc8a-4fcc-95c9-7422e80f1033",
+  "epidemicTrackId": 249741,
+  "sourceProvider": "EpidemicSound",
+  "title": "Swish",
+  "artist": "Baha Bank$",
+  "duration": 128,
+  "bpm": 165,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402461",
+  "publicSlug": "YqgkLJQ4tx",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEYEG46CCS863Y682K99D13.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12736/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop"
+  ],
+  "moods": [
+    "Dark",
+    "Smooth"
+  ],
+  "tags": [
+    "powerful",
+    "rap",
+    "female rapper",
+    "lead vocals",
+    "female vocals"
+  ]
+}

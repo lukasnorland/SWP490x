@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "f737f503-5a42-467d-977b-bade4991614d",
+  "epidemicTrackId": 249703,
+  "sourceProvider": "EpidemicSound",
+  "title": "Fill This Place",
+  "artist": "AFTR",
+  "duration": 319,
+  "bpm": 118,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402423",
+  "publicSlug": "8mXq0DFTWt",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGJT5YF84W18JG2Q91FEVXB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13187/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Gospel",
+    "Religious Music"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "snaps",
+    "electric guitar",
+    "female vocals",
+    "violin",
+    "sentimental",
+    "harmonies",
+    "lead vocals"
+  ]
+}

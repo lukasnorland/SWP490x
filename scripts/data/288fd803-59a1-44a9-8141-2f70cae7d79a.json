@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "288fd803-59a1-44a9-8141-2f70cae7d79a",
+  "epidemicTrackId": 103253,
+  "sourceProvider": "EpidemicSound",
+  "title": "The One That Got Away",
+  "artist": "Thyra",
+  "duration": 224,
+  "bpm": 79,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000664",
+  "publicSlug": "Ke2CNYSStS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGP5QHS310THQZAA8TVDTPR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4712/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Country"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "ballad",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

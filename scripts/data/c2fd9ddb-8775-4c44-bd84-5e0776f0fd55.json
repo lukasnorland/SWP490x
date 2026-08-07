@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "c2fd9ddb-8775-4c44-bd84-5e0776f0fd55",
+  "epidemicTrackId": 252153,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dream Away",
+  "artist": "Sum Wave",
+  "duration": 161,
+  "bpm": 122,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403182",
+  "publicSlug": "hnFmvbr5dW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEM4QFQ97TBDK9TH8H7451D.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13206/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance-pop",
+    "Deep House"
+  ],
+  "moods": [
+    "Relaxing",
+    "Dreamy"
+  ],
+  "tags": [
+    "chilltronics",
+    "club",
+    "pop",
+    "energetic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

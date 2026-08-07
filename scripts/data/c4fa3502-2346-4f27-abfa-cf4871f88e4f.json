@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "c4fa3502-2346-4f27-abfa-cf4871f88e4f",
+  "epidemicTrackId": 141134,
+  "sourceProvider": "EpidemicSound",
+  "title": "Train Ride",
+  "artist": "Alex Kehm",
+  "duration": 172,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52104409",
+  "publicSlug": "KNZQkDjNri",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK45BKNXTABQ1VB6V2044PAB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7984/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Bedroom Pop"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "hoepful",
+    "romantic",
+    "dreamy",
+    "piano",
+    "guitar"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "externalSourceId": "01b4c788-0f25-4688-b31a-10418ed536a3",
+  "epidemicTrackId": 277551,
+  "sourceProvider": "EpidemicSound",
+  "title": "Pick It Up",
+  "artist": "Ira Moon",
+  "duration": 193,
+  "bpm": 112,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502715",
+  "publicSlug": "cxaeMxmfSc",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFPD5X8AQE75VHB83CPXGC2.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15012/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop"
+  ],
+  "moods": [
+    "Sad",
+    "Dreamy"
+  ],
+  "tags": []
+}

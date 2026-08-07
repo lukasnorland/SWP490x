@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "b80632a6-a743-498e-aa3a-7b776a24046d",
+  "epidemicTrackId": 147880,
+  "sourceProvider": "EpidemicSound",
+  "title": "Devil to My Right",
+  "artist": "Zorro",
+  "duration": 167,
+  "bpm": 92,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52302176",
+  "publicSlug": "t6IZAPTDe9",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG99F5N8V0Q67BEF7D6HB6Q.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10974/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Restless",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "Vocal",
+    "Electric guitar",
+    "Distortion",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

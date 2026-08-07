@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "77218492-0770-3cd1-9dfd-5edcc5ac3617",
+  "epidemicTrackId": 63322,
+  "sourceProvider": "EpidemicSound",
+  "title": "Links in a Chain",
+  "artist": "Chase Hughes",
+  "duration": 197,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51804136",
+  "publicSlug": "1zA3C39ZlM",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF9315ARQ41M9N1MEBNC5J1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7635/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "driving",
+    "funky",
+    "female vocals"
+  ]
+}

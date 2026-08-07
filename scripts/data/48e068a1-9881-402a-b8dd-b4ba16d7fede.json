@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "48e068a1-9881-402a-b8dd-b4ba16d7fede",
+  "epidemicTrackId": 150859,
+  "sourceProvider": "EpidemicSound",
+  "title": "Feel like Family",
+  "artist": "Vicki Vox",
+  "duration": 185,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400815",
+  "publicSlug": "ZpmZ1VGtGc",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGP45WD0GQB8G7SXXKQYN2G.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12406/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Ballad",
+    "2020s",
+    "Special Occasions",
+    "Weddings"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "female vocals",
+    "piano",
+    "beautiful",
+    "strings",
+    "love",
+    "lead vocals"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "8dbf0945-6c3a-4a21-ba56-407f6459b035",
+  "epidemicTrackId": 249522,
+  "sourceProvider": "EpidemicSound",
+  "title": "Baby's Crazy 'Bout Christmas",
+  "artist": "Niklas Gabrielsson with Martin Landström & His Orchestra",
+  "duration": 193,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402242",
+  "publicSlug": "pdYqDMcBNY",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGWNMQJ4G63WEYNGN3KRTNP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12645/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Jazz",
+    "Big Band",
+    "Christmas"
+  ],
+  "moods": [
+    "Happy",
+    "Sentimental"
+  ],
+  "tags": [
+    "xmas",
+    "festive",
+    "holiday",
+    "cheerful",
+    "cosy",
+    "lead vocals",
+    "male vocals"
+  ]
+}

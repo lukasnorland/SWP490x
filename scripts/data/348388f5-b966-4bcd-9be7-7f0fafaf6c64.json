@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "348388f5-b966-4bcd-9be7-7f0fafaf6c64",
+  "epidemicTrackId": 276563,
+  "sourceProvider": "EpidemicSound",
+  "title": "Baila Sin Llorar",
+  "artist": "Ratchetón",
+  "duration": 109,
+  "bpm": 155,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501720",
+  "publicSlug": "pxtTfsLvrw",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG62C092QNEE7FAZKNF135S.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14563/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Cumbia Mexicana",
+    "Cumbia Norteña Mexicana",
+    "Mexico"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "accordion",
+    "guiro",
+    "percussion",
+    "keyboard",
+    "lead vocals",
+    "male vocals"
+  ]
+}

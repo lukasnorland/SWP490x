@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "daccdfd9-d283-397b-a881-b0d90b849aed",
+  "epidemicTrackId": 98221,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sweet Baby",
+  "artist": "Bothnia",
+  "duration": 184,
+  "bpm": 102,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51829017",
+  "publicSlug": "Wg58OeqDO2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNMEBHMM1EMGFDMGHV5VPH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2474/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Folk"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "ballad",
+    "cozy"
+  ]
+}

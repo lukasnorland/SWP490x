@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "192e40e3-361f-4f25-957f-f1a35bfafbf6",
+  "epidemicTrackId": 277085,
+  "sourceProvider": "EpidemicSound",
+  "title": "No Te Enamores",
+  "artist": "Monique Hasbun",
+  "duration": 186,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502249",
+  "publicSlug": "2qEkrsHpKq",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEJWVZKA1C47T1E34SESK7D.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14687/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Latin Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "guitar",
+    "percussion",
+    "lead vocals",
+    "female vocals"
+  ]
+}

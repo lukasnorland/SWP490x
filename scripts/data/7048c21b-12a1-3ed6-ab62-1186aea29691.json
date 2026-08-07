@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "7048c21b-12a1-3ed6-ab62-1186aea29691",
+  "epidemicTrackId": 65779,
+  "sourceProvider": "EpidemicSound",
+  "title": "Brings Back the Feeling",
+  "artist": "Daniel Gunnarsson",
+  "duration": 194,
+  "bpm": 100,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51820064",
+  "publicSlug": "0lfRC00h1o",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGDR98NZZXE49TJH225R5Q5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4415/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Dance-pop",
+    "1980s"
+  ],
+  "moods": [
+    "Happy",
+    "Euphoric"
+  ],
+  "tags": [
+    "bright",
+    "exciting",
+    "driving",
+    "lifting",
+    "airy",
+    "lead vocals",
+    "uplifting",
+    "melodic",
+    "male vocals"
+  ]
+}

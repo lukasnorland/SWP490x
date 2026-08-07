@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "6961d7fb-ab55-4331-a405-e615e9d10551",
+  "epidemicTrackId": 149112,
+  "sourceProvider": "EpidemicSound",
+  "title": "La Rumba Ya Se Formó",
+  "artist": "El Equipo Del Norte",
+  "duration": 227,
+  "bpm": 181,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52303408",
+  "publicSlug": "wVoIOVhziz",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQKD3S9750SK5TGYRBGGC7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11297/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Salsa"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "puerto rico",
+    "coro pregón",
+    "horn",
+    "montuno",
+    "lead vocals",
+    "male vocals"
+  ]
+}

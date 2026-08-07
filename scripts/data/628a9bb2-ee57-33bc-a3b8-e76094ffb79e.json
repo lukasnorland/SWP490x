@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "628a9bb2-ee57-33bc-a3b8-e76094ffb79e",
+  "epidemicTrackId": 59494,
+  "sourceProvider": "EpidemicSound",
+  "title": "Between the Sun and the Deep Blue Sea",
+  "artist": "Katharine Appleton",
+  "duration": 185,
+  "bpm": 106,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51827968",
+  "publicSlug": "70ah7NeyKT",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQVNW9M91Q6T21RWG68944.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4000/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "handclaps",
+    "feelgood",
+    "driving",
+    "road trip",
+    "uplifting",
+    "carefree",
+    "male vocals"
+  ]
+}

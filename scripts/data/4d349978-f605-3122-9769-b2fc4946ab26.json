@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "4d349978-f605-3122-9769-b2fc4946ab26",
+  "epidemicTrackId": 65614,
+  "sourceProvider": "EpidemicSound",
+  "title": "Headlights",
+  "artist": "Sven Karlsson",
+  "duration": 225,
+  "bpm": 95,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51826326",
+  "publicSlug": "zWbVvoZT1J",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE6RM1638R8XNKX4BF526DV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6990/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "2010s"
+  ],
+  "moods": [
+    "Epic",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "driving",
+    "energetic",
+    "energy",
+    "sport",
+    "intense",
+    "attitude"
+  ]
+}

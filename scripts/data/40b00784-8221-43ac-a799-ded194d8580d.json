@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "40b00784-8221-43ac-a799-ded194d8580d",
+  "epidemicTrackId": 150681,
+  "sourceProvider": "EpidemicSound",
+  "title": "Until Next Time (Clean Version)",
+  "artist": "Maybe",
+  "duration": 155,
+  "bpm": 107,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400637",
+  "publicSlug": "HqbnPEvvh6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEAMVBR4EPKPABTJF0DGW57.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13459/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dream Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "female vocals",
+    "bass guitar",
+    "upbeat",
+    "feelgood",
+    "lead vocals"
+  ]
+}

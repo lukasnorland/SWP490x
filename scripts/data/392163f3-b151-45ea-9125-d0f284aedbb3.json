@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "392163f3-b151-45ea-9125-d0f284aedbb3",
+  "epidemicTrackId": 283697,
+  "sourceProvider": "EpidemicSound",
+  "title": "Restless Ones",
+  "artist": "Sully Bright",
+  "duration": 194,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600224",
+  "publicSlug": "rbMgTIsKv0",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJSMP4BRR3DB6RHHXN2K6SMY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15369/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Contemporary Folk"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

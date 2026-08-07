@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "20d847e8-9633-44ae-a0fa-952649533cfa",
+  "epidemicTrackId": 104298,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sometimes Hearts Collide",
+  "artist": "Particle House",
+  "duration": 233,
+  "bpm": 114,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52001703",
+  "publicSlug": "q1OVFXdukF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEHTNX3JTS5EQ7VY9REBEHD.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5170/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "1980s"
+  ],
+  "moods": [
+    "Happy",
+    "Euphoric"
+  ],
+  "tags": [
+    "driving",
+    "running",
+    "synths",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

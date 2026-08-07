@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "2ebad812-cc19-413c-9cf6-043382448d20",
+  "epidemicTrackId": 145168,
+  "sourceProvider": "EpidemicSound",
+  "title": "Used to This",
+  "artist": "Maybe",
+  "duration": 198,
+  "bpm": 123,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203778",
+  "publicSlug": "YpEWO8OOFn",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH7KJPFD4JBDC1KCTE0C7XQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10090/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "dreamy",
+    "80s",
+    "upbeat",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

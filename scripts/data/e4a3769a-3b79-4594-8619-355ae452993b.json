@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "e4a3769a-3b79-4594-8619-355ae452993b",
+  "epidemicTrackId": 149741,
+  "sourceProvider": "EpidemicSound",
+  "title": "We Go On Forever",
+  "artist": "Roof",
+  "duration": 174,
+  "bpm": 140,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52304875",
+  "publicSlug": "MuKympBJNj",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQEPF5SD3QC19KQD17HGTM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11434/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock"
+  ],
+  "moods": [
+    "Eccentric",
+    "Restless"
+  ],
+  "tags": [
+    "female vocals",
+    "distortion",
+    "electric guitar",
+    "female band",
+    "lead vocals",
+    "male vocals"
+  ]
+}

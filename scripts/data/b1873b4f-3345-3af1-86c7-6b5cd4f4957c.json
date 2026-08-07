@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "b1873b4f-3345-3af1-86c7-6b5cd4f4957c",
+  "epidemicTrackId": 63323,
+  "sourceProvider": "EpidemicSound",
+  "title": "Hole",
+  "artist": "Rain Jewels",
+  "duration": 220,
+  "bpm": 160,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51812943",
+  "publicSlug": "MEhPe0eEBW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFZ6229R35JVM7ED2D6WTNT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Indie Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Dreamy",
+    "Running"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "flowing",
+    "moving on",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "9d4573ee-c2b0-4764-88f8-da8cd34ccf60",
+  "epidemicTrackId": 104198,
+  "sourceProvider": "EpidemicSound",
+  "title": "High & Dry",
+  "artist": "Wellmess",
+  "duration": 156,
+  "bpm": 177,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52001603",
+  "publicSlug": "C0IdxboThe",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF43TW7NTY2K8FKXT2ZT9JS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5133/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Punk"
+  ],
+  "moods": [
+    "Eccentric",
+    "Running"
+  ],
+  "tags": [
+    "driving",
+    "handclaps",
+    "male vocals",
+    "lead vocals"
+  ]
+}

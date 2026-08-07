@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "5c893334-fb30-43b7-96eb-ea975a6d8688",
+  "epidemicTrackId": 147005,
+  "sourceProvider": "EpidemicSound",
+  "title": "Come Daylight",
+  "artist": "Victor Lundberg",
+  "duration": 187,
+  "bpm": 88,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301301",
+  "publicSlug": "0HkkbAv8jF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFG75C3XVHTQZ3YKFA40QPB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10306/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "indie folk",
+    "acoustic guitar",
+    "laid back",
+    "lead vocals",
+    "male vocals"
+  ]
+}

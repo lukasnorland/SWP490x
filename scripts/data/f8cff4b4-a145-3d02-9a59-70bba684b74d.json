@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "f8cff4b4-a145-3d02-9a59-70bba684b74d",
+  "epidemicTrackId": 28638,
+  "sourceProvider": "EpidemicSound",
+  "title": "In Vain",
+  "artist": "Romaro",
+  "duration": 212,
+  "bpm": 73,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51810904",
+  "publicSlug": "dCs7wNnbT2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGDNKSADTD65NXB38VR1F1T.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "R&B",
+    "2010s"
+  ],
+  "moods": [
+    "Romantic",
+    "Sad"
+  ],
+  "tags": [
+    "ballad",
+    "female vocals",
+    "lead vocals",
+    "love",
+    "missing",
+    "rain",
+    "clouds",
+    "sorrow",
+    "sad",
+    "male vocals"
+  ]
+}

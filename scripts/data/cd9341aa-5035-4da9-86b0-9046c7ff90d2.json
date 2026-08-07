@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "cd9341aa-5035-4da9-86b0-9046c7ff90d2",
+  "epidemicTrackId": 249673,
+  "sourceProvider": "EpidemicSound",
+  "title": "Confidence",
+  "artist": "Witchitaw Slim",
+  "duration": 125,
+  "bpm": 107,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52402393",
+  "publicSlug": "ewjjj9nNBv",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGXF7S4KXPF5TFJ6GMHVDJA.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12826/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "powerful",
+    "rap",
+    "sentimental",
+    "lead vocals",
+    "male vocals"
+  ]
+}

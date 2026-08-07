@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "f2a4ed6d-4991-49c4-8c32-055ea236717f",
+  "epidemicTrackId": 146356,
+  "sourceProvider": "EpidemicSound",
+  "title": "intuition",
+  "artist": "dasloe",
+  "duration": 180,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300652",
+  "publicSlug": "Hksmxte15C",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ9F41A6B1PDJRHA3MAJ714.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10710/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Romantic",
+    "Euphoric"
+  ],
+  "tags": [
+    "k-pop",
+    "electronic",
+    "dance",
+    "sentimental",
+    "lead vocals",
+    "male vocals"
+  ]
+}

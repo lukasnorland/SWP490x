@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "4751934c-f1da-4ac4-9c1f-c413095c8cbd",
+  "epidemicTrackId": 150855,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dead End",
+  "artist": "Vicki Vox",
+  "duration": 165,
+  "bpm": 131,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52400811",
+  "publicSlug": "zhHaGn3Fkt",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFXVBWWBC6PAT382E0XM7T4.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12246/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Sad",
+    "Laid Back"
+  ],
+  "tags": [
+    "female vocals",
+    "heartbreak",
+    "feelings",
+    "acoustic",
+    "guitar",
+    "lead vocals"
+  ]
+}

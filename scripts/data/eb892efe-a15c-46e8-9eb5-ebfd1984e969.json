@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "eb892efe-a15c-46e8-9eb5-ebfd1984e969",
+  "epidemicTrackId": 147806,
+  "sourceProvider": "EpidemicSound",
+  "title": "Big Sun",
+  "artist": "Torii Wolf",
+  "duration": 240,
+  "bpm": 102,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52302102",
+  "publicSlug": "ZISUeGYsXg",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEHTNF4NHFC2G49H88FNV5G.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10650/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "EDM",
+    "Indie Pop"
+  ],
+  "moods": [
+    "Hopeful"
+  ],
+  "tags": [
+    "electric guitar",
+    "energetic",
+    "alternative"
+  ]
+}

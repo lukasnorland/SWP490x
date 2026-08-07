@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "05d7d057-6438-471c-8bde-c069154fd145",
+  "epidemicTrackId": 147963,
+  "sourceProvider": "EpidemicSound",
+  "title": "Pocket Rocket (Clean Version)",
+  "artist": "Nbhd Nick",
+  "duration": 128,
+  "bpm": 100,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52302259",
+  "publicSlug": "qIrfYZEurU",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH4CRS5ZZCFMX29Z5368BCK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10915/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "West Coast Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dark"
+  ],
+  "tags": [
+    "rap",
+    "powerful",
+    "heavy"
+  ]
+}

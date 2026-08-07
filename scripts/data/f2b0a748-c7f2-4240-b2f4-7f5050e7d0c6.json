@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "f2b0a748-c7f2-4240-b2f4-7f5050e7d0c6",
+  "epidemicTrackId": 140241,
+  "sourceProvider": "EpidemicSound",
+  "title": "Block 26",
+  "artist": "Torii Wolf",
+  "duration": 292,
+  "bpm": 72,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52103516",
+  "publicSlug": "UwDBEuqvKy",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJQCM72YBS78MREDN844TGR7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8065/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Indietronica",
+    "2020s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "mysterious",
+    "whispering",
+    "smooth"
+  ]
+}

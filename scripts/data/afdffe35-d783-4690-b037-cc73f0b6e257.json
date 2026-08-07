@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "afdffe35-d783-4690-b037-cc73f0b6e257",
+  "epidemicTrackId": 138455,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sin City",
+  "artist": "Sven Karlsson",
+  "duration": 170,
+  "bpm": 145,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52101843",
+  "publicSlug": "m2EZ1qMEbu",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMAR6GYJE5RA6RAR2W1R2M.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6428/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Punk",
+    "Pop Punk"
+  ],
+  "moods": [
+    "Eccentric",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "driving",
+    "rowdy",
+    "cool",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

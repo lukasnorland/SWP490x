@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "5289f025-911a-4c0e-bac1-66f2a7c88ff0",
+  "epidemicTrackId": 143815,
+  "sourceProvider": "EpidemicSound",
+  "title": "Used To",
+  "artist": "Nbhd Nick",
+  "duration": 155,
+  "bpm": 166,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52202429",
+  "publicSlug": "TNWIieDfZ6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEFVE971FHXBGAP6G0X55PQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10003/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "rap",
+    "energetic",
+    "hopeful",
+    "upbeat",
+    "beat",
+    "heavy",
+    "tense"
+  ]
+}

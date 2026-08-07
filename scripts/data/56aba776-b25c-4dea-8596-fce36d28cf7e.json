@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "56aba776-b25c-4dea-8596-fce36d28cf7e",
+  "epidemicTrackId": 143075,
+  "sourceProvider": "EpidemicSound",
+  "title": "Mi Cumbia",
+  "artist": "Cumbia Connection",
+  "duration": 190,
+  "bpm": 84,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201689",
+  "publicSlug": "M7jbu2Xeqk",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJAB43AJYPQDD86XP1BA5K1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8997/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Latin",
+    "Cumbia"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "electric guitar",
+    "acoustic guitar",
+    "tropical",
+    "lead vocals",
+    "male vocals",
+    "cumbia",
+    "colombia",
+    "percussion"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "c1af6241-0cc6-4aaa-820b-f69b7bcfcb74",
+  "epidemicTrackId": 151279,
+  "sourceProvider": "EpidemicSound",
+  "title": "Just Be Mine",
+  "artist": "John Runefelt",
+  "duration": 172,
+  "bpm": 101,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401235",
+  "publicSlug": "yBdznwNT60",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH63GKF7JEBDWRTB0G71D16.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12305/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul",
+    "1970s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "jazz",
+    "choir",
+    "romantic",
+    "lead vocals",
+    "female vocals"
+  ]
+}

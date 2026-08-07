@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "e155b7a4-9cef-451e-9faf-6c66c30d3961",
+  "epidemicTrackId": 148252,
+  "sourceProvider": "EpidemicSound",
+  "title": "Encore (Sarah, the Illstrumentalist Remix)",
+  "artist": "Sarah, the Illstrumentalist",
+  "duration": 150,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52302548",
+  "publicSlug": "A60s0gKK1x",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH7217MQKSDB8RXV7JCWNS6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10697/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Hip Hop",
+    "Lo-fi House"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "laid back",
+    "soft house",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

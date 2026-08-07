@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "cbfb5f33-7237-4b5a-b513-b1aa07a96661",
+  "epidemicTrackId": 249542,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sweet Lemons",
+  "artist": "Ludlów",
+  "duration": 225,
+  "bpm": 132,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402262",
+  "publicSlug": "jjVUL0gr3S",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGRHZQ5R0M93CA8NSKSE7NC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12713/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "guitar",
+    "drums",
+    "female vocals",
+    "chill",
+    "calm",
+    "piano",
+    "tambourine",
+    "relaxing",
+    "peaceful",
+    "lead vocals"
+  ]
+}

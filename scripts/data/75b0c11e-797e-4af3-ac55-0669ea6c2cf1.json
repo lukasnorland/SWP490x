@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "75b0c11e-797e-4af3-ac55-0669ea6c2cf1",
+  "epidemicTrackId": 253305,
+  "sourceProvider": "EpidemicSound",
+  "title": "Stuck with Me",
+  "artist": "Victor Lundberg",
+  "duration": 210,
+  "bpm": 165,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52404308",
+  "publicSlug": "aLqxnCpOGg",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG3MWV1F3YR34HENDEAZRKR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13539/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Indie Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "upbeat",
+    "energetic",
+    "pop rock",
+    "lead vocals",
+    "male vocals"
+  ]
+}

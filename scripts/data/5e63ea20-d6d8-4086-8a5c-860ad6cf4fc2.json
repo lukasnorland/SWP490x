@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "5e63ea20-d6d8-4086-8a5c-860ad6cf4fc2",
+  "epidemicTrackId": 283715,
+  "sourceProvider": "EpidemicSound",
+  "title": "Moving Crowd",
+  "artist": "First Timer",
+  "duration": 179,
+  "bpm": 107,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600242",
+  "publicSlug": "poX7bLBUp3",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK6XQK0W1VRK65SPEYJ0W2EC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15504/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

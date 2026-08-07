@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "9e07a57c-6c5c-4898-be24-c62e06b0c88a",
+  "epidemicTrackId": 146476,
+  "sourceProvider": "EpidemicSound",
+  "title": "Don't Close Your Eyes",
+  "artist": "Luwaks",
+  "duration": 197,
+  "bpm": 115,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300772",
+  "publicSlug": "lSkizPSeWY",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFEC165XVH7ZAK31764PW2X.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10340/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Future Bass"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "epic",
+    "powerful",
+    "sentimental",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

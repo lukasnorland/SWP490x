@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "9f1d2d45-8684-30cb-87c3-1b3caefcd3a6",
+  "epidemicTrackId": 96377,
+  "sourceProvider": "EpidemicSound",
+  "title": "Original",
+  "artist": "Ray",
+  "duration": 227,
+  "bpm": 82,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51810032",
+  "publicSlug": "GYpw3Iv9Y6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNRNBRD49125P0924YBF90.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3814/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Peaceful"
+  ],
+  "tags": [
+    "steady",
+    "female vocals",
+    "lead vocals",
+    "ballad",
+    "walking",
+    "organic",
+    "acoustic",
+    "country",
+    "male vocals"
+  ]
+}

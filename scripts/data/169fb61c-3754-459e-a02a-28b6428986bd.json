@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "169fb61c-3754-459e-a02a-28b6428986bd",
+  "epidemicTrackId": 104044,
+  "sourceProvider": "EpidemicSound",
+  "title": "Where Do You Go",
+  "artist": "Easton",
+  "duration": 240,
+  "bpm": 115,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52001452",
+  "publicSlug": "EbOHBJA8ah",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE5Y26JS4RA9G757JSEE7RR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5058/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Punk Rock",
+    "Rock",
+    "2000s"
+  ],
+  "moods": [
+    "Angry",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "driving",
+    "heavy",
+    "sentimental",
+    "teenager",
+    "heartbreak"
+  ]
+}

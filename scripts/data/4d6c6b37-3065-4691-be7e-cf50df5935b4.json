@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "4d6c6b37-3065-4691-be7e-cf50df5935b4",
+  "epidemicTrackId": 276499,
+  "sourceProvider": "EpidemicSound",
+  "title": "Funeral",
+  "artist": "Maybe",
+  "duration": 157,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501656",
+  "publicSlug": "dT3OanRzbT",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHXHFPCNZAQNGBAKXHHD6TR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14952/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Sad",
+    "Hopeful"
+  ],
+  "tags": [
+    "flute",
+    "lead vocals",
+    "female vocals"
+  ]
+}

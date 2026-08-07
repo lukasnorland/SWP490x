@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "242071f4-2ff4-49af-9c28-07a2dcc45dd8",
+  "epidemicTrackId": 145058,
+  "sourceProvider": "EpidemicSound",
+  "title": "Ya Nada Pasará",
+  "artist": "Cumbia Connection",
+  "duration": 179,
+  "bpm": 84,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203668",
+  "publicSlug": "PYIA03PTAw",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGKS8V874EWRHNW39K547FB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9443/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Latin",
+    "South America"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "cumbia",
+    "lead vocals",
+    "male vocals"
+  ]
+}

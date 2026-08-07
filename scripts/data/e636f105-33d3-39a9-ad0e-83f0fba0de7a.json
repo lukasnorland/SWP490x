@@ -1,0 +1,39 @@
+{
+  "externalSourceId": "e636f105-33d3-39a9-ad0e-83f0fba0de7a",
+  "epidemicTrackId": 60680,
+  "sourceProvider": "EpidemicSound",
+  "title": "Love Conquers All",
+  "artist": "Arch Tremors",
+  "duration": 268,
+  "bpm": 97,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828036",
+  "publicSlug": "4dmXYaDpk6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFP3QWH1BSZ2HA3WJXCWKED.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3182/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "1960s",
+    "Nostalgia"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "60s",
+    "lead vocals",
+    "female vocals",
+    "movie",
+    "vintage",
+    "retro",
+    "cocktail",
+    "party",
+    "dresses",
+    "strings",
+    "horns",
+    "guitar",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "e9e60278-5775-4b81-98cb-bc08a47ce04d",
+  "epidemicTrackId": 149074,
+  "sourceProvider": "EpidemicSound",
+  "title": "Fallen City",
+  "artist": "I'MIN",
+  "duration": 217,
+  "bpm": 108,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52303370",
+  "publicSlug": "sB10wTJ1VJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJNFVP3FRKFX6VJDX3MCH39.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11100/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "korean",
+    "hopeful",
+    "piano",
+    "ballad",
+    "lead vocals",
+    "male vocals"
+  ]
+}

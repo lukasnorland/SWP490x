@@ -1,0 +1,39 @@
+{
+  "externalSourceId": "ae95a10d-383e-36ce-a29d-0011666f6377",
+  "epidemicTrackId": 29335,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Could Fall in Love With You",
+  "artist": "Arch Tremors",
+  "duration": 353,
+  "bpm": 144,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51825541",
+  "publicSlug": "M0CiZ6tqOC",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGSY05499YR3DRSJJKEJDKY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3184/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Americana",
+    "Contemporary Country",
+    "North America"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "america",
+    "female vocals",
+    "lead vocals",
+    "slide guitar",
+    "reunions",
+    "old love",
+    "california",
+    "americana",
+    "ballad",
+    "warm",
+    "cosy",
+    "comforting"
+  ]
+}

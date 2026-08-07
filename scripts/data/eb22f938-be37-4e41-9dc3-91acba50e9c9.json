@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "eb22f938-be37-4e41-9dc3-91acba50e9c9",
+  "epidemicTrackId": 150840,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Best You'll Never Have",
+  "artist": "Zorro",
+  "duration": 161,
+  "bpm": 88,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400796",
+  "publicSlug": "h0STuhoIiJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGHN229NENX3RS02JY2K77B.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12248/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Happy",
+    "Quirky"
+  ],
+  "tags": [
+    "female vocals",
+    "crush",
+    "bouncy",
+    "laid back",
+    "eccentric",
+    "chill",
+    "lead vocals"
+  ]
+}

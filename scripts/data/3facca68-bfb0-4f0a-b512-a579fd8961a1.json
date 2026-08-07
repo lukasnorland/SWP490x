@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "3facca68-bfb0-4f0a-b512-a579fd8961a1",
+  "epidemicTrackId": 148814,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Shroud of My Lies",
+  "artist": "ELFL",
+  "duration": 209,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52303110",
+  "publicSlug": "Oge0bZ9ZSg",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFQ9FQ3RAXHP39YJK99P2S9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11373/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Synth-pop"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "dreamy",
+    "synthesizer",
+    "male vocal",
+    "percussion",
+    "lead vocals",
+    "male vocals"
+  ]
+}

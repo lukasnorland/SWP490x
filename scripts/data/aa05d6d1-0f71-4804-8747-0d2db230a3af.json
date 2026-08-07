@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "aa05d6d1-0f71-4804-8747-0d2db230a3af",
+  "epidemicTrackId": 249638,
+  "sourceProvider": "EpidemicSound",
+  "title": "Amazing",
+  "artist": "mr.",
+  "duration": 154,
+  "bpm": 140,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402358",
+  "publicSlug": "h1MNpwvUZ1",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGN76QSRHJ9E0ANEQYP17VS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12714/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop Soul",
+    "Contemporary R&B"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "male vocals",
+    "chill",
+    "groove",
+    "feel good",
+    "love",
+    "relationship",
+    "guitar",
+    "bass",
+    "lead vocals"
+  ]
+}

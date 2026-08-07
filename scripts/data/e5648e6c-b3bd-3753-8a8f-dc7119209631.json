@@ -1,0 +1,39 @@
+{
+  "externalSourceId": "e5648e6c-b3bd-3753-8a8f-dc7119209631",
+  "epidemicTrackId": 62040,
+  "sourceProvider": "EpidemicSound",
+  "title": "Rue Saint-Antoine",
+  "artist": "Tomas Skyldeberg",
+  "duration": 227,
+  "bpm": 105,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51700548",
+  "publicSlug": "FrUbE8EmWz",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJZVKAD63QA45TB5JPF5C4VS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/86/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soft House"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "contemporary",
+    "vocal chop",
+    "sun",
+    "club",
+    "sky",
+    "ocean",
+    "mountains",
+    "cool",
+    "smooth",
+    "late night",
+    "beach",
+    "summer",
+    "sunglasses",
+    "drinks"
+  ]
+}

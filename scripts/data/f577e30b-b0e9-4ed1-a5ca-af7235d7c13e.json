@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "f577e30b-b0e9-4ed1-a5ca-af7235d7c13e",
+  "epidemicTrackId": 276652,
+  "sourceProvider": "EpidemicSound",
+  "title": "Ganesh Stuti",
+  "artist": "Siddharth Parashar",
+  "duration": 239,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501809",
+  "publicSlug": "5VBljfm0r8",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH12JT35KTH03G75QCWHXNX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14597/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indian Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "laid back",
+    "dhol",
+    "lute",
+    "lead vocals",
+    "male vocals"
+  ]
+}

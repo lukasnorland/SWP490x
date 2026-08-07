@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "4b8fe8fb-df2f-3131-a010-b1eed9f34950",
+  "epidemicTrackId": 97625,
+  "sourceProvider": "EpidemicSound",
+  "title": "Not Funny",
+  "artist": "Conditional",
+  "duration": 196,
+  "bpm": 75,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828614",
+  "publicSlug": "PIEvZ3QvJp",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFCW901CS8VCQZ8CTPNQTFT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6252/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Restless",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "attitude",
+    "cocky",
+    "fuzz",
+    "distortion",
+    "groove"
+  ]
+}

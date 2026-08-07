@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "d3bab128-6283-32c8-b02a-0529b37b730c",
+  "epidemicTrackId": 99351,
+  "sourceProvider": "EpidemicSound",
+  "title": "Symphony Heartbeat",
+  "artist": "Tape Machines",
+  "duration": 193,
+  "bpm": 78,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51900907",
+  "publicSlug": "QaZCAWUKsa",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFQTWCMP2RFV00Q8MMPZN4R.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2459/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Epic",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "ballad",
+    "female vocals",
+    "soft",
+    "feelgood",
+    "male vocals"
+  ]
+}

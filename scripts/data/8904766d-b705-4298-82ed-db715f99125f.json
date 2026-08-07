@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "8904766d-b705-4298-82ed-db715f99125f",
+  "epidemicTrackId": 276142,
+  "sourceProvider": "EpidemicSound",
+  "title": "Piece of Cake",
+  "artist": "Windshield",
+  "duration": 185,
+  "bpm": 151,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501299",
+  "publicSlug": "2qcJeGv6t6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFK5B3Q1JQXXDJ4HFW4EAEC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14233/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Indie Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Quirky"
+  ],
+  "tags": [
+    "drum kit",
+    "restless",
+    "energetic",
+    "electric guitar",
+    "bass guitar",
+    "lead vocals",
+    "female vocals"
+  ]
+}

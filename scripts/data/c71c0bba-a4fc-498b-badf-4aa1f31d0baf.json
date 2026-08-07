@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "c71c0bba-a4fc-498b-badf-4aa1f31d0baf",
+  "epidemicTrackId": 252315,
+  "sourceProvider": "EpidemicSound",
+  "title": "Randle",
+  "artist": "Nyck Caution",
+  "duration": 146,
+  "bpm": 86,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52403344",
+  "publicSlug": "k4WwQejKtj",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG6V8Y2S2E3AZVDC9K51NJ0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14111/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Lo-fi Hip Hop",
+    "East Coast Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "jazz",
+    "sax",
+    "piano",
+    "saxophone"
+  ]
+}

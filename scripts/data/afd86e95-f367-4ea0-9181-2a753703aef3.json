@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "afd86e95-f367-4ea0-9181-2a753703aef3",
+  "epidemicTrackId": 144861,
+  "sourceProvider": "EpidemicSound",
+  "title": "make u mine",
+  "artist": "dasloe",
+  "duration": 138,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203471",
+  "publicSlug": "FDX4tPyFlL",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF0MBTKRGK9VY7219R4XENN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9294/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "korean",
+    "laid back",
+    "happy",
+    "romantic",
+    "lead vocals",
+    "male vocals",
+    "electro"
+  ]
+}

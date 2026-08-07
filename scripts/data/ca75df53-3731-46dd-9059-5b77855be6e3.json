@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "ca75df53-3731-46dd-9059-5b77855be6e3",
+  "epidemicTrackId": 283768,
+  "sourceProvider": "EpidemicSound",
+  "title": "GHOST",
+  "artist": "Mattias Tell",
+  "duration": 261,
+  "bpm": 102,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600295",
+  "publicSlug": "DG3RU4EUdk",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KYHVBQSCFD09X5S3K5AB5MZN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15660/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Arena Rock",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful",
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

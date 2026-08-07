@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "93bda379-d3b4-3ee7-a393-ad7c4ea841fd",
+  "epidemicTrackId": 96264,
+  "sourceProvider": "EpidemicSound",
+  "title": "Way Way Back",
+  "artist": "Lvly",
+  "duration": 212,
+  "bpm": 124,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51800491",
+  "publicSlug": "JmBJRbZp8V",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFVRPSR609Z2TNWHNQ98530.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/432/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "friendship",
+    "friends",
+    "tears",
+    "happy",
+    "dance",
+    "singer",
+    "female",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

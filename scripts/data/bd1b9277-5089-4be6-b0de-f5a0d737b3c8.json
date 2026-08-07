@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "bd1b9277-5089-4be6-b0de-f5a0d737b3c8",
+  "epidemicTrackId": 283036,
+  "sourceProvider": "EpidemicSound",
+  "title": "Crooked Lines",
+  "artist": "Staffan Carlén",
+  "duration": 253,
+  "bpm": 148,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503176",
+  "publicSlug": "ARD3ucqBaR",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFYR4DNYWP9JYQ14FFBM53T.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15502/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Rock"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "ab694695-5e76-4d8d-a0d0-ffb688067362",
+  "epidemicTrackId": 252550,
+  "sourceProvider": "EpidemicSound",
+  "title": "Adelita",
+  "artist": "Alcónes Negros",
+  "duration": 153,
+  "bpm": 130,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403579",
+  "publicSlug": "4KQ0iBSH9r",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFM1C4VG5Y5WBQY3068G7E3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13136/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Mariachi",
+    "Acoustic",
+    "Mexico"
+  ],
+  "moods": [
+    "Happy",
+    "Romantic"
+  ],
+  "tags": [
+    "guitar",
+    "jarpa",
+    "harp",
+    "accordion",
+    "trumpet",
+    "romantic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

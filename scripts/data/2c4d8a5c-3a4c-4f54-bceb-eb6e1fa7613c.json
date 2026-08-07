@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "2c4d8a5c-3a4c-4f54-bceb-eb6e1fa7613c",
+  "epidemicTrackId": 284380,
+  "sourceProvider": "EpidemicSound",
+  "title": "SONRÍE",
+  "artist": "El Pequeño Fary",
+  "duration": 170,
+  "bpm": 117,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600854",
+  "publicSlug": "yXsv2NlN5g",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KPARWC2WSMJ3A81P2GZ0F3ZK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/16048/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Latin Pop",
+    "Children'S Music",
+    "Caribbean"
+  ],
+  "moods": [
+    "Happy",
+    "Euphoric"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

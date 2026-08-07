@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "7d7ece38-8e4c-4b2d-8ad4-4ff757dca060",
+  "epidemicTrackId": 149233,
+  "sourceProvider": "EpidemicSound",
+  "title": "Who's That Girl",
+  "artist": "ELFL",
+  "duration": 237,
+  "bpm": 105,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52304367",
+  "publicSlug": "Z03e561WrZ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGV4M6M4265H5JTMM5A8PPG.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11463/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Synth-pop"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "female vocals",
+    "dreamy",
+    "lead vocals",
+    "male vocals"
+  ]
+}

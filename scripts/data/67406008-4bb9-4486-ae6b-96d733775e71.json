@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "67406008-4bb9-4486-ae6b-96d733775e71",
+  "epidemicTrackId": 141821,
+  "sourceProvider": "EpidemicSound",
+  "title": "Amor del Bueno",
+  "artist": "Caro Luna",
+  "duration": 213,
+  "bpm": 0,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200435",
+  "publicSlug": "kpllFeHmBR",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMN5M8S0NH18MJZX9QDG1J.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9000/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Salsa",
+    "Argentina"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "spanish",
+    "español",
+    "love",
+    "romance",
+    "piano",
+    "guitar",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

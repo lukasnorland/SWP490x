@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "161fc92b-48c0-4918-820c-c96572719f20",
+  "epidemicTrackId": 252986,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Thrill",
+  "artist": "Gamma Skies",
+  "duration": 165,
+  "bpm": 98,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403989",
+  "publicSlug": "8Dkbi0rEPR",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPB452XQWAVCGNWBFHDYCG.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13371/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats",
+    "2020s"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "calm",
+    "vibe",
+    "chill",
+    "shaker",
+    "percussion",
+    "feel good",
+    "lead vocals",
+    "female vocals"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "e41f127d-e56c-404a-b52c-d87b0aab4849",
+  "epidemicTrackId": 150334,
+  "sourceProvider": "EpidemicSound",
+  "title": "Calling Out for You",
+  "artist": "Mercy Street",
+  "duration": 229,
+  "bpm": 81,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400290",
+  "publicSlug": "B9COl3PZI4",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ94AVDP504VXNNSHE6QXJF.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12895/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian",
+    "Praise & Worship",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "relaxing",
+    "tender",
+    "faith",
+    "male vocals",
+    "guitar",
+    "spirituals",
+    "lead vocals"
+  ]
+}

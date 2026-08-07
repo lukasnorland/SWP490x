@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "b54e19b2-feea-470c-b13d-c371e4020560",
+  "epidemicTrackId": 277576,
+  "sourceProvider": "EpidemicSound",
+  "title": "Love Begets Love",
+  "artist": "Gavin Luke",
+  "duration": 201,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502740",
+  "publicSlug": "js2w2rE32n",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGP83CGAHYTP7CM13SA5BEA.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14911/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Orchestral Hybrid",
+    "World Fusion",
+    "Indian Classical",
+    "Acoustic",
+    "Beautiful"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "piano",
+    "strings",
+    "dreamy",
+    "flute",
+    "lead vocals",
+    "female vocals"
+  ]
+}

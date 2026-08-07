@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "a835fd19-0294-3e3b-b495-829b6e411359",
+  "epidemicTrackId": 64064,
+  "sourceProvider": "EpidemicSound",
+  "title": "Taking Me High, Taking Me Low",
+  "artist": "Gold Flow",
+  "duration": 198,
+  "bpm": 140,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51820996",
+  "publicSlug": "TciMCGGYgN",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFS8WXZK214WDQ8VDJ37BK8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/1376/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Folk",
+    "Acoustic",
+    "Ireland"
+  ],
+  "moods": [
+    "Dark",
+    "Mysterious"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "isr",
+    "irish",
+    "guitars",
+    "hopeful",
+    "romantic",
+    "ballad"
+  ]
+}

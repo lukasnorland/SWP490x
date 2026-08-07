@@ -1,0 +1,41 @@
+{
+  "externalSourceId": "c7e68575-363b-310a-b146-7e40093ae5ff",
+  "epidemicTrackId": 64056,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Beach",
+  "artist": "Sonic Spark",
+  "duration": 196,
+  "bpm": 181,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51814635",
+  "publicSlug": "ynyIMRVQXg",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGM1HR994QE4CCJS1KQQJFB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2208/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Punk",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Eccentric",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "lead vocals",
+    "vocals",
+    "frenzied",
+    "pounding",
+    "epic",
+    "running",
+    "driving",
+    "energetic",
+    "uplifting",
+    "rowdy",
+    "wild",
+    "surf",
+    "garage",
+    "sports",
+    "male vocals"
+  ]
+}

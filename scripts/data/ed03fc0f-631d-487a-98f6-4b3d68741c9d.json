@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "ed03fc0f-631d-487a-98f6-4b3d68741c9d",
+  "epidemicTrackId": 150375,
+  "sourceProvider": "EpidemicSound",
+  "title": "Denial",
+  "artist": "JAKE $ING",
+  "duration": 201,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400331",
+  "publicSlug": "giZ4PzK5EN",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHY14FPV96535H9641N1D8M.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11745/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "K-pop"
+  ],
+  "moods": [
+    "Romantic",
+    "Sad"
+  ],
+  "tags": [
+    "piano",
+    "heartbreak",
+    "drama",
+    "lead vocals",
+    "male vocals"
+  ]
+}

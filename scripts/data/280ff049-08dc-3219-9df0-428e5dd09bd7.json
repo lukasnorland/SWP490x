@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "280ff049-08dc-3219-9df0-428e5dd09bd7",
+  "epidemicTrackId": 59815,
+  "sourceProvider": "EpidemicSound",
+  "title": "Wide Awake",
+  "artist": "Fox Drop",
+  "duration": 215,
+  "bpm": 126,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51820840",
+  "publicSlug": "CpdvoHes50",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGP78XQRK8GVRWNX0DF939B.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4457/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Rock",
+    "2000s"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "youth",
+    "commercial rock",
+    "lead vocals",
+    "male vocals",
+    "guitar",
+    "distortion",
+    "heavy",
+    "ponderous"
+  ]
+}

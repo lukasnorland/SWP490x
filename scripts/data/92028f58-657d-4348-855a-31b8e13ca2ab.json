@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "92028f58-657d-4348-855a-31b8e13ca2ab",
+  "epidemicTrackId": 147247,
+  "sourceProvider": "EpidemicSound",
+  "title": "Neas",
+  "artist": "Nico Rengifo",
+  "duration": 147,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301543",
+  "publicSlug": "cSpivcDKBa",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG13QME2V1E1E076NG9VRCP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11137/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats",
+    "Latin"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "afrobeat",
+    "latin pop",
+    "pop in spanish",
+    "lead vocals",
+    "male vocals"
+  ]
+}

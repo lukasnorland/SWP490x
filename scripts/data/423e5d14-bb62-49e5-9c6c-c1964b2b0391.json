@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "423e5d14-bb62-49e5-9c6c-c1964b2b0391",
+  "epidemicTrackId": 253380,
+  "sourceProvider": "EpidemicSound",
+  "title": "Burn Away",
+  "artist": "Nyck Caution, Humblebee",
+  "duration": 172,
+  "bpm": 156,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52500036",
+  "publicSlug": "tQfPjc1nIe",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJE9HTMFW4TT76GDTSQHTJY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14148/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Angry",
+    "Restless"
+  ],
+  "tags": [
+    "powerful",
+    "tense",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "8ccff949-ade9-471e-ba63-a8d03b767938",
+  "epidemicTrackId": 276624,
+  "sourceProvider": "EpidemicSound",
+  "title": "Judgy",
+  "artist": "Mimmi Bangoura",
+  "duration": 211,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501781",
+  "publicSlug": "I2e0SBSjZh",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE9X3ZKZJTH3K27VARG18J9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14520/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary R&B"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "airy",
+    "lead vocals",
+    "female vocals"
+  ]
+}

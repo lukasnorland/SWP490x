@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "99275ffc-32c7-48ea-999c-1e2395919a1e",
+  "epidemicTrackId": 252138,
+  "sourceProvider": "EpidemicSound",
+  "title": "Good Place to Start",
+  "artist": "Vicki Vox",
+  "duration": 167,
+  "bpm": 105,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403167",
+  "publicSlug": "8ikff5waBz",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE1MTMFAE95GFNR63TM3JGY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13087/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Tropical House"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "love",
+    "relationship",
+    "snaps",
+    "guitar",
+    "chill",
+    "percussion",
+    "lead vocals",
+    "female vocals"
+  ]
+}

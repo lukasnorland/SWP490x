@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "fa8bb644-b15a-45aa-a6fa-7f01b6347c8d",
+  "epidemicTrackId": 254460,
+  "sourceProvider": "EpidemicSound",
+  "title": "Grandeza",
+  "artist": "Jaque Rascón",
+  "duration": 160,
+  "bpm": 125,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501115",
+  "publicSlug": "vbZcWMvTQq",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGF8F90S8W3JT2KEJ5N984G.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14164/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Regional Mexicano",
+    "Norteño",
+    "Acoustic",
+    "Mexico"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "guitar",
+    "trumpet",
+    "upbeat",
+    "sentimental",
+    "lead vocals",
+    "female vocals"
+  ]
+}

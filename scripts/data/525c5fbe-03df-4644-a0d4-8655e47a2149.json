@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "525c5fbe-03df-4644-a0d4-8655e47a2149",
+  "epidemicTrackId": 146768,
+  "sourceProvider": "EpidemicSound",
+  "title": "Freaky Dog",
+  "artist": "Zorro",
+  "duration": 177,
+  "bpm": 165,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301064",
+  "publicSlug": "TvuZus2sIC",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE4VPNBQY18RQSCQHY821NC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10323/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Electronic",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Mysterious"
+  ],
+  "tags": [
+    "eerie",
+    "sensual",
+    "creepy",
+    "female rap",
+    "female rapper"
+  ]
+}

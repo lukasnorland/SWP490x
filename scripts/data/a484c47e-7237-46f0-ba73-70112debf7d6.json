@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "a484c47e-7237-46f0-ba73-70112debf7d6",
+  "epidemicTrackId": 277599,
+  "sourceProvider": "EpidemicSound",
+  "title": "American Mastiff (Clean Version)",
+  "artist": "Katori Walker, Nyck Caution",
+  "duration": 165,
+  "bpm": 140,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502763",
+  "publicSlug": "LxgRLKhMFb",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFC3F7GJF1VSHXV4MYR85M4.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15247/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "brass",
+    "powerful"
+  ]
+}

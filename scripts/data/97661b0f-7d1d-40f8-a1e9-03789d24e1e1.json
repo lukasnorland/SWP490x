@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "97661b0f-7d1d-40f8-a1e9-03789d24e1e1",
+  "epidemicTrackId": 151522,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sacatela",
+  "artist": "Lawd Ito",
+  "duration": 172,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52401478",
+  "publicSlug": "bpenXFXgpD",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGZQ9C8RHYXTADVHHQCHT28.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12421/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dembow",
+    "Dominican Republic"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "upbeat",
+    "restless",
+    "lead vocals",
+    "male vocals"
+  ]
+}

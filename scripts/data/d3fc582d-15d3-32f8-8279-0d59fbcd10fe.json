@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "d3fc582d-15d3-32f8-8279-0d59fbcd10fe",
+  "epidemicTrackId": 97442,
+  "sourceProvider": "EpidemicSound",
+  "title": "You Really Got Me (Deek Cloud Remix)",
+  "artist": "Martin Hall",
+  "duration": 205,
+  "bpm": 125,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51820819",
+  "publicSlug": "8gZiltvQHm",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF3EFJH8NGT7A425E4DH7EM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "House"
+  ],
+  "moods": [
+    "Eccentric",
+    "Euphoric"
+  ],
+  "tags": [
+    "cool",
+    "intense",
+    "drop",
+    "sport",
+    "power",
+    "empowering",
+    "lead vocals",
+    "female vocals",
+    "uplifting",
+    "energetic",
+    "workout",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "externalSourceId": "af4bef43-39d2-3f63-8fc1-1365a952fbe3",
+  "epidemicTrackId": 62026,
+  "sourceProvider": "EpidemicSound",
+  "title": "Rue De l'Abreuvoir",
+  "artist": "Tomas Skyldeberg",
+  "duration": 192,
+  "bpm": 105,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51700544",
+  "publicSlug": "dvs4NOuL1N",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK8GG0PPHHZNRWYR8NWA1801.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/86/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soft House"
+  ],
+  "moods": [
+    "Dreamy",
+    "Floating"
+  ],
+  "tags": [
+    "contemporary",
+    "sun",
+    "wind",
+    "ocean",
+    "sky",
+    "mountains",
+    "vocal sample",
+    "summer",
+    "cool",
+    "tropical",
+    "beach",
+    "ibiza",
+    "lead vocals",
+    "male vocals"
+  ]
+}

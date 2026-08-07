@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "d5a97cd2-f7af-4c5f-97ac-7e7db90d7f09",
+  "epidemicTrackId": 150108,
+  "sourceProvider": "EpidemicSound",
+  "title": "Fire of Love",
+  "artist": "Yinon Muallem",
+  "duration": 208,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400064",
+  "publicSlug": "oMGQrVJHVS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG7ZXNHEPCH15T97C53W4PJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11499/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Middle East",
+    "Acoustic"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "mysterious",
+    "turkish",
+    "lead vocals",
+    "male vocals"
+  ]
+}

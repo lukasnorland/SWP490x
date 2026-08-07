@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "865eb0ad-fbf6-4b6e-8b8d-f22db5334f32",
+  "epidemicTrackId": 253475,
+  "sourceProvider": "EpidemicSound",
+  "title": "Altar",
+  "artist": "Hector Gabriel",
+  "duration": 282,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500131",
+  "publicSlug": "w9tkyYv02W",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFJJ3WMR2QB2Q98D3WQPP8Y.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13581/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "hopeful",
+    "guitar",
+    "inspirational",
+    "lead vocals",
+    "male vocals"
+  ]
+}

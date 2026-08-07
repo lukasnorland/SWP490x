@@ -1,0 +1,39 @@
+{
+  "externalSourceId": "fa9e0b10-5a20-4d32-9c59-61c41998d84e",
+  "epidemicTrackId": 276325,
+  "sourceProvider": "EpidemicSound",
+  "title": "Hold Up",
+  "artist": "Victor Lundberg",
+  "duration": 186,
+  "bpm": 93,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501482",
+  "publicSlug": "4hRu4whisN",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHYHAANE6SMDCKZMH6Z4DZ9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14413/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Indie Pop",
+    "Main Title",
+    "Acoustic"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "friendship",
+    "feel good",
+    "sentimental",
+    "youth",
+    "indie folk",
+    "kids show",
+    "piano",
+    "acoustic guitar",
+    "lead vocals",
+    "male vocals",
+    "catchy"
+  ]
+}

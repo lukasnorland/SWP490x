@@ -1,0 +1,39 @@
+{
+  "externalSourceId": "bbdf9352-961d-43ee-aa2f-777038e8d1d5",
+  "epidemicTrackId": 143444,
+  "sourceProvider": "EpidemicSound",
+  "title": "Appetite",
+  "artist": "Zorro",
+  "duration": 146,
+  "bpm": 123,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52202058",
+  "publicSlug": "hirQwEfFuA",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE57KY9QRWDQK35WDTFGWF4.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9187/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Hyperpop",
+    "Electropop",
+    "2020s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Eccentric"
+  ],
+  "tags": [
+    "bass",
+    "dreamy",
+    "smooth",
+    "beat",
+    "energetic",
+    "dark",
+    "lead vocals",
+    "female vocals",
+    "female rap",
+    "female rapper",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "592e85c3-fb3a-4c80-8054-6afc030b4eba",
+  "epidemicTrackId": 142790,
+  "sourceProvider": "EpidemicSound",
+  "title": "Honey Sky",
+  "artist": "Torii Wolf",
+  "duration": 172,
+  "bpm": 106,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201404",
+  "publicSlug": "0uN52CQO8N",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK4E22TTEN46XTW2Z2PE6ASF.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8800/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Indietronica"
+  ],
+  "moods": [
+    "Dark",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "suggestive",
+    "synths",
+    "tech"
+  ]
+}

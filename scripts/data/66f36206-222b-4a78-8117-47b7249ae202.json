@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "66f36206-222b-4a78-8117-47b7249ae202",
+  "epidemicTrackId": 146452,
+  "sourceProvider": "EpidemicSound",
+  "title": "hello my name",
+  "artist": "Collin Lim",
+  "duration": 197,
+  "bpm": 97,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300748",
+  "publicSlug": "SSOproeUqS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF77A005E1T0154HV01DJEE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10579/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "korean",
+    "ballad",
+    "laid back",
+    "guitar",
+    "hopeful",
+    "piano",
+    "lead vocals",
+    "male vocals"
+  ]
+}

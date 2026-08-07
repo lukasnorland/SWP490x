@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "bea09f08-b0ee-4b17-889f-6f4ad76113ec",
+  "epidemicTrackId": 151232,
+  "sourceProvider": "EpidemicSound",
+  "title": "teddy bear",
+  "artist": "Adelyn Paik",
+  "duration": 163,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401188",
+  "publicSlug": "19u4zxGyaI",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF1RMW212DSJJE3B6E9H5R8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12400/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary R&B",
+    "K-pop",
+    "2020s",
+    "Korea",
+    "Beats"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "laid back",
+    "korean",
+    "upbeat",
+    "lead vocals",
+    "female vocals"
+  ]
+}

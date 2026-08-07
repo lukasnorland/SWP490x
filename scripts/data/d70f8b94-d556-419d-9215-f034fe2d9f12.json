@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "d70f8b94-d556-419d-9215-f034fe2d9f12",
+  "epidemicTrackId": 147010,
+  "sourceProvider": "EpidemicSound",
+  "title": "I'll Be Alright",
+  "artist": "Roy Williams",
+  "duration": 204,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301306",
+  "publicSlug": "hRVEirkbzl",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE71F6AQTJGT1M3NKKDMTG0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10301/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Roots Rock"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "blues",
+    "piano",
+    "acoustic",
+    "upbeat",
+    "feelgood",
+    "lead vocals",
+    "male vocals"
+  ]
+}

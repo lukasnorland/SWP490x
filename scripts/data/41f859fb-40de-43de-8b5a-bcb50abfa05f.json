@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "41f859fb-40de-43de-8b5a-bcb50abfa05f",
+  "epidemicTrackId": 138895,
+  "sourceProvider": "EpidemicSound",
+  "title": "My Soul",
+  "artist": "Norman Sann",
+  "duration": 152,
+  "bpm": 180,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52102244",
+  "publicSlug": "FKIWc2GvXl",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE5T0GTVKR9DK7VMFDB1S5M.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6852/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "R&B",
+    "Trap"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "guitar",
+    "laid back"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "c51dfed3-877c-47d2-94a5-d1a8fc7bf748",
+  "epidemicTrackId": 250252,
+  "sourceProvider": "EpidemicSound",
+  "title": "Peace and Quiet",
+  "artist": "Flux Vortex",
+  "duration": 200,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402972",
+  "publicSlug": "GV93Wyim7v",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGS1192CS4K9WTDD7CEANH3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12982/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "female vocals",
+    "harmonies",
+    "love",
+    "heartbreak",
+    "electric guitar",
+    "lead vocals"
+  ]
+}

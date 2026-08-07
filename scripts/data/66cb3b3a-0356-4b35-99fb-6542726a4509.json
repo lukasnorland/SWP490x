@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "66cb3b3a-0356-4b35-99fb-6542726a4509",
+  "epidemicTrackId": 254457,
+  "sourceProvider": "EpidemicSound",
+  "title": "Nothing to Say",
+  "artist": "Teeklef",
+  "duration": 174,
+  "bpm": 115,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501112",
+  "publicSlug": "abEdYJcket",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE5QTKVK3ZVRA9ZZHTC6EMN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14086/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats",
+    "African Continent"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "laid back",
+    "upbeat",
+    "percussion",
+    "keyboard",
+    "sax",
+    "brass",
+    "lead vocals",
+    "male vocals"
+  ]
+}

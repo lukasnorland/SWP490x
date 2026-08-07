@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "404cad13-d7a0-4f59-b900-ec4e01d5c406",
+  "epidemicTrackId": 283348,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sucker Punch (Clean Version)",
+  "artist": "Flux Vortex",
+  "duration": 207,
+  "bpm": 122,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503488",
+  "publicSlug": "zvSkO3i9zA",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK8BK8YNADW7YB3G8DJ88G40.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15481/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop"
+  ],
+  "moods": [
+    "Sad",
+    "Laid Back"
+  ],
+  "tags": [
+    "bossa beat",
+    "lead vocals",
+    "female vocals"
+  ]
+}

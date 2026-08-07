@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "21deeea5-d7ed-4735-b734-1d8a7c554905",
+  "epidemicTrackId": 141699,
+  "sourceProvider": "EpidemicSound",
+  "title": "Love to Be around You",
+  "artist": "Love Beans",
+  "duration": 176,
+  "bpm": 110,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200313",
+  "publicSlug": "SJaKOOg2tT",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEBTPVPJXYSDC8Y9HTDB0YB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8552/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soft House",
+    "Tropical House"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "hopeful",
+    "heavy",
+    "electric guitar",
+    "pulse",
+    "upbeat",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

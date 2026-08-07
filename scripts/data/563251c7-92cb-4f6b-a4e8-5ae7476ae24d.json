@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "563251c7-92cb-4f6b-a4e8-5ae7476ae24d",
+  "epidemicTrackId": 150961,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Belong to You",
+  "artist": "Zorro",
+  "duration": 177,
+  "bpm": 143,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400917",
+  "publicSlug": "xCbnSF6ZIW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFEC18JYW0KG10QJ5RXFPJJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12325/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Euro-trance",
+    "2020s"
+  ],
+  "moods": [
+    "Dreamy",
+    "Restless"
+  ],
+  "tags": [
+    "energetic",
+    "female vocals",
+    "eccentric",
+    "dance",
+    "lead vocals"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "269b39f1-10d3-3eeb-a74a-8de21fb0216d",
+  "epidemicTrackId": 96412,
+  "sourceProvider": "EpidemicSound",
+  "title": "You Make Me Feel",
+  "artist": "Staffan Carlén",
+  "duration": 174,
+  "bpm": 130,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51823448",
+  "publicSlug": "HiW0B0fgo8",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE71FC2E8GSC9YPD7DDBYST.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/648/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "atmospheric",
+    "airy",
+    "mellow",
+    "driving",
+    "lead vocals",
+    "male vocals",
+    "indie",
+    "ballad"
+  ]
+}

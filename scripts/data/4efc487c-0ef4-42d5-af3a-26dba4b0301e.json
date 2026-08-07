@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "4efc487c-0ef4-42d5-af3a-26dba4b0301e",
+  "epidemicTrackId": 253480,
+  "sourceProvider": "EpidemicSound",
+  "title": "Promise",
+  "artist": "Hector Gabriel",
+  "duration": 294,
+  "bpm": 70,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500136",
+  "publicSlug": "Ga8jd8ZSEx",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQFW5HCKP70NH5W1259CP8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13641/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Singer-songwriter",
+    "2020s",
+    "Acoustic",
+    "Weddings"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "hopeful",
+    "guitar",
+    "slide guitar",
+    "lead vocals",
+    "male vocals"
+  ]
+}

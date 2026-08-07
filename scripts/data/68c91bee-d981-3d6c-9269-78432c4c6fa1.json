@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "68c91bee-d981-3d6c-9269-78432c4c6fa1",
+  "epidemicTrackId": 97103,
+  "sourceProvider": "EpidemicSound",
+  "title": "Come Out",
+  "artist": "Vividry",
+  "duration": 185,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51816313",
+  "publicSlug": "RV6C2mN4Tv",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHE3NP61BQJG8Q6RHHRWGXM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4565/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul",
+    "R&B",
+    "Motown",
+    "1960s"
+  ],
+  "moods": [
+    "Happy",
+    "Euphoric"
+  ],
+  "tags": [
+    "motown",
+    "melodic",
+    "male vocals",
+    "uplifting",
+    "lead vocals",
+    "driving",
+    "strings",
+    "uplifting",
+    "feelgood",
+    "retro"
+  ]
+}

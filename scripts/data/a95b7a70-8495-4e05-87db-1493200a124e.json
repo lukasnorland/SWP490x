@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "a95b7a70-8495-4e05-87db-1493200a124e",
+  "epidemicTrackId": 249943,
+  "sourceProvider": "EpidemicSound",
+  "title": "Calling",
+  "artist": "Ooyy, Janset",
+  "duration": 222,
+  "bpm": 126,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52402663",
+  "publicSlug": "Z3ADIqc2XE",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGGTE9S76VWT2VD4K7KCJG6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12858/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Progressive House",
+    "Phonk"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "female vocals",
+    "attitude",
+    "party",
+    "club",
+    "drive",
+    "build",
+    "feel good",
+    "upbeat",
+    "lead vocals"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "1b8eed61-f9c6-44a3-910a-bfbc40237be9",
+  "epidemicTrackId": 143585,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lok Samastha",
+  "artist": "Pawan Krishna",
+  "duration": 164,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52202199",
+  "publicSlug": "1YRfIl68oZ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEVANE1TW4J42W3BPM10QPR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8900/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indian Classical",
+    "India"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "hindi",
+    "sanskrit",
+    "mysterious",
+    "beat",
+    "sitar",
+    "bansuri",
+    "tabla",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

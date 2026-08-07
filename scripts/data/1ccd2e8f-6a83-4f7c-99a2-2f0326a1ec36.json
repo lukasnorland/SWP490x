@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "1ccd2e8f-6a83-4f7c-99a2-2f0326a1ec36",
+  "epidemicTrackId": 144603,
+  "sourceProvider": "EpidemicSound",
+  "title": "Strangers on the Go",
+  "artist": "Mindme",
+  "duration": 223,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203213",
+  "publicSlug": "XZXhTsJnQM",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGZQ9AYG5H84D4KZT82JTRX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9473/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soft House"
+  ],
+  "moods": [
+    "Hopeful",
+    "Lounge"
+  ],
+  "tags": [
+    "soft",
+    "attitude",
+    "empowering",
+    "building"
+  ]
+}

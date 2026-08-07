@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "a0e35d46-e8f6-4ffb-9311-7f6ee5172a32",
+  "epidemicTrackId": 149148,
+  "sourceProvider": "EpidemicSound",
+  "title": "Hits You Hard",
+  "artist": "Gamma Skies",
+  "duration": 260,
+  "bpm": 86,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52303444",
+  "publicSlug": "HWnHIbLbJC",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF65C4QYS82EEAD6KMTQFRC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11374/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Ballad",
+    "Solo Piano"
+  ],
+  "moods": [
+    "Sad",
+    "Dreamy"
+  ],
+  "tags": [
+    "heartbreak",
+    "relationship",
+    "love",
+    "hopeful",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

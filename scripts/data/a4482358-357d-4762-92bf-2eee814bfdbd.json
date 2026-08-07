@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "a4482358-357d-4762-92bf-2eee814bfdbd",
+  "epidemicTrackId": 249930,
+  "sourceProvider": "EpidemicSound",
+  "title": "Nena de la Sierra",
+  "artist": "Ratchetón",
+  "duration": 139,
+  "bpm": 165,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402650",
+  "publicSlug": "5BgymsErn6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ83KR6H5FTDTJN32A42E64.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12824/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Cumbia",
+    "Acoustic",
+    "Mexico"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "keyboard",
+    "percussion",
+    "lead vocals",
+    "male vocals"
+  ]
+}

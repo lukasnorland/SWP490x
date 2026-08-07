@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "43bb121b-de0c-4d0d-8206-1506a540920a",
+  "epidemicTrackId": 138176,
+  "sourceProvider": "EpidemicSound",
+  "title": "He Said It All",
+  "artist": "OTE",
+  "duration": 151,
+  "bpm": 116,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52101443",
+  "publicSlug": "55BOq6l0tF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF19K51C3ZQPJZ5Q3RTKCD5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6388/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Funk",
+    "1970s"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "driving",
+    "funky",
+    "retro",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

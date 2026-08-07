@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "e7d99118-8554-4eb9-a442-e0f1c3d36f51",
+  "epidemicTrackId": 148583,
+  "sourceProvider": "EpidemicSound",
+  "title": "Candy (Sweet Like)",
+  "artist": "Ikhana",
+  "duration": 155,
+  "bpm": 107,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52302879",
+  "publicSlug": "RllCtRchIv",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGFCDAQJ3KDJ8MBG8MMDJC3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10981/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "R&B",
+    "Contemporary R&B"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "chill",
+    "female vocal",
+    "uplifting",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

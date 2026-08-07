@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "dc0e7086-391e-4141-840a-cde28587f56f",
+  "epidemicTrackId": 252884,
+  "sourceProvider": "EpidemicSound",
+  "title": "Loco",
+  "artist": "Siine",
+  "duration": 243,
+  "bpm": 127,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403889",
+  "publicSlug": "YBNW7bHUwi",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGS7WPWVHHBE968ET0KPWBX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13258/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance",
+    "Dance-pop"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "vocal chops",
+    "build",
+    "party",
+    "dance floor",
+    "bass",
+    "drum kit",
+    "dark",
+    "lead vocals",
+    "male vocals"
+  ]
+}

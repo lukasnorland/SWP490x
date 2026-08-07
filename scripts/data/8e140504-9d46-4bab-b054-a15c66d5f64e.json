@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "8e140504-9d46-4bab-b054-a15c66d5f64e",
+  "epidemicTrackId": 249745,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Knox Mine",
+  "artist": "Roy Williams",
+  "duration": 191,
+  "bpm": 175,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402465",
+  "publicSlug": "SA6icjZCaR",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEA9X6XG5Y6N0SX9XKBF895.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12818/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Country Folk"
+  ],
+  "moods": [
+    "Countryside",
+    "Laid Back"
+  ],
+  "tags": [
+    "guitar",
+    "duet",
+    "female vocals",
+    "male vocals",
+    "chill",
+    "vibe",
+    "acoustic",
+    "lead vocals"
+  ]
+}

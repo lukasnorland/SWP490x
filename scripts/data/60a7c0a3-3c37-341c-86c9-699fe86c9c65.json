@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "60a7c0a3-3c37-341c-86c9-699fe86c9c65",
+  "epidemicTrackId": 97227,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Did It All For You",
+  "artist": "Victor Lundberg",
+  "duration": 179,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51822502",
+  "publicSlug": "hVhl9pUoOa",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH31BW7VZCBR60K6AT8BEEC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/589/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "fingerpicking",
+    "summer",
+    "sweet",
+    "romantic",
+    "love",
+    "cute",
+    "driving",
+    "male vocals",
+    "lead vocals"
+  ]
+}

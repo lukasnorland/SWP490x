@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "ac598745-4e40-46e5-9448-462ffe7a41c0",
+  "epidemicTrackId": 146656,
+  "sourceProvider": "EpidemicSound",
+  "title": "World Goes By",
+  "artist": "Houses On The Hill",
+  "duration": 179,
+  "bpm": 70,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300952",
+  "publicSlug": "SM84DGweRJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGTA6XKD4ZM54J249F062ZJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10212/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "cozy",
+    "bittersweet",
+    "hopeful",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "8f2b1423-8ecd-45e4-a66f-f7d5dc45958d",
+  "epidemicTrackId": 105367,
+  "sourceProvider": "EpidemicSound",
+  "title": "Think About You",
+  "artist": "Sture Zetterberg",
+  "duration": 188,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002772",
+  "publicSlug": "vWt0tVUo8O",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGWFRB9DTJ8XJQDHJG2Y2RM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5466/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Folk Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "relaxing",
+    "love",
+    "romantic",
+    "lead vocals",
+    "male vocals",
+    "ballad"
+  ]
+}

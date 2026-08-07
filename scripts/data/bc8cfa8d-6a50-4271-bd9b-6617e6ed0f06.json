@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "bc8cfa8d-6a50-4271-bd9b-6617e6ed0f06",
+  "epidemicTrackId": 141046,
+  "sourceProvider": "EpidemicSound",
+  "title": "SPEED DiiAL",
+  "artist": "Tilden Parc",
+  "duration": 128,
+  "bpm": 142,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52104321",
+  "publicSlug": "Mzu95mwP6p",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ4EZZPWD1F11R3NNMXBKWS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8440/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "heavy",
+    "beat",
+    "energetic",
+    "busy",
+    "rap"
+  ]
+}

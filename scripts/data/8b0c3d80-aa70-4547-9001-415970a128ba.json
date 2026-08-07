@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "8b0c3d80-aa70-4547-9001-415970a128ba",
+  "epidemicTrackId": 149135,
+  "sourceProvider": "EpidemicSound",
+  "title": "Myself and I",
+  "artist": "Niklas Gabrielsson with Martin Landström & His Orchestra",
+  "duration": 152,
+  "bpm": 118,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52303431",
+  "publicSlug": "d0DH61THQD",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFMASXDFJH0JBH2AXDFMTQF.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11426/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Classic Jazz",
+    "1920s",
+    "1930s"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "20s",
+    "30s",
+    "vintage",
+    "traditional jazz",
+    "lead vocals",
+    "male vocals"
+  ]
+}

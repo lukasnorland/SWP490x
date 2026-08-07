@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "502e5855-6912-4a28-8305-34c85bef7756",
+  "epidemicTrackId": 147206,
+  "sourceProvider": "EpidemicSound",
+  "title": "Heaven Was Mine after All",
+  "artist": "Zorro",
+  "duration": 249,
+  "bpm": 117,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301502",
+  "publicSlug": "PlSuwCdlT4",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGF0K2CS8N6CQ6B0FS3PJT4.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10550/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "retro",
+    "heartfelt",
+    "dreamy",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

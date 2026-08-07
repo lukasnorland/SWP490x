@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "292e21d9-be98-4ed6-b3e0-c9eeaed2f8db",
+  "epidemicTrackId": 148297,
+  "sourceProvider": "EpidemicSound",
+  "title": "TO THE MOON",
+  "artist": "Adelyn Paik",
+  "duration": 190,
+  "bpm": 116,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52302593",
+  "publicSlug": "cA0yFhGUor",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFX78QYTH52YNCGG2HZEGQM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11145/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "upbeat",
+    "energetic",
+    "korean",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

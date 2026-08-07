@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "dff442d9-7674-382d-9a38-7463c3dafb4b",
+  "epidemicTrackId": 65478,
+  "sourceProvider": "EpidemicSound",
+  "title": "Run",
+  "artist": "Daniel Gunnarsson",
+  "duration": 197,
+  "bpm": 148,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828395",
+  "publicSlug": "fq4Wgc9IRa",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGG19KK627546Y3CSAGAEY3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4415/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Chasing",
+    "Restless"
+  ],
+  "tags": [
+    "acoustic",
+    "male vocals",
+    "organic",
+    "melodic",
+    "lead vocals",
+    "driving",
+    "energy",
+    "intense",
+    "lifting"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "d99b1988-d6d8-33c5-ad32-3ae74c9fe514",
+  "epidemicTrackId": 64702,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Fear",
+  "artist": "Pastis",
+  "duration": 238,
+  "bpm": 64,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51811673",
+  "publicSlug": "8KCHQAwleq",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPHP6X130YEP9WNJK82RYM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2338/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Dreamy",
+    "Peaceful"
+  ],
+  "tags": [
+    "ballad",
+    "lead vocals",
+    "male vocals",
+    "blue",
+    "anger",
+    "afraid",
+    "strings",
+    "soft guitars",
+    "vocal harmonies",
+    "vulnerable"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "6c49a068-5f7d-4465-a61c-97a0adc67107",
+  "epidemicTrackId": 147666,
+  "sourceProvider": "EpidemicSound",
+  "title": "I'm Looking Ahead",
+  "artist": "Ebo Krdum",
+  "duration": 190,
+  "bpm": 70,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301962",
+  "publicSlug": "CI1VACedRi",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTETSZ4ANPGX6KRNTGK384J3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10766/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "African Blues",
+    "African Continent"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

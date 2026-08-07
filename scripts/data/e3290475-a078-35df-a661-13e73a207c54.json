@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "e3290475-a078-35df-a661-13e73a207c54",
+  "epidemicTrackId": 101063,
+  "sourceProvider": "EpidemicSound",
+  "title": "My Place",
+  "artist": "Gamma Skies",
+  "duration": 199,
+  "bpm": 83,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51902622",
+  "publicSlug": "Bmk9GFfrVP",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGDY7BJ4TKJY18A6SQ5ZSE1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4129/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "R&B"
+  ],
+  "moods": [
+    "Romantic",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals",
+    "ballad",
+    "beautiful",
+    "pop",
+    "acoustic",
+    "love",
+    "chill",
+    "guitar",
+    "male vocals"
+  ]
+}

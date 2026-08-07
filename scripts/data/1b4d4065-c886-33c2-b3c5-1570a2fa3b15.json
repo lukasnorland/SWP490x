@@ -1,0 +1,40 @@
+{
+  "externalSourceId": "1b4d4065-c886-33c2-b3c5-1570a2fa3b15",
+  "epidemicTrackId": 61994,
+  "sourceProvider": "EpidemicSound",
+  "title": "Midnight Mover",
+  "artist": "Ethan Martin",
+  "duration": 203,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51801368",
+  "publicSlug": "MmRD6h8M1f",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KT951F73ZSX3EWBCASGNHQ88.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11071/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Funny",
+    "Happy"
+  ],
+  "tags": [
+    "claps",
+    "uplifting",
+    "feel good",
+    "joyful",
+    "ukulele",
+    "sunny",
+    "sunshine",
+    "summer",
+    "plucking",
+    "guitar",
+    "female vocals",
+    "lead vocals",
+    "driving",
+    "male vocals"
+  ]
+}

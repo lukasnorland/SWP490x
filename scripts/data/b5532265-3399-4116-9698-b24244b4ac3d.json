@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "b5532265-3399-4116-9698-b24244b4ac3d",
+  "epidemicTrackId": 104872,
+  "sourceProvider": "EpidemicSound",
+  "title": "Drop Dead",
+  "artist": "Van Psyke",
+  "duration": 177,
+  "bpm": 150,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002277",
+  "publicSlug": "NBWyGlT4z6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGN1CPJYDCQ51C82FWCM3Q7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5399/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Garage Rock",
+    "Rock",
+    "1950s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "surf",
+    "angry",
+    "busy",
+    "energetic",
+    "retro",
+    "male vocals",
+    "lead vocals",
+    "driving",
+    "guitar"
+  ]
+}

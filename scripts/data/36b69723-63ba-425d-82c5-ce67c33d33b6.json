@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "36b69723-63ba-425d-82c5-ce67c33d33b6",
+  "epidemicTrackId": 146612,
+  "sourceProvider": "EpidemicSound",
+  "title": "It’s a New Day",
+  "artist": "Holy See",
+  "duration": 131,
+  "bpm": 126,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300908",
+  "publicSlug": "AFRt3EutOi",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH6R6V2YBYYN1TJ6Y7S5K8H.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10008/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "feelgood",
+    "joyful",
+    "positive",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

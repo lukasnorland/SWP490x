@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "c3528728-2599-47a4-af8d-96b3c1ff9103",
+  "epidemicTrackId": 147938,
+  "sourceProvider": "EpidemicSound",
+  "title": "Jumpin Out the Pack",
+  "artist": "Tilden Parc",
+  "duration": 154,
+  "bpm": 152,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52302234",
+  "publicSlug": "9Wrv3cjha0",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG0GAX6DFG7D4XC6YERRAY8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10614/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "West Coast Hip Hop",
+    "Hip Hop"
+  ],
+  "moods": [
+    "Angry",
+    "Restless"
+  ],
+  "tags": [
+    "heavy",
+    "rap",
+    "energetic",
+    "powerful"
+  ]
+}

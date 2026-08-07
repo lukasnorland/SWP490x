@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "58a29954-1043-4dd5-b45e-da9a84403405",
+  "epidemicTrackId": 150364,
+  "sourceProvider": "EpidemicSound",
+  "title": "Softly to Myself",
+  "artist": "Kylie Dailey",
+  "duration": 177,
+  "bpm": 137,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400320",
+  "publicSlug": "aGhSYxYVvf",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH7HM4WNQ4923DTAJ3VR968.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11688/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "piano",
+    "sad",
+    "emotional",
+    "female vocals",
+    "guitar",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "bbf8e932-5f63-466b-94f5-243a09a5d746",
+  "epidemicTrackId": 144013,
+  "sourceProvider": "EpidemicSound",
+  "title": "Uncomfortable",
+  "artist": "Katori Walker",
+  "duration": 118,
+  "bpm": 77,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52202623",
+  "publicSlug": "W8hQBnJUso",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPQJZDCK1F01PSMEKXB265.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9169/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop"
+  ],
+  "moods": [
+    "Restless",
+    "Sentimental"
+  ],
+  "tags": [
+    "rap",
+    "hopeful",
+    "angry",
+    "dreamy",
+    "jazzy",
+    "piano",
+    "lead vocals",
+    "male vocals"
+  ]
+}

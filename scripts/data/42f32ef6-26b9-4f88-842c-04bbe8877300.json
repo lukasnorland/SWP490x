@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "42f32ef6-26b9-4f88-842c-04bbe8877300",
+  "epidemicTrackId": 253491,
+  "sourceProvider": "EpidemicSound",
+  "title": "La Habana Vieja",
+  "artist": "Cuba Quartet",
+  "duration": 200,
+  "bpm": 87,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500147",
+  "publicSlug": "r4G9dJ4iU0",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFSQVYCHM0H57ZKZDS7D7RC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13580/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Salsa",
+    "Cuba"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "samba cubana",
+    "trumpet",
+    "lead vocals",
+    "male vocals"
+  ]
+}

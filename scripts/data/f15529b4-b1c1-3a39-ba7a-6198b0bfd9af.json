@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "f15529b4-b1c1-3a39-ba7a-6198b0bfd9af",
+  "epidemicTrackId": 63362,
+  "sourceProvider": "EpidemicSound",
+  "title": "Back to the Wild",
+  "artist": "Pastis",
+  "duration": 159,
+  "bpm": 63,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51821893",
+  "publicSlug": "D3nwcWehjr",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFW90Z6Z2SK9CH66YY4B7TK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2338/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Dreamy",
+    "Floating"
+  ],
+  "tags": [
+    "wilderness",
+    "nature",
+    "chanting",
+    "epic"
+  ]
+}

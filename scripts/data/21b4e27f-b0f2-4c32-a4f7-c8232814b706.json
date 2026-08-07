@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "21b4e27f-b0f2-4c32-a4f7-c8232814b706",
+  "epidemicTrackId": 276858,
+  "sourceProvider": "EpidemicSound",
+  "title": "Say a Prayer",
+  "artist": "Egaoya",
+  "duration": 193,
+  "bpm": 132,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502022",
+  "publicSlug": "9T6OsL9tnH",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE33RVYJQ1MFK7SQPH4TV5R.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14565/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "City Pop",
+    "J-pop",
+    "Japan",
+    "1980s",
+    "Beats"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "disco"
+  ]
+}

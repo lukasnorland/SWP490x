@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "0475997a-56d9-4c7e-83c6-9580d1ade4a3",
+  "epidemicTrackId": 150789,
+  "sourceProvider": "EpidemicSound",
+  "title": "Outside",
+  "artist": "Katori Walker",
+  "duration": 130,
+  "bpm": 140,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52400745",
+  "publicSlug": "BTwtnXIWO2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF818CPNHGDBVZTWZJ2JX6E.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12912/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Jersey Club",
+    "Beats"
+  ],
+  "moods": [
+    "Dreamy",
+    "Restless"
+  ],
+  "tags": [
+    "upbeat",
+    "powerful",
+    "lead vocals",
+    "male vocals"
+  ]
+}

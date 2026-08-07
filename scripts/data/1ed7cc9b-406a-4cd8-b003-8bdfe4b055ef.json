@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "1ed7cc9b-406a-4cd8-b003-8bdfe4b055ef",
+  "epidemicTrackId": 276251,
+  "sourceProvider": "EpidemicSound",
+  "title": "Your Faith",
+  "artist": "Hector Gabriel",
+  "duration": 252,
+  "bpm": 150,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501408",
+  "publicSlug": "I7sSUjfBU2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE4VPTP6A9P804EJNA3K1AT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14269/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "piano",
+    "guitar",
+    "uplifting",
+    "inspirational",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "a2b998e2-fca2-3a20-8660-f9d348c19d8b",
+  "epidemicTrackId": 64045,
+  "sourceProvider": "EpidemicSound",
+  "title": "We Can",
+  "artist": "Chris Coral",
+  "duration": 160,
+  "bpm": 102,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51815009",
+  "publicSlug": "5BjFHSzsdq",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG7ZXNNXQFQCT1MAYVJ8K3Y.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2176/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Teen Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Eccentric"
+  ],
+  "tags": [
+    "contemporary",
+    "male vocals",
+    "lead vocals",
+    "driving",
+    "uplifting"
+  ]
+}

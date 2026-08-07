@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "737502a6-c924-41d3-81bd-6b1036317be7",
+  "epidemicTrackId": 105924,
+  "sourceProvider": "EpidemicSound",
+  "title": "MAI TAI",
+  "artist": "Particle House",
+  "duration": 184,
+  "bpm": 120,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003329",
+  "publicSlug": "VmsXLJGfdA",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHC527M0FKS58J46KNBR93W.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5813/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Dance-pop",
+    "2020s"
+  ],
+  "moods": [
+    "Eccentric",
+    "Restless"
+  ],
+  "tags": [
+    "driving",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

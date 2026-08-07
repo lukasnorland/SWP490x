@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "f171c7c2-37d7-470e-bfb1-670d19a089fc",
+  "epidemicTrackId": 283731,
+  "sourceProvider": "EpidemicSound",
+  "title": "Crowd Surf",
+  "artist": "Nyck Caution, Onoe Caponoe",
+  "duration": 145,
+  "bpm": 140,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52600258",
+  "publicSlug": "ClwvV2yzZP",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KNM6AP51DVASVRT5XFRQ4FQR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15345/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "UK Hip Hop"
+  ],
+  "moods": [
+    "Epic",
+    "Dark"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

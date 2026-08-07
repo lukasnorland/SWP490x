@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "ad846da9-ca99-43eb-8552-1633da98c0bd",
+  "epidemicTrackId": 276750,
+  "sourceProvider": "EpidemicSound",
+  "title": "High Stakes",
+  "artist": "Witchitaw Slim, Damma Beatz",
+  "duration": 153,
+  "bpm": 85,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501907",
+  "publicSlug": "oM81PyC5WB",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGP45DJDQKNQ3BCM8X70C8D.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14523/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "powerful"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "57c63fb6-6991-48f3-a4bc-f29045e8ed06",
+  "epidemicTrackId": 148811,
+  "sourceProvider": "EpidemicSound",
+  "title": "Rejoice (Forever and Always)",
+  "artist": "Gamma Skies",
+  "duration": 205,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52303107",
+  "publicSlug": "CktxCmcHly",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHB3C1DE70GBCW3AKWE38E6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10938/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian",
+    "Praise & Worship"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "choir",
+    "female vocal",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

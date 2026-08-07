@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "73ebe412-d0ae-41a6-9e61-74d5dfcf8c7d",
+  "epidemicTrackId": 104362,
+  "sourceProvider": "EpidemicSound",
+  "title": "Orange Warnings",
+  "artist": "Blood Red Sun",
+  "duration": 267,
+  "bpm": 128,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52001767",
+  "publicSlug": "cJBXRHFzeF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH0XY7MFG8R0GAF5DTW0773.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5260/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Restless",
+    "Marching"
+  ],
+  "tags": [
+    "female vocals",
+    "weird",
+    "cheeky",
+    "lead vocals",
+    "fun",
+    "male vocals"
+  ]
+}

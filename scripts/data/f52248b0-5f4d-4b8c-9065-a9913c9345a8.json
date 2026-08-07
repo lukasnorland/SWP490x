@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "f52248b0-5f4d-4b8c-9065-a9913c9345a8",
+  "epidemicTrackId": 284394,
+  "sourceProvider": "EpidemicSound",
+  "title": "Snakes",
+  "artist": "Onoe Caponoe",
+  "duration": 132,
+  "bpm": 141,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600868",
+  "publicSlug": "vrM6n3MObU",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KYHV3HM8256VDFMVMKWHB4W3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/16131/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Abstract Hip Hop",
+    "UK Hip Hop",
+    "UK Drill",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Mysterious",
+    "Weird",
+    "Heavy & Ponderous"
+  ],
+  "tags": []
+}

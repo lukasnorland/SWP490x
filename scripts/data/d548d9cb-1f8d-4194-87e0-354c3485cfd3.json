@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "d548d9cb-1f8d-4194-87e0-354c3485cfd3",
+  "epidemicTrackId": 284413,
+  "sourceProvider": "EpidemicSound",
+  "title": "Deep End",
+  "artist": "I'MIN",
+  "duration": 161,
+  "bpm": 130,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600887",
+  "publicSlug": "0BIGaXEODm",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KQW3Y6KQE6111YSMCE3S75SX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15881/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Synth-pop",
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Euphoric",
+    "Sentimental"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

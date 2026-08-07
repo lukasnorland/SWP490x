@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "b98f5f23-ec7e-338a-94e8-747144990f21",
+  "epidemicTrackId": 60253,
+  "sourceProvider": "EpidemicSound",
+  "title": "Time Flies",
+  "artist": "Pink Persona",
+  "duration": 172,
+  "bpm": 127,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51809997",
+  "publicSlug": "rDZXhLlwZy",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE7HKREAGAW3V7J5ATC9YZX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/1773/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Rock",
+    "2000s"
+  ],
+  "moods": [
+    "Chasing",
+    "Hopeful"
+  ],
+  "tags": [
+    "power",
+    "riff",
+    "independent",
+    "dont care",
+    "party",
+    "friends",
+    "electric guitar",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

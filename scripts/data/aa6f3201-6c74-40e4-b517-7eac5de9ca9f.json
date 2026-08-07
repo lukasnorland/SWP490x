@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "aa6f3201-6c74-40e4-b517-7eac5de9ca9f",
+  "epidemicTrackId": 284434,
+  "sourceProvider": "EpidemicSound",
+  "title": "Hearts on the Line",
+  "artist": "Cezar",
+  "duration": 209,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600908",
+  "publicSlug": "PtmO4k6S4m",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KQC8826207N7CGTK5GP8ZBRB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15853/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Reggae",
+    "Caribbean"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

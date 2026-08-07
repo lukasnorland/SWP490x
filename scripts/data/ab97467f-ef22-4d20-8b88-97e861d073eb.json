@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "ab97467f-ef22-4d20-8b88-97e861d073eb",
+  "epidemicTrackId": 145369,
+  "sourceProvider": "EpidemicSound",
+  "title": "Run Away with Me",
+  "artist": "Roof",
+  "duration": 176,
+  "bpm": 150,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203979",
+  "publicSlug": "0NlpdfM6Xx",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFDSZA36Q6X7S3BD9RHPS8V.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10032/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "2000s"
+  ],
+  "moods": [
+    "Romantic",
+    "Restless"
+  ],
+  "tags": [
+    "dramatic",
+    "energetic",
+    "fierce",
+    "gritty",
+    "powerful",
+    "pumped",
+    "upbeat",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

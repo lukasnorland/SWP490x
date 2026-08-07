@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "d732f57a-75f8-3329-b377-332b877b0267",
+  "epidemicTrackId": 64710,
+  "sourceProvider": "EpidemicSound",
+  "title": "Crazy for Love (Tribute Version)",
+  "artist": "Mondays",
+  "duration": 175,
+  "bpm": 114,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51806807",
+  "publicSlug": "QaSGzMQQ2f",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGG2ZQ6PB6GTV09AD8S5YBH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3760/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "sweet",
+    "timid",
+    "airy",
+    "catchy",
+    "beautiful",
+    "guitar",
+    "xylophone",
+    "male vocals"
+  ]
+}

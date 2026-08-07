@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "6b0812e4-92b5-43bb-aaa9-7155c6eb4b0b",
+  "epidemicTrackId": 141678,
+  "sourceProvider": "EpidemicSound",
+  "title": "I've Found My Way",
+  "artist": "Hallman",
+  "duration": 175,
+  "bpm": 116,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200292",
+  "publicSlug": "rIK7fJ2qry",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFA4HBZRSZ0XHQEJXMHTV5Z.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8282/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soft House",
+    "Tropical House"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "guitar",
+    "vocal chops",
+    "energetic",
+    "upbeat",
+    "lead vocals",
+    "male vocals"
+  ]
+}

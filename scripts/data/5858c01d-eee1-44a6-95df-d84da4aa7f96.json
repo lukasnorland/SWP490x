@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "5858c01d-eee1-44a6-95df-d84da4aa7f96",
+  "epidemicTrackId": 277524,
+  "sourceProvider": "EpidemicSound",
+  "title": "Going In",
+  "artist": "Nbhd Nick",
+  "duration": 182,
+  "bpm": 140,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502688",
+  "publicSlug": "CTNKgLVRGC",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ40Y89J7K2HQ45KQTVCDMG.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14948/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Epic",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "powerful"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "cf13d762-0070-3377-bad8-3240bb5685dd",
+  "epidemicTrackId": 60975,
+  "sourceProvider": "EpidemicSound",
+  "title": "When the Thrill Is Gone",
+  "artist": "Pete Jonas",
+  "duration": 212,
+  "bpm": 105,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828071",
+  "publicSlug": "f4vRxAHCKo",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE71F45QJ5A1FQB3N47KR6H.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6240/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2000s",
+    "2010s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Smooth"
+  ],
+  "tags": [
+    "shouts",
+    "ballad",
+    "male vocals",
+    "lead vocals",
+    "cruising",
+    "late night",
+    "reminisce",
+    "friendship",
+    "relationship",
+    "guitar",
+    "last chance"
+  ]
+}

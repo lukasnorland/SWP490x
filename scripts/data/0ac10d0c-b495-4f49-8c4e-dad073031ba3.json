@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "0ac10d0c-b495-4f49-8c4e-dad073031ba3",
+  "epidemicTrackId": 283704,
+  "sourceProvider": "EpidemicSound",
+  "title": "Me Time",
+  "artist": "Zorro",
+  "duration": 170,
+  "bpm": 109,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600231",
+  "publicSlug": "bK5VPLXJbU",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KQ76MASTHRG9N93QN1XFX31D.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15712/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "74544493-5e82-420e-9ee4-59855369f722",
+  "epidemicTrackId": 150176,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lines I'd Cross for Love",
+  "artist": "Vicki Vox",
+  "duration": 245,
+  "bpm": 67,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400132",
+  "publicSlug": "aP8XkH8UbV",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE24R6J065MYGA7QP9H0ZSB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11925/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop",
+    "Solo Piano",
+    "Acoustic"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "pop",
+    "female vocals",
+    "beautiful",
+    "ballad",
+    "lead vocals",
+    "male vocals"
+  ]
+}

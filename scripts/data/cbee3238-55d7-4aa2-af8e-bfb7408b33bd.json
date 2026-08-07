@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "cbee3238-55d7-4aa2-af8e-bfb7408b33bd",
+  "epidemicTrackId": 254156,
+  "sourceProvider": "EpidemicSound",
+  "title": "All to You",
+  "artist": "Hector Gabriel",
+  "duration": 250,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500810",
+  "publicSlug": "3diJ5UnCSf",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGJT5W5W6M8FDFZ41SJBWVM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14116/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian",
+    "Praise & Worship"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "inspirational",
+    "inspiring",
+    "piano",
+    "electric guitar",
+    "lead vocals",
+    "male vocals"
+  ]
+}

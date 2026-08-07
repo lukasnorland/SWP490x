@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "42461748-2e4d-47c1-8744-10b63f5df317",
+  "epidemicTrackId": 147680,
+  "sourceProvider": "EpidemicSound",
+  "title": "It Ain't Love",
+  "artist": "Snake City",
+  "duration": 159,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301976",
+  "publicSlug": "gzi08Mj3p8",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGHFFSRJRVSDTXWGQHH7AS7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10792/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dream Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "synth",
+    "retro",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

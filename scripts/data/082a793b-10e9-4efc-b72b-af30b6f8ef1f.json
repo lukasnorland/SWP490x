@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "082a793b-10e9-4efc-b72b-af30b6f8ef1f",
+  "epidemicTrackId": 106546,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Kill",
+  "artist": "Particle House",
+  "duration": 182,
+  "bpm": 112,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003951",
+  "publicSlug": "z5ZgNGRQaB",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG4SJ5Y0ZX0PA20S2CT8SFM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5813/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Synth-pop",
+    "1980s"
+  ],
+  "moods": [
+    "Dark",
+    "Running"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "retro",
+    "driving",
+    "male vocals"
+  ]
+}

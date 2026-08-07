@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "b1cc6539-6578-3d9f-8cff-f48db7fcfadc",
+  "epidemicTrackId": 59853,
+  "sourceProvider": "EpidemicSound",
+  "title": "Why Do You Still Hurt",
+  "artist": "Pastis",
+  "duration": 221,
+  "bpm": 146,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51816650",
+  "publicSlug": "H5TFrRmtNI",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE24RPWVBQS57TPZNSVQ523.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2340/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Contemporary Folk"
+  ],
+  "moods": [
+    "Hopeful",
+    "Eccentric"
+  ],
+  "tags": [
+    "waltzing",
+    "walking",
+    "shouts",
+    "stomp",
+    "lead vocals",
+    "male vocals",
+    "choir",
+    "acoustic",
+    "guitar",
+    "pounding"
+  ]
+}

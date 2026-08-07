@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "1d61ab81-939f-4507-966f-9945095a8cc0",
+  "epidemicTrackId": 104286,
+  "sourceProvider": "EpidemicSound",
+  "title": "Look into My Eyes",
+  "artist": "Greylyn",
+  "duration": 178,
+  "bpm": 128,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52001691",
+  "publicSlug": "VJT2MFsDBJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF5NWPPXTE2C97C293M4PP9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5273/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "House",
+    "Nu Disco"
+  ],
+  "moods": [
+    "Happy",
+    "Running"
+  ],
+  "tags": [
+    "driving",
+    "electronic",
+    "lead vocals",
+    "female vocals",
+    "funky",
+    "male vocals"
+  ]
+}

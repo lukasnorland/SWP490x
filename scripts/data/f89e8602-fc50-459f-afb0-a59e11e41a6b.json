@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "f89e8602-fc50-459f-afb0-a59e11e41a6b",
+  "epidemicTrackId": 284702,
+  "sourceProvider": "EpidemicSound",
+  "title": "I'm Summer (Ross from Friends Rework)",
+  "artist": "Zorro, Ross from Friends",
+  "duration": 299,
+  "bpm": 129,
+  "energyLevel": "variable",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52601172",
+  "publicSlug": "R81QpejUBN",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KY22JYTZQ9M4J8AV45D2F2DC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/16053/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Future Garage",
+    "Beats"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful",
+    "Restless",
+    "Running"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals"
+  ]
+}

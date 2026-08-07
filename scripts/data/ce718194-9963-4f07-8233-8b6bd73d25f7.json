@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "ce718194-9963-4f07-8233-8b6bd73d25f7",
+  "epidemicTrackId": 276821,
+  "sourceProvider": "EpidemicSound",
+  "title": "Never Seen",
+  "artist": "AFTR",
+  "duration": 344,
+  "bpm": 65,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501979",
+  "publicSlug": "ZqwbWOPhGm",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGP9PCT833584829VST4ZFC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14618/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Gospel",
+    "Praise & Worship",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "piano",
+    "inspirational",
+    "lead vocals",
+    "female vocals"
+  ]
+}

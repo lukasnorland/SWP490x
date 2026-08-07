@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "07af74ca-dcab-4ea7-838e-8f5c6998a524",
+  "epidemicTrackId": 151265,
+  "sourceProvider": "EpidemicSound",
+  "title": "All the Little Things",
+  "artist": "The Eastern Plain",
+  "duration": 174,
+  "bpm": 121,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401221",
+  "publicSlug": "bZ8l1rAvOW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF8ZYFW27B44PYV73KY7AF9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12346/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "acoustic",
+    "acoustic guitar",
+    "male vocals",
+    "chill",
+    "relaxing",
+    "lead vocals"
+  ]
+}

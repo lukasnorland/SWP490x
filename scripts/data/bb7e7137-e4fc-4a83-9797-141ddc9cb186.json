@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "bb7e7137-e4fc-4a83-9797-141ddc9cb186",
+  "epidemicTrackId": 143846,
+  "sourceProvider": "EpidemicSound",
+  "title": "Christmas Wish",
+  "artist": "Niklas Gabrielsson with Martin Landström & His Orchestra",
+  "duration": 179,
+  "bpm": 56,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52202460",
+  "publicSlug": "rVwo4dYwve",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJEY35TSXE0GMNGPM0ARBGZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9207/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Smooth Jazz",
+    "Christmas"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "jazz orchestra",
+    "strings",
+    "orchestra",
+    "hopeful",
+    "sentimental",
+    "lead vocals",
+    "male vocals"
+  ]
+}

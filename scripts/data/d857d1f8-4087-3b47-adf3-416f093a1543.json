@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "d857d1f8-4087-3b47-adf3-416f093a1543",
+  "epidemicTrackId": 64342,
+  "sourceProvider": "EpidemicSound",
+  "title": "Summer City",
+  "artist": "Chasing Madison",
+  "duration": 169,
+  "bpm": 97,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51700006",
+  "publicSlug": "Y5p0WP7enC",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMFE259HVKSY2B2KHF6568.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/257/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Indie Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Funny",
+    "Quirky"
+  ],
+  "tags": [
+    "contemporary",
+    "ukulele",
+    "strolling",
+    "sunny",
+    "uplifting",
+    "carefree",
+    "happy go lucky",
+    "female vocals",
+    "lead vocals",
+    "bouncy",
+    "male vocals"
+  ]
+}

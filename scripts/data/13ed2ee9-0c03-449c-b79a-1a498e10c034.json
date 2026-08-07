@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "13ed2ee9-0c03-449c-b79a-1a498e10c034",
+  "epidemicTrackId": 140689,
+  "sourceProvider": "EpidemicSound",
+  "title": "Little Moments",
+  "artist": "Gamma Skies",
+  "duration": 210,
+  "bpm": 87,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52103964",
+  "publicSlug": "PrGxT3PJFO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQ6JNTZ0BDGTWYQFZZ54QS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7909/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Country",
+    "Country Pop"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "summer",
+    "jam",
+    "looking back",
+    "romance",
+    "twang",
+    "fate",
+    "thankful",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

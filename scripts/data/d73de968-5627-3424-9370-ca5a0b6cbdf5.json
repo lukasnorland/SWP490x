@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "d73de968-5627-3424-9370-ca5a0b6cbdf5",
+  "epidemicTrackId": 96684,
+  "sourceProvider": "EpidemicSound",
+  "title": "Surface Of The Sun",
+  "artist": "OTE",
+  "duration": 197,
+  "bpm": 144,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51801051",
+  "publicSlug": "MliraTMe2x",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJNN3HT3H0WQGDNW5HD8ESX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/598/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Epic",
+    "Eccentric"
+  ],
+  "tags": [
+    "confident",
+    "energetic",
+    "uplifting",
+    "steady",
+    "attitude",
+    "driving"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "externalSourceId": "a3eb2f5d-ef5f-336c-9a07-85a2bb35390d",
+  "epidemicTrackId": 60269,
+  "sourceProvider": "EpidemicSound",
+  "title": "Geronimo",
+  "artist": "Ten Towers",
+  "duration": 200,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51827399",
+  "publicSlug": "11V3gRxT6R",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHGD3JAM1VD11J88GCJQRHB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/805/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Indie Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "youth",
+    "growing up",
+    "looking back",
+    "guitar",
+    "hopeful",
+    "longing",
+    "female vocals",
+    "lead vocals",
+    "mellow",
+    "driving",
+    "nature",
+    "airy guitars",
+    "transition",
+    "male vocals"
+  ]
+}

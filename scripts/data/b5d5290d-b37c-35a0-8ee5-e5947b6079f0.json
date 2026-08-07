@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "b5d5290d-b37c-35a0-8ee5-e5947b6079f0",
+  "epidemicTrackId": 27503,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sunshine on a Rainy Day",
+  "artist": "Mellowdye",
+  "duration": 134,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51804156",
+  "publicSlug": "Krk2VDl5TY",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJS72F61YRFYVVTX0BHRHPNY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3078/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul"
+  ],
+  "moods": [
+    "Happy",
+    "Romantic"
+  ],
+  "tags": [
+    "electric guitar",
+    "warm",
+    "cosy",
+    "retro",
+    "muted",
+    "female vocals",
+    "guitar",
+    "in love",
+    "happy",
+    "feelgood",
+    "lead vocals",
+    "rain",
+    "male vocals"
+  ]
+}

@@ -1,6 +1,6 @@
 -- =====================================================================
 -- MRS — Flyway migration V2: seed data (dev/demo)
--- Covers: initial ADMIN account, tag vocabulary (5 types),
+-- Covers: initial ADMIN account, tag vocabulary (4 types),
 --         sample catalog for the W3 vertical prototype (search API)
 -- Also mitigates Risk #4 (Report 2): normalized sample dataset, W2-3
 -- =====================================================================
@@ -27,7 +27,7 @@ INSERT INTO users (username, email, password_hash, role, status, must_change_pas
  'CUSTOMER', 'ACTIVE', TRUE);
 
 -- ---------------------------------------------------------------------
--- 2. Tag vocabulary (GENRE | MOOD | THEME | ARTIST | EVENT)
+-- 2. Tag vocabulary (GENRE | MOOD | ARTIST | TAGS)
 -- ---------------------------------------------------------------------
 INSERT INTO tag (type, name) VALUES
 -- GENRE
@@ -36,14 +36,12 @@ INSERT INTO tag (type, name) VALUES
 -- MOOD
 ('MOOD','Energetic'), ('MOOD','Cheerful'), ('MOOD','Emotional'),
 ('MOOD','Relaxing'), ('MOOD','Dramatic'), ('MOOD','Dreamy'),
--- THEME
-('THEME','Celebration'), ('THEME','Love'), ('THEME','Adventure'),
-('THEME','Background'), ('THEME','Party'),
 -- ARTIST (tag-level artist grouping used by search; free-text artist stays on song)
 ('ARTIST','Various Indie'), ('ARTIST','Studio Session'),
--- EVENT
-('EVENT','New Year'), ('EVENT','Christmas'), ('EVENT','Summer'),
-('EVENT','Holiday'), ('EVENT','Halloween');
+-- TAGS (freeform provider descriptors for LLM / subtle filters)
+('TAGS','driving'), ('TAGS','upbeat'), ('TAGS','hopeful'), ('TAGS','romantic'),
+('TAGS','ballad'), ('TAGS','uplifting'), ('TAGS','love'), ('TAGS','guitar'),
+('TAGS','piano'), ('TAGS','feelgood'), ('TAGS','cozy'), ('TAGS','powerful');
 
 -- ---------------------------------------------------------------------
 -- 3. Sample songs (registered provider: 'DemoProvider')
@@ -79,24 +77,24 @@ INSERT INTO song (title, artist, duration, source_provider, external_source_id,
 -- ---------------------------------------------------------------------
 INSERT INTO song_tag (song_id, tag_id)
 SELECT s.id, t.id FROM song s JOIN tag t ON (s.external_source_id, t.type, t.name) IN (
-    ('DP-0001','GENRE','Pop'),      ('DP-0001','MOOD','Energetic'), ('DP-0001','THEME','Celebration'), ('DP-0001','EVENT','New Year'),
-    ('DP-0002','GENRE','EDM'),      ('DP-0002','MOOD','Energetic'), ('DP-0002','THEME','Party'),       ('DP-0002','EVENT','New Year'),
-    ('DP-0003','GENRE','Piano'),    ('DP-0003','MOOD','Emotional'), ('DP-0003','THEME','Love'),        ('DP-0003','EVENT','Christmas'),
-    ('DP-0004','GENRE','Pop'),      ('DP-0004','MOOD','Cheerful'),  ('DP-0004','THEME','Celebration'), ('DP-0004','EVENT','Christmas'),
-    ('DP-0005','GENRE','EDM'),      ('DP-0005','MOOD','Energetic'), ('DP-0005','THEME','Party'),       ('DP-0005','EVENT','Summer'),
-    ('DP-0006','GENRE','Pop'),      ('DP-0006','MOOD','Cheerful'),  ('DP-0006','THEME','Adventure'),   ('DP-0006','EVENT','Summer'),
-    ('DP-0007','GENRE','Piano'),    ('DP-0007','MOOD','Relaxing'),  ('DP-0007','THEME','Background'),  ('DP-0007','EVENT','Christmas'),
-    ('DP-0008','GENRE','Pop'),      ('DP-0008','MOOD','Cheerful'),  ('DP-0008','THEME','Party'),       ('DP-0008','EVENT','New Year'),
-    ('DP-0009','GENRE','Lo-fi'),    ('DP-0009','MOOD','Relaxing'),  ('DP-0009','THEME','Background'),
-    ('DP-0010','GENRE','Orchestral'),('DP-0010','MOOD','Dramatic'), ('DP-0010','THEME','Adventure'),
-    ('DP-0011','GENRE','Acoustic'), ('DP-0011','MOOD','Cheerful'),  ('DP-0011','THEME','Celebration'), ('DP-0011','EVENT','Summer'),
-    ('DP-0012','GENRE','Acoustic'), ('DP-0012','MOOD','Emotional'), ('DP-0012','THEME','Love'),
-    ('DP-0013','GENRE','Pop'),      ('DP-0013','MOOD','Cheerful'),  ('DP-0013','THEME','Party'),       ('DP-0013','EVENT','Halloween'),
-    ('DP-0014','GENRE','Lo-fi'),    ('DP-0014','MOOD','Dreamy'),    ('DP-0014','THEME','Background'),
-    ('DP-0015','GENRE','EDM'),      ('DP-0015','MOOD','Energetic'), ('DP-0015','THEME','Party'),       ('DP-0015','EVENT','Holiday'),
-    ('DP-0016','GENRE','Orchestral'),('DP-0016','MOOD','Emotional'),('DP-0016','THEME','Background'),  ('DP-0016','EVENT','Christmas'),
-    ('DP-0017','GENRE','EDM'),      ('DP-0017','MOOD','Dreamy'),    ('DP-0017','THEME','Party'),       ('DP-0017','EVENT','Summer'),
-    ('DP-0018','GENRE','Acoustic'), ('DP-0018','MOOD','Relaxing'),  ('DP-0018','THEME','Background'),
-    ('DP-0019','GENRE','Orchestral'),('DP-0019','MOOD','Emotional'),('DP-0019','THEME','Celebration'), ('DP-0019','EVENT','Christmas'),
-    ('DP-0020','GENRE','Orchestral'),('DP-0020','MOOD','Dramatic'), ('DP-0020','THEME','Celebration'), ('DP-0020','EVENT','New Year')
+    ('DP-0001','GENRE','Pop'),      ('DP-0001','MOOD','Energetic'), ('DP-0001','TAGS','upbeat'),    ('DP-0001','TAGS','powerful'),
+    ('DP-0002','GENRE','EDM'),      ('DP-0002','MOOD','Energetic'), ('DP-0002','TAGS','driving'),   ('DP-0002','TAGS','uplifting'),
+    ('DP-0003','GENRE','Piano'),    ('DP-0003','MOOD','Emotional'), ('DP-0003','TAGS','romantic'),  ('DP-0003','TAGS','piano'),
+    ('DP-0004','GENRE','Pop'),      ('DP-0004','MOOD','Cheerful'),  ('DP-0004','TAGS','feelgood'),  ('DP-0004','TAGS','upbeat'),
+    ('DP-0005','GENRE','EDM'),      ('DP-0005','MOOD','Energetic'), ('DP-0005','TAGS','driving'),   ('DP-0005','TAGS','uplifting'),
+    ('DP-0006','GENRE','Pop'),      ('DP-0006','MOOD','Cheerful'),  ('DP-0006','TAGS','hopeful'),   ('DP-0006','TAGS','feelgood'),
+    ('DP-0007','GENRE','Piano'),    ('DP-0007','MOOD','Relaxing'),  ('DP-0007','TAGS','cozy'),      ('DP-0007','TAGS','piano'),
+    ('DP-0008','GENRE','Pop'),      ('DP-0008','MOOD','Cheerful'),  ('DP-0008','TAGS','upbeat'),    ('DP-0008','TAGS','feelgood'),
+    ('DP-0009','GENRE','Lo-fi'),    ('DP-0009','MOOD','Relaxing'),  ('DP-0009','TAGS','cozy'),
+    ('DP-0010','GENRE','Orchestral'),('DP-0010','MOOD','Dramatic'), ('DP-0010','TAGS','powerful'),  ('DP-0010','TAGS','hopeful'),
+    ('DP-0011','GENRE','Acoustic'), ('DP-0011','MOOD','Cheerful'),  ('DP-0011','TAGS','guitar'),    ('DP-0011','TAGS','feelgood'),
+    ('DP-0012','GENRE','Acoustic'), ('DP-0012','MOOD','Emotional'), ('DP-0012','TAGS','romantic'),  ('DP-0012','TAGS','love'),
+    ('DP-0013','GENRE','Pop'),      ('DP-0013','MOOD','Cheerful'),  ('DP-0013','TAGS','upbeat'),    ('DP-0013','TAGS','feelgood'),
+    ('DP-0014','GENRE','Lo-fi'),    ('DP-0014','MOOD','Dreamy'),    ('DP-0014','TAGS','cozy'),
+    ('DP-0015','GENRE','EDM'),      ('DP-0015','MOOD','Energetic'), ('DP-0015','TAGS','driving'),   ('DP-0015','TAGS','powerful'),
+    ('DP-0016','GENRE','Orchestral'),('DP-0016','MOOD','Emotional'),('DP-0016','TAGS','ballad'),    ('DP-0016','TAGS','romantic'),
+    ('DP-0017','GENRE','EDM'),      ('DP-0017','MOOD','Dreamy'),    ('DP-0017','TAGS','uplifting'), ('DP-0017','TAGS','driving'),
+    ('DP-0018','GENRE','Acoustic'), ('DP-0018','MOOD','Relaxing'),  ('DP-0018','TAGS','guitar'),    ('DP-0018','TAGS','cozy'),
+    ('DP-0019','GENRE','Orchestral'),('DP-0019','MOOD','Emotional'),('DP-0019','TAGS','ballad'),    ('DP-0019','TAGS','hopeful'),
+    ('DP-0020','GENRE','Orchestral'),('DP-0020','MOOD','Dramatic'), ('DP-0020','TAGS','powerful'),  ('DP-0020','TAGS','uplifting')
 );

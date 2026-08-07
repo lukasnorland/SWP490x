@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "fbd11aea-9bcc-4267-9c69-2ef6d01252e6",
+  "epidemicTrackId": 283693,
+  "sourceProvider": "EpidemicSound",
+  "title": "Different Life",
+  "artist": "Sully Bright",
+  "duration": 202,
+  "bpm": 81,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600220",
+  "publicSlug": "HMA2DqEDrf",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK8PFM3TMWSH98CRC38FGWCV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15506/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Contemporary Folk"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

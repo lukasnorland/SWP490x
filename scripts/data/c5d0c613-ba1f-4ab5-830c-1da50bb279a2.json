@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "c5d0c613-ba1f-4ab5-830c-1da50bb279a2",
+  "epidemicTrackId": 283173,
+  "sourceProvider": "EpidemicSound",
+  "title": "HOT (Clean Version)",
+  "artist": "Trinity",
+  "duration": 134,
+  "bpm": 100,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503312",
+  "publicSlug": "xdKXPWdlYF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJYHK2WJHT7NTPG21HVZ983A.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15560/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Trap",
+    "2020s",
+    "1980s",
+    "Beats"
+  ],
+  "moods": [
+    "Restless",
+    "Heavy & Ponderous"
+  ],
+  "tags": []
+}

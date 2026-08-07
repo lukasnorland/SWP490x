@@ -1,0 +1,25 @@
+{
+  "externalSourceId": "1ab996c9-4336-4b64-b1e1-5b143c5d0a33",
+  "epidemicTrackId": 277300,
+  "sourceProvider": "EpidemicSound",
+  "title": "All on the Floor",
+  "artist": "Nyck Caution",
+  "duration": 147,
+  "bpm": 116,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502464",
+  "publicSlug": "plgM55hoWu",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG2M30TC7Y7T7TB65J0RDYP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14760/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Trap"
+  ],
+  "moods": [
+    "Epic",
+    "Happy"
+  ],
+  "tags": []
+}

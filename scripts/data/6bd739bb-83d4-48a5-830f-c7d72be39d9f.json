@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "6bd739bb-83d4-48a5-830f-c7d72be39d9f",
+  "epidemicTrackId": 254424,
+  "sourceProvider": "EpidemicSound",
+  "title": "Magnets",
+  "artist": "I'MIN",
+  "duration": 177,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501078",
+  "publicSlug": "Egy1ymAvAH",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG10ZNBY2EARBG2HJ8BZ5RM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14064/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Beats"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "romantic",
+    "funky",
+    "fingers snapping",
+    "lead vocals",
+    "male vocals"
+  ]
+}

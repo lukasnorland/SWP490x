@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "fa84434a-93e6-4186-a8ca-5a05130ce78a",
+  "epidemicTrackId": 283489,
+  "sourceProvider": "EpidemicSound",
+  "title": "Atacha",
+  "artist": "Lawd Ito",
+  "duration": 194,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600016",
+  "publicSlug": "ISuKlY8jGt",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK3FX973HQ3QCSHT04HWVNPZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15429/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Latin Pop",
+    "Central America"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

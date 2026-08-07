@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "630c6b50-5842-4f31-a331-b32b79b97ae2",
+  "epidemicTrackId": 249923,
+  "sourceProvider": "EpidemicSound",
+  "title": "Come See Me",
+  "artist": "Nyck Caution, Katori Walker",
+  "duration": 202,
+  "bpm": 142,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52402643",
+  "publicSlug": "XdRoxf6Jnj",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ9S979YRNR3XBCSJGHHYW8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13748/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Contemporary R&B",
+    "Beats"
+  ],
+  "moods": [
+    "Dark"
+  ],
+  "tags": [
+    "rap",
+    "lead vocals",
+    "male vocals"
+  ]
+}

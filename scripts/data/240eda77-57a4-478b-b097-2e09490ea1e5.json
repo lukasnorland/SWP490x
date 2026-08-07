@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "240eda77-57a4-478b-b097-2e09490ea1e5",
+  "epidemicTrackId": 252962,
+  "sourceProvider": "EpidemicSound",
+  "title": "Güerita",
+  "artist": "Ratchetón",
+  "duration": 146,
+  "bpm": 160,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403965",
+  "publicSlug": "hoRo92AX9R",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEFED6B9TAHGAAYWV4H0K2W.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13324/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Cumbia Mexicana",
+    "Acoustic",
+    "Mexico"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "guitar",
+    "percussion",
+    "upbeat",
+    "bongos",
+    "hopeful",
+    "lead vocals",
+    "male vocals"
+  ]
+}

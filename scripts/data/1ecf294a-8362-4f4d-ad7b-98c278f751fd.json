@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "1ecf294a-8362-4f4d-ad7b-98c278f751fd",
+  "epidemicTrackId": 254240,
+  "sourceProvider": "EpidemicSound",
+  "title": "Ghost",
+  "artist": "DEX 1200",
+  "duration": 212,
+  "bpm": 66,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500894",
+  "publicSlug": "8KSEuJqioa",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFTXTWNSN89MT5HWWSG29KQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13973/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop",
+    "Ambient"
+  ],
+  "moods": [
+    "Dreamy",
+    "Peaceful"
+  ],
+  "tags": [
+    "atmospheric",
+    "ambient",
+    "mystique",
+    "lead vocals",
+    "female vocals"
+  ]
+}

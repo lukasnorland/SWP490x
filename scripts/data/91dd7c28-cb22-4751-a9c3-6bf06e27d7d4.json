@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "91dd7c28-cb22-4751-a9c3-6bf06e27d7d4",
+  "epidemicTrackId": 254153,
+  "sourceProvider": "EpidemicSound",
+  "title": "Ode to Spring",
+  "artist": "Roy Williams",
+  "duration": 185,
+  "bpm": 102,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500807",
+  "publicSlug": "lUxCEua4sl",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ9S9J7BWQBCTDSMRXPN70A.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13968/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Acoustic"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "hopeful",
+    "guitar",
+    "violin",
+    "happy",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

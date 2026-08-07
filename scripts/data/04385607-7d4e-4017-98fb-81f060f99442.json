@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "04385607-7d4e-4017-98fb-81f060f99442",
+  "epidemicTrackId": 146991,
+  "sourceProvider": "EpidemicSound",
+  "title": "No Thanks, I'll Pass",
+  "artist": "Kylie Dailey",
+  "duration": 204,
+  "bpm": 129,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301287",
+  "publicSlug": "W4zyf5dHJu",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGXJYFNQF3AVNHGADGEMMY8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10809/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "laid back",
+    "alternative",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

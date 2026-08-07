@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "f7e2d469-134b-4852-9c6c-d9fe0b01810f",
+  "epidemicTrackId": 276514,
+  "sourceProvider": "EpidemicSound",
+  "title": "dumb (Clean Version)",
+  "artist": "MV Archives",
+  "duration": 128,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501671",
+  "publicSlug": "NbpBHoAAQJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG10BWQVG239KDT5R1ARZB7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14436/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop",
+    "Indie Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Quirky"
+  ],
+  "tags": [
+    "dreamy",
+    "eccentric",
+    "playful",
+    "guitar"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "8d49e79b-6da5-4c88-aef1-2374227ea243",
+  "epidemicTrackId": 277583,
+  "sourceProvider": "EpidemicSound",
+  "title": "Our Time",
+  "artist": "Nbhd Nick",
+  "duration": 144,
+  "bpm": 137,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502747",
+  "publicSlug": "9DrHCyVw82",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTED5V6VFBB5Z3VQZDSSATS1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14912/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap EDM"
+  ],
+  "moods": [
+    "Restless",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "powerful",
+    "upbeat"
+  ]
+}

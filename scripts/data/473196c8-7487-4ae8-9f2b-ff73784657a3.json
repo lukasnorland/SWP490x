@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "473196c8-7487-4ae8-9f2b-ff73784657a3",
+  "epidemicTrackId": 150860,
+  "sourceProvider": "EpidemicSound",
+  "title": "Some Kind of Friend",
+  "artist": "Vicki Vox",
+  "duration": 164,
+  "bpm": 111,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52400816",
+  "publicSlug": "2DYXpW6Kir",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ57ZCWNWJ8JF3MTGKVYN8W.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12246/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Laid Back",
+    "Quirky"
+  ],
+  "tags": [
+    "female vocals",
+    "guitar",
+    "acoustic",
+    "lead vocals"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "69d0d706-c8b6-3e21-8072-38ff69d9a3cb",
+  "epidemicTrackId": 98164,
+  "sourceProvider": "EpidemicSound",
+  "title": "Break The Line",
+  "artist": "Coma Svensson",
+  "duration": 185,
+  "bpm": 125,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828961",
+  "publicSlug": "956I88YBEK",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTECK3JYE4BSY24087ZBCWF3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/915/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "2000s"
+  ],
+  "moods": [
+    "Chasing",
+    "Sentimental"
+  ],
+  "tags": [
+    "mellow",
+    "blue sky",
+    "guitar",
+    "steady",
+    "driving",
+    "male vocals",
+    "lead vocals"
+  ]
+}

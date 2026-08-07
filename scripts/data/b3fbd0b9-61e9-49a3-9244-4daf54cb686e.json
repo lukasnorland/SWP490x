@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "b3fbd0b9-61e9-49a3-9244-4daf54cb686e",
+  "epidemicTrackId": 145441,
+  "sourceProvider": "EpidemicSound",
+  "title": "Old Times (Counting Down)",
+  "artist": "Torii Wolf",
+  "duration": 190,
+  "bpm": 111,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52204051",
+  "publicSlug": "ECUcVTBKiC",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK5XAWRYV4NXPE6KFV17YQTJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10112/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "build",
+    "smooth"
+  ]
+}

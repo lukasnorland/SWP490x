@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "39305a89-2e20-32d9-902c-abb07db91eb9",
+  "epidemicTrackId": 100884,
+  "sourceProvider": "EpidemicSound",
+  "title": "Bruce Wayne",
+  "artist": "Nbhd Nick",
+  "duration": 131,
+  "bpm": 70,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51902442",
+  "publicSlug": "D3KOLTUVIm",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHQ1XGDTX7GP5BBKCM3BH3R.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4370/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Epic",
+    "Sports Arena"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "rap",
+    "driving",
+    "electronic"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "e8e5437e-d63e-4303-a8ae-f4be425e993e",
+  "epidemicTrackId": 253100,
+  "sourceProvider": "EpidemicSound",
+  "title": "Välkommen till blåsningen",
+  "artist": "Massgrav",
+  "duration": 118,
+  "bpm": 131,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52404103",
+  "publicSlug": "WPH2egur9O",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFQ9FC88SA7F00B2MC2BS67.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13330/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hardcore Punk"
+  ],
+  "moods": [
+    "Angry",
+    "Restless"
+  ],
+  "tags": [
+    "swedish hardcore punk",
+    "exciting",
+    "bitter",
+    "lead vocals",
+    "male vocals"
+  ]
+}

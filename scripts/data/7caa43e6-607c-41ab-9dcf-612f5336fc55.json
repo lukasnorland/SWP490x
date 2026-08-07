@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "7caa43e6-607c-41ab-9dcf-612f5336fc55",
+  "epidemicTrackId": 107716,
+  "sourceProvider": "EpidemicSound",
+  "title": "Little Lucifer",
+  "artist": "Mattias Tell",
+  "duration": 289,
+  "bpm": 123,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52100876",
+  "publicSlug": "tlKCcjpAwZ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGN3R3WTQT8M1FCASW5NRNF.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6949/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "organic",
+    "folk",
+    "lead vocals",
+    "male vocals"
+  ]
+}

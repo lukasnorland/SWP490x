@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "9535cd50-c121-4dd2-b70e-d0c939212a74",
+  "epidemicTrackId": 142309,
+  "sourceProvider": "EpidemicSound",
+  "title": "Weather",
+  "artist": "Pandaraps, Big Soda, Is Our Children Learning",
+  "duration": 141,
+  "bpm": 76,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52200923",
+  "publicSlug": "cbsztJnazq",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFK5AYE0ZMVMAKDCMRHEGM1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8985/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop"
+  ],
+  "moods": [
+    "Sad",
+    "Laid Back"
+  ],
+  "tags": [
+    "rap",
+    "duo",
+    "hopeful",
+    "guitar",
+    "sentimental",
+    "romantic",
+    "rnb"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "e2adc947-82b3-4d4b-a4ad-5ae05af46a9f",
+  "epidemicTrackId": 254078,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Night Is Young",
+  "artist": "Aks & Lakshmi",
+  "duration": 170,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500732",
+  "publicSlug": "gth34k4MSN",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGAD1CVDPGS9JD36DSCJDT9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13888/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Filmi"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "hindi",
+    "laid back",
+    "bollywood",
+    "percussive",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

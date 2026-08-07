@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "899d8638-43be-4785-9ff4-dc608641e1a8",
+  "epidemicTrackId": 284224,
+  "sourceProvider": "EpidemicSound",
+  "title": "Antidote",
+  "artist": "Ira Moon",
+  "duration": 211,
+  "bpm": 87,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600698",
+  "publicSlug": "bRzO9wTV1n",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KQ7J71YQCW4FP0F7CP7M5FB8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15903/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals"
+  ]
+}

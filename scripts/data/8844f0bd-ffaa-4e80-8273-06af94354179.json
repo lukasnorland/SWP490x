@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "8844f0bd-ffaa-4e80-8273-06af94354179",
+  "epidemicTrackId": 142546,
+  "sourceProvider": "EpidemicSound",
+  "title": "Wake Up in the Morning",
+  "artist": "Siine",
+  "duration": 203,
+  "bpm": 125,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201160",
+  "publicSlug": "7XarCd2W4c",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMKK1NHE3ZACZR63VF1EHP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8499/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance",
+    "Dance-pop"
+  ],
+  "moods": [
+    "Epic",
+    "Happy"
+  ],
+  "tags": [
+    "mint",
+    "cheerful",
+    "lighthearted",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

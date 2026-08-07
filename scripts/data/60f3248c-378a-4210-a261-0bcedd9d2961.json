@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "60f3248c-378a-4210-a261-0bcedd9d2961",
+  "epidemicTrackId": 146678,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lilac Petals",
+  "artist": "Adelyn Paik",
+  "duration": 235,
+  "bpm": 78,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300974",
+  "publicSlug": "gHezeIMFMZ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE7QEXQMZ7FRCD7HCF4BPG9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9998/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "jazz",
+    "piano",
+    "korean",
+    "dreamy",
+    "chill",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

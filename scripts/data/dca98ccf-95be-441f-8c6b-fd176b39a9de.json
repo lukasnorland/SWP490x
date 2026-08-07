@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "dca98ccf-95be-441f-8c6b-fd176b39a9de",
+  "epidemicTrackId": 254273,
+  "sourceProvider": "EpidemicSound",
+  "title": "What's My Name",
+  "artist": "Siine",
+  "duration": 155,
+  "bpm": 119,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500927",
+  "publicSlug": "bospdupBUg",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFJ4ND0MW8RGGWGN70TVA1C.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14042/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Glamorous"
+  ],
+  "tags": [
+    "funky",
+    "dance",
+    "spanish",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "05b11d27-1246-4ad3-912a-95f4997d2c36",
+  "epidemicTrackId": 283687,
+  "sourceProvider": "EpidemicSound",
+  "title": "Better than I've Ever Been",
+  "artist": "Loving Caliber",
+  "duration": 201,
+  "bpm": 171,
+  "energyLevel": "variable",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52600214",
+  "publicSlug": "s9v1NmDHrP",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJX986MAWPEA3J291NBP1MD6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15398/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

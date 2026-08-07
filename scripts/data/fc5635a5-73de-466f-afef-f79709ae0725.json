@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "fc5635a5-73de-466f-afef-f79709ae0725",
+  "epidemicTrackId": 149868,
+  "sourceProvider": "EpidemicSound",
+  "title": "La Chica Gothica",
+  "artist": "Frontera Bugalú",
+  "duration": 274,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52305002",
+  "publicSlug": "5GTImrzJtW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGN8KDVJ29XGVST65ZQ0D2S.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11743/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Cumbia",
+    "Mexico"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "accordion",
+    "trumpet",
+    "percussion",
+    "guitar",
+    "upbeat",
+    "lead vocals",
+    "male vocals"
+  ]
+}

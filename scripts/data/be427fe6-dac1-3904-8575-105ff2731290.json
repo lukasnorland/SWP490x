@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "be427fe6-dac1-3904-8575-105ff2731290",
+  "epidemicTrackId": 102576,
+  "sourceProvider": "EpidemicSound",
+  "title": "Would You Stay",
+  "artist": "Mindme",
+  "duration": 220,
+  "bpm": 106,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51904117",
+  "publicSlug": "8UqGlKjUG6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEM4QXAPZKXK5MV9GEVRJZ9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4515/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "romantic",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

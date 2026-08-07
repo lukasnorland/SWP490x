@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "e542db21-ba0a-4150-af39-cc42e8ccd0ba",
+  "epidemicTrackId": 150218,
+  "sourceProvider": "EpidemicSound",
+  "title": "Winning",
+  "artist": "Nbhd Nick",
+  "duration": 163,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400174",
+  "publicSlug": "sX0dHtSNjR",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGR9SA3WNKZ0NT2VDNFF62X.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11602/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Epic",
+    "Dark"
+  ],
+  "tags": [
+    "rap",
+    "powerful",
+    "restless"
+  ]
+}

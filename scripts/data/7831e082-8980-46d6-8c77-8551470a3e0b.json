@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "7831e082-8980-46d6-8c77-8551470a3e0b",
+  "epidemicTrackId": 276533,
+  "sourceProvider": "EpidemicSound",
+  "title": "Muse",
+  "artist": "King Sis",
+  "duration": 229,
+  "bpm": 135,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501690",
+  "publicSlug": "RlvBMOjp0E",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH7PJ975AQF3N6ZFV8889R3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15301/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Ballad",
+    "Contemporary R&B"
+  ],
+  "moods": [
+    "Romantic",
+    "Dreamy"
+  ],
+  "tags": [
+    "synth",
+    "hopeful",
+    "lead vocals",
+    "female vocals"
+  ]
+}

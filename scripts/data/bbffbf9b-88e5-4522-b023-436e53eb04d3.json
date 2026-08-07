@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "bbffbf9b-88e5-4522-b023-436e53eb04d3",
+  "epidemicTrackId": 149797,
+  "sourceProvider": "EpidemicSound",
+  "title": "Forever, Forever Ago",
+  "artist": "Blood Harmony",
+  "duration": 213,
+  "bpm": 78,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52304931",
+  "publicSlug": "rshOHptfaa",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHZEPHY6GW6VAT791F4PMMT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12042/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Country",
+    "Acoustic"
+  ],
+  "moods": [
+    "Sad",
+    "Sentimental"
+  ],
+  "tags": [
+    "love",
+    "female vocals",
+    "guitar",
+    "lead vocals"
+  ]
+}

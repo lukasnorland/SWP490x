@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "6afb275f-a307-3091-8d19-70b090db47b1",
+  "epidemicTrackId": 65525,
+  "sourceProvider": "EpidemicSound",
+  "title": "My First My Last",
+  "artist": "Love Beans",
+  "duration": 221,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51813752",
+  "publicSlug": "63MFnEFot9",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEVTKB1QCNAQC4YWDJNGAYZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/745/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "contemporary",
+    "groovy",
+    "female vocals",
+    "beat",
+    "guitar",
+    "funky",
+    "lead vocals",
+    "male vocals"
+  ]
+}

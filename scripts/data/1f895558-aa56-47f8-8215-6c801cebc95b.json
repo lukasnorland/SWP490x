@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "1f895558-aa56-47f8-8215-6c801cebc95b",
+  "epidemicTrackId": 103073,
+  "sourceProvider": "EpidemicSound",
+  "title": "Nightmare of Defeat",
+  "artist": "Three-Armed Scissor",
+  "duration": 181,
+  "bpm": 184,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000489",
+  "publicSlug": "MkSjg59tPh",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE4QB13AE730QG7MWJF3BWS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4739/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Metal"
+  ],
+  "moods": [
+    "Angry",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "driving",
+    "aggressive",
+    "heavy",
+    "screech"
+  ]
+}

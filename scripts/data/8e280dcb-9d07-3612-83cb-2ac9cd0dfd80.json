@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "8e280dcb-9d07-3612-83cb-2ac9cd0dfd80",
+  "epidemicTrackId": 65618,
+  "sourceProvider": "EpidemicSound",
+  "title": "Life's Passing Me By",
+  "artist": "Daniel Gunnarsson",
+  "duration": 195,
+  "bpm": 160,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51819393",
+  "publicSlug": "GpPw0S8GTz",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFTDHJDW78NY9TXWS4FG67T.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4865/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Restless",
+    "Running"
+  ],
+  "tags": [
+    "lead vocals",
+    "melodic",
+    "male vocals",
+    "rock",
+    "indie"
+  ]
+}

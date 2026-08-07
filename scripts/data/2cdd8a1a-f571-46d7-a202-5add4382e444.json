@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "2cdd8a1a-f571-46d7-a202-5add4382e444",
+  "epidemicTrackId": 250313,
+  "sourceProvider": "EpidemicSound",
+  "title": "Walk with You",
+  "artist": "Kylie Dailey",
+  "duration": 155,
+  "bpm": 109,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403033",
+  "publicSlug": "hz3xkjUAlz",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE8PWZB143PTXNP5A05X60Q.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13392/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk"
+  ],
+  "moods": [
+    "Relaxing",
+    "Laid Back"
+  ],
+  "tags": [
+    "guitar",
+    "electric guitar",
+    "bass guitar",
+    "female vocals",
+    "brass",
+    "chill",
+    "vibe",
+    "calm",
+    "romantic",
+    "lead vocals"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "8e06c13d-6dc7-4980-ac34-fe6c0479b06f",
+  "epidemicTrackId": 254541,
+  "sourceProvider": "EpidemicSound",
+  "title": "Meme",
+  "artist": "Nevin",
+  "duration": 249,
+  "bpm": 72,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501195",
+  "publicSlug": "Lx1PflgQLx",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHN9KDF4PFMVZ6TJ91SXB73.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14298/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk"
+  ],
+  "moods": [
+    "Sad",
+    "Sentimental"
+  ],
+  "tags": [
+    "strings",
+    "pondering",
+    "lead vocals",
+    "male vocals"
+  ]
+}

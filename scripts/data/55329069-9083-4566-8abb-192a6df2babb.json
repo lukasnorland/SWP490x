@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "55329069-9083-4566-8abb-192a6df2babb",
+  "epidemicTrackId": 283296,
+  "sourceProvider": "EpidemicSound",
+  "title": "Odds",
+  "artist": "Hennie Hun",
+  "duration": 170,
+  "bpm": 128,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503436",
+  "publicSlug": "oKRTS9UU54",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK31EA3006BM555CNAQAJ066.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15229/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals"
+  ]
+}

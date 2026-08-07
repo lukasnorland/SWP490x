@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "35aa38d3-9950-4561-a10b-c2245f36e877",
+  "epidemicTrackId": 284089,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dry",
+  "artist": "Will Harrison, Cave Spring",
+  "duration": 186,
+  "bpm": 92,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600563",
+  "publicSlug": "Fzawn8Ury5",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJ7ZKR89D60JPR1J13TGKSSX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15518/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Country Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

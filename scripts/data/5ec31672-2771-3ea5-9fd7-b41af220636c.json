@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "5ec31672-2771-3ea5-9fd7-b41af220636c",
+  "epidemicTrackId": 26298,
+  "sourceProvider": "EpidemicSound",
+  "title": "Go With the Flow",
+  "artist": "Jesse Lawrence",
+  "duration": 168,
+  "bpm": 115,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51821623",
+  "publicSlug": "jn8itsfm63",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJX3FRYQZZXVRCNEKMA2YS2T.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3213/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "R&B",
+    "Motown",
+    "1960s"
+  ],
+  "moods": [
+    "Happy",
+    "Euphoric"
+  ],
+  "tags": [
+    "groovy",
+    "lead vocals",
+    "groovy",
+    "male vocals",
+    "driving",
+    "cheerful",
+    "feelgood",
+    "brass"
+  ]
+}

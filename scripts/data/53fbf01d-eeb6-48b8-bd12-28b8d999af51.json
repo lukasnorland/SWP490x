@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "53fbf01d-eeb6-48b8-bd12-28b8d999af51",
+  "epidemicTrackId": 252179,
+  "sourceProvider": "EpidemicSound",
+  "title": "Juega con el Tumbao",
+  "artist": "El Equipo Del Norte",
+  "duration": 189,
+  "bpm": 156,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403208",
+  "publicSlug": "kUZw39Ff50",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH7PHZ2J9C9WB63DD8SSXXT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13122/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Salsa",
+    "Cuba"
+  ],
+  "moods": [
+    "Euphoric",
+    "Restless"
+  ],
+  "tags": [
+    "salsa cubana",
+    "lead vocals",
+    "male vocals"
+  ]
+}

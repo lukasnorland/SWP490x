@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "9d1324de-71f4-4b9b-9106-69742a3b74ff",
+  "epidemicTrackId": 146449,
+  "sourceProvider": "EpidemicSound",
+  "title": "Paris with You",
+  "artist": "Adelyn Paik",
+  "duration": 226,
+  "bpm": 97,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300745",
+  "publicSlug": "3dAdbCB4pA",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJP8799GR1K0DDCCZCD5PJR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10725/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Jazz",
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "hopeful",
+    "dreamy",
+    "relaxed",
+    "korean",
+    "piano",
+    "guitar",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

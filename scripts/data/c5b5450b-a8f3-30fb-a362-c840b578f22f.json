@@ -1,0 +1,39 @@
+{
+  "externalSourceId": "c5b5450b-a8f3-30fb-a362-c840b578f22f",
+  "epidemicTrackId": 27729,
+  "sourceProvider": "EpidemicSound",
+  "title": "Rock It Tonight",
+  "artist": "Taynte",
+  "duration": 201,
+  "bpm": 120,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51804138",
+  "publicSlug": "noHQ6KPLHF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJWZG21R4SEG8A5TQXS31Y2Q.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3785/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "R&B",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "male vocals",
+    "champagne",
+    "dance",
+    "club",
+    "lead vocals",
+    "party",
+    "rising",
+    "euphoric",
+    "dancefloor",
+    "uplifting",
+    "party",
+    "female vocals"
+  ]
+}

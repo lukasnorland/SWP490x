@@ -1,0 +1,26 @@
+{
+  "externalSourceId": "bc47b6c1-a1c4-4316-914c-03ec7c9355ab",
+  "epidemicTrackId": 103299,
+  "sourceProvider": "EpidemicSound",
+  "title": "Curve Ball (Clean Version)",
+  "artist": "Xavy Rusan",
+  "duration": 196,
+  "bpm": 70,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000709",
+  "publicSlug": "1wssz7oA1a",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGJZG1RJEC0XY0K24BM1VF2.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5047/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop"
+  ],
+  "moods": [
+    "Restless",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "rap"
+  ]
+}

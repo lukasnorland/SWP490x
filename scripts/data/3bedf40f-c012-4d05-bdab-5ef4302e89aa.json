@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "3bedf40f-c012-4d05-bdab-5ef4302e89aa",
+  "epidemicTrackId": 150433,
+  "sourceProvider": "EpidemicSound",
+  "title": "Find My Way (Clean Version)",
+  "artist": "Def Lev",
+  "duration": 226,
+  "bpm": 98,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400389",
+  "publicSlug": "tT1cNhGgnj",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHETQY20Y88EH3MHWYXS1YN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13140/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Screamo"
+  ],
+  "moods": [
+    "Restless",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "male vocals",
+    "distortion",
+    "attitude",
+    "electric guitar",
+    "lead vocals"
+  ]
+}

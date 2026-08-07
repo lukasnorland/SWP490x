@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "e719f29d-3395-463a-91e5-21cffbb164ec",
+  "epidemicTrackId": 143473,
+  "sourceProvider": "EpidemicSound",
+  "title": "Pearl",
+  "artist": "Adelyn Paik",
+  "duration": 166,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52202087",
+  "publicSlug": "DSHVAsVLS6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEPW83BDFACGVQWWFWHJSVK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9214/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "korean",
+    "dreamy",
+    "uplifting",
+    "hopeful",
+    "hip hop",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

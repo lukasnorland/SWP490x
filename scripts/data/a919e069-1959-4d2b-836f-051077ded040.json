@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "a919e069-1959-4d2b-836f-051077ded040",
+  "epidemicTrackId": 284696,
+  "sourceProvider": "EpidemicSound",
+  "title": "LEVEL UP",
+  "artist": "Levo",
+  "duration": 137,
+  "bpm": 98,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52601158",
+  "publicSlug": "jkFUJE6Rxs",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHHS4ZZW82F554GY4RX1FYD.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/16062/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats",
+    "Dancehall",
+    "Reggae",
+    "Beats"
+  ],
+  "moods": [
+    "Mysterious",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

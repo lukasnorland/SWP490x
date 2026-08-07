@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "fd2acaf9-d1da-49e4-b49b-abff3ff7a920",
+  "epidemicTrackId": 276546,
+  "sourceProvider": "EpidemicSound",
+  "title": "Submissive",
+  "artist": "King Sis",
+  "duration": 197,
+  "bpm": 160,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501703",
+  "publicSlug": "W96qhcjHxX",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGHFFQE3T2V1Y9BRS44PCNM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14473/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary R&B"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "laid back",
+    "lead vocals",
+    "female vocals"
+  ]
+}

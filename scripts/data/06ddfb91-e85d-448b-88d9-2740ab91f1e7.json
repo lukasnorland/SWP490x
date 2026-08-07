@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "06ddfb91-e85d-448b-88d9-2740ab91f1e7",
+  "epidemicTrackId": 126742,
+  "sourceProvider": "EpidemicSound",
+  "title": "Drag Me Down",
+  "artist": "Conditional",
+  "duration": 147,
+  "bpm": 153,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52101120",
+  "publicSlug": "QRhycOn5ag",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJM35946R24VKGXAWV8TCMW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12178/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Punk"
+  ],
+  "moods": [
+    "Eccentric",
+    "Running"
+  ],
+  "tags": [
+    "driving",
+    "cocky",
+    "rowdy",
+    "lead vocals",
+    "male vocals"
+  ]
+}

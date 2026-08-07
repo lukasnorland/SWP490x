@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "4c1327ed-fccb-31a7-bc27-9574687ebd9f",
+  "epidemicTrackId": 65403,
+  "sourceProvider": "EpidemicSound",
+  "title": "Time on Our Side",
+  "artist": "Ten Towers",
+  "duration": 205,
+  "bpm": 83,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51805167",
+  "publicSlug": "ONoS9zuyDv",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTET87PXCN9T9G9TPR3T6472.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7679/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "acoustic",
+    "harmonies",
+    "walking",
+    "male vocals",
+    "lead vocals",
+    "acoustic guitar",
+    "driving",
+    "folk",
+    "feelgood"
+  ]
+}

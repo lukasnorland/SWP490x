@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "be38782f-27c6-4837-992c-49fbff9eb111",
+  "epidemicTrackId": 107679,
+  "sourceProvider": "EpidemicSound",
+  "title": "Glitter Gutter",
+  "artist": "Conditional",
+  "duration": 164,
+  "bpm": 187,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52100839",
+  "publicSlug": "ihdCVJJYhp",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF00Y4RYVYAAFZDN502ENBM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6165/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Garage Rock"
+  ],
+  "moods": [
+    "Chasing",
+    "Eccentric"
+  ],
+  "tags": [
+    "driving",
+    "running",
+    "attitude",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

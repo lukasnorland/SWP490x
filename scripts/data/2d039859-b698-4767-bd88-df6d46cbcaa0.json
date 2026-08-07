@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "2d039859-b698-4767-bd88-df6d46cbcaa0",
+  "epidemicTrackId": 149452,
+  "sourceProvider": "EpidemicSound",
+  "title": "It's Your Turn",
+  "artist": "Zorro",
+  "duration": 214,
+  "bpm": 69,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52304586",
+  "publicSlug": "Y979GyadeA",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEMFHN6PEXJG6YGPKK0PRTV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11712/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Ballad"
+  ],
+  "moods": [
+    "Sentimental",
+    "Peaceful"
+  ],
+  "tags": [
+    "ballad",
+    "female vocals",
+    "sad",
+    "heartbreak",
+    "piano",
+    "acoustic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

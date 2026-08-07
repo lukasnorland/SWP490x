@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "54084bd4-049d-4be3-a00a-b5ef696cb68a",
+  "epidemicTrackId": 140414,
+  "sourceProvider": "EpidemicSound",
+  "title": "My Valentine",
+  "artist": "Roy Edwin Williams",
+  "duration": 167,
+  "bpm": 130,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52103689",
+  "publicSlug": "XMZyRIjG07",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH0QZ44VXS24223PJS5DE4X.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7815/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "1960s"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "fun",
+    "groove",
+    "harmony",
+    "quirky",
+    "romance",
+    "lead vocals",
+    "male vocals"
+  ]
+}

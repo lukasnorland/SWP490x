@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "4a204a0b-7363-4e14-b458-cf5ea6f65d91",
+  "epidemicTrackId": 284035,
+  "sourceProvider": "EpidemicSound",
+  "title": "Fiddle String",
+  "artist": "Francie, Roy Williams",
+  "duration": 214,
+  "bpm": 188,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600509",
+  "publicSlug": "5x3zufct96",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KHB7YYHWW55YJC26V2HBV3RA.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15726/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Singer-songwriter"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

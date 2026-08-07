@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "82293303-2b54-4d48-a45c-306ff8ad5c9d",
+  "epidemicTrackId": 140127,
+  "sourceProvider": "EpidemicSound",
+  "title": "West Side Story",
+  "artist": "Roy Edwin Williams",
+  "duration": 173,
+  "bpm": 70,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52103402",
+  "publicSlug": "jbNxQ2bfuS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHSTBJVNB194G42P2ZH41SV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7321/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "1960s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "fun",
+    "bop",
+    "groove",
+    "quirky",
+    "harmonies",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "externalSourceId": "1ef1c653-87f7-4dce-902d-39039e9e48a6",
+  "epidemicTrackId": 283037,
+  "sourceProvider": "EpidemicSound",
+  "title": "Running Around",
+  "artist": "The Yard Woman",
+  "duration": 248,
+  "bpm": 125,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503177",
+  "publicSlug": "zURy1YNsWV",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFZWQRSKV1SFDR4R5WSGG1N.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15072/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Melodic Techno"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": []
+}

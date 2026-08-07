@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "ebb18c69-11da-4c65-90ed-4db717e1a00e",
+  "epidemicTrackId": 149317,
+  "sourceProvider": "EpidemicSound",
+  "title": "La Ola Que Me Tumbo",
+  "artist": "Frontera Bugalú",
+  "duration": 213,
+  "bpm": 180,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52304451",
+  "publicSlug": "AN12gHXTgI",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG1NW8Y1JQNDY2WX9MR7D67.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11715/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Cumbia",
+    "Mexico"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "accordion",
+    "trumpet",
+    "percussion",
+    "guiro",
+    "clarinet",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

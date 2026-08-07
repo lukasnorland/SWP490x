@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "433b4aa3-6baf-4e5a-ad31-251a6f8c3f35",
+  "epidemicTrackId": 150608,
+  "sourceProvider": "EpidemicSound",
+  "title": "Pyaar and War",
+  "artist": "Aks & Lakshmi",
+  "duration": 147,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400564",
+  "publicSlug": "bvuV2bGbMJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFS8X20YCEZ4C2QK5MNSP1N.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12255/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indian Pop",
+    "India"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "hindi",
+    "laid back",
+    "dhol",
+    "santoor",
+    "upbeat",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

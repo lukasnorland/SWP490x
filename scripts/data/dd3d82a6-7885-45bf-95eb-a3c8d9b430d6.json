@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "dd3d82a6-7885-45bf-95eb-a3c8d9b430d6",
+  "epidemicTrackId": 250276,
+  "sourceProvider": "EpidemicSound",
+  "title": "Jeongseon Arirang",
+  "artist": "Bokyung Kim",
+  "duration": 314,
+  "bpm": 0,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402996",
+  "publicSlug": "pOkDaBEqnH",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPB4B3HBYXW4XG8MP4DWNT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13299/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Min'yō",
+    "Korean Classical",
+    "Korea",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "korean",
+    "piri",
+    "janggu",
+    "traditional",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "9146385f-dd14-4e8e-bee8-af348b2caae0",
+  "epidemicTrackId": 106058,
+  "sourceProvider": "EpidemicSound",
+  "title": "Stay",
+  "artist": "Martin Hall",
+  "duration": 285,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003463",
+  "publicSlug": "Cemj82VOe1",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH5GVJN3BSPSJ9ZE5M8C9PH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5692/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Indie Pop"
+  ],
+  "moods": [
+    "Sad",
+    "Dreamy"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "ballad"
+  ]
+}

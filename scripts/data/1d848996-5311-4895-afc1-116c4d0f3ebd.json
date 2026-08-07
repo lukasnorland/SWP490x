@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "1d848996-5311-4895-afc1-116c4d0f3ebd",
+  "epidemicTrackId": 139988,
+  "sourceProvider": "EpidemicSound",
+  "title": "Left in the Rain (K-POP Version)",
+  "artist": "Adelyn Paik",
+  "duration": 178,
+  "bpm": 62,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52103263",
+  "publicSlug": "cH1OMwlHpl",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG8D231F630VD2YKKCSGAKE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7400/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "Chill",
+    "Emotional",
+    "korean",
+    "nostalgic",
+    "love",
+    "lonely",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

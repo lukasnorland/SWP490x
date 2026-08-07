@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "906e205f-c522-48ed-80ca-f06492ded635",
+  "epidemicTrackId": 140444,
+  "sourceProvider": "EpidemicSound",
+  "title": "Standing on Your Own",
+  "artist": "Paper Twins",
+  "duration": 260,
+  "bpm": 118,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52103719",
+  "publicSlug": "nNim5kJf23",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH8YZ19AC4JGNJ16JJ2MT9C.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7369/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Folk Pop",
+    "Contemporary Folk",
+    "Country Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "indie",
+    "clap",
+    "guitar",
+    "upbeat",
+    "positive",
+    "catchy",
+    "lead vocals",
+    "male vocals"
+  ]
+}

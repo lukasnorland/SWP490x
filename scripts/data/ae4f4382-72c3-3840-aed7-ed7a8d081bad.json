@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "ae4f4382-72c3-3840-aed7-ed7a8d081bad",
+  "epidemicTrackId": 29863,
+  "sourceProvider": "EpidemicSound",
+  "title": "Green Hills",
+  "artist": "Ten Towers",
+  "duration": 197,
+  "bpm": 122,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51824747",
+  "publicSlug": "tC6agqAFI4",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTERJHVFPMB8S3KXEY6JH439.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2220/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Contemporary Folk"
+  ],
+  "moods": [
+    "Relaxing",
+    "Sentimental"
+  ],
+  "tags": [
+    "forest",
+    "dreamy",
+    "passage",
+    "transition",
+    "frail",
+    "choir",
+    "romantic",
+    "male vocals",
+    "lead vocals",
+    "nature"
+  ]
+}

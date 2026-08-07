@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "fdea910f-88a1-371e-b787-0d1064e287ba",
+  "epidemicTrackId": 102989,
+  "sourceProvider": "EpidemicSound",
+  "title": "Walk Ahead",
+  "artist": "Blood Red Sun",
+  "duration": 240,
+  "bpm": 176,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000406",
+  "publicSlug": "uvIlW7sk8G",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQE0GETNSWEGJ1AN2S97Y6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4963/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Roots Rock",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Weird",
+    "Restless"
+  ],
+  "tags": [
+    "blues",
+    "electric guitar",
+    "true",
+    "crime",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

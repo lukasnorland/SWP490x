@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "d03b2f8b-07aa-43e5-b747-9dc5ed8e0a13",
+  "epidemicTrackId": 107184,
+  "sourceProvider": "EpidemicSound",
+  "title": "Brighter than the Stars",
+  "artist": "Collin Lim",
+  "duration": 250,
+  "bpm": 105,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52100344",
+  "publicSlug": "CbMRVKNrSb",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMN62RZQGRVHPHKJTARE70.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5948/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "korean",
+    "sweet",
+    "acoustic guitar",
+    "driving"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "8cb2d5ba-c8e8-4cc9-8777-db79aeb427cf",
+  "epidemicTrackId": 150517,
+  "sourceProvider": "EpidemicSound",
+  "title": "Falta Tu Amor",
+  "artist": "Lawd Ito",
+  "duration": 192,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400473",
+  "publicSlug": "jQct5AnY2l",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHE3N3CWSJ3TX6598WDDFQW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11915/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Bolero",
+    "Latin Pop"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "bolero son",
+    "percussion",
+    "hopeful",
+    "lead vocals",
+    "male vocals"
+  ]
+}

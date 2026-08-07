@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "fb3825ee-9d96-4b36-94ec-73f60d3bd282",
+  "epidemicTrackId": 138878,
+  "sourceProvider": "EpidemicSound",
+  "title": "Flex Up (Clean Version)",
+  "artist": "Tilden Parc",
+  "duration": 202,
+  "bpm": 155,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52102228",
+  "publicSlug": "hTzVirmtjM",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGTJW8WCB98R17G7C5NHAHZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7297/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Angry",
+    "Hopeful"
+  ],
+  "tags": [
+    "dark",
+    "beat",
+    "rap"
+  ]
+}

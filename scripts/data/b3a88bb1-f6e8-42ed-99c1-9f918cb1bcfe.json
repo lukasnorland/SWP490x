@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "b3a88bb1-f6e8-42ed-99c1-9f918cb1bcfe",
+  "epidemicTrackId": 151073,
+  "sourceProvider": "EpidemicSound",
+  "title": "Ascension (Rebirth)",
+  "artist": "King Sis",
+  "duration": 223,
+  "bpm": 96,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401029",
+  "publicSlug": "udDhXpnJFq",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJPDFS3JZ287P54XZKNZV6P.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11966/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary R&B"
+  ],
+  "moods": [
+    "Romantic",
+    "Dreamy"
+  ],
+  "tags": [
+    "hopeful",
+    "finger snap",
+    "lead vocals",
+    "female vocals"
+  ]
+}

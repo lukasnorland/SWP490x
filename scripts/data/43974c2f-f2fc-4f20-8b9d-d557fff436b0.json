@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "43974c2f-f2fc-4f20-8b9d-d557fff436b0",
+  "epidemicTrackId": 252715,
+  "sourceProvider": "EpidemicSound",
+  "title": "Shots (Clean Version)",
+  "artist": "Ratchetón",
+  "duration": 133,
+  "bpm": 101,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403720",
+  "publicSlug": "2qkZoU7Z3O",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF9313CV4CNB5MCBVFD8QBS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13988/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Reggaeton"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "upbeat",
+    "powerful",
+    "restless",
+    "lead vocals",
+    "male vocals"
+  ]
+}

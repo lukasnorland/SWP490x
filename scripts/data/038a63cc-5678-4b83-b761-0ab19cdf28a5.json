@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "038a63cc-5678-4b83-b761-0ab19cdf28a5",
+  "epidemicTrackId": 138039,
+  "sourceProvider": "EpidemicSound",
+  "title": "Rise up Now (Clean Version)",
+  "artist": "Soleil",
+  "duration": 178,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52101352",
+  "publicSlug": "k7Tk2UuMvB",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJP878BXANYCJX61EKMB7D0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7089/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Synth-pop"
+  ],
+  "moods": [
+    "Eccentric",
+    "Running"
+  ],
+  "tags": [
+    "driving",
+    "rushing",
+    "attitude",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

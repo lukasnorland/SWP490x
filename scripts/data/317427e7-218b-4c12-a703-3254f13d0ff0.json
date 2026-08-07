@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "317427e7-218b-4c12-a703-3254f13d0ff0",
+  "epidemicTrackId": 253234,
+  "sourceProvider": "EpidemicSound",
+  "title": "Affection, Please",
+  "artist": "OTE",
+  "duration": 157,
+  "bpm": 180,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52404237",
+  "publicSlug": "zSg1OrmENx",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNMEM604D30788FHH6NSKQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13439/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "1960s"
+  ],
+  "moods": [
+    "Happy",
+    "Sentimental"
+  ],
+  "tags": [
+    "oldies",
+    "festive",
+    "lead vocals",
+    "male vocals"
+  ]
+}

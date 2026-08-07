@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "53418c8f-66ec-463b-877f-45f8dc0d66d8",
+  "epidemicTrackId": 249596,
+  "sourceProvider": "EpidemicSound",
+  "title": "Strange Tales",
+  "artist": "Isaku Kageyama",
+  "duration": 150,
+  "bpm": 60,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402316",
+  "publicSlug": "sflQHZOG90",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEAVCTBTZJ14NAMKJWQXVAM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12920/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Japanese Classical",
+    "Strange & Weird",
+    "Japan",
+    "Supernatural"
+  ],
+  "moods": [
+    "Quirky",
+    "Peaceful"
+  ],
+  "tags": [
+    "koto",
+    "shamisen",
+    "zither",
+    "japanese",
+    "lead vocals",
+    "female vocals"
+  ]
+}

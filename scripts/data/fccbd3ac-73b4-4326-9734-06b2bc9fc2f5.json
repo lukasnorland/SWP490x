@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "fccbd3ac-73b4-4326-9734-06b2bc9fc2f5",
+  "epidemicTrackId": 151652,
+  "sourceProvider": "EpidemicSound",
+  "title": "Covered in Your Love",
+  "artist": "Mercy Street",
+  "duration": 244,
+  "bpm": 142,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401608",
+  "publicSlug": "UctEhqNC0x",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHB3C0ABHAHBED9GSDQS9WY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12328/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "male vocals",
+    "chill",
+    "romantic",
+    "love",
+    "relationship",
+    "lead vocals"
+  ]
+}

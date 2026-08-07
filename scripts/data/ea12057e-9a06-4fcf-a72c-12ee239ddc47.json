@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "ea12057e-9a06-4fcf-a72c-12ee239ddc47",
+  "epidemicTrackId": 151738,
+  "sourceProvider": "EpidemicSound",
+  "title": "Me Llama la Cumbia",
+  "artist": "Frontera Bugalú",
+  "duration": 190,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401694",
+  "publicSlug": "8sUsuGICSI",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQFWC06PQWFEYWM8P37FMS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12429/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Cumbia Pop",
+    "Mexico"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "accordion",
+    "percussion",
+    "guiro",
+    "lead vocals",
+    "male vocals"
+  ]
+}

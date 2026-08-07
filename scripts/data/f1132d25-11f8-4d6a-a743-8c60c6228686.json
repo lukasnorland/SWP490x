@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "f1132d25-11f8-4d6a-a743-8c60c6228686",
+  "epidemicTrackId": 276943,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Bargain Song (Clean Version)",
+  "artist": "Pär Hagström",
+  "duration": 246,
+  "bpm": 68,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502107",
+  "publicSlug": "x2AbEeJ8VS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ5T5DRX215JWDG03W5469G.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14979/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Psychedelic Rock",
+    "1960s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "gospel",
+    "circus",
+    "lead vocals",
+    "male vocals"
+  ]
+}

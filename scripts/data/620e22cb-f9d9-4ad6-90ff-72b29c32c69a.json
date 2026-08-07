@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "620e22cb-f9d9-4ad6-90ff-72b29c32c69a",
+  "epidemicTrackId": 283120,
+  "sourceProvider": "EpidemicSound",
+  "title": "Just Watch (Clean Version)",
+  "artist": "Katori Walker",
+  "duration": 175,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503260",
+  "publicSlug": "jMBgdRWR2E",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE48FF50RZBCG6455CNVCA1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15899/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "West Coast Hip Hop",
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "restless"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "85321cfa-7f70-4ed9-804d-f5fb8cf39634",
+  "epidemicTrackId": 252134,
+  "sourceProvider": "EpidemicSound",
+  "title": "Pretty (Nashville Session)",
+  "artist": "Maybe",
+  "duration": 209,
+  "bpm": 86,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403163",
+  "publicSlug": "JuhfQ7DBGM",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTERJJ290J6005DQ0Y02F0AV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13460/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Country Pop"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "piano",
+    "guitar",
+    "chill",
+    "sad",
+    "love",
+    "calm",
+    "lead vocals",
+    "female vocals"
+  ]
+}

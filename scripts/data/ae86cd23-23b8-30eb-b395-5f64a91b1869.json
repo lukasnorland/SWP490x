@@ -1,0 +1,40 @@
+{
+  "externalSourceId": "ae86cd23-23b8-30eb-b395-5f64a91b1869",
+  "epidemicTrackId": 61575,
+  "sourceProvider": "EpidemicSound",
+  "title": "In the Shades",
+  "artist": "Pastis",
+  "duration": 242,
+  "bpm": 82,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828107",
+  "publicSlug": "rfKbihWCv2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGHB5G0H6E00K1JZ0NS3ERK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2327/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Indie Pop",
+    "2000s"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "folk",
+    "run away",
+    "hugs",
+    "kissing",
+    "acoustic",
+    "together",
+    "hope",
+    "choir",
+    "reminisce",
+    "alone",
+    "guitar",
+    "male vocals",
+    "lead vocals"
+  ]
+}

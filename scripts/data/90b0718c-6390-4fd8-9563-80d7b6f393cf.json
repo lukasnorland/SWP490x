@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "90b0718c-6390-4fd8-9563-80d7b6f393cf",
+  "epidemicTrackId": 144142,
+  "sourceProvider": "EpidemicSound",
+  "title": "No Hay Mas Na'",
+  "artist": "Cumbia Connection",
+  "duration": 173,
+  "bpm": 92,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52202752",
+  "publicSlug": "aaauCqQt3j",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH0QZBSJHV0F6VGV1FDFMH5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10521/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Latin",
+    "Cumbia"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "cumbia",
+    "restless",
+    "percussion",
+    "keyboard",
+    "hopeful",
+    "feelgood",
+    "colombia"
+  ]
+}

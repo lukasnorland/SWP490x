@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "f2b3d1aa-41ec-4a48-b633-aea5d8beaffc",
+  "epidemicTrackId": 107527,
+  "sourceProvider": "EpidemicSound",
+  "title": "Me Myself and I",
+  "artist": "Sven Karlsson",
+  "duration": 172,
+  "bpm": 165,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52100687",
+  "publicSlug": "4p6zyOtHuj",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQP0AS5SVB03DBH53T2QP5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6079/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop Punk"
+  ],
+  "moods": [
+    "Happy",
+    "Eccentric"
+  ],
+  "tags": [
+    "lead vocals",
+    "cocky",
+    "attitude",
+    "driving",
+    "male vocals"
+  ]
+}

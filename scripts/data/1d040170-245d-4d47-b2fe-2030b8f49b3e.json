@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "1d040170-245d-4d47-b2fe-2030b8f49b3e",
+  "epidemicTrackId": 139744,
+  "sourceProvider": "EpidemicSound",
+  "title": "Superficial",
+  "artist": "Zorro",
+  "duration": 189,
+  "bpm": 109,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52103071",
+  "publicSlug": "iW1U2WrgK3",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTET87GBV5ZEF7JW9PSKBRYV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8097/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop",
+    "Hyperpop",
+    "Electronic",
+    "Beats"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "sass",
+    "anthem",
+    "driving",
+    "confident",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

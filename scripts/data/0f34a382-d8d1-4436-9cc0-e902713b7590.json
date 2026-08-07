@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "0f34a382-d8d1-4436-9cc0-e902713b7590",
+  "epidemicTrackId": 276770,
+  "sourceProvider": "EpidemicSound",
+  "title": "Aonde for Você Eu Vou",
+  "artist": "Luiz Murá",
+  "duration": 281,
+  "bpm": 130,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501928",
+  "publicSlug": "5BPO1mMXHd",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG6B57H3MEV885HFS8MM66Z.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14636/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Forró",
+    "Acoustic"
+  ],
+  "moods": [
+    "Laid Back"
+  ],
+  "tags": [
+    "playful",
+    "brazil",
+    "hammond",
+    "lead vocals",
+    "male vocals"
+  ]
+}

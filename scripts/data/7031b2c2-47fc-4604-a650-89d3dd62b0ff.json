@@ -1,0 +1,24 @@
+{
+  "externalSourceId": "7031b2c2-47fc-4604-a650-89d3dd62b0ff",
+  "epidemicTrackId": 284627,
+  "sourceProvider": "EpidemicSound",
+  "title": "You Are Safe",
+  "artist": "Devina",
+  "duration": 328,
+  "bpm": 70,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52601101",
+  "publicSlug": "5sqPZzypft",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTK7D29687ZX88EDRPB3C6JX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/16014/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Meditation"
+  ],
+  "moods": [
+    "Relaxing",
+    "Peaceful"
+  ],
+  "tags": []
+}

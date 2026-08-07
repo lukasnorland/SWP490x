@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "902ba5f0-5b1f-4374-b23a-48a01f009a63",
+  "epidemicTrackId": 150262,
+  "sourceProvider": "EpidemicSound",
+  "title": "All That's Left",
+  "artist": "Ingrid Witt",
+  "duration": 175,
+  "bpm": 138,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52400218",
+  "publicSlug": "FLF83WqN9d",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH1XPYN4RVHPTYF6FSTDRWP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11694/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock"
+  ],
+  "moods": [
+    "Dark",
+    "Laid Back"
+  ],
+  "tags": [
+    "electric guitar",
+    "distortion",
+    "attitude",
+    "cool",
+    "female vocals",
+    "smooth",
+    "lead vocals",
+    "male vocals"
+  ]
+}

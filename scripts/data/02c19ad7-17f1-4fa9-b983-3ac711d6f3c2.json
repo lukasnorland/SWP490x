@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "02c19ad7-17f1-4fa9-b983-3ac711d6f3c2",
+  "epidemicTrackId": 283357,
+  "sourceProvider": "EpidemicSound",
+  "title": "Redemption (Clean Version)",
+  "artist": "Jevon Ives",
+  "duration": 180,
+  "bpm": 130,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503497",
+  "publicSlug": "euSCUVlh0N",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJPX52V2NK6ZVNQMPFQDQQ5G.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15484/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "UK Garage",
+    "2-step",
+    "2020s",
+    "Britain"
+  ],
+  "moods": [
+    "Dark",
+    "Laid Back"
+  ],
+  "tags": []
+}

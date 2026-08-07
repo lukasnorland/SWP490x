@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "31a5777d-4172-4af1-b3a7-4b465b6a6c0a",
+  "epidemicTrackId": 148510,
+  "sourceProvider": "EpidemicSound",
+  "title": "Must Be (Timing)",
+  "artist": "Collin Lim",
+  "duration": 217,
+  "bpm": 85,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52302806",
+  "publicSlug": "FVe1zYol5x",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHC5238PA9WMTJP82MPB51B.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11183/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Romantic",
+    "Dreamy"
+  ],
+  "tags": [
+    "korean",
+    "laid back",
+    "mellow",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

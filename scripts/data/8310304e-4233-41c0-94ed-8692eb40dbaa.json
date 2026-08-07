@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "8310304e-4233-41c0-94ed-8692eb40dbaa",
+  "epidemicTrackId": 150328,
+  "sourceProvider": "EpidemicSound",
+  "title": "Falling Down (Clean Version)",
+  "artist": "Def Lev",
+  "duration": 223,
+  "bpm": 170,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400284",
+  "publicSlug": "We4pLvLM3Y",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGVBTDSNW91FMM91N284F1Q.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12933/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hard Rock"
+  ],
+  "moods": [
+    "Angry",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "grunge",
+    "gothenburg music summit 2023",
+    "sassy",
+    "lead vocals",
+    "male vocals"
+  ]
+}

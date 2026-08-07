@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "69475e21-9002-4575-9b6d-14707e864b3b",
+  "epidemicTrackId": 142245,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dance This Night Away",
+  "artist": "Siine",
+  "duration": 151,
+  "bpm": 122,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200859",
+  "publicSlug": "Lw2sYik7Qg",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH9B2W091QM6GCGZN3D7GKR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8391/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Happy"
+  ],
+  "tags": [
+    "running",
+    "uplifting",
+    "sunny",
+    "lead vocals",
+    "male vocals"
+  ]
+}

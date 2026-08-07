@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "9ef06c18-6d6f-451a-a2b5-271e1dce0457",
+  "epidemicTrackId": 254350,
+  "sourceProvider": "EpidemicSound",
+  "title": "Say My Name",
+  "artist": "cin",
+  "duration": 167,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501004",
+  "publicSlug": "GkwmhLsvmS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGN1CT900YYEGDNKNQVA709.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14089/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea",
+    "Beats"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "korean",
+    "upbeat",
+    "powerful",
+    "lead vocals",
+    "female vocals"
+  ]
+}

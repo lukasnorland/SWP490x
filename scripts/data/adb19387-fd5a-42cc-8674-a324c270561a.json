@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "adb19387-fd5a-42cc-8674-a324c270561a",
+  "epidemicTrackId": 276178,
+  "sourceProvider": "EpidemicSound",
+  "title": "High",
+  "artist": "Loving Caliber",
+  "duration": 191,
+  "bpm": 97,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501335",
+  "publicSlug": "i4qhU0iKFx",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMDASW71YRSSEG7SHH10DP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14257/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop Rock"
+  ],
+  "moods": [
+    "Romantic",
+    "Quirky"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "drum kit",
+    "lead vocals",
+    "male vocals"
+  ]
+}

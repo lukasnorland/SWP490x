@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "2dbecb2a-32d7-4ab9-9d28-b43075319cde",
+  "epidemicTrackId": 283787,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Say When",
+  "artist": "Vicki Vox",
+  "duration": 147,
+  "bpm": 135,
+  "energyLevel": "variable",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600314",
+  "publicSlug": "Qr1geyBPbg",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KHB4DYVAY795SFSE65FFCDND.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15438/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance",
+    "EDM"
+  ],
+  "moods": [
+    "Eccentric",
+    "Running"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals"
+  ]
+}

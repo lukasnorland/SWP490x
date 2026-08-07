@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "e35d9f5b-b1eb-37cb-892b-771a698031e9",
+  "epidemicTrackId": 99912,
+  "sourceProvider": "EpidemicSound",
+  "title": "Energy",
+  "artist": "Terin Ector",
+  "duration": 180,
+  "bpm": 115,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51901468",
+  "publicSlug": "P5MY0b81rU",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHN9K5MFR2ASC1ZFSNR2A98.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4051/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "R&B",
+    "Motown"
+  ],
+  "moods": [
+    "Sexy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "retro soul",
+    "soul",
+    "motown",
+    "analog"
+  ]
+}

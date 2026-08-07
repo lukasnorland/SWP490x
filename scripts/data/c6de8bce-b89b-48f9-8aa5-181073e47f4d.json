@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "c6de8bce-b89b-48f9-8aa5-181073e47f4d",
+  "epidemicTrackId": 253865,
+  "sourceProvider": "EpidemicSound",
+  "title": "Angles",
+  "artist": "Janset",
+  "duration": 154,
+  "bpm": 108,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500519",
+  "publicSlug": "DspaC4se4J",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFZHF8C80DMTJZCMSM9J7W4.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14284/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Hip Hop",
+    "Art Pop",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Eccentric"
+  ],
+  "tags": [
+    "mysterious",
+    "synth",
+    "drum kit",
+    "bass guitar"
+  ]
+}

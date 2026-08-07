@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "a05920c4-355f-3360-8760-c8a5a2d62ded",
+  "epidemicTrackId": 61978,
+  "sourceProvider": "EpidemicSound",
+  "title": "Let Go",
+  "artist": "Conditional",
+  "duration": 195,
+  "bpm": 142,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828131",
+  "publicSlug": "5WHtTv67ct",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEAMTDM4VTSV2KANV0AWZZM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/923/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Quirky"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "filter",
+    "good times",
+    "guitar",
+    "feelgood",
+    "running",
+    "transition",
+    "restless",
+    "steady"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "8a7fed35-4e06-3f03-8d57-491121746e47",
+  "epidemicTrackId": 96277,
+  "sourceProvider": "EpidemicSound",
+  "title": "Not A Shade Of Mine (Tribute Version)",
+  "artist": "Mike Parr",
+  "duration": 202,
+  "bpm": 73,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51801580",
+  "publicSlug": "uEOlyNJB3m",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ0SP1HB1085DSZN08WVDHX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "warm",
+    "thoughtful",
+    "sentimental",
+    "love",
+    "slide guitar",
+    "evening",
+    "calm",
+    "lead vocals",
+    "male vocals",
+    "ballad"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "bb9d0fe8-0e19-4361-8d2b-d1d7694e7460",
+  "epidemicTrackId": 284590,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Believe You",
+  "artist": "AFTR",
+  "duration": 235,
+  "bpm": 80,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52601064",
+  "publicSlug": "tMBeBclKpE",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KRG65ME0YM7H1ZK1ZXXAVCW4.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15930/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Gospel"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals"
+  ]
+}

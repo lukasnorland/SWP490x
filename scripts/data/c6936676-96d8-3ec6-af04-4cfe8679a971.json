@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "c6936676-96d8-3ec6-af04-4cfe8679a971",
+  "epidemicTrackId": 102511,
+  "sourceProvider": "EpidemicSound",
+  "title": "Tokyo Dreaming",
+  "artist": "Particle House",
+  "duration": 214,
+  "bpm": 86,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51904052",
+  "publicSlug": "3PTUI8BZUa",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG4Z8AQCN2A6QHREKWTN6N1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4386/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Indie Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Dreamy",
+    "Smooth"
+  ],
+  "tags": [
+    "percussion",
+    "synth",
+    "80s",
+    "lead vocals",
+    "female vocals",
+    "hopeful",
+    "male vocals"
+  ]
+}

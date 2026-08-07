@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "c6aa64d8-056a-43fa-a428-6f3602b98598",
+  "epidemicTrackId": 276539,
+  "sourceProvider": "EpidemicSound",
+  "title": "So Done",
+  "artist": "I'MIN",
+  "duration": 165,
+  "bpm": 166,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501696",
+  "publicSlug": "kzKZAByzjx",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE5T0SZBG2WPW2Y50460A3J.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14543/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea",
+    "2010s",
+    "Beats"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "2013 pop",
+    "keyboard",
+    "drum kit",
+    "electric guitar",
+    "love song",
+    "sentimental",
+    "lead vocals",
+    "male vocals"
+  ]
+}

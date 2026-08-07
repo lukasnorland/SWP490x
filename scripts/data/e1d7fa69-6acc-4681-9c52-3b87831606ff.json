@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "e1d7fa69-6acc-4681-9c52-3b87831606ff",
+  "epidemicTrackId": 143237,
+  "sourceProvider": "EpidemicSound",
+  "title": "Teenage Cliché",
+  "artist": "Loving Caliber",
+  "duration": 214,
+  "bpm": 122,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201851",
+  "publicSlug": "NgGLkKBBdF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGKT7JTSS0F463DD1CDREF9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8843/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Pop Rock",
+    "2020s"
+  ],
+  "moods": [
+    "Happy",
+    "Romantic"
+  ],
+  "tags": [
+    "electric guitar",
+    "upbeat",
+    "hopeful",
+    "driving",
+    "lead vocals",
+    "male vocals"
+  ]
+}

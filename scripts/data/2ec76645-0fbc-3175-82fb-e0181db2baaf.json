@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "2ec76645-0fbc-3175-82fb-e0181db2baaf",
+  "epidemicTrackId": 99068,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Hear the Calling",
+  "artist": "Wildson",
+  "duration": 258,
+  "bpm": 98,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51900628",
+  "publicSlug": "n4STVk2Zhh",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGM5VMAXP1CWG01ECG0MHZ1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6104/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Funk",
+    "1980s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Smooth"
+  ],
+  "tags": [
+    "funky electric guitars",
+    "synth bass",
+    "lead vocals",
+    "male vocals",
+    "groove",
+    "driving"
+  ]
+}

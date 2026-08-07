@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "e21b16d8-633f-4969-9456-414b2ae311ce",
+  "epidemicTrackId": 106048,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sweet Talk",
+  "artist": "Tyra Chantey",
+  "duration": 168,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003453",
+  "publicSlug": "qDVYfzr6pq",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTENKY0YVKT85YH15T31MK9F.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5602/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats",
+    "R&B"
+  ],
+  "moods": [
+    "Romantic",
+    "Restless"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "driving",
+    "male vocals"
+  ]
+}

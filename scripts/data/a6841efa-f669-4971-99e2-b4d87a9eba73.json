@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "a6841efa-f669-4971-99e2-b4d87a9eba73",
+  "epidemicTrackId": 253819,
+  "sourceProvider": "EpidemicSound",
+  "title": "Strawberry Acai",
+  "artist": "I'MIN",
+  "duration": 186,
+  "bpm": 129,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500473",
+  "publicSlug": "TyGs6sw3E3",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG62CD2N5DG5VPZJ49Z2K8A.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13836/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "hopeful",
+    "upbeat",
+    "romantic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

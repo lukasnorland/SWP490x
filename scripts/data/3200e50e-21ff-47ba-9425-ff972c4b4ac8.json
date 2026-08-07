@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "3200e50e-21ff-47ba-9425-ff972c4b4ac8",
+  "epidemicTrackId": 142323,
+  "sourceProvider": "EpidemicSound",
+  "title": "Brasil",
+  "artist": "Clara Mendes",
+  "duration": 184,
+  "bpm": 142,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200937",
+  "publicSlug": "cfIKjcIRYb",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGKZJH9T0Q4MTKRSVE06ZDZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8671/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Bossa Nova",
+    "Brazil"
+  ],
+  "moods": [
+    "Relaxing",
+    "Laid Back"
+  ],
+  "tags": [
+    "portuguese",
+    "português",
+    "piano",
+    "smooth",
+    "vibe",
+    "background",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

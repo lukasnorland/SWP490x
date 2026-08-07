@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "37fc8c3d-8cb0-40bb-aa03-dc52144b3456",
+  "epidemicTrackId": 150259,
+  "sourceProvider": "EpidemicSound",
+  "title": "evergreen",
+  "artist": "dasloe",
+  "duration": 150,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400215",
+  "publicSlug": "vjhzyhsDAb",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJB210ME9NX5PM4EW9BD4GS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12166/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "2020s",
+    "Korea"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "korean",
+    "piano",
+    "romantic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

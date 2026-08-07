@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "1892d5f0-7ce0-44d2-ad59-20ca850f8455",
+  "epidemicTrackId": 142332,
+  "sourceProvider": "EpidemicSound",
+  "title": "do Whatever you like",
+  "artist": "Hallman",
+  "duration": 203,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200946",
+  "publicSlug": "3UBsjrfsOy",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGYBXD4JT62ZHKNNXN2M45A.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8587/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soft House"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "tropical",
+    "chill",
+    "soft",
+    "melodic",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

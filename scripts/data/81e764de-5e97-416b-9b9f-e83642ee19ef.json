@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "81e764de-5e97-416b-9b9f-e83642ee19ef",
+  "epidemicTrackId": 144741,
+  "sourceProvider": "EpidemicSound",
+  "title": "Creepin' Weekend",
+  "artist": "softboy.",
+  "duration": 143,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203351",
+  "publicSlug": "Rf9RBHOt9E",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNQXR6FWAAQNTVJ73G2ZVJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9928/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "R&B"
+  ],
+  "moods": [
+    "Eccentric",
+    "Laid Back"
+  ],
+  "tags": [
+    "auto tune",
+    "background vocals",
+    "talking",
+    "dreamy",
+    "downtempo",
+    "lead vocals",
+    "female vocals",
+    "creamy",
+    "male vocals"
+  ]
+}

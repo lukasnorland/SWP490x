@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "2c5633ec-fd26-4e87-9877-02dbd1add1f8",
+  "epidemicTrackId": 253409,
+  "sourceProvider": "EpidemicSound",
+  "title": "Los Mensajitos",
+  "artist": "Frontera Bugalú",
+  "duration": 178,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500065",
+  "publicSlug": "XjV3WSRDj1",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF6FYS6E8FYRKRF3N3753BY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13883/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Cumbia",
+    "Acoustic",
+    "Mexico"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "happy",
+    "upbeat",
+    "percusion",
+    "accordion",
+    "guiro",
+    "lead vocals",
+    "male vocals",
+    "sax"
+  ]
+}

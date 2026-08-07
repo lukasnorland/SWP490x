@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "f629c0d1-9594-31c9-b8e2-cfa8ac5967f3",
+  "epidemicTrackId": 62744,
+  "sourceProvider": "EpidemicSound",
+  "title": "Waking Up to Another Day",
+  "artist": "Ten Towers",
+  "duration": 183,
+  "bpm": 94,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51804747",
+  "publicSlug": "EXUtxXi6TH",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ9F4BJV2X44SDHYDVW2WCZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2220/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Contemporary Folk"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "autumn",
+    "authentic",
+    "atmospheric",
+    "cozy",
+    "lead vocals",
+    "male vocals",
+    "warm",
+    "airy",
+    "comforting",
+    "morning",
+    "cosy",
+    "dawn"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "d9a29fd7-e1e4-4ec7-b826-4490d60bf2f8",
+  "epidemicTrackId": 104675,
+  "sourceProvider": "EpidemicSound",
+  "title": "Stuck in the Moment",
+  "artist": "Alexa Cappelli",
+  "duration": 169,
+  "bpm": 105,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002080",
+  "publicSlug": "YlnhSmt8U2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGP5R3A77J8AP80K6ZSAHVF.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5471/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Folk Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "nostalgic",
+    "folk pop",
+    "guitar",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

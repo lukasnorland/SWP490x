@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "3b4b6f1c-a221-4d44-bd7a-176acbc2ad0a",
+  "epidemicTrackId": 276918,
+  "sourceProvider": "EpidemicSound",
+  "title": "Shoot for the Stars",
+  "artist": "Mr. Steve, The Music Man",
+  "duration": 191,
+  "bpm": 94,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502082",
+  "publicSlug": "zPXBSnyhRp",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFSQW7XKN984936QKDFPZSF.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14632/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Singer-songwriter",
+    "Children'S Music",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "guitar",
+    "lead vocals",
+    "male vocals"
+  ]
+}

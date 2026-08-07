@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "2ddc6941-b627-462e-ad6a-f66f91409845",
+  "epidemicTrackId": 148174,
+  "sourceProvider": "EpidemicSound",
+  "title": "You've Got It",
+  "artist": "John Runefelt",
+  "duration": 202,
+  "bpm": 86,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52302470",
+  "publicSlug": "XI9k1X1aKg",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGK8DW92RNVBQTQ65G4S5T5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10911/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul",
+    "Motown"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "love song",
+    "anniversary",
+    "uplifting",
+    "friendship",
+    "lead vocals",
+    "male vocals"
+  ]
+}

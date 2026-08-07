@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "6b18a51d-1ad9-40bc-8894-30770d28c6b7",
+  "epidemicTrackId": 276219,
+  "sourceProvider": "EpidemicSound",
+  "title": "Built to Kill",
+  "artist": "Torii Wolf",
+  "duration": 159,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501376",
+  "publicSlug": "WshlC1Rdfc",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG3MWRBE44KP0EN37K40VXC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14435/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "EDM"
+  ],
+  "moods": [
+    "Dreamy",
+    "Restless"
+  ],
+  "tags": [
+    "alternative",
+    "powerful"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "9fb624ec-5dbf-4daf-ac35-5a244d9f7e6f",
+  "epidemicTrackId": 254113,
+  "sourceProvider": "EpidemicSound",
+  "title": "Five Crazy Cowboys",
+  "artist": "Gary the Canary",
+  "duration": 182,
+  "bpm": 118,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500767",
+  "publicSlug": "WuxsIPVEZA",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGSVC082676S84C4HR04W4Q.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13992/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Country",
+    "Children'S Music"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "kids",
+    "funny",
+    "lead vocals",
+    "male vocals"
+  ]
+}

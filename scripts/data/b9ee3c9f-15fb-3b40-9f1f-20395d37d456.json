@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "b9ee3c9f-15fb-3b40-9f1f-20395d37d456",
+  "epidemicTrackId": 96015,
+  "sourceProvider": "EpidemicSound",
+  "title": "Wasted",
+  "artist": "Wellmess",
+  "duration": 183,
+  "bpm": 150,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51804273",
+  "publicSlug": "RhaHyts4kG",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNT5BE2JQXSTX5E2C690DT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/901/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "1980s",
+    "1990s"
+  ],
+  "moods": [
+    "Epic",
+    "Eccentric"
+  ],
+  "tags": [
+    "intense",
+    "fast",
+    "exciting",
+    "energetic",
+    "cool",
+    "kicking",
+    "driving",
+    "attitude",
+    "lead vocals",
+    "male vocals",
+    "garage"
+  ]
+}

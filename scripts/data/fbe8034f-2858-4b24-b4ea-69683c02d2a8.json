@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "fbe8034f-2858-4b24-b4ea-69683c02d2a8",
+  "epidemicTrackId": 147019,
+  "sourceProvider": "EpidemicSound",
+  "title": "Warfree World",
+  "artist": "Ebo Krdum",
+  "duration": 236,
+  "bpm": 113,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301315",
+  "publicSlug": "b8DJlC8cdu",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFY1G8GVCPN05QWMN14N9BW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10116/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "African Continent"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "uplifting",
+    "empowering",
+    "positive",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "3c8537ff-acc9-4750-a8a2-573821d621a8",
+  "epidemicTrackId": 282785,
+  "sourceProvider": "EpidemicSound",
+  "title": "Threads",
+  "artist": "David Edward",
+  "duration": 202,
+  "bpm": 55,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502925",
+  "publicSlug": "d0OKTdPkXt",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEMX24RNR8841KBKASD7C47.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14991/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Classical",
+    "Meditation"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

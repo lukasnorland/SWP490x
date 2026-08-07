@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "7b0d4feb-d92f-40d2-9596-9b98752348ee",
+  "epidemicTrackId": 199837,
+  "sourceProvider": "EpidemicSound",
+  "title": "It Looks Like We Made It (Extended Version)",
+  "artist": "Basixx",
+  "duration": 301,
+  "bpm": 128,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401721",
+  "publicSlug": "6IN52NriCv",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGD4X4ZP0KBMX8MVTSVEN67.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12363/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance",
+    "2020s"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "upbeat",
+    "kick",
+    "synth",
+    "energetic",
+    "hopeful",
+    "workout",
+    "female vocals",
+    "lead vocals"
+  ]
+}

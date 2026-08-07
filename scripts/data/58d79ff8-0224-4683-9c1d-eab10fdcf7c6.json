@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "58d79ff8-0224-4683-9c1d-eab10fdcf7c6",
+  "epidemicTrackId": 107098,
+  "sourceProvider": "EpidemicSound",
+  "title": "Never Gonna Get Enough",
+  "artist": "Flux Vortex",
+  "duration": 221,
+  "bpm": 104,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52100258",
+  "publicSlug": "Hod7J63JKj",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFHHHNQZ6742K0VGMZ8MRRJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5891/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "driving",
+    "romantic",
+    "sweet",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

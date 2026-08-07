@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "f1c482bc-a6c3-3606-bcec-bb0b26e81e20",
+  "epidemicTrackId": 96604,
+  "sourceProvider": "EpidemicSound",
+  "title": "A Little Deja Vu",
+  "artist": "Staffan Carlén",
+  "duration": 179,
+  "bpm": 144,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51812599",
+  "publicSlug": "USj5XubRVX",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGDBG500HF28C7WM95Y4AQ0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/648/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "Alternative Rock",
+    "2010s"
+  ],
+  "moods": [
+    "Euphoric",
+    "Running"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "driving",
+    "attitude",
+    "retro"
+  ]
+}

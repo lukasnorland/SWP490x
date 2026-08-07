@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "c5139656-c1b4-3c91-84ed-539f4dc901e3",
+  "epidemicTrackId": 97487,
+  "sourceProvider": "EpidemicSound",
+  "title": "Like a Hurricane",
+  "artist": "Basixx",
+  "duration": 195,
+  "bpm": 127,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51827315",
+  "publicSlug": "0zIwzoTp47",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPZK13ZZ5EEZG8ZEGTWR8G.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/652/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "workout",
+    "gym",
+    "driving",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

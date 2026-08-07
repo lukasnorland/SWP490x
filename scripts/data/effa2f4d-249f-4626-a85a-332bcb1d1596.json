@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "effa2f4d-249f-4626-a85a-332bcb1d1596",
+  "epidemicTrackId": 252096,
+  "sourceProvider": "EpidemicSound",
+  "title": "Through the Highs and Lows",
+  "artist": "Gloria Tells",
+  "duration": 320,
+  "bpm": 128,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403125",
+  "publicSlug": "drTwEX3qC4",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH01JGFKPCXCJD1QRYF7W15.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13164/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance-pop"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "groove",
+    "female vocals",
+    "upbeat",
+    "dance",
+    "bass",
+    "drum kit",
+    "energetic",
+    "lead vocals"
+  ]
+}

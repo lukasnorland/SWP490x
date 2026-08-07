@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "2dd18593-7f67-4ee8-af47-a838a89f9f2d",
+  "epidemicTrackId": 277424,
+  "sourceProvider": "EpidemicSound",
+  "title": "Neon Christmas",
+  "artist": "OTE",
+  "duration": 206,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502588",
+  "publicSlug": "78oM0Ay0P8",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFD550VN3N2Q5WJTTQECPZ0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15089/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop Rock",
+    "Christmas"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "vocoder",
+    "lead vocals",
+    "male vocals"
+  ]
+}

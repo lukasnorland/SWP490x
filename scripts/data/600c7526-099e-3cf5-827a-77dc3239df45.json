@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "600c7526-099e-3cf5-827a-77dc3239df45",
+  "epidemicTrackId": 102920,
+  "sourceProvider": "EpidemicSound",
+  "title": "Like the Way You Are",
+  "artist": "Mindme",
+  "duration": 212,
+  "bpm": 87,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000338",
+  "publicSlug": "DfspXqzmWc",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH1D4BZ8V6GX3GSJ8FT1SCT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4659/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "piano ballad",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

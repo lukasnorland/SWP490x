@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "858490bb-bf85-4e69-a796-f42fbbdd2866",
+  "epidemicTrackId": 283525,
+  "sourceProvider": "EpidemicSound",
+  "title": "THAT GIRL",
+  "artist": "ALICE",
+  "duration": 149,
+  "bpm": 130,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600052",
+  "publicSlug": "e7Uo3AC3nb",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJS27S9F5B8HQXBTD9B3ZS5W.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15387/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s",
+    "Korea",
+    "2010s"
+  ],
+  "moods": [
+    "Restless",
+    "Sexy"
+  ],
+  "tags": [
+    "confident",
+    "upbeat",
+    "lead vocals",
+    "female vocals"
+  ]
+}

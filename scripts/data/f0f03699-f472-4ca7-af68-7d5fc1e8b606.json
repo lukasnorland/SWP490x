@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "f0f03699-f472-4ca7-af68-7d5fc1e8b606",
+  "epidemicTrackId": 253508,
+  "sourceProvider": "EpidemicSound",
+  "title": "My My",
+  "artist": "Loving Caliber",
+  "duration": 176,
+  "bpm": 132,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52500164",
+  "publicSlug": "drCWsLgD1F",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHM43RWC6MXB7NDMBXYJ40H.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13616/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Quirky",
+    "Restless"
+  ],
+  "tags": [
+    "groove",
+    "vibe",
+    "drum kit",
+    "choir",
+    "upbeat",
+    "duet",
+    "guitar",
+    "electric organ",
+    "bass guitar",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

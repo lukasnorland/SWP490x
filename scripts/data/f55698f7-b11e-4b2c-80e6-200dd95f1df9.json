@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "f55698f7-b11e-4b2c-80e6-200dd95f1df9",
+  "epidemicTrackId": 147925,
+  "sourceProvider": "EpidemicSound",
+  "title": "save yourself",
+  "artist": "King Sis",
+  "duration": 188,
+  "bpm": 69,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52302221",
+  "publicSlug": "f10qiABxf0",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEBTQ2MPB3943DKCYKJPNX7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10495/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Neo Soul",
+    "Contemporary R&B"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "mellow",
+    "lofi",
+    "dreamy",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

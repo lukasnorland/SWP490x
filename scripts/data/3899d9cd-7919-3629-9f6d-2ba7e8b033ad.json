@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "3899d9cd-7919-3629-9f6d-2ba7e8b033ad",
+  "epidemicTrackId": 65473,
+  "sourceProvider": "EpidemicSound",
+  "title": "Stay (Wide Open)",
+  "artist": "Loving Caliber",
+  "duration": 226,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51818060",
+  "publicSlug": "XB3ejtUv2q",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMF4M20C8SVB7VNG47M9HE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9807/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "love",
+    "relaxing",
+    "ballad",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

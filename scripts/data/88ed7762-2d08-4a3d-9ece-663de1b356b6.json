@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "88ed7762-2d08-4a3d-9ece-663de1b356b6",
+  "epidemicTrackId": 150951,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dancing Underwater",
+  "artist": "I'MIN",
+  "duration": 177,
+  "bpm": 102,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400907",
+  "publicSlug": "BXUVBiSYzK",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGV4M2F82KEBSCPG48EXWFK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11958/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "K-pop",
+    "2020s",
+    "Korea"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "upbeat",
+    "korean",
+    "synth",
+    "lead vocals",
+    "male vocals"
+  ]
+}

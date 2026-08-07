@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "d4b16200-bd55-49b0-b210-7fa9cc244bba",
+  "epidemicTrackId": 199919,
+  "sourceProvider": "EpidemicSound",
+  "title": "S.O.S.",
+  "artist": "Nbhd Nick",
+  "duration": 168,
+  "bpm": 140,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401804",
+  "publicSlug": "zohNTZfN98",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGM1HXDQY6ZTVJJ62PZVB9W.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12359/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Epic",
+    "Dark"
+  ],
+  "tags": [
+    "restless",
+    "powerful",
+    "rap",
+    "lead vocals",
+    "male vocals"
+  ]
+}

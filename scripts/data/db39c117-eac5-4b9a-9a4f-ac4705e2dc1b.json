@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "db39c117-eac5-4b9a-9a4f-ac4705e2dc1b",
+  "epidemicTrackId": 147718,
+  "sourceProvider": "EpidemicSound",
+  "title": "Iron",
+  "artist": "Gamma Skies",
+  "duration": 211,
+  "bpm": 83,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52302014",
+  "publicSlug": "zFYurJHZqZ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHWHY89FDBCD1AH0ANJSX0R.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10938/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian",
+    "Praise & Worship"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "faith",
+    "belief",
+    "christianity",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

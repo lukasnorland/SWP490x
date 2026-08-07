@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "276e9955-a85a-3171-a334-a98fe3c78c06",
+  "epidemicTrackId": 62112,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Will Be Right by Your Side",
+  "artist": "Ethan Martin",
+  "duration": 225,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51808523",
+  "publicSlug": "MmQ5Kbl68f",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTED1RF2A3HSW202YJ6ZFN8X.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11071/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "2000s"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "sunny",
+    "reminisce",
+    "guitar",
+    "together",
+    "lead vocals",
+    "road trip",
+    "transition",
+    "male vocals"
+  ]
+}

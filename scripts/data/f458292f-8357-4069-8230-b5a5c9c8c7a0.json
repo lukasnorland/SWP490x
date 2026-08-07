@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "f458292f-8357-4069-8230-b5a5c9c8c7a0",
+  "epidemicTrackId": 283737,
+  "sourceProvider": "EpidemicSound",
+  "title": "Oya",
+  "artist": "Teeklef",
+  "duration": 152,
+  "bpm": 113,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600264",
+  "publicSlug": "js6TIdnmgZ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJYFMZ3A2YD0FKQ7M10SKDBJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15749/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "hausa",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "61bf87cb-55a5-4209-9f15-0ae3e2e00469",
+  "epidemicTrackId": 146075,
+  "sourceProvider": "EpidemicSound",
+  "title": "With Passion",
+  "artist": "Zorro",
+  "duration": 185,
+  "bpm": 118,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300371",
+  "publicSlug": "DVs8nWwpCT",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGWFRF0NHMA9FCY05NFJWNN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10323/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "upbeat",
+    "carefree",
+    "feelgood",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

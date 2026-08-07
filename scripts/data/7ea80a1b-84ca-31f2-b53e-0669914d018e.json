@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "7ea80a1b-84ca-31f2-b53e-0669914d018e",
+  "epidemicTrackId": 99631,
+  "sourceProvider": "EpidemicSound",
+  "title": "AFRD",
+  "artist": "Particle House",
+  "duration": 202,
+  "bpm": 115,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51901187",
+  "publicSlug": "2255tJxGtr",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG1NWE9TAB6GA5GRHG7N0G4.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3662/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Disco"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sexy"
+  ],
+  "tags": [
+    "electronic",
+    "male vocals",
+    "lead vocals",
+    "groovy",
+    "driving",
+    "dancing",
+    "club",
+    "indie"
+  ]
+}

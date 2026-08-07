@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "7116b921-4147-4d45-bbad-7120c7a6c3e9",
+  "epidemicTrackId": 139121,
+  "sourceProvider": "EpidemicSound",
+  "title": "A Thousand Good Miles",
+  "artist": "Sture Zetterberg",
+  "duration": 203,
+  "bpm": 96,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52102462",
+  "publicSlug": "ydOu4bdLi2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFMKQ94A0C1T5ESKND3W436.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6918/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Roots Rock",
+    "Country Pop",
+    "1990s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "90s",
+    "storytelling",
+    "travel",
+    "countryside",
+    "goodbye",
+    "nostalgic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

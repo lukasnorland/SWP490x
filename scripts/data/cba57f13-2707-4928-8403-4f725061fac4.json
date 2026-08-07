@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "cba57f13-2707-4928-8403-4f725061fac4",
+  "epidemicTrackId": 138369,
+  "sourceProvider": "EpidemicSound",
+  "title": "Walkin With Me",
+  "artist": "JOYSPRING",
+  "duration": 211,
+  "bpm": 63,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52101758",
+  "publicSlug": "ft0dfmUcKN",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE3V538R4DC8WEXQKFTEC27.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6794/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "faith",
+    "sparse",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

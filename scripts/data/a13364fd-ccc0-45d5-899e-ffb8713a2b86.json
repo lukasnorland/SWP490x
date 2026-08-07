@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "a13364fd-ccc0-45d5-899e-ffb8713a2b86",
+  "epidemicTrackId": 284454,
+  "sourceProvider": "EpidemicSound",
+  "title": "Día a Día",
+  "artist": "Monique Hasbun",
+  "duration": 191,
+  "bpm": 148,
+  "energyLevel": "variable",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600928",
+  "publicSlug": "0jq1riNR8a",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KPD9M42PC22XGHW2S3K56XWT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15882/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Latin Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals"
+  ]
+}

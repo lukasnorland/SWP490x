@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "2fd3b9c2-3f6b-3a8a-83cd-63abe2568135",
+  "epidemicTrackId": 64577,
+  "sourceProvider": "EpidemicSound",
+  "title": "Hard (Tribute Version)",
+  "artist": "Akerman",
+  "duration": 288,
+  "bpm": 52,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51821488",
+  "publicSlug": "NRtj6V7RR9",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQJJ9BR3PK4VT8BXFRBK6M.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2342/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Dark",
+    "Mysterious"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "dark",
+    "strange",
+    "psychadelic",
+    "minimal",
+    "male vocals"
+  ]
+}

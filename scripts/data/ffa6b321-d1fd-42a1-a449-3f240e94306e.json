@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "ffa6b321-d1fd-42a1-a449-3f240e94306e",
+  "epidemicTrackId": 254496,
+  "sourceProvider": "EpidemicSound",
+  "title": "Love Is?",
+  "artist": "Egaoya",
+  "duration": 186,
+  "bpm": 175,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501150",
+  "publicSlug": "vWXobhP92j",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGR3JA5NWFVNMEPB23SX724.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14122/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "J-pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "japanese",
+    "upbeat",
+    "happy",
+    "epic",
+    "lead vocals",
+    "male vocals",
+    "piano"
+  ]
+}

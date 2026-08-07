@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "5680f004-20c0-35ba-a226-0e063e9e1d75",
+  "epidemicTrackId": 65360,
+  "sourceProvider": "EpidemicSound",
+  "title": "Fighter",
+  "artist": "Loving Caliber",
+  "duration": 204,
+  "bpm": 100,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51824392",
+  "publicSlug": "Bd2T3TiTvp",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHGWNPD40NJWKNE0H530WG8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9807/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "empowering",
+    "intense",
+    "exciting",
+    "energy",
+    "fast",
+    "driving",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

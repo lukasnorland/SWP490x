@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "7a631842-7cee-4e83-9346-a014bf5d3112",
+  "epidemicTrackId": 141663,
+  "sourceProvider": "EpidemicSound",
+  "title": "Get Out of My Way",
+  "artist": "Tape Machines",
+  "duration": 204,
+  "bpm": 104,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200277",
+  "publicSlug": "XnCFT96z2Z",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGF0KGKT5N2JC4V264A1VSX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8162/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Electronic",
+    "Beats"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "energetic",
+    "confident",
+    "fierce",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

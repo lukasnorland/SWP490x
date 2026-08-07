@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "a7fe5f30-0723-4181-a74a-db3d344c3ee3",
+  "epidemicTrackId": 146086,
+  "sourceProvider": "EpidemicSound",
+  "title": "I’ll Do It All over Again",
+  "artist": "Mindme",
+  "duration": 171,
+  "bpm": 77,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300382",
+  "publicSlug": "hJAV3GSLZC",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTECK3MKJ78WTVC2RX9ZB5GS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9989/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "bittersweet",
+    "contemplative",
+    "dramatic",
+    "melancholic",
+    "melodramatic",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

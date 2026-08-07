@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "34da08f2-c8cc-41bb-8f6e-0b882b7dc136",
+  "epidemicTrackId": 142556,
+  "sourceProvider": "EpidemicSound",
+  "title": "You = Trouble",
+  "artist": "Emmi",
+  "duration": 191,
+  "bpm": 112,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201170",
+  "publicSlug": "cTCIXf5kbV",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGKHBNE45EY4F34ARVHEVDS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8818/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "running",
+    "working out",
+    "positive",
+    "energetic",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

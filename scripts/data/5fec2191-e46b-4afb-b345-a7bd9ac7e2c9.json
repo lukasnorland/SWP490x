@@ -1,0 +1,26 @@
+{
+  "externalSourceId": "5fec2191-e46b-4afb-b345-a7bd9ac7e2c9",
+  "epidemicTrackId": 277412,
+  "sourceProvider": "EpidemicSound",
+  "title": "Can't Find Myself",
+  "artist": "Alex Kehm",
+  "duration": 216,
+  "bpm": 103,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502576",
+  "publicSlug": "0eTTo7VkUM",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE5T0WE3SQVEGEYHXBXQ411.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14835/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "indie"
+  ]
+}

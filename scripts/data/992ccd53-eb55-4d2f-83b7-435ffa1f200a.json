@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "992ccd53-eb55-4d2f-83b7-435ffa1f200a",
+  "epidemicTrackId": 143275,
+  "sourceProvider": "EpidemicSound",
+  "title": "Cincinnati (Clean Version)",
+  "artist": "Loving Caliber",
+  "duration": 208,
+  "bpm": 146,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201889",
+  "publicSlug": "dXIDI2vexx",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHH8JQTMNH3CA0JX5SQ844P.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8844/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Pop Rock",
+    "2020s"
+  ],
+  "moods": [
+    "Happy"
+  ],
+  "tags": [
+    "upbeat",
+    "energetic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

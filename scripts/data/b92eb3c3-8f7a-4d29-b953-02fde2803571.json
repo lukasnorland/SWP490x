@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "b92eb3c3-8f7a-4d29-b953-02fde2803571",
+  "epidemicTrackId": 105149,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dharma",
+  "artist": "Blood Red Sun",
+  "duration": 291,
+  "bpm": 92,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002554",
+  "publicSlug": "rRhJogQS0z",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE2SYFRM4V9TR1MG39C4R8B.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5826/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "ballad",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

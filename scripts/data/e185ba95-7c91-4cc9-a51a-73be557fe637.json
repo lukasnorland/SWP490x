@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "e185ba95-7c91-4cc9-a51a-73be557fe637",
+  "epidemicTrackId": 276363,
+  "sourceProvider": "EpidemicSound",
+  "title": "If You",
+  "artist": "IFCHAN",
+  "duration": 170,
+  "bpm": 86,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501520",
+  "publicSlug": "uaxWoT7MO8",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPEPPS29ZHRPDEW95WG5YY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14373/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary R&B",
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Romantic",
+    "Dreamy"
+  ],
+  "tags": [
+    "laid back",
+    "guitar",
+    "hopeful",
+    "k-drama",
+    "lead vocals",
+    "male vocals"
+  ]
+}

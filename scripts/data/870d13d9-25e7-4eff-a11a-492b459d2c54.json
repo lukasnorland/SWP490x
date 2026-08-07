@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "870d13d9-25e7-4eff-a11a-492b459d2c54",
+  "epidemicTrackId": 141387,
+  "sourceProvider": "EpidemicSound",
+  "title": "Almost the Same",
+  "artist": "Peter Crosby",
+  "duration": 240,
+  "bpm": 99,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200002",
+  "publicSlug": "EzGVHpPvy2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE3GG03X71PXQ3E16YH8KF6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8517/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Americana",
+    "Acoustic"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "steel guitar",
+    "piano",
+    "romantic",
+    "laid back",
+    "acoustic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

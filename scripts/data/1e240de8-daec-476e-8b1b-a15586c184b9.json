@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "1e240de8-daec-476e-8b1b-a15586c184b9",
+  "epidemicTrackId": 252254,
+  "sourceProvider": "EpidemicSound",
+  "title": "Love Somebody",
+  "artist": "Loving Caliber",
+  "duration": 192,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403283",
+  "publicSlug": "pYGTYxnRRW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTETSZAFNM7VXP17NEPZ8705.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13127/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "duet",
+    "groove",
+    "bass",
+    "drum kit",
+    "romantic",
+    "love",
+    "guitar",
+    "feel good",
+    "heartbreak",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "633cfe66-9106-3eb8-a4ec-1a43b6d48e36",
+  "epidemicTrackId": 101212,
+  "sourceProvider": "EpidemicSound",
+  "title": "A Traveling Spirit",
+  "artist": "Daniel Kadawatha",
+  "duration": 162,
+  "bpm": 103,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51902779",
+  "publicSlug": "pBMgE2NH8x",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGCX3N4JFR80TYQRTYTAY14.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4279/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Sad",
+    "Sentimental"
+  ],
+  "tags": [
+    "peaceful",
+    "minimalist",
+    "storytelling",
+    "male vocals",
+    "lead vocals"
+  ]
+}

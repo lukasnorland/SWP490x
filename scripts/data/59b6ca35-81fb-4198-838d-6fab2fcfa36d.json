@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "59b6ca35-81fb-4198-838d-6fab2fcfa36d",
+  "epidemicTrackId": 100339,
+  "sourceProvider": "EpidemicSound",
+  "title": "Byrd (Yellowbase Remix)",
+  "artist": "Yellowbase",
+  "duration": 201,
+  "bpm": 133,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51901900",
+  "publicSlug": "fPUK5Z8i0Y",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK0AFG6E46KV273KZ6PGSBVR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4171/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop"
+  ],
+  "moods": [
+    "Quirky",
+    "Glamorous"
+  ],
+  "tags": [
+    "vibes",
+    "happy",
+    "brass",
+    "rap",
+    "bass",
+    "driving",
+    "vocals",
+    "beats"
+  ]
+}

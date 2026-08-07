@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "d1a236b1-a294-4f77-a60f-55e51e05a6c5",
+  "epidemicTrackId": 144887,
+  "sourceProvider": "EpidemicSound",
+  "title": "Trick of the Memory",
+  "artist": "Victor Lundberg",
+  "duration": 218,
+  "bpm": 81,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203497",
+  "publicSlug": "icx7NmcVMe",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEZC6D96EWBNRHXPADEZWYZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9637/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Americana",
+    "Roots Rock"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "electric guitar",
+    "lead vocals",
+    "male vocals",
+    "feel good"
+  ]
+}

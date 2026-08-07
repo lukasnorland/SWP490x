@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "c194b9ba-d255-4a8a-80d0-947bd2f4a615",
+  "epidemicTrackId": 141088,
+  "sourceProvider": "EpidemicSound",
+  "title": "Hangman",
+  "artist": "Torii Wolf",
+  "duration": 198,
+  "bpm": 88,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52104363",
+  "publicSlug": "stimqleWcq",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK8GG0VE4GGN1XT92XCY4DPS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7979/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Indietronica"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "dark",
+    "mysterious",
+    "upbeat"
+  ]
+}

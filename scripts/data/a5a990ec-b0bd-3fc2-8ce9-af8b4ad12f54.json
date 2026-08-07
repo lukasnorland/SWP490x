@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "a5a990ec-b0bd-3fc2-8ce9-af8b4ad12f54",
+  "epidemicTrackId": 97134,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Wish That I Was A Mad Man",
+  "artist": "Staffan Carlén",
+  "duration": 197,
+  "bpm": 131,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51808609",
+  "publicSlug": "fZk7dXwutJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGRYSCWP93EZ4Y6F4T10FAB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/648/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Rock",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Eccentric"
+  ],
+  "tags": [
+    "attitude",
+    "retro",
+    "pounding",
+    "steady",
+    "driving",
+    "lead vocals",
+    "male vocals",
+    "british"
+  ]
+}

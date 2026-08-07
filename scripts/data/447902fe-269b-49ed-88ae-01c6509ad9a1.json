@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "447902fe-269b-49ed-88ae-01c6509ad9a1",
+  "epidemicTrackId": 138115,
+  "sourceProvider": "EpidemicSound",
+  "title": "Tudo Tem Seu Lugar",
+  "artist": "Clara Mendes",
+  "duration": 161,
+  "bpm": 115,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52101377",
+  "publicSlug": "3eEHnQqy9C",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEQ8EBJK4G31YZDF5P6ZQV0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6880/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Bossa Nova"
+  ],
+  "moods": [
+    "Relaxing",
+    "Laid Back"
+  ],
+  "tags": [
+    "smooth",
+    "dreamy",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

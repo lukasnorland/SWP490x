@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "0dd6c508-0a3c-4986-ac48-528695d6755f",
+  "epidemicTrackId": 151540,
+  "sourceProvider": "EpidemicSound",
+  "title": "Damn",
+  "artist": "Louna",
+  "duration": 190,
+  "bpm": 141,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401496",
+  "publicSlug": "b1Dhw1nV3e",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG0GACSD9RH6JGZ3YF4Q5Q2.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12269/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary R&B"
+  ],
+  "moods": [
+    "Epic",
+    "Hopeful"
+  ],
+  "tags": [
+    "female vocals",
+    "hi hat",
+    "groove",
+    "emotions",
+    "love",
+    "restless",
+    "comfort zone",
+    "lead vocals"
+  ]
+}

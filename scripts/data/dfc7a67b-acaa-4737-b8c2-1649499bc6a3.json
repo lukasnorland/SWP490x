@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "dfc7a67b-acaa-4737-b8c2-1649499bc6a3",
+  "epidemicTrackId": 253110,
+  "sourceProvider": "EpidemicSound",
+  "title": "Snillen spekulerar",
+  "artist": "Massgrav",
+  "duration": 122,
+  "bpm": 190,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52404113",
+  "publicSlug": "VEHLHMxTTF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG6B5CK63BBDKRBXDYV0AJR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13330/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hardcore Punk"
+  ],
+  "moods": [
+    "Angry",
+    "Restless"
+  ],
+  "tags": [
+    "swedish hardcore punk",
+    "rebellion",
+    "lead vocals",
+    "male vocals"
+  ]
+}

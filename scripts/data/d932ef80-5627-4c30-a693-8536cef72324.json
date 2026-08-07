@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "d932ef80-5627-4c30-a693-8536cef72324",
+  "epidemicTrackId": 144426,
+  "sourceProvider": "EpidemicSound",
+  "title": "Coraje",
+  "artist": "Clara Mendes",
+  "duration": 158,
+  "bpm": 144,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203036",
+  "publicSlug": "HoetbC5x7p",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ22A6NSP3Y8ZC6DRTT6HWA.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9649/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Mexico"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "guitar",
+    "accordion",
+    "violin",
+    "bass",
+    "sentimental",
+    "ranchera",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "bec7a614-aaf5-419f-bd81-1ed4fdee0053",
+  "epidemicTrackId": 284323,
+  "sourceProvider": "EpidemicSound",
+  "title": "What You Running From",
+  "artist": "Bankston",
+  "duration": 155,
+  "bpm": 126,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52600797",
+  "publicSlug": "nEBFb6pgiF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTTXXCZ305JH523JTGQPY915.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/16068/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Epic",
+    "Eccentric"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

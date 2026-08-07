@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "e6cb897e-a61a-4046-af71-5e5082bac8ac",
+  "epidemicTrackId": 284580,
+  "sourceProvider": "EpidemicSound",
+  "title": "Thula Thula",
+  "artist": "Tusabe",
+  "duration": 188,
+  "bpm": 117,
+  "energyLevel": "variable",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52601054",
+  "publicSlug": "oaeBK4NTZf",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KRG2MG0ECGA2Z9SHBBNDC1M0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15973/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afro House",
+    "African Continent"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "de9fdd41-9ab1-4cfe-afa6-f5565b1f0e2a",
+  "epidemicTrackId": 249561,
+  "sourceProvider": "EpidemicSound",
+  "title": "Aegean Blue",
+  "artist": "OTE",
+  "duration": 141,
+  "bpm": 116,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402281",
+  "publicSlug": "dRGC2DNd54",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPBJZ2TYEF08WYVH8SWV5W.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13393/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop Rock",
+    "Sunshine Pop",
+    "1960s"
+  ],
+  "moods": [
+    "Happy",
+    "Sentimental"
+  ],
+  "tags": [
+    "bleed in stems",
+    "lead vocals",
+    "male vocals"
+  ]
+}

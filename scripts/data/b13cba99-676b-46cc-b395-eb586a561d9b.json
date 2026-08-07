@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "b13cba99-676b-46cc-b395-eb586a561d9b",
+  "epidemicTrackId": 143662,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lighted Candle",
+  "artist": "Adelyn Paik",
+  "duration": 213,
+  "bpm": 65,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52202276",
+  "publicSlug": "AaDallNLNS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFBB49ZDB5QFTCZYGB91BAK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9498/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "laid back",
+    "korean",
+    "piano",
+    "hopeful",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

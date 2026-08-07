@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "ae1707da-43b2-48c6-be09-27ff80bb5855",
+  "epidemicTrackId": 28464,
+  "sourceProvider": "EpidemicSound",
+  "title": "Way Down South",
+  "artist": "River Run Dry",
+  "duration": 138,
+  "bpm": 121,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51827721",
+  "publicSlug": "tL54RLWjQ8",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ62NPFVGQ8ZGBCVS1PNTGE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/1577/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Roots Rock"
+  ],
+  "moods": [
+    "Hopeful",
+    "Running"
+  ],
+  "tags": [
+    "america",
+    "southern man",
+    "alabama",
+    "brotherhood",
+    "homeland",
+    "lead vocals",
+    "male vocals"
+  ]
+}

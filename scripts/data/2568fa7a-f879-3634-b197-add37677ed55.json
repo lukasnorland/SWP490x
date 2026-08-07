@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "2568fa7a-f879-3634-b197-add37677ed55",
+  "epidemicTrackId": 100495,
+  "sourceProvider": "EpidemicSound",
+  "title": "We Came to Party",
+  "artist": "Basixx",
+  "duration": 190,
+  "bpm": 126,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51902053",
+  "publicSlug": "ifFWxOyMXw",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFF8BY8SPTMF9T25CN2DQHH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3835/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Dance",
+    "2010s"
+  ],
+  "moods": [
+    "Euphoric",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals",
+    "driving",
+    "male vocals"
+  ]
+}

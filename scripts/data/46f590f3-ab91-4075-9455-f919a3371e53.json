@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "46f590f3-ab91-4075-9455-f919a3371e53",
+  "epidemicTrackId": 107345,
+  "sourceProvider": "EpidemicSound",
+  "title": "Come Be With Us",
+  "artist": "JOYSPRING",
+  "duration": 234,
+  "bpm": 135,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52100505",
+  "publicSlug": "1Yq71sD1F2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGT6F65K7N5AYQZJTS4P8J5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6048/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "relaxing",
+    "lord",
+    "faith",
+    "lead vocals",
+    "male vocals"
+  ]
+}

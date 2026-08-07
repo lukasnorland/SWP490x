@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "2b4765a9-bb47-4e18-9b9c-323afc4237c5",
+  "epidemicTrackId": 150260,
+  "sourceProvider": "EpidemicSound",
+  "title": "Mayflies in the Fading Sun",
+  "artist": "Velvethead",
+  "duration": 235,
+  "bpm": 156,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400216",
+  "publicSlug": "u7kufKzzHW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTENHTB3GKPWTX358KHM6272.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11735/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Arena Rock",
+    "1990s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "electric guitar",
+    "distortion",
+    "indie",
+    "lead vocals",
+    "male vocals"
+  ]
+}

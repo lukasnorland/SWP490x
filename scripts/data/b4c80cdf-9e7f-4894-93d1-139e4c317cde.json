@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "b4c80cdf-9e7f-4894-93d1-139e4c317cde",
+  "epidemicTrackId": 145011,
+  "sourceProvider": "EpidemicSound",
+  "title": "Masa de madre",
+  "artist": "Cumbia Connection",
+  "duration": 213,
+  "bpm": 114,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203621",
+  "publicSlug": "P6SJovCJ7Z",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMVKTDABNJB07T9XGWX4WK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9684/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Latin",
+    "Peru"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "cumbia",
+    "funny",
+    "cheerful",
+    "easy-going",
+    "energetic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

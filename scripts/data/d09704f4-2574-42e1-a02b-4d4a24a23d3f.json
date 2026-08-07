@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "d09704f4-2574-42e1-a02b-4d4a24a23d3f",
+  "epidemicTrackId": 146583,
+  "sourceProvider": "EpidemicSound",
+  "title": "Best Friend",
+  "artist": "Nbhd Nick",
+  "duration": 170,
+  "bpm": 92,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300879",
+  "publicSlug": "Mnz2P6cWYo",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEJG32PWKJX0Z3Q2S8F5FAZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10043/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "dreamy",
+    "rap",
+    "upbeat"
+  ]
+}

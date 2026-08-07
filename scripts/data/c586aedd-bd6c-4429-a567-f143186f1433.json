@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "c586aedd-bd6c-4429-a567-f143186f1433",
+  "epidemicTrackId": 253373,
+  "sourceProvider": "EpidemicSound",
+  "title": "Soul Searching",
+  "artist": "Katori Walker",
+  "duration": 145,
+  "bpm": 94,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52500029",
+  "publicSlug": "t4KM5pGKLB",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE99ZAEAJCHVBVK7RABQC1Q.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13983/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Dreamy",
+    "Restless"
+  ],
+  "tags": [
+    "sax",
+    "saxophone",
+    "jazz",
+    "lead vocals",
+    "male vocals"
+  ]
+}

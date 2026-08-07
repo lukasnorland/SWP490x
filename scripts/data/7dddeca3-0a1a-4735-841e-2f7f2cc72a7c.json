@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "7dddeca3-0a1a-4735-841e-2f7f2cc72a7c",
+  "epidemicTrackId": 150694,
+  "sourceProvider": "EpidemicSound",
+  "title": "Stay",
+  "artist": "Hector Gabriel",
+  "duration": 215,
+  "bpm": 126,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400650",
+  "publicSlug": "m1y3jQqPR2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE9J89GXM1Q2SEX1SPPWVS0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12163/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "male vocals",
+    "bass guitar",
+    "hope",
+    "groove",
+    "lead vocals"
+  ]
+}

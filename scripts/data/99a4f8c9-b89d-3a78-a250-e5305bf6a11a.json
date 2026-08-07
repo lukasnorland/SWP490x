@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "99a4f8c9-b89d-3a78-a250-e5305bf6a11a",
+  "epidemicTrackId": 64393,
+  "sourceProvider": "EpidemicSound",
+  "title": "Never Return",
+  "artist": "Carvings",
+  "duration": 187,
+  "bpm": 120,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828294",
+  "publicSlug": "HZHqb36p0M",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFX78V05NHXPJNNPY2N15AV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2205/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Metal",
+    "Rock"
+  ],
+  "moods": [
+    "Angry",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "headbang",
+    "guitarsolo",
+    "male vocals",
+    "lead vocals",
+    "aggressive",
+    "driving",
+    "running"
+  ]
+}

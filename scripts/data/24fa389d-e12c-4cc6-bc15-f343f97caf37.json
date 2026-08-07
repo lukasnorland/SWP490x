@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "24fa389d-e12c-4cc6-bc15-f343f97caf37",
+  "epidemicTrackId": 254378,
+  "sourceProvider": "EpidemicSound",
+  "title": "Verdade Cega",
+  "artist": "Gil Felix",
+  "duration": 220,
+  "bpm": 108,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501032",
+  "publicSlug": "aHA2Fcbl5q",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHM446M8BW3J4QYVHK69D8Z.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14154/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afoxê"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "brazil",
+    "cuba",
+    "africa",
+    "lead vocals",
+    "male vocals"
+  ]
+}

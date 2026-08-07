@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "a0936196-7e58-432e-b83e-b630d3a63778",
+  "epidemicTrackId": 253096,
+  "sourceProvider": "EpidemicSound",
+  "title": "Take a Risk (Clean Version)",
+  "artist": "Witchitaw Slim",
+  "duration": 160,
+  "bpm": 134,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52404099",
+  "publicSlug": "TnJCtMZSGq",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGK53G96MZGARH4GM099AVE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13737/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "violin",
+    "cello",
+    "strings",
+    "classical",
+    "hopeful",
+    "epic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

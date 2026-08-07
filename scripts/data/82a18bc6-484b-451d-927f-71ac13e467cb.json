@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "82a18bc6-484b-451d-927f-71ac13e467cb",
+  "epidemicTrackId": 277267,
+  "sourceProvider": "EpidemicSound",
+  "title": "Can We Be Whole",
+  "artist": "Ira Moon",
+  "duration": 182,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502431",
+  "publicSlug": "6tvKsXr1YX",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHKK0PZKB81TDT5XK3KGZMC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14799/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop",
+    "Cinematic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "synth",
+    "violin",
+    "intimate",
+    "lead vocals",
+    "female vocals"
+  ]
+}

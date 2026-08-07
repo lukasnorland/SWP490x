@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "6f04e223-ee8f-3b66-9cfe-c607a8c889a3",
+  "epidemicTrackId": 101831,
+  "sourceProvider": "EpidemicSound",
+  "title": "Every Song",
+  "artist": "Gamma Skies",
+  "duration": 200,
+  "bpm": 80,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51903389",
+  "publicSlug": "UYuFBM3uza",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHN9KKT5BAN0E26QE2D652E.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4207/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "sad",
+    "romantic",
+    "acoustic",
+    "piano",
+    "ballad",
+    "lead vocals",
+    "anthem",
+    "sparse",
+    "female vocals",
+    "male vocals"
+  ]
+}

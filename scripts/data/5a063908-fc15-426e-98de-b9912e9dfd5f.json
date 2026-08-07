@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "5a063908-fc15-426e-98de-b9912e9dfd5f",
+  "epidemicTrackId": 140714,
+  "sourceProvider": "EpidemicSound",
+  "title": "After Image",
+  "artist": "I'MIN",
+  "duration": 222,
+  "bpm": 73,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52103989",
+  "publicSlug": "PH2K9IjHry",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH58RT9MP68H4FQBQ7JYGCT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7830/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "korean",
+    "rnb",
+    "piano",
+    "dreamy",
+    "sentimental",
+    "upbeat",
+    "lead vocals",
+    "male vocals"
+  ]
+}

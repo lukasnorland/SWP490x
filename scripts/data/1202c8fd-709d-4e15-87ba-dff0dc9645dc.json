@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "1202c8fd-709d-4e15-87ba-dff0dc9645dc",
+  "epidemicTrackId": 105391,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dry Moonlight",
+  "artist": "Arc De Soleil",
+  "duration": 184,
+  "bpm": 85,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002796",
+  "publicSlug": "fxCBm2EKzh",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFZ61V0VZ0CXNWAHS9EPRAW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5493/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Electronic",
+    "Beats"
+  ],
+  "moods": [
+    "Hopeful",
+    "Mysterious"
+  ],
+  "tags": [
+    "retro",
+    "driving",
+    "male vocals",
+    "lead vocals"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "b66bb1cb-597e-4539-88bb-d9d55bdf0f8f",
+  "epidemicTrackId": 249972,
+  "sourceProvider": "EpidemicSound",
+  "title": "FREE SPIRIT",
+  "artist": "Max Volante",
+  "duration": 169,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402692",
+  "publicSlug": "veAlILQF33",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK7SPGJKW6T98N5ZGVPME7KE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12856/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop",
+    "Beats"
+  ],
+  "moods": [
+    "Hopeful",
+    "Quirky"
+  ],
+  "tags": [
+    "dreamy",
+    "eccentric",
+    "keyboard"
+  ]
+}

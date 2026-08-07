@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "5905c2ec-d83f-4523-8e6c-e13dce05c2ab",
+  "epidemicTrackId": 146144,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sutukung",
+  "artist": "Royal Messenjah",
+  "duration": 233,
+  "bpm": 144,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300440",
+  "publicSlug": "qRTBP3Byej",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQ4CKWWGQ7FZ5WW68XYA4H.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9747/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Mbalax",
+    "African Continent"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "mbalax",
+    "hopeful",
+    "joyful",
+    "lead vocals",
+    "male vocals",
+    "sabar",
+    "gambia",
+    "senegal"
+  ]
+}

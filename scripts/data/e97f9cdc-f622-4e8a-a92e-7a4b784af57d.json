@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "e97f9cdc-f622-4e8a-a92e-7a4b784af57d",
+  "epidemicTrackId": 276801,
+  "sourceProvider": "EpidemicSound",
+  "title": "Grizzly Peak Rd.",
+  "artist": "Tilden Parc",
+  "duration": 173,
+  "bpm": 85,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501959",
+  "publicSlug": "mOeoYZBzbF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG7N5B1RWJ5VMF228C41Y1D.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14559/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary R&B"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "piano",
+    "laid back",
+    "lead vocals",
+    "male vocals"
+  ]
+}

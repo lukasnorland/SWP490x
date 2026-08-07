@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "f6a285c3-2786-4083-9134-df571d6dcee4",
+  "epidemicTrackId": 284867,
+  "sourceProvider": "EpidemicSound",
+  "title": "When You Know, You Know",
+  "artist": "I'MIN",
+  "duration": 191,
+  "bpm": 130,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52601337",
+  "publicSlug": "3vIYqXIlbr",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KWXT2MKEFX10AZKYKH4E71JQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/16184/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Contemporary R&B",
+    "Weddings"
+  ],
+  "moods": [
+    "Romantic",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

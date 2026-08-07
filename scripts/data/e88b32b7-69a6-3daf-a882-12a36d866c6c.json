@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "e88b32b7-69a6-3daf-a882-12a36d866c6c",
+  "epidemicTrackId": 65738,
+  "sourceProvider": "EpidemicSound",
+  "title": "My Answer's No",
+  "artist": "Slowfly",
+  "duration": 183,
+  "bpm": 108,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51800711",
+  "publicSlug": "JheKl5YGCI",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEP2SA4BTHARCB0HKZ4NCSK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/490/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Smooth Jazz",
+    "Acoustic"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "cozy",
+    "soft",
+    "female vocals",
+    "laid back",
+    "relaxing",
+    "ballad",
+    "male vocals"
+  ]
+}

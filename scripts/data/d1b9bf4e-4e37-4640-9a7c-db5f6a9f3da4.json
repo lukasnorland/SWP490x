@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "d1b9bf4e-4e37-4640-9a7c-db5f6a9f3da4",
+  "epidemicTrackId": 139669,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dreamweavers",
+  "artist": "Sven Lindvall, Daniel Fridell",
+  "duration": 280,
+  "bpm": 73,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52102996",
+  "publicSlug": "3NSZpHmczN",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJKHZMCGH4HKNHYCPHA630J.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7085/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "1980s"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "Ballad",
+    "Synth",
+    "Love",
+    "Sentimental",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

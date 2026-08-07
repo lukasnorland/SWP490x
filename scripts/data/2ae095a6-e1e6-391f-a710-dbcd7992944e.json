@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "2ae095a6-e1e6-391f-a710-dbcd7992944e",
+  "epidemicTrackId": 95896,
+  "sourceProvider": "EpidemicSound",
+  "title": "Open Road",
+  "artist": "Chester Malone",
+  "duration": 226,
+  "bpm": 128,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828427",
+  "publicSlug": "458mzQnUtS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNHYXZYAHGXYYKFF9HXZ0G.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3176/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Classic Blues",
+    "Modern Blues"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "male vocals",
+    "guitar",
+    "taking chances",
+    "b3 organ",
+    "wurlizer",
+    "seize the day",
+    "lead vocals",
+    "steady",
+    "cool",
+    "feelgood",
+    "marching"
+  ]
+}

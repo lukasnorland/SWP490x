@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "b4b03faf-890e-4c96-acab-d5321f8eec6b",
+  "epidemicTrackId": 252974,
+  "sourceProvider": "EpidemicSound",
+  "title": "When I Get Low (Clean Version)",
+  "artist": "Witchitaw Slim",
+  "duration": 166,
+  "bpm": 164,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403977",
+  "publicSlug": "MAbWZfcE4l",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH7HKZMT38JTAYVZ1RVTX55.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13817/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "rap",
+    "restless",
+    "mellow",
+    "lead vocals",
+    "male vocals"
+  ]
+}

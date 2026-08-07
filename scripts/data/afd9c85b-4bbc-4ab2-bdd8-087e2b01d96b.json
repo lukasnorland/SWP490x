@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "afd9c85b-4bbc-4ab2-bdd8-087e2b01d96b",
+  "epidemicTrackId": 254212,
+  "sourceProvider": "EpidemicSound",
+  "title": "Bandari",
+  "artist": "HATAMITSUNAMI",
+  "duration": 166,
+  "bpm": 105,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500866",
+  "publicSlug": "LK9D28zKwt",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGFGHJ90YTH9994HE3PDG7G.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13954/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats",
+    "Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "chill",
+    "electric guitar",
+    "drum kit",
+    "percussion",
+    "lead vocals",
+    "male vocals"
+  ]
+}

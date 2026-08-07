@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "d6734557-caa9-4313-81d4-225008f5e57d",
+  "epidemicTrackId": 277287,
+  "sourceProvider": "EpidemicSound",
+  "title": "For Everyone",
+  "artist": "The Eastern Plain",
+  "duration": 208,
+  "bpm": 125,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502451",
+  "publicSlug": "OkVJdHJc14",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG621FVNQ9R2A5HPNC5HEFG.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14842/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Folk Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "piano",
+    "lead vocals",
+    "female vocals"
+  ]
+}

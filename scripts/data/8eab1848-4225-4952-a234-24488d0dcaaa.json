@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "8eab1848-4225-4952-a234-24488d0dcaaa",
+  "epidemicTrackId": 283769,
+  "sourceProvider": "EpidemicSound",
+  "title": "Silver Sun",
+  "artist": "Nevin",
+  "duration": 214,
+  "bpm": 100,
+  "energyLevel": "variable",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600296",
+  "publicSlug": "eSixQPDx3u",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK9YYFNWY8G1JA1RBDZ65SGW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15400/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Shoegaze",
+    "Psychedelic Rock",
+    "Suspense",
+    "Mystery",
+    "Drama"
+  ],
+  "moods": [
+    "Sad",
+    "Dark",
+    "Suspense",
+    "Sentimental"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

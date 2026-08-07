@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "f1a1ca0c-4ff7-4d0f-a6e6-60be0cb7a632",
+  "epidemicTrackId": 138190,
+  "sourceProvider": "EpidemicSound",
+  "title": "Llegó la Estrella",
+  "artist": "El Equipo Del Norte",
+  "duration": 143,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52101457",
+  "publicSlug": "nKS7mkwudr",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFXVC2DZSQ2Q39AP1YY6VPS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6893/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Samba"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "smooth",
+    "relaxing",
+    "lead vocals",
+    "male vocals"
+  ]
+}

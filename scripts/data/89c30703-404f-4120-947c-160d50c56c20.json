@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "89c30703-404f-4120-947c-160d50c56c20",
+  "epidemicTrackId": 103246,
+  "sourceProvider": "EpidemicSound",
+  "title": "Deep and Abiding",
+  "artist": "Victor Lundberg",
+  "duration": 182,
+  "bpm": 94,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000657",
+  "publicSlug": "9EdBYEwX53",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH9HAMD5BB1H1P9J9NHFK6F.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4741/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "feelgood",
+    "acoustic guitar",
+    "guitar",
+    "romantic"
+  ]
+}

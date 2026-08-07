@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "a862a68e-4776-41cf-b315-904027263071",
+  "epidemicTrackId": 105475,
+  "sourceProvider": "EpidemicSound",
+  "title": "Boom Boom Boom",
+  "artist": "waykap",
+  "duration": 182,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002880",
+  "publicSlug": "vc7ovJOcyq",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHM3AP59DKA3W0EVCBCW224.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5670/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "K-pop",
+    "2020s"
+  ],
+  "moods": [
+    "Mysterious",
+    "Restless"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "driving",
+    "k-pop",
+    "male vocals"
+  ]
+}

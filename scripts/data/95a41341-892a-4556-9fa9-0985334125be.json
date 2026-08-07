@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "95a41341-892a-4556-9fa9-0985334125be",
+  "epidemicTrackId": 140249,
+  "sourceProvider": "EpidemicSound",
+  "title": "Can't Make It Up (Clean Version)",
+  "artist": "Iso Indies",
+  "duration": 206,
+  "bpm": 133,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52103524",
+  "publicSlug": "isr9BFj3YD",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEEY1174GSMSQM3JXCTS325.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7915/3000x3000.jpg",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Restless",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "uptempo",
+    "energetic",
+    "rap",
+    "fast"
+  ]
+}

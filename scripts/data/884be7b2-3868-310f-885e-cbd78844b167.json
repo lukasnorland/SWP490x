@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "884be7b2-3868-310f-885e-cbd78844b167",
+  "epidemicTrackId": 62599,
+  "sourceProvider": "EpidemicSound",
+  "title": "This One",
+  "artist": "Conditional",
+  "duration": 215,
+  "bpm": 166,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828191",
+  "publicSlug": "KWhgA1Hk7h",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH47JVVANBDWQHS1E2Y32MV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/917/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Running"
+  ],
+  "tags": [
+    "dynamic",
+    "euphoric",
+    "release",
+    "winning",
+    "motivating",
+    "handclaps",
+    "driving",
+    "uplifting",
+    "male vocals",
+    "lead vocals",
+    "build",
+    "empowering"
+  ]
+}

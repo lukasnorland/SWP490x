@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "d82c7d03-6ae1-4e0b-a807-1d3e6835ac73",
+  "epidemicTrackId": 150773,
+  "sourceProvider": "EpidemicSound",
+  "title": "Cafecito",
+  "artist": "Lawd Ito",
+  "duration": 176,
+  "bpm": 118,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400729",
+  "publicSlug": "n8r4GqvNhj",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGX7W4W4WQEWYMTB2YT3Y89.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11767/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Latin Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "rap",
+    "upbeat",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "c2e81ab2-dd69-48bd-9e5a-b4767a663807",
+  "epidemicTrackId": 146426,
+  "sourceProvider": "EpidemicSound",
+  "title": "Se Que Un Dia",
+  "artist": "Alcónes Negros",
+  "duration": 152,
+  "bpm": 117,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300722",
+  "publicSlug": "Z0Jf3WGCXD",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGWFRMDW4SCDXB8SPBFMCFF.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10260/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Mexico"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "banda",
+    "acoustic",
+    "trumpet",
+    "guitar",
+    "harp",
+    "lead vocals",
+    "male vocals"
+  ]
+}

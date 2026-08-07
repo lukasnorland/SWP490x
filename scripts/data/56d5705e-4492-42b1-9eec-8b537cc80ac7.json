@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "56d5705e-4492-42b1-9eec-8b537cc80ac7",
+  "epidemicTrackId": 254600,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lazy Tokyo Sunrise",
+  "artist": "Isaku Kageyama",
+  "duration": 223,
+  "bpm": 76,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501251",
+  "publicSlug": "w2lluDK88Y",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEBAR5HRRN1A55X74QECTY8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14243/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Ambient",
+    "Meditation",
+    "Japan",
+    "Cinematic"
+  ],
+  "moods": [
+    "Relaxing",
+    "Peaceful"
+  ],
+  "tags": [
+    "ethereal",
+    "atmospheric",
+    "taiko",
+    "lead vocals",
+    "female vocals"
+  ]
+}

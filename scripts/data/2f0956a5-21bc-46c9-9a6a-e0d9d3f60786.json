@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "2f0956a5-21bc-46c9-9a6a-e0d9d3f60786",
+  "epidemicTrackId": 146097,
+  "sourceProvider": "EpidemicSound",
+  "title": "Many Lies",
+  "artist": "Iso Indies",
+  "duration": 138,
+  "bpm": 160,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52300393",
+  "publicSlug": "pBz0AQilw3",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEB7SW68T85P7XY1K4CQ3X4.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10671/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop"
+  ],
+  "moods": [
+    "Angry",
+    "Restless"
+  ],
+  "tags": [
+    "dreamy",
+    "rap",
+    "powerful"
+  ]
+}

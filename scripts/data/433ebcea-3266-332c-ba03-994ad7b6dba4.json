@@ -1,0 +1,41 @@
+{
+  "externalSourceId": "433ebcea-3266-332c-ba03-994ad7b6dba4",
+  "epidemicTrackId": 26350,
+  "sourceProvider": "EpidemicSound",
+  "title": "End of the Day",
+  "artist": "Robson Carver",
+  "duration": 152,
+  "bpm": 135,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51816192",
+  "publicSlug": "ptSunDHAHn",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJSBN5GHBTJ6BBQVANB5CF8V.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3214/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Traditional Country",
+    "Bluegrass",
+    "North America"
+  ],
+  "moods": [
+    "Happy",
+    "Countryside",
+    "Restless",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "barnyard",
+    "running",
+    "cheeky",
+    "catchy",
+    "male vocals",
+    "singing",
+    "vocals",
+    "bluegrass",
+    "happy",
+    "lead vocals",
+    "casual",
+    "america"
+  ]
+}

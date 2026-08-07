@@ -1,0 +1,24 @@
+{
+  "externalSourceId": "d7aea06e-b30b-4f54-a54c-7fcb40eb8502",
+  "epidemicTrackId": 283741,
+  "sourceProvider": "EpidemicSound",
+  "title": "All Smoke",
+  "artist": "Witchitaw Slim, Dylan Sitts",
+  "duration": 165,
+  "bpm": 143,
+  "energyLevel": "variable",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600268",
+  "publicSlug": "Q0loboKOcZ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK2F4Z8HCC0XBF8JA546A3PD.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15713/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Epic",
+    "Dark"
+  ],
+  "tags": []
+}

@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "11b899fe-bff9-4d87-9295-9fa7511c0782",
+  "epidemicTrackId": 281896,
+  "sourceProvider": "EpidemicSound",
+  "title": "I'm The One",
+  "artist": "Oakside",
+  "duration": 179,
+  "bpm": 129,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52502873",
+  "publicSlug": "O5CPeCh1c1",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFZ1KJ7C7VE63CYYQ33K102.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15212/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Tech House"
+  ],
+  "moods": [
+    "Epic",
+    "Dark"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

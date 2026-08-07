@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "e46fcc8d-9529-43be-b411-6b491f6b4c50",
+  "epidemicTrackId": 199927,
+  "sourceProvider": "EpidemicSound",
+  "title": "Bad Guy",
+  "artist": "Nyck Caution",
+  "duration": 154,
+  "bpm": 153,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52401812",
+  "publicSlug": "eZDV6jJIL0",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ9S9KFEXM45EH6M0GQENTX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12854/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "rap",
+    "powerful",
+    "tense",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "020599a1-122b-4708-973a-a4bfd1a15fc2",
+  "epidemicTrackId": 144422,
+  "sourceProvider": "EpidemicSound",
+  "title": "California Here We Come",
+  "artist": "Mattias Tell",
+  "duration": 214,
+  "bpm": 105,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203032",
+  "publicSlug": "9WeEKzbEv4",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG1P2YMXHM1E7CMVSY128QJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9992/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Romantic",
+    "Dreamy"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "piano",
+    "sentimental",
+    "ballad",
+    "slow dance",
+    "marriage proposal",
+    "driving",
+    "sun",
+    "lead vocals",
+    "male vocals"
+  ]
+}

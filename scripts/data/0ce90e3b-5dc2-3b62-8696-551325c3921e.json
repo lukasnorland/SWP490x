@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "0ce90e3b-5dc2-3b62-8696-551325c3921e",
+  "epidemicTrackId": 100962,
+  "sourceProvider": "EpidemicSound",
+  "title": "No Photos (Clean Version)",
+  "artist": "Xavy Rusan",
+  "duration": 260,
+  "bpm": 111,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51902522",
+  "publicSlug": "aJ1YP3rTsl",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFGE92XKN549BY6KHBMBYZH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4158/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop"
+  ],
+  "moods": [
+    "Angry",
+    "Dark"
+  ],
+  "tags": [
+    "rap",
+    "electronic",
+    "driving"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "615cf0b0-bc10-4b64-8d1d-2ef30f9d56fc",
+  "epidemicTrackId": 149957,
+  "sourceProvider": "EpidemicSound",
+  "title": "Never Dream of Freud",
+  "artist": "TAGE",
+  "duration": 204,
+  "bpm": 119,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52305091",
+  "publicSlug": "Kl1oM693mR",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGVBTJ2HSQZQF57AQWVGGG2.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11526/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Comedy",
+    "1960s"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "jazzy",
+    "psychedelic",
+    "britain",
+    "lead vocals",
+    "male vocals"
+  ]
+}

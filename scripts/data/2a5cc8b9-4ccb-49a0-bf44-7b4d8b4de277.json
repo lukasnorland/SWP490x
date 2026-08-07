@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "2a5cc8b9-4ccb-49a0-bf44-7b4d8b4de277",
+  "epidemicTrackId": 105803,
+  "sourceProvider": "EpidemicSound",
+  "title": "All to Myself",
+  "artist": "spring gang",
+  "duration": 178,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003208",
+  "publicSlug": "BP9YKREhhR",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGTA77V86T3V9F21WNJDHY5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5643/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Disco"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "groove",
+    "funky",
+    "driving",
+    "male vocals"
+  ]
+}

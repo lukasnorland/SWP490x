@@ -1,0 +1,39 @@
+{
+  "externalSourceId": "08c9142a-c3ab-36c0-9282-e3141884d823",
+  "epidemicTrackId": 65210,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Go Blind",
+  "artist": "The Eastern Plain",
+  "duration": 251,
+  "bpm": 117,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51800212",
+  "publicSlug": "A2ZOPIFnAW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFTSY7A62W8BNS819FQVG17.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/346/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Contemporary Country"
+  ],
+  "moods": [
+    "Sentimental",
+    "Smooth"
+  ],
+  "tags": [
+    "gloomy",
+    "folk",
+    "slow",
+    "hopeful",
+    "vulnerable",
+    "reflecting",
+    "sad",
+    "strings",
+    "acoustic",
+    "love",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

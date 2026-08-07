@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "ddb3c4bf-1025-4f96-adf4-bf7375378260",
+  "epidemicTrackId": 284459,
+  "sourceProvider": "EpidemicSound",
+  "title": "Mission (Clean Version)",
+  "artist": "Nevin",
+  "duration": 214,
+  "bpm": 171,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600933",
+  "publicSlug": "cX95oSfMCl",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KPDN75150HJCCSSMCQPVXKS9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15849/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Post-punk Revival"
+  ],
+  "moods": [
+    "Angry",
+    "Dark"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "a25d2f68-7ecc-426d-a595-73886d2d7c1b",
+  "epidemicTrackId": 276880,
+  "sourceProvider": "EpidemicSound",
+  "title": "Close to You",
+  "artist": "IFCHAN",
+  "duration": 200,
+  "bpm": 82,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502044",
+  "publicSlug": "XXskRcONx5",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE1TS1A6ZTT20J7ERB581PC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14628/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary R&B",
+    "K-pop",
+    "Korea",
+    "Drama",
+    "Weddings",
+    "Beats"
+  ],
+  "moods": [
+    "Romantic",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

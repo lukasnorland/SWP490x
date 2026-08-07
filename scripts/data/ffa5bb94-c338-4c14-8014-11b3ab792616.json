@@ -1,0 +1,26 @@
+{
+  "externalSourceId": "ffa5bb94-c338-4c14-8014-11b3ab792616",
+  "epidemicTrackId": 283909,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Hope I Never See You Again",
+  "artist": "Alex Kehm",
+  "duration": 194,
+  "bpm": 108,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600437",
+  "publicSlug": "Kdb1KGhH9T",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK4TMX8HK4RTZGF9PSTBSN5E.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15461/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Synth-pop",
+    "1980s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": []
+}

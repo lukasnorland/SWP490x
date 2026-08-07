@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "0d0bb2c5-f378-3ddc-946c-bf1099e1f426",
+  "epidemicTrackId": 101199,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Want You to Stay",
+  "artist": "Victor Lundberg",
+  "duration": 196,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51902761",
+  "publicSlug": "snnSRDoh8e",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH5GVEP1YS18256BZSJCNT8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4071/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "piano",
+    "ballad",
+    "lead vocals",
+    "male vocals"
+  ]
+}

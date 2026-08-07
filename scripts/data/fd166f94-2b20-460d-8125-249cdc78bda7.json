@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "fd166f94-2b20-460d-8125-249cdc78bda7",
+  "epidemicTrackId": 103624,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Do It for the Music",
+  "artist": "spring gang",
+  "duration": 220,
+  "bpm": 116,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52001032",
+  "publicSlug": "kVqQZHZp36",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJPGEHETYMK31S8TGK50EXJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4936/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Disco"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "funky",
+    "uplifting",
+    "driving",
+    "lead vocals",
+    "male vocals"
+  ]
+}

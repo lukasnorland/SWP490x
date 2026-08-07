@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "50c1b9b5-3add-4cf6-9cb5-d0ab4447b618",
+  "epidemicTrackId": 277313,
+  "sourceProvider": "EpidemicSound",
+  "title": "Trust Someone",
+  "artist": "King Sis",
+  "duration": 203,
+  "bpm": 145,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502477",
+  "publicSlug": "SXJSKXU4hL",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEMFHC7VD80ZBAC2T7QRZ5A.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14773/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary R&B",
+    "Breakbeat"
+  ],
+  "moods": [
+    "Hopeful",
+    "Smooth"
+  ],
+  "tags": [
+    "piano",
+    "lead vocals",
+    "female vocals"
+  ]
+}

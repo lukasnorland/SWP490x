@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "7ff18a3e-c925-4215-8829-ef4a514b21a6",
+  "epidemicTrackId": 252090,
+  "sourceProvider": "EpidemicSound",
+  "title": "Hustle",
+  "artist": "Janset",
+  "duration": 239,
+  "bpm": 70,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403119",
+  "publicSlug": "8eamczsR0o",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJJV7SFCJ35XR2V46ERYMKS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13669/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Britain"
+  ],
+  "moods": [
+    "Dark",
+    "Laid Back"
+  ],
+  "tags": [
+    "female vocals",
+    "drum kit",
+    "bass",
+    "lead vocals"
+  ]
+}

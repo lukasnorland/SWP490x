@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "17c72d7e-c8d1-4721-9bff-fac37f983cda",
+  "epidemicTrackId": 249884,
+  "sourceProvider": "EpidemicSound",
+  "title": "SEX!",
+  "artist": "Katori Walker",
+  "duration": 154,
+  "bpm": 101,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52402604",
+  "publicSlug": "zTasVeH4km",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK24233FB534X72WTFS289B2.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12891/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Funk",
+    "Beats"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "bass",
+    "upbeat",
+    "lead vocals",
+    "male vocals"
+  ]
+}

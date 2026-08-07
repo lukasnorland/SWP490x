@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "583aebe3-f874-453f-83f0-78ed42081d44",
+  "epidemicTrackId": 147692,
+  "sourceProvider": "EpidemicSound",
+  "title": "La Clave",
+  "artist": "Nico Rengifo",
+  "duration": 166,
+  "bpm": 105,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301988",
+  "publicSlug": "CNaEb7e29K",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJDBY2V2Y8CE7CKSA1JR2JV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10859/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Latin Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "modern latin",
+    "salsa",
+    "lead vocals",
+    "male vocals"
+  ]
+}

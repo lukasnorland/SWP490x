@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "0966a6bf-066c-4869-9b82-d38778dff945",
+  "epidemicTrackId": 106188,
+  "sourceProvider": "EpidemicSound",
+  "title": "Crying Out Your Name",
+  "artist": "Nikki Gee",
+  "duration": 308,
+  "bpm": 148,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003593",
+  "publicSlug": "FH8ADepYlb",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH6CAAZSPFDZ7A0KPTCSWQK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5713/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "1980s"
+  ],
+  "moods": [
+    "Sad",
+    "Laid Back"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "retro",
+    "ballad"
+  ]
+}

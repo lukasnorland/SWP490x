@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "b967f7df-7892-3a3d-9f62-39f93d469b5a",
+  "epidemicTrackId": 96343,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Found The Answers In You",
+  "artist": "Loving Caliber",
+  "duration": 194,
+  "bpm": 78,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51802377",
+  "publicSlug": "D1nfii3lrB",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJNFV9VWE2PP25J4X4ZHPRM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2521/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Romantic",
+    "Dreamy"
+  ],
+  "tags": [
+    "warm",
+    "relationship",
+    "evening",
+    "calm",
+    "ballad",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

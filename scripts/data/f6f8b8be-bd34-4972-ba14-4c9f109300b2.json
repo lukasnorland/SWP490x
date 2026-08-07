@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "f6f8b8be-bd34-4972-ba14-4c9f109300b2",
+  "epidemicTrackId": 104657,
+  "sourceProvider": "EpidemicSound",
+  "title": "Yo Te Traigo",
+  "artist": "Cuba Quartet",
+  "duration": 172,
+  "bpm": 99,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002062",
+  "publicSlug": "i0kNxmL7X0",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTBM0Q7K1RCM4WN2D6HS1P2R.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5550/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Salsa",
+    "Cuba"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "bongos",
+    "cuba",
+    "guitar",
+    "rhythmic",
+    "percussion",
+    "summer",
+    "spanish lyrics",
+    "male vocals",
+    "lead vocals"
+  ]
+}
