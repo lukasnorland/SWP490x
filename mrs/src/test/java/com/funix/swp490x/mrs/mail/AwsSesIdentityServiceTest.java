@@ -77,4 +77,25 @@ class AwsSesIdentityServiceTest {
 
         then(ses).should().deleteEmailIdentity(any(DeleteEmailIdentityRequest.class));
     }
+
+    @Test
+    void isVerifiedIsTrueForASuccessfulIdentity() {
+        given(ses.getEmailIdentity(any(GetEmailIdentityRequest.class)))
+                .willReturn(GetEmailIdentityResponse.builder()
+                        .verifiedForSendingStatus(true)
+                        .verificationStatus(VerificationStatus.SUCCESS)
+                        .build());
+
+        assertThat(service.isVerified("nina@example.com")).isTrue();
+    }
+
+    @Test
+    void isVerifiedIsFalseWhenSesHasNoSuchIdentity() {
+        given(ses.getEmailIdentity(any(GetEmailIdentityRequest.class)))
+                .willThrow(software.amazon.awssdk.services.sesv2.model.NotFoundException.builder()
+                        .message("missing")
+                        .build());
+
+        assertThat(service.isVerified("nina@example.com")).isFalse();
+    }
 }

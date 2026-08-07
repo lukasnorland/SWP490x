@@ -16,6 +16,13 @@ aws sts get-caller-identity
 # expect: arn:aws:iam::133857166188:user/mrs-admin
 ```
 
+If that command says `Unable to locate credentials`, run
+`aws login --profile mrs-admin` and retry **with** `--profile mrs-admin`.
+Do not point the AWS CLI `default` profile at a company account while working
+on MRS — a past misconfiguration silently routed SES API calls to account
+`945185781776`. Company keys, if kept at all, belong under a named profile
+such as `musictech`, never `[default]`.
+
 Refresh CLI session (after password change / expiry):
 
 ```bash

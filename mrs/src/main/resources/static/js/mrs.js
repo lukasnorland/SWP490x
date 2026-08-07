@@ -125,15 +125,33 @@
 
   /* --- SES sandbox recipient verification (P-06a) ------------------------
      Calls CreateEmailIdentity through the app so ADMIN does not need the CLI.
-     Requires AWS API credentials in the process (AWS_PROFILE / instance role),
-     not the SMTP pair used to send mail. */
+     When real SMTP is on, Create account stays disabled until SES reports
+     already_verified (server enforces the same rule). */
   function initSesRecipientPreparation(root) {
     root.querySelectorAll("[data-ses-prepare-recipient]").forEach(function (button) {
       var input = document.getElementById(button.getAttribute("data-ses-prepare-recipient"));
       var status = document.getElementById(button.getAttribute("data-ses-status-target"));
-      if (!input || !status) {
+      var form = button.closest("form");
+      if (!input || !status || !form) {
         return;
       }
+
+      var gated = form.getAttribute("data-ses-gate-create") === "true";
+      var submit = form.querySelector("[type='submit']");
+
+      function setCreateEnabled(enabled) {
+        if (!gated || !submit) {
+          return;
+        }
+        submit.disabled = !enabled;
+      }
+
+      input.addEventListener("input", function () {
+        setCreateEnabled(false);
+        status.hidden = true;
+        status.textContent = "";
+      });
+
       button.addEventListener("click", function () {
         var email = input.value.trim();
         if (!email) {
@@ -141,10 +159,10 @@
           return;
         }
 
-        var form = button.closest("form");
-        var csrf = form && form.querySelector('input[name="_csrf"]');
+        var csrf = form.querySelector('input[name="_csrf"]');
         if (!csrf) {
           showSesStatus(status, "error", "Could not start SES verification — reload the page and try again.");
+          setCreateEnabled(false);
           return;
         }
 
@@ -152,6 +170,7 @@
         var previous = label.textContent;
         button.disabled = true;
         label.textContent = button.getAttribute("data-busy-label") || "Sending…";
+        setCreateEnabled(false);
         showSesStatus(status, "pending", "Contacting Amazon SES…");
 
         var body = new URLSearchParams();
@@ -173,13 +192,18 @@
             });
           })
           .then(function (result) {
-            var variant = result.ok
-                ? (result.payload.status === "already_verified" ? "success" : "info")
-                : "error";
-            showSesStatus(status, variant, result.payload.message || "Unexpected response from the server.");
+            var verified = result.ok && result.payload.status === "already_verified";
+            var variant = result.ok ? (verified ? "success" : "info") : "error";
+            var message = result.payload.message || "Unexpected response from the server.";
+            if (result.ok && result.payload.status === "sent") {
+              message += " After they confirm, click Verify for SES again to unlock Create account.";
+            }
+            showSesStatus(status, variant, message);
+            setCreateEnabled(verified);
           })
           .catch(function () {
             showSesStatus(status, "error", "Could not reach the server. Try again.");
+            setCreateEnabled(false);
           })
           .finally(function () {
             button.disabled = false;

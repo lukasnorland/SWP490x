@@ -227,10 +227,16 @@ Message settings and their defaults:
 | `mrs.mail.from-name` | `MRS` | Sender display name |
 | `mrs.mail.base-url` | `http://localhost:8080` | Origin for links in messages |
 | `mrs.mail.ses-region` | `ap-southeast-1` | Region for the Verify for SES API call |
+| `mrs.mail.aws-profile` | `mrs-admin` | Named AWS profile for that API call; clear on EC2 to use the instance role |
 
 `mrs.mail.base-url` matters as soon as the app is not read on the machine it
 runs on: a message is opened outside any request, so links are built against
-this value rather than the incoming host.
+this value rather than the incoming host. `mrs.mail.aws-profile` defaults to
+`mrs-admin` for the same reason: without it, Verify for SES can pick up another
+AWS account from the machine default credentials. That profile is resolved via
+`aws configure export-credentials` because `aws login` stores a login session
+the Java profile provider cannot read. On the demo EC2 host set
+`mrs.mail.aws-profile=` (empty) so the instance role is used instead.
 
 ### Run
 
