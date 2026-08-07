@@ -32,5 +32,9 @@ replay_pid*
 .env.*
 !.env.example
 
+# Epidemic page dumps / converted song JSON (local import workspace)
+epidemic-pages/
+song-data/
+
 # Editor / agent local (optional commit of shared settings only via .vscode)
 .cursor/
