@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "138ba744-cf43-492c-9a9c-b6ecc9dab05e",
+  "epidemicTrackId": 106060,
+  "sourceProvider": "EpidemicSound",
+  "title": "There's a Hole in My Heart",
+  "artist": "Martin Hall",
+  "duration": 248,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003465",
+  "publicSlug": "Ttqj0cJq04",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHVNEYVCP2QJ8NTRZHXQHJP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5637/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Indie Pop"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "driving"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "e8ea83e1-d218-4fde-a5e8-e87b24b5e3d0",
+  "epidemicTrackId": 150302,
+  "sourceProvider": "EpidemicSound",
+  "title": "Your Broken Promises",
+  "artist": "Anna Landström",
+  "duration": 202,
+  "bpm": 90,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400258",
+  "publicSlug": "HirYhoLL2v",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGKS8VM14PNMNS1D1S4M8CA.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11907/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "singer-songwriter",
+    "love song",
+    "piano",
+    "acoustic guitar",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

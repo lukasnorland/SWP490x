@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "1b84bc99-a400-41a4-b382-15ae125eac05",
+  "epidemicTrackId": 138110,
+  "sourceProvider": "EpidemicSound",
+  "title": "É Assim Mesmo",
+  "artist": "Clara Mendes",
+  "duration": 142,
+  "bpm": 124,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52101272",
+  "publicSlug": "bqhbQwG8YF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHN9KKMSB2VBQA11FKM5N0S.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6880/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Bossa Nova"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "smooth",
+    "relaxing",
+    "summer",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

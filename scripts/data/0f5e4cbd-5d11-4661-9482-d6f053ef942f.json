@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "0f5e4cbd-5d11-4661-9482-d6f053ef942f",
+  "epidemicTrackId": 253507,
+  "sourceProvider": "EpidemicSound",
+  "title": "My My (Clean Version)",
+  "artist": "Loving Caliber",
+  "duration": 176,
+  "bpm": 132,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500163",
+  "publicSlug": "C6pJRly31Q",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJNN433TGGW0DX1A6F4SY5V.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13616/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Quirky",
+    "Restless"
+  ],
+  "tags": [
+    "groove",
+    "vibe",
+    "drum kit",
+    "choir",
+    "upbeat",
+    "duet",
+    "guitar",
+    "electric organ",
+    "bass guitar",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

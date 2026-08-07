@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "659af823-f22d-348e-955f-41bce3f39f82",
+  "epidemicTrackId": 64390,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sooner Than You Know",
+  "artist": "Carvings",
+  "duration": 198,
+  "bpm": 187,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828293",
+  "publicSlug": "CgdVWyCAef",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGX1MXA1M5Q81EFCC8F2XJP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2205/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Metal",
+    "Rock"
+  ],
+  "moods": [
+    "Angry",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "headbang",
+    "guitarsolo",
+    "sleaze",
+    "male vocals",
+    "lead vocals",
+    "aggressive",
+    "driving",
+    "running",
+    "pushing"
+  ]
+}

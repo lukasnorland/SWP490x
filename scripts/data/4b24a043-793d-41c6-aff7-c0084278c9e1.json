@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "4b24a043-793d-41c6-aff7-c0084278c9e1",
+  "epidemicTrackId": 282878,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sin Tu Reo",
+  "artist": "El Jiggy",
+  "duration": 150,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503018",
+  "publicSlug": "ZmWhyDLfLV",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH7E40F07Y21N4RXDQR5NNB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15076/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Reggaeton",
+    "Beats"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "upbeat",
+    "electric guitar",
+    "lead vocals",
+    "male vocals"
+  ]
+}

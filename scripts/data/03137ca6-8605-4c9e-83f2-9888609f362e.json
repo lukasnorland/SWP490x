@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "03137ca6-8605-4c9e-83f2-9888609f362e",
+  "epidemicTrackId": 282915,
+  "sourceProvider": "EpidemicSound",
+  "title": "Spaceman",
+  "artist": "APE",
+  "duration": 209,
+  "bpm": 158,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503055",
+  "publicSlug": "gw4KaRSXhT",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF0MBVT5XPJN6NTSHKNZAYS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15060/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Punk Rock",
+    "Hard Rock"
+  ],
+  "moods": [
+    "Angry",
+    "Eccentric"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

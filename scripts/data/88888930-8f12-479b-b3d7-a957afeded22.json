@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "88888930-8f12-479b-b3d7-a957afeded22",
+  "epidemicTrackId": 276429,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lost Glory",
+  "artist": "Isaku Kageyama",
+  "duration": 247,
+  "bpm": 136,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501586",
+  "publicSlug": "eVJsv36hZV",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ5DTFT6MTRT6A0XFTE8YTF.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14400/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Japanese Classical",
+    "Action",
+    "Strange & Weird",
+    "Japan",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "percussion",
+    "lead vocals",
+    "female vocals",
+    "eccentric",
+    "shamisen"
+  ]
+}

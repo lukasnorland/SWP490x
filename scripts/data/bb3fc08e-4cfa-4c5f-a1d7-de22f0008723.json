@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "bb3fc08e-4cfa-4c5f-a1d7-de22f0008723",
+  "epidemicTrackId": 253335,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lover of My Dreams",
+  "artist": "Gamma Skies",
+  "duration": 198,
+  "bpm": 70,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52404338",
+  "publicSlug": "DeKYN0g2TP",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMSN5BT2Z79W4TQ93CBY50.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13490/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Bossa Nova",
+    "Weddings"
+  ],
+  "moods": [
+    "Relaxing",
+    "Romantic"
+  ],
+  "tags": [
+    "love story",
+    "flute",
+    "jazzy",
+    "lead vocals",
+    "female vocals"
+  ]
+}

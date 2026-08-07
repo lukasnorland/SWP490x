@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "76183fce-1df1-4058-b1d9-a1e66240139a",
+  "epidemicTrackId": 249992,
+  "sourceProvider": "EpidemicSound",
+  "title": "You & I (Clean Version)",
+  "artist": "Blood Harmony",
+  "duration": 199,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402712",
+  "publicSlug": "QqnydfoeTJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEF5AX44WBPTEPW3CYTE5VN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13908/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Country",
+    "Acoustic"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "love",
+    "female vocals",
+    "contemporary folk",
+    "lead vocals"
+  ]
+}

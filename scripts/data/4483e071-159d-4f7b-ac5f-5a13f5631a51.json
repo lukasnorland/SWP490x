@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "4483e071-159d-4f7b-ac5f-5a13f5631a51",
+  "epidemicTrackId": 254348,
+  "sourceProvider": "EpidemicSound",
+  "title": "In My Heart (Waterfall)",
+  "artist": "Ooyy",
+  "duration": 197,
+  "bpm": 132,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501002",
+  "publicSlug": "4vakrvNeeV",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHSF48D1P1NNK2RPVDBHKEY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14136/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Progressive House"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "melodic house",
+    "energetic",
+    "restless",
+    "lead vocals",
+    "female vocals"
+  ]
+}

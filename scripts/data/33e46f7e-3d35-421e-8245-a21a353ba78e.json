@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "33e46f7e-3d35-421e-8245-a21a353ba78e",
+  "epidemicTrackId": 284806,
+  "sourceProvider": "EpidemicSound",
+  "title": "California",
+  "artist": "Sully Bright",
+  "duration": 304,
+  "bpm": 116,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52601276",
+  "publicSlug": "r4J3azhKOH",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KVYXKK34Y7B9KAR2R1G9W8WX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/16143/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Folk Rock"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

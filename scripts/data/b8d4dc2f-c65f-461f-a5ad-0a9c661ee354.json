@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "b8d4dc2f-c65f-461f-a5ad-0a9c661ee354",
+  "epidemicTrackId": 252382,
+  "sourceProvider": "EpidemicSound",
+  "title": "Woah",
+  "artist": "Baha Bank$",
+  "duration": 130,
+  "bpm": 161,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52403411",
+  "publicSlug": "JVg1eIji4P",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEXAP6P5F5FVPH7NRJ56FD1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13083/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "rap",
+    "female rapper",
+    "lead vocals",
+    "female vocals"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "386062c1-8793-40cf-80eb-4ef128ed82ee",
+  "epidemicTrackId": 282856,
+  "sourceProvider": "EpidemicSound",
+  "title": "A Really Good Christmas Time",
+  "artist": "OTE",
+  "duration": 237,
+  "bpm": 141,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502996",
+  "publicSlug": "R9Mc6AxeN9",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH6NZ528QNF9Q0Q9KP3X7BG.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15089/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop Rock",
+    "Christmas",
+    "1980s"
+  ],
+  "moods": [
+    "Funny",
+    "Happy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

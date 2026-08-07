@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "14e24d84-bb11-475b-8ebd-deb4485a3fe0",
+  "epidemicTrackId": 103495,
+  "sourceProvider": "EpidemicSound",
+  "title": "Anywhere but Here",
+  "artist": "Easton",
+  "duration": 169,
+  "bpm": 186,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000905",
+  "publicSlug": "V2RPOxzxwl",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMVKFBPGQE1JFV6BHX8X4R.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4816/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Punk Rock",
+    "Rock",
+    "Pop Punk",
+    "2000s"
+  ],
+  "moods": [
+    "Happy",
+    "Running"
+  ],
+  "tags": [
+    "electronic guitar",
+    "driving",
+    "high school",
+    "prom",
+    "lead vocals",
+    "male vocals"
+  ]
+}

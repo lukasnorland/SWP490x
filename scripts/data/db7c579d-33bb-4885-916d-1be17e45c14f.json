@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "db7c579d-33bb-4885-916d-1be17e45c14f",
+  "epidemicTrackId": 284271,
+  "sourceProvider": "EpidemicSound",
+  "title": "Breathe Child",
+  "artist": "Devina",
+  "duration": 200,
+  "bpm": 0,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600745",
+  "publicSlug": "Gpcy2HpWK0",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KS0BH16FZKAB5HEERNSNKCTN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/16014/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Meditation"
+  ],
+  "moods": [
+    "Relaxing",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

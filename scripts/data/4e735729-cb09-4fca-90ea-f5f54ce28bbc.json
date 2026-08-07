@@ -1,0 +1,24 @@
+{
+  "externalSourceId": "4e735729-cb09-4fca-90ea-f5f54ce28bbc",
+  "epidemicTrackId": 282822,
+  "sourceProvider": "EpidemicSound",
+  "title": "Main Line",
+  "artist": "Torii Wolf",
+  "duration": 165,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502962",
+  "publicSlug": "Hd8tlWibX8",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFP3R3C7N327Y2KTAJZ4T3M.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15280/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": []
+}

@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "04b3abaf-f6b2-4925-85e8-a20f0f11c692",
+  "epidemicTrackId": 276277,
+  "sourceProvider": "EpidemicSound",
+  "title": "High and Dry (Acoustic Version)",
+  "artist": "Mattias Tell",
+  "duration": 149,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501434",
+  "publicSlug": "l8slHBxm3q",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEPW7W6ABCQ0X3EDTVPDVPW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14288/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Country",
+    "Acoustic"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

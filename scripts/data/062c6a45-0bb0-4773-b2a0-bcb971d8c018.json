@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "062c6a45-0bb0-4773-b2a0-bcb971d8c018",
+  "epidemicTrackId": 142013,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lamma Amoot",
+  "artist": "Ebo Krdum",
+  "duration": 321,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200627",
+  "publicSlug": "aJmGEvEXjP",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG0691MPGBPAR3X3DB5RBZC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9380/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "African Blues",
+    "African Continent"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "african blues",
+    "blues",
+    "lead vocals",
+    "male vocals"
+  ]
+}

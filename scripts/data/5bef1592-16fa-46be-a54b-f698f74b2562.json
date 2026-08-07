@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "5bef1592-16fa-46be-a54b-f698f74b2562",
+  "epidemicTrackId": 140569,
+  "sourceProvider": "EpidemicSound",
+  "title": "So I Changed (Clean Version)",
+  "artist": "Mimmi Bangoura",
+  "duration": 205,
+  "bpm": 106,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52103844",
+  "publicSlug": "l1ppy3xNUN",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF710ZD5CHQ7E5T6R85HVN6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7898/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "R&B"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "leave",
+    "moving on",
+    "sentimental",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

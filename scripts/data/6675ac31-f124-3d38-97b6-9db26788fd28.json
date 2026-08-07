@@ -1,0 +1,40 @@
+{
+  "externalSourceId": "6675ac31-f124-3d38-97b6-9db26788fd28",
+  "epidemicTrackId": 97362,
+  "sourceProvider": "EpidemicSound",
+  "title": "In Your Head",
+  "artist": "Lvly",
+  "duration": 201,
+  "bpm": 126,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51814036",
+  "publicSlug": "UFECIDfI6x",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEKTBPDB3TNBR8SR8DGBWX4.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/754/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Epic",
+    "Hopeful"
+  ],
+  "tags": [
+    "demon",
+    "help",
+    "love",
+    "festival",
+    "festive",
+    "fun",
+    "happy",
+    "sad",
+    "bounce",
+    "relationship",
+    "lead vocals",
+    "female vocals",
+    "driving",
+    "male vocals"
+  ]
+}

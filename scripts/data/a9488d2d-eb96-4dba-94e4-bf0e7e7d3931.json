@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "a9488d2d-eb96-4dba-94e4-bf0e7e7d3931",
+  "epidemicTrackId": 253108,
+  "sourceProvider": "EpidemicSound",
+  "title": "Du hade din chans",
+  "artist": "Massgrav",
+  "duration": 94,
+  "bpm": 198,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52404111",
+  "publicSlug": "yLwv4COdLV",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTESD6VAKEF270K9STCP4CQW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13330/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hardcore Punk"
+  ],
+  "moods": [
+    "Angry",
+    "Restless"
+  ],
+  "tags": [
+    "swedish hardcore punk",
+    "defeat",
+    "lead vocals",
+    "male vocals"
+  ]
+}

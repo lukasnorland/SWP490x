@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "5ee33708-45f3-4ade-b363-bc76eff795cd",
+  "epidemicTrackId": 138795,
+  "sourceProvider": "EpidemicSound",
+  "title": "Let Me Get to Know You",
+  "artist": "Siine",
+  "duration": 174,
+  "bpm": 125,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52102164",
+  "publicSlug": "9dmsi4mJS1",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEH87AHRGPXYJ6RZY473MMB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6784/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "empowerment",
+    "anthem",
+    "power",
+    "upbeat",
+    "nah",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

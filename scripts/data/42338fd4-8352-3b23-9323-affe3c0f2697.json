@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "42338fd4-8352-3b23-9323-affe3c0f2697",
+  "epidemicTrackId": 30130,
+  "sourceProvider": "EpidemicSound",
+  "title": "In the Blink of an Eye",
+  "artist": "Yesable",
+  "duration": 208,
+  "bpm": 125,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51807989",
+  "publicSlug": "YjmoiFMNW5",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGD9Q4E7QAE50NDRB3Y59F2.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9763/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "House",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Euphoric"
+  ],
+  "tags": [
+    "workout",
+    "gym",
+    "bouncing",
+    "driving",
+    "feelgood",
+    "uplifting",
+    "male vocals",
+    "lead vocals",
+    "electronic"
+  ]
+}

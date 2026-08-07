@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "31637b42-ca4f-4574-8f58-e34b227fe6a4",
+  "epidemicTrackId": 276682,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lost in You",
+  "artist": "DJ Mayson",
+  "duration": 217,
+  "bpm": 125,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501839",
+  "publicSlug": "BCB22ccRCx",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE78CGJJ8MPTX6V44JCXG9G.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14531/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "House"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "restless",
+    "upbeat",
+    "lead vocals",
+    "female vocals"
+  ]
+}

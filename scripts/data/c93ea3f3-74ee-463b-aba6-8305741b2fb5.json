@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "c93ea3f3-74ee-463b-aba6-8305741b2fb5",
+  "epidemicTrackId": 253503,
+  "sourceProvider": "EpidemicSound",
+  "title": "Go",
+  "artist": "Adelyn Paik",
+  "duration": 178,
+  "bpm": 105,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500159",
+  "publicSlug": "5iB2YiJsup",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGN3H0AHGEJ8X4WWDXS3090.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13632/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Beats"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "upbeat",
+    "r&b",
+    "lead vocals",
+    "female vocals"
+  ]
+}

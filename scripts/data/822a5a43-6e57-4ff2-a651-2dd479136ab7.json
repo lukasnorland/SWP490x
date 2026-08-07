@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "822a5a43-6e57-4ff2-a651-2dd479136ab7",
+  "epidemicTrackId": 151731,
+  "sourceProvider": "EpidemicSound",
+  "title": "Tres Coyotes",
+  "artist": "Alcónes Negros",
+  "duration": 198,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401687",
+  "publicSlug": "d9rrYN3Dag",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFQP0FPRJH8YNQD5YGRYK2P.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12256/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Norteño",
+    "Acoustic",
+    "Mexico"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "accordion",
+    "drums",
+    "passionate",
+    "lead vocals",
+    "male vocals"
+  ]
+}

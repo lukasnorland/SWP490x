@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "27bfc4fa-edc4-4f27-9ab7-8ee6af5d24b7",
+  "epidemicTrackId": 137933,
+  "sourceProvider": "EpidemicSound",
+  "title": "Blood of Garuda",
+  "artist": "Carvings",
+  "duration": 414,
+  "bpm": 60,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52101245",
+  "publicSlug": "k4InuAKwhL",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE60TY4BNPKEGRX4QKSYXJE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6405/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Metal"
+  ],
+  "moods": [
+    "Angry",
+    "Dark"
+  ],
+  "tags": [
+    "driving",
+    "marching",
+    "pounding",
+    "doom",
+    "lead vocals",
+    "male vocals"
+  ]
+}

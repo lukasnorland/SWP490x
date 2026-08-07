@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "632a7578-4531-4bc0-826f-3dc1fa76783c",
+  "epidemicTrackId": 141394,
+  "sourceProvider": "EpidemicSound",
+  "title": "Can You Hear My Heart",
+  "artist": "Adelyn Paik",
+  "duration": 240,
+  "bpm": 74,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200009",
+  "publicSlug": "SGX3yA6mpr",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJMMJ8KAYZ4FQNTJEP85ND3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9068/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "hopeful",
+    "piano",
+    "emotional",
+    "korean",
+    "dramatic",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

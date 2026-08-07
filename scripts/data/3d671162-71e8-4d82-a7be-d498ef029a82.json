@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "3d671162-71e8-4d82-a7be-d498ef029a82",
+  "epidemicTrackId": 283460,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sunny Days",
+  "artist": "Siine",
+  "duration": 179,
+  "bpm": 119,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503600",
+  "publicSlug": "3tMvZSd96s",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK6YA5G2A26PVB07CDJSE16M.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15444/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance-pop",
+    "2020s",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

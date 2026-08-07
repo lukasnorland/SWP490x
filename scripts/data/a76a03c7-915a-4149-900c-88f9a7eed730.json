@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "a76a03c7-915a-4149-900c-88f9a7eed730",
+  "epidemicTrackId": 252237,
+  "sourceProvider": "EpidemicSound",
+  "title": "Heart Stealer",
+  "artist": "Aks & Lakshmi",
+  "duration": 188,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403266",
+  "publicSlug": "JxrXnZVpEM",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG3MWEM2PMW2QEB7SE56NA8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13104/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Filmi",
+    "India"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "bollywood",
+    "hindi",
+    "upbeat",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

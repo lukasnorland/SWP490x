@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "326f9376-40b3-32fd-b2bf-4b00dc46a8b5",
+  "epidemicTrackId": 102506,
+  "sourceProvider": "EpidemicSound",
+  "title": "Cuddle Baby",
+  "artist": "R.A.D.",
+  "duration": 187,
+  "bpm": 98,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51904047",
+  "publicSlug": "0MBwVQLM4V",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJMKD5K8A66G2W8H7FAEC0F.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4925/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "R&B",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Quirky"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "laid back",
+    "smooth",
+    "cool"
+  ]
+}

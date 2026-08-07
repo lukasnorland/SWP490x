@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "c3646f62-6fec-48b6-9203-934a9143977c",
+  "epidemicTrackId": 138690,
+  "sourceProvider": "EpidemicSound",
+  "title": "My Love",
+  "artist": "Adelyn Paik",
+  "duration": 242,
+  "bpm": 72,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52102060",
+  "publicSlug": "QfA3LivtT4",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPZJYJDE67REQF68BM1DWX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6621/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Sad",
+    "Dreamy"
+  ],
+  "tags": [
+    "korean",
+    "doowop",
+    "piano",
+    "emotional",
+    "drama",
+    "sentimental",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

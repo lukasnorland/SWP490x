@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "c4db3a2f-b289-47d2-9ae9-5611badc9297",
+  "epidemicTrackId": 151004,
+  "sourceProvider": "EpidemicSound",
+  "title": "La Rienda Suelta",
+  "artist": "Alcónes Negros",
+  "duration": 218,
+  "bpm": 130,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400960",
+  "publicSlug": "xpXDmWLgE3",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGZBVNRWW6F0ZS7PYYEP6J0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12031/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Regional Mexicano",
+    "Mariachi",
+    "Mexico"
+  ],
+  "moods": [
+    "Sentimental",
+    "Glamorous"
+  ],
+  "tags": [
+    "male vocals",
+    "vihuela",
+    "guitar",
+    "trumpet",
+    "accordion",
+    "guitarrón",
+    "romantic",
+    "lead vocals"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "75812a6c-a74a-3d29-a3d6-3dfafa7ea30b",
+  "epidemicTrackId": 98252,
+  "sourceProvider": "EpidemicSound",
+  "title": "Take Me All The Way",
+  "artist": "Loving Caliber",
+  "duration": 180,
+  "bpm": 128,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51829050",
+  "publicSlug": "Gn67X9wljy",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFG1V23MRCYJC1ERRR0BTAG.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9806/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance"
+  ],
+  "moods": [
+    "Epic",
+    "Hopeful"
+  ],
+  "tags": [
+    "uplifting",
+    "driving",
+    "male vocals",
+    "lead vocals"
+  ]
+}

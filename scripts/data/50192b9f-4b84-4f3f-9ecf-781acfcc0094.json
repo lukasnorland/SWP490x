@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "50192b9f-4b84-4f3f-9ecf-781acfcc0094",
+  "epidemicTrackId": 252567,
+  "sourceProvider": "EpidemicSound",
+  "title": "Falling",
+  "artist": "mr.",
+  "duration": 246,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403596",
+  "publicSlug": "Abt2ycAncl",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMH69CF3F04FQT9DGC9EX6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13481/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary R&B",
+    "Weddings"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "romantic",
+    "guitar",
+    "lead vocals",
+    "male vocals"
+  ]
+}

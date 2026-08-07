@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "c334204e-533b-48a4-9df1-43a7a0f68234",
+  "epidemicTrackId": 103825,
+  "sourceProvider": "EpidemicSound",
+  "title": "Hell Wildfire",
+  "artist": "Sightless in Shadow",
+  "duration": 207,
+  "bpm": 113,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52001233",
+  "publicSlug": "cJj9MO3h7I",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGG8RBMZ1RG6WEDBSEZVP6Y.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4974/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Metal"
+  ],
+  "moods": [
+    "Angry",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "male vocals",
+    "screams",
+    "eccentric",
+    "running",
+    "driving",
+    "lead vocals"
+  ]
+}

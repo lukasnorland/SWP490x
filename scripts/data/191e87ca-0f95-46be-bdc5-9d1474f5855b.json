@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "191e87ca-0f95-46be-bdc5-9d1474f5855b",
+  "epidemicTrackId": 151687,
+  "sourceProvider": "EpidemicSound",
+  "title": "Quiere Que Le De",
+  "artist": "Ratchetón",
+  "duration": 71,
+  "bpm": 97,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52401643",
+  "publicSlug": "duhkCD31vW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ83KQVGW0P1DZ9T3KFG8GC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12460/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Reggaeton",
+    "Puerto Rico"
+  ],
+  "moods": [
+    "Funny",
+    "Happy"
+  ],
+  "tags": [
+    "squeak",
+    "catchy",
+    "lead vocals",
+    "male vocals"
+  ]
+}

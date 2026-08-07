@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "afd3c016-3932-448f-b903-4e34e75900c9",
+  "epidemicTrackId": 151262,
+  "sourceProvider": "EpidemicSound",
+  "title": "Honey",
+  "artist": "Maybe",
+  "duration": 231,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401218",
+  "publicSlug": "HhCHSupEdo",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFFM7VW7GXWYDT145JSPPMW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13269/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "female vocals",
+    "love",
+    "romantic",
+    "growing up",
+    "identity",
+    "lead vocals"
+  ]
+}

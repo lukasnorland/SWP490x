@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "a5a2908c-bd34-309c-ada6-eba82af58232",
+  "epidemicTrackId": 102999,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sober Tho(ugh)ts (Clean Version)",
+  "artist": "Xavy Rusan",
+  "duration": 161,
+  "bpm": 119,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000416",
+  "publicSlug": "xiN1ve2fCB",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG4Z8DE8V7Q2BCKD4GZ60TN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4987/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "R&B"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sexy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "female vocals",
+    "rap",
+    "duet"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "8d36b82b-d5ab-34fe-a32f-7d5068921cc8",
+  "epidemicTrackId": 98867,
+  "sourceProvider": "EpidemicSound",
+  "title": "A Forbidden Smile",
+  "artist": "Sven Karlsson",
+  "duration": 199,
+  "bpm": 145,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51900427",
+  "publicSlug": "a3gZXQ5JFV",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJMMJQB0WQH95CGZM430FCT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2611/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Dark",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "male vocals",
+    "attitude",
+    "eccentric",
+    "driving",
+    "lead vocals"
+  ]
+}

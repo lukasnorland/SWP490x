@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "18a76016-b8b2-4f47-a37a-dccc309e3a4e",
+  "epidemicTrackId": 284255,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Need You More",
+  "artist": "IFCHAN",
+  "duration": 165,
+  "bpm": 100,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600729",
+  "publicSlug": "I6fHeoj4V8",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KPZ7S7N9BX39AJMREKV3Y8DM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15817/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Romantic",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

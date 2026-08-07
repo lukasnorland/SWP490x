@@ -1,0 +1,39 @@
+{
+  "externalSourceId": "4a2745b7-bfc1-311f-bc00-d7d79ee78d2b",
+  "epidemicTrackId": 64212,
+  "sourceProvider": "EpidemicSound",
+  "title": "How Will I Cope",
+  "artist": "The Eastern Plain",
+  "duration": 215,
+  "bpm": 71,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828276",
+  "publicSlug": "BaKl1QkZLU",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFY1GQCY89DB9TMN6AXVJSQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2325/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Country",
+    "Acoustic"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "indie",
+    "plucking",
+    "male vocals",
+    "lead vocals",
+    "in love",
+    "guitar",
+    "worrying",
+    "love",
+    "longing",
+    "acoustic",
+    "guitars",
+    "strumming",
+    "folk"
+  ]
+}

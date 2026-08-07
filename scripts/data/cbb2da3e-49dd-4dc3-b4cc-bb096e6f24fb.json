@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "cbb2da3e-49dd-4dc3-b4cc-bb096e6f24fb",
+  "epidemicTrackId": 149537,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dare to Be a Devil",
+  "artist": "Roof",
+  "duration": 178,
+  "bpm": 154,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52304671",
+  "publicSlug": "852FbpwKiW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG06927P6JY8MQCJ2Z5PP0W.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11434/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock"
+  ],
+  "moods": [
+    "Angry",
+    "Restless"
+  ],
+  "tags": [
+    "female vocals",
+    "power",
+    "guitar",
+    "powerful",
+    "lead vocals",
+    "male vocals"
+  ]
+}

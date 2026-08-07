@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "8274c801-7a78-4d60-a578-31db973a88aa",
+  "epidemicTrackId": 140841,
+  "sourceProvider": "EpidemicSound",
+  "title": "Feel the Love",
+  "artist": "Vicki Vox",
+  "duration": 185,
+  "bpm": 123,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52104116",
+  "publicSlug": "0ZN13JED21",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJNN3H8WZC1DHDKXVRFSMM6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8154/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance",
+    "Dance-pop"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "energetic",
+    "catchy",
+    "upbeat",
+    "positive",
+    "confident",
+    "infectious",
+    "love",
+    "romance",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "4ef4985e-5b52-4368-9b93-ef5cf490a0dd",
+  "epidemicTrackId": 149231,
+  "sourceProvider": "EpidemicSound",
+  "title": "That's All",
+  "artist": "Witchitaw Slim",
+  "duration": 171,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52304365",
+  "publicSlug": "SZakONr4nG",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFMV9S93AXVK2M5FR3WFQNA.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11072/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "rap",
+    "hopeful"
+  ]
+}

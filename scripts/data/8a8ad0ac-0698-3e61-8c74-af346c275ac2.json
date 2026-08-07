@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "8a8ad0ac-0698-3e61-8c74-af346c275ac2",
+  "epidemicTrackId": 27037,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Bethesda Terrace",
+  "artist": "Nickolas Jones",
+  "duration": 140,
+  "bpm": 150,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51817893",
+  "publicSlug": "aVTEpSgul6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNWFGADMT6Q3JZRDHPB4GB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/1757/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "1970s"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "folk",
+    "male vocals",
+    "central park",
+    "folk",
+    "harmony singing",
+    "summer",
+    "lead vocals",
+    "vintage",
+    "catchy",
+    "feelgood",
+    "steady",
+    "running"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "685b9a3e-314e-4e6b-b82d-7149d15b2c06",
+  "epidemicTrackId": 139454,
+  "sourceProvider": "EpidemicSound",
+  "title": "Fire of My Heart",
+  "artist": "Ooyy",
+  "duration": 192,
+  "bpm": 120,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52102781",
+  "publicSlug": "ts51B6HmiY",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEVTKEJV2JPYM5CEQHRZQF2.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8371/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Electro",
+    "Electropop",
+    "Dance-pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "dreamy",
+    "quirky",
+    "romantic",
+    "idm",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

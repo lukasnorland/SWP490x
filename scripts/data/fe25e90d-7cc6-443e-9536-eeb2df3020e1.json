@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "fe25e90d-7cc6-443e-9536-eeb2df3020e1",
+  "epidemicTrackId": 252995,
+  "sourceProvider": "EpidemicSound",
+  "title": "Cardboard Box",
+  "artist": "Hennie Hun",
+  "duration": 155,
+  "bpm": 128,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403998",
+  "publicSlug": "cKRr115Ick",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG27EQ7SV6Y50EGFKWK7AY3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13297/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Bedroom Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "female vocals",
+    "relaxing",
+    "chill",
+    "drum kit",
+    "perc",
+    "tambourine",
+    "lead vocals"
+  ]
+}

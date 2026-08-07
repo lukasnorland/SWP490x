@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "713ecf6b-9571-37f4-941f-80bb82e5caf9",
+  "epidemicTrackId": 95771,
+  "sourceProvider": "EpidemicSound",
+  "title": "That's How You Know That You're In Love",
+  "artist": "Loving Caliber",
+  "duration": 199,
+  "bpm": 89,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51802289",
+  "publicSlug": "qzPkcFYi1P",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGERG3EB74NB8MT7C5MXR24.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9807/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Relaxing",
+    "Romantic"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "ballad",
+    "heartfelt",
+    "cosy",
+    "cozy",
+    "laid back",
+    "smooth"
+  ]
+}

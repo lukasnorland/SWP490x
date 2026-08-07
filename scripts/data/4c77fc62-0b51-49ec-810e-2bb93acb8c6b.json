@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "4c77fc62-0b51-49ec-810e-2bb93acb8c6b",
+  "epidemicTrackId": 151139,
+  "sourceProvider": "EpidemicSound",
+  "title": "Feathers (Clean Version)",
+  "artist": "Louna",
+  "duration": 176,
+  "bpm": 112,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401095",
+  "publicSlug": "Ync8QIliLn",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFT2CAYG850VX87T89EXW8D.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13140/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary R&B"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "female vocals",
+    "fights",
+    "piano",
+    "synth",
+    "percussion",
+    "groove",
+    "chill",
+    "lead vocals"
+  ]
+}

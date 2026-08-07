@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "94c2425b-f1f3-3e28-8131-3ddc62c61306",
+  "epidemicTrackId": 97641,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sing It to You",
+  "artist": "L.M. Styles",
+  "duration": 233,
+  "bpm": 82,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828629",
+  "publicSlug": "LnUklCFcYh",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEWD2TQZSB5JE4VE0QSRD5A.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4565/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "pop",
+    "singer songwriter",
+    "emotional",
+    "guitar fills",
+    "male vocals",
+    "lead vocals",
+    "bluesy",
+    "soft"
+  ]
+}

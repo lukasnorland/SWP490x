@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "afe12d46-27e6-4108-8875-d40756d981e8",
+  "epidemicTrackId": 138497,
+  "sourceProvider": "EpidemicSound",
+  "title": "Abolition",
+  "artist": "Xavy Rusan",
+  "duration": 175,
+  "bpm": 144,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52101867",
+  "publicSlug": "DtUzuD4Lpx",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHMRQGTNHM0QPAS10TW85SC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6890/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Laid Back",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "hopeful",
+    "laid back",
+    "rap"
+  ]
+}

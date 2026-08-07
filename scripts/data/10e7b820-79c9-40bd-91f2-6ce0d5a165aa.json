@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "10e7b820-79c9-40bd-91f2-6ce0d5a165aa",
+  "epidemicTrackId": 283796,
+  "sourceProvider": "EpidemicSound",
+  "title": "One Day (Kerstin Ljungström Rework)",
+  "artist": "Ten Towers",
+  "duration": 210,
+  "bpm": 123,
+  "energyLevel": "variable",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600324",
+  "publicSlug": "w8woh7QAyO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KHV0Y8Z8Q740NNWD0BJRWF17.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15310/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "Frontline Remix Sweden 2025/2026",
+    "lead vocals",
+    "female vocals"
+  ]
+}

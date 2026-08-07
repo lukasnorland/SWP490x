@@ -1,0 +1,25 @@
+{
+  "externalSourceId": "a546afb2-084b-4a9a-a552-68fc13cf5db3",
+  "epidemicTrackId": 283063,
+  "sourceProvider": "EpidemicSound",
+  "title": "Showdown",
+  "artist": "Onoe Caponoe",
+  "duration": 143,
+  "bpm": 160,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503203",
+  "publicSlug": "DXwdAmCkbJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ5T6GZPK4DMBZHW1X14FVW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15201/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Experimental Hip Hop",
+    "Hip Hop"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": []
+}

@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "0d1b43ea-d417-431e-91f8-478d83fe7184",
+  "epidemicTrackId": 105808,
+  "sourceProvider": "EpidemicSound",
+  "title": "Ringing in My Head",
+  "artist": "Coma Svensson",
+  "duration": 176,
+  "bpm": 126,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003213",
+  "publicSlug": "D7APTlJgcZ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPV9BHY5RJ0YY80V7Z17C8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5588/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Punk"
+  ],
+  "moods": [
+    "Eccentric",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "driving",
+    "skate rock",
+    "skate punk",
+    "punk",
+    "lead vocals",
+    "male vocals"
+  ]
+}

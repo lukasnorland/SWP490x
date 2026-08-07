@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "73875456-c682-42ad-9433-b9e41bf5c6f5",
+  "epidemicTrackId": 276962,
+  "sourceProvider": "EpidemicSound",
+  "title": "Bewitched",
+  "artist": "Onoe Caponoe",
+  "duration": 159,
+  "bpm": 97,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502126",
+  "publicSlug": "fL66T8tRkp",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMQV0DSM8W53D9DQ2ZV4XF.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14696/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Experimental Hip Hop",
+    "Hip Hop",
+    "Boom Bap",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "gloomy",
+    "lead vocals",
+    "male vocals"
+  ]
+}

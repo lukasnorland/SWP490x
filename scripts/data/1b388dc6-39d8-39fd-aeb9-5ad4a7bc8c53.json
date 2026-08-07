@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "1b388dc6-39d8-39fd-aeb9-5ad4a7bc8c53",
+  "epidemicTrackId": 96521,
+  "sourceProvider": "EpidemicSound",
+  "title": "Love Story",
+  "artist": "Velvet Moon",
+  "duration": 191,
+  "bpm": 66,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51800702",
+  "publicSlug": "3LXpYPTNAK",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGJAW8VF0X69SNM9KHVS4S4.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/487/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Folk",
+    "Acoustic"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "sweet",
+    "warm",
+    "romantic",
+    "organic",
+    "ballad",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "9fea9ff8-b83d-4381-9209-98791afac54f",
+  "epidemicTrackId": 143421,
+  "sourceProvider": "EpidemicSound",
+  "title": "Yellow",
+  "artist": "Tyra Chantey",
+  "duration": 180,
+  "bpm": 103,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52202035",
+  "publicSlug": "d10rEmW4R0",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNTYZFN36HWDTTT3JGXJE9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8716/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "R&B"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "electric guitar",
+    "laid back",
+    "hopeful",
+    "rhythmic",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

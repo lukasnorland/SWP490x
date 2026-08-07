@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "3c3ca5b3-26fa-4477-8ff0-950edc292ebf",
+  "epidemicTrackId": 252559,
+  "sourceProvider": "EpidemicSound",
+  "title": "Me Dijo Así",
+  "artist": "Alcónes Negros",
+  "duration": 203,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403588",
+  "publicSlug": "ppkMc7ifdU",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHQXEVS5KR24D2SZTRNV6YR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13135/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Mariachi",
+    "Acoustic",
+    "Mexico"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "happy",
+    "trumpet",
+    "strings",
+    "percussion",
+    "lead vocals",
+    "female vocals"
+  ]
+}

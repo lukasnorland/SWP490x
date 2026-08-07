@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "15df13a9-d7a8-375c-aebd-3e3cfa7ac9f9",
+  "epidemicTrackId": 26342,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Am the One",
+  "artist": "Chester Malone",
+  "duration": 168,
+  "bpm": 150,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51821431",
+  "publicSlug": "bFaOLyHS89",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJR6ZXJ7HKXC8EHW8NWC7H0W.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3174/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Modern Blues"
+  ],
+  "moods": [
+    "Eccentric",
+    "Sexy"
+  ],
+  "tags": [
+    "driving",
+    "licks",
+    "attitude",
+    "groove",
+    "male vocals",
+    "vocals",
+    "bars",
+    "lead vocals",
+    "warm nights",
+    "12 bar"
+  ]
+}

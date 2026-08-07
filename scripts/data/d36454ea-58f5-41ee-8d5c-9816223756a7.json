@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "d36454ea-58f5-41ee-8d5c-9816223756a7",
+  "epidemicTrackId": 284336,
+  "sourceProvider": "EpidemicSound",
+  "title": "FWMT",
+  "artist": "Mushkilla",
+  "duration": 163,
+  "bpm": 170,
+  "energyLevel": "variable",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600810",
+  "publicSlug": "Aq33INLfIO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KNP0RXFFTNAGK05XSGC8K4M6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15766/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Liquid Drum And Bass",
+    "Beats"
+  ],
+  "moods": [
+    "Restless",
+    "Floating",
+    "Smooth"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

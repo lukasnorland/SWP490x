@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "e851a45d-e9e2-3998-bdcd-4a8522068dd8",
+  "epidemicTrackId": 26449,
+  "sourceProvider": "EpidemicSound",
+  "title": "Pilgrim Trail",
+  "artist": "Robson Carver",
+  "duration": 135,
+  "bpm": 145,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51817880",
+  "publicSlug": "1rctgRsBxn",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK9KRB0ZCVTA8Z6XZ2NAR49K.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3214/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Traditional Country",
+    "Bluegrass",
+    "Acoustic"
+  ],
+  "moods": [
+    "Happy",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "america",
+    "uplifting",
+    "running",
+    "rural",
+    "male vocals",
+    "lead vocals",
+    "bluegrass",
+    "barn",
+    "singing",
+    "cheery",
+    "folk"
+  ]
+}

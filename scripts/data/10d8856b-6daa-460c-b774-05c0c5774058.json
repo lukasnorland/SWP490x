@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "10d8856b-6daa-460c-b774-05c0c5774058",
+  "epidemicTrackId": 141859,
+  "sourceProvider": "EpidemicSound",
+  "title": "Marinate (Clean Version)",
+  "artist": "Zorro",
+  "duration": 177,
+  "bpm": 153,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200473",
+  "publicSlug": "RQR9TgXGiF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH0XYCS8J51VJ3FVQYHS5ZN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9187/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hyperpop",
+    "Electronic",
+    "Electropop",
+    "Beats"
+  ],
+  "moods": [
+    "Epic",
+    "Dark"
+  ],
+  "tags": [
+    "bold",
+    "attitude",
+    "empowering",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

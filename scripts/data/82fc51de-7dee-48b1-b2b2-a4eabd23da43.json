@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "82fc51de-7dee-48b1-b2b2-a4eabd23da43",
+  "epidemicTrackId": 150130,
+  "sourceProvider": "EpidemicSound",
+  "title": "System Change",
+  "artist": "Tubby Isiah",
+  "duration": 219,
+  "bpm": 135,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400086",
+  "publicSlug": "KR55p04NTn",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGKP4S5H09ZQM0PVPAAPS1X.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11705/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dub"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "reggae",
+    "lead vocals",
+    "male vocals"
+  ]
+}

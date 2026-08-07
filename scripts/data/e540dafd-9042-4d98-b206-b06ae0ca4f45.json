@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "e540dafd-9042-4d98-b206-b06ae0ca4f45",
+  "epidemicTrackId": 142800,
+  "sourceProvider": "EpidemicSound",
+  "title": "MEET-CUTE",
+  "artist": "Soleil",
+  "duration": 143,
+  "bpm": 111,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201414",
+  "publicSlug": "tApkieKNEI",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFA4HQ5SZYDS90HYX501Y0C.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8913/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Electronic",
+    "Beats"
+  ],
+  "moods": [
+    "Epic",
+    "Romantic"
+  ],
+  "tags": [
+    "uplifting",
+    "melancholy",
+    "rise up",
+    "emotional",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

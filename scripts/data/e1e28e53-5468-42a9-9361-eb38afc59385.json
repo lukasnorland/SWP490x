@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "e1e28e53-5468-42a9-9361-eb38afc59385",
+  "epidemicTrackId": 150691,
+  "sourceProvider": "EpidemicSound",
+  "title": "Cope",
+  "artist": "Gloria Tells",
+  "duration": 215,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400647",
+  "publicSlug": "1AgJx4iFDv",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ6XWQ5Q1GVCAB4ZFD9MT7A.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12217/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop Soul"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "bass",
+    "chill",
+    "groove",
+    "female vocals",
+    "harmonies",
+    "lead vocals"
+  ]
+}

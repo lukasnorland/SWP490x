@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "c82e3536-3004-3c9c-97fe-21709713bee1",
+  "epidemicTrackId": 62556,
+  "sourceProvider": "EpidemicSound",
+  "title": "Call Me Out",
+  "artist": "Loving Caliber",
+  "duration": 219,
+  "bpm": 77,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828179",
+  "publicSlug": "GJn7tMh5w2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG13QKWNQ26TYFVZP8WTJ7E.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2463/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Relaxing",
+    "Romantic"
+  ],
+  "tags": [
+    "evening",
+    "hopeful",
+    "ballad",
+    "now pop",
+    "male vocals",
+    "lead vocals"
+  ]
+}

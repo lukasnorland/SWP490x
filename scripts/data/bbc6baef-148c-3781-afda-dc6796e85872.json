@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "bbc6baef-148c-3781-afda-dc6796e85872",
+  "epidemicTrackId": 99426,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Am Better Off (Acoustic Version)",
+  "artist": "Wildson",
+  "duration": 205,
+  "bpm": 116,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51900982",
+  "publicSlug": "OX0lk9FqmH",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFHZA02YKY5QGFWEGJQ35WJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2484/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "sentimental",
+    "ballad",
+    "lead vocals",
+    "male vocals"
+  ]
+}

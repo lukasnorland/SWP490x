@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "af1bf027-ad08-489b-8d78-18d37b6a49b7",
+  "epidemicTrackId": 141870,
+  "sourceProvider": "EpidemicSound",
+  "title": "Para Mi Amiga",
+  "artist": "Caro Luna",
+  "duration": 216,
+  "bpm": 0,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200484",
+  "publicSlug": "dgiDQA0Jhv",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNJT3432HJBRKFPCENCN4F.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9000/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Salsa"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "spanish",
+    "español",
+    "friend",
+    "friendship",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

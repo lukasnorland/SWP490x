@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "e198331b-a8f3-4ed9-8c58-935dd017e2b1",
+  "epidemicTrackId": 147966,
+  "sourceProvider": "EpidemicSound",
+  "title": "Let the Wind Decide",
+  "artist": "Superintendent McCupcakes",
+  "duration": 186,
+  "bpm": 130,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52302262",
+  "publicSlug": "07dIaMBhbB",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNCV2FWVMK8D8ABMV53TXC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10973/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "male vocal",
+    "hip hop",
+    "lead vocals",
+    "male vocals"
+  ]
+}

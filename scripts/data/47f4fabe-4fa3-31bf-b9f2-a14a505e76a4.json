@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "47f4fabe-4fa3-31bf-b9f2-a14a505e76a4",
+  "epidemicTrackId": 62290,
+  "sourceProvider": "EpidemicSound",
+  "title": "City Boy",
+  "artist": "Caro Be & Leviaté",
+  "duration": 217,
+  "bpm": 158,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51811581",
+  "publicSlug": "UFlgL1KsJC",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJYDD3EVYV6BG8KQJA19B4BA.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Euphoric"
+  ],
+  "tags": [
+    "empowering",
+    "youth",
+    "road trip",
+    "drifting",
+    "uplifting",
+    "feel good",
+    "in love",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

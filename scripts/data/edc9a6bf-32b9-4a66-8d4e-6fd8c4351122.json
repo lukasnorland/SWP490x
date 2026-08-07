@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "edc9a6bf-32b9-4a66-8d4e-6fd8c4351122",
+  "epidemicTrackId": 145557,
+  "sourceProvider": "EpidemicSound",
+  "title": "Good Friend",
+  "artist": "Gloria Tells",
+  "duration": 201,
+  "bpm": 132,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52204167",
+  "publicSlug": "JbaMCLuiBa",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEHC99QXXPK2EN78FF5PFWM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10717/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "relaxing",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "cc01ec01-f73d-43fe-9f10-6458fa45636b",
+  "epidemicTrackId": 150071,
+  "sourceProvider": "EpidemicSound",
+  "title": "Cinematic",
+  "artist": "Gamma Skies",
+  "duration": 188,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400027",
+  "publicSlug": "jgbmRpL0Df",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG7ZXQXS199WRSWNA3MM12X.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11782/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Synth-pop"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "female vocals",
+    "love",
+    "lead vocals",
+    "male vocals"
+  ]
+}

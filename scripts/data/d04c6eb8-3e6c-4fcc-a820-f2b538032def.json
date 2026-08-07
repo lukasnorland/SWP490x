@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "d04c6eb8-3e6c-4fcc-a820-f2b538032def",
+  "epidemicTrackId": 106040,
+  "sourceProvider": "EpidemicSound",
+  "title": "Party with Her",
+  "artist": "Zenosyne",
+  "duration": 207,
+  "bpm": 81,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003445",
+  "publicSlug": "RafHCSZwdW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGJT64PJDSVMDK7428YPQ1V.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5671/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "R&B"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "smooth",
+    "lead vocals",
+    "male vocals"
+  ]
+}

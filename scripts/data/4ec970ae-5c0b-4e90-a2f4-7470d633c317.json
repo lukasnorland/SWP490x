@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "4ec970ae-5c0b-4e90-a2f4-7470d633c317",
+  "epidemicTrackId": 147623,
+  "sourceProvider": "EpidemicSound",
+  "title": "Another Life",
+  "artist": "Mimmi Bangoura",
+  "duration": 187,
+  "bpm": 104,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52301919",
+  "publicSlug": "JJASjGybUw",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGSY0DB3FKAJ3HQXZ8H6M0J.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10853/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Contemporary R&B"
+  ],
+  "moods": [
+    "Sad",
+    "Laid Back"
+  ],
+  "tags": [
+    "worrying",
+    "ballad",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

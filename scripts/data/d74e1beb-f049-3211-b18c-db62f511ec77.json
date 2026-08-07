@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "d74e1beb-f049-3211-b18c-db62f511ec77",
+  "epidemicTrackId": 97638,
+  "sourceProvider": "EpidemicSound",
+  "title": "Bring Out The Thunder",
+  "artist": "Conditional",
+  "duration": 196,
+  "bpm": 77,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828626",
+  "publicSlug": "EWDAgDL4lS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMV4ATT2VZVNCJV5HQ6T14.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2591/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Weird",
+    "Suspense"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "attitude",
+    "groovy",
+    "fuzz",
+    "distortion",
+    "feedback"
+  ]
+}

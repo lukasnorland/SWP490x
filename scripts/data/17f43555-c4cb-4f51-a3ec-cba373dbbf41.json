@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "17f43555-c4cb-4f51-a3ec-cba373dbbf41",
+  "epidemicTrackId": 283624,
+  "sourceProvider": "EpidemicSound",
+  "title": "When the Dust Settles",
+  "artist": "Nyck Caution",
+  "duration": 160,
+  "bpm": 148,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52600151",
+  "publicSlug": "AukNTsHwWd",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK4D64N2DZKZ1QG1SMZMTBFX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15370/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Epic",
+    "Dark"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

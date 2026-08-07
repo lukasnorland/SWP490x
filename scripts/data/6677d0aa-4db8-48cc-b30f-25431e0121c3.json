@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "6677d0aa-4db8-48cc-b30f-25431e0121c3",
+  "epidemicTrackId": 278470,
+  "sourceProvider": "EpidemicSound",
+  "title": "So in Love",
+  "artist": "AFTR",
+  "duration": 223,
+  "bpm": 147,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502841",
+  "publicSlug": "FeCukN2PHS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE99Z6Y51T622W6V86Z7DPW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15077/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Gospel",
+    "Weddings"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "piano",
+    "inspirational",
+    "strings",
+    "lead vocals",
+    "female vocals"
+  ]
+}

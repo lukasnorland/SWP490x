@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "d572caaf-d3f5-418f-91a7-a751cb5e9ede",
+  "epidemicTrackId": 252820,
+  "sourceProvider": "EpidemicSound",
+  "title": "Magic",
+  "artist": "Torii Wolf",
+  "duration": 178,
+  "bpm": 126,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403825",
+  "publicSlug": "lOfrAypK9g",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFM2J0T5CS5CP09PWDFZQCZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13262/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop",
+    "EDM",
+    "2020s",
+    "Beats"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "feel good",
+    "romantic",
+    "love",
+    "upbeat",
+    "energetic"
+  ]
+}

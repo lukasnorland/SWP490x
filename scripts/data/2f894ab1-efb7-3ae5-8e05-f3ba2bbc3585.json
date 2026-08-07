@@ -1,0 +1,40 @@
+{
+  "externalSourceId": "2f894ab1-efb7-3ae5-8e05-f3ba2bbc3585",
+  "epidemicTrackId": 61400,
+  "sourceProvider": "EpidemicSound",
+  "title": "We Don't Fall Apart",
+  "artist": "Alight The Night",
+  "duration": 198,
+  "bpm": 157,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828092",
+  "publicSlug": "RcmQFwwbb1",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGWYQ9AAT2XMGAX9ANTV0RK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7646/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Rock",
+    "2000s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "guitar",
+    "electric",
+    "reminisce",
+    "youth",
+    "adolescence",
+    "friendship",
+    "friends",
+    "feel good",
+    "road trip",
+    "driving",
+    "steady"
+  ]
+}

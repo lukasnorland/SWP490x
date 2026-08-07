@@ -1,0 +1,25 @@
+{
+  "externalSourceId": "1902d24d-0698-4ee6-8f34-a8d5e4d54e23",
+  "epidemicTrackId": 284719,
+  "sourceProvider": "EpidemicSound",
+  "title": "Loose Change (Clean Version)",
+  "artist": "Trinity",
+  "duration": 146,
+  "bpm": 100,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52601189",
+  "publicSlug": "4JB3Vh22sF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTRN72401SNKBGPRGG1AV7JS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/16110/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Restless",
+    "Heavy & Ponderous"
+  ],
+  "tags": []
+}

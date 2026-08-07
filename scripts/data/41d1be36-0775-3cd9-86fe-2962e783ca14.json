@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "41d1be36-0775-3cd9-86fe-2962e783ca14",
+  "epidemicTrackId": 95992,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dance Like Nobody's Watching",
+  "artist": "Chris Coral",
+  "duration": 205,
+  "bpm": 115,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51809315",
+  "publicSlug": "opWA5LMKkn",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEREDZ9NCE82265X7J3JXRP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3762/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "House",
+    "2010s"
+  ],
+  "moods": [
+    "Euphoric",
+    "Running"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "driving",
+    "uplifting",
+    "epic",
+    "energetic",
+    "exciting",
+    "intense",
+    "release",
+    "positive",
+    "youth"
+  ]
+}

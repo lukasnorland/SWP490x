@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "6a4459c7-e0a5-45fa-a132-91c3f4b465a6",
+  "epidemicTrackId": 146526,
+  "sourceProvider": "EpidemicSound",
+  "title": "GYMT",
+  "artist": "Amaroo",
+  "duration": 141,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300822",
+  "publicSlug": "PI3JxRgw6A",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJGMCWABHE99X7XJXV7XNN7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10641/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats",
+    "African Continent"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "romantic",
+    "sensual",
+    "sentimental",
+    "lead vocals",
+    "male vocals"
+  ]
+}

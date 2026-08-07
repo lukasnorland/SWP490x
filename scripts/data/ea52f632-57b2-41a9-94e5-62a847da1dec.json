@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "ea52f632-57b2-41a9-94e5-62a847da1dec",
+  "epidemicTrackId": 105926,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lonely Calling",
+  "artist": "Arc De Soleil",
+  "duration": 225,
+  "bpm": 136,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003331",
+  "publicSlug": "JnDVeYsAnG",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFFRXXQAVC3SFFRCBZ4V7M8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5596/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "running",
+    "driving"
+  ]
+}

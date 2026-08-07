@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "49e6ed63-9389-4ad5-8bc6-08128a371c21",
+  "epidemicTrackId": 151075,
+  "sourceProvider": "EpidemicSound",
+  "title": "Mereto",
+  "artist": "HATAMITSUNAMI",
+  "duration": 198,
+  "bpm": 94,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401031",
+  "publicSlug": "7I1mrYctA7",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH63GGYKZNH5KSW7YXVQKG5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12372/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats",
+    "African Continent"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "male vocals",
+    "electric guitar",
+    "percussion",
+    "chill",
+    "relaxing",
+    "groove",
+    "alternative",
+    "lead vocals"
+  ]
+}

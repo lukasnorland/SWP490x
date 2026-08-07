@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "35a31b4b-1b2b-3d44-a3b3-62d314066b24",
+  "epidemicTrackId": 64522,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Wanna Do It Again",
+  "artist": "Loving Caliber",
+  "duration": 205,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51824763",
+  "publicSlug": "i8rxhooXlO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTED5V4F16X52ZQ4VSESN8Q5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2464/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

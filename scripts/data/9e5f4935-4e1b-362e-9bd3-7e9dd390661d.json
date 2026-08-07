@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "9e5f4935-4e1b-362e-9bd3-7e9dd390661d",
+  "epidemicTrackId": 99545,
+  "sourceProvider": "EpidemicSound",
+  "title": "What a Way",
+  "artist": "OTE",
+  "duration": 207,
+  "bpm": 153,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51901102",
+  "publicSlug": "NJTq25oPL3",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ4EZP797TAZ3E69D1SFE7Z.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3866/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "Erik Fernholm",
+    "male vocals",
+    "driving",
+    "lead vocals"
+  ]
+}

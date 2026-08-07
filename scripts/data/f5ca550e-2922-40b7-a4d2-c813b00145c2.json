@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "f5ca550e-2922-40b7-a4d2-c813b00145c2",
+  "epidemicTrackId": 144564,
+  "sourceProvider": "EpidemicSound",
+  "title": "It's About Time",
+  "artist": "Windshield",
+  "duration": 231,
+  "bpm": 60,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203174",
+  "publicSlug": "CI9ZaX9rQ0",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGDTGNF7RMB8SFQKXAWHYZY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9413/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "piano",
+    "spiritual",
+    "relaxing",
+    "calm",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

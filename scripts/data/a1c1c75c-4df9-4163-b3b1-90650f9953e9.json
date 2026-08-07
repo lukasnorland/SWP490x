@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "a1c1c75c-4df9-4163-b3b1-90650f9953e9",
+  "epidemicTrackId": 145475,
+  "sourceProvider": "EpidemicSound",
+  "title": "Love Hour",
+  "artist": "Adelyn Paik, Collin Lim",
+  "duration": 200,
+  "bpm": 132,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52204085",
+  "publicSlug": "fJVX4Cgnxl",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGP06S2YDKBDXC1JCJTHJDB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10410/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Happy",
+    "Romantic"
+  ],
+  "tags": [
+    "ballad",
+    "bossa nova",
+    "korean",
+    "lead vocals",
+    "male vocals"
+  ]
+}

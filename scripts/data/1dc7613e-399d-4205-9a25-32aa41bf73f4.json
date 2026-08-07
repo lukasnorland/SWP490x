@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "1dc7613e-399d-4205-9a25-32aa41bf73f4",
+  "epidemicTrackId": 283475,
+  "sourceProvider": "EpidemicSound",
+  "title": "Green Light",
+  "artist": "IFCHAN, SCENE",
+  "duration": 158,
+  "bpm": 118,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600002",
+  "publicSlug": "VGci08aV8z",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK4WMK7MBXW66KPWV44HM2MZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15738/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

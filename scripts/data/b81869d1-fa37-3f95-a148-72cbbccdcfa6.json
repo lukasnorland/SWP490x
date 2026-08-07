@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "b81869d1-fa37-3f95-a148-72cbbccdcfa6",
+  "epidemicTrackId": 65267,
+  "sourceProvider": "EpidemicSound",
+  "title": "Let's Hear It",
+  "artist": "Cave Cadence",
+  "duration": 191,
+  "bpm": 78,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51811150",
+  "publicSlug": "5aXCCbeIim",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFQ9FH2P75JCBJC2V71E4JN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2209/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Indie Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "exciting",
+    "energy",
+    "empowering",
+    "dynamic",
+    "energetic",
+    "lead vocals",
+    "male vocals",
+    "heavy",
+    "drums",
+    "beat"
+  ]
+}

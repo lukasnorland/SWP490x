@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "d0602936-8896-3574-b7f8-fb68c50ea0ea",
+  "epidemicTrackId": 98011,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lottery",
+  "artist": "Ten Towers",
+  "duration": 181,
+  "bpm": 123,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828779",
+  "publicSlug": "Ez8WzD4KX9",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHPQ3MRE7MKX0PJTVMTBR3W.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/794/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Contemporary Folk"
+  ],
+  "moods": [
+    "Romantic",
+    "Peaceful"
+  ],
+  "tags": [
+    "folk",
+    "lead vocals",
+    "male vocals",
+    "sentimental",
+    "acoustic",
+    "close",
+    "intimate"
+  ]
+}

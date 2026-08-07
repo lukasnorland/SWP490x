@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "0a6cb481-af96-40cd-a400-334624a05336",
+  "epidemicTrackId": 141400,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dear Friends and Gentle Hearts",
+  "artist": "Roy Williams",
+  "duration": 217,
+  "bpm": 150,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200015",
+  "publicSlug": "HWFPYRhvEa",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHRD7TYCTNF2Y3E1GF561BR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7916/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Contemporary Folk",
+    "1970s"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "piano",
+    "acoustic",
+    "sad",
+    "hopeful",
+    "laid back",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "0443e943-db8b-45b5-a7d0-77e8ca2e4278",
+  "epidemicTrackId": 283738,
+  "sourceProvider": "EpidemicSound",
+  "title": "What Do You Want",
+  "artist": "Teeklef",
+  "duration": 165,
+  "bpm": 105,
+  "energyLevel": "variable",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600265",
+  "publicSlug": "bcbXjAzyqd",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJY0ENYX0Z0Q97DYNY1P9MJP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15819/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

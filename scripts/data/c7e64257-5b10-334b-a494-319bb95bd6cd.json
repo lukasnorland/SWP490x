@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "c7e64257-5b10-334b-a494-319bb95bd6cd",
+  "epidemicTrackId": 60289,
+  "sourceProvider": "EpidemicSound",
+  "title": "So Damn Good",
+  "artist": "Lyvi",
+  "duration": 205,
+  "bpm": 127,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51827418",
+  "publicSlug": "PdLeWMIsWu",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJDVTN6A179YSJ4SZHETF26.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7686/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Chasing",
+    "Happy"
+  ],
+  "tags": [
+    "transition",
+    "retro",
+    "shuffle",
+    "running",
+    "lead vocals",
+    "female vocals",
+    "letting go",
+    "moving on",
+    "punch",
+    "male vocals"
+  ]
+}

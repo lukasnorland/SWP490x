@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "0e06e34d-371f-3dd0-8b40-9b299f0b5a9b",
+  "epidemicTrackId": 63805,
+  "sourceProvider": "EpidemicSound",
+  "title": "I'm Saving Mine For Us",
+  "artist": "Windshield",
+  "duration": 287,
+  "bpm": 46,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51802261",
+  "publicSlug": "ninFSRiuET",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFHHHDAPZD97YNQ48PGVKKQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Contemporary Folk",
+    "2010s"
+  ],
+  "moods": [
+    "Epic",
+    "Dreamy"
+  ],
+  "tags": [
+    "airy",
+    "acoustic",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

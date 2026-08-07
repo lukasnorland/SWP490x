@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "d2ce583d-e01e-4a4c-b5e0-446d81cdb8f6",
+  "epidemicTrackId": 250300,
+  "sourceProvider": "EpidemicSound",
+  "title": "Get Yourself Movin'",
+  "artist": "Kylie Dailey",
+  "duration": 154,
+  "bpm": 127,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403020",
+  "publicSlug": "4LLkIIbw39",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG5BT4DMXRPS84GP9CS9BCG.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13392/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk"
+  ],
+  "moods": [
+    "Relaxing",
+    "Laid Back"
+  ],
+  "tags": [
+    "female vocals",
+    "percussion",
+    "acoustic guitar",
+    "chill",
+    "eccentric",
+    "flute",
+    "lead vocals"
+  ]
+}

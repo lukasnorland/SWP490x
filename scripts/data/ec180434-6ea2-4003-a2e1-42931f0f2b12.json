@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "ec180434-6ea2-4003-a2e1-42931f0f2b12",
+  "epidemicTrackId": 284013,
+  "sourceProvider": "EpidemicSound",
+  "title": "Recipe",
+  "artist": "Tusabe",
+  "duration": 229,
+  "bpm": 117,
+  "energyLevel": "variable",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600487",
+  "publicSlug": "FKSptd4KpY",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KN224FDHV30Q58MGT4TWD8XR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15727/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afro House"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

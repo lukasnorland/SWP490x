@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "b35bba8e-d418-4c43-8cfa-3cd2cefb5e07",
+  "epidemicTrackId": 147973,
+  "sourceProvider": "EpidemicSound",
+  "title": "SOLO",
+  "artist": "Mimmi Bangoura",
+  "duration": 234,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52302269",
+  "publicSlug": "JueL4glRtz",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGCQ68FETCNBF7F35JGEMEE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10548/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary R&B",
+    "Beats"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "dreamy",
+    "percussion",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

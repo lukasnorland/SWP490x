@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "1fce5bcb-b213-44e7-8c4c-666243bc615d",
+  "epidemicTrackId": 284252,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dizzy",
+  "artist": "IFCHAN",
+  "duration": 157,
+  "bpm": 178,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600726",
+  "publicSlug": "lTV0H89vkQ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KPZ7W9ZE0TMXH2386N3YM3VF.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15817/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Happy",
+    "Sentimental"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

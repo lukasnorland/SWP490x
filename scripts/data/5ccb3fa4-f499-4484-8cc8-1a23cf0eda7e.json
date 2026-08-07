@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "5ccb3fa4-f499-4484-8cc8-1a23cf0eda7e",
+  "epidemicTrackId": 104878,
+  "sourceProvider": "EpidemicSound",
+  "title": "With Music on Repeat",
+  "artist": "Victor Lundberg",
+  "duration": 246,
+  "bpm": 102,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002283",
+  "publicSlug": "pngNjZGiY3",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ0D0D8T1NHWG1PS05Y6PM0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5285/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "party",
+    "brass",
+    "funky",
+    "male vocals",
+    "lead vocals"
+  ]
+}

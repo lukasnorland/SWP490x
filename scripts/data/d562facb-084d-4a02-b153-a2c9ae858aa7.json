@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "d562facb-084d-4a02-b153-a2c9ae858aa7",
+  "epidemicTrackId": 253823,
+  "sourceProvider": "EpidemicSound",
+  "title": "Find My Way",
+  "artist": "Teeklef",
+  "duration": 141,
+  "bpm": 123,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500477",
+  "publicSlug": "xOIzfxgKCd",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH5NYDGQQ73ZJG7YP185WWD.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13798/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian",
+    "R&B"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "chill",
+    "groove",
+    "hi hat",
+    "drum kit",
+    "feel good",
+    "bass",
+    "faith",
+    "lead vocals",
+    "male vocals"
+  ]
+}

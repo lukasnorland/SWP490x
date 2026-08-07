@@ -1,0 +1,25 @@
+{
+  "externalSourceId": "4ef681a9-aa03-4677-88eb-4dd8589f7dca",
+  "epidemicTrackId": 283438,
+  "sourceProvider": "EpidemicSound",
+  "title": "Run It Back",
+  "artist": "Trinity",
+  "duration": 124,
+  "bpm": 100,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52503579",
+  "publicSlug": "o4PIfcAwoD",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK2ZD72TYG7E0HCFYC2THDGT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15393/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Restless",
+    "Heavy & Ponderous"
+  ],
+  "tags": []
+}

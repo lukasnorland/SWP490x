@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "612ae041-3333-3696-a20b-1d4353ef2f6f",
+  "epidemicTrackId": 29839,
+  "sourceProvider": "EpidemicSound",
+  "title": "Girl in Love",
+  "artist": "Layn",
+  "duration": 185,
+  "bpm": 180,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51811901",
+  "publicSlug": "4T5Ec8eKkw",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH3QD2W65DRCAKBHXHAF0BY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6988/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Running"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "winning",
+    "young adults",
+    "teen",
+    "teens",
+    "girls chanting",
+    "bubblegum joy",
+    "driving",
+    "fast",
+    "busy",
+    "male vocals"
+  ]
+}

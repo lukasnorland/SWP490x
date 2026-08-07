@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "5b19b4d3-c515-40fc-867c-8959d7bf465f",
+  "epidemicTrackId": 145637,
+  "sourceProvider": "EpidemicSound",
+  "title": "Eye On The Prize",
+  "artist": "Nikki Gee",
+  "duration": 244,
+  "bpm": 98,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52204247",
+  "publicSlug": "zRPFyR6xFz",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG1GMDH2FY13Q5V12C7D4ZQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9794/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "1980s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "electric guitar",
+    "80s",
+    "romantic",
+    "energetic",
+    "powerful",
+    "lead vocals",
+    "male vocals"
+  ]
+}

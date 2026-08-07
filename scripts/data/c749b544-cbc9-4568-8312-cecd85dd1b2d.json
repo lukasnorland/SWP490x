@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "c749b544-cbc9-4568-8312-cecd85dd1b2d",
+  "epidemicTrackId": 146001,
+  "sourceProvider": "EpidemicSound",
+  "title": "Shut Up",
+  "artist": "Mindme",
+  "duration": 198,
+  "bpm": 78,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300297",
+  "publicSlug": "7OvWnZ9DFe",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFZ1M1AC4Q7WQE934RGEAZC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10379/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "sentimental",
+    "dramatic",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

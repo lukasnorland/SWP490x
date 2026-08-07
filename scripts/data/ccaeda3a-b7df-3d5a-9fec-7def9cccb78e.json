@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "ccaeda3a-b7df-3d5a-9fec-7def9cccb78e",
+  "epidemicTrackId": 29360,
+  "sourceProvider": "EpidemicSound",
+  "title": "Cold Love",
+  "artist": "Marc Torch",
+  "duration": 129,
+  "bpm": 150,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51811525",
+  "publicSlug": "BlYqgV0BXv",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFQ9FEQ5YZ5509J0QQ0DR5J.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3113/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Running"
+  ],
+  "tags": [
+    "cool",
+    "festival",
+    "summer",
+    "male vocals",
+    "lead vocals",
+    "driving",
+    "pushing",
+    "fun",
+    "transition"
+  ]
+}

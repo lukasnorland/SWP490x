@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "9cecff5b-9f49-4952-925b-1b54e2da9c5c",
+  "epidemicTrackId": 253376,
+  "sourceProvider": "EpidemicSound",
+  "title": "Wanna Say",
+  "artist": "NINEXCIX, dasloe",
+  "duration": 162,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500032",
+  "publicSlug": "3GSxsA0PQ3",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHBEDYW4R66BDMPWD5GAJ1Z.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13565/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "upbeat",
+    "happy",
+    "korean",
+    "lead vocals",
+    "male vocals"
+  ]
+}

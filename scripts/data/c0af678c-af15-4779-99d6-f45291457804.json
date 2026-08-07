@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "c0af678c-af15-4779-99d6-f45291457804",
+  "epidemicTrackId": 139748,
+  "sourceProvider": "EpidemicSound",
+  "title": "That Kind of Love",
+  "artist": "I'MIN",
+  "duration": 212,
+  "bpm": 96,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52103075",
+  "publicSlug": "ZRm00iXAze",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEENS7V14QRZHAX7B4AYKPS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7061/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "laid back",
+    "love",
+    "strings",
+    "romantic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

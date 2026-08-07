@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "8405781b-6e36-49a8-be9f-315c24067295",
+  "epidemicTrackId": 277347,
+  "sourceProvider": "EpidemicSound",
+  "title": "BBQ",
+  "artist": "Mr. Steve, The Music Man",
+  "duration": 139,
+  "bpm": 160,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502511",
+  "publicSlug": "Yf1ywAIZJu",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE2AK35ZEY4GZ6CQV1BVJME.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14813/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Country Boogie",
+    "Children'S Music"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "upbeat",
+    "boogie",
+    "lead vocals",
+    "male vocals"
+  ]
+}

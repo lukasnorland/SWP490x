@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "48ddf7aa-02ae-44f0-b026-8a1108b4bead",
+  "epidemicTrackId": 252845,
+  "sourceProvider": "EpidemicSound",
+  "title": "Fight or Flight",
+  "artist": "Janset",
+  "duration": 196,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403850",
+  "publicSlug": "kxBVRGeCs4",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGF0KHAMZSK0H6W0VASVHAV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14284/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Laid Back"
+  ],
+  "tags": [
+    "london",
+    "powerful",
+    "female rapper",
+    "lead vocals",
+    "female vocals",
+    "trap"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "e5108445-3dbf-3894-8b6a-cfa258b8e939",
+  "epidemicTrackId": 95805,
+  "sourceProvider": "EpidemicSound",
+  "title": "Running With The Lions",
+  "artist": "Loving Caliber",
+  "duration": 170,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51823812",
+  "publicSlug": "ff8U8jle2O",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE2FK8Y2TPCNZ03C4WHBVGH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3719/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Angry",
+    "Restless"
+  ],
+  "tags": [
+    "winning",
+    "heavy",
+    "driving",
+    "attitude",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

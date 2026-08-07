@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "a308b006-9e7a-493b-b656-244105ceb189",
+  "epidemicTrackId": 104651,
+  "sourceProvider": "EpidemicSound",
+  "title": "Drawn to You",
+  "artist": "Vincent Vega, spring gang",
+  "duration": 187,
+  "bpm": 115,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002056",
+  "publicSlug": "l0JBMZj3tJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTENKXZ0XGJM9H71CPGR6WZJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5209/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Disco",
+    "Nu Disco",
+    "Dance-pop"
+  ],
+  "moods": [
+    "Happy",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "groove",
+    "synth",
+    "hopeful",
+    "electronic",
+    "male vocals",
+    "lead vocals"
+  ]
+}

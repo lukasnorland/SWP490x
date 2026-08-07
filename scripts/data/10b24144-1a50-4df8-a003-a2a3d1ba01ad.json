@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "10b24144-1a50-4df8-a003-a2a3d1ba01ad",
+  "epidemicTrackId": 277650,
+  "sourceProvider": "EpidemicSound",
+  "title": "After My Spot",
+  "artist": "Witchitaw Slim",
+  "duration": 169,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502814",
+  "publicSlug": "QEFneAvhq8",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGERGDNJ235TX6SZP29Q8CN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14961/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Epic",
+    "Sentimental"
+  ],
+  "tags": [
+    "powerful",
+    "strings"
+  ]
+}

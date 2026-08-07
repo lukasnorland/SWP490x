@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "0ae575f1-3783-328c-b951-18643c3deea2",
+  "epidemicTrackId": 98470,
+  "sourceProvider": "EpidemicSound",
+  "title": "Backwards",
+  "artist": "Staffan Carlén",
+  "duration": 209,
+  "bpm": 126,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51900029",
+  "publicSlug": "DhBfZdu0DG",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFN9KQ43K14FHW8M9AZ2KND.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2492/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Rock",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "indie rock",
+    "guitars",
+    "male vocals",
+    "driving",
+    "energy"
+  ]
+}

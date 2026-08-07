@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "c774468f-d344-489b-a55d-623ad4fb47ea",
+  "epidemicTrackId": 141189,
+  "sourceProvider": "EpidemicSound",
+  "title": "Ancient Flame",
+  "artist": "Torii Wolf",
+  "duration": 228,
+  "bpm": 88,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52104464",
+  "publicSlug": "7Tt6i11Xtb",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK3Y41HRE1H2Z2Z1W0NCENBW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8065/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Indietronica"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "floating",
+    "sentimental",
+    "laid back",
+    "soft"
+  ]
+}

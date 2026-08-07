@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "f7c56a71-87ca-4e02-8089-8f4dfbd3b72e",
+  "epidemicTrackId": 145688,
+  "sourceProvider": "EpidemicSound",
+  "title": "Window with a View",
+  "artist": "Sleepaway Camp",
+  "duration": 195,
+  "bpm": 57,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52204298",
+  "publicSlug": "tu8WsNrFod",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGSFW14D1M24YC97D2J1FC8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9965/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "acoustic",
+    "guitar",
+    "sad",
+    "hopeful",
+    "piano",
+    "lead vocals",
+    "male vocals"
+  ]
+}

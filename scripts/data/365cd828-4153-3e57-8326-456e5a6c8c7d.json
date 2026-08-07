@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "365cd828-4153-3e57-8326-456e5a6c8c7d",
+  "epidemicTrackId": 101914,
+  "sourceProvider": "EpidemicSound",
+  "title": "This or That",
+  "artist": "Humble Hey",
+  "duration": 177,
+  "bpm": 0,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51903472",
+  "publicSlug": "XBbCVcZsEk",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPQK24MZBQBWENRA6EX7TF.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4356/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Country"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "feelgood",
+    "female vocals",
+    "lead vocals",
+    "ballad",
+    "exploring",
+    "pop",
+    "male vocals"
+  ]
+}

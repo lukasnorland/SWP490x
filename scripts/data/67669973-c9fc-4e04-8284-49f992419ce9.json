@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "67669973-c9fc-4e04-8284-49f992419ce9",
+  "epidemicTrackId": 276246,
+  "sourceProvider": "EpidemicSound",
+  "title": "FLIP SIDE",
+  "artist": "ALICE",
+  "duration": 208,
+  "bpm": 102,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52501403",
+  "publicSlug": "XYlc5PzF7B",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KWY9FMCM320YEW6BQYYNJAS8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14291/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Beats"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "attitude",
+    "lead vocals",
+    "female vocals"
+  ]
+}

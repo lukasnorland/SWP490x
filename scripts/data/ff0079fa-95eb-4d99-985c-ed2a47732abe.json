@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "ff0079fa-95eb-4d99-985c-ed2a47732abe",
+  "epidemicTrackId": 284265,
+  "sourceProvider": "EpidemicSound",
+  "title": "kicks n flex (Clean Version)",
+  "artist": "Loreana",
+  "duration": 167,
+  "bpm": 73,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600739",
+  "publicSlug": "KmJsAz2mVX",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KKVM4EVW72KGKM9MPWSE2R1T.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15753/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "latin hip hop"
+  ]
+}

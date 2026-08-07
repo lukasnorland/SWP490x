@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "f9562fb0-7a89-4914-b660-7f313b6f6a79",
+  "epidemicTrackId": 137946,
+  "sourceProvider": "EpidemicSound",
+  "title": "Chemistry!",
+  "artist": "Flux Vortex",
+  "duration": 199,
+  "bpm": 116,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52101259",
+  "publicSlug": "Etr88Q3Kgi",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH6R6TK2R7KQMJD55XXEHSZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6361/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Running"
+  ],
+  "tags": [
+    "driving",
+    "catchy",
+    "euphoric",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

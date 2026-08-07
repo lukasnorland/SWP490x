@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "a8feec01-25c3-46ec-ac44-bf2af2396360",
+  "epidemicTrackId": 151145,
+  "sourceProvider": "EpidemicSound",
+  "title": "Gin Arirang",
+  "artist": "Bokyung Kim",
+  "duration": 358,
+  "bpm": 0,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401101",
+  "publicSlug": "3YDkR4GSO6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGSVC5BSAR5MTTH0TZDWATX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11922/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Korean Classical",
+    "Korea",
+    "Acoustic"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "korean",
+    "piri",
+    "janggu",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

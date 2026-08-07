@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "3328e0c2-14c0-4d2a-b67e-3fccdd099a7b",
+  "epidemicTrackId": 253233,
+  "sourceProvider": "EpidemicSound",
+  "title": "Nunca Para de Amar",
+  "artist": "El Equipo Del Norte",
+  "duration": 176,
+  "bpm": 140,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52404236",
+  "publicSlug": "VVoP9CyJde",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE7HK8PC0SPHJBX9N2RDZBE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13548/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Samba",
+    "Batucada",
+    "Brazil"
+  ],
+  "moods": [
+    "Euphoric",
+    "Restless"
+  ],
+  "tags": [
+    "brazil",
+    "carnival",
+    "whistle",
+    "portuguese",
+    "lead vocals",
+    "male vocals"
+  ]
+}

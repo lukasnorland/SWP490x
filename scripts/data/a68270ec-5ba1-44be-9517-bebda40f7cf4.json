@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "a68270ec-5ba1-44be-9517-bebda40f7cf4",
+  "epidemicTrackId": 250039,
+  "sourceProvider": "EpidemicSound",
+  "title": "Gata Traicionera",
+  "artist": "Lawd Ito",
+  "duration": 181,
+  "bpm": 85,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402759",
+  "publicSlug": "z5PYyxwWyM",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGS114AW7E7A3N3RRY18CDY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12855/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Bolero",
+    "Latin Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "sentimental",
+    "conga",
+    "trumpet",
+    "guitar",
+    "lead vocals",
+    "male vocals"
+  ]
+}

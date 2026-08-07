@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "ef69c0fe-6708-4d4b-9cf3-64c36e892779",
+  "epidemicTrackId": 139547,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Time of the Year",
+  "artist": "Niklas Gabrielsson with Martin Landström & His Orchestra",
+  "duration": 208,
+  "bpm": 104,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52102874",
+  "publicSlug": "Pc6JAEvixx",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFQVE9VE6ZD7S3NBAB3CP7D.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7367/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Smooth Jazz",
+    "Christmas"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "orchestra",
+    "strings",
+    "horns",
+    "dramatic",
+    "bells",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "fc95d3bf-d76e-49c4-ac1b-a010e4eaa47c",
+  "epidemicTrackId": 147872,
+  "sourceProvider": "EpidemicSound",
+  "title": "Pure Spirit",
+  "artist": "Tilden Parc",
+  "duration": 171,
+  "bpm": 144,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52302168",
+  "publicSlug": "mQYh3J6Met",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHETQS7N8HKVMY0RDD3ZK1T.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11088/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "rap",
+    "tense",
+    "powerful",
+    "trap"
+  ]
+}

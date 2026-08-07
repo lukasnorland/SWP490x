@@ -1,0 +1,39 @@
+{
+  "externalSourceId": "1e140ca1-5242-3888-acc4-79a66dbbeb09",
+  "epidemicTrackId": 96551,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Way It Burns",
+  "artist": "Jesse Lawrence",
+  "duration": 249,
+  "bpm": 136,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51815012",
+  "publicSlug": "9kK6fgyAKM",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE68QJZT2HPWWB726QHD948.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6115/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul",
+    "R&B",
+    "Motown",
+    "1960s"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "male vocals",
+    "summer",
+    "holiday",
+    "beach",
+    "lead vocals",
+    "warm",
+    "soothing",
+    "feelgood",
+    "uplifting",
+    "driving",
+    "retro"
+  ]
+}

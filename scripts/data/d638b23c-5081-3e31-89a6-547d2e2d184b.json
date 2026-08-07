@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "d638b23c-5081-3e31-89a6-547d2e2d184b",
+  "epidemicTrackId": 29072,
+  "sourceProvider": "EpidemicSound",
+  "title": "To Me That's Alright",
+  "artist": "Mellowdye",
+  "duration": 120,
+  "bpm": 66,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51826989",
+  "publicSlug": "4OSOovNAPP",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK45BPP1FEMFGE9390BW9T01.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3078/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Happy",
+    "Romantic"
+  ],
+  "tags": [
+    "strolling",
+    "lead vocals",
+    "female vocals",
+    "relaxing",
+    "in love",
+    "new york",
+    "cozy",
+    "cosy",
+    "simple",
+    "easy",
+    "feelgood",
+    "male vocals"
+  ]
+}

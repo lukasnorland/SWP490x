@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "bc0546f4-81bc-428a-a8b3-621155e23e09",
+  "epidemicTrackId": 284432,
+  "sourceProvider": "EpidemicSound",
+  "title": "Whoever You Are",
+  "artist": "Cezar",
+  "duration": 184,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600906",
+  "publicSlug": "l7ErJVpeaO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KQC8B8XHZBCJY4T5AK53MMFW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15853/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Reggae",
+    "Caribbean"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "a814ad4f-12e7-4b50-8a83-44af02ddad8f",
+  "epidemicTrackId": 144627,
+  "sourceProvider": "EpidemicSound",
+  "title": "Low Lands (Clean Version)",
+  "artist": "Xavy Rusan",
+  "duration": 176,
+  "bpm": 133,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203237",
+  "publicSlug": "DrmA48kQdI",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH63GH7TEAXVX75RAVPH5EN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9278/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "rap",
+    "energetic",
+    "upbeat",
+    "beat",
+    "laid back"
+  ]
+}

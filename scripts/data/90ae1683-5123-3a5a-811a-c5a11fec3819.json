@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "90ae1683-5123-3a5a-811a-c5a11fec3819",
+  "epidemicTrackId": 64674,
+  "sourceProvider": "EpidemicSound",
+  "title": "Carry You Home (Tribute Version)",
+  "artist": "Akerman",
+  "duration": 200,
+  "bpm": 108,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51805420",
+  "publicSlug": "dbvCPVud18",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF3EFRD9FP393G7V0S08K8N.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2342/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s",
+    "Acoustic"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "sweet",
+    "guitar",
+    "fingerpicking",
+    "airy",
+    "catchy",
+    "contemporary",
+    "male vocals"
+  ]
+}

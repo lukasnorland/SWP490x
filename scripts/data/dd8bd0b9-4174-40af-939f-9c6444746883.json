@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "dd8bd0b9-4174-40af-939f-9c6444746883",
+  "epidemicTrackId": 147306,
+  "sourceProvider": "EpidemicSound",
+  "title": "Walking through Walls",
+  "artist": "Staffan Carlén",
+  "duration": 243,
+  "bpm": 140,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301602",
+  "publicSlug": "y0Uw3vhF25",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEG1GV1ZD2S8GTQHXX3JM0V.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10542/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Folk",
+    "Acoustic"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "indie folk",
+    "sentimental",
+    "lead vocals",
+    "male vocals"
+  ]
+}

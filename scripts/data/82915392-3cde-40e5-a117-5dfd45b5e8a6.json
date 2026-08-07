@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "82915392-3cde-40e5-a117-5dfd45b5e8a6",
+  "epidemicTrackId": 148198,
+  "sourceProvider": "EpidemicSound",
+  "title": "Born to Be This High",
+  "artist": "Snake City",
+  "duration": 188,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52302494",
+  "publicSlug": "5HaKOruSTJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFHSYVW3Q0Z0NC7VFMKZ0VX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10792/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Synth-pop",
+    "1980s"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "energetic",
+    "hopeful",
+    "retro",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

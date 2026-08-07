@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "42aa4803-5540-373d-b7b3-01ad096d5683",
+  "epidemicTrackId": 62972,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Won't Let You Down",
+  "artist": "Loving Caliber",
+  "duration": 203,
+  "bpm": 112,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51815517",
+  "publicSlug": "rEk0Rg4Zh0",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEETJDBMCAPAQ3NM82JF6EM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2521/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "whistling",
+    "driving",
+    "running",
+    "airy"
+  ]
+}

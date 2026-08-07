@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "a6f59707-c677-4adb-84aa-eb7eb15cc634",
+  "epidemicTrackId": 143396,
+  "sourceProvider": "EpidemicSound",
+  "title": "Melt Away",
+  "artist": "Adelyn Paik",
+  "duration": 187,
+  "bpm": 83,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52202010",
+  "publicSlug": "ZgFjgblKoO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH3QD999AQPMJQYTXRT90VB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9360/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "soulful",
+    "korean",
+    "upbeat",
+    "dreamy",
+    "piano",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

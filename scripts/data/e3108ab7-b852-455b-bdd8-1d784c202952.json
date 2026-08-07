@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "e3108ab7-b852-455b-bdd8-1d784c202952",
+  "epidemicTrackId": 147085,
+  "sourceProvider": "EpidemicSound",
+  "title": "Patricia",
+  "artist": "Cumbia Connection",
+  "duration": 251,
+  "bpm": 84,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301381",
+  "publicSlug": "EAoUOE5fDz",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGJMWCBVRA1GTR1VTH4TM1R.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11213/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Latin",
+    "Peru"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "cumbia",
+    "carefree",
+    "cheerful",
+    "lead vocals",
+    "male vocals"
+  ]
+}

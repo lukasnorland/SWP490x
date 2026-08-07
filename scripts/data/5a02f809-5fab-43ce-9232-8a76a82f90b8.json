@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "5a02f809-5fab-43ce-9232-8a76a82f90b8",
+  "epidemicTrackId": 150037,
+  "sourceProvider": "EpidemicSound",
+  "title": "Pretty without You",
+  "artist": "Vicki Vox",
+  "duration": 182,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52305171",
+  "publicSlug": "42xOYQWw5W",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGZBVE634XM6ATE2WGRQPGZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11465/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Sad",
+    "Sentimental"
+  ],
+  "tags": [
+    "sassy",
+    "indie pop",
+    "moving on",
+    "break up",
+    "female",
+    "acoustic",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

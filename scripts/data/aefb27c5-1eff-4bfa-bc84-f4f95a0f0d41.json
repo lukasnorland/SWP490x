@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "aefb27c5-1eff-4bfa-bc84-f4f95a0f0d41",
+  "epidemicTrackId": 144694,
+  "sourceProvider": "EpidemicSound",
+  "title": "REAL TIME (333) (Clean Version)",
+  "artist": "Tilden Parc",
+  "duration": 167,
+  "bpm": 84,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203304",
+  "publicSlug": "u7TJe4Spuu",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHSF49WARXXZEZ0JD5NRQYQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9927/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "beat",
+    "restless",
+    "rap"
+  ]
+}

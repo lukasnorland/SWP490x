@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "65377d64-9735-4fe1-ba53-335095cd0d05",
+  "epidemicTrackId": 277470,
+  "sourceProvider": "EpidemicSound",
+  "title": "I'm No Jesus on a Cross",
+  "artist": "Staffan Carlén",
+  "duration": 224,
+  "bpm": 160,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502634",
+  "publicSlug": "fbuFaHZRzt",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE8JPA4W50FY2VMR6KMY2MT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15004/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock"
+  ],
+  "moods": [
+    "Epic",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

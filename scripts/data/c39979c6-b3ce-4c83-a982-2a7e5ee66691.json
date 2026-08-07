@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "c39979c6-b3ce-4c83-a982-2a7e5ee66691",
+  "epidemicTrackId": 277064,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lost My Mind",
+  "artist": "Bankston",
+  "duration": 232,
+  "bpm": 140,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502228",
+  "publicSlug": "hh7UE6AxSn",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH0QZ9JTYF9ZNSTX15ZTZX0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14668/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Restless",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "0ecb7587-4aeb-34a4-bd65-a4991eb8a06a",
+  "epidemicTrackId": 96258,
+  "sourceProvider": "EpidemicSound",
+  "title": "Slow Moving Greyhound",
+  "artist": "Chester Malone",
+  "duration": 285,
+  "bpm": 85,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51813057",
+  "publicSlug": "eOAPbVG0kO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHSF4J2021KK2YQ2E68029P.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3176/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Modern Blues"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "walking",
+    "cool",
+    "confident",
+    "attitude",
+    "steady",
+    "marching",
+    "lead vocals",
+    "male vocals",
+    "traveling",
+    "piano",
+    "longing",
+    "male vocals"
+  ]
+}

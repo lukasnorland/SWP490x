@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "38b9b111-0b42-4c3e-abd6-6925bcc170c1",
+  "epidemicTrackId": 283831,
+  "sourceProvider": "EpidemicSound",
+  "title": "Moonlight",
+  "artist": "Teeklef",
+  "duration": 191,
+  "bpm": 113,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600359",
+  "publicSlug": "siuG0RytEF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK0C6D34PNC7Q5F6NNW50HYJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15360/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats",
+    "Amapiano",
+    "African Continent",
+    "Beats"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "9da52e70-6856-477e-a0f2-5a04a8689069",
+  "epidemicTrackId": 151100,
+  "sourceProvider": "EpidemicSound",
+  "title": "Enrolação",
+  "artist": "Luiz Murá",
+  "duration": 165,
+  "bpm": 172,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401056",
+  "publicSlug": "e6F4GrRkGG",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGSRVAPV7H92KRAZENE5Q9Z.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12512/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Bossa Nova",
+    "Brazil",
+    "Acoustic"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "brazil",
+    "warm",
+    "smooth",
+    "harmonic",
+    "soft",
+    "portuguese",
+    "lead vocals",
+    "male vocals"
+  ]
+}

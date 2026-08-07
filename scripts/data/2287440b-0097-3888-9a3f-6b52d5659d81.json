@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "2287440b-0097-3888-9a3f-6b52d5659d81",
+  "epidemicTrackId": 64590,
+  "sourceProvider": "EpidemicSound",
+  "title": "Hello Ramona",
+  "artist": "Chase McBride",
+  "duration": 226,
+  "bpm": 131,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51818732",
+  "publicSlug": "oepFkT4Lo6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK5HJTHAH6WCCR3VXSH0433Z.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/838/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Happy",
+    "Sunny Holiday"
+  ],
+  "tags": [
+    "cajon",
+    "lead vocals",
+    "beach",
+    "chill",
+    "romantic",
+    "smooth",
+    "male vocals",
+    "unplugged",
+    "warm",
+    "intimate"
+  ]
+}

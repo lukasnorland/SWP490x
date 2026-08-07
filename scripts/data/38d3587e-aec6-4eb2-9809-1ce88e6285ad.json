@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "38d3587e-aec6-4eb2-9809-1ce88e6285ad",
+  "epidemicTrackId": 107283,
+  "sourceProvider": "EpidemicSound",
+  "title": "Fish on Land (Clean Version)",
+  "artist": "Blood Red Sun",
+  "duration": 211,
+  "bpm": 132,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52100443",
+  "publicSlug": "K6UVYZQMAi",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEFQP0CPYYHYBJ9FZQD1FJW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6354/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Chasing",
+    "Eccentric"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "catchy",
+    "whistling",
+    "retro",
+    "driving",
+    "male vocals"
+  ]
+}

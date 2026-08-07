@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "bdf30c9c-46ef-4563-bea4-8a968e6e1415",
+  "epidemicTrackId": 283503,
+  "sourceProvider": "EpidemicSound",
+  "title": "Gemini",
+  "artist": "Nevin",
+  "duration": 205,
+  "bpm": 112,
+  "energyLevel": "variable",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600030",
+  "publicSlug": "o8OkyOZBjM",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK85VN13WJ8VN54F403KFF0F.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15603/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Neo-psychedelia",
+    "Shoegaze"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

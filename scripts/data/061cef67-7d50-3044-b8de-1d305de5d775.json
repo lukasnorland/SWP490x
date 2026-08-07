@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "061cef67-7d50-3044-b8de-1d305de5d775",
+  "epidemicTrackId": 63197,
+  "sourceProvider": "EpidemicSound",
+  "title": "Turn It Up",
+  "artist": "Mike Parr",
+  "duration": 200,
+  "bpm": 122,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51824816",
+  "publicSlug": "n4uBDS1vAN",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH12JX4TYH51XCB93FCVQ8Z.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "warm",
+    "laid back",
+    "female vocals",
+    "lead vocals",
+    "flirty",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "4e11d9db-e0c5-45cf-8c37-1c2a572fb644",
+  "epidemicTrackId": 141330,
+  "sourceProvider": "EpidemicSound",
+  "title": "Na Ah",
+  "artist": "Blood Red Sun",
+  "duration": 246,
+  "bpm": 121,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52104605",
+  "publicSlug": "eCN6vW0bPM",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGFCDGH2BJW2FN5SF76A82F.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8407/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Chillwave",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "indie rock",
+    "energetic",
+    "hopeful",
+    "laid back",
+    "falsetto",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

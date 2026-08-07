@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "b7648e9e-0995-48e7-898e-bb1d300d6ad7",
+  "epidemicTrackId": 146096,
+  "sourceProvider": "EpidemicSound",
+  "title": "Many Lies (Clean Version)",
+  "artist": "Iso Indies",
+  "duration": 138,
+  "bpm": 160,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300392",
+  "publicSlug": "X05SR4nAjP",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEB7SW0V8SQ0Y311WFA5S21.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10671/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop"
+  ],
+  "moods": [
+    "Angry",
+    "Restless"
+  ],
+  "tags": [
+    "dreamy",
+    "rap",
+    "powerful"
+  ]
+}

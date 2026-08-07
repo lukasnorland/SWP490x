@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "bd83c803-3bf1-4fe6-b053-1ee64f390d07",
+  "epidemicTrackId": 139544,
+  "sourceProvider": "EpidemicSound",
+  "title": "Oh Well",
+  "artist": "Niklas Gabrielsson with Martin Landström & His Orchestra",
+  "duration": 197,
+  "bpm": 72,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52102871",
+  "publicSlug": "xZV113nIyO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGZQ9BJ0H4FSQW8TN4MMAWQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7367/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Classical",
+    "Christmas"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "winter",
+    "orchestra",
+    "strings",
+    "bells",
+    "sentimental",
+    "hopeful",
+    "lead vocals",
+    "male vocals"
+  ]
+}

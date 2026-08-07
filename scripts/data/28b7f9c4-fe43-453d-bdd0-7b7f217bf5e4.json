@@ -1,0 +1,24 @@
+{
+  "externalSourceId": "28b7f9c4-fe43-453d-bdd0-7b7f217bf5e4",
+  "epidemicTrackId": 284631,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sakuno",
+  "artist": "Devina",
+  "duration": 240,
+  "bpm": 70,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52601105",
+  "publicSlug": "rk0BL5LfH8",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTK7D2AD7EZAPVCB9FTJ28GJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/16014/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Meditation"
+  ],
+  "moods": [
+    "Floating",
+    "Peaceful"
+  ],
+  "tags": []
+}

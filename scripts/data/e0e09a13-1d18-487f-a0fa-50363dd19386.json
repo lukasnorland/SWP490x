@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "e0e09a13-1d18-487f-a0fa-50363dd19386",
+  "epidemicTrackId": 276561,
+  "sourceProvider": "EpidemicSound",
+  "title": "Morenita",
+  "artist": "Ratchetón",
+  "duration": 138,
+  "bpm": 167,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501718",
+  "publicSlug": "ayKEHKIrho",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHHS4VFPF3P4W3FDCEF10RR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14563/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Cumbia Mexicana",
+    "Mexico"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "accordion",
+    "guiro",
+    "percussion",
+    "lead vocals",
+    "male vocals"
+  ]
+}

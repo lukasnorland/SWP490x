@@ -1,0 +1,24 @@
+{
+  "externalSourceId": "c2637606-e7b9-4e84-9abd-43bf8ee8a3cf",
+  "epidemicTrackId": 284316,
+  "sourceProvider": "EpidemicSound",
+  "title": "Well-Dressed Lie",
+  "artist": "Torii Wolf",
+  "duration": 183,
+  "bpm": 162,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600790",
+  "publicSlug": "8gWe0wACXN",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KMJR2WPFZBWFNV3D29GVFQ3X.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15717/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop"
+  ],
+  "moods": [
+    "Eccentric",
+    "Restless"
+  ],
+  "tags": []
+}

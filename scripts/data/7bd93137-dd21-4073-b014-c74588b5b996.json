@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "7bd93137-dd21-4073-b014-c74588b5b996",
+  "epidemicTrackId": 151684,
+  "sourceProvider": "EpidemicSound",
+  "title": "Guaya",
+  "artist": "Lawd Ito",
+  "duration": 159,
+  "bpm": 104,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52401640",
+  "publicSlug": "TADxRC7CfN",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEDYFAHHX8S9YR2DM2C3217.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12219/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Reggaeton",
+    "Puerto Rico"
+  ],
+  "moods": [
+    "Eccentric",
+    "Restless"
+  ],
+  "tags": [
+    "male vocals",
+    "dance",
+    "rhythm",
+    "rap",
+    "lead vocals"
+  ]
+}

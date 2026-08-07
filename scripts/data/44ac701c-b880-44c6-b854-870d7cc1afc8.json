@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "44ac701c-b880-44c6-b854-870d7cc1afc8",
+  "epidemicTrackId": 149337,
+  "sourceProvider": "EpidemicSound",
+  "title": "Droppin Buckets (Clean Version)",
+  "artist": "Nyck Caution",
+  "duration": 117,
+  "bpm": 80,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52304471",
+  "publicSlug": "KJ19q6hw7z",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGTA74RDGNWK61D9RHJWWK1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14583/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Epic",
+    "Restless"
+  ],
+  "tags": [
+    "rap",
+    "powerful",
+    "lead vocals",
+    "male vocals"
+  ]
+}

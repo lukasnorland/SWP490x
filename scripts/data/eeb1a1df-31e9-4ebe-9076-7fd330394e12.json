@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "eeb1a1df-31e9-4ebe-9076-7fd330394e12",
+  "epidemicTrackId": 283510,
+  "sourceProvider": "EpidemicSound",
+  "title": "Hidden Power",
+  "artist": "Adelyn Paik",
+  "duration": 156,
+  "bpm": 113,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600037",
+  "publicSlug": "Q1yE7pgG2u",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK2VRYQM16KMS89XDMG2B2W4.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15359/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "2020s",
+    "Korea",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Glamorous"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals"
+  ]
+}

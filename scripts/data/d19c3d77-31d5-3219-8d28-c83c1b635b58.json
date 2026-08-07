@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "d19c3d77-31d5-3219-8d28-c83c1b635b58",
+  "epidemicTrackId": 100363,
+  "sourceProvider": "EpidemicSound",
+  "title": "Get out of My Mind",
+  "artist": "BLAEKER",
+  "duration": 209,
+  "bpm": 107,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51901922",
+  "publicSlug": "CpuzIadIVV",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE60TTFMBHTDCW2H60BTKAM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3830/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats"
+  ],
+  "moods": [
+    "Sad",
+    "Laid Back"
+  ],
+  "tags": [
+    "romantic",
+    "lead vocals",
+    "male vocals",
+    "summer",
+    "tropical",
+    "marimba",
+    "afro pop"
+  ]
+}

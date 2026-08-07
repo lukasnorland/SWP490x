@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "3523d89d-a5c7-4f58-9256-4d83062f3f02",
+  "epidemicTrackId": 252952,
+  "sourceProvider": "EpidemicSound",
+  "title": "Placebo",
+  "artist": "Mimmi Bangoura",
+  "duration": 202,
+  "bpm": 72,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403944",
+  "publicSlug": "pkWNeMJbVB",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH3QDB0BP8AC5BRGKZSA9RV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13370/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Epic",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "love",
+    "heartbreak",
+    "drum kit",
+    "synth",
+    "eccentric",
+    "alt-pop",
+    "beautiful",
+    "synth bass",
+    "lead vocals",
+    "female vocals"
+  ]
+}

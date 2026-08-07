@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "a0dd032f-02cc-4e93-8a35-20c9ed4e9e55",
+  "epidemicTrackId": 105490,
+  "sourceProvider": "EpidemicSound",
+  "title": "Tennessee RailRoad Blues",
+  "artist": "Bo the Drifter",
+  "duration": 191,
+  "bpm": 2,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002895",
+  "publicSlug": "HnAz806yBs",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH82G5BRG940RTT623N7Y4N.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5489/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Classic Blues"
+  ],
+  "moods": [
+    "Happy",
+    "Marching"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "countryside",
+    "rural"
+  ]
+}

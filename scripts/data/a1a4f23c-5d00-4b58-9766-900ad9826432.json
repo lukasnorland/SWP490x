@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "a1a4f23c-5d00-4b58-9766-900ad9826432",
+  "epidemicTrackId": 147000,
+  "sourceProvider": "EpidemicSound",
+  "title": "You Are Jesus",
+  "artist": "JOYSPRING",
+  "duration": 291,
+  "bpm": 54,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301296",
+  "publicSlug": "uJ2P4ULY7c",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFC7GX2PGT7C6H1EXQBMS4Q.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10162/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "acoustic",
+    "dreamy",
+    "laid back",
+    "christian",
+    "lead vocals",
+    "male vocals"
+  ]
+}

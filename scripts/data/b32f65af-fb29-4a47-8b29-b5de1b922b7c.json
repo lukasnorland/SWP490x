@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "b32f65af-fb29-4a47-8b29-b5de1b922b7c",
+  "epidemicTrackId": 276201,
+  "sourceProvider": "EpidemicSound",
+  "title": "General Cadences (Clean Version)",
+  "artist": "Katori Walker",
+  "duration": 193,
+  "bpm": 160,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501358",
+  "publicSlug": "oeMsxBrv7T",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJBMPAPMCETJMYB9AX3V0V7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14783/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "West Coast Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "powerful"
+  ]
+}

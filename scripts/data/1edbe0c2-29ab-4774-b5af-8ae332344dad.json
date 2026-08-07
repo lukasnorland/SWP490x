@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "1edbe0c2-29ab-4774-b5af-8ae332344dad",
+  "epidemicTrackId": 277024,
+  "sourceProvider": "EpidemicSound",
+  "title": "Divine",
+  "artist": "Janset",
+  "duration": 193,
+  "bpm": 150,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502188",
+  "publicSlug": "a9g1NNaJB9",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ67YBED9B5X9YC689C0RBP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15307/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Hip Hop",
+    "Contemporary R&B"
+  ],
+  "moods": [
+    "Dreamy",
+    "Eccentric"
+  ],
+  "tags": [
+    "smooth",
+    "lead vocals",
+    "female vocals"
+  ]
+}

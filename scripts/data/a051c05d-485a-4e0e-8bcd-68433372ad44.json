@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "a051c05d-485a-4e0e-8bcd-68433372ad44",
+  "epidemicTrackId": 142443,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Code (Clean Version)",
+  "artist": "Tilden Parc",
+  "duration": 186,
+  "bpm": 137,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201057",
+  "publicSlug": "Y80aUqspbB",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEHM3ZQAYGTREDWJTSJ8KD0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9654/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Laid Back",
+    "Restless"
+  ],
+  "tags": [
+    "dark",
+    "eccentric",
+    "rap",
+    "heavy bass",
+    "tense"
+  ]
+}

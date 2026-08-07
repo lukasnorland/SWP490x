@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "fbc7551f-6ff1-4a73-b69e-fcb42a3ff057",
+  "epidemicTrackId": 139463,
+  "sourceProvider": "EpidemicSound",
+  "title": "You're the Only One for Me",
+  "artist": "Gloria Tells",
+  "duration": 217,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52102790",
+  "publicSlug": "7xL73hDMck",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE438KBD0BE6AA0ZBYEM6HM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7310/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Funk",
+    "1970s"
+  ],
+  "moods": [
+    "Eccentric",
+    "Laid Back"
+  ],
+  "tags": [
+    "quirky",
+    "70s",
+    "nu funk",
+    "guitar",
+    "energetic",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

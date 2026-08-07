@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "884c839d-fa7d-47d4-9098-7fac0160e674",
+  "epidemicTrackId": 252990,
+  "sourceProvider": "EpidemicSound",
+  "title": "Just Be You",
+  "artist": "First Timer",
+  "duration": 198,
+  "bpm": 109,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52403993",
+  "publicSlug": "zITDMmaFKp",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF1RNB9FX43402WHTFG4NNZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13438/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "distortion",
+    "electric guitar",
+    "drum kit",
+    "male vocals",
+    "lead vocals"
+  ]
+}

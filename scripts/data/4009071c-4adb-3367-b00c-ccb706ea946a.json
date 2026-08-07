@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "4009071c-4adb-3367-b00c-ccb706ea946a",
+  "epidemicTrackId": 101788,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Don't Know How They Know My Name",
+  "artist": "Of Men And Wolves",
+  "duration": 244,
+  "bpm": 77,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51903344",
+  "publicSlug": "veU1k2SCOi",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH0AYVSTS96DTKX7C798RV0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4235/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hard Rock"
+  ],
+  "moods": [
+    "Dark",
+    "Mysterious"
+  ],
+  "tags": [
+    "epic",
+    "driving",
+    "male vocals",
+    "lead vocals"
+  ]
+}

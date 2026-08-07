@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "edd85972-f65c-39f3-a598-115153d5de38",
+  "epidemicTrackId": 30159,
+  "sourceProvider": "EpidemicSound",
+  "title": "First Kiss",
+  "artist": "Mondays",
+  "duration": 222,
+  "bpm": 122,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51700871",
+  "publicSlug": "sCDYWLL3EE",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHX3B11Q00MWMVSWDTRW0Y1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/183/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Running"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "rap",
+    "driving",
+    "teens",
+    "youth",
+    "tutorial",
+    "love",
+    "crush",
+    "male vocals"
+  ]
+}

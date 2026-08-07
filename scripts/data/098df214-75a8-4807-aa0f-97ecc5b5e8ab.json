@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "098df214-75a8-4807-aa0f-97ecc5b5e8ab",
+  "epidemicTrackId": 142730,
+  "sourceProvider": "EpidemicSound",
+  "title": "Shitty Train",
+  "artist": "Of Men And Wolves",
+  "duration": 176,
+  "bpm": 150,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201344",
+  "publicSlug": "XJ3UYxE3Gp",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEBX7G17J37EE3E1QTHRR8Q.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8961/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Punk",
+    "Pop Punk"
+  ],
+  "moods": [
+    "Eccentric",
+    "Restless"
+  ],
+  "tags": [
+    "attitude",
+    "cocky",
+    "garage punk",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

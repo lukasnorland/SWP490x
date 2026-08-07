@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "cad7d0f9-b65b-4049-988f-422b05142e28",
+  "epidemicTrackId": 147672,
+  "sourceProvider": "EpidemicSound",
+  "title": "Rafiki",
+  "artist": "Ebo Krdum",
+  "duration": 208,
+  "bpm": 165,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301968",
+  "publicSlug": "En7Iz8dAUM",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGRVRNQX46D2PHJY484DHV9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10766/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "African Blues",
+    "African Continent"
+  ],
+  "moods": [
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "fc7543fd-a3fa-431a-9d8e-e7a5281eda55",
+  "epidemicTrackId": 250229,
+  "sourceProvider": "EpidemicSound",
+  "title": "Good Day",
+  "artist": "Siine",
+  "duration": 206,
+  "bpm": 150,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402949",
+  "publicSlug": "Pz7RMBVP5C",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFTDH7AMK4YJHM6T2VMJ06C.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12948/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hands Up",
+    "Eurodance"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "male vocals",
+    "duet",
+    "electric guitar",
+    "guitar",
+    "distortion",
+    "dance",
+    "high tempo",
+    "upbeat",
+    "hopeful",
+    "feel good",
+    "lead vocals"
+  ]
+}

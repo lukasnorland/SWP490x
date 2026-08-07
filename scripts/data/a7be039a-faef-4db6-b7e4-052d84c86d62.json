@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "a7be039a-faef-4db6-b7e4-052d84c86d62",
+  "epidemicTrackId": 249755,
+  "sourceProvider": "EpidemicSound",
+  "title": "Paris (Clean Version)",
+  "artist": "Baha Bank$",
+  "duration": 91,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402475",
+  "publicSlug": "5n406kJcQw",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEAYAQ5R3PJMFASPSWBA9R5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12933/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "rap",
+    "lead vocals",
+    "female vocals",
+    "female rapper",
+    "smooth"
+  ]
+}

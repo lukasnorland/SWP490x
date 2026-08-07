@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "af83883b-7b7f-4727-bb9d-07b2d11688de",
+  "epidemicTrackId": 151002,
+  "sourceProvider": "EpidemicSound",
+  "title": "Con Todo",
+  "artist": "Alcónes Negros",
+  "duration": 175,
+  "bpm": 170,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400958",
+  "publicSlug": "VXZazeKoTk",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMX9QBH17AJJP2WZZ654SD.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12031/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Regional Mexicano",
+    "Mariachi",
+    "Mexico"
+  ],
+  "moods": [
+    "Hopeful",
+    "Glamorous"
+  ],
+  "tags": [
+    "male vocals",
+    "vihuela",
+    "guitar",
+    "percussion",
+    "lead vocals"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "a5e7cd95-7973-4626-9219-a528087b0f79",
+  "epidemicTrackId": 140170,
+  "sourceProvider": "EpidemicSound",
+  "title": "Holy Holy Holy",
+  "artist": "JOYSPRING",
+  "duration": 388,
+  "bpm": 93,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52103445",
+  "publicSlug": "OgjOjVS7cV",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH3B6CZW7JJJ6WYYBE1TG6D.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7548/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "religion",
+    "christian",
+    "romantic",
+    "sentimental",
+    "indie",
+    "lead vocals",
+    "male vocals"
+  ]
+}

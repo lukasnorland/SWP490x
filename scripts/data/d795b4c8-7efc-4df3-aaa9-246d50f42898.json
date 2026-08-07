@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "d795b4c8-7efc-4df3-aaa9-246d50f42898",
+  "epidemicTrackId": 146666,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Turn",
+  "artist": "Martin Hall",
+  "duration": 176,
+  "bpm": 148,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300962",
+  "publicSlug": "xNAE0fpldW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEBRJ5NB3BDBGVKDS8DDVKX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10805/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "contemplative",
+    "empowering",
+    "bittersweet",
+    "lead vocals",
+    "male vocals"
+  ]
+}

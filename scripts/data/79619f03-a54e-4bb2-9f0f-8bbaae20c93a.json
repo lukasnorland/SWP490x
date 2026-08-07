@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "79619f03-a54e-4bb2-9f0f-8bbaae20c93a",
+  "epidemicTrackId": 105478,
+  "sourceProvider": "EpidemicSound",
+  "title": "Slum Village",
+  "artist": "Tilden Parc",
+  "duration": 166,
+  "bpm": 148,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52002883",
+  "publicSlug": "FKYVlOXV8Q",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMPPRR4FCZ1ZFGXXKXB5KB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5922/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "rap",
+    "electronic",
+    "laid back"
+  ]
+}

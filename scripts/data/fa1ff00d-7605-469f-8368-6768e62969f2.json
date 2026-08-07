@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "fa1ff00d-7605-469f-8368-6768e62969f2",
+  "epidemicTrackId": 99570,
+  "sourceProvider": "EpidemicSound",
+  "title": "Byrd",
+  "artist": "HDBeenDope",
+  "duration": 129,
+  "bpm": 133,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q51901035",
+  "publicSlug": "M4wPt5E0QL",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQZKT8BW3ND9G9F8FD9MKH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Angry",
+    "Eccentric"
+  ],
+  "tags": [
+    "electronic mayhem",
+    "vocals",
+    "distortion",
+    "heavy drums",
+    "strings",
+    "ism",
+    "lyrics",
+    "lead vocals",
+    "male vocals",
+    "rap",
+    "usa",
+    "electronic"
+  ]
+}

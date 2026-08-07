@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "612ca1a1-89fb-49e1-a8cb-c8dc12d0d63d",
+  "epidemicTrackId": 283103,
+  "sourceProvider": "EpidemicSound",
+  "title": "Step into the Rising Sun",
+  "artist": "Roy Williams, Francie",
+  "duration": 188,
+  "bpm": 104,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503243",
+  "publicSlug": "ys8BP8E1tO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE39ZP8FZ5S84EJJKJKSNKS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15486/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Psychedelic Rock"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "bossa nova",
+    "lead vocals",
+    "female vocals"
+  ]
+}

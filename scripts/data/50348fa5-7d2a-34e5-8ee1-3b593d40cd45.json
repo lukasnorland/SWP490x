@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "50348fa5-7d2a-34e5-8ee1-3b593d40cd45",
+  "epidemicTrackId": 100479,
+  "sourceProvider": "EpidemicSound",
+  "title": "Like an Idiot",
+  "artist": "Sven Karlsson",
+  "duration": 205,
+  "bpm": 125,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51902037",
+  "publicSlug": "YFU7zQhbOS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFCBRYNT84N62HP0BQ02YP9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3752/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "2010s"
+  ],
+  "moods": [
+    "Hopeful"
+  ],
+  "tags": [
+    "distortion",
+    "guitar",
+    "hopeful",
+    "driving",
+    "male vocals",
+    "lead vocals"
+  ]
+}

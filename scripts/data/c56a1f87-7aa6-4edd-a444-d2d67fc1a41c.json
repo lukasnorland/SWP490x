@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "c56a1f87-7aa6-4edd-a444-d2d67fc1a41c",
+  "epidemicTrackId": 283549,
+  "sourceProvider": "EpidemicSound",
+  "title": "I'm Gonna Get Through Monday",
+  "artist": "Staffan Carlén",
+  "duration": 204,
+  "bpm": 140,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600075",
+  "publicSlug": "k6ftDc9lJa",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK4YZKEPMCJFH29CNZ7E2CP3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15502/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

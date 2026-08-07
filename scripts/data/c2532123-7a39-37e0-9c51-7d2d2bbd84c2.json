@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "c2532123-7a39-37e0-9c51-7d2d2bbd84c2",
+  "epidemicTrackId": 59209,
+  "sourceProvider": "EpidemicSound",
+  "title": "Burst And Pop",
+  "artist": "Mondays",
+  "duration": 162,
+  "bpm": 90,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51700872",
+  "publicSlug": "GeT2BYAuf6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFDZ6WE9A2S0MK7AEN3YF8N.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/183/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Running"
+  ],
+  "tags": [
+    "hit",
+    "driving",
+    "youth",
+    "teens",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "e0c50f4c-344e-403a-9642-281a96af9d04",
+  "epidemicTrackId": 283873,
+  "sourceProvider": "EpidemicSound",
+  "title": "ON THE RUN",
+  "artist": "Oakside",
+  "duration": 179,
+  "bpm": 130,
+  "energyLevel": "variable",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600401",
+  "publicSlug": "cFRWqQWA2E",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KKXGNQRGECG6YDY8X2F682SS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15540/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Tech House"
+  ],
+  "moods": [
+    "Dark",
+    "Suspense"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

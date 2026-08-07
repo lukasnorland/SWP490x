@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "f18fccfd-b758-4d72-af8f-e7b6b758c18e",
+  "epidemicTrackId": 141673,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Feel Good, Uh",
+  "artist": "Gloria Tells",
+  "duration": 182,
+  "bpm": 124,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200287",
+  "publicSlug": "DZq7d8UB0D",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFF8BPPY1GSWXEQR1AW72M8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8557/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Deep House"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "energetic",
+    "uplifting",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

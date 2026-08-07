@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "201c83eb-c513-40af-ace5-1e46ef537836",
+  "epidemicTrackId": 249465,
+  "sourceProvider": "EpidemicSound",
+  "title": "Life",
+  "artist": "Northside",
+  "duration": 207,
+  "bpm": 108,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402185",
+  "publicSlug": "Yq0dDEKk0J",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJPTAMA5DXZRCH1QKN2FVBT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12968/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Country Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "romantic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

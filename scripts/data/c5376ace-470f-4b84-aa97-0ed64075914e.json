@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "c5376ace-470f-4b84-aa97-0ed64075914e",
+  "epidemicTrackId": 284194,
+  "sourceProvider": "EpidemicSound",
+  "title": "What Do You Mean",
+  "artist": "SRA",
+  "duration": 149,
+  "bpm": 104,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600668",
+  "publicSlug": "dZGVyxxZVg",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KKEPBXTCJV6AYGSRWPQ6Q556.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15804/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea",
+    "Beats"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

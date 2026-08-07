@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "d13dd0ee-f604-468d-bebb-1825706bc11e",
+  "epidemicTrackId": 283100,
+  "sourceProvider": "EpidemicSound",
+  "title": "Hey, Little Dandelion",
+  "artist": "Mattias Tell",
+  "duration": 199,
+  "bpm": 76,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503240",
+  "publicSlug": "YbsIySVA4L",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KYHV7GJNFNAVH3J4XPW6WNA0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15110/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Restless",
+    "Sentimental"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

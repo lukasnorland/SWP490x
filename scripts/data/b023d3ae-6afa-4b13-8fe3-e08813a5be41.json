@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "b023d3ae-6afa-4b13-8fe3-e08813a5be41",
+  "epidemicTrackId": 106624,
+  "sourceProvider": "EpidemicSound",
+  "title": "A Wanderer",
+  "artist": "Peter Crosby",
+  "duration": 187,
+  "bpm": 78,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52004029",
+  "publicSlug": "uSlARD95IL",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQJHKT3GPWSC9Z7RAH92A6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5794/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Folk",
+    "Acoustic"
+  ],
+  "moods": [
+    "Sad",
+    "Dark"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "walking",
+    "sentimental"
+  ]
+}

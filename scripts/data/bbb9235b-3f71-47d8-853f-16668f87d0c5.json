@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "bbb9235b-3f71-47d8-853f-16668f87d0c5",
+  "epidemicTrackId": 253714,
+  "sourceProvider": "EpidemicSound",
+  "title": "Come Out Tonight",
+  "artist": "Vicki Vox",
+  "duration": 150,
+  "bpm": 150,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500368",
+  "publicSlug": "ByZgnFWsuO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF8ZY8HNR89GYFR49SP1BWS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13712/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Happy",
+    "Romantic"
+  ],
+  "tags": [
+    "love",
+    "upbeat",
+    "energetic",
+    "feel good",
+    "lead vocals",
+    "female vocals"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "b1e52337-d8b8-4549-a0b9-c05256b33169",
+  "epidemicTrackId": 276353,
+  "sourceProvider": "EpidemicSound",
+  "title": "Blackout Blues",
+  "artist": "Flux Vortex",
+  "duration": 160,
+  "bpm": 136,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501510",
+  "publicSlug": "Uw9VZCDZ8t",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ4ZD6GAXFV6VNPJ4E0TS3N.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14388/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "feel good",
+    "exciting",
+    "lead vocals",
+    "female vocals"
+  ]
+}

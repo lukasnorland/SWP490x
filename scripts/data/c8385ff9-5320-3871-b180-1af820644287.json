@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "c8385ff9-5320-3871-b180-1af820644287",
+  "epidemicTrackId": 101911,
+  "sourceProvider": "EpidemicSound",
+  "title": "Te Extrano",
+  "artist": "Gamma Skies",
+  "duration": 177,
+  "bpm": 186,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51903469",
+  "publicSlug": "smXfPYYHFg",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ4EZZ0HG3DQ7ZK96WK4JWY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4259/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Latin",
+    "Reggaeton"
+  ],
+  "moods": [
+    "Epic",
+    "Sexy"
+  ],
+  "tags": [
+    "pop",
+    "female vocals",
+    "lead vocals",
+    "cool",
+    "sensual",
+    "epic",
+    "sexy",
+    "reggaeton",
+    "male vocals"
+  ]
+}

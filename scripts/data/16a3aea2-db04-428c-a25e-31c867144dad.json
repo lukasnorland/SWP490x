@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "16a3aea2-db04-428c-a25e-31c867144dad",
+  "epidemicTrackId": 148805,
+  "sourceProvider": "EpidemicSound",
+  "title": "Cuando Baja el Sol",
+  "artist": "Alcónes Negros",
+  "duration": 220,
+  "bpm": 140,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52303101",
+  "publicSlug": "Fg3ii5vPu3",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGZQ9FB6C4NA7JT9EWJSNFV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10994/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Latin",
+    "Mexico"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "Son Jarocho",
+    "hopeful",
+    "guitar",
+    "harp",
+    "trumpet",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "1adf9c92-1368-4360-8b0a-95d17e289852",
+  "epidemicTrackId": 254277,
+  "sourceProvider": "EpidemicSound",
+  "title": "All I Know",
+  "artist": "Loving Caliber",
+  "duration": 190,
+  "bpm": 102,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52500931",
+  "publicSlug": "UrecDFSWJp",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGN4BKV4E0E99298ESFA0V5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14028/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "lead vocals",
+    "female vocals"
+  ]
+}

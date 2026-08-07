@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "1d643ee9-543f-422f-870a-50cea5994a05",
+  "epidemicTrackId": 254087,
+  "sourceProvider": "EpidemicSound",
+  "title": "Good Girls",
+  "artist": "Zorro",
+  "duration": 179,
+  "bpm": 135,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500741",
+  "publicSlug": "xWzEpM9gsS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFW9158465RDT469S55ZHJW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13910/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Indie Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "upbeat",
+    "lead vocals",
+    "female vocals"
+  ]
+}

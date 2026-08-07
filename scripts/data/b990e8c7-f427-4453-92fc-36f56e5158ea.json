@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "b990e8c7-f427-4453-92fc-36f56e5158ea",
+  "epidemicTrackId": 283347,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sucker Punch",
+  "artist": "Flux Vortex",
+  "duration": 207,
+  "bpm": 122,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52503487",
+  "publicSlug": "y8b6eCEPDO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK5JEMCG0KZDN16BZXGD8K4G.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15481/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop"
+  ],
+  "moods": [
+    "Sad",
+    "Laid Back"
+  ],
+  "tags": [
+    "bossa beat",
+    "lead vocals",
+    "female vocals"
+  ]
+}

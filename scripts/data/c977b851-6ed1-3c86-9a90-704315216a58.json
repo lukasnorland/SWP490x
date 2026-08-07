@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "c977b851-6ed1-3c86-9a90-704315216a58",
+  "epidemicTrackId": 97947,
+  "sourceProvider": "EpidemicSound",
+  "title": "Pieces Of My Heart",
+  "artist": "Bothnia",
+  "duration": 202,
+  "bpm": 85,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51827646",
+  "publicSlug": "3iVMbqGpZL",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFZWQN4AQYJZB963T85Q8RS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3687/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Sad",
+    "Dark"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "driving",
+    "howling",
+    "sentimental",
+    "emotional"
+  ]
+}

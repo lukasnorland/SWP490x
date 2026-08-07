@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "f4980221-b000-37f1-8e07-9c33bd7af70d",
+  "epidemicTrackId": 97244,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Can't Wait No More",
+  "artist": "Wellmess",
+  "duration": 256,
+  "bpm": 152,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51807704",
+  "publicSlug": "SFMVUrUxus",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ2JQ0KCM3YAP868Z2XQF9P.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/901/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "2000s",
+    "1990s"
+  ],
+  "moods": [
+    "Sad",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "driving",
+    "eccentric",
+    "uplifting",
+    "running",
+    "drums"
+  ]
+}

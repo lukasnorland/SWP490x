@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "eb291d51-5610-49fe-8c8b-dee3a6dec275",
+  "epidemicTrackId": 148801,
+  "sourceProvider": "EpidemicSound",
+  "title": "Nuevamente",
+  "artist": "Nico Rengifo",
+  "duration": 156,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52303097",
+  "publicSlug": "rQI80uDOwN",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGWFR7JYB7Q3D9DNWA64C4Z.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11731/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Reggaeton"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "puerto rico",
+    "sexy",
+    "lead vocals",
+    "male vocals"
+  ]
+}

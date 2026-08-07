@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "da98f06d-ec39-496b-889b-674b9a868e35",
+  "epidemicTrackId": 282881,
+  "sourceProvider": "EpidemicSound",
+  "title": "Summer Past",
+  "artist": "Roy Williams, Preston Lovinggood",
+  "duration": 233,
+  "bpm": 136,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503021",
+  "publicSlug": "f7aSRJbipP",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEPF3Z65K62DZWZNG9CJ20T.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15051/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Singer-songwriter",
+    "Nostalgia",
+    "Cinematic"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "violin",
+    "electric guitar",
+    "lead vocals",
+    "male vocals"
+  ]
+}

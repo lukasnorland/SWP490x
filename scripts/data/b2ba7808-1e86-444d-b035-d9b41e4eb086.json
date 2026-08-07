@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "b2ba7808-1e86-444d-b035-d9b41e4eb086",
+  "epidemicTrackId": 142184,
+  "sourceProvider": "EpidemicSound",
+  "title": "Pressure Lover",
+  "artist": "Blood Red Sun",
+  "duration": 333,
+  "bpm": 118,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200798",
+  "publicSlug": "3FCYgOctoJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGERFWWW5CCQNG9BMW4ZW4E.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8407/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Chillwave",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "chillwave",
+    "floating",
+    "vintage",
+    "slow",
+    "atmospheric",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

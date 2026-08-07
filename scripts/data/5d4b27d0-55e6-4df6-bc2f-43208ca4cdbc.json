@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "5d4b27d0-55e6-4df6-bc2f-43208ca4cdbc",
+  "epidemicTrackId": 103334,
+  "sourceProvider": "EpidemicSound",
+  "title": "We Could Have a Good Time",
+  "artist": "Russell Vista",
+  "duration": 210,
+  "bpm": 119,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000744",
+  "publicSlug": "V3vmQG3r09",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG3MWSQGJRXM25XKSYMAA09.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4821/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Funk"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "groovy",
+    "funky",
+    "driving"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "58bf9956-0621-474b-8c43-309e53d61230",
+  "epidemicTrackId": 100230,
+  "sourceProvider": "EpidemicSound",
+  "title": "BYRD (Ooyy Remix)",
+  "artist": "Ooyy",
+  "duration": 175,
+  "bpm": 133,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51901785",
+  "publicSlug": "WOfBqoQGX1",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHVYBWESAJQ7V35BASD01YH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance"
+  ],
+  "moods": [
+    "Hopeful",
+    "Running"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "lyrics",
+    "rap",
+    "driving",
+    "electronic",
+    "hip hop",
+    "trap",
+    "beats"
+  ]
+}

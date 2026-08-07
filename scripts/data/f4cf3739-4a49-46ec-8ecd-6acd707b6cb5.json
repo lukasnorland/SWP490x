@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "f4cf3739-4a49-46ec-8ecd-6acd707b6cb5",
+  "epidemicTrackId": 138286,
+  "sourceProvider": "EpidemicSound",
+  "title": "Faithful Faithful",
+  "artist": "JOYSPRING",
+  "duration": 270,
+  "bpm": 72,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52101675",
+  "publicSlug": "tgMDpHabwJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHTNWMEN5MT61X7XT0JJ75R.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6794/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian"
+  ],
+  "moods": [
+    "Relaxing",
+    "Hopeful"
+  ],
+  "tags": [
+    "faith",
+    "comforting",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

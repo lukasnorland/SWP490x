@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "9f9a39fc-0f87-3a62-954a-00f01f16a2b9",
+  "epidemicTrackId": 59275,
+  "sourceProvider": "EpidemicSound",
+  "title": "One of These Days",
+  "artist": "Duplex Heart",
+  "duration": 258,
+  "bpm": 126,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51804834",
+  "publicSlug": "rBCYb3iSPr",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE71EPDYNYHT69MG0B209VN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2334/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Euphoric",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals",
+    "running",
+    "driving",
+    "transition",
+    "synths",
+    "male vocals"
+  ]
+}

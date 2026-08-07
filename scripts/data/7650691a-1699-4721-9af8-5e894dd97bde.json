@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "7650691a-1699-4721-9af8-5e894dd97bde",
+  "epidemicTrackId": 252170,
+  "sourceProvider": "EpidemicSound",
+  "title": "Always by Your Side",
+  "artist": "House Of Say",
+  "duration": 299,
+  "bpm": 125,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403199",
+  "publicSlug": "W6MWBJ6VVd",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGGZ370TN32E3RNMS36S9ZH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13006/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance-pop"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "female vocals",
+    "feel good",
+    "upbeat",
+    "drum kit",
+    "energetic",
+    "bass",
+    "groove",
+    "lead vocals"
+  ]
+}

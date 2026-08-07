@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "db130328-7c58-49b9-8487-8d8e26a5c230",
+  "epidemicTrackId": 142228,
+  "sourceProvider": "EpidemicSound",
+  "title": "Link Your Arms",
+  "artist": "Adelyn Paik",
+  "duration": 244,
+  "bpm": 72,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200842",
+  "publicSlug": "qqm6xDvUvO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE2XGQEHQ4NF42D84NY6EHX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8188/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "laid back",
+    "romantic",
+    "korean",
+    "pop",
+    "piano",
+    "electric organ",
+    "lead vocals",
+    "heart 17",
+    "heart17",
+    "male vocals"
+  ]
+}

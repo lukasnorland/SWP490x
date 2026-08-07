@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "91e435a3-3e76-4dfb-9746-6acdd57c37e3",
+  "epidemicTrackId": 146926,
+  "sourceProvider": "EpidemicSound",
+  "title": "WHY (Tell Me)",
+  "artist": "SRA",
+  "duration": 185,
+  "bpm": 96,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301222",
+  "publicSlug": "1Sq7kMFYdC",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMCH9YH6NFH8EN5X3JAZ2G.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10205/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "korean",
+    "laid back",
+    "pop",
+    "upbeat",
+    "말해줘",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "cf412f7a-fd31-402b-99ca-1ce4a9cdaa94",
+  "epidemicTrackId": 276549,
+  "sourceProvider": "EpidemicSound",
+  "title": "Better Get to Running",
+  "artist": "Bankston",
+  "duration": 195,
+  "bpm": 155,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501706",
+  "publicSlug": "2a5idV2Sda",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG9ZHEMZ5R7CJWP68WZW32V.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14438/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop Punk",
+    "Pop Rock"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "energetic",
+    "upbeat",
+    "lead vocals",
+    "male vocals"
+  ]
+}

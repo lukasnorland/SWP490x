@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "5bf3c650-19a4-471a-922d-17168a17d13b",
+  "epidemicTrackId": 284563,
+  "sourceProvider": "EpidemicSound",
+  "title": "T.I.D",
+  "artist": "Kouba",
+  "duration": 170,
+  "bpm": 143,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52601036",
+  "publicSlug": "wBKF3dlhH9",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KR3DSGSWAK2F67S0R2WBTR7D.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15995/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "UK Garage",
+    "2-step",
+    "Britain",
+    "Beats"
+  ],
+  "moods": [
+    "Romantic",
+    "Restless",
+    "Smooth"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

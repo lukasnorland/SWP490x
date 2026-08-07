@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "5a9ac5b3-5234-4d27-830c-dcdc8df93478",
+  "epidemicTrackId": 144479,
+  "sourceProvider": "EpidemicSound",
+  "title": "Beautiful Nightmares Pt. 1",
+  "artist": "Adelyn Paik",
+  "duration": 186,
+  "bpm": 96,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203089",
+  "publicSlug": "UKv6vkM93j",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHETQSM729K0DE1572AG3ME.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9824/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "upbeat",
+    "korean",
+    "energetic",
+    "powerful",
+    "laid back",
+    "keyboard",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

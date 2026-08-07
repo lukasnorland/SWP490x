@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "05dbaa86-eb0f-40d2-ba2f-3c459ef43510",
+  "epidemicTrackId": 284066,
+  "sourceProvider": "EpidemicSound",
+  "title": "Ice Man",
+  "artist": "Roy Williams, Francie",
+  "duration": 177,
+  "bpm": 120,
+  "energyLevel": "variable",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600540",
+  "publicSlug": "UDSq4Ddyfg",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK1VES6HZ2DQY0HYBQ5MS3BC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15476/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Psychedelic Folk",
+    "1970s"
+  ],
+  "moods": [
+    "Laid Back",
+    "Smooth"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

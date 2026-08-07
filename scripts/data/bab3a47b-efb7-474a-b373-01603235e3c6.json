@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "bab3a47b-efb7-474a-b373-01603235e3c6",
+  "epidemicTrackId": 150208,
+  "sourceProvider": "EpidemicSound",
+  "title": "El Señorito",
+  "artist": "Cumbia Connection",
+  "duration": 149,
+  "bpm": 140,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400164",
+  "publicSlug": "6VbAeXiRN2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG44GBS5C7CP7VYBRB836P6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11991/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Cumbia",
+    "South America"
+  ],
+  "moods": [
+    "Happy",
+    "Euphoric"
+  ],
+  "tags": [
+    "traveling",
+    "south america",
+    "documentary",
+    "discovery",
+    "lead vocals",
+    "male vocals"
+  ]
+}

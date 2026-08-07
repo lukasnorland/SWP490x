@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "7b999b3c-f21a-48aa-a951-d81f166d667b",
+  "epidemicTrackId": 140199,
+  "sourceProvider": "EpidemicSound",
+  "title": "So Long Oklahoma",
+  "artist": "Roy Williams",
+  "duration": 180,
+  "bpm": 157,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52103474",
+  "publicSlug": "wpBb4bIaH6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJMKD52C92EHASYSZQYS5MC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7893/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Americana",
+    "Roots Rock"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "organ",
+    "guitar",
+    "energetic",
+    "uplifting",
+    "upbeat",
+    "americana",
+    "lead vocals",
+    "male vocals"
+  ]
+}

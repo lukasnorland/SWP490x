@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "3d1fa009-9877-4e5a-85a5-319c3bb68096",
+  "epidemicTrackId": 253891,
+  "sourceProvider": "EpidemicSound",
+  "title": "Do It",
+  "artist": "Baha Bank$",
+  "duration": 195,
+  "bpm": 103,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52500545",
+  "publicSlug": "hZD9nDnODW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTECWK9WMMZK77WKPRR8T76B.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14229/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "West Coast Hip Hop",
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "powerful",
+    "tense"
+  ]
+}

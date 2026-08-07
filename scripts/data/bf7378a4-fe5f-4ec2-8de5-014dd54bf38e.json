@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "bf7378a4-fe5f-4ec2-8de5-014dd54bf38e",
+  "epidemicTrackId": 277400,
+  "sourceProvider": "EpidemicSound",
+  "title": "Oxygen Rap (Clean Version)",
+  "artist": "Loreana",
+  "duration": 151,
+  "bpm": 178,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502563",
+  "publicSlug": "hqemKP9MfO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEM4QH7PG6M94TXR6G7S5V4.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15050/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "piano",
+    "latin",
+    "dark"
+  ]
+}

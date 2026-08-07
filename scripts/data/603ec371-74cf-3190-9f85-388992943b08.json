@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "603ec371-74cf-3190-9f85-388992943b08",
+  "epidemicTrackId": 102048,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Despise",
+  "artist": "No Sons of Mine",
+  "duration": 198,
+  "bpm": 200,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51903603",
+  "publicSlug": "QoFIgOdw45",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH7Y2ZYK0392JJ7084ASE4G.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4350/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Metal"
+  ],
+  "moods": [
+    "Angry",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "driving",
+    "trash metal",
+    "speed metal",
+    "male vocals",
+    "lead vocals",
+    "growling"
+  ]
+}

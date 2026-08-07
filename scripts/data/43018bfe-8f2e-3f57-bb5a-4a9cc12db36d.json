@@ -1,0 +1,40 @@
+{
+  "externalSourceId": "43018bfe-8f2e-3f57-bb5a-4a9cc12db36d",
+  "epidemicTrackId": 62236,
+  "sourceProvider": "EpidemicSound",
+  "title": "Faster Car",
+  "artist": "Loving Caliber",
+  "duration": 227,
+  "bpm": 132,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51700756",
+  "publicSlug": "V5ayFRhfM6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEBAQT4CAN4Y2RCP99MVASC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/136/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Indie Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "catchy",
+    "choir",
+    "cool",
+    "acoustic",
+    "guitar",
+    "smooth",
+    "hand claps",
+    "male vocals",
+    "lead vocals",
+    "driving",
+    "escaping",
+    "transition",
+    "restless"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "913fe6e5-2965-4b24-b0c2-5e3214b45457",
+  "epidemicTrackId": 253396,
+  "sourceProvider": "EpidemicSound",
+  "title": "Set for Life",
+  "artist": "AFTR",
+  "duration": 200,
+  "bpm": 158,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500052",
+  "publicSlug": "ePfHNTvGFJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH7KJFXV9ZPW4VYVBSVQA4M.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13493/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Gospel"
+  ],
+  "moods": [
+    "Hopeful",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "powerful",
+    "love",
+    "faith",
+    "drum kit",
+    "choir",
+    "belting",
+    "lead vocals",
+    "female vocals"
+  ]
+}

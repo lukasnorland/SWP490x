@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "9afb23b3-2870-4831-bb4a-8a4f060821bb",
+  "epidemicTrackId": 143817,
+  "sourceProvider": "EpidemicSound",
+  "title": "Gotta Let Go (Clean Version)",
+  "artist": "Iso Indies",
+  "duration": 143,
+  "bpm": 100,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52202431",
+  "publicSlug": "Xi937lSKHW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGN8KNBC954CA0NRKHT22WQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10409/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "rap",
+    "dark",
+    "energetic",
+    "beat",
+    "angry",
+    "powerful",
+    "electric guitar"
+  ]
+}

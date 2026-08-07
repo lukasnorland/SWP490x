@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "c5f13f14-a79d-4a91-8505-a0c6eb5ed784",
+  "epidemicTrackId": 276902,
+  "sourceProvider": "EpidemicSound",
+  "title": "Die Is Cast",
+  "artist": "First Timer",
+  "duration": 233,
+  "bpm": 119,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502066",
+  "publicSlug": "InwjCJeEqT",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTED1RHPZVGQFSZNBY1MQ5YH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14699/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock"
+  ],
+  "moods": [
+    "Dreamy",
+    "Quirky"
+  ],
+  "tags": [
+    "alternative",
+    "hopeful",
+    "lead vocals",
+    "male vocals"
+  ]
+}

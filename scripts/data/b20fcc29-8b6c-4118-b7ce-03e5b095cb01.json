@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "b20fcc29-8b6c-4118-b7ce-03e5b095cb01",
+  "epidemicTrackId": 138205,
+  "sourceProvider": "EpidemicSound",
+  "title": "Oh My Love",
+  "artist": "Sleepaway Camp",
+  "duration": 129,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52101472",
+  "publicSlug": "d5tmcpK9Ov",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTERJJ3VWKK41VMR5GY49YS6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6454/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Dreamy",
+    "Restless"
+  ],
+  "tags": [
+    "driving",
+    "ballad",
+    "atmospheric",
+    "lead vocals",
+    "male vocals"
+  ]
+}

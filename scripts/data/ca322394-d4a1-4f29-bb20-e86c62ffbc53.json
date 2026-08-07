@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "ca322394-d4a1-4f29-bb20-e86c62ffbc53",
+  "epidemicTrackId": 277057,
+  "sourceProvider": "EpidemicSound",
+  "title": "Phoebe Snow",
+  "artist": "Roy Williams, Francie",
+  "duration": 218,
+  "bpm": 78,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502221",
+  "publicSlug": "uqdxTYTyPh",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE6BG4N6DTK7E2FSM0RBAWH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14714/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Contemporary Folk",
+    "Singer-songwriter"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "accordion",
+    "acoustic guitar",
+    "piano",
+    "harmonica",
+    "lead vocals",
+    "female vocals"
+  ]
+}

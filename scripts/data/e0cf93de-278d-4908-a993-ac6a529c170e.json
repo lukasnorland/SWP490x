@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "e0cf93de-278d-4908-a993-ac6a529c170e",
+  "epidemicTrackId": 103787,
+  "sourceProvider": "EpidemicSound",
+  "title": "Ride with You",
+  "artist": "spring gang",
+  "duration": 213,
+  "bpm": 110,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52001195",
+  "publicSlug": "UkvvdJs28U",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMTK1BQCE5QR6R8RE0VPRP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5060/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Disco",
+    "Nu Disco"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "male vocals",
+    "funky",
+    "driving",
+    "lead vocals"
+  ]
+}

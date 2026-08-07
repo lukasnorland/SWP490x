@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "74ea0d7a-49b6-4480-9ff1-45b029ffa595",
+  "epidemicTrackId": 277303,
+  "sourceProvider": "EpidemicSound",
+  "title": "POSE",
+  "artist": "ALICE",
+  "duration": 158,
+  "bpm": 126,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502467",
+  "publicSlug": "Rpif8348qo",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KWY9AM338PM4VXS14YQCBAXG.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14806/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "K-pop",
+    "Dance-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Restless",
+    "Sexy",
+    "Glamorous"
+  ],
+  "tags": [
+    "cheeky",
+    "action",
+    "gym",
+    "workout",
+    "camera click",
+    "lead vocals",
+    "female vocals"
+  ]
+}

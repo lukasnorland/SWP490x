@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "cbe955c0-2dbf-439a-82c9-0038a5a66159",
+  "epidemicTrackId": 276343,
+  "sourceProvider": "EpidemicSound",
+  "title": "Santa Bring My Baby Back",
+  "artist": "Zorro",
+  "duration": 169,
+  "bpm": 83,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501500",
+  "publicSlug": "s7iFvdaR8s",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFZWQRA4JVTXVD5HBDNR37T.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14366/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Christmas",
+    "Special Occasions"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "guitar",
+    "playful",
+    "upbeat",
+    "brass",
+    "strings",
+    "christmas bells",
+    "lead vocals",
+    "female vocals"
+  ]
+}

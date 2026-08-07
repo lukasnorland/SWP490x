@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "3cee1256-6810-41d5-b71d-357c09e61047",
+  "epidemicTrackId": 143701,
+  "sourceProvider": "EpidemicSound",
+  "title": "Why Are We Waiting",
+  "artist": "Sleepaway Camp",
+  "duration": 184,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52202315",
+  "publicSlug": "TdckuL9okd",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHYHA7PYQC13E2TTHG99QC7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9171/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Folk Rock",
+    "Americana",
+    "Roots Rock"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "guitar",
+    "hopeful",
+    "sad",
+    "build",
+    "dramatic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

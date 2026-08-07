@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "f74d76a7-3235-4537-9114-a18f9ade4871",
+  "epidemicTrackId": 106052,
+  "sourceProvider": "EpidemicSound",
+  "title": "Acrobat",
+  "artist": "Martin Hall",
+  "duration": 245,
+  "bpm": 81,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003457",
+  "publicSlug": "yaDzrf5Vgf",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPZK7S71JR6F92GKW33E1E.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6423/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Indie Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "driving"
+  ]
+}

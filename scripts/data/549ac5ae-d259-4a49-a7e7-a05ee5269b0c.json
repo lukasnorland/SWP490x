@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "549ac5ae-d259-4a49-a7e7-a05ee5269b0c",
+  "epidemicTrackId": 254333,
+  "sourceProvider": "EpidemicSound",
+  "title": "Ride & Vibe",
+  "artist": "SCENE",
+  "duration": 160,
+  "bpm": 92,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500987",
+  "publicSlug": "fN1Khz4iRQ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQNZV5QQFFTAPJKXAAN8H8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14034/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary R&B",
+    "K-pop",
+    "Beats"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "relaxed",
+    "vlog",
+    "diy",
+    "daily",
+    "electric guitar",
+    "finger snapping",
+    "lead vocals",
+    "female vocals"
+  ]
+}

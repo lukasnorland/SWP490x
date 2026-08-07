@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "228b4760-ebcc-32a6-b6d9-61da9b41ceeb",
+  "epidemicTrackId": 101138,
+  "sourceProvider": "EpidemicSound",
+  "title": "Drifting Away",
+  "artist": "Mama Zula",
+  "duration": 180,
+  "bpm": 130,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51902705",
+  "publicSlug": "0yNvWU5Cud",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH9Z0WCFR75D5MCEDRBN49B.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4101/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Reggae",
+    "Caribbean"
+  ],
+  "moods": [
+    "Epic",
+    "Laid Back"
+  ],
+  "tags": [
+    "bass",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

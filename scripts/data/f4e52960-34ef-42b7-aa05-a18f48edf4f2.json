@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "f4e52960-34ef-42b7-aa05-a18f48edf4f2",
+  "epidemicTrackId": 147223,
+  "sourceProvider": "EpidemicSound",
+  "title": "Looking for Someone",
+  "artist": "Giants' Nest",
+  "duration": 190,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301519",
+  "publicSlug": "goUGUzxrzl",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFHHHMQ3YMHAE5Q0WF2C07Z.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10427/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soft House"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "romantic",
+    "confident",
+    "upbeat",
+    "lead vocals",
+    "male vocals"
+  ]
+}

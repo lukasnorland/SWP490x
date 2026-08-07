@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "7b31919f-6194-4fd2-94fd-8b21c9c907af",
+  "epidemicTrackId": 253237,
+  "sourceProvider": "EpidemicSound",
+  "title": "In the World All Alone",
+  "artist": "OTE",
+  "duration": 180,
+  "bpm": 74,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52404240",
+  "publicSlug": "G24X6hxlqB",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ9S9FH7F423DFY36QZ20ZY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13439/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "1960s"
+  ],
+  "moods": [
+    "Sentimental",
+    "Elegant"
+  ],
+  "tags": [
+    "bpm 73,5",
+    "oldies",
+    "lead vocals",
+    "male vocals"
+  ]
+}

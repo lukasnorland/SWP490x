@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "29e11e70-ca8f-417d-a911-5b74737ca01e",
+  "epidemicTrackId": 150337,
+  "sourceProvider": "EpidemicSound",
+  "title": "Like the Words to a Song",
+  "artist": "Roy Williams",
+  "duration": 196,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400293",
+  "publicSlug": "2OygmhUevJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFG1TV5W0D153599Q3VNBCX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11721/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul"
+  ],
+  "moods": [
+    "Laid Back",
+    "Quirky"
+  ],
+  "tags": [
+    "male vocals",
+    "electric guitar",
+    "bass",
+    "chill",
+    "groove",
+    "blues",
+    "piano",
+    "lead vocals"
+  ]
+}

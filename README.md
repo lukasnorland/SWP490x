@@ -33,7 +33,7 @@ MRS closes those gaps with centralized catalog + playlist management, metadata/L
 |----|---------|
 | FE-01 | Authentication & role-based access (ADMIN, Content Designer, Customer) |
 | FE-02 | Profile management & personal playlist history |
-| FE-03 | Multi-criteria metadata search (Genre, Mood, Theme, Artist, Event) |
+| FE-03 | Multi-criteria metadata search (Genre, Mood, Artist, Tags) |
 | FE-04 | LLM-assisted contextual search (with fallback to plain filters) |
 | FE-05 | Recommendation & ranking using metadata match + Spotify popularity snapshot |
 | FE-06 | Playlist create / edit / save (Draft), concurrency via optimistic locking |

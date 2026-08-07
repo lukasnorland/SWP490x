@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "350a8a00-528d-43dd-967d-1c183a790713",
+  "epidemicTrackId": 143521,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Grim Reaper",
+  "artist": "Roof",
+  "duration": 151,
+  "bpm": 146,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52202135",
+  "publicSlug": "o5qEVrJwrg",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJHA680FMCZDMNMD5SK345P.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9402/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Blues Rock",
+    "Modern Blues"
+  ],
+  "moods": [
+    "Eccentric",
+    "Restless"
+  ],
+  "tags": [
+    "punk blues",
+    "cocky",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

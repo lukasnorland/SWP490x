@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "f77d7717-3bad-4efa-8adf-9cfed0814479",
+  "epidemicTrackId": 252362,
+  "sourceProvider": "EpidemicSound",
+  "title": "Diferente",
+  "artist": "Jaque Rascón",
+  "duration": 160,
+  "bpm": 103,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403391",
+  "publicSlug": "P09bF2jUTd",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEHTNN12V1GHX9YACT765KT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13090/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Corrido Tumbado",
+    "Acoustic",
+    "Mexico"
+  ],
+  "moods": [
+    "Happy",
+    "Sentimental"
+  ],
+  "tags": [
+    "hopeful",
+    "guitar",
+    "laid back",
+    "lead vocals",
+    "female vocals"
+  ]
+}

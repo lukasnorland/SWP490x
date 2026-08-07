@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "661b4d88-efcc-44e3-9eee-773138abec5f",
+  "epidemicTrackId": 145242,
+  "sourceProvider": "EpidemicSound",
+  "title": "Va a Amanecer",
+  "artist": "Caro Luna",
+  "duration": 176,
+  "bpm": 166,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203852",
+  "publicSlug": "CKsNm5jdV6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJGCK4MY1Q9HKDJZE50PH06.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11903/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Folk",
+    "Latin Pop",
+    "Singer-songwriter",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "folk",
+    "spanish",
+    "romantic",
+    "happy",
+    "violin",
+    "plucking",
+    "guitar",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

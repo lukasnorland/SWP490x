@@ -1,0 +1,24 @@
+{
+  "externalSourceId": "3a898a52-93b2-4813-82b3-16790e9f6d5a",
+  "epidemicTrackId": 150996,
+  "sourceProvider": "EpidemicSound",
+  "title": "Leave My Mind",
+  "artist": "Cushy",
+  "duration": 168,
+  "bpm": 122,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400952",
+  "publicSlug": "3kfDJwjaFD",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGEGH3Y8YKW5EHRZTF1C1ZX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11873/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": []
+}

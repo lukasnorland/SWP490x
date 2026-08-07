@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "c96f0dc1-2aeb-43bf-8e29-61bf2687d7c4",
+  "epidemicTrackId": 276432,
+  "sourceProvider": "EpidemicSound",
+  "title": "Kagome Kagome",
+  "artist": "Isaku Kageyama",
+  "duration": 255,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501589",
+  "publicSlug": "PnmA8Frb6p",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGW8QXASXHWT4744EV3TYTE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14400/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Japanese Classical",
+    "Strange & Weird",
+    "Japan",
+    "Suspense",
+    "Mystery",
+    "Horror"
+  ],
+  "moods": [
+    "Scary",
+    "Suspense"
+  ],
+  "tags": [
+    "eerie",
+    "drone",
+    "atmospheric",
+    "dark",
+    "lead vocals",
+    "female vocals"
+  ]
+}

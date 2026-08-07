@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "482b9d44-2cc3-43bf-a9ca-f5ceeb12dfb5",
+  "epidemicTrackId": 151400,
+  "sourceProvider": "EpidemicSound",
+  "title": "Waiting for Your Call",
+  "artist": "Snake City",
+  "duration": 184,
+  "bpm": 112,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401356",
+  "publicSlug": "En5kRnYX2Z",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHTNWRGEXV92GBYQS56KB8P.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12141/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance-pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "female vocals",
+    "percussion",
+    "love",
+    "soulmate",
+    "romantic",
+    "lead vocals"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "b0a138f4-28d3-4627-ba2d-6740d0887ba6",
+  "epidemicTrackId": 138398,
+  "sourceProvider": "EpidemicSound",
+  "title": "Coming Home",
+  "artist": "Gamma Skies",
+  "duration": 193,
+  "bpm": 110,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52101788",
+  "publicSlug": "MMltfzTIiP",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGKS8JG2Q58F5A1NSC7YVMQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7434/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Country Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Sad",
+    "Sentimental"
+  ],
+  "tags": [
+    "Nostalgic",
+    "chemistry",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

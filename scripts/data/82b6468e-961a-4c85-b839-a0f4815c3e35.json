@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "82b6468e-961a-4c85-b839-a0f4815c3e35",
+  "epidemicTrackId": 253472,
+  "sourceProvider": "EpidemicSound",
+  "title": "Do It For",
+  "artist": "Katori Walker",
+  "duration": 183,
+  "bpm": 115,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52500128",
+  "publicSlug": "YIb8ggBGJT",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGS7WQ79TCR00FF8X14ANDV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13925/3000x3000.jpg",
+  "genres": [
+    "Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "restless",
+    "lead vocals",
+    "male vocals"
+  ]
+}

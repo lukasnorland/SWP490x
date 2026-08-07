@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "da6ba038-3dde-4458-8f0c-fb8a50591ac6",
+  "epidemicTrackId": 253461,
+  "sourceProvider": "EpidemicSound",
+  "title": "This Time",
+  "artist": "DJ Mayson",
+  "duration": 215,
+  "bpm": 128,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500117",
+  "publicSlug": "yTs29PWgqV",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGDNKHBTD5MP935G4FSNYBX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13556/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Dance"
+  ],
+  "moods": [
+    "Restless",
+    "Sentimental"
+  ],
+  "tags": [
+    "club",
+    "lead vocals",
+    "female vocals"
+  ]
+}

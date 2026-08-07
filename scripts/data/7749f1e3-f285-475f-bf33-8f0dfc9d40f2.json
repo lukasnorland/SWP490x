@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "7749f1e3-f285-475f-bf33-8f0dfc9d40f2",
+  "epidemicTrackId": 284384,
+  "sourceProvider": "EpidemicSound",
+  "title": "Shine on Me",
+  "artist": "Hector Gabriel",
+  "duration": 249,
+  "bpm": 67,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600858",
+  "publicSlug": "GszrzMMs0I",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KNKWHFWWJNAZAWASG6EM767V.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15954/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian",
+    "Acoustic"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

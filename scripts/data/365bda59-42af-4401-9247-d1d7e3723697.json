@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "365bda59-42af-4401-9247-d1d7e3723697",
+  "epidemicTrackId": 138068,
+  "sourceProvider": "EpidemicSound",
+  "title": "Wendigo",
+  "artist": "Carvings",
+  "duration": 386,
+  "bpm": 48,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52101385",
+  "publicSlug": "98uq5afR2W",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPRCK2AH881K4176Q7KKJ0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6405/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Metal"
+  ],
+  "moods": [
+    "Angry",
+    "Dark"
+  ],
+  "tags": [
+    "sludge metal",
+    "heavy",
+    "pounding",
+    "lead vocals",
+    "male vocals"
+  ]
+}

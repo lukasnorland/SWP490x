@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "c3802c4f-5be8-3205-ba7c-c994c193b330",
+  "epidemicTrackId": 101216,
+  "sourceProvider": "EpidemicSound",
+  "title": "Even If the Sky Is Falling Down",
+  "artist": "Candelion",
+  "duration": 164,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51902783",
+  "publicSlug": "Tg2VF4tadP",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFB0S856R2BEE853TC3AT22.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4213/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Happy",
+    "Relaxing"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "driving",
+    "feelgood"
+  ]
+}

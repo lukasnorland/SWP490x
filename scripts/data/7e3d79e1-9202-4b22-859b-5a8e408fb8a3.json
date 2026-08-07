@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "7e3d79e1-9202-4b22-859b-5a8e408fb8a3",
+  "epidemicTrackId": 105466,
+  "sourceProvider": "EpidemicSound",
+  "title": "At the Top of the World",
+  "artist": "LaKesha Nugent",
+  "duration": 187,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002871",
+  "publicSlug": "t5qWO5f2tQ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ40YNKTQZWCNB0RABQ22G8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5571/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Disco",
+    "1970s"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "driving",
+    "uplifting",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

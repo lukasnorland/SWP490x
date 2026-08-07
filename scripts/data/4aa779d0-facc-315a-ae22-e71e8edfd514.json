@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "4aa779d0-facc-315a-ae22-e71e8edfd514",
+  "epidemicTrackId": 63902,
+  "sourceProvider": "EpidemicSound",
+  "title": "Higher Standards",
+  "artist": "Love Beans",
+  "duration": 235,
+  "bpm": 99,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51818025",
+  "publicSlug": "N7bDbNeVCL",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH0QZJDMM0WGK6TKS0NC37M.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "driving",
+    "groovy",
+    "steady",
+    "female vocals",
+    "lead vocals",
+    "contemporary",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "6f5f069f-2420-41e1-8c3f-779ff3af2e9e",
+  "epidemicTrackId": 254510,
+  "sourceProvider": "EpidemicSound",
+  "title": "Morse Code (Clean Version)",
+  "artist": "Katori Walker",
+  "duration": 183,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501162",
+  "publicSlug": "W2pCz4VpOV",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHZW5DM1JZG2ZZRFHH0QB24.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14783/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "West Coast Hip Hop",
+    "Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "powerful",
+    "quirky"
+  ]
+}

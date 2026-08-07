@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "dbde243a-fa93-33e6-8fa8-893629b4bce4",
+  "epidemicTrackId": 102543,
+  "sourceProvider": "EpidemicSound",
+  "title": "Witchcraft",
+  "artist": "Thyra",
+  "duration": 165,
+  "bpm": 95,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51904084",
+  "publicSlug": "EGrLgeyjLt",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHV33P9BDQ63DND0XZ7R367.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4406/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Roots Rock",
+    "Contemporary Country"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "stomp",
+    "handclap",
+    "acoustic guitar",
+    "banjo",
+    "cheerful",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

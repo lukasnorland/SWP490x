@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "0bcc9b2a-bfd4-4a02-bb07-68d4dc982484",
+  "epidemicTrackId": 103492,
+  "sourceProvider": "EpidemicSound",
+  "title": "Yin & Yang (Clean Version)",
+  "artist": "Iso Indies",
+  "duration": 194,
+  "bpm": 85,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000902",
+  "publicSlug": "E2tW1o0PtH",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFA4J3Q7C5ZVSCHMCFRQNMR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5099/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Old School Hip Hop"
+  ],
+  "moods": [
+    "Dark",
+    "Eccentric"
+  ],
+  "tags": [
+    "rap",
+    "driving",
+    "electronic"
+  ]
+}

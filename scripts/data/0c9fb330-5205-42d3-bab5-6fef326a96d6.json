@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "0c9fb330-5205-42d3-bab5-6fef326a96d6",
+  "epidemicTrackId": 104769,
+  "sourceProvider": "EpidemicSound",
+  "title": "Drinking You off My Mind",
+  "artist": "Thyra",
+  "duration": 225,
+  "bpm": 87,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002174",
+  "publicSlug": "a4Bdc1cTNo",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGM6WPZC1S4V464DT4VSGQ0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5410/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Folk Pop",
+    "Country Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals",
+    "countryside",
+    "country pop",
+    "guitar",
+    "steel",
+    "male vocals"
+  ]
+}

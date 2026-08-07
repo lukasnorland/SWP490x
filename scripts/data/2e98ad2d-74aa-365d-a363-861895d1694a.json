@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "2e98ad2d-74aa-365d-a363-861895d1694a",
+  "epidemicTrackId": 27349,
+  "sourceProvider": "EpidemicSound",
+  "title": "Bailar Con Mi Corazón",
+  "artist": "Telmo Telmo",
+  "duration": 173,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51816178",
+  "publicSlug": "UbYiUlq3Eu",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJZBSX0Q2NCZW30NZY70V0NS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3181/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Chachachá",
+    "Cuba"
+  ],
+  "moods": [
+    "Romantic",
+    "Elegant"
+  ],
+  "tags": [
+    "spanish vocals",
+    "cuba",
+    "lead vocals",
+    "latin dance",
+    "spicy",
+    "hot food",
+    "salsa",
+    "son montuno",
+    "trumpet",
+    "male vocals",
+    "havana",
+    "passionate"
+  ]
+}

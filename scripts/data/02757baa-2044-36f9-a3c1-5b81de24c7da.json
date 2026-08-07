@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "02757baa-2044-36f9-a3c1-5b81de24c7da",
+  "epidemicTrackId": 99211,
+  "sourceProvider": "EpidemicSound",
+  "title": "Up Higher",
+  "artist": "Sven Karlsson",
+  "duration": 176,
+  "bpm": 195,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51900771",
+  "publicSlug": "wjqNn7pHew",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEFED9SQMZZG4MRYF3B6Q9E.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2611/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "2000s"
+  ],
+  "moods": [
+    "Restless",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "male vocals",
+    "eccentric",
+    "driving",
+    "lead vocals"
+  ]
+}

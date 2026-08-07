@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "551a6b00-29f9-460d-9fd6-5c114e99eff0",
+  "epidemicTrackId": 283575,
+  "sourceProvider": "EpidemicSound",
+  "title": "Natalie",
+  "artist": "Particle House",
+  "duration": 229,
+  "bpm": 96,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600102",
+  "publicSlug": "7Y8hHyJi7c",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KM5JYMB6YAY0697WD1NW8C6S.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15670/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2000s",
+    "1980s",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Sentimental"
+  ],
+  "tags": [
+    "upbeat",
+    "80s",
+    "lead vocals",
+    "male vocals"
+  ]
+}

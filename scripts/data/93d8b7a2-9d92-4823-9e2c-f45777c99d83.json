@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "93d8b7a2-9d92-4823-9e2c-f45777c99d83",
+  "epidemicTrackId": 107630,
+  "sourceProvider": "EpidemicSound",
+  "title": "Clockwise",
+  "artist": "Thompson Town Flowers",
+  "duration": 222,
+  "bpm": 87,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52100790",
+  "publicSlug": "Znn6bC25aY",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFTDHB5EKP9476RRHQJEMRZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6129/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Reggae"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "dub",
+    "sexy",
+    "driving",
+    "male vocals"
+  ]
+}

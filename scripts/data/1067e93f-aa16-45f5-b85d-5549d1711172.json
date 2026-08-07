@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "1067e93f-aa16-45f5-b85d-5549d1711172",
+  "epidemicTrackId": 283382,
+  "sourceProvider": "EpidemicSound",
+  "title": "Ride with You (DJ Mayson Remix)",
+  "artist": "spring gang, DJ Mayson",
+  "duration": 170,
+  "bpm": 127,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503522",
+  "publicSlug": "ftcoMz20Mo",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK7S8THB1HDPVTT4B6816NVH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15602/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "House"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

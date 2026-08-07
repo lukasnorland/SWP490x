@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "e087996b-27ba-4799-bd1f-a42c3dd9a7a7",
+  "epidemicTrackId": 148826,
+  "sourceProvider": "EpidemicSound",
+  "title": "Alone in the Rain",
+  "artist": "Giants' Nest",
+  "duration": 188,
+  "bpm": 120,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52303122",
+  "publicSlug": "OT5FkUwSmd",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE57MDBNCPZ8XBTB0231B28.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11867/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Deep House"
+  ],
+  "moods": [
+    "Dreamy",
+    "Restless"
+  ],
+  "tags": [
+    "energetic",
+    "upbeat",
+    "dance-pop",
+    "lead vocals",
+    "male vocals"
+  ]
+}

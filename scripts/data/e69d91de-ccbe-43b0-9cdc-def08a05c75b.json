@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "e69d91de-ccbe-43b0-9cdc-def08a05c75b",
+  "epidemicTrackId": 284093,
+  "sourceProvider": "EpidemicSound",
+  "title": "Oh Yeah (Clean Version)",
+  "artist": "Janset, Katori Walker",
+  "duration": 185,
+  "bpm": 147,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600567",
+  "publicSlug": "2MegXu261K",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJAC8NZEN3KHQZQ3JWA50MC7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15746/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "UK Drill",
+    "Trap",
+    "2020s",
+    "Beats"
+  ],
+  "moods": [
+    "Epic",
+    "Dark",
+    "Mysterious",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

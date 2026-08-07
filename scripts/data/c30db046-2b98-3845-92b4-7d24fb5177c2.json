@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "c30db046-2b98-3845-92b4-7d24fb5177c2",
+  "epidemicTrackId": 101369,
+  "sourceProvider": "EpidemicSound",
+  "title": "Gotta Give Me Some Love",
+  "artist": "Basixx",
+  "duration": 189,
+  "bpm": 126,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51902959",
+  "publicSlug": "uMj8XxKFMK",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTC4H4Z74K2JJCXZC56KA3BJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4082/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "driving",
+    "male vocals",
+    "epic",
+    "lead vocals"
+  ]
+}

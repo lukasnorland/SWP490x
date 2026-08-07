@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "a0be2cdd-0a78-45dd-b22a-bb05b321fc17",
+  "epidemicTrackId": 147535,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lonely Souls",
+  "artist": "Adelyn Paik",
+  "duration": 231,
+  "bpm": 66,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301831",
+  "publicSlug": "CuoKGn1W5w",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGTFYTWVAG2D4SMAD5KREA2.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10638/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "romantic",
+    "chill",
+    "hopeful",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

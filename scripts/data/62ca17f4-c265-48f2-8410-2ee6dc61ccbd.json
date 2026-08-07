@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "62ca17f4-c265-48f2-8410-2ee6dc61ccbd",
+  "epidemicTrackId": 105913,
+  "sourceProvider": "EpidemicSound",
+  "title": "Earth (Light It Up) (Clean Version)",
+  "artist": "Tilden Parc, Xavy Rusan",
+  "duration": 232,
+  "bpm": 105,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003318",
+  "publicSlug": "TO1PpQDQFB",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE8PWBXG844X3RA7WJDMB81.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6587/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "electronic",
+    "rap",
+    "shekere",
+    "percussion",
+    "africa",
+    "background vocals",
+    "choir"
+  ]
+}

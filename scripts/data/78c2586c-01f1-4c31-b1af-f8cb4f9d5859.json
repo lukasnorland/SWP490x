@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "78c2586c-01f1-4c31-b1af-f8cb4f9d5859",
+  "epidemicTrackId": 139457,
+  "sourceProvider": "EpidemicSound",
+  "title": "Let's Get Out (Clean Version)",
+  "artist": "Basixx",
+  "duration": 190,
+  "bpm": 128,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52102784",
+  "publicSlug": "hCFwaUWfHm",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGRJ02H3ZM70VNNJG8BK3HT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7835/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance"
+  ],
+  "moods": [
+    "Hopeful",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "energetic",
+    "workout",
+    "club",
+    "lead vocals",
+    "male vocals"
+  ]
+}

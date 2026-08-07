@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "a46f9f6f-2e28-4c24-a4e6-49d359a9bc66",
+  "epidemicTrackId": 151390,
+  "sourceProvider": "EpidemicSound",
+  "title": "How Can I Get Through to You?",
+  "artist": "John Runefelt",
+  "duration": 180,
+  "bpm": 85,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401346",
+  "publicSlug": "ovWy4NKJa5",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGP78V5DXMENM8XMDS2XC1R.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12065/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul",
+    "1970s"
+  ],
+  "moods": [
+    "Romantic",
+    "Smooth"
+  ],
+  "tags": [
+    "soulful dinner",
+    "lead vocals",
+    "vocals"
+  ]
+}

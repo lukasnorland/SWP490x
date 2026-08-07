@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "7c9169c1-6bb1-45ab-bd8b-d04c67a9d5c8",
+  "epidemicTrackId": 254244,
+  "sourceProvider": "EpidemicSound",
+  "title": "Only So Far",
+  "artist": "Hennie Hun",
+  "duration": 213,
+  "bpm": 136,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500898",
+  "publicSlug": "qadH6pvzvB",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQTBJFXY3XHVMNS3HATC1N.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14113/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Indie Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "drum kit",
+    "lead vocals",
+    "female vocals"
+  ]
+}

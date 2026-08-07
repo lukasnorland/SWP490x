@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "4f36d14e-fbc2-4254-9a2b-bf21dfd8f3e6",
+  "epidemicTrackId": 104156,
+  "sourceProvider": "EpidemicSound",
+  "title": "Poison Lips",
+  "artist": "Easton",
+  "duration": 236,
+  "bpm": 92,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52001561",
+  "publicSlug": "Q7j1vcJqxg",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGG2ZT9CPS0ACFYHZ4XFGDP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5058/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "Grunge",
+    "1990s"
+  ],
+  "moods": [
+    "Eccentric",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "driving",
+    "heavy",
+    "grunge",
+    "seattle"
+  ]
+}

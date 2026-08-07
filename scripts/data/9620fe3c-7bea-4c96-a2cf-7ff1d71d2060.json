@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "9620fe3c-7bea-4c96-a2cf-7ff1d71d2060",
+  "epidemicTrackId": 151231,
+  "sourceProvider": "EpidemicSound",
+  "title": "Starstruck",
+  "artist": "PØW",
+  "duration": 211,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401187",
+  "publicSlug": "pPwsoZJlVA",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH4CS1PAZN7ZBM3EQ8Y08G0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12047/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "korean",
+    "guitar",
+    "hopeful",
+    "dreamy",
+    "lead vocals",
+    "male vocals"
+  ]
+}

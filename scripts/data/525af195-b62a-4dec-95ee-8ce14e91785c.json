@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "525af195-b62a-4dec-95ee-8ce14e91785c",
+  "epidemicTrackId": 277261,
+  "sourceProvider": "EpidemicSound",
+  "title": "Eyes on Me",
+  "artist": "SCENE",
+  "duration": 168,
+  "bpm": 126,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502425",
+  "publicSlug": "xyvF8vnECz",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF8J8KPA22922G9VHHHC924.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14743/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary R&B",
+    "K-pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "k-drama",
+    "lead vocals",
+    "female vocals"
+  ]
+}

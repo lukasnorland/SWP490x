@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "9ba53f9d-9ded-4413-b77a-1edc74048ab0",
+  "epidemicTrackId": 283688,
+  "sourceProvider": "EpidemicSound",
+  "title": "Those Days",
+  "artist": "Loving Caliber",
+  "duration": 204,
+  "bpm": 105,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600215",
+  "publicSlug": "Hs7SY1N8PT",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJZPPGQ8RRZ9RYYY2C5WVE6P.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15847/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

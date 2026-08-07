@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "6fd2d0e5-6ed3-4bbf-baa5-769145b99ac8",
+  "epidemicTrackId": 249829,
+  "sourceProvider": "EpidemicSound",
+  "title": "Indo-Latin Love",
+  "artist": "Aks & Lakshmi",
+  "duration": 199,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402549",
+  "publicSlug": "9eSl5f0760",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE7MF7NEV43R255W33760W7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12860/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indian Pop",
+    "Filmi",
+    "India"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "hindi",
+    "bollywood",
+    "upbeat",
+    "sentimental",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "6011d6f0-8b80-4dd5-b480-2b93d4153e05",
+  "epidemicTrackId": 103174,
+  "sourceProvider": "EpidemicSound",
+  "title": "Go to War",
+  "artist": "No Sons of Mine",
+  "duration": 207,
+  "bpm": 170,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000587",
+  "publicSlug": "kfmMbRaF0T",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJCTE4MEFPJ404FSSBBNQ8G.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4763/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Metal"
+  ],
+  "moods": [
+    "Angry",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "driving",
+    "aggressive",
+    "heavy",
+    "electric guitar",
+    "screeching guitar"
+  ]
+}

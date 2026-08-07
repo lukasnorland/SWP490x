@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "02a06f93-e578-35ce-ad77-8e80a65347c1",
+  "epidemicTrackId": 101898,
+  "sourceProvider": "EpidemicSound",
+  "title": "Call on Me (STRLGHT Remix)",
+  "artist": "Tape Machines, STRLGHT",
+  "duration": 187,
+  "bpm": 105,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51903456",
+  "publicSlug": "BUAQO9AnIk",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMYCQ8SZFZXH02AXDAQF0C.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4201/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance",
+    "Future Bass"
+  ],
+  "moods": [
+    "Epic",
+    "Euphoric"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "driving",
+    "electronic",
+    "dance",
+    "epic",
+    "festival"
+  ]
+}

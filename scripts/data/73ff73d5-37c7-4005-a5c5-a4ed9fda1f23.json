@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "73ff73d5-37c7-4005-a5c5-a4ed9fda1f23",
+  "epidemicTrackId": 276483,
+  "sourceProvider": "EpidemicSound",
+  "title": "Million Dollah Peppah (Clean Version)",
+  "artist": "Onoe Caponoe",
+  "duration": 207,
+  "bpm": 165,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501640",
+  "publicSlug": "IoWO2AGlu2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJGCK9PEGMVC56KWPCT758V.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14409/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "UK Drill",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "powerful"
+  ]
+}

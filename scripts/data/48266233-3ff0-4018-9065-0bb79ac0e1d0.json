@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "48266233-3ff0-4018-9065-0bb79ac0e1d0",
+  "epidemicTrackId": 282921,
+  "sourceProvider": "EpidemicSound",
+  "title": "Friend",
+  "artist": "Kylie Dailey",
+  "duration": 144,
+  "bpm": 105,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503061",
+  "publicSlug": "JN2CeSXyYj",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEXY3QW75H66J4QZBTG8A57.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15728/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "electric guitar",
+    "lead vocals",
+    "female vocals"
+  ]
+}

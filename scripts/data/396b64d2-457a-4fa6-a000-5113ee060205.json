@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "396b64d2-457a-4fa6-a000-5113ee060205",
+  "epidemicTrackId": 277642,
+  "sourceProvider": "EpidemicSound",
+  "title": "Wanna Be (Not Me)",
+  "artist": "Loving Caliber",
+  "duration": 191,
+  "bpm": 129,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502806",
+  "publicSlug": "vw479u0PEl",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE2SYCXMR24R4WSNYDNCRXV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15000/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

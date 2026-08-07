@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "ea0893eb-7d1b-413b-a9c5-87cbbbfde198",
+  "epidemicTrackId": 253907,
+  "sourceProvider": "EpidemicSound",
+  "title": "FIRE",
+  "artist": "Heyson",
+  "duration": 154,
+  "bpm": 140,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500561",
+  "publicSlug": "x6IFAHPSNg",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEKZ1QE2CWCPRDG8BE9KKX3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13780/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap EDM",
+    "Hard Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Angry",
+    "Epic"
+  ],
+  "tags": [
+    "tense",
+    "powerful",
+    "restless",
+    "strings",
+    "dark"
+  ]
+}

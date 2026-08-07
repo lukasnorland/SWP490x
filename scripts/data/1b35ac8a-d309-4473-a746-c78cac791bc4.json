@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "1b35ac8a-d309-4473-a746-c78cac791bc4",
+  "epidemicTrackId": 253411,
+  "sourceProvider": "EpidemicSound",
+  "title": "Bendita Vida Loca",
+  "artist": "Jaque Rascón",
+  "duration": 160,
+  "bpm": 180,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500067",
+  "publicSlug": "D7oSCndg9P",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE8VNQ5WFA3X44R771NT73C.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13652/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Corrido",
+    "Acoustic",
+    "Mexico"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "sentimental",
+    "brass",
+    "trumpet",
+    "guitar",
+    "lead vocals",
+    "female vocals"
+  ]
+}

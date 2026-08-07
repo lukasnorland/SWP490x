@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "1ed3667d-a353-4154-b037-293890a57fe1",
+  "epidemicTrackId": 151321,
+  "sourceProvider": "EpidemicSound",
+  "title": "Imaginary",
+  "artist": "Mimmi Bangoura",
+  "duration": 207,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401277",
+  "publicSlug": "Dlf1vsriaG",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH5GVQ3JY3N34JP0Z8HD9YP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12265/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "female vocals",
+    "groove",
+    "percussion",
+    "bass",
+    "feel good",
+    "imagine",
+    "dreamy",
+    "violin",
+    "piano",
+    "lead vocals"
+  ]
+}

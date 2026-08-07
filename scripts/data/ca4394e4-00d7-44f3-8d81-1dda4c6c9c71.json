@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "ca4394e4-00d7-44f3-8d81-1dda4c6c9c71",
+  "epidemicTrackId": 106054,
+  "sourceProvider": "EpidemicSound",
+  "title": "Missing Out",
+  "artist": "Martin Hall",
+  "duration": 269,
+  "bpm": 117,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003459",
+  "publicSlug": "2ydzPLuztp",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH8G1SG2HS1Y6HX01VVE6FE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5855/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Indie Pop"
+  ],
+  "moods": [
+    "Dreamy",
+    "Restless"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "driving"
+  ]
+}

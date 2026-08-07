@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "02391772-a9f8-43d5-acbc-c55411913e8b",
+  "epidemicTrackId": 107464,
+  "sourceProvider": "EpidemicSound",
+  "title": "Escucha mi Salsa",
+  "artist": "Son Habana",
+  "duration": 163,
+  "bpm": 98,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52100624",
+  "publicSlug": "WhO023MO4C",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFEHRCVYQSBPF2C9F4GCM19.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4990/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Salsa",
+    "Cuba"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "piano",
+    "percussion",
+    "guiro",
+    "congo",
+    "beach",
+    "sunshine",
+    "lead vocals",
+    "male vocals"
+  ]
+}

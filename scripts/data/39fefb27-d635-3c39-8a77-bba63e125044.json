@@ -1,0 +1,40 @@
+{
+  "externalSourceId": "39fefb27-d635-3c39-8a77-bba63e125044",
+  "epidemicTrackId": 103086,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dance for You",
+  "artist": "Revel Day",
+  "duration": 215,
+  "bpm": 96,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000502",
+  "publicSlug": "RkSOV0MuUD",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFCMY17P1E7GPPPMV67MK50.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4898/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "R&B",
+    "2020s"
+  ],
+  "moods": [
+    "Happy",
+    "Smooth"
+  ],
+  "tags": [
+    "cool",
+    "sexy",
+    "vibey",
+    "harmony",
+    "party",
+    "kickback",
+    "smooth",
+    "jazz",
+    "chill",
+    "bounce",
+    "dance",
+    "lead vocals",
+    "male vocals"
+  ]
+}

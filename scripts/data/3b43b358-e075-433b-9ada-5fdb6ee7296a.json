@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "3b43b358-e075-433b-9ada-5fdb6ee7296a",
+  "epidemicTrackId": 137919,
+  "sourceProvider": "EpidemicSound",
+  "title": "Another Guy",
+  "artist": "Margareta",
+  "duration": 232,
+  "bpm": 112,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52101230",
+  "publicSlug": "QzLTyYKZv2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF818WQNNEVEVR8VTF2K1RH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7191/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Funk",
+    "1970s"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "driving",
+    "groovy",
+    "retro",
+    "70s",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

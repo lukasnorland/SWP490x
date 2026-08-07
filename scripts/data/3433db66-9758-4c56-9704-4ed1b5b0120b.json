@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "3433db66-9758-4c56-9704-4ed1b5b0120b",
+  "epidemicTrackId": 276924,
+  "sourceProvider": "EpidemicSound",
+  "title": "Cote D'Azur",
+  "artist": "Tusabe, Mansa",
+  "duration": 219,
+  "bpm": 115,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502088",
+  "publicSlug": "xl3BEN3XRE",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHM3A5VRH1J1PT6EZS358RF.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14614/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Amapiano",
+    "African Continent"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "percussion",
+    "lead vocals",
+    "male vocals"
+  ]
+}

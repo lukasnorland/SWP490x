@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "d939a8d3-c9dc-464a-8137-e33062c17acb",
+  "epidemicTrackId": 142935,
+  "sourceProvider": "EpidemicSound",
+  "title": "4th of July",
+  "artist": "Ian Luxton",
+  "duration": 162,
+  "bpm": 76,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201549",
+  "publicSlug": "juR9J87HgM",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG9NBR6QQ9V6PE1JZS2JPHR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8641/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "romantic",
+    "slow dance",
+    "percussions",
+    "strings",
+    "lead vocals",
+    "male vocals"
+  ]
+}

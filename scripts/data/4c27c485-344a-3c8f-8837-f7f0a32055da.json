@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "4c27c485-344a-3c8f-8837-f7f0a32055da",
+  "epidemicTrackId": 99393,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Need A Remedy",
+  "artist": "Of Men And Wolves",
+  "duration": 188,
+  "bpm": 146,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51900949",
+  "publicSlug": "ZU1gZs4E7q",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFXBP3EPCXDZGPNP1AV4SM5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2524/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Rock",
+    "1970s"
+  ],
+  "moods": [
+    "Epic",
+    "Eccentric"
+  ],
+  "tags": [
+    "70s",
+    "driving",
+    "attitude",
+    "lead vocals",
+    "male vocals",
+    "driving"
+  ]
+}

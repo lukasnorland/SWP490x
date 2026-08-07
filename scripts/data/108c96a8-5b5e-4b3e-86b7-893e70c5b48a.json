@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "108c96a8-5b5e-4b3e-86b7-893e70c5b48a",
+  "epidemicTrackId": 144848,
+  "sourceProvider": "EpidemicSound",
+  "title": "Doce Bahia",
+  "artist": "Clara Mendes",
+  "duration": 176,
+  "bpm": 115,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203458",
+  "publicSlug": "HI6OdS4z33",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG6V90PW716KEBBHRHP7DNM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9390/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Bossa Nova"
+  ],
+  "moods": [
+    "Dreamy",
+    "Elegant"
+  ],
+  "tags": [
+    "classical guitar",
+    "piano",
+    "lead vocals",
+    "female vocals",
+    "portuguese",
+    "male vocals"
+  ]
+}

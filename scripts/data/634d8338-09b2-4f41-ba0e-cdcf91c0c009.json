@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "634d8338-09b2-4f41-ba0e-cdcf91c0c009",
+  "epidemicTrackId": 252565,
+  "sourceProvider": "EpidemicSound",
+  "title": "Bout My Bag (Clean Version)",
+  "artist": "Tilden Parc",
+  "duration": 154,
+  "bpm": 164,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403594",
+  "publicSlug": "9YDsl36wsw",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ40YAG5GVAF7J4V274Y5DC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14583/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Phonk",
+    "Beats"
+  ],
+  "moods": [
+    "Angry",
+    "Restless"
+  ],
+  "tags": [
+    "rap",
+    "dark",
+    "powerful",
+    "lead vocals",
+    "male vocals"
+  ]
+}

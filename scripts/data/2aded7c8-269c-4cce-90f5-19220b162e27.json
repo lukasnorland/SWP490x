@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "2aded7c8-269c-4cce-90f5-19220b162e27",
+  "epidemicTrackId": 151170,
+  "sourceProvider": "EpidemicSound",
+  "title": "Gu Arirang",
+  "artist": "Bokyung Kim",
+  "duration": 251,
+  "bpm": 0,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401126",
+  "publicSlug": "sq5XNUGyHK",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG7ZXZ98PS7FV4AAHASA3MJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11922/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Korean Classical",
+    "Korea"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "korean",
+    "dreamy",
+    "piri",
+    "gayageum",
+    "minyo",
+    "janggu",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

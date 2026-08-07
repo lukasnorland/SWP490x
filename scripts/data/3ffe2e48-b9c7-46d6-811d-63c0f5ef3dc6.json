@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "3ffe2e48-b9c7-46d6-811d-63c0f5ef3dc6",
+  "epidemicTrackId": 283698,
+  "sourceProvider": "EpidemicSound",
+  "title": "Stay On the Road",
+  "artist": "Sully Bright",
+  "duration": 186,
+  "bpm": 150,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600225",
+  "publicSlug": "tz8FZhMezX",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJYGFXPTYPM5KBH9JD80DRBD.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15506/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Contemporary Folk"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

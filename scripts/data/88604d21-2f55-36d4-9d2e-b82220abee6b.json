@@ -1,0 +1,43 @@
+{
+  "externalSourceId": "88604d21-2f55-36d4-9d2e-b82220abee6b",
+  "epidemicTrackId": 60658,
+  "sourceProvider": "EpidemicSound",
+  "title": "Scarlet Woman",
+  "artist": "Suffer City",
+  "duration": 206,
+  "bpm": 75,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51810403",
+  "publicSlug": "LQmeuHaxN3",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGZBVD4Y022D6JMGCW5618Q.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "Alternative Rock",
+    "2010s"
+  ],
+  "moods": [
+    "Angry",
+    "Restless"
+  ],
+  "tags": [
+    "cool",
+    "grimy",
+    "dirty",
+    "post rock",
+    "band",
+    "yeah",
+    "attitude",
+    "independent",
+    "guitar",
+    "packed",
+    "powerful",
+    "male vocals",
+    "lead vocals",
+    "driving",
+    "rowdy",
+    "dynamic"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "f37cbb62-ec85-4adf-9682-45723fbba022",
+  "epidemicTrackId": 142549,
+  "sourceProvider": "EpidemicSound",
+  "title": "Wedding Dress",
+  "artist": "Zorro",
+  "duration": 189,
+  "bpm": 173,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201163",
+  "publicSlug": "oEIypVsL2e",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFQP0A3ZH5RBVRN6VF5FKG6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8562/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop",
+    "Indie Pop",
+    "Hyperpop"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "cheerful",
+    "empowering",
+    "attitude",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

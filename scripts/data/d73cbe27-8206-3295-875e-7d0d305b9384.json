@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "d73cbe27-8206-3295-875e-7d0d305b9384",
+  "epidemicTrackId": 101696,
+  "sourceProvider": "EpidemicSound",
+  "title": "I'm Crazy for Love",
+  "artist": "Craig Reever",
+  "duration": 178,
+  "bpm": 122,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51903252",
+  "publicSlug": "9sFuC9VZOc",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE4QATQG90R0EG7WZ39B0WK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4189/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance"
+  ],
+  "moods": [
+    "Happy",
+    "Euphoric"
+  ],
+  "tags": [
+    "drop",
+    "power",
+    "upliftning",
+    "club",
+    "dance",
+    "energetic",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "714d4e42-ebcc-47cd-940f-d65a6450599c",
+  "epidemicTrackId": 284604,
+  "sourceProvider": "EpidemicSound",
+  "title": "Shine On",
+  "artist": "Mr. Steve, The Music Man",
+  "duration": 196,
+  "bpm": 98,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52601078",
+  "publicSlug": "kzBdDog3f8",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KRJXZBY73RC8ZCTT07SV1RC9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/16027/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Children'S Music"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

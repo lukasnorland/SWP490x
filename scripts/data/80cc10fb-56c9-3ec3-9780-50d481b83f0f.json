@@ -1,0 +1,42 @@
+{
+  "externalSourceId": "80cc10fb-56c9-3ec3-9780-50d481b83f0f",
+  "epidemicTrackId": 96260,
+  "sourceProvider": "EpidemicSound",
+  "title": "No End in Sight",
+  "artist": "The Eastern Plain",
+  "duration": 216,
+  "bpm": 76,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51809718",
+  "publicSlug": "C5lk2DOEMA",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPP8FAM2F86764GJVPDYQC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4415/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Americana",
+    "Contemporary Folk",
+    "2010s"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "americana",
+    "acoustic dream",
+    "finger picking",
+    "vocal harmonies",
+    "waltz",
+    "female vocals",
+    "lead vocals",
+    "ballad",
+    "airy",
+    "piano",
+    "calm",
+    "soft",
+    "melodic",
+    "male vocals"
+  ]
+}

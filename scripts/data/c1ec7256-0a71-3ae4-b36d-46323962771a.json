@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "c1ec7256-0a71-3ae4-b36d-46323962771a",
+  "epidemicTrackId": 26805,
+  "sourceProvider": "EpidemicSound",
+  "title": "Could Be Anyone",
+  "artist": "Courses",
+  "duration": 123,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51813385",
+  "publicSlug": "yRgehuxkNj",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK9RASQBH920P9KMJ53B4A1A.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2762/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Epic",
+    "Dreamy"
+  ],
+  "tags": [
+    "vocals",
+    "big",
+    "arena",
+    "laid back",
+    "heavy",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "734a64c5-3507-47ac-9253-35a2e88a4cc4",
+  "epidemicTrackId": 254441,
+  "sourceProvider": "EpidemicSound",
+  "title": "Front Porch Cigarette",
+  "artist": "Kylie Dailey",
+  "duration": 197,
+  "bpm": 139,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501096",
+  "publicSlug": "0LcjiKhJmK",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQ6JY1KDQRFKM22553Y2KP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14456/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "drum kit",
+    "strings",
+    "guitar",
+    "nostalgia",
+    "lead vocals",
+    "female vocals"
+  ]
+}

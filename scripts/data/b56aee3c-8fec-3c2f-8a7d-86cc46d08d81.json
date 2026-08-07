@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "b56aee3c-8fec-3c2f-8a7d-86cc46d08d81",
+  "epidemicTrackId": 101688,
+  "sourceProvider": "EpidemicSound",
+  "title": "Make Me Feel like You're Here Again",
+  "artist": "Wellmess",
+  "duration": 202,
+  "bpm": 123,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51903244",
+  "publicSlug": "zq3oG3RyWb",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGH6WPP96SKWKDHDA42R56T.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4163/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "2000s"
+  ],
+  "moods": [
+    "Romantic",
+    "Restless"
+  ],
+  "tags": [
+    "electric guitar",
+    "real instruments",
+    "epic",
+    "pounding",
+    "driving",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "f2e320b6-37c1-474f-949e-fea21037d901",
+  "epidemicTrackId": 106049,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lay Me in the Ocean",
+  "artist": "Blood Red Sun",
+  "duration": 211,
+  "bpm": 67,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003454",
+  "publicSlug": "v7hxI1e1bv",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNFXZ3ZPE150C8G9BF8SVK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5826/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "suggestive",
+    "mysterious",
+    "male vocals"
+  ]
+}

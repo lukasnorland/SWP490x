@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "7a9c279c-4d9d-4e55-84e7-394b4ddf8384",
+  "epidemicTrackId": 141402,
+  "sourceProvider": "EpidemicSound",
+  "title": "Divine Potion",
+  "artist": "Kylie Dailey",
+  "duration": 188,
+  "bpm": 113,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200017",
+  "publicSlug": "c3tL6P2XBK",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE5GQ2YER0TEX572161YTH7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8211/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Americana",
+    "Contemporary Folk",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "guitar",
+    "chil",
+    "uplifting",
+    "romantic"
+  ]
+}

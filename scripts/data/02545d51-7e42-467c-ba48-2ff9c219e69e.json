@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "02545d51-7e42-467c-ba48-2ff9c219e69e",
+  "epidemicTrackId": 146909,
+  "sourceProvider": "EpidemicSound",
+  "title": "You Are My Melody",
+  "artist": "Collin Lim",
+  "duration": 215,
+  "bpm": 98,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301205",
+  "publicSlug": "G2BqR3KkuY",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQ0KTQ6X0KHCN9N2TNBEHZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10758/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "jazz",
+    "piano",
+    "romantic",
+    "korean",
+    "hopeful",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

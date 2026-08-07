@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "66e6d533-affe-4f9a-84e9-e7efd3f15f38",
+  "epidemicTrackId": 146649,
+  "sourceProvider": "EpidemicSound",
+  "title": "Okay Being Me",
+  "artist": "Vicki Vox",
+  "duration": 217,
+  "bpm": 130,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52300945",
+  "publicSlug": "ZsYGtALhNI",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTET36QNW2215ZDPQA2A9S9N.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10169/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "romantic",
+    "upbeat",
+    "empowering",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

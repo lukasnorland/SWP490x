@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "9218322f-8bc3-369f-8b38-f9b77a7bd4f3",
+  "epidemicTrackId": 96977,
+  "sourceProvider": "EpidemicSound",
+  "title": "Crazy Good",
+  "artist": "Jesse Lawrence",
+  "duration": 272,
+  "bpm": 78,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51806007",
+  "publicSlug": "yJdiRF5nKJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG7N5R1VKC1BRDX5MQESJF5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6115/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "R&B",
+    "Motown",
+    "1960s"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "love",
+    "comforting",
+    "warm",
+    "sunny",
+    "soulful",
+    "feelgood",
+    "lead vocals",
+    "guitar",
+    "horns",
+    "male vocals"
+  ]
+}

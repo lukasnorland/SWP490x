@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "f3030b96-9e5b-45b5-abb3-43ad7eaef120",
+  "epidemicTrackId": 276453,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Ripple Effect",
+  "artist": "Vicki Vox",
+  "duration": 178,
+  "bpm": 149,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501610",
+  "publicSlug": "pdXqhWvJLL",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEVANVZNW9SCYTKX2B3N2KG.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14386/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "love song",
+    "clapping",
+    "electric guitar",
+    "lead vocals",
+    "female vocals"
+  ]
+}

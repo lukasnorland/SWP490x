@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "c74a2917-379e-4bf0-8522-528bd7ca8f7f",
+  "epidemicTrackId": 150084,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Know U Know",
+  "artist": "Xavy Rusan",
+  "duration": 181,
+  "bpm": 171,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52400040",
+  "publicSlug": "7xMFEiz2dZ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGD9Q4RGXNR4FK0Q40PPDBN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11864/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Old School Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Laid Back",
+    "Restless"
+  ],
+  "tags": [
+    "rap",
+    "dreamy",
+    "angry",
+    "southern hip hop"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "81638f21-9bc9-444b-862a-847748a61804",
+  "epidemicTrackId": 283094,
+  "sourceProvider": "EpidemicSound",
+  "title": "Bang (Duckmaw Remix)",
+  "artist": "Duckmaw, Lawd Ito",
+  "duration": 241,
+  "bpm": 130,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52503234",
+  "publicSlug": "H0FNEe6Yuw",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ7HNQ2M7NSAS26WE7GHJYW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15296/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Bass House"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "upbeat",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

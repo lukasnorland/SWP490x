@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "716d4643-d503-33a1-8d6c-a55fc6bede54",
+  "epidemicTrackId": 26351,
+  "sourceProvider": "EpidemicSound",
+  "title": "Here Comes the King",
+  "artist": "Chester Malone",
+  "duration": 166,
+  "bpm": 120,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51804175",
+  "publicSlug": "HdQIDrmCR7",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK0H3JW68Q943VCMPH9AH52S.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11479/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Classic Blues",
+    "Rock",
+    "1950s"
+  ],
+  "moods": [
+    "Happy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "50s kids",
+    "memphis"
+  ]
+}

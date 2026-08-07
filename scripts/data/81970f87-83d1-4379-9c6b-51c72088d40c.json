@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "81970f87-83d1-4379-9c6b-51c72088d40c",
+  "epidemicTrackId": 149219,
+  "sourceProvider": "EpidemicSound",
+  "title": "Storm",
+  "artist": "Amaroo",
+  "duration": 168,
+  "bpm": 116,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52303515",
+  "publicSlug": "Y7OlMPv5Ox",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF00YHK5XRV6HRPRN2S7Z2P.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11258/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats",
+    "African Continent"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "party",
+    "mina",
+    "ewe",
+    "happy",
+    "lead vocals",
+    "male vocals"
+  ]
+}

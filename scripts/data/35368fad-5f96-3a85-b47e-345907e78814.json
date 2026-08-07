@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "35368fad-5f96-3a85-b47e-345907e78814",
+  "epidemicTrackId": 64510,
+  "sourceProvider": "EpidemicSound",
+  "title": "I'm Giving In To You",
+  "artist": "Loving Caliber",
+  "duration": 216,
+  "bpm": 106,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51801519",
+  "publicSlug": "GNd1QxDrcK",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK45BQBRKEHHKJNK531KND49.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3731/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Suspense",
+    "Sexy"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

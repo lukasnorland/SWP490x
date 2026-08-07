@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "6fb23a66-23fa-4483-9816-32cf5d29f8c7",
+  "epidemicTrackId": 283865,
+  "sourceProvider": "EpidemicSound",
+  "title": "Over the Moon",
+  "artist": "Heyson",
+  "duration": 235,
+  "bpm": 132,
+  "energyLevel": "variable",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600393",
+  "publicSlug": "4EaoSB2C6Q",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK4QS5HZCYNAMTDC2Z4VF1NW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15640/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "House",
+    "India"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "indian pop",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

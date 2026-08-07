@@ -1,0 +1,26 @@
+{
+  "externalSourceId": "478755dd-ed1e-41d1-999e-77b1dbbe957a",
+  "epidemicTrackId": 283029,
+  "sourceProvider": "EpidemicSound",
+  "title": "Ten Thousand Ways",
+  "artist": "Torii Wolf",
+  "duration": 191,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503169",
+  "publicSlug": "kFviM5ywGE",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPP86EVD3H9HAR3SSHJF3Z.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15189/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "EDM",
+    "Electronic"
+  ],
+  "moods": [
+    "Dreamy",
+    "Mysterious"
+  ],
+  "tags": []
+}

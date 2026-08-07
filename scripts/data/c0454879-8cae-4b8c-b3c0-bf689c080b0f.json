@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "c0454879-8cae-4b8c-b3c0-bf689c080b0f",
+  "epidemicTrackId": 283455,
+  "sourceProvider": "EpidemicSound",
+  "title": "Is It Time?",
+  "artist": "rakey",
+  "duration": 228,
+  "bpm": 175,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503595",
+  "publicSlug": "Xj06ThQ0NB",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK07KKP4KSF93Y6R1AS6FZRH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15414/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop",
+    "Indie Pop",
+    "2020s",
+    "Drama"
+  ],
+  "moods": [
+    "Romantic",
+    "Sad",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals"
+  ]
+}

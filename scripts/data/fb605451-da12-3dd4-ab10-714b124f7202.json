@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "fb605451-da12-3dd4-ab10-714b124f7202",
+  "epidemicTrackId": 63499,
+  "sourceProvider": "EpidemicSound",
+  "title": "All For Christmas",
+  "artist": "The Noel",
+  "duration": 182,
+  "bpm": 115,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51816018",
+  "publicSlug": "wT0P5kfOVD",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHRQS7GXKN6HGW64YMFWCCH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/640/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Big Band",
+    "Classic Jazz",
+    "Christmas"
+  ],
+  "moods": [
+    "Relaxing",
+    "Laid Back"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "cozy",
+    "warm",
+    "comforting",
+    "romantic"
+  ]
+}

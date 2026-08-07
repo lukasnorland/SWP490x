@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "4f9e5255-2a30-397c-ba79-ee5a1a843022",
+  "epidemicTrackId": 97039,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Waiting Game",
+  "artist": "Bang Bang",
+  "duration": 193,
+  "bpm": 85,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51823176",
+  "publicSlug": "QValRauLcI",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJPGEBE7ZXPNS4MN1EAJ1NN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3584/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Country",
+    "Acoustic"
+  ],
+  "moods": [
+    "Relaxing",
+    "Laid Back"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "slide guitar",
+    "ballad",
+    "feelgood",
+    "romantic"
+  ]
+}

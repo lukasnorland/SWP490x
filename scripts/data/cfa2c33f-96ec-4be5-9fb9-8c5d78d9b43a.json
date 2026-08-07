@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "cfa2c33f-96ec-4be5-9fb9-8c5d78d9b43a",
+  "epidemicTrackId": 253484,
+  "sourceProvider": "EpidemicSound",
+  "title": "El Camino",
+  "artist": "Jaque Rascón",
+  "duration": 174,
+  "bpm": 192,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500140",
+  "publicSlug": "YMUrxfbSlN",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNS6FCRPBVNZCAAFXWN9XR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13652/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Corrido",
+    "Acoustic",
+    "Mexico"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "upbeat",
+    "romantic",
+    "trumpet",
+    "brass",
+    "guitar",
+    "lead vocals",
+    "female vocals"
+  ]
+}

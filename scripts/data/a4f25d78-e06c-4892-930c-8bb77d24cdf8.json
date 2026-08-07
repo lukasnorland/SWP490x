@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "a4f25d78-e06c-4892-930c-8bb77d24cdf8",
+  "epidemicTrackId": 103687,
+  "sourceProvider": "EpidemicSound",
+  "title": "Devil on My Trail",
+  "artist": "Red Revision",
+  "duration": 152,
+  "bpm": 93,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52001095",
+  "publicSlug": "pmUj8lntE4",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFQ9FMTHEB9J5X4T4W8P42C.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4839/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Classic Blues",
+    "Blues Rock"
+  ],
+  "moods": [
+    "Eccentric",
+    "Restless"
+  ],
+  "tags": [
+    "eccentric",
+    "attitude",
+    "cocky",
+    "male vocals",
+    "lead vocals"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "1541edcb-9a57-4cad-91e1-39fd9c3a136b",
+  "epidemicTrackId": 151106,
+  "sourceProvider": "EpidemicSound",
+  "title": "Mestiça",
+  "artist": "Luiz Murá",
+  "duration": 205,
+  "bpm": 126,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401062",
+  "publicSlug": "yhgreb4Spn",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG2RQZGGWV373J58CXZ7XCD.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12151/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Bossa Nova",
+    "Brazil",
+    "Acoustic"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "brazil",
+    "brazilian bossa nova",
+    "smooth",
+    "soft",
+    "portuguese",
+    "lead vocals",
+    "male vocals"
+  ]
+}

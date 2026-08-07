@@ -1,0 +1,26 @@
+{
+  "externalSourceId": "285049de-3448-47ee-b45d-f2c7724b6bf0",
+  "epidemicTrackId": 283338,
+  "sourceProvider": "EpidemicSound",
+  "title": "Funeral",
+  "artist": "Mattias Tell",
+  "duration": 191,
+  "bpm": 102,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52503478",
+  "publicSlug": "bJnYIX3CSN",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK6DDD78Z7JWTRYCY6TAXYC3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15561/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock"
+  ],
+  "moods": [
+    "Epic"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

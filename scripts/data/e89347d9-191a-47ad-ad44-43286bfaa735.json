@@ -1,0 +1,25 @@
+{
+  "externalSourceId": "e89347d9-191a-47ad-ad44-43286bfaa735",
+  "epidemicTrackId": 283762,
+  "sourceProvider": "EpidemicSound",
+  "title": "DIFFERENT",
+  "artist": "Bhris Drip",
+  "duration": 123,
+  "bpm": 150,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52600289",
+  "publicSlug": "xDZtIIz5zy",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KPX65RS5JFNDG0A0P84WPVME.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15517/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": []
+}

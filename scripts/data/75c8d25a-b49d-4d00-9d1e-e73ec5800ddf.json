@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "75c8d25a-b49d-4d00-9d1e-e73ec5800ddf",
+  "epidemicTrackId": 282825,
+  "sourceProvider": "EpidemicSound",
+  "title": "Fantasize",
+  "artist": "I'MIN",
+  "duration": 160,
+  "bpm": 115,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502965",
+  "publicSlug": "DmQ2yZBjZo",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMQTSQYTJBFR1S0RMZ2KT2.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15045/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "K-pop"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "a96c6df6-c953-47a0-8667-ffacb73c9fe8",
+  "epidemicTrackId": 151105,
+  "sourceProvider": "EpidemicSound",
+  "title": "Cura",
+  "artist": "Luiz Murá",
+  "duration": 190,
+  "bpm": 148,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401061",
+  "publicSlug": "C6MJ6gSQLM",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTENKY49SXDCYYF67HTMEBQW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12151/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Bossa Nova",
+    "Brazil",
+    "Acoustic"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "brazil",
+    "brazilian bossa nova",
+    "soft",
+    "portuguese",
+    "cosy",
+    "lead vocals",
+    "male vocals"
+  ]
+}

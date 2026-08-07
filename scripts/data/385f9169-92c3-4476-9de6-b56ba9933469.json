@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "385f9169-92c3-4476-9de6-b56ba9933469",
+  "epidemicTrackId": 147655,
+  "sourceProvider": "EpidemicSound",
+  "title": "Bam Bam (Clean Version)",
+  "artist": "Bambi Haze",
+  "duration": 126,
+  "bpm": 143,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301951",
+  "publicSlug": "atWnPeeVzV",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHVYBQ3677EW6EKN82TJ4XG.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10777/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "powerful",
+    "rap"
+  ]
+}

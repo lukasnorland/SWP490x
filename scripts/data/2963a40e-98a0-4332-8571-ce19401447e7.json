@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "2963a40e-98a0-4332-8571-ce19401447e7",
+  "epidemicTrackId": 107603,
+  "sourceProvider": "EpidemicSound",
+  "title": "Don't Do That",
+  "artist": "Iso Indies",
+  "duration": 138,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52100763",
+  "publicSlug": "ZmnrgWpVAh",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHEGJW82H7TZMT2Q6JBBZCN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6565/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "driving",
+    "rap"
+  ]
+}

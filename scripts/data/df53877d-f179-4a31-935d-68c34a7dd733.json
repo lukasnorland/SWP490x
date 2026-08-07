@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "df53877d-f179-4a31-935d-68c34a7dd733",
+  "epidemicTrackId": 253331,
+  "sourceProvider": "EpidemicSound",
+  "title": "Cold Hearted Liar",
+  "artist": "Mindme",
+  "duration": 181,
+  "bpm": 175,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52404334",
+  "publicSlug": "EcwrZbePOj",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGCV1F3RF5EX7BVXX1QFQY5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13487/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Folk Pop"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "sad",
+    "broken heart",
+    "acoustic guitar",
+    "lead vocals",
+    "female vocals"
+  ]
+}

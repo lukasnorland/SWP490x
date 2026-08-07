@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "3c2e4669-3aa8-4e59-8596-c10a1b9d3d24",
+  "epidemicTrackId": 282215,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sunrise",
+  "artist": "Victor Lundberg",
+  "duration": 206,
+  "bpm": 85,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502876",
+  "publicSlug": "pyp5Rn6eog",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH3QCZF7WJ5QGYGA9W9YG19.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15035/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Folk Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "piano",
+    "acoustic guitar",
+    "lead vocals",
+    "male vocals"
+  ]
+}

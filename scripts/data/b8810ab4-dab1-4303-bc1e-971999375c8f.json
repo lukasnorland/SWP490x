@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "b8810ab4-dab1-4303-bc1e-971999375c8f",
+  "epidemicTrackId": 147476,
+  "sourceProvider": "EpidemicSound",
+  "title": "Something's Telling Me",
+  "artist": "Niklas Gabrielsson with Martin Landström & His Orchestra",
+  "duration": 246,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301772",
+  "publicSlug": "TXgn9JOZv4",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTERARHG6GCMQKB7PR0VPTF3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10478/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Jazz",
+    "Big Band",
+    "Christmas",
+    "1950s",
+    "1960s"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "jazz",
+    "orchestra",
+    "strings",
+    "latin jazz",
+    "lead vocals",
+    "male vocals",
+    "feelgood"
+  ]
+}

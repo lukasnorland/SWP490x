@@ -1,0 +1,40 @@
+{
+  "externalSourceId": "8c74238b-0fe5-3412-b0b9-1ffbc26ac401",
+  "epidemicTrackId": 96034,
+  "sourceProvider": "EpidemicSound",
+  "title": "Next To Me",
+  "artist": "Lvly",
+  "duration": 218,
+  "bpm": 126,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51800284",
+  "publicSlug": "GeijrZZTag",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH3B6P7SKS8BPVT359J63DW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/368/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Dance",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Romantic"
+  ],
+  "tags": [
+    "youth",
+    "vibrant",
+    "upbeat",
+    "playful",
+    "uplifting",
+    "energetic",
+    "exciting",
+    "running",
+    "driving",
+    "lead vocals",
+    "female vocals",
+    "vlog",
+    "male vocals"
+  ]
+}

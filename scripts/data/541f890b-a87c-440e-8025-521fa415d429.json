@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "541f890b-a87c-440e-8025-521fa415d429",
+  "epidemicTrackId": 253604,
+  "sourceProvider": "EpidemicSound",
+  "title": "Nothing Left but Dirt",
+  "artist": "Particle House",
+  "duration": 183,
+  "bpm": 73,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500258",
+  "publicSlug": "OuzAvRKGnd",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH10EBQZZJJZDM97NXWV7DW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13661/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "1980s",
+    "Nostalgia"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "indie pop",
+    "lead vocals",
+    "male vocals",
+    "retro",
+    "80s"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "733e46f4-4157-44ec-be5f-2c6310eaea9c",
+  "epidemicTrackId": 249681,
+  "sourceProvider": "EpidemicSound",
+  "title": "I See You",
+  "artist": "Candelion",
+  "duration": 193,
+  "bpm": 112,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402401",
+  "publicSlug": "UcRwsEmikx",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ7HP0EEF2JRYP50W5TYDVV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12919/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Folk Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "whistle",
+    "female vocals",
+    "acoustic guitar",
+    "upbeat",
+    "relationship",
+    "romantic",
+    "connection",
+    "laid back",
+    "feel good",
+    "lead vocals"
+  ]
+}

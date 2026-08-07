@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "962b3d80-e193-34f5-88f5-8d4e1fee8e5b",
+  "epidemicTrackId": 102328,
+  "sourceProvider": "EpidemicSound",
+  "title": "Act Normal",
+  "artist": "Megan Wofford",
+  "duration": 223,
+  "bpm": 75,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51903869",
+  "publicSlug": "GlfPu7BbS6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFZHFNJAK1D57R93PH8P50F.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4917/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s",
+    "Acoustic"
+  ],
+  "moods": [
+    "Elegant",
+    "Smooth"
+  ],
+  "tags": [
+    "acoustic",
+    "lead vocals",
+    "piano ballad",
+    "female vocals",
+    "sad",
+    "male vocals"
+  ]
+}

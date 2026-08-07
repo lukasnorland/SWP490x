@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "41fd45ec-c741-4d0e-b98e-4286cadb31a6",
+  "epidemicTrackId": 105313,
+  "sourceProvider": "EpidemicSound",
+  "title": "Ain't True Yet",
+  "artist": "Bo the Drifter",
+  "duration": 179,
+  "bpm": 80,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002718",
+  "publicSlug": "SThYus8b7e",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGJT5Q2A0W8CMTHCK83K3Z2.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5489/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Blues Rock",
+    "Modern Blues"
+  ],
+  "moods": [
+    "Happy",
+    "Eccentric"
+  ],
+  "tags": [
+    "feelgood",
+    "driving",
+    "male vocals",
+    "lead vocals"
+  ]
+}

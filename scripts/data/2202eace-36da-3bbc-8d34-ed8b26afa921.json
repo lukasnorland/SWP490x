@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "2202eace-36da-3bbc-8d34-ed8b26afa921",
+  "epidemicTrackId": 102838,
+  "sourceProvider": "EpidemicSound",
+  "title": "My Last Line Of Defence",
+  "artist": "Velvethead",
+  "duration": 200,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000259",
+  "publicSlug": "KHBcZx03S1",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGP06QWB13B0TT4G7K74RQ6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4471/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "relationship",
+    "love",
+    "heartbreak",
+    "male vocals",
+    "lead vocals"
+  ]
+}

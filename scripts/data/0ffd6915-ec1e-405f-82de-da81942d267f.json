@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "0ffd6915-ec1e-405f-82de-da81942d267f",
+  "epidemicTrackId": 283355,
+  "sourceProvider": "EpidemicSound",
+  "title": "make it right",
+  "artist": "Ayoub",
+  "duration": 145,
+  "bpm": 99,
+  "energyLevel": "variable",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503495",
+  "publicSlug": "ikPraYmpcj",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK04RGDVTB23GNY0SQV6799H.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15532/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary R&B",
+    "2020s",
+    "Beats"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "50644cd0-7c69-4ca8-9093-2f93c966e29d",
+  "epidemicTrackId": 276424,
+  "sourceProvider": "EpidemicSound",
+  "title": "Ring Ring Ring",
+  "artist": "I'MIN",
+  "duration": 170,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501581",
+  "publicSlug": "qce4dVfBum",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJMKCYHRPA9R9YN1TQZ24V1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14374/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "upbeat",
+    "powerful",
+    "lead vocals",
+    "male vocals",
+    "cheeky",
+    "telephone",
+    "calling",
+    "love song"
+  ]
+}

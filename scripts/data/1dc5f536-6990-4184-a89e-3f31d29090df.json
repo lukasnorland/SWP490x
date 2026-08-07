@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "1dc5f536-6990-4184-a89e-3f31d29090df",
+  "epidemicTrackId": 284043,
+  "sourceProvider": "EpidemicSound",
+  "title": "Wishful Thinking",
+  "artist": "Cave Spring, Will Harrison",
+  "duration": 218,
+  "bpm": 130,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600517",
+  "publicSlug": "zFwZTMh443",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KKKCK9DJ7GPV7VNJAGKB5735.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15604/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Country Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

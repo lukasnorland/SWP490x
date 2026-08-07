@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "532b3c5e-f06b-425c-bf2b-817f3816f970",
+  "epidemicTrackId": 107246,
+  "sourceProvider": "EpidemicSound",
+  "title": "3 Peat",
+  "artist": "Nbhd Nick",
+  "duration": 123,
+  "bpm": 150,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52100406",
+  "publicSlug": "3On37bhLUO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGFSPS2WEPQDTHKAE1WSEXP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6419/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Eccentric",
+    "Restless"
+  ],
+  "tags": [
+    "driving",
+    "dark",
+    "rap"
+  ]
+}

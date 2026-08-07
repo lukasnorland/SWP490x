@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "d0ec454e-712e-4eba-9c08-2fbfec14b65b",
+  "epidemicTrackId": 276244,
+  "sourceProvider": "EpidemicSound",
+  "title": "FLIP SIDE (Clean Version)",
+  "artist": "ALICE",
+  "duration": 208,
+  "bpm": 102,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501401",
+  "publicSlug": "5rBGDL1k6q",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KWY9FMBTQ44RJN73DK18DJ0Q.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14291/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Beats"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "attitude",
+    "lead vocals",
+    "female vocals"
+  ]
+}

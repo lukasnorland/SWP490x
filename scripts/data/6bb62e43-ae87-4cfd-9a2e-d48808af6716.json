@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "6bb62e43-ae87-4cfd-9a2e-d48808af6716",
+  "epidemicTrackId": 142793,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lift up a Shout",
+  "artist": "JOYSPRING",
+  "duration": 220,
+  "bpm": 114,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201407",
+  "publicSlug": "dF9ykKJ24n",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHDB3BT4J7WBSYD5TYFQ79F.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8896/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian"
+  ],
+  "moods": [
+    "Happy"
+  ],
+  "tags": [
+    "christian",
+    "believe",
+    "faith",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "08b7e0f9-5986-4e09-87bd-f58193ceef61",
+  "epidemicTrackId": 283027,
+  "sourceProvider": "EpidemicSound",
+  "title": "It's a Fantasy",
+  "artist": "Ira Moon",
+  "duration": 198,
+  "bpm": 126,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503167",
+  "publicSlug": "s0Q0yi7337",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHETR4C2MGRZT3D3MD0E47S.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15074/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "a38b07c1-9a8a-49c2-9795-35d2143faee1",
+  "epidemicTrackId": 149560,
+  "sourceProvider": "EpidemicSound",
+  "title": "Mind Blank",
+  "artist": "OTE",
+  "duration": 186,
+  "bpm": 118,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52304694",
+  "publicSlug": "cG9Z8jvk6d",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNTYZKVJHA8ZMQA39NZZV8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11477/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "carefree",
+    "good times",
+    "poppy",
+    "2010s pop",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

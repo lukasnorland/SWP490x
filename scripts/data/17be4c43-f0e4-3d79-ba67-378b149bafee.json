@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "17be4c43-f0e4-3d79-ba67-378b149bafee",
+  "epidemicTrackId": 102043,
+  "sourceProvider": "EpidemicSound",
+  "title": "Airplane Mode (Clean Version)",
+  "artist": "Tilden Parc",
+  "duration": 221,
+  "bpm": 142,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51903598",
+  "publicSlug": "cmd2xBFcP1",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPJQQ1BPB1V1WTJK74EP6N.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4679/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Trap"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "driving",
+    "eccentric",
+    "808",
+    "rap",
+    "attitude"
+  ]
+}

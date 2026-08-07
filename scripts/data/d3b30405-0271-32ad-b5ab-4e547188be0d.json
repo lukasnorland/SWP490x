@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "d3b30405-0271-32ad-b5ab-4e547188be0d",
+  "epidemicTrackId": 102803,
+  "sourceProvider": "EpidemicSound",
+  "title": "Special about You",
+  "artist": "Craig Reever",
+  "duration": 194,
+  "bpm": 132,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000224",
+  "publicSlug": "LpMbIvsXix",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE54FPWWM546759YNFA3PGV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4671/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Indie Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Happy",
+    "Sexy"
+  ],
+  "tags": [
+    "falsetto",
+    "uplifting",
+    "driving",
+    "groovy",
+    "guitar",
+    "dopamine",
+    "love",
+    "happy",
+    "male vocals",
+    "lead vocals"
+  ]
+}

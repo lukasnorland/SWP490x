@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "3afeb765-5ed8-4982-88a4-f4b6a84db371",
+  "epidemicTrackId": 249443,
+  "sourceProvider": "EpidemicSound",
+  "title": "LA LA LA",
+  "artist": "Adelyn Paik",
+  "duration": 174,
+  "bpm": 146,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402163",
+  "publicSlug": "TZwSWfYnGV",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFR62K3PDPV54B8JTPTSPD9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12515/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea",
+    "Beats"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "bass",
+    "female vocals",
+    "harmonies",
+    "bouncy",
+    "feel good",
+    "vibes",
+    "upbeat",
+    "joyful",
+    "lead vocals"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "042bfe13-8e6f-4a00-bb61-d58787ce8a19",
+  "epidemicTrackId": 283384,
+  "sourceProvider": "EpidemicSound",
+  "title": "Movie",
+  "artist": "Nic Hanson",
+  "duration": 121,
+  "bpm": 112,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503524",
+  "publicSlug": "LaedlVzI7j",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK72A13MCP34V4GJW188NKWM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15209/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Funk"
+  ],
+  "moods": [
+    "Happy",
+    "Romantic"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

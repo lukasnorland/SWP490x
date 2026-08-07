@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "29c09776-245a-3df4-b8ef-d09b44f26098",
+  "epidemicTrackId": 102530,
+  "sourceProvider": "EpidemicSound",
+  "title": "Way Way Back (Acoustic Version)",
+  "artist": "Lvly, Megan Wofford",
+  "duration": 283,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51904071",
+  "publicSlug": "ANJDhsIndl",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHFMQJFBWQSMP2RZV8VJ27F.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4446/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "ballad",
+    "female vocals",
+    "lead vocals",
+    "piano",
+    "romantic",
+    "male vocals"
+  ]
+}

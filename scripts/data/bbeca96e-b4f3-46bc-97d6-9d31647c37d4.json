@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "bbeca96e-b4f3-46bc-97d6-9d31647c37d4",
+  "epidemicTrackId": 105041,
+  "sourceProvider": "EpidemicSound",
+  "title": "Feel So Lucky",
+  "artist": "Cody Francis",
+  "duration": 202,
+  "bpm": 87,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002446",
+  "publicSlug": "m70PB911FY",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGDY7EABQXYK7641QP8Y5PM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5382/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Folk Pop",
+    "Contemporary Folk",
+    "Acoustic"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "guitar",
+    "folk pop",
+    "pop",
+    "male vocals",
+    "lead vocals",
+    "female vocals"
+  ]
+}

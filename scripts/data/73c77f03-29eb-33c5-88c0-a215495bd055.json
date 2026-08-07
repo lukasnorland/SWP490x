@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "73c77f03-29eb-33c5-88c0-a215495bd055",
+  "epidemicTrackId": 98996,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Can Not Explain",
+  "artist": "The Big Let Down",
+  "duration": 217,
+  "bpm": 145,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51900556",
+  "publicSlug": "Fx9BuwiDTc",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHT8EA76H0Q2RE36CWJS44X.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2599/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock"
+  ],
+  "moods": [
+    "Epic",
+    "Sentimental"
+  ],
+  "tags": [
+    "lead vocals",
+    "indie rock",
+    "indie pop",
+    "male vocals",
+    "guitars",
+    "romantic",
+    "high energy",
+    "hopeful"
+  ]
+}

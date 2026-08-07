@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "36ce4730-0fde-4d20-b9cc-1f080f253ba5",
+  "epidemicTrackId": 276268,
+  "sourceProvider": "EpidemicSound",
+  "title": "La Nena",
+  "artist": "Jaque Rascón",
+  "duration": 151,
+  "bpm": 104,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501425",
+  "publicSlug": "pwddlScwUh",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE3JJE708FJVGDB7GM31NX4.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14308/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Reggaeton"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "hopeful",
+    "powerful",
+    "lead vocals",
+    "female vocals"
+  ]
+}

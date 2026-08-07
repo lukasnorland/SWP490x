@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "b2d4c427-8b73-3f2e-9d31-41106ada7a8c",
+  "epidemicTrackId": 98701,
+  "sourceProvider": "EpidemicSound",
+  "title": "Funhouse (Clean Version)",
+  "artist": "Tilden Parc",
+  "duration": 250,
+  "bpm": 141,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51900261",
+  "publicSlug": "td5Akg3qMA",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGKVJM2V2FSCFT5GF7SG7XV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3988/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Dark",
+    "Eccentric"
+  ],
+  "tags": [
+    "rap",
+    "electronic",
+    "808",
+    "dark trap",
+    "trap"
+  ]
+}

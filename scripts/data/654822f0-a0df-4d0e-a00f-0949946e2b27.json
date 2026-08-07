@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "654822f0-a0df-4d0e-a00f-0949946e2b27",
+  "epidemicTrackId": 254383,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Don't Even Know Why",
+  "artist": "Wildflowers",
+  "duration": 180,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501037",
+  "publicSlug": "k1CIFxPkSK",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFGH3Q73SN46DPE4KFEX7TV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14067/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Country Pop"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "drum kit",
+    "lead vocals",
+    "male vocals"
+  ]
+}

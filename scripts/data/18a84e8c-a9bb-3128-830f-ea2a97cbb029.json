@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "18a84e8c-a9bb-3128-830f-ea2a97cbb029",
+  "epidemicTrackId": 59068,
+  "sourceProvider": "EpidemicSound",
+  "title": "Feeling Crazy",
+  "artist": "Layn",
+  "duration": 206,
+  "bpm": 126,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51809943",
+  "publicSlug": "4hmMPPAygQ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEJ9AN6Y4B5TF1GZJADJB6A.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4622/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "80s drums",
+    "running",
+    "driving",
+    "college rock",
+    "teen rock",
+    "party"
+  ]
+}

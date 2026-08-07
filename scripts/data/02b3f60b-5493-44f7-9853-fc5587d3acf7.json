@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "02b3f60b-5493-44f7-9853-fc5587d3acf7",
+  "epidemicTrackId": 103524,
+  "sourceProvider": "EpidemicSound",
+  "title": "When All Is Done",
+  "artist": "OTE",
+  "duration": 215,
+  "bpm": 94,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000934",
+  "publicSlug": "BgNJJ6O06I",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHXHF52NCJYX8M4BJ59M9DG.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4901/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Indie Rock",
+    "1970s"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "retro",
+    "nostalgic"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "cc64217d-0d4f-4703-b5aa-9c6e6084afdf",
+  "epidemicTrackId": 254439,
+  "sourceProvider": "EpidemicSound",
+  "title": "Hawkeye",
+  "artist": "Kylie Dailey",
+  "duration": 174,
+  "bpm": 177,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501094",
+  "publicSlug": "9xtJYReQpE",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGAGPJQVTTMVJ38E5XQ1ZA7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14839/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk"
+  ],
+  "moods": [
+    "Laid Back",
+    "Quirky"
+  ],
+  "tags": [
+    "drum kit",
+    "guitar",
+    "lead vocals",
+    "female vocals"
+  ]
+}

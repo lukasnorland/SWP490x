@@ -1,0 +1,25 @@
+{
+  "externalSourceId": "6eea70ec-f8a8-4a17-9999-3bcef9056805",
+  "epidemicTrackId": 277241,
+  "sourceProvider": "EpidemicSound",
+  "title": "Paper Crane",
+  "artist": "Egaoya",
+  "duration": 179,
+  "bpm": 138,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502405",
+  "publicSlug": "pCsIf75xaC",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH8AQA4D01BYVDK3NDN38E9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14884/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "J-pop",
+    "Japan"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": []
+}

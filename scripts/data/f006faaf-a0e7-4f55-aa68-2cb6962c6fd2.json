@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "f006faaf-a0e7-4f55-aa68-2cb6962c6fd2",
+  "epidemicTrackId": 283720,
+  "sourceProvider": "EpidemicSound",
+  "title": "Conscious",
+  "artist": "Lu'",
+  "duration": 143,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600247",
+  "publicSlug": "c10SWJBpD4",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK3BWVZK28BQM039BBQB2BXM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15575/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

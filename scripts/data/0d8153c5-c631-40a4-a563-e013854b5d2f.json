@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "0d8153c5-c631-40a4-a563-e013854b5d2f",
+  "epidemicTrackId": 148468,
+  "sourceProvider": "EpidemicSound",
+  "title": "You're All I Need",
+  "artist": "Collin Lim",
+  "duration": 259,
+  "bpm": 107,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52302764",
+  "publicSlug": "rFMMUy3gHQ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHK697EY1031S2CCYYQESQ2.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10758/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Smooth Jazz",
+    "Korea"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "korean",
+    "dreamy",
+    "acoustic",
+    "bossa nova",
+    "lead vocals",
+    "male vocals"
+  ]
+}

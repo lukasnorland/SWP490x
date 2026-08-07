@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "4ba6a7fe-7b4f-4ee3-af8a-e85f52a73038",
+  "epidemicTrackId": 276289,
+  "sourceProvider": "EpidemicSound",
+  "title": "Normal People",
+  "artist": "Hennie Hun",
+  "duration": 226,
+  "bpm": 140,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501446",
+  "publicSlug": "5qDJKqslQz",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEH87D6PTSNWE5JPC2JANVS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14430/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "ballad",
+    "acoustic guitar",
+    "lead vocals",
+    "female vocals"
+  ]
+}

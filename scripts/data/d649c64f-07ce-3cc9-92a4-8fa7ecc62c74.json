@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "d649c64f-07ce-3cc9-92a4-8fa7ecc62c74",
+  "epidemicTrackId": 102366,
+  "sourceProvider": "EpidemicSound",
+  "title": "Beauty Lives in Me",
+  "artist": "Johannes Bornlöf",
+  "duration": 189,
+  "bpm": 86,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51903907",
+  "publicSlug": "TZWpHHVt2X",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF9CWNMTS6C4A7FHZ2FG84T.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4380/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "ballad",
+    "piano",
+    "strings",
+    "female vocals",
+    "lead vocals",
+    "acoustic",
+    "pop",
+    "male vocals"
+  ]
+}

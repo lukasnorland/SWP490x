@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "232dd76d-69bf-3007-b76c-d82d91e398ec",
+  "epidemicTrackId": 63915,
+  "sourceProvider": "EpidemicSound",
+  "title": "Falling Apart",
+  "artist": "OTE",
+  "duration": 175,
+  "bpm": 122,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51807407",
+  "publicSlug": "o7d9RvzVSQ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE5GQPS29QNDF01ZWHHY6AE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9622/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Mysterious",
+    "Laid Back"
+  ],
+  "tags": [
+    "contemporary",
+    "smooth",
+    "lead vocals",
+    "female vocals",
+    "retro",
+    "dreamy",
+    "male vocals"
+  ]
+}

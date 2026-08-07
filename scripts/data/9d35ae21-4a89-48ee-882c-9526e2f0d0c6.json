@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "9d35ae21-4a89-48ee-882c-9526e2f0d0c6",
+  "epidemicTrackId": 252385,
+  "sourceProvider": "EpidemicSound",
+  "title": "Billetón",
+  "artist": "Ramiro LR",
+  "duration": 158,
+  "bpm": 127,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403414",
+  "publicSlug": "uBrwLh3QeZ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFGE9D450NYP2JC8R8PZ1GY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13105/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Corrido",
+    "Electro House"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "upbeat",
+    "dreamy",
+    "quirky",
+    "lead vocals",
+    "male vocals"
+  ]
+}

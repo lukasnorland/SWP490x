@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "04a09acb-a3e2-478d-97c6-963b1ce953de",
+  "epidemicTrackId": 105553,
+  "sourceProvider": "EpidemicSound",
+  "title": "Medic!",
+  "artist": "Dexter & The Disciples",
+  "duration": 253,
+  "bpm": 82,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002958",
+  "publicSlug": "hghF2Zl0fe",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFA4HXXRZG5RDQQK2KMSJMV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5487/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Reggae",
+    "Caribbean"
+  ],
+  "moods": [
+    "Happy",
+    "Euphoric"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "marching",
+    "beach",
+    "summer"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "67662f78-4f6d-3f3d-8d17-8021c7ff1f8d",
+  "epidemicTrackId": 63012,
+  "sourceProvider": "EpidemicSound",
+  "title": "Bad Love Good Love",
+  "artist": "Cacti",
+  "duration": 233,
+  "bpm": 118,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828229",
+  "publicSlug": "vX5tvWoriL",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGN2VD779PT0QJ8PFS3W1PR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Euphoric"
+  ],
+  "tags": [
+    "young",
+    "romance",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

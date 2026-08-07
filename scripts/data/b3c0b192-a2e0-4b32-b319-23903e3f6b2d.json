@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "b3c0b192-a2e0-4b32-b319-23903e3f6b2d",
+  "epidemicTrackId": 277603,
+  "sourceProvider": "EpidemicSound",
+  "title": "In Vain",
+  "artist": "Kouba, Jevon Ives",
+  "duration": 205,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502767",
+  "publicSlug": "slrWSDqNMt",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHBTAQZWXAA3QBN0ZGMF90X.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15034/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Hip Hop",
+    "Neo Soul"
+  ],
+  "moods": [
+    "Dreamy",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

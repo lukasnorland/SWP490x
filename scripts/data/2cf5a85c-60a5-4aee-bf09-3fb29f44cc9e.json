@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "2cf5a85c-60a5-4aee-bf09-3fb29f44cc9e",
+  "epidemicTrackId": 148077,
+  "sourceProvider": "EpidemicSound",
+  "title": "AFTERPARTY",
+  "artist": "dasloe",
+  "duration": 217,
+  "bpm": 105,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52302373",
+  "publicSlug": "WE4ZTA3qAL",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJMMJM4HYPTJ20FEYZQGDJ8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11016/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "korean",
+    "powerful",
+    "energetic",
+    "synth",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "d34700b1-2246-413c-b956-e2491fc0528d",
+  "epidemicTrackId": 252338,
+  "sourceProvider": "EpidemicSound",
+  "title": "Cry of the Banshee",
+  "artist": "Grevens Tid",
+  "duration": 285,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403367",
+  "publicSlug": "jOZcSikIrs",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJNZ0Q3H015HAB24RVAZ9C7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13221/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Rock",
+    "1970s"
+  ],
+  "moods": [
+    "Epic",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

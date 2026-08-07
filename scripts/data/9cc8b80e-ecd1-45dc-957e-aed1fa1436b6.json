@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "9cc8b80e-ecd1-45dc-957e-aed1fa1436b6",
+  "epidemicTrackId": 276926,
+  "sourceProvider": "EpidemicSound",
+  "title": "Stuck in My Head",
+  "artist": "Bankston",
+  "duration": 167,
+  "bpm": 130,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502090",
+  "publicSlug": "fJO2L3soK5",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE1TSTDG3SYWVZ5A71FQ3RA.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14610/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop Rock",
+    "2000s"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "upbeat",
+    "lead vocals",
+    "male vocals"
+  ]
+}

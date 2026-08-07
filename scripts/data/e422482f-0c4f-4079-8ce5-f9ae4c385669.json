@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "e422482f-0c4f-4079-8ce5-f9ae4c385669",
+  "epidemicTrackId": 276897,
+  "sourceProvider": "EpidemicSound",
+  "title": "Christmas Time Again",
+  "artist": "Roy Edwin Williams, Francie",
+  "duration": 164,
+  "bpm": 12,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502061",
+  "publicSlug": "YSYqFeHg1H",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG3MWZ1N7PCEEBF3V0G0ZQ1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14625/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Big Band",
+    "Swing",
+    "Christmas",
+    "Acoustic"
+  ],
+  "moods": [
+    "Happy",
+    "Romantic"
+  ],
+  "tags": [
+    "trumpet",
+    "trombone",
+    "30s",
+    "40s",
+    "electric guitar",
+    "standup bass",
+    "piano",
+    "lead vocals",
+    "male vocals"
+  ]
+}

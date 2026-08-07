@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "14e753fd-5420-3e02-8e2b-43cc3e3f8e75",
+  "epidemicTrackId": 97036,
+  "sourceProvider": "EpidemicSound",
+  "title": "A Penny For Your Thoughts",
+  "artist": "OTE",
+  "duration": 204,
+  "bpm": 175,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51801053",
+  "publicSlug": "glPjwLQeZd",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQKD9ESWK0QBC6WKY4TWJW.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/598/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Dark",
+    "Eccentric"
+  ],
+  "tags": [
+    "steady",
+    "atmospheric",
+    "lead vocals",
+    "male vocals",
+    "running",
+    "driving"
+  ]
+}

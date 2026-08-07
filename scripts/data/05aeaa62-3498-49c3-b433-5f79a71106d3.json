@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "05aeaa62-3498-49c3-b433-5f79a71106d3",
+  "epidemicTrackId": 150358,
+  "sourceProvider": "EpidemicSound",
+  "title": "Land of the Living",
+  "artist": "Kylie Dailey",
+  "duration": 212,
+  "bpm": 125,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400314",
+  "publicSlug": "bMS3GFPgHF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGWYQ8NCFMFZ0FWA93SQQ52.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11676/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "female vocals",
+    "acoustic guitar",
+    "smooth",
+    "groove",
+    "piano",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "2d0e00a8-e8ef-4fbe-b798-f1537fbb61e8",
+  "epidemicTrackId": 149789,
+  "sourceProvider": "EpidemicSound",
+  "title": "Blue",
+  "artist": "Blood Harmony",
+  "duration": 244,
+  "bpm": 117,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52304923",
+  "publicSlug": "aQFTwuevLh",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHVNEY92JW7QYZYBBSTHSZJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12374/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Folk Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "female vocals",
+    "country",
+    "contemporary",
+    "guitar",
+    "romantic",
+    "lead vocals"
+  ]
+}

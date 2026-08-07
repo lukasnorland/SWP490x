@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "e309f5e7-acab-4d03-843d-a884f37bb25f",
+  "epidemicTrackId": 138392,
+  "sourceProvider": "EpidemicSound",
+  "title": "Cardio",
+  "artist": "Superintendent McCupcakes",
+  "duration": 168,
+  "bpm": 120,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52101780",
+  "publicSlug": "YsLjJdkLf9",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFAMSK3PCMKPEEAQXXHQGVQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7295/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance",
+    "Hyperpop",
+    "Electronic",
+    "Beats"
+  ],
+  "moods": [
+    "Eccentric",
+    "Restless"
+  ],
+  "tags": [
+    "driving",
+    "cocky",
+    "attitude",
+    "editorial",
+    "commercial",
+    "lead vocals",
+    "male vocals",
+    "synth",
+    "exercise"
+  ]
+}

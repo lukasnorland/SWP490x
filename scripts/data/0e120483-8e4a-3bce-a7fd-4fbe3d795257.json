@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "0e120483-8e4a-3bce-a7fd-4fbe3d795257",
+  "epidemicTrackId": 100328,
+  "sourceProvider": "EpidemicSound",
+  "title": "Can't Get Enough of the Weekend",
+  "artist": "Mindme",
+  "duration": 193,
+  "bpm": 103,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51901889",
+  "publicSlug": "ps8XTTZust",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTENKY2XZM9FPJ1R626KD8QV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3831/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sexy"
+  ],
+  "tags": [
+    "happy",
+    "driving",
+    "female vocals",
+    "lead vocals",
+    "party",
+    "mainstream",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "d2b246ff-cb76-437d-adfd-f7287c65d60c",
+  "epidemicTrackId": 282934,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sad Dad Eyes",
+  "artist": "Mattias Tell",
+  "duration": 186,
+  "bpm": 87,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52503074",
+  "publicSlug": "pCc6kMPXbW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KYHV7GKH0NP0QYJEBHH4G64H.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15110/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Epic",
+    "Sad"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

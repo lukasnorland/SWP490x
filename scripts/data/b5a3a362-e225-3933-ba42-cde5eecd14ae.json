@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "b5a3a362-e225-3933-ba42-cde5eecd14ae",
+  "epidemicTrackId": 102156,
+  "sourceProvider": "EpidemicSound",
+  "title": "Mile High Club (Clean Version)",
+  "artist": "Tilden Parc",
+  "duration": 170,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51903697",
+  "publicSlug": "56RUYCGuOL",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH6NZ2H1Y74N7CG2TPPZCE8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4679/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Trap"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "rap",
+    "808",
+    "electronic",
+    "driving"
+  ]
+}

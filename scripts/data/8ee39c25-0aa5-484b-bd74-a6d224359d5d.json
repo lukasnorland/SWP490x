@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "8ee39c25-0aa5-484b-bd74-a6d224359d5d",
+  "epidemicTrackId": 150548,
+  "sourceProvider": "EpidemicSound",
+  "title": "Speak the Language",
+  "artist": "Xavy Rusan",
+  "duration": 192,
+  "bpm": 130,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52400504",
+  "publicSlug": "aC7gAqAalY",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQ6JGWBSZSYM30P15D0Q7T.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12167/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Old School Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "rap",
+    "southern hip hop",
+    "hopeful",
+    "lead vocals",
+    "male vocals"
+  ]
+}

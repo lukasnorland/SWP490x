@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "3f2116b5-2134-3552-be12-a36512b06ed7",
+  "epidemicTrackId": 101718,
+  "sourceProvider": "EpidemicSound",
+  "title": "Your Love Is",
+  "artist": "LeDorean",
+  "duration": 183,
+  "bpm": 128,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51903274",
+  "publicSlug": "6QR5htz4mG",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFD555ZFYGYSQP7B2S0QSK7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4335/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance"
+  ],
+  "moods": [
+    "Happy",
+    "Running"
+  ],
+  "tags": [
+    "gym",
+    "electronic",
+    "driving",
+    "lead vocals",
+    "male vocals",
+    "club",
+    "energy",
+    "workout",
+    "synth"
+  ]
+}

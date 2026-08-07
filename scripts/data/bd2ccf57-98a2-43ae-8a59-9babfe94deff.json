@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "bd2ccf57-98a2-43ae-8a59-9babfe94deff",
+  "epidemicTrackId": 150341,
+  "sourceProvider": "EpidemicSound",
+  "title": "Love Extra",
+  "artist": "I'MIN",
+  "duration": 188,
+  "bpm": 108,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400297",
+  "publicSlug": "3WcLtmTniR",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH9Z0S02QEM72AKWA789VY0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11599/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "korean",
+    "happy",
+    "lead vocals",
+    "male vocals"
+  ]
+}

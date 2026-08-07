@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "adcc639a-e1fb-4105-a3fd-d02d3a887e50",
+  "epidemicTrackId": 139860,
+  "sourceProvider": "EpidemicSound",
+  "title": "Thriving Seas",
+  "artist": "Blood Red Sun",
+  "duration": 188,
+  "bpm": 123,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52103135",
+  "publicSlug": "xozlJTw4cI",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH3QCY82QMW2SQJV16N8HEF.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7511/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "quirky",
+    "soulful",
+    "indie",
+    "gritty",
+    "raw",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

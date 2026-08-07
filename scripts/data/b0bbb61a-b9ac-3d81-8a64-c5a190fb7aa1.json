@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "b0bbb61a-b9ac-3d81-8a64-c5a190fb7aa1",
+  "epidemicTrackId": 97588,
+  "sourceProvider": "EpidemicSound",
+  "title": "Be My Woman",
+  "artist": "Conditional",
+  "duration": 197,
+  "bpm": 141,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828588",
+  "publicSlug": "nLQpkXLdBF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTER76EZB9X8KV930C7ANSP5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6252/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Restless",
+    "Busy & Frantic"
+  ],
+  "tags": [
+    "dirty",
+    "intense",
+    "distortion",
+    "cool",
+    "running",
+    "eccentric",
+    "driving",
+    "male vocals",
+    "lead vocals"
+  ]
+}

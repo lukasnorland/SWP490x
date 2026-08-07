@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "41285d9a-09b3-4aae-9afb-6e9b19c91520",
+  "epidemicTrackId": 139037,
+  "sourceProvider": "EpidemicSound",
+  "title": "A Song for a Friend",
+  "artist": "Bo the Drifter",
+  "duration": 223,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52102379",
+  "publicSlug": "6y8v1PLSY7",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEDDNTBF5SNYZT14JCWFQYK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6780/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Country"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "steel guitar",
+    "countryside",
+    "lead vocals",
+    "male vocals",
+    "harmonica"
+  ]
+}

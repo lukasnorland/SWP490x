@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "1b4028c9-0f91-40fb-ad87-01989711d7d9",
+  "epidemicTrackId": 144847,
+  "sourceProvider": "EpidemicSound",
+  "title": "DTMN",
+  "artist": "Amaroo",
+  "duration": 176,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203457",
+  "publicSlug": "ceQSkeXZfe",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEE3SABQXJ60DV832G6Q6KX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9465/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats",
+    "African Continent"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "alté",
+    "beats",
+    "chill",
+    "lead vocals",
+    "male vocals"
+  ]
+}

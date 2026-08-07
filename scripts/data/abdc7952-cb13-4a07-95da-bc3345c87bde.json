@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "abdc7952-cb13-4a07-95da-bc3345c87bde",
+  "epidemicTrackId": 249363,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dance Like Nobody’s Watching",
+  "artist": "Siine",
+  "duration": 245,
+  "bpm": 128,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402083",
+  "publicSlug": "VTiehn1Nw2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQZKWR5SS22HGZHVBN8K3E.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12491/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance-pop"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "male vocals",
+    "upbeat",
+    "uplifting",
+    "feel good",
+    "energetic",
+    "tambourine",
+    "party",
+    "guitar",
+    "lead vocals"
+  ]
+}

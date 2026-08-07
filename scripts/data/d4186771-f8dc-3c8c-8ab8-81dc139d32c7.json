@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "d4186771-f8dc-3c8c-8ab8-81dc139d32c7",
+  "epidemicTrackId": 102554,
+  "sourceProvider": "EpidemicSound",
+  "title": "Whatever You Do",
+  "artist": "Mindme",
+  "duration": 238,
+  "bpm": 79,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51904095",
+  "publicSlug": "NN82S0IzGj",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGT32Z2N7A15MKG9N0P404E.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4659/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Sad",
+    "Sentimental"
+  ],
+  "tags": [
+    "lonely",
+    "ballad",
+    "female vocals",
+    "lead vocals",
+    "piano",
+    "male vocals"
+  ]
+}

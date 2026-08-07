@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "5b2d4431-af47-46d3-aa80-35157e0cc23b",
+  "epidemicTrackId": 104650,
+  "sourceProvider": "EpidemicSound",
+  "title": "Heart to a Stranger",
+  "artist": "Fleurs Douces",
+  "duration": 200,
+  "bpm": 120,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002055",
+  "publicSlug": "45sPfvYhBk",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGKKRD820BMREFD3KBS88K7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5431/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Sad",
+    "Peaceful"
+  ],
+  "tags": [
+    "atmospheric",
+    "flowing",
+    "sparse",
+    "piano",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "44fc4f64-b5a3-4fcd-a47e-60f1dbb819ae",
+  "epidemicTrackId": 283571,
+  "sourceProvider": "EpidemicSound",
+  "title": "From the Jump (Clean Version)",
+  "artist": "Demon Baby",
+  "duration": 146,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600098",
+  "publicSlug": "mTdNu5MUte",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJZE3ACK15F5J2RX6C773ABS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15304/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

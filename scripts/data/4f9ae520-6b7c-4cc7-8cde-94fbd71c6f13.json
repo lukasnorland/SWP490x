@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "4f9ae520-6b7c-4cc7-8cde-94fbd71c6f13",
+  "epidemicTrackId": 283841,
+  "sourceProvider": "EpidemicSound",
+  "title": "Impact",
+  "artist": "Keegan Konsor",
+  "duration": 220,
+  "bpm": 148,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600369",
+  "publicSlug": "guOEubZllw",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJTEKSRZ3MXHE5182CDGBN8A.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15763/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop",
+    "Indie Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "a62e8e0d-f7e4-4fde-a816-f793621d0dcd",
+  "epidemicTrackId": 276566,
+  "sourceProvider": "EpidemicSound",
+  "title": "Rosalinda",
+  "artist": "Frontera Bugalú",
+  "duration": 208,
+  "bpm": 105,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501723",
+  "publicSlug": "19xc9FgoxA",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG2RQX3NM6J1CFXK39K53ZC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14662/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Cumbia Mexicana",
+    "Cumbia Norteña Mexicana",
+    "Acoustic",
+    "Mexico"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "accordion",
+    "percussion",
+    "synthesizer",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "45f9e8a0-2efa-4765-87a7-2c3a745142f7",
+  "epidemicTrackId": 249329,
+  "sourceProvider": "EpidemicSound",
+  "title": "All I Wanna Do",
+  "artist": "spring gang",
+  "duration": 212,
+  "bpm": 125,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402049",
+  "publicSlug": "15mVoPaz1E",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGEC77C65AXPGDSHWQW90GN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12704/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance-pop"
+  ],
+  "moods": [
+    "Romantic",
+    "Restless"
+  ],
+  "tags": [
+    "female vocals",
+    "bouncy",
+    "love",
+    "dance",
+    "club",
+    "party",
+    "bass",
+    "uplifting",
+    "feel good",
+    "lead vocals"
+  ]
+}

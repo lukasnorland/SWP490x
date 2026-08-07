@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "f84cbfb0-6e40-496c-bbca-4edf38d68f41",
+  "epidemicTrackId": 253976,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dry Martini",
+  "artist": "Lashi",
+  "duration": 238,
+  "bpm": 117,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500630",
+  "publicSlug": "oyJjczPJQe",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHDR3Z6AFKTF4VZ4GW6J6AF.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13923/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance-pop"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "club",
+    "dance",
+    "party",
+    "lead vocals",
+    "female vocals"
+  ]
+}

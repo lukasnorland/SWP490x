@@ -1,0 +1,26 @@
+{
+  "externalSourceId": "0e507f4f-8692-4cab-9cdb-8bbbde4e6cab",
+  "epidemicTrackId": 148873,
+  "sourceProvider": "EpidemicSound",
+  "title": "Be My Anchor",
+  "artist": "Torii Wolf",
+  "duration": 212,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52303169",
+  "publicSlug": "e5iCleP6za",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGH6ZTH0RMR3RPTNK5TH8ZD.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10930/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dream Pop"
+  ],
+  "moods": [
+    "Dreamy",
+    "Laid Back"
+  ],
+  "tags": [
+    "hopeful"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "80cd9fc5-25ad-4f84-bb04-ba5f340b6140",
+  "epidemicTrackId": 139028,
+  "sourceProvider": "EpidemicSound",
+  "title": "You're Still There",
+  "artist": "Vincent Vega",
+  "duration": 197,
+  "bpm": 133,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52102375",
+  "publicSlug": "Kncwg4uLvn",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPV9P8H33RA3Q31SS87GF7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7489/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "1960s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "laid back",
+    "retro",
+    "trumpet",
+    "guitar",
+    "romantic",
+    "surf",
+    "lead vocals",
+    "male vocals"
+  ]
+}

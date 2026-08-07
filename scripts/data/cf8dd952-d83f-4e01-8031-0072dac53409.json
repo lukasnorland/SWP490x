@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "cf8dd952-d83f-4e01-8031-0072dac53409",
+  "epidemicTrackId": 138517,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Wanna Get High on You",
+  "artist": "ELWIN",
+  "duration": 228,
+  "bpm": 121,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52101886",
+  "publicSlug": "4t4nK2vpeM",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJDVTTMG4E5TDD6V54Y9FPN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6568/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance",
+    "Indie Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "love",
+    "nostalgia",
+    "floating",
+    "longing",
+    "rolling",
+    "lead vocals",
+    "male vocals"
+  ]
+}

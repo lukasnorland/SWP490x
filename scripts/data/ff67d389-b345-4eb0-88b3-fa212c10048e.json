@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "ff67d389-b345-4eb0-88b3-fa212c10048e",
+  "epidemicTrackId": 138037,
+  "sourceProvider": "EpidemicSound",
+  "title": "Rise up Now",
+  "artist": "Soleil",
+  "duration": 179,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52101354",
+  "publicSlug": "3M56pSZBk6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGJT5QXSN61ERDBK2ZGTF93.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7089/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Synth-pop"
+  ],
+  "moods": [
+    "Eccentric",
+    "Running"
+  ],
+  "tags": [
+    "driving",
+    "rushing",
+    "attitude",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

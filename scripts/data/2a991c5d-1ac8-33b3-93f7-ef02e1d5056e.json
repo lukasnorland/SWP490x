@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "2a991c5d-1ac8-33b3-93f7-ef02e1d5056e",
+  "epidemicTrackId": 59029,
+  "sourceProvider": "EpidemicSound",
+  "title": "All I Need Is Me",
+  "artist": "Elliot Adair",
+  "duration": 188,
+  "bpm": 158,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51815264",
+  "publicSlug": "AEWrD61jju",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQBT11S800MP5S806PAVJ2.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9300/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "confident",
+    "female vocals",
+    "lead vocals",
+    "anthem",
+    "independent",
+    "driving",
+    "strong",
+    "encouraging",
+    "self esteem",
+    "male vocals"
+  ]
+}

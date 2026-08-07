@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "a566a1ed-d2c5-424b-abe3-8f65a56e4ce2",
+  "epidemicTrackId": 145650,
+  "sourceProvider": "EpidemicSound",
+  "title": "Rodeo Dr.",
+  "artist": "Filthy The Kid",
+  "duration": 167,
+  "bpm": 83,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52204260",
+  "publicSlug": "J3buuLmrOb",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJHX3E2EEYQJF9CM27VTEDD.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10166/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Dreamy",
+    "Restless"
+  ],
+  "tags": [
+    "korean",
+    "rap",
+    "hip hop",
+    "upbeat",
+    "laid back",
+    "hopeful"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "d30f4b54-34b1-4c9a-809f-d47d7ad835e1",
+  "epidemicTrackId": 145353,
+  "sourceProvider": "EpidemicSound",
+  "title": "Thunder Lightning",
+  "artist": "Gamma Skies",
+  "duration": 206,
+  "bpm": 109,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203963",
+  "publicSlug": "pfM52SGOpO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJEY36V0RSJGYN6S29JB68H.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9683/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Romantic",
+    "Laid Back"
+  ],
+  "tags": [
+    "power ballad",
+    "airy",
+    "soaring",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

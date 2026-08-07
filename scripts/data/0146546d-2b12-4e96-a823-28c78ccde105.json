@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "0146546d-2b12-4e96-a823-28c78ccde105",
+  "epidemicTrackId": 277289,
+  "sourceProvider": "EpidemicSound",
+  "title": "Ride Away",
+  "artist": "mr.",
+  "duration": 208,
+  "bpm": 87,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502453",
+  "publicSlug": "z6AgFCFgZ3",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG1GMH9YT6AVD6GBF1BVR4H.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14955/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Neo Soul"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "electric guitar",
+    "keyboard",
+    "lead vocals",
+    "male vocals"
+  ]
+}

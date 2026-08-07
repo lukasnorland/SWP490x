@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "9eca37bc-3cfb-4040-ba58-c5422d92db82",
+  "epidemicTrackId": 99569,
+  "sourceProvider": "EpidemicSound",
+  "title": "Byrd (Clean Version)",
+  "artist": "HDBeenDope",
+  "duration": 130,
+  "bpm": 133,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51901126",
+  "publicSlug": "M4l3k0R7ab",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG10YZ6B584P1XZGH9MQNEA.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Angry",
+    "Eccentric"
+  ],
+  "tags": [
+    "electronic mayhem",
+    "vocals",
+    "distortion",
+    "heavy drums",
+    "strings",
+    "lead vocals",
+    "male vocals",
+    "rap",
+    "lyrics",
+    "ism",
+    "electronic",
+    "usa"
+  ]
+}

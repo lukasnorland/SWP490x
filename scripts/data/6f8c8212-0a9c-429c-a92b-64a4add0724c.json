@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "6f8c8212-0a9c-429c-a92b-64a4add0724c",
+  "epidemicTrackId": 283628,
+  "sourceProvider": "EpidemicSound",
+  "title": "WON'T STOP",
+  "artist": "Bhris Drip",
+  "duration": 119,
+  "bpm": 77,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52600156",
+  "publicSlug": "DsFLRHn7hV",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJWTKCMSB2VXGTPZWCVTTTX6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15627/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

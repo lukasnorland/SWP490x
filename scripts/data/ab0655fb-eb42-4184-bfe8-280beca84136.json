@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "ab0655fb-eb42-4184-bfe8-280beca84136",
+  "epidemicTrackId": 147690,
+  "sourceProvider": "EpidemicSound",
+  "title": "Baila Mujer",
+  "artist": "Nico Rengifo",
+  "duration": 151,
+  "bpm": 145,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301986",
+  "publicSlug": "9Tnli4CGHQ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHH8JR5QT3B5BRRJ0C1BWB2.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11217/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Latin Pop",
+    "Colombia"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "modern latin",
+    "energetic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

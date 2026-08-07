@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "d1b3f94c-8ea8-3ee1-bfd4-02b0f2c6a940",
+  "epidemicTrackId": 62548,
+  "sourceProvider": "EpidemicSound",
+  "title": "Quicksand",
+  "artist": "Kadant",
+  "duration": 181,
+  "bpm": 140,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51813859",
+  "publicSlug": "vTlAJHtPR5",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEQX04G9PD7HXN1BJJ74Z17.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/1422/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "running",
+    "cool",
+    "attitude",
+    "female vocals",
+    "lead vocals",
+    "youth",
+    "quirky",
+    "male vocals"
+  ]
+}

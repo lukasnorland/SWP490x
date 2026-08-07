@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "bcfcbe3e-44c4-4471-ac35-cc3fe646b131",
+  "epidemicTrackId": 144503,
+  "sourceProvider": "EpidemicSound",
+  "title": "Ela Va",
+  "artist": "Amaroo",
+  "duration": 168,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203113",
+  "publicSlug": "O4DgaX3rCc",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFMKQ566Z9FZZNM2XDEST90.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9465/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats",
+    "African Continent"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "alté",
+    "percussion",
+    "dancehall",
+    "smooth",
+    "romantic",
+    "lead vocals",
+    "male vocals",
+    "auto tune"
+  ]
+}

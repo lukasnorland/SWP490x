@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "12e455fc-d0ee-42f2-9d66-a4de47c2974f",
+  "epidemicTrackId": 143999,
+  "sourceProvider": "EpidemicSound",
+  "title": "Everybody Else",
+  "artist": "Vicki Vox",
+  "duration": 195,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52202609",
+  "publicSlug": "yABOGzb6vn",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH520HV6ZR5EPDVJ7RS718E.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9687/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "pop",
+    "guitar",
+    "strings",
+    "violin",
+    "romantic",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "13bb2a93-d837-462c-bbd6-b77924707765",
+  "epidemicTrackId": 147022,
+  "sourceProvider": "EpidemicSound",
+  "title": "Las Bailadoras",
+  "artist": "Alcónes Negros",
+  "duration": 189,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301318",
+  "publicSlug": "tXEosP3qgJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHZ0EBQF02FTEY18WC7HNEJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10260/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Mexico"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "mariachi",
+    "acoustic",
+    "guitar",
+    "energetic",
+    "percussion",
+    "guiro",
+    "lead vocals",
+    "male vocals"
+  ]
+}

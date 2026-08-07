@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "6ad89f6f-6f78-3886-9ede-39931a9d41e7",
+  "epidemicTrackId": 97313,
+  "sourceProvider": "EpidemicSound",
+  "title": "Heart In Hand",
+  "artist": "Wellmess",
+  "duration": 174,
+  "bpm": 135,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51815865",
+  "publicSlug": "o7goJsAVzw",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTED5VMV7VA95R9XMMYAX4DT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/901/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "2000s"
+  ],
+  "moods": [
+    "Restless",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "garage",
+    "rock",
+    "lead vocals",
+    "male vocals",
+    "driving",
+    "running",
+    "eccentric",
+    "attitude",
+    "explosive",
+    "groovy"
+  ]
+}

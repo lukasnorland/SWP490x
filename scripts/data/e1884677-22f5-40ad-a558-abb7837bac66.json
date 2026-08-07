@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "e1884677-22f5-40ad-a558-abb7837bac66",
+  "epidemicTrackId": 106838,
+  "sourceProvider": "EpidemicSound",
+  "title": "Domesticated",
+  "artist": "Bo the Drifter",
+  "duration": 184,
+  "bpm": 126,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52004243",
+  "publicSlug": "pfayoCgVWQ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHJ736NBD2M7QX3WC0CAN8B.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5791/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Country Rock",
+    "Contemporary Country"
+  ],
+  "moods": [
+    "Happy",
+    "Running"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "feelgood",
+    "driving"
+  ]
+}

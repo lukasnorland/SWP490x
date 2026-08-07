@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "f77886bd-99f8-4e51-b5db-3c1dc6cf1511",
+  "epidemicTrackId": 283416,
+  "sourceProvider": "EpidemicSound",
+  "title": "Tokyo Magic",
+  "artist": "Lawd Ito",
+  "duration": 179,
+  "bpm": 115,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503556",
+  "publicSlug": "7YLswRNRUD",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJVX1BW3RAH32CQ1WVSNXVGN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15429/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Latin Pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

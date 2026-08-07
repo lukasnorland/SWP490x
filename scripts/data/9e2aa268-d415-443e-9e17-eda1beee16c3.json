@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "9e2aa268-d415-443e-9e17-eda1beee16c3",
+  "epidemicTrackId": 276350,
+  "sourceProvider": "EpidemicSound",
+  "title": "Things We Didn't Say",
+  "artist": "Blood Harmony",
+  "duration": 181,
+  "bpm": 65,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501507",
+  "publicSlug": "ikhP6gAk4k",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGM1HV08N0CJ06CW0Z3W5MZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14367/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Folk"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "love song"
+  ]
+}

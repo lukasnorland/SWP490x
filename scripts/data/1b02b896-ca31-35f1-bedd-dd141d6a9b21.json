@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "1b02b896-ca31-35f1-bedd-dd141d6a9b21",
+  "epidemicTrackId": 63658,
+  "sourceProvider": "EpidemicSound",
+  "title": "What Is It Like",
+  "artist": "Loving Caliber",
+  "duration": 205,
+  "bpm": 76,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51700010",
+  "publicSlug": "nRbW8AhMNB",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFBB4HXJ2Y9NC6ACR0P0YR6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/257/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals",
+    "ballad",
+    "sweet",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "43421964-3e99-405d-9293-a434cdb83d93",
+  "epidemicTrackId": 249721,
+  "sourceProvider": "EpidemicSound",
+  "title": "All Good",
+  "artist": "Janset, Ikhana",
+  "duration": 171,
+  "bpm": 140,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402441",
+  "publicSlug": "gLdqfhDOBE",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEJWW13ZGKT858H4AYCK95S.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13125/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Drill",
+    "Jersey Club",
+    "Britain"
+  ],
+  "moods": [
+    "Eccentric",
+    "Restless"
+  ],
+  "tags": [
+    "swedish",
+    "duet",
+    "lead vocals",
+    "female vocals"
+  ]
+}

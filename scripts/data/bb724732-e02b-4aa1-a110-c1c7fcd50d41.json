@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "bb724732-e02b-4aa1-a110-c1c7fcd50d41",
+  "epidemicTrackId": 253020,
+  "sourceProvider": "EpidemicSound",
+  "title": "Karakuri",
+  "artist": "Egaoya",
+  "duration": 202,
+  "bpm": 106,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52404023",
+  "publicSlug": "L4N3m8UjO1",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHMRQA7GFZDY9NBR9PTN0TH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13382/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "J-pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "japanese",
+    "upbeat",
+    "happy",
+    "lead vocals",
+    "male vocals"
+  ]
+}

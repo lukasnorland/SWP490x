@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "efa2478b-3e3c-445e-8b1b-44bf0c4bc70d",
+  "epidemicTrackId": 277644,
+  "sourceProvider": "EpidemicSound",
+  "title": "Hold",
+  "artist": "Molife",
+  "duration": 266,
+  "bpm": 119,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502808",
+  "publicSlug": "psgMchOGl5",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF9CWDK5KGZ0XZ99REF1MEK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14925/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "House",
+    "Deep House"
+  ],
+  "moods": [
+    "Dark",
+    "Mysterious"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "d8048f58-fdc5-4e25-92e8-1e77897ac579",
+  "epidemicTrackId": 106744,
+  "sourceProvider": "EpidemicSound",
+  "title": "I'll Be Gone",
+  "artist": "Nikki Gee",
+  "duration": 283,
+  "bpm": 126,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52004149",
+  "publicSlug": "dsO9ohXVMB",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEAQTM0G3KVSRAAGM186998.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5850/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul"
+  ],
+  "moods": [
+    "Happy",
+    "Eccentric"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "retro",
+    "angry",
+    "driving"
+  ]
+}

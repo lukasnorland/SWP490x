@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "3254a1f5-b4af-474e-b8d0-419d3c230241",
+  "epidemicTrackId": 284424,
+  "sourceProvider": "EpidemicSound",
+  "title": "Latina",
+  "artist": "Alik, Manuelo Jersey",
+  "duration": 192,
+  "bpm": 106,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600898",
+  "publicSlug": "u4JrPpsbdc",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KQCJ52FAGC0DGAVZ0636HSPE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15884/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Reggaeton",
+    "Latin Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

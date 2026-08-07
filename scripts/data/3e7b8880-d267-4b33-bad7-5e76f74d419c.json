@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "3e7b8880-d267-4b33-bad7-5e76f74d419c",
+  "epidemicTrackId": 252397,
+  "sourceProvider": "EpidemicSound",
+  "title": "Tú No Me Querías",
+  "artist": "Ratchetón",
+  "duration": 138,
+  "bpm": 86,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52403426",
+  "publicSlug": "EvlHoLyUNN",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGTFYVGTH686GDR3WQ5J5XA.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13803/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Cumbia Mexicana",
+    "Acoustic",
+    "Mexico"
+  ],
+  "moods": [
+    "Happy",
+    "Quirky"
+  ],
+  "tags": [
+    "laid back",
+    "cowbell",
+    "percussion",
+    "accordion",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "1053ca36-809a-3dd8-9b81-9be11ccdb6f0",
+  "epidemicTrackId": 63123,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dreaming Out Loud",
+  "artist": "Middle And End",
+  "duration": 192,
+  "bpm": 115,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51802501",
+  "publicSlug": "tVdGB5cxsk",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJP870GHNG65BJ4B8QXPEKE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/1326/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Synthwave",
+    "Synth-pop",
+    "2010s"
+  ],
+  "moods": [
+    "Dreamy",
+    "Smooth"
+  ],
+  "tags": [
+    "synthwave",
+    "steady",
+    "driving",
+    "male vocals",
+    "lead vocals",
+    "airy",
+    "synths",
+    "80s"
+  ]
+}

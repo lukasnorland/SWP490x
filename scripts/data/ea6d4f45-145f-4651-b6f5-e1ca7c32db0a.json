@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "ea6d4f45-145f-4651-b6f5-e1ca7c32db0a",
+  "epidemicTrackId": 105732,
+  "sourceProvider": "EpidemicSound",
+  "title": "Onto U",
+  "artist": "Tilden Parc",
+  "duration": 173,
+  "bpm": 80,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52003137",
+  "publicSlug": "Dyw1wb3xlO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJFRVKRQB2Q1K23336QYMNC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5859/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "male vocals",
+    "lead vocals",
+    "driving",
+    "electronic"
+  ]
+}

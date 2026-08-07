@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "34ac6ec5-cfb3-4b20-9eb8-8a0e7de1ec4a",
+  "epidemicTrackId": 147675,
+  "sourceProvider": "EpidemicSound",
+  "title": "Soga Jamailé",
+  "artist": "Ebo Krdum",
+  "duration": 207,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301971",
+  "publicSlug": "A01REMDhgc",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ7RNQRXD6PS78XD5ADN8FT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10766/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "African Blues",
+    "African Continent"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "africa",
+    "homeland",
+    "tribute",
+    "lead vocals",
+    "male vocals"
+  ]
+}

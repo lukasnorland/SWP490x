@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "ccde6bd0-1ae7-47f8-a8cb-fec8e2724433",
+  "epidemicTrackId": 249517,
+  "sourceProvider": "EpidemicSound",
+  "title": "Freak Out",
+  "artist": "OTE",
+  "duration": 128,
+  "bpm": 186,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402237",
+  "publicSlug": "yJRmwMGTPZ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNY8Q2X69HQVAF7QZW2EMJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13393/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop Rock",
+    "Sunshine Pop",
+    "1960s"
+  ],
+  "moods": [
+    "Happy",
+    "Eccentric"
+  ],
+  "tags": [
+    "60s",
+    "attitude",
+    "lead vocals",
+    "male vocals"
+  ]
+}

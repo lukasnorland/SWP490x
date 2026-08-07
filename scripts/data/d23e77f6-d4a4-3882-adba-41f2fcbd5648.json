@@ -1,0 +1,39 @@
+{
+  "externalSourceId": "d23e77f6-d4a4-3882-adba-41f2fcbd5648",
+  "epidemicTrackId": 61671,
+  "sourceProvider": "EpidemicSound",
+  "title": "You Do It Just for Fun",
+  "artist": "Colbae",
+  "duration": 200,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51802478",
+  "publicSlug": "kTND9x35F8",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGTZ5RH1HFZ3AXS1RKV3JV4.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2128/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "heartbreak",
+    "lead vocals",
+    "female vocals",
+    "guitar",
+    "power",
+    "independent",
+    "attitude",
+    "celebration",
+    "youth",
+    "growing up",
+    "adolescence",
+    "teens",
+    "male vocals"
+  ]
+}

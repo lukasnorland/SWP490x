@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "b81dc112-0255-3fa6-9bd8-2c9008a53668",
+  "epidemicTrackId": 64230,
+  "sourceProvider": "EpidemicSound",
+  "title": "Above",
+  "artist": "Mike Parr",
+  "duration": 224,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51809330",
+  "publicSlug": "EkJjjmE5rp",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEW5F1B5AS12BPQT0QCH6PP.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6256/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "isr",
+    "soft",
+    "romance",
+    "romantic",
+    "falling in love",
+    "loveable",
+    "date",
+    "male vocals"
+  ]
+}

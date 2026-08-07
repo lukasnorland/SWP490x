@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "a6f2f013-51f3-48f5-a79a-7e2aef9f2fc2",
+  "epidemicTrackId": 283444,
+  "sourceProvider": "EpidemicSound",
+  "title": "Where You Been (Clean Version)",
+  "artist": "Katori Walker",
+  "duration": 175,
+  "bpm": 82,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503584",
+  "publicSlug": "Zkbt0fgczr",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJZNHY7Q9MH7MYE2J143R58X.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15539/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Alternative Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Dreamy",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

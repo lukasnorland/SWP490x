@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "1b6b0354-159f-3522-b04d-b8cf987658de",
+  "epidemicTrackId": 60133,
+  "sourceProvider": "EpidemicSound",
+  "title": "How Many Times",
+  "artist": "Fox Drop",
+  "duration": 189,
+  "bpm": 129,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51805033",
+  "publicSlug": "0NMRHK0Kps",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFQP0FWVJ0F3YNEZ8YYKXHK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4457/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Rock",
+    "2000s",
+    "1990s"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "uplifting",
+    "joyful",
+    "relationship",
+    "commercial rock",
+    "steady"
+  ]
+}

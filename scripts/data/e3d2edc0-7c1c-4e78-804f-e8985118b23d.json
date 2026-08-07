@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "e3d2edc0-7c1c-4e78-804f-e8985118b23d",
+  "epidemicTrackId": 147860,
+  "sourceProvider": "EpidemicSound",
+  "title": "This Old Habit",
+  "artist": "Victor Lundberg",
+  "duration": 166,
+  "bpm": 88,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52302156",
+  "publicSlug": "hAgaRlByWS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH9B2WFRWFV6CJSYS3C7X4D.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10640/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Indie Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "chill",
+    "laid back",
+    "cosy",
+    "coffee house",
+    "daydreaming",
+    "lead vocals",
+    "male vocals"
+  ]
+}

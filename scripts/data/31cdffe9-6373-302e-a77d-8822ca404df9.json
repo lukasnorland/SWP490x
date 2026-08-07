@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "31cdffe9-6373-302e-a77d-8822ca404df9",
+  "epidemicTrackId": 64338,
+  "sourceProvider": "EpidemicSound",
+  "title": "Bring Me Up Higher",
+  "artist": "Middle And End",
+  "duration": 228,
+  "bpm": 132,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828286",
+  "publicSlug": "QHKzLzpjF2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGJB9M2S7F3B1XN0ZABBHA3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6987/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "Alternative Rock",
+    "2010s"
+  ],
+  "moods": [
+    "Epic",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "grainy",
+    "guitars",
+    "male vocals",
+    "melodic",
+    "rock",
+    "indie"
+  ]
+}

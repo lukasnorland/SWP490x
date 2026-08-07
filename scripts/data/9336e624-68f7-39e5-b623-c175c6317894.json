@@ -1,0 +1,40 @@
+{
+  "externalSourceId": "9336e624-68f7-39e5-b623-c175c6317894",
+  "epidemicTrackId": 65405,
+  "sourceProvider": "EpidemicSound",
+  "title": "Bitter Heart",
+  "artist": "Memi",
+  "duration": 235,
+  "bpm": 111,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51813837",
+  "publicSlug": "jfFCQskcRO",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFQTVYMHE2JAG26QXGTHZPH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/703/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Indie Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Romantic",
+    "Sad"
+  ],
+  "tags": [
+    "heartbroken",
+    "gloomy",
+    "male vocals",
+    "lead vocals",
+    "ballad",
+    "acoustic",
+    "piano",
+    "calm",
+    "cozy",
+    "heart",
+    "broken",
+    "romance",
+    "sad"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "externalSourceId": "d8d6bc15-41c1-38ff-825c-060a6a8bce61",
+  "epidemicTrackId": 65121,
+  "sourceProvider": "EpidemicSound",
+  "title": "Purple Voyager",
+  "artist": "ELFL",
+  "duration": 222,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51700036",
+  "publicSlug": "2cARXbni5L",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK025E5ACSHXFF235GXFWNEK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/269/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Synthwave",
+    "Synth-pop",
+    "1980s"
+  ],
+  "moods": [
+    "Happy",
+    "Euphoric"
+  ],
+  "tags": [
+    "eyes to see it",
+    "synthwave",
+    "retrowave",
+    "80s",
+    "indie",
+    "electronic",
+    "driving",
+    "airy",
+    "bright",
+    "corporate",
+    "lead vocals",
+    "male vocals"
+  ]
+}

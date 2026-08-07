@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "1bfb450e-bb0e-4bcd-9a63-f73f0c221c27",
+  "epidemicTrackId": 105014,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Got Love",
+  "artist": "Ed Mills",
+  "duration": 144,
+  "bpm": 127,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002419",
+  "publicSlug": "MCNFv1q9nh",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGN3RFGKYRAJZF02VWQQ3CR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5324/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "R&B",
+    "Motown",
+    "1950s",
+    "1960s"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "crooner",
+    "retro",
+    "smooth",
+    "1960s",
+    "male vocals",
+    "doo wop",
+    "lead vocals"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "0c3f323f-b735-4977-b522-8dac62fdce41",
+  "epidemicTrackId": 104916,
+  "sourceProvider": "EpidemicSound",
+  "title": "Maria",
+  "artist": "Fiskayet",
+  "duration": 205,
+  "bpm": 114,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52002321",
+  "publicSlug": "NVBzn2wYwk",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE1TRY83AH23JQ833GQEDB5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5282/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Afrobeats"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "uplifting",
+    "love",
+    "chill"
+  ]
+}

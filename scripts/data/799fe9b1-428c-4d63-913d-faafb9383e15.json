@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "799fe9b1-428c-4d63-913d-faafb9383e15",
+  "epidemicTrackId": 283334,
+  "sourceProvider": "EpidemicSound",
+  "title": "It Ain't That Funny",
+  "artist": "Wildflowers",
+  "duration": 210,
+  "bpm": 172,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503474",
+  "publicSlug": "SNchVuzdFi",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK0FXM448NQYP1HXHRM4FK1A.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15273/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Country Pop",
+    "Usa"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

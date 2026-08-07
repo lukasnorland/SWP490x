@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "e59656dc-24b9-460c-a5b2-e76e8054a131",
+  "epidemicTrackId": 147082,
+  "sourceProvider": "EpidemicSound",
+  "title": "La Historia de Edison Rodriguez",
+  "artist": "Cumbia Connection",
+  "duration": 171,
+  "bpm": 113,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301378",
+  "publicSlug": "jepi2qPa73",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH8AQ3RZAHKTDSQMM4D74YC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11213/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Latin",
+    "Peru"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "cumbia",
+    "carefree",
+    "festive"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "59aadbd0-ec79-46a6-8871-a21ca54195fa",
+  "epidemicTrackId": 277273,
+  "sourceProvider": "EpidemicSound",
+  "title": "Worth the Wait",
+  "artist": "King Sis",
+  "duration": 220,
+  "bpm": 126,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502437",
+  "publicSlug": "Grti6Bp9wP",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJEY3BM01A5T3HD49QR4DGQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14773/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Ballad",
+    "Contemporary R&B"
+  ],
+  "moods": [
+    "Sad",
+    "Sentimental"
+  ],
+  "tags": [
+    "fingersnap",
+    "violin",
+    "piano",
+    "lead vocals",
+    "female vocals"
+  ]
+}

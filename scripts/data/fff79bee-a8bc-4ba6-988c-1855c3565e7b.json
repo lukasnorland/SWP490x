@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "fff79bee-a8bc-4ba6-988c-1855c3565e7b",
+  "epidemicTrackId": 276205,
+  "sourceProvider": "EpidemicSound",
+  "title": "Song of Hope (Kigan)",
+  "artist": "Isaku Kageyama",
+  "duration": 283,
+  "bpm": 70,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501362",
+  "publicSlug": "9JBNCPURt4",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFKEY9CNZHZ9TSHEDRDVPXB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14243/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Japanese Classical",
+    "Japan",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "folk",
+    "taiko",
+    "shinobue",
+    "lead vocals",
+    "female vocals"
+  ]
+}

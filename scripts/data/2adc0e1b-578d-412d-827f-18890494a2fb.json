@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "2adc0e1b-578d-412d-827f-18890494a2fb",
+  "epidemicTrackId": 103613,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dance Dance",
+  "artist": "Psüche",
+  "duration": 162,
+  "bpm": 98,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52001021",
+  "publicSlug": "UR6n41jXGV",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEP83BTKV0D64NGEWEJZAHJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4842/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Psychedelic Rock",
+    "Alternative Rock",
+    "Trip Hop"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "weird",
+    "eccentric",
+    "male vocals",
+    "lead vocals"
+  ]
+}

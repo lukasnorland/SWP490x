@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "858380c5-c73a-3aff-87f1-22f9a0402b68",
+  "epidemicTrackId": 98420,
+  "sourceProvider": "EpidemicSound",
+  "title": "We're Gonna Be Okay",
+  "artist": "Cody Francis",
+  "duration": 199,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51829218",
+  "publicSlug": "XSkNP0ALO4",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTERARJKTE20J11J5VW79TFD.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/850/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Contemporary Folk"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "guitar",
+    "happy",
+    "acoustic group",
+    "indie",
+    "indie folk"
+  ]
+}

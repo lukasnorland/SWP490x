@@ -1,0 +1,39 @@
+{
+  "externalSourceId": "bea9443a-8260-394c-9fac-e5a81ea9fefe",
+  "epidemicTrackId": 59701,
+  "sourceProvider": "EpidemicSound",
+  "title": "If I Was Your Girlfriend",
+  "artist": "Mondays",
+  "duration": 195,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51700869",
+  "publicSlug": "CwWyrvmIqI",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH31BAB54ED9TCZ0Z6VMAMQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3832/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "banging",
+    "expressive",
+    "driving",
+    "tutorial",
+    "uplifting",
+    "catchy",
+    "hopeful",
+    "youth",
+    "teen",
+    "upbeat",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

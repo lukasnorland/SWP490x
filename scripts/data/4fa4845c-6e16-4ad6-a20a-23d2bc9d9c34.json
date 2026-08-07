@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "4fa4845c-6e16-4ad6-a20a-23d2bc9d9c34",
+  "epidemicTrackId": 283174,
+  "sourceProvider": "EpidemicSound",
+  "title": "HOT",
+  "artist": "Trinity",
+  "duration": 134,
+  "bpm": 100,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52503314",
+  "publicSlug": "4NIkqUgzko",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJYHK2VRKCB1ENZZM7HBW4AX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15560/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Trap",
+    "2020s",
+    "1980s",
+    "Beats"
+  ],
+  "moods": [
+    "Restless",
+    "Heavy & Ponderous"
+  ],
+  "tags": []
+}

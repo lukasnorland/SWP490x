@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "21572c8d-19bc-4198-ad51-416b0c77508b",
+  "epidemicTrackId": 284443,
+  "sourceProvider": "EpidemicSound",
+  "title": "Bittersweet",
+  "artist": "Janset",
+  "duration": 192,
+  "bpm": 140,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52600917",
+  "publicSlug": "mRLxxbM1Rz",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KY9G0KFFP8MQ7X1JK5CZ9GH1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/16047/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Emo Rap",
+    "UK Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals"
+  ]
+}

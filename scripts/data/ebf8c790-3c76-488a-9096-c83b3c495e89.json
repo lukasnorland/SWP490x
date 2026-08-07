@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "ebf8c790-3c76-488a-9096-c83b3c495e89",
+  "epidemicTrackId": 151698,
+  "sourceProvider": "EpidemicSound",
+  "title": "Irony",
+  "artist": "cin",
+  "duration": 166,
+  "bpm": 161,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401654",
+  "publicSlug": "0dqxFNhcXz",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGP6W5P9PNVRDM95BT79QP5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12416/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Japan"
+  ],
+  "moods": [
+    "Epic",
+    "Happy"
+  ],
+  "tags": [
+    "korean",
+    "upbeat",
+    "hopeful",
+    "lead vocals",
+    "female vocals"
+  ]
+}

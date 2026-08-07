@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "9b268756-921a-4c24-9db6-8e26b63b56dd",
+  "epidemicTrackId": 254428,
+  "sourceProvider": "EpidemicSound",
+  "title": "Pardesiya",
+  "artist": "Tripti  Sharma, Palace on Wheels",
+  "duration": 198,
+  "bpm": 125,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501083",
+  "publicSlug": "c97EuhJuUk",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGF8F9PW67PTJC4CZRN4NHY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14127/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indian Pop",
+    "India",
+    "Filmi"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "female vocals"
+  ]
+}

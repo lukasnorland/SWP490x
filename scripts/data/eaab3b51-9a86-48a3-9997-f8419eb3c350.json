@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "eaab3b51-9a86-48a3-9997-f8419eb3c350",
+  "epidemicTrackId": 142910,
+  "sourceProvider": "EpidemicSound",
+  "title": "Cada Día",
+  "artist": "Caro Luna",
+  "duration": 209,
+  "bpm": 190,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201524",
+  "publicSlug": "35BQ3Viixe",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPP87P6HM2CXYZ6Q13AX1V.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10144/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Salsa",
+    "Lounge",
+    "Cuba"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "spanish",
+    "latin",
+    "salsa",
+    "soft lounge",
+    "slow dance",
+    "rhytm",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

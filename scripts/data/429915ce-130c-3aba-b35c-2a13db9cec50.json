@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "429915ce-130c-3aba-b35c-2a13db9cec50",
+  "epidemicTrackId": 100158,
+  "sourceProvider": "EpidemicSound",
+  "title": "Top Speed",
+  "artist": "Nbhd Nick",
+  "duration": 135,
+  "bpm": 130,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51901713",
+  "publicSlug": "eTv3DLstL6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGH6WZJQWZ2RHFFHRFC76FZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3642/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Epic",
+    "Happy"
+  ],
+  "tags": [
+    "hiphop",
+    "rap"
+  ]
+}

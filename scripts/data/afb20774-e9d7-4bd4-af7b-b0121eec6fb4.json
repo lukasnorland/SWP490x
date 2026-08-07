@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "afb20774-e9d7-4bd4-af7b-b0121eec6fb4",
+  "epidemicTrackId": 250274,
+  "sourceProvider": "EpidemicSound",
+  "title": "Airplane Mode",
+  "artist": "SCENE",
+  "duration": 181,
+  "bpm": 140,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402994",
+  "publicSlug": "djHXCutFcJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQ9BYNWHKDWSX3BRTHD6XH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12955/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "2020s",
+    "Korea",
+    "Beats"
+  ],
+  "moods": [
+    "Happy",
+    "Dreamy"
+  ],
+  "tags": [
+    "korean",
+    "upbeat",
+    "restless",
+    "lead vocals",
+    "male vocals"
+  ]
+}

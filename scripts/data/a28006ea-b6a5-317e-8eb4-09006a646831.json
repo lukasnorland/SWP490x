@@ -1,0 +1,43 @@
+{
+  "externalSourceId": "a28006ea-b6a5-317e-8eb4-09006a646831",
+  "epidemicTrackId": 97023,
+  "sourceProvider": "EpidemicSound",
+  "title": "Alibi",
+  "artist": "L.M. Styles",
+  "duration": 234,
+  "bpm": 120,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51826601",
+  "publicSlug": "K0tHLtV3KV",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEFVE56KH9TCXD62QTEX7NX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/719/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul",
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Romantic",
+    "Sexy"
+  ],
+  "tags": [
+    "dance",
+    "dream",
+    "night",
+    "love",
+    "emotions",
+    "guilt",
+    "vocoder",
+    "groove",
+    "bass",
+    "driving",
+    "uplifting",
+    "quirky",
+    "flirty",
+    "male vocals",
+    "lead vocals",
+    "handclaps"
+  ]
+}

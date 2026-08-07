@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "457ac02d-47ab-4d3a-973b-fdca5763056c",
+  "epidemicTrackId": 139134,
+  "sourceProvider": "EpidemicSound",
+  "title": "Coming Closer",
+  "artist": "Sven Lindvall, Daniel Fridell",
+  "duration": 249,
+  "bpm": 165,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52102475",
+  "publicSlug": "fjKYtG6K4Q",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEFMAK8FDQPGE56K5CVM57V.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6969/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "1980s"
+  ],
+  "moods": [
+    "Happy",
+    "Romantic"
+  ],
+  "tags": [
+    "synth",
+    "upbeat",
+    "energetic",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

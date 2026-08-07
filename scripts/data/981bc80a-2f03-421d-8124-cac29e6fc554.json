@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "981bc80a-2f03-421d-8124-cac29e6fc554",
+  "epidemicTrackId": 253552,
+  "sourceProvider": "EpidemicSound",
+  "title": "Papi Champú",
+  "artist": "Lawd Ito",
+  "duration": 168,
+  "bpm": 128,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52500206",
+  "publicSlug": "aTXiEHaOC1",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFGV78JTZ5Q99CMXFE8GJBD.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13604/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dembow",
+    "Dominican Republic"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "powerful",
+    "rap",
+    "lead vocals",
+    "male vocals"
+  ]
+}

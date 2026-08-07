@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "91629604-1fab-4a41-af75-4ae9a4c9098d",
+  "epidemicTrackId": 283443,
+  "sourceProvider": "EpidemicSound",
+  "title": "Where You Been",
+  "artist": "Katori Walker",
+  "duration": 175,
+  "bpm": 82,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52503583",
+  "publicSlug": "kIPGxzcjUZ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK4WZB9FY7J51EWD37VDS963.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15539/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Alternative Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Dreamy",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

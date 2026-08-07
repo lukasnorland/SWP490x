@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "17872ea7-aece-4bef-9e13-b419a3fa510b",
+  "epidemicTrackId": 150799,
+  "sourceProvider": "EpidemicSound",
+  "title": "Focus on Me",
+  "artist": "Adelyn Paik",
+  "duration": 194,
+  "bpm": 107,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400755",
+  "publicSlug": "lQ7f1Tg34n",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFCBRMS9B4XX2KAM507XE0R.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11789/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "korean",
+    "funk",
+    "upbeat",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

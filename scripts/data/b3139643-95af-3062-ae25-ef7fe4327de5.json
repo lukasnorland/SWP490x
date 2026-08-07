@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "b3139643-95af-3062-ae25-ef7fe4327de5",
+  "epidemicTrackId": 27112,
+  "sourceProvider": "EpidemicSound",
+  "title": "Forget It",
+  "artist": "Alex Ansaldi",
+  "duration": 141,
+  "bpm": 100,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51824818",
+  "publicSlug": "5QKjvLxfSQ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KJX7K3Q25DAXD3DBSD8XNWQ8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2770/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "euphoric",
+    "rocking",
+    "electronic",
+    "lead vocals",
+    "vocals",
+    "driving",
+    "party",
+    "fun",
+    "male vocals",
+    "catchy",
+    "dancing",
+    "inspiring",
+    "pushing"
+  ]
+}

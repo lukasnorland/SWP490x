@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "b9d9489a-29c0-4689-9e84-3b661602d7b7",
+  "epidemicTrackId": 252468,
+  "sourceProvider": "EpidemicSound",
+  "title": "Porte Tumbado",
+  "artist": "Ramiro LR",
+  "duration": 170,
+  "bpm": 149,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403497",
+  "publicSlug": "yRlHLYRjTS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ62NYV4KF5YNJGTC3NRDZN.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13105/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Corrido",
+    "Hip Hop",
+    "Jersey Club",
+    "Mexico",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Restless"
+  ],
+  "tags": [
+    "rap",
+    "sentimental",
+    "guitar",
+    "upbeat",
+    "lead vocals",
+    "male vocals"
+  ]
+}

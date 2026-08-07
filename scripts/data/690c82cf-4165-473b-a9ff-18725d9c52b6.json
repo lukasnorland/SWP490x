@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "690c82cf-4165-473b-a9ff-18725d9c52b6",
+  "epidemicTrackId": 142914,
+  "sourceProvider": "EpidemicSound",
+  "title": "Te Elijo a Ti",
+  "artist": "Caro Luna",
+  "duration": 158,
+  "bpm": 180,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201528",
+  "publicSlug": "ZtNS2xWQI0",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFKR5TB0X4QH6HZP5R4E2PQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10144/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Salsa"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "spanish",
+    "latin",
+    "salsa",
+    "slow dance",
+    "soft lounge",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

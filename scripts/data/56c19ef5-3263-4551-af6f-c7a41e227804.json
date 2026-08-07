@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "56c19ef5-3263-4551-af6f-c7a41e227804",
+  "epidemicTrackId": 284506,
+  "sourceProvider": "EpidemicSound",
+  "title": "Alone with You",
+  "artist": "Will Harrison, Cave Spring",
+  "duration": 227,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52600980",
+  "publicSlug": "C3xkyHkah4",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KRJSCWMJMVCXYQEDR8Y213W8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15936/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Country Rock",
+    "Usa"
+  ],
+  "moods": [
+    "Romantic",
+    "Countryside",
+    "Sentimental"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

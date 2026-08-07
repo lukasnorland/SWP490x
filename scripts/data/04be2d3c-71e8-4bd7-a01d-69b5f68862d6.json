@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "04be2d3c-71e8-4bd7-a01d-69b5f68862d6",
+  "epidemicTrackId": 249595,
+  "sourceProvider": "EpidemicSound",
+  "title": "Entangled Emotions",
+  "artist": "Isaku Kageyama",
+  "duration": 211,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402315",
+  "publicSlug": "FsCWL3JbVh",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH7KJM2MYE7NM9ZWM5SD706.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12920/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Japanese Classical",
+    "Japan",
+    "Mystery",
+    "Drama"
+  ],
+  "moods": [
+    "Hopeful",
+    "Peaceful"
+  ],
+  "tags": [
+    "koto",
+    "japanese",
+    "zither",
+    "lead vocals",
+    "female vocals"
+  ]
+}

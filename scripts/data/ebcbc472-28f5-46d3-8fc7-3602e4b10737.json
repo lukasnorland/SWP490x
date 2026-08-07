@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "ebcbc472-28f5-46d3-8fc7-3602e4b10737",
+  "epidemicTrackId": 252253,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lose (Clean Version)",
+  "artist": "Loving Caliber",
+  "duration": 169,
+  "bpm": 94,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403282",
+  "publicSlug": "7eJRJO7h12",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFJTS0QX3RB116V86GXD292.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14176/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop"
+  ],
+  "moods": [
+    "Sad",
+    "Hopeful"
+  ],
+  "tags": [
+    "heartbreak",
+    "love",
+    "acoustic guitar",
+    "harmonies",
+    "emotive",
+    "drum kit",
+    "lead vocals",
+    "male vocals"
+  ]
+}

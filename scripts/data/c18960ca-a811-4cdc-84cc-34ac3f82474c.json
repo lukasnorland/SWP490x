@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "c18960ca-a811-4cdc-84cc-34ac3f82474c",
+  "epidemicTrackId": 250227,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Could Be Happy",
+  "artist": "Pastis",
+  "duration": 181,
+  "bpm": 97,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52402947",
+  "publicSlug": "OyVxMTIH8d",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHAQ2BW1XVZPQBKR6ZWJP6Z.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13572/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk"
+  ],
+  "moods": [
+    "Changing Tempo"
+  ],
+  "tags": [
+    "piano",
+    "calm",
+    "beautiful",
+    "male vocals",
+    "alternative folk",
+    "acoustic guitar",
+    "drums",
+    "lead vocals"
+  ]
+}

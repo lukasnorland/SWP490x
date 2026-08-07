@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "93b21fec-40bc-35d1-afa7-d67ec3f20dee",
+  "epidemicTrackId": 29800,
+  "sourceProvider": "EpidemicSound",
+  "title": "Love and War",
+  "artist": "Chester Malone",
+  "duration": 255,
+  "bpm": 80,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51807491",
+  "publicSlug": "xPY2J6C5Oc",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KK81WZQGVFWG59B3MTED66K0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3175/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "2010s"
+  ],
+  "moods": [
+    "Angry",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "rock n roll",
+    "classic rock",
+    "pushing",
+    "aggressive",
+    "pounding",
+    "driving",
+    "love quarrel",
+    "riffing guitars",
+    "heavy drums",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

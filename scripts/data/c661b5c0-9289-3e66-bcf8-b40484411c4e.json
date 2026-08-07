@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "c661b5c0-9289-3e66-bcf8-b40484411c4e",
+  "epidemicTrackId": 61395,
+  "sourceProvider": "EpidemicSound",
+  "title": "Right Here Right Now",
+  "artist": "Pete Jonas",
+  "duration": 214,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51804334",
+  "publicSlug": "hMVU8NcvcI",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEWMGVB542BJ9BRT7ETV0H3.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6240/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2000s"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "flirting",
+    "late night",
+    "friendship",
+    "celebrate",
+    "feel good",
+    "guitar"
+  ]
+}

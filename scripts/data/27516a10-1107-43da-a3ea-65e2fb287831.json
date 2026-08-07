@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "27516a10-1107-43da-a3ea-65e2fb287831",
+  "epidemicTrackId": 254293,
+  "sourceProvider": "EpidemicSound",
+  "title": "All Green",
+  "artist": "Witchitaw Slim",
+  "duration": 135,
+  "bpm": 95,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500947",
+  "publicSlug": "8WnDWshuhS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMG2KNXCKT390NVBFFB1NM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14045/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Epic",
+    "Dark"
+  ],
+  "tags": [
+    "powerful",
+    "orchestra",
+    "restless",
+    "tense"
+  ]
+}

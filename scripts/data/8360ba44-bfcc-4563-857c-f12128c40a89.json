@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "8360ba44-bfcc-4563-857c-f12128c40a89",
+  "epidemicTrackId": 138108,
+  "sourceProvider": "EpidemicSound",
+  "title": "Bicicletinha",
+  "artist": "Clara Mendes",
+  "duration": 185,
+  "bpm": 100,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52101241",
+  "publicSlug": "PC4SfhRZhS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGRN9P4V3WMXX9K5MHZ7DCS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6880/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Bossa Nova"
+  ],
+  "moods": [
+    "Relaxing",
+    "Laid Back"
+  ],
+  "tags": [
+    "smooth",
+    "sensual",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

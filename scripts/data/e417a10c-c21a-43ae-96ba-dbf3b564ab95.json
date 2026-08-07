@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "e417a10c-c21a-43ae-96ba-dbf3b564ab95",
+  "epidemicTrackId": 145148,
+  "sourceProvider": "EpidemicSound",
+  "title": "Special",
+  "artist": "Adelyn Paik",
+  "duration": 182,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203758",
+  "publicSlug": "uPnCqIzSmS",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFC3EXM0WDSTA4AV4FXCYGR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10152/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "laid back",
+    "relaxed",
+    "korean",
+    "romantic",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

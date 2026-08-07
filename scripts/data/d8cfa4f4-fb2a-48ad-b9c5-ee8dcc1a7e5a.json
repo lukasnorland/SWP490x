@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "d8cfa4f4-fb2a-48ad-b9c5-ee8dcc1a7e5a",
+  "epidemicTrackId": 144485,
+  "sourceProvider": "EpidemicSound",
+  "title": "MANNERS",
+  "artist": "Zorro",
+  "duration": 170,
+  "bpm": 115,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203095",
+  "publicSlug": "gJyNTXGE00",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGWNMM6Q3Z8XXFA7VT6XRND.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9724/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop",
+    "Electronic",
+    "Beats"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "retro",
+    "synthesizers",
+    "80s",
+    "upbeat",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

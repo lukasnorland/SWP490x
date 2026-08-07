@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "f57c53b4-bd8f-42a4-a879-2eb55d5f1a9a",
+  "epidemicTrackId": 254291,
+  "sourceProvider": "EpidemicSound",
+  "title": "AURA",
+  "artist": "Heyson",
+  "duration": 186,
+  "bpm": 140,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500945",
+  "publicSlug": "FIqhLPr1hj",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGT6F2VATPXEWVVP0Y4X1W5.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13963/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "EDM",
+    "Filmi",
+    "India"
+  ],
+  "moods": [
+    "Mysterious",
+    "Restless"
+  ],
+  "tags": [
+    "hindi",
+    "dreamy",
+    "upbeat",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

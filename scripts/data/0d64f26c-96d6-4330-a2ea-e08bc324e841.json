@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "0d64f26c-96d6-4330-a2ea-e08bc324e841",
+  "epidemicTrackId": 149753,
+  "sourceProvider": "EpidemicSound",
+  "title": "Three Count",
+  "artist": "Nbhd Nick",
+  "duration": 125,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52304887",
+  "publicSlug": "S5e1EvEHsm",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ94ASYGSVEFN239EQPS7XB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11410/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dark"
+  ],
+  "tags": [
+    "rap",
+    "hardcore hip hop",
+    "dreamy",
+    "restless"
+  ]
+}

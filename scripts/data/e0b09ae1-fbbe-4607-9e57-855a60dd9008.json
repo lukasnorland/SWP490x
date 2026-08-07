@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "e0b09ae1-fbbe-4607-9e57-855a60dd9008",
+  "epidemicTrackId": 252998,
+  "sourceProvider": "EpidemicSound",
+  "title": "White Sheets",
+  "artist": "Hennie Hun",
+  "duration": 195,
+  "bpm": 72,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52404001",
+  "publicSlug": "7JH0SLvXtR",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHZ0EDHJV3RFEYJ76NDTRCX.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13293/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "female vocals",
+    "reverb",
+    "acoustic guitar",
+    "calm",
+    "chill",
+    "drum kit",
+    "lead vocals"
+  ]
+}

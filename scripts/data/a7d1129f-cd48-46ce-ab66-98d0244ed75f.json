@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "a7d1129f-cd48-46ce-ab66-98d0244ed75f",
+  "epidemicTrackId": 148128,
+  "sourceProvider": "EpidemicSound",
+  "title": "Go for a Swim",
+  "artist": "Phello",
+  "duration": 189,
+  "bpm": 116,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52302424",
+  "publicSlug": "xY5kAl08dF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG4SJ4ARBBCF3Y0WCMN7V5C.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11187/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Deep House"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "summer",
+    "soft house",
+    "chill",
+    "ocean",
+    "sea",
+    "beach"
+  ]
+}

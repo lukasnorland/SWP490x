@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "0cdc0821-2751-3492-b0bf-9cde3ae04e00",
+  "epidemicTrackId": 102825,
+  "sourceProvider": "EpidemicSound",
+  "title": "Good Vibes",
+  "artist": "East of Heaven",
+  "duration": 199,
+  "bpm": 100,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000246",
+  "publicSlug": "DwqtlbGZEu",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFVFEGHK396BWGVGHCVQAEJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4631/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "countryside",
+    "country",
+    "laid back",
+    "male vocals",
+    "lead vocals",
+    "acoustic guitar",
+    "dream",
+    "guitar"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "9a98ec81-603d-40f9-be9d-5e50c059e33c",
+  "epidemicTrackId": 141323,
+  "sourceProvider": "EpidemicSound",
+  "title": "It Looks Like We Made It",
+  "artist": "Basixx",
+  "duration": 180,
+  "bpm": 128,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52104598",
+  "publicSlug": "ELlXnkfFoC",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGQ9W7GPNTDN71SM4RR6HWC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7834/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance",
+    "Dance-pop"
+  ],
+  "moods": [
+    "Happy",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "energetic",
+    "beat",
+    "euphoric",
+    "electro pop",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

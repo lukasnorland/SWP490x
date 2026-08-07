@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "0be1235b-0a41-417b-bcdd-5062a273e39f",
+  "epidemicTrackId": 253677,
+  "sourceProvider": "EpidemicSound",
+  "title": "Another Way",
+  "artist": "Nevin",
+  "duration": 230,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500331",
+  "publicSlug": "XbBsNx3ver",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ0D0D278Q3DGV0FAGP18R6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13729/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "drum kit",
+    "synth",
+    "bass guitar",
+    "distortion",
+    "busy",
+    "lead vocals",
+    "male vocals"
+  ]
+}

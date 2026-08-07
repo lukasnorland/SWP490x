@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "6f2cf376-7d86-48bd-9652-85aeaa4e4ddb",
+  "epidemicTrackId": 277346,
+  "sourceProvider": "EpidemicSound",
+  "title": "Happy Parade",
+  "artist": "Flux Vortex",
+  "duration": 160,
+  "bpm": 145,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502510",
+  "publicSlug": "YBv7KgxHFP",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGG19N09S12HHQWGBJSGPG8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14851/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Quirky"
+  ],
+  "tags": [
+    "bittersweet",
+    "acoustic guitar",
+    "lead vocals",
+    "female vocals"
+  ]
+}

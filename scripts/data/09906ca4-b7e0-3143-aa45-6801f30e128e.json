@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "09906ca4-b7e0-3143-aa45-6801f30e128e",
+  "epidemicTrackId": 103002,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Am Better Off (Orchestral Version)",
+  "artist": "Wildson",
+  "duration": 218,
+  "bpm": 116,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52000419",
+  "publicSlug": "OR2bSj2PJJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE8D6V1P358B2GW60Y1Q1YG.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/4698/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Orchestral",
+    "Contemporary Classical",
+    "Action"
+  ],
+  "moods": [
+    "Hopeful",
+    "Elegant"
+  ],
+  "tags": [
+    "musical",
+    "strings",
+    "beautiful",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

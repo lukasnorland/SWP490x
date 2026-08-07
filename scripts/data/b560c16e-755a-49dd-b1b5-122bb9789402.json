@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "b560c16e-755a-49dd-b1b5-122bb9789402",
+  "epidemicTrackId": 252140,
+  "sourceProvider": "EpidemicSound",
+  "title": "Run Wild",
+  "artist": "Vicki Vox",
+  "duration": 142,
+  "bpm": 124,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403169",
+  "publicSlug": "tEXqCxFaWg",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTF5NX0NG4NKHT1HMVF1ZPZ1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13087/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Tropical House"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "snaps",
+    "drum kit",
+    "beat",
+    "feel good",
+    "freedom",
+    "upbeat",
+    "piano",
+    "lead vocals",
+    "female vocals"
+  ]
+}

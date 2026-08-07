@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "fd3accb6-e27b-468a-a677-4c68d9d06923",
+  "epidemicTrackId": 253357,
+  "sourceProvider": "EpidemicSound",
+  "title": "All In",
+  "artist": "Nbhd Nick",
+  "duration": 169,
+  "bpm": 80,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500013",
+  "publicSlug": "OjglkS9SZ3",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTENCPKT05XZK58WPG5GZE05.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13494/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Epic",
+    "Dark"
+  ],
+  "tags": [
+    "heavy",
+    "powerful",
+    "lead vocals",
+    "male vocals"
+  ]
+}

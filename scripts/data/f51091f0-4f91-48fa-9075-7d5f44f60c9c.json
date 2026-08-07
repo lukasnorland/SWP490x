@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "f51091f0-4f91-48fa-9075-7d5f44f60c9c",
+  "epidemicTrackId": 149354,
+  "sourceProvider": "EpidemicSound",
+  "title": "Midnight Hour",
+  "artist": "Vicki Vox",
+  "duration": 238,
+  "bpm": 75,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52304488",
+  "publicSlug": "ziSRd29euX",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFC3F9389AC8WEMYBWQ9GNZ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11465/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Drama",
+    "Cinematic"
+  ],
+  "moods": [
+    "Dreamy",
+    "Sentimental"
+  ],
+  "tags": [
+    "strings",
+    "female vocals",
+    "sad",
+    "peaceful",
+    "guitar",
+    "acoustic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "a751e05f-835e-4c5f-ba40-c111275f5bcf",
+  "epidemicTrackId": 254575,
+  "sourceProvider": "EpidemicSound",
+  "title": "Part of Me",
+  "artist": "Hennie Hun",
+  "duration": 220,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501229",
+  "publicSlug": "lKMEPdAOGd",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHAQ1RJ5HBKQ7FNNDZ4JMMY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14211/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Bedroom Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "acoustic guitar",
+    "calm",
+    "drum kit",
+    "strings",
+    "lead vocals",
+    "female vocals"
+  ]
+}

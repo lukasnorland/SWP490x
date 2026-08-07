@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "ac01268e-f137-40c9-bf5b-e4b0c567ffc6",
+  "epidemicTrackId": 138914,
+  "sourceProvider": "EpidemicSound",
+  "title": "Sweat On Me (Jazz Version)",
+  "artist": "Hara Noda, Tape Machines",
+  "duration": 195,
+  "bpm": 112,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52102264",
+  "publicSlug": "YvdD4GNK0Q",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH6R6KCY3MY3VBVHG29GN2M.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7828/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Jazz"
+  ],
+  "moods": [
+    "Hopeful",
+    "Restless"
+  ],
+  "tags": [
+    "driving",
+    "sexy",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

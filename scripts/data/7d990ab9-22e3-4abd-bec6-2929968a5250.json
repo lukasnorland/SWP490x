@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "7d990ab9-22e3-4abd-bec6-2929968a5250",
+  "epidemicTrackId": 282865,
+  "sourceProvider": "EpidemicSound",
+  "title": "Adam's Circus",
+  "artist": "First Timer",
+  "duration": 196,
+  "bpm": 116,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503005",
+  "publicSlug": "UmJVA7DwB2",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEPRKR12DFQYBMK7M12QS6Q.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15088/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock"
+  ],
+  "moods": [
+    "Sad",
+    "Restless"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

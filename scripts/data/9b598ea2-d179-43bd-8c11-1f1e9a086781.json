@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "9b598ea2-d179-43bd-8c11-1f1e9a086781",
+  "epidemicTrackId": 141916,
+  "sourceProvider": "EpidemicSound",
+  "title": "Don't Let This Go",
+  "artist": "Peter Crosby",
+  "duration": 254,
+  "bpm": 137,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200530",
+  "publicSlug": "M9ZPc3VWar",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPJCJA01XACXPDZJC8Z91C.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8517/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Americana",
+    "Roots Rock"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "hopeful",
+    "guitar",
+    "acoustic",
+    "raw",
+    "dreamy",
+    "romantic",
+    "lead vocals",
+    "male vocals"
+  ]
+}

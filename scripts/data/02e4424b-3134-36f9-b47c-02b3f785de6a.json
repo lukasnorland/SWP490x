@@ -1,0 +1,40 @@
+{
+  "externalSourceId": "02e4424b-3134-36f9-b47c-02b3f785de6a",
+  "epidemicTrackId": 95883,
+  "sourceProvider": "EpidemicSound",
+  "title": "Plenty Of Time",
+  "artist": "Ray",
+  "duration": 233,
+  "bpm": 125,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51800913",
+  "publicSlug": "pkbsTr8aTK",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGH6WQX62D4TJEAV0N210KB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/560/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s"
+  ],
+  "moods": [
+    "Epic",
+    "Happy"
+  ],
+  "tags": [
+    "young",
+    "dance",
+    "playful",
+    "lead vocals",
+    "male vocals",
+    "driving",
+    "exciting",
+    "energetic",
+    "release",
+    "motivating",
+    "youth",
+    "positive",
+    "upbeat",
+    "uplifting"
+  ]
+}

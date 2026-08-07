@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "a13c2e11-b4d7-348a-a764-13b3edf9ff6a",
+  "epidemicTrackId": 62574,
+  "sourceProvider": "EpidemicSound",
+  "title": "Love Me Unconditionally",
+  "artist": "Caro Be & Leviaté",
+  "duration": 234,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51810275",
+  "publicSlug": "fjoTNNxQgi",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMMEH1BHG5XBN1TQ14SAXD.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14330/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "1980s",
+    "2010s"
+  ],
+  "moods": [
+    "Restless",
+    "Running"
+  ],
+  "tags": [
+    "steady",
+    "driving",
+    "synths",
+    "quirky",
+    "cheeky",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

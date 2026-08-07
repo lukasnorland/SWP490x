@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "da390f5a-e442-4cbc-abbf-6b6faf522020",
+  "epidemicTrackId": 276413,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Plan",
+  "artist": "Heyson",
+  "duration": 140,
+  "bpm": 128,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52501570",
+  "publicSlug": "wwghGWIxN1",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFBV7Z0NVB58W1D8ZATPNVT.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14324/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Tech House",
+    "Beats"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "energetic",
+    "upbeat",
+    "dark"
+  ]
+}

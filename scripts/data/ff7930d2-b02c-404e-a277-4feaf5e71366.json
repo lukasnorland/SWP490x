@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "ff7930d2-b02c-404e-a277-4feaf5e71366",
+  "epidemicTrackId": 149673,
+  "sourceProvider": "EpidemicSound",
+  "title": "Journey through India",
+  "artist": "Aks & Lakshmi",
+  "duration": 152,
+  "bpm": 103,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52304807",
+  "publicSlug": "uMv9xfmOCo",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJM35FK1YZG32F6N7QTD8HE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11725/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indian Pop",
+    "Filmi",
+    "India"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "hopeful",
+    "hindi",
+    "sanskrit",
+    "bollywood",
+    "tabla",
+    "upbeat",
+    "indian pop",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

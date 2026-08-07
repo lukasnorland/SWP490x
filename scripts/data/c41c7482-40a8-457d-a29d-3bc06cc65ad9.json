@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "c41c7482-40a8-457d-a29d-3bc06cc65ad9",
+  "epidemicTrackId": 253511,
+  "sourceProvider": "EpidemicSound",
+  "title": "Friend Zoned",
+  "artist": "Frontera Bugalú",
+  "duration": 211,
+  "bpm": 180,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500167",
+  "publicSlug": "fyaSnMWDde",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEC5Z6BV533WMWG28XRAJES.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13883/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Cumbia",
+    "Acoustic",
+    "Mexico"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "hopeful",
+    "accordion",
+    "trumpet",
+    "brass",
+    "guitar",
+    "percussion",
+    "lead vocals",
+    "male vocals"
+  ]
+}

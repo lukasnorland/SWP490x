@@ -1,0 +1,41 @@
+{
+  "externalSourceId": "c7c22822-0ef2-3ea0-91e4-ff08bbf15874",
+  "epidemicTrackId": 29845,
+  "sourceProvider": "EpidemicSound",
+  "title": "Misty Light",
+  "artist": "The Eastern Plain",
+  "duration": 201,
+  "bpm": 115,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51827845",
+  "publicSlug": "KVbYRAxLvH",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGVQ377BX2TWW2PXXFFCDH7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/2325/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2010s",
+    "Acoustic"
+  ],
+  "moods": [
+    "Relaxing",
+    "Hopeful"
+  ],
+  "tags": [
+    "folk",
+    "warm",
+    "sweet",
+    "plucking",
+    "male vocals",
+    "lead vocals",
+    "vibraslap",
+    "stockshots",
+    "love",
+    "falling in love",
+    "fingerpicking",
+    "summer",
+    "feelgood",
+    "flowing"
+  ]
+}

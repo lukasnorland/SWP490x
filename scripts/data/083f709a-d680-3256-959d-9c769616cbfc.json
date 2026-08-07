@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "083f709a-d680-3256-959d-9c769616cbfc",
+  "epidemicTrackId": 28639,
+  "sourceProvider": "EpidemicSound",
+  "title": "You're Like Wow",
+  "artist": "Romaro",
+  "duration": 185,
+  "bpm": 100,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51809876",
+  "publicSlug": "Gd41nA15Hj",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ0D0J01NN8NBJM0A0CHNN6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "R&B",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Romantic"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "sexy",
+    "smooth",
+    "love",
+    "sun",
+    "happy",
+    "male vocals"
+  ]
+}

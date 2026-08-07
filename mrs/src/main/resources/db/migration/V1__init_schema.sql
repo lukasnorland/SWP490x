@@ -50,7 +50,9 @@ CREATE TABLE song (
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
--- 3. tag  (metadata: GENRE | MOOD | THEME | ARTIST | EVENT)
+-- 3. tag  (metadata: GENRE | MOOD | ARTIST | TAGS)
+--    TAGS holds freeform provider descriptors (instruments, vibe words,
+--    vocal style, etc.) used by LLM contextual search.
 -- ---------------------------------------------------------------------
 CREATE TABLE tag (
     id    BIGINT       NOT NULL AUTO_INCREMENT,
@@ -58,7 +60,7 @@ CREATE TABLE tag (
     name  VARCHAR(100) NOT NULL,
     PRIMARY KEY (id),
     UNIQUE KEY uq_tag_type_name (type, name),                  -- unique per (type, name)
-    CONSTRAINT ck_tag_type CHECK (type IN ('GENRE','MOOD','THEME','ARTIST','EVENT'))
+    CONSTRAINT ck_tag_type CHECK (type IN ('GENRE','MOOD','ARTIST','TAGS'))
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------

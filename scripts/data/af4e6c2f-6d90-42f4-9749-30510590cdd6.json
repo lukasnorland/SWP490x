@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "af4e6c2f-6d90-42f4-9749-30510590cdd6",
+  "epidemicTrackId": 276852,
+  "sourceProvider": "EpidemicSound",
+  "title": "Tem Nada Não",
+  "artist": "Luiz Murá",
+  "duration": 215,
+  "bpm": 134,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52502016",
+  "publicSlug": "rAiJlAarqt",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE60V0RTCHXEZHBB5MAGWXQ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14636/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Forró",
+    "Acoustic"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "brazil",
+    "guitar",
+    "percussion",
+    "accordion",
+    "lead vocals",
+    "male vocals"
+  ]
+}

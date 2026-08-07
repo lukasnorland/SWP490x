@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "84ac7c6c-b67d-39e3-80e9-4275a425bfee",
+  "epidemicTrackId": 97054,
+  "sourceProvider": "EpidemicSound",
+  "title": "This Is The End Of The World",
+  "artist": "Coma Svensson",
+  "duration": 243,
+  "bpm": 108,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51808123",
+  "publicSlug": "q2BZIAIJfC",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTG5MFH2FCA8TBD88RJ16VYA.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/651/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Alternative Rock"
+  ],
+  "moods": [
+    "Epic",
+    "Quirky"
+  ],
+  "tags": [
+    "cool",
+    "space",
+    "clouds",
+    "aliens",
+    "happy",
+    "male vocals",
+    "lead vocals",
+    "eccentric",
+    "driving",
+    "marching",
+    "pounding"
+  ]
+}

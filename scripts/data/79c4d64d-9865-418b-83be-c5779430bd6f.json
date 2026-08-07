@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "79c4d64d-9865-418b-83be-c5779430bd6f",
+  "epidemicTrackId": 145262,
+  "sourceProvider": "EpidemicSound",
+  "title": "Like a Rollercoaster",
+  "artist": "Mindme",
+  "duration": 192,
+  "bpm": 120,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52203872",
+  "publicSlug": "XRpnSdrJcw",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGHB55Q24VEBV8QRPHNSQPJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9688/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "electric guitar",
+    "synths",
+    "confident",
+    "empowering",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "ade6b7ef-2b2f-49ea-adec-e73409800755",
+  "epidemicTrackId": 106537,
+  "sourceProvider": "EpidemicSound",
+  "title": "Someone to Rely On",
+  "artist": "Gamma Skies",
+  "duration": 195,
+  "bpm": 122,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52003942",
+  "publicSlug": "K771wyyHTY",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFTSY9D96KM2SYK6RVP1VJB.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/5916/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Synth-pop"
+  ],
+  "moods": [
+    "Happy",
+    "Restless"
+  ],
+  "tags": [
+    "female vocals",
+    "lead vocals",
+    "retro",
+    "hopeful",
+    "driving",
+    "male vocals"
+  ]
+}

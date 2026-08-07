@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "286e2d8b-ffbc-3798-b647-b31490005829",
+  "epidemicTrackId": 100781,
+  "sourceProvider": "EpidemicSound",
+  "title": "I Don't Wanna Go",
+  "artist": "Cody Francis",
+  "duration": 146,
+  "bpm": 119,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51902339",
+  "publicSlug": "HcLkSW0ZLG",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTER76B8PVTX97G3QTRNJ312.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3946/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Euphoric"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "driving",
+    "acoustic dream",
+    "acoustic pop",
+    "guitar"
+  ]
+}

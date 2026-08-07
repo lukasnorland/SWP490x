@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "d4f6526b-cf3f-3367-bb56-15bd74fe6357",
+  "epidemicTrackId": 100420,
+  "sourceProvider": "EpidemicSound",
+  "title": "Alive with You",
+  "artist": "CLNGR",
+  "duration": 205,
+  "bpm": 114,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51901978",
+  "publicSlug": "ZjLK2KPLsh",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEENS8QF0HVDJFK38Y0VPMC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3819/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Disco"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "easy",
+    "dancing",
+    "party",
+    "feelgood",
+    "driving"
+  ]
+}

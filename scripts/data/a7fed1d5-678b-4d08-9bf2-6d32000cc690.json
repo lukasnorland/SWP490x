@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "a7fed1d5-678b-4d08-9bf2-6d32000cc690",
+  "epidemicTrackId": 149417,
+  "sourceProvider": "EpidemicSound",
+  "title": "Good Company (Clean Version)",
+  "artist": "Nyck Caution, Katori Walker",
+  "duration": 170,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52304551",
+  "publicSlug": "9oYK5hmH25",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE6BFXK6CYBTXDNHBHDYRM6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12894/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Alternative Hip Hop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "conscious hip hop",
+    "rap",
+    "piano",
+    "lead vocals",
+    "male vocals"
+  ]
+}

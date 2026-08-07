@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "6e748439-201b-4cb6-a94b-f34f9695e557",
+  "epidemicTrackId": 151028,
+  "sourceProvider": "EpidemicSound",
+  "title": "Por Otra Mujer",
+  "artist": "Lawd Ito",
+  "duration": 174,
+  "bpm": 80,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52400984",
+  "publicSlug": "yh95o4hTxK",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH6R6VWBYNRQ7H7Y3A86Y0M.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11915/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dark Jazz",
+    "Latin"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sexy"
+  ],
+  "tags": [
+    "latin",
+    "sexy",
+    "trumpet",
+    "sentimental",
+    "lead vocals",
+    "male vocals"
+  ]
+}

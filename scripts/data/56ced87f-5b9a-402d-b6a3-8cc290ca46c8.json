@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "56ced87f-5b9a-402d-b6a3-8cc290ca46c8",
+  "epidemicTrackId": 284684,
+  "sourceProvider": "EpidemicSound",
+  "title": "FADE (Clean Version)",
+  "artist": "Nyck Caution",
+  "duration": 137,
+  "bpm": 150,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52601161",
+  "publicSlug": "Ep2iP6O78C",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH4RN0H6121K1GYW6HR04W7.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/16101/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap",
+    "Beats"
+  ],
+  "moods": [
+    "Dark",
+    "Heavy & Ponderous"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

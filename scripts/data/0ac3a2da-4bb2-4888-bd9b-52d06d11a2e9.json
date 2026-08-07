@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "0ac3a2da-4bb2-4888-bd9b-52d06d11a2e9",
+  "epidemicTrackId": 254521,
+  "sourceProvider": "EpidemicSound",
+  "title": "Do Better",
+  "artist": "John Runefelt",
+  "duration": 190,
+  "bpm": 84,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501175",
+  "publicSlug": "SrMIuxQAmC",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE7HKPC64FXF8XTZC23QP50.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14162/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Soul"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "motivational",
+    "positive",
+    "good vibes",
+    "saxophone",
+    "electric guitar",
+    "lead vocals",
+    "male vocals"
+  ]
+}

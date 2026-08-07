@@ -1,0 +1,30 @@
+{
+  "externalSourceId": "39263470-5a1f-4022-a9f4-5ddfab400b85",
+  "epidemicTrackId": 253926,
+  "sourceProvider": "EpidemicSound",
+  "title": "Like a Walk in the Park",
+  "artist": "Windshield",
+  "duration": 166,
+  "bpm": 131,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500580",
+  "publicSlug": "tWgAVQNT9g",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE920V9VRTFWGPHTX4RBKFM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13847/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "2020s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "electric guitar",
+    "drum kit",
+    "lead vocals",
+    "female vocals"
+  ]
+}

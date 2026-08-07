@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "912cfb07-cadf-436c-b264-438ae788b9ec",
+  "epidemicTrackId": 151386,
+  "sourceProvider": "EpidemicSound",
+  "title": "por amor",
+  "artist": "Ratchetón",
+  "duration": 174,
+  "bpm": 97,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401342",
+  "publicSlug": "ByzLuTlnh6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEFMB1V2CTP7CRXV644KVM9.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12195/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Cumbia"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "accordion",
+    "upbeat",
+    "percussion",
+    "guiro",
+    "lead vocals",
+    "male vocals"
+  ]
+}

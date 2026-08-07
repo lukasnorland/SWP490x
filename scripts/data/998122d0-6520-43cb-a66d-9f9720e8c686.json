@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "998122d0-6520-43cb-a66d-9f9720e8c686",
+  "epidemicTrackId": 138941,
+  "sourceProvider": "EpidemicSound",
+  "title": "You Set My World On Fire (K-POP  Version)",
+  "artist": "Adelyn Paik",
+  "duration": 222,
+  "bpm": 68,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52102288",
+  "publicSlug": "JHSpA4XkyC",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJBAJ2BXE5WXNB3X7V9VYQC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6833/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "korean",
+    "projector",
+    "piano",
+    "sentimental",
+    "electric guitar",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

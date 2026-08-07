@@ -1,0 +1,38 @@
+{
+  "externalSourceId": "e94c389c-f0b4-3b46-af09-605436577109",
+  "epidemicTrackId": 60287,
+  "sourceProvider": "EpidemicSound",
+  "title": "Afterglow",
+  "artist": "Gracie Gray",
+  "duration": 182,
+  "bpm": 108,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51827417",
+  "publicSlug": "qewT0dSoBD",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGTT6MYSZYWANN24SQE05GK.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3013/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Synth-pop",
+    "2010s"
+  ],
+  "moods": [
+    "Happy",
+    "Hopeful"
+  ],
+  "tags": [
+    "constant",
+    "airy",
+    "lead vocals",
+    "female vocals",
+    "uplifting",
+    "independent",
+    "moving on",
+    "80s retro feel",
+    "release",
+    "steady",
+    "male vocals"
+  ]
+}

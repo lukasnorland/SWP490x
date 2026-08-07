@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "bea3a6c8-1395-47ba-822c-75b278fa4c23",
+  "epidemicTrackId": 151409,
+  "sourceProvider": "EpidemicSound",
+  "title": "Passarinho",
+  "artist": "Luiz Murá",
+  "duration": 214,
+  "bpm": 170,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401365",
+  "publicSlug": "k9sCdFoIji",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNEFSN4QXJY3S5BHBAXHYY.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12633/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Bossa Nova",
+    "Brazil",
+    "Acoustic"
+  ],
+  "moods": [
+    "Happy",
+    "Sentimental"
+  ],
+  "tags": [
+    "brazil",
+    "brazilian bossa nova",
+    "laid back",
+    "soft",
+    "portuguese",
+    "lead vocals",
+    "male vocals"
+  ]
+}

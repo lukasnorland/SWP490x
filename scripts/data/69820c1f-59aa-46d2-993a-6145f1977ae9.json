@@ -1,0 +1,37 @@
+{
+  "externalSourceId": "69820c1f-59aa-46d2-993a-6145f1977ae9",
+  "epidemicTrackId": 142448,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Harbor",
+  "artist": "Kylie Dailey",
+  "duration": 259,
+  "bpm": 140,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201062",
+  "publicSlug": "iceeVpIRd6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGG2ZHRY264CWHSVGYS4157.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9891/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Americana",
+    "Roots Rock"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "singer songwriter",
+    "indie",
+    "dreamy",
+    "acoustic",
+    "piano",
+    "guitar",
+    "pop",
+    "hopeful",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

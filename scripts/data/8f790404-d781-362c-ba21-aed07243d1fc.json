@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "8f790404-d781-362c-ba21-aed07243d1fc",
+  "epidemicTrackId": 100997,
+  "sourceProvider": "EpidemicSound",
+  "title": "Born in the 90's",
+  "artist": "Ameryh",
+  "duration": 207,
+  "bpm": 101,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51902557",
+  "publicSlug": "9ljHW5gwOz",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMG2GZMBW9EY77N67YVPC8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/3940/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Synth-pop",
+    "1990s"
+  ],
+  "moods": [
+    "Romantic",
+    "Mysterious"
+  ],
+  "tags": [
+    "mysterius",
+    "love",
+    "90s",
+    "female vocals",
+    "lead vocals",
+    "male vocals"
+  ]
+}

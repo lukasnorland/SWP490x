@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "2f38d507-7f41-48b1-a3f1-e1b9a3933d80",
+  "epidemicTrackId": 138939,
+  "sourceProvider": "EpidemicSound",
+  "title": "I'll Get Over You (K-POP Version)",
+  "artist": "Adelyn Paik",
+  "duration": 236,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52102231",
+  "publicSlug": "RjVX2aS4NW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH4104E22E873DK7K3NP310.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6907/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Sad",
+    "Sentimental"
+  ],
+  "tags": [
+    "emotional",
+    "dramatic",
+    "nostalgic",
+    "korean",
+    "moving on",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "0f9ceaf3-1f89-44fe-a496-2ff4f3570b33",
+  "epidemicTrackId": 151456,
+  "sourceProvider": "EpidemicSound",
+  "title": "We Win (More than Able)",
+  "artist": "AFTR",
+  "duration": 315,
+  "bpm": 85,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401412",
+  "publicSlug": "fM0Z9icq1U",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJBMPG2HREMDM5DSK3VASAR.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13074/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Praise & Worship",
+    "Contemporary Gospel"
+  ],
+  "moods": [
+    "Epic",
+    "Hopeful"
+  ],
+  "tags": [
+    "piano",
+    "female vocals",
+    "drums",
+    "electric guitar",
+    "faith",
+    "choir",
+    "harmonies",
+    "religious",
+    "strength",
+    "lead vocals"
+  ]
+}

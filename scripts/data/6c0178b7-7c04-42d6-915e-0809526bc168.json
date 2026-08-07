@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "6c0178b7-7c04-42d6-915e-0809526bc168",
+  "epidemicTrackId": 146912,
+  "sourceProvider": "EpidemicSound",
+  "title": "Glory Bound",
+  "artist": "Roy Williams",
+  "duration": 228,
+  "bpm": 130,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301208",
+  "publicSlug": "UxeFmVv6yF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGVSTZJ9GQ8JX4HA7EZ1SS1.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10300/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Rock",
+    "1970s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Sentimental"
+  ],
+  "tags": [
+    "violin",
+    "acoustic",
+    "sad",
+    "gospel",
+    "electric guitar",
+    "lead vocals",
+    "male vocals"
+  ]
+}

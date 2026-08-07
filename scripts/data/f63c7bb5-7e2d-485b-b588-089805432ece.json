@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "f63c7bb5-7e2d-485b-b588-089805432ece",
+  "epidemicTrackId": 151269,
+  "sourceProvider": "EpidemicSound",
+  "title": "Just a Boy",
+  "artist": "Loving Caliber",
+  "duration": 201,
+  "bpm": 79,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401225",
+  "publicSlug": "m4XJ1s5V6A",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEFEDJBT5A2Q2NXF34TM54S.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12688/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop Rock",
+    "2020s"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "male vocals",
+    "acoustic",
+    "ukukele",
+    "relaxing",
+    "chill",
+    "guitar",
+    "electric guitar",
+    "smooth",
+    "lead vocals"
+  ]
+}

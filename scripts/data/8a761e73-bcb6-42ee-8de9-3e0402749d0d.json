@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "8a761e73-bcb6-42ee-8de9-3e0402749d0d",
+  "epidemicTrackId": 147479,
+  "sourceProvider": "EpidemicSound",
+  "title": "Spring Is You",
+  "artist": "Niklas Gabrielsson with Martin Landström & His Orchestra",
+  "duration": 202,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52301775",
+  "publicSlug": "Fk4MTYhWFb",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGN76JBVSYTKD8EB13R6S3P.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/10478/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Big Band",
+    "Swing",
+    "1950s",
+    "1960s"
+  ],
+  "moods": [
+    "Happy",
+    "Glamorous"
+  ],
+  "tags": [
+    "brass",
+    "orchestra",
+    "jazz",
+    "feelgood",
+    "lead vocals",
+    "male vocals"
+  ]
+}

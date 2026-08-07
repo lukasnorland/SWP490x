@@ -1,0 +1,28 @@
+{
+  "externalSourceId": "c5b2041f-3c86-43f6-a8bb-31a709531adf",
+  "epidemicTrackId": 276631,
+  "sourceProvider": "EpidemicSound",
+  "title": "Self Romance",
+  "artist": "Zorro",
+  "duration": 141,
+  "bpm": 120,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501788",
+  "publicSlug": "b7GGnIAcms",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJNFV3TDX56KKCFNQJC72TC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14513/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop"
+  ],
+  "moods": [
+    "Happy",
+    "Eccentric"
+  ],
+  "tags": [
+    "barbie",
+    "lead vocals",
+    "female vocals"
+  ]
+}

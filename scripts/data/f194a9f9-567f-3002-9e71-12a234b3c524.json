@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "f194a9f9-567f-3002-9e71-12a234b3c524",
+  "epidemicTrackId": 96958,
+  "sourceProvider": "EpidemicSound",
+  "title": "Keep Me Up All Night",
+  "artist": "Flickering",
+  "duration": 201,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51800981",
+  "publicSlug": "2mc1jGxhFb",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGP83QYX6ARJKCSBV677R0E.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/595/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "R&B",
+    "Motown"
+  ],
+  "moods": [
+    "Peaceful"
+  ],
+  "tags": [
+    "guitar",
+    "holiday",
+    "piano",
+    "sleigh bells",
+    "male vocals",
+    "lead vocals",
+    "ballad",
+    "warm",
+    "christmas"
+  ]
+}

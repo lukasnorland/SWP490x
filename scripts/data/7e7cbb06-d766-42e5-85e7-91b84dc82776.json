@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "7e7cbb06-d766-42e5-85e7-91b84dc82776",
+  "epidemicTrackId": 143252,
+  "sourceProvider": "EpidemicSound",
+  "title": "Where Did You Go?",
+  "artist": "Gloria Tells",
+  "duration": 179,
+  "bpm": 110,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201866",
+  "publicSlug": "6tF1kU6fyf",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHBEDY0JT8DYZMBFFE8WTFM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9262/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "R&B",
+    "1980s"
+  ],
+  "moods": [
+    "Eccentric",
+    "Quirky"
+  ],
+  "tags": [
+    "retro",
+    "electric guitar",
+    "80s",
+    "synthesizers",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "7f9cedf7-3725-44e8-b7dd-8eea86826190",
+  "epidemicTrackId": 142879,
+  "sourceProvider": "EpidemicSound",
+  "title": "Ironic (Clean Version)",
+  "artist": "Zorro",
+  "duration": 185,
+  "bpm": 93,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201493",
+  "publicSlug": "f2HeMmyJ0w",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGNCG3JF0GR0DMHDRWW6ZKS.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9187/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Hyperpop",
+    "2020s"
+  ],
+  "moods": [
+    "Romantic",
+    "Restless"
+  ],
+  "tags": [
+    "anti-pop",
+    "modern",
+    "empowering",
+    "acoustic guitar",
+    "beats",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

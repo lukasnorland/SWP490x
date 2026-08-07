@@ -1,0 +1,25 @@
+{
+  "externalSourceId": "aa2308ab-20f9-4eee-92dc-4958da8e8de0",
+  "epidemicTrackId": 283152,
+  "sourceProvider": "EpidemicSound",
+  "title": "Ready or Not",
+  "artist": "Nbhd Nick",
+  "duration": 210,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503292",
+  "publicSlug": "dDTAJCMZB6",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGM5VR8SN5H8E39T05ZD7N0.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15533/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Hip Hop",
+    "Beats"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": []
+}

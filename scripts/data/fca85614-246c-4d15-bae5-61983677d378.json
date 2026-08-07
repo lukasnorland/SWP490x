@@ -1,0 +1,31 @@
+{
+  "externalSourceId": "fca85614-246c-4d15-bae5-61983677d378",
+  "epidemicTrackId": 249198,
+  "sourceProvider": "EpidemicSound",
+  "title": "Back to Your Love",
+  "artist": "Hector Gabriel",
+  "duration": 175,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401918",
+  "publicSlug": "ikWiIk8CkJ",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHRD7GVV7A0E00DRG93PA4M.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12840/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Christian"
+  ],
+  "moods": [
+    "Hopeful",
+    "Laid Back"
+  ],
+  "tags": [
+    "male vocals",
+    "acoustic",
+    "guitar",
+    "chill",
+    "feel good",
+    "lead vocals"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "externalSourceId": "064d47c9-727b-321f-8a42-beb849cb6f19",
+  "epidemicTrackId": 65388,
+  "sourceProvider": "EpidemicSound",
+  "title": "A Thousand Years",
+  "artist": "Ten Towers",
+  "duration": 199,
+  "bpm": 80,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828386",
+  "publicSlug": "DhOu1VcroW",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGKT7SCJJE76JCW59DKZQ4D.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/7679/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Acoustic"
+  ],
+  "moods": [
+    "Hopeful",
+    "Peaceful"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "ballad",
+    "acoustic",
+    "soft",
+    "piano"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "94d16d38-775f-3dd2-90c4-ed93ea311182",
+  "epidemicTrackId": 97033,
+  "sourceProvider": "EpidemicSound",
+  "title": "Last Sunday",
+  "artist": "OTE",
+  "duration": 191,
+  "bpm": 121,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51801052",
+  "publicSlug": "u96ClYBqCs",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGPEPVBF00SQVBF486QV2YJ.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/598/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Pop",
+    "Rock",
+    "1990s"
+  ],
+  "moods": [
+    "Quirky",
+    "Marching"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals",
+    "strolling",
+    "feelgood",
+    "retro",
+    "60s",
+    "fun",
+    "attitude"
+  ]
+}

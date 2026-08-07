@@ -1,0 +1,34 @@
+{
+  "externalSourceId": "8a54c4e5-56db-42df-8c11-003500325863",
+  "epidemicTrackId": 253548,
+  "sourceProvider": "EpidemicSound",
+  "title": "Martyr",
+  "artist": "Nevin",
+  "duration": 169,
+  "bpm": 131,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52500202",
+  "publicSlug": "JSGxRSMAEz",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEN42WE0EP2QJZ31YYQTRDE.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13730/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Rock",
+    "Grunge"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "guitar",
+    "drum kit",
+    "piano",
+    "sad",
+    "eccentric",
+    "emotive",
+    "lead vocals",
+    "male vocals"
+  ]
+}

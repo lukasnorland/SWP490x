@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "6c0d428b-eb9d-4181-8305-16e21c44a4af",
+  "epidemicTrackId": 142919,
+  "sourceProvider": "EpidemicSound",
+  "title": "The Moonlight Serenade",
+  "artist": "Adelyn Paik",
+  "duration": 218,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201533",
+  "publicSlug": "so58SdMt1W",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH19K2AKE1KTF705XJVMSHV.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9904/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop",
+    "Korea"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "korean",
+    "happy",
+    "laid back",
+    "keyboard",
+    "lead vocals",
+    "female vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "11ca0289-2da7-4ca9-a317-ef5a7def82c9",
+  "epidemicTrackId": 151206,
+  "sourceProvider": "EpidemicSound",
+  "title": "Mmm",
+  "artist": "I'MIN",
+  "duration": 163,
+  "bpm": 90,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52401162",
+  "publicSlug": "VbSkqIVeiF",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEK8ZQCR1B7SWY381ED7552.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12185/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary R&B",
+    "K-pop"
+  ],
+  "moods": [
+    "Hopeful",
+    "Dreamy"
+  ],
+  "tags": [
+    "korean",
+    "lead vocals",
+    "male vocals"
+  ]
+}

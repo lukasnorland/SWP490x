@@ -1,0 +1,36 @@
+{
+  "externalSourceId": "b56e7cc9-7873-40a4-a959-3174076d0d23",
+  "epidemicTrackId": 252552,
+  "sourceProvider": "EpidemicSound",
+  "title": "Cielito Lindo",
+  "artist": "Alcónes Negros",
+  "duration": 188,
+  "bpm": 150,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403581",
+  "publicSlug": "1K7Z0MkmUa",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGMQV6XF9MEZVSF6BR5Q6N6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13136/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Mariachi",
+    "Acoustic",
+    "Mexico"
+  ],
+  "moods": [
+    "Romantic",
+    "Sentimental"
+  ],
+  "tags": [
+    "hopeful",
+    "jarpa",
+    "harp",
+    "guitar",
+    "strings",
+    "trumpet",
+    "accordion",
+    "lead vocals",
+    "female vocals"
+  ]
+}

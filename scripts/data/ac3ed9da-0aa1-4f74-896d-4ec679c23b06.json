@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "ac3ed9da-0aa1-4f74-896d-4ec679c23b06",
+  "epidemicTrackId": 252270,
+  "sourceProvider": "EpidemicSound",
+  "title": "Dear Me",
+  "artist": "I'MIN",
+  "duration": 155,
+  "bpm": 75,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52403299",
+  "publicSlug": "DPiEW5iJnI",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTH3991DQRZB0H6FBDP25XSD.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/12993/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "K-pop"
+  ],
+  "moods": [
+    "Romantic",
+    "Hopeful"
+  ],
+  "tags": [
+    "r&b",
+    "laid back",
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "0511fb26-a4c7-44b5-a7c2-e3ccb98b7f3b",
+  "epidemicTrackId": 142873,
+  "sourceProvider": "EpidemicSound",
+  "title": "Hero",
+  "artist": "Zorro",
+  "duration": 219,
+  "bpm": 85,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52201487",
+  "publicSlug": "Z8T4JZ4BNl",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTEP835323Z2BYDVB42ZT8QH.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/9540/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Indie Folk",
+    "Contemporary Folk"
+  ],
+  "moods": [
+    "Laid Back",
+    "Peaceful"
+  ],
+  "tags": [
+    "cello",
+    "indie",
+    "acoustic guitar",
+    "sentimental",
+    "chill",
+    "heartfelt",
+    "lead vocals",
+    "male vocals",
+    "female vocals"
+  ]
+}

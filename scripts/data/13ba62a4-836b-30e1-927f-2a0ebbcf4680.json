@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "13ba62a4-836b-30e1-927f-2a0ebbcf4680",
+  "epidemicTrackId": 64106,
+  "sourceProvider": "EpidemicSound",
+  "title": "Songs of Tomorrow",
+  "artist": "Volcan Peaks",
+  "duration": 194,
+  "bpm": 93,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q51828268",
+  "publicSlug": "kreYmepih9",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJJV7XN58B0ZEYKKATBW5Z8.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/1330/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Pop",
+    "Contemporary Folk",
+    "2010s",
+    "Acoustic"
+  ],
+  "moods": [
+    "Dark",
+    "Dreamy"
+  ],
+  "tags": [
+    "lead vocals",
+    "choir",
+    "melodic",
+    "ambient",
+    "male vocals",
+    "acoustic guitar",
+    "contemporary"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "93e48ffa-b66e-4c2a-a830-e44ffa32e1c3",
+  "epidemicTrackId": 148816,
+  "sourceProvider": "EpidemicSound",
+  "title": "The World Is Beautiful",
+  "artist": "Basixx",
+  "duration": 201,
+  "bpm": 126,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52303112",
+  "publicSlug": "gWux2PBr5K",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ1N8DB48X3T90JY7HZPCH6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/11267/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Dance-pop"
+  ],
+  "moods": [
+    "Happy",
+    "Romantic"
+  ],
+  "tags": [
+    "male vocal",
+    "upbeat",
+    "lead vocals",
+    "male vocals"
+  ]
+}

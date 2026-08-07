@@ -1,0 +1,35 @@
+{
+  "externalSourceId": "a7e81727-6ef4-4ac6-bfa1-50ddceeccb94",
+  "epidemicTrackId": 276603,
+  "sourceProvider": "EpidemicSound",
+  "title": "Lemonade",
+  "artist": "Egaoya",
+  "duration": 166,
+  "bpm": 99,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52501760",
+  "publicSlug": "mbyX7wodkz",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTGR5AKQJEPZVZ03383P19A6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/14565/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "City Pop",
+    "J-pop",
+    "Japan",
+    "1980s",
+    "Beats"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "1990s Pop",
+    "electric guitar",
+    "keyboard",
+    "trumpet",
+    "lead vocals",
+    "male vocals"
+  ]
+}

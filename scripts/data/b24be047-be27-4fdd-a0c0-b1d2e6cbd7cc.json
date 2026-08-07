@@ -1,0 +1,27 @@
+{
+  "externalSourceId": "b24be047-be27-4fdd-a0c0-b1d2e6cbd7cc",
+  "epidemicTrackId": 283040,
+  "sourceProvider": "EpidemicSound",
+  "title": "Home",
+  "artist": "The Eastern Plain",
+  "duration": 174,
+  "bpm": 130,
+  "energyLevel": "low",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52503180",
+  "publicSlug": "3kcg8bVsGo",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTE2MXT6NB71B6DZE69V3ZTC.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/15140/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Contemporary Folk"
+  ],
+  "moods": [
+    "Laid Back",
+    "Sentimental"
+  ],
+  "tags": [
+    "lead vocals",
+    "male vocals"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "externalSourceId": "9f585d00-49ec-435d-a280-69b9876dd2e5",
+  "epidemicTrackId": 254001,
+  "sourceProvider": "EpidemicSound",
+  "title": "Take a Shot",
+  "artist": "Bhris Drip, Ballpoint",
+  "duration": 132,
+  "bpm": 160,
+  "energyLevel": "high",
+  "hasVocals": true,
+  "isExplicit": true,
+  "isrc": "SE5Q52500655",
+  "publicSlug": "lH8Gb0n0oA",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTJ40Y2KG6PQ9XHFT00HQXKM.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/13871/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Trap"
+  ],
+  "moods": [
+    "Angry",
+    "Dark"
+  ],
+  "tags": [
+    "powerful",
+    "tense",
+    "restless",
+    "epic"
+  ]
+}

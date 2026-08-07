@@ -1,0 +1,33 @@
+{
+  "externalSourceId": "6dcda37a-f82e-4635-83a4-9ea06e67302f",
+  "epidemicTrackId": 141444,
+  "sourceProvider": "EpidemicSound",
+  "title": "Riverboat Rambler",
+  "artist": "Bo the Drifter",
+  "duration": 163,
+  "bpm": 93,
+  "energyLevel": "medium",
+  "hasVocals": true,
+  "isExplicit": false,
+  "isrc": "SE5Q52200059",
+  "publicSlug": "t3tXvfWew4",
+  "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTHRZSAFKPZ1GKG7K2CPR0P6.mp3",
+  "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/8210/3000x3000.jpg?height=300&width=300",
+  "genres": [
+    "Roots Rock"
+  ],
+  "moods": [
+    "Happy",
+    "Laid Back"
+  ],
+  "tags": [
+    "steel guitar",
+    "country",
+    "hopeful",
+    "funny",
+    "guitar",
+    "acoustic",
+    "lead vocals",
+    "male vocals"
+  ]
+}
