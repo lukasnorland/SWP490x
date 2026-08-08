@@ -167,14 +167,21 @@ public class AdminUserController {
 
     /** UC-07 E3 — send the credentials message again after a failed delivery. */
     @PostMapping(Routes.ADMIN_USER_RESEND)
-    public String resendCredentials(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        InitialCredentials credentials = userAccountService.reissueInitialPassword(id);
+    public String resendCredentials(@PathVariable Long id,
+            @AuthenticationPrincipal MrsUserDetails actor,
+            RedirectAttributes redirectAttributes) {
         try {
-            notificationService.sendAccountCredentials(credentials.user(), credentials.password());
-            flash(redirectAttributes, "success", Messages.CREDENTIALS_RESENT);
-        } catch (MailDeliveryException e) {
-            reportUndelivered(credentials.user().getEmail(), e);
-            flash(redirectAttributes, "warning", Messages.CREDENTIALS_RESEND_FAILED);
+            InitialCredentials credentials =
+                    userAccountService.reissueInitialPassword(id, actor.getId());
+            try {
+                notificationService.sendAccountCredentials(credentials.user(), credentials.password());
+                flash(redirectAttributes, "success", Messages.CREDENTIALS_RESENT);
+            } catch (MailDeliveryException e) {
+                reportUndelivered(credentials.user().getEmail(), e);
+                flash(redirectAttributes, "warning", Messages.CREDENTIALS_RESEND_FAILED);
+            }
+        } catch (SelfModificationException e) {
+            flash(redirectAttributes, "danger", Messages.SELF_MODIFICATION_FORBIDDEN);
         }
         return "redirect:" + Routes.ADMIN_USERS;
     }

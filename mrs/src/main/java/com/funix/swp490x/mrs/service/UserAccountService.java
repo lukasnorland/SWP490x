@@ -158,10 +158,13 @@ public class UserAccountService {
      * repeated. Resending therefore issues a fresh one and invalidates what was
      * sent before — which also means a resend whose delivery fails leaves the
      * account reachable only by resending again.
+     *
+     * @throws SelfModificationException when {@code actorUserId} is the target
      */
     @Transactional
-    public InitialCredentials reissueInitialPassword(Long userId) {
+    public InitialCredentials reissueInitialPassword(Long userId, Long actorUserId) {
         User user = requireUser(userId);
+        rejectSelf(user, actorUserId);
         String password = InitialPasswordGenerator.generate();
         user.setPasswordHash(passwordEncoder.encode(password));
         user.setMustChangePassword(true);

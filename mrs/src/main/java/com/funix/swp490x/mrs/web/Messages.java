@@ -51,7 +51,7 @@ public final class Messages {
             + "before the new permissions apply.";
 
     public static final String SELF_MODIFICATION_FORBIDDEN =
-            "You cannot deactivate or change the role of your own account.";
+            "You cannot deactivate, change the role of, or resend credentials for your own account.";
 
     /**
      * Outcomes of the P-06a "Verify for SES" control. Not in the SRS catalogue —

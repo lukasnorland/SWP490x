@@ -223,14 +223,7 @@ class AdminUserManagementTest {
 
     @Test
     void resendingIssuesAFreshPasswordAndSendsItAgain() throws Exception {
-        User existing = new User();
-        existing.setId(42L);
-        existing.setUsername("Nina Designer");
-        existing.setEmail("nina@mrs.local");
-        existing.setPasswordHash("{noop}the-old-one");
-        existing.setRole(Role.CONTENT_DESIGNER);
-        existing.setStatus(UserStatus.ACTIVE);
-        existing.setMustChangePassword(false);
+        User existing = activeDesigner(42L);
         given(userRepository.findById(42L)).willReturn(Optional.of(existing));
 
         mockMvc.perform(post("/admin/users/42/resend-credentials")
@@ -242,6 +235,26 @@ class AdminUserManagementTest {
         then(mailTransport).should().send(eq("nina@mrs.local"), anyString(), anyString());
         assertThat(existing.getPasswordHash()).isNotEqualTo("{noop}the-old-one");
         assertThat(existing.isMustChangePassword()).isTrue();
+    }
+
+    @Test
+    void anAdminCannotResendCredentialsForThemselves() throws Exception {
+        User self = new User();
+        self.setId(1L);
+        self.setEmail("admin@mrs.local");
+        self.setRole(Role.ADMIN);
+        self.setStatus(UserStatus.ACTIVE);
+        self.setPasswordHash("{noop}the-old-one");
+        given(userRepository.findById(1L)).willReturn(Optional.of(self));
+
+        mockMvc.perform(post("/admin/users/1/resend-credentials")
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(flash().attribute("flash", Messages.SELF_MODIFICATION_FORBIDDEN));
+
+        then(mailTransport).should(never()).send(anyString(), anyString(), anyString());
+        assertThat(self.getPasswordHash()).isEqualTo("{noop}the-old-one");
     }
 
     /** BR-01: the area is ADMIN-only, and the POST is no exception. */
