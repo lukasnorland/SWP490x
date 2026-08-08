@@ -49,6 +49,8 @@ public class UserAccountService {
     /**
      * P-06a account list with Zone B filters and Zone D pagination. Newest
      * accounts first so a freshly created row is visible without hunting.
+     * ADMIN accounts are omitted — P-06a manages Content Designers and
+     * Customers only.
      */
     @Transactional(readOnly = true)
     public Page<User> search(Role role, UserStatus status, String query, int page) {
