@@ -387,11 +387,140 @@
     }
   }
 
+  /* --- Auth / password REST forms -------------------------------------- */
+  function showInlineError(host, message) {
+    if (!host) {
+      return;
+    }
+    host.hidden = false;
+    host.className = "alert alert-danger";
+    host.setAttribute("role", "alert");
+    host.textContent = message;
+  }
+
+  function initAuthRestForms(root) {
+    var authRoot = root.querySelector("[data-auth-api]");
+    var authBase = authRoot ? authRoot.getAttribute("data-auth-api") : null;
+
+    var registerForm = document.getElementById("registerRequestForm");
+    if (registerForm && authBase) {
+      registerForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var errorHost = document.getElementById("registerRequestError");
+        apiJson(authBase + "/register-requests", {
+          method: "POST",
+          body: { email: document.getElementById("registerEmail").value }
+        }).then(function (result) {
+          if (result.ok) {
+            var flashHost = document.getElementById("landingFlashHost");
+            if (flashHost) {
+              flashHost.hidden = false;
+              flashHost.innerHTML = "";
+              var notice = document.createElement("div");
+              notice.className = "alert alert-success";
+              notice.setAttribute("role", "status");
+              notice.textContent = (result.payload && result.payload.message) || "Request sent.";
+              flashHost.appendChild(notice);
+            }
+            if (window.bootstrap) {
+              var modal = window.bootstrap.Modal.getInstance(document.getElementById("registerPanel"));
+              if (modal) {
+                modal.hide();
+              }
+            }
+            registerForm.reset();
+            return;
+          }
+          showInlineError(errorHost,
+              (result.payload && result.payload.message) || "Could not send the request.");
+        }).catch(function () {
+          showInlineError(errorHost, "Could not reach the server. Try again.");
+        });
+      });
+    }
+
+    var resetRequestForm = document.getElementById("passwordResetRequestForm");
+    if (resetRequestForm && authBase) {
+      resetRequestForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        apiJson(authBase + "/password-resets", {
+          method: "POST",
+          body: { email: document.getElementById("email").value }
+        }).then(function () {
+          window.location.search = "?sent";
+        }).catch(function () {
+          window.location.search = "?sent";
+        });
+      });
+    }
+
+    var resetSetForm = document.getElementById("passwordResetSetForm");
+    if (resetSetForm && authBase) {
+      resetSetForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var errorHost = document.getElementById("passwordResetSetErrors");
+        apiJson(authBase + "/password-resets", {
+          method: "PUT",
+          body: {
+            token: document.getElementById("resetToken").value,
+            password: document.getElementById("password").value,
+            confirmPassword: document.getElementById("confirmPassword").value
+          }
+        }).then(function (result) {
+          if (result.ok) {
+            window.location.href = (result.payload && result.payload.redirectTo) || "/login?reset";
+            return;
+          }
+          var message = (result.payload && result.payload.message) || "Could not update the password.";
+          if (result.payload && result.payload.violations && result.payload.violations.length) {
+            message += " " + result.payload.violations.join(" ");
+          }
+          showInlineError(errorHost, message);
+        }).catch(function () {
+          showInlineError(errorHost, "Could not reach the server. Try again.");
+        });
+      });
+    }
+
+    var forcedForm = document.getElementById("forcedPasswordForm");
+    var passwordApiRoot = root.querySelector("[data-account-password-api]");
+    if (forcedForm && passwordApiRoot) {
+      forcedForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var errorHost = document.getElementById("forcedPasswordErrors");
+        apiJson(passwordApiRoot.getAttribute("data-account-password-api"), {
+          method: "PUT",
+          body: {
+            currentPassword: document.getElementById("currentPassword").value,
+            password: document.getElementById("password").value,
+            confirmPassword: document.getElementById("confirmPassword").value
+          }
+        }).then(function (result) {
+          if (result.ok) {
+            window.location.href = (result.payload && result.payload.redirectTo) || "/";
+            return;
+          }
+          var message = (result.payload && result.payload.message) || "Could not update the password.";
+          if (result.payload && result.payload.violations && result.payload.violations.length) {
+            message += " " + result.payload.violations.join(" ");
+          }
+          showInlineError(errorHost, message);
+        }).catch(function () {
+          showInlineError(errorHost, "Could not reach the server. Try again.");
+        });
+      });
+    }
+  }
+
   /* --- Submitting state (P-00 "loading": spinner, inputs disabled) ------- */
   function initSubmitStates(root) {
     root.querySelectorAll("form[data-busy-label]").forEach(function (form) {
-      // REST-backed create uses fetch; skip the native submit busy path there.
-      if (form.id === "createUserForm") {
+      // REST-backed forms use fetch; skip the native submit busy path there.
+      if (form.id === "createUserForm"
+          || form.id === "registerRequestForm"
+          || form.id === "passwordResetRequestForm"
+          || form.id === "passwordResetSetForm"
+          || form.id === "forcedPasswordForm") {
         return;
       }
       form.addEventListener("submit", function () {
@@ -422,6 +551,7 @@
     initAutoShownModals(document);
     initSesRecipientPreparation(document);
     initAdminUserRest(document);
+    initAuthRestForms(document);
     initSubmitStates(document);
   });
 })();

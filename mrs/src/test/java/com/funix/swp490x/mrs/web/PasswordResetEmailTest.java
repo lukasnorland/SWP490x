@@ -11,7 +11,7 @@ import static org.mockito.Mockito.never;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.funix.swp490x.mrs.config.SecurityConfig;
@@ -29,6 +29,8 @@ import com.funix.swp490x.mrs.security.LoginFailureHandler;
 import com.funix.swp490x.mrs.security.LoginSuccessHandler;
 import com.funix.swp490x.mrs.security.MrsUserDetailsService;
 import com.funix.swp490x.mrs.security.PasswordResetTokenService;
+import com.funix.swp490x.mrs.web.api.ApiExceptionHandler;
+import com.funix.swp490x.mrs.web.api.AuthRestController;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -36,21 +38,19 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 /**
- * P-01 / UC-02 delivery. The link used to be written to the log, where only a
- * developer watching the console could find it.
- *
- * <p>{@link MailTransport} is the only thing mocked, so the body asserted on
- * here is produced by the real template through the real engine.
+ * P-01 / UC-02 delivery through the auth REST API.
  */
-@WebMvcTest(controllers = AuthController.class)
+@WebMvcTest(controllers = AuthRestController.class)
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
         LoginFailureHandler.class, LoginAttemptService.class, MrsUserDetailsService.class,
-        PasswordResetTokenService.class, MailConfig.class, NotificationService.class})
+        PasswordResetTokenService.class, MailConfig.class, NotificationService.class,
+        ApiExceptionHandler.class})
 @TestPropertySource(properties = "mrs.mail.from=no-reply@mrs.local")
 class PasswordResetEmailTest {
 
@@ -82,8 +82,12 @@ class PasswordResetEmailTest {
     void aRegisteredAddressIsSentAUsableLink() throws Exception {
         given(userRepository.findByEmail(anyString())).willReturn(Optional.of(registeredAccount()));
 
-        mockMvc.perform(post(Routes.PASSWORD_RESET).param("email", EMAIL).with(csrf()))
-                .andExpect(status().isOk());
+        mockMvc.perform(post(Routes.API_PASSWORD_RESET)
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"email\":\"" + EMAIL + "\"}"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(CONFIRMATION)));
 
         ArgumentCaptor<String> body = ArgumentCaptor.forClass(String.class);
         then(mailTransport).should().send(eq(EMAIL), anyString(), body.capture());
@@ -93,29 +97,30 @@ class PasswordResetEmailTest {
                 .contains("30 minutes");
     }
 
-    /** P-01 must not disclose whether an address is registered (FT-01). */
     @Test
     void anUnknownAddressIsSentNothingAndLooksIdentical() throws Exception {
         given(userRepository.findByEmail(anyString())).willReturn(Optional.empty());
 
-        mockMvc.perform(post(Routes.PASSWORD_RESET).param("email", "nobody@mrs.local").with(csrf()))
+        mockMvc.perform(post(Routes.API_PASSWORD_RESET)
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"email\":\"nobody@mrs.local\"}"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(CONFIRMATION)));
 
         then(mailTransport).should(never()).send(anyString(), anyString(), anyString());
     }
 
-    /**
-     * Reporting a delivery failure would answer the question the screen refuses
-     * to answer, so the confirmation has to stand regardless.
-     */
     @Test
     void aFailedDeliveryStillShowsTheSameConfirmation() throws Exception {
         given(userRepository.findByEmail(anyString())).willReturn(Optional.of(registeredAccount()));
         willThrow(new MailDeliveryException("smtp is down", new IllegalStateException()))
                 .given(mailTransport).send(anyString(), anyString(), anyString());
 
-        mockMvc.perform(post(Routes.PASSWORD_RESET).param("email", EMAIL).with(csrf()))
+        mockMvc.perform(post(Routes.API_PASSWORD_RESET)
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"email\":\"" + EMAIL + "\"}"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(CONFIRMATION)));
     }
@@ -124,9 +129,12 @@ class PasswordResetEmailTest {
     void aRegisterRequestIsMailedToTheConfiguredAdminMailbox() throws Exception {
         String candidateEmail = "candidate@example.com";
 
-        mockMvc.perform(post(Routes.REGISTER_REQUEST).param("email", candidateEmail).with(csrf()))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl(Routes.LOGIN));
+        mockMvc.perform(post(Routes.API_REGISTER_REQUEST)
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"email\":\"" + candidateEmail + "\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message").value(Messages.REGISTER_REQUEST_SENT));
 
         ArgumentCaptor<String> to = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<String> subject = ArgumentCaptor.forClass(String.class);

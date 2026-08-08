@@ -7,7 +7,7 @@
   link. Both open overlay panels (Bootstrap modals) on top of the same page.
 */-->
 <body>
-<div th:fragment="content">
+<div th:fragment="content" th:attr="data-auth-api=${apiAuthBase}">
 
   <div class="card landing-card">
     <div class="card-body d-flex flex-column align-items-center text-center gap-4 p-4 p-md-5">
@@ -18,10 +18,10 @@
         </p>
       </div>
 
-      <th:block th:if="${flash != null}">
-        <div class="w-100"
-             th:replace="~{fragments/components :: notice(${flashVariant}, ${flashVariant == 'success'} ? 'circle-check' : 'alert-triangle', ${flash})}"></div>
-      </th:block>
+      <div id="landingFlash" class="w-100" th:if="${flash != null}">
+        <div th:replace="~{fragments/components :: notice(${flashVariant}, ${flashVariant == 'success'} ? 'circle-check' : 'alert-triangle', ${flash})}"></div>
+      </div>
+      <div id="landingFlashHost" class="w-100" hidden></div>
 
       <div class="d-flex flex-column align-items-center gap-3">
         <button type="button" class="btn btn-primary btn-lg px-5"
@@ -107,7 +107,7 @@
   <div class="modal fade" id="registerPanel" tabindex="-1" aria-labelledby="registerPanelTitle" aria-hidden="true"
        th:attr="data-modal-autoshow=${reopenRegisterModal}">
     <div class="modal-dialog modal-dialog-centered">
-      <form class="modal-content" th:action="@{/register-request}" method="post" data-busy-label="Sending…">
+      <form class="modal-content" id="registerRequestForm" data-busy-label="Sending…">
         <div class="modal-header">
           <h2 class="modal-title h4" id="registerPanelTitle">Request access</h2>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -117,14 +117,12 @@
             Enter your email. We will send this request to ADMIN for account creation.
           </p>
 
-          <th:block th:if="${registerEmailError != null}">
-            <div th:replace="~{fragments/components :: notice('danger', 'alert-triangle', ${registerEmailError})}"></div>
-          </th:block>
+          <div id="registerRequestError" hidden></div>
 
           <div>
             <label class="form-label" for="registerEmail">Email</label>
             <input class="form-control" type="email" id="registerEmail" name="email"
-                   maxlength="255" required autocomplete="email" th:value="${submittedRegisterEmail}">
+                   maxlength="255" required autocomplete="email">
           </div>
         </div>
         <div class="modal-footer">

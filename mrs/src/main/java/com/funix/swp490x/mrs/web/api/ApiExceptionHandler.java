@@ -14,6 +14,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 /** Maps domain failures from {@code /api/**} onto HTTP status + {@link ApiError}. */
 @RestControllerAdvice(basePackages = "com.funix.swp490x.mrs.web.api")
@@ -57,5 +58,11 @@ public class ApiExceptionHandler {
             message = "Request body failed validation.";
         }
         return ResponseEntity.unprocessableEntity().body(ApiError.of(message));
+    }
+
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<ApiError> status(ResponseStatusException ex) {
+        String message = ex.getReason() == null ? ex.getStatusCode().toString() : ex.getReason();
+        return ResponseEntity.status(ex.getStatusCode()).body(ApiError.of(message));
     }
 }

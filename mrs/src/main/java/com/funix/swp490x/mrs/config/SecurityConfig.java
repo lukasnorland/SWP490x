@@ -65,12 +65,14 @@ public class SecurityConfig {
                         .requestMatchers(Routes.STATIC_ASSETS)
                         .permitAll()
                         .requestMatchers(Routes.LOGIN, Routes.REGISTER_REQUEST,
-                                Routes.PASSWORD_RESET, Routes.PASSWORD_RESET + "/**")
+                                Routes.PASSWORD_RESET, Routes.PASSWORD_RESET + "/**",
+                                Routes.API_AUTH + "/**")
                         .permitAll()
                         // P-06a–e: ADMIN area and its JSON API (BR-01, BR-02, FT-09 NAC-02).
                         .requestMatchers("/admin/**", "/api/admin/**").hasRole("ADMIN")
                         // P-02: curation surface, not offered to Customers (spec 2.1).
-                        .requestMatchers(Routes.SEARCH).hasAnyRole("ADMIN", "CONTENT_DESIGNER")
+                        .requestMatchers(Routes.SEARCH, Routes.API_SEARCH)
+                        .hasAnyRole("ADMIN", "CONTENT_DESIGNER")
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage(Routes.LOGIN)

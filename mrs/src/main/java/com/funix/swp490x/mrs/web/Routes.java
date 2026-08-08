@@ -2,7 +2,8 @@ package com.funix.swp490x.mrs.web;
 
 /**
  * URL of every page in the site map (spec 2.2), keyed by its Page ID so screen
- * specs and routes stay traceable to each other.
+ * specs and routes stay traceable to each other. API paths live beside their
+ * HTML shells.
  */
 public final class Routes {
 
@@ -28,8 +29,6 @@ public final class Routes {
 
     /** P-06a Admin — User Management (HTML shell). */
     public static final String ADMIN_USERS = "/admin/users";
-    /** P-06a REST CRUD resource. */
-    public static final String API_ADMIN_USERS = "/api/admin/users";
     /** P-06b Admin — Song Catalog & Metadata. */
     public static final String ADMIN_CATALOG = "/admin/catalog";
     /** P-06c Admin — Catalog Import. */
@@ -38,6 +37,23 @@ public final class Routes {
     public static final String ADMIN_SETTINGS = "/admin/settings";
     /** P-06e Admin — Audit & Recommendation Log. */
     public static final String ADMIN_LOGS = "/admin/logs";
+
+    /* --- JSON APIs (Spring REST) ----------------------------------------- */
+
+    public static final String API_ME = "/api/me";
+    public static final String API_AUTH = "/api/auth";
+    public static final String API_REGISTER_REQUEST = "/api/auth/register-requests";
+    public static final String API_PASSWORD_RESET = "/api/auth/password-resets";
+    public static final String API_ACCOUNT_PASSWORD = "/api/account/password";
+    public static final String API_SEARCH = "/api/search";
+    public static final String API_PLAYLISTS = "/api/playlists";
+    public static final String API_WORKSPACE = "/api/workspace";
+    public static final String API_PROFILE = "/api/profile";
+    public static final String API_ADMIN_USERS = "/api/admin/users";
+    public static final String API_ADMIN_CATALOG = "/api/admin/catalog";
+    public static final String API_ADMIN_IMPORT = "/api/admin/import";
+    public static final String API_ADMIN_SETTINGS = "/api/admin/settings";
+    public static final String API_ADMIN_LOGS = "/api/admin/logs";
 
     /**
      * Roots serving static assets rather than pages.
