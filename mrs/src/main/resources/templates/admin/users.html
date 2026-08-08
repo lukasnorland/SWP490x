@@ -92,8 +92,9 @@
               <td class="text-end">
                 <div class="table__actions d-inline-flex align-items-center justify-content-end gap-1">
 
-                  <!-- UC-07 E3: resend credentials (active accounts only). -->
-                  <form th:if="${account.status.name() == 'ACTIVE'}"
+                  <!-- UC-07 E3: resend credentials (active accounts only; never self). -->
+                  <form th:if="${account.status.name() == 'ACTIVE'
+                            and currentUser != null and currentUser.id != account.id}"
                         th:action="@{|/admin/users/${account.id}/resend-credentials|}" method="post">
                     <button type="submit" class="btn btn-icon"
                             title="Resend the credentials email with a new initial password">
