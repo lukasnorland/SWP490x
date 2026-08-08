@@ -12,10 +12,12 @@ import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.never;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -279,6 +281,13 @@ class AdminUserManagementTest {
                 .andExpect(status().isForbidden());
 
         then(userRepository).should(never()).save(any(User.class));
+    }
+
+    @Test
+    void theRoleFilterOmitsAdmin() throws Exception {
+        mockMvc.perform(get(Routes.ADMIN_USERS).with(user(admin())))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("filterRoles", UserAccountService.ASSIGNABLE_ROLES));
     }
 
     @Test

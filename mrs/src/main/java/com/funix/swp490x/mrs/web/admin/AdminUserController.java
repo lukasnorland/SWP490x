@@ -233,7 +233,8 @@ public class AdminUserController {
         model.addAttribute("filterRole", roleFilter);
         model.addAttribute("filterStatus", statusFilter);
         model.addAttribute("filterQuery", query == null ? "" : query);
-        model.addAttribute("filterRoles", Role.values());
+        // Same set as create/role-change: the sole ADMIN is not a filter target.
+        model.addAttribute("filterRoles", UserAccountService.ASSIGNABLE_ROLES);
         model.addAttribute("filterStatuses", UserStatus.values());
         model.addAttribute("assignableRoles", UserAccountService.ASSIGNABLE_ROLES);
         // Offered as the default so the flow works without JavaScript; the
