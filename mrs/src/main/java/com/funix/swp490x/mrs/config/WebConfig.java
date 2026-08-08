@@ -21,11 +21,9 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns(
                         Routes.PASSWORD_CHANGE,
-                        Routes.API_ACCOUNT_PASSWORD,
                         Routes.LOGIN,
                         Routes.PASSWORD_RESET,
                         Routes.PASSWORD_RESET + "/**",
-                        Routes.API_AUTH + "/**",
                         "/logout",
                         "/error")
                 .excludePathPatterns(Routes.STATIC_ASSETS);

@@ -2,8 +2,7 @@ package com.funix.swp490x.mrs.web;
 
 /**
  * URL of every page in the site map (spec 2.2), keyed by its Page ID so screen
- * specs and routes stay traceable to each other. API paths live beside their
- * HTML shells.
+ * specs and routes stay traceable to each other.
  */
 public final class Routes {
 
@@ -27,8 +26,21 @@ public final class Routes {
     /** P-05 My Profile & Playlist History. */
     public static final String PROFILE = "/profile";
 
-    /** P-06a Admin — User Management (HTML shell). */
+    /** P-06a Admin — User Management. */
     public static final String ADMIN_USERS = "/admin/users";
+    /** P-06a — resend the credentials message for an account (UC-07 E3). */
+    public static final String ADMIN_USER_RESEND = "/admin/users/{id}/resend-credentials";
+    /** P-06a — soft-delete an account (spec 4.9 / FT-01 AC-03). */
+    public static final String ADMIN_USER_DEACTIVATE = "/admin/users/{id}/deactivate";
+    /** P-06a — restore a deactivated account. */
+    public static final String ADMIN_USER_REACTIVATE = "/admin/users/{id}/reactivate";
+    /** P-06a — change role (UC-06); ADMIN is not assignable. */
+    public static final String ADMIN_USER_ROLE = "/admin/users/{id}/role";
+    /**
+     * P-06a — declare the typed address with Amazon SES so the sandbox will
+     * accept mail to it (CreateEmailIdentity). Separate from account creation.
+     */
+    public static final String ADMIN_USER_PREPARE_RECIPIENT = "/admin/users/prepare-recipient";
     /** P-06b Admin — Song Catalog & Metadata. */
     public static final String ADMIN_CATALOG = "/admin/catalog";
     /** P-06c Admin — Catalog Import. */
@@ -37,23 +49,6 @@ public final class Routes {
     public static final String ADMIN_SETTINGS = "/admin/settings";
     /** P-06e Admin — Audit & Recommendation Log. */
     public static final String ADMIN_LOGS = "/admin/logs";
-
-    /* --- JSON APIs (Spring REST) ----------------------------------------- */
-
-    public static final String API_ME = "/api/me";
-    public static final String API_AUTH = "/api/auth";
-    public static final String API_REGISTER_REQUEST = "/api/auth/register-requests";
-    public static final String API_PASSWORD_RESET = "/api/auth/password-resets";
-    public static final String API_ACCOUNT_PASSWORD = "/api/account/password";
-    public static final String API_SEARCH = "/api/search";
-    public static final String API_PLAYLISTS = "/api/playlists";
-    public static final String API_WORKSPACE = "/api/workspace";
-    public static final String API_PROFILE = "/api/profile";
-    public static final String API_ADMIN_USERS = "/api/admin/users";
-    public static final String API_ADMIN_CATALOG = "/api/admin/catalog";
-    public static final String API_ADMIN_IMPORT = "/api/admin/import";
-    public static final String API_ADMIN_SETTINGS = "/api/admin/settings";
-    public static final String API_ADMIN_LOGS = "/api/admin/logs";
 
     /**
      * Roots serving static assets rather than pages.

@@ -313,11 +313,11 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 
 | Screen | State |
 |--------|-------|
-| P-00 Login | Implemented — landing + form login (Spring Security); register request via REST |
-| P-01 Password Reset | Implemented — both steps via REST (`/api/auth/password-resets`) |
-| Forced password change (FT-09) | Implemented — HTML shell + `PUT /api/account/password` |
-| P-06a User Management | Implemented — Spring REST CRUD at `/api/admin/users` |
-| P-02 – P-06e | HTML shells + REST API stubs (`/api/search`, `/api/playlists`, …) |
+| P-00 Login | Implemented — all five screen states, lockout after 5 failures in 15 min |
+| P-01 Password Reset | Implemented — both steps, live BR-12 checklist, link emailed |
+| Forced password change (FT-09) | Implemented |
+| P-06a User Management | Implemented — Thymeleaf MVC CRUD: create + credentials email, filters, pagination, deactivate/reactivate with session invalidation, role change, resend |
+| P-02 – P-06e | Scaffolded — real headings and navigation, with each specified zone marked as outstanding |
 
 Each scaffolded screen renders its zones from the spec as dashed placeholders, so what remains on that screen is visible in the running app. Data-backed zones arrive with their feature slice.
 
