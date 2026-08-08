@@ -19,15 +19,49 @@
 
   <div class="d-flex flex-column gap-4">
 
-    <!-- Outcome of the last create or resend (MSG_012, MSG_021, MSG_022). -->
+    <!-- Outcome of the last create, resend, status or role change. -->
     <th:block th:if="${flash != null}">
       <div th:replace="~{fragments/components :: notice(${flashVariant},
           ${flashVariant == 'success'} ? 'circle-check' : 'alert-triangle', ${flash})}"></div>
     </th:block>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
-        'Filters',
-        'Role (All / ADMIN / Content Designer / Customer), status (Active / Deactivated), and email or name search.')}"></section>
+    <!-- Zone B: filters -->
+    <section class="card">
+      <div class="card-body">
+        <form class="row g-3 align-items-end" method="get" th:action="@{/admin/users}">
+          <div class="col-12 col-md-3">
+            <label class="form-label" for="filterRole">Role</label>
+            <select class="form-select" id="filterRole" name="role">
+              <option value="">All</option>
+              <option th:each="role : ${filterRoles}"
+                      th:value="${role.name()}"
+                      th:text="${role.displayName}"
+                      th:selected="${role == filterRole}">Role</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-3">
+            <label class="form-label" for="filterStatus">Status</label>
+            <select class="form-select" id="filterStatus" name="status">
+              <option value="">All</option>
+              <option th:each="status : ${filterStatuses}"
+                      th:value="${status.name()}"
+                      th:text="${status.name()}"
+                      th:selected="${status == filterStatus}">Status</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-4">
+            <label class="form-label" for="filterQuery">Search</label>
+            <input class="form-control" type="search" id="filterQuery" name="q"
+                   placeholder="Name or email"
+                   th:value="${filterQuery}">
+          </div>
+          <div class="col-12 col-md-2 d-flex gap-2">
+            <button type="submit" class="btn btn-primary flex-grow-1">Filter</button>
+            <a class="btn btn-ghost" th:href="@{/admin/users}" title="Clear filters">Clear</a>
+          </div>
+        </form>
+      </div>
+    </section>
 
     <!-- Zone C -->
     <section class="card">
@@ -56,19 +90,60 @@
               <td class="table__numeric small text-secondary"
                   th:text="${#temporals.format(account.createdAt, 'dd MMM yyyy')}">01 Jan 2026</td>
               <td class="text-end">
-                <!-- UC-07 E3: a credentials message that never arrived can be
-                     sent again, with a new initial password. -->
-                <form class="table__actions d-inline"
-                      th:action="@{|/admin/users/${account.id}/resend-credentials|}" method="post">
-                  <button type="submit" class="btn btn-icon"
-                          title="Resend the credentials email with a new initial password">
-                    <svg th:replace="~{fragments/icons :: icon('refresh', 'icon--sm')}"></svg>
-                    <span class="visually-hidden">Resend credentials</span>
-                  </button>
-                </form>
+                <div class="table__actions d-inline-flex align-items-center justify-content-end gap-1">
+
+                  <!-- UC-07 E3: resend credentials (active accounts only). -->
+                  <form th:if="${account.status.name() == 'ACTIVE'}"
+                        th:action="@{|/admin/users/${account.id}/resend-credentials|}" method="post">
+                    <button type="submit" class="btn btn-icon"
+                            title="Resend the credentials email with a new initial password">
+                      <svg th:replace="~{fragments/icons :: icon('refresh', 'icon--sm')}"></svg>
+                      <span class="visually-hidden">Resend credentials</span>
+                    </button>
+                  </form>
+
+                  <!-- UC-06: change role — Content Designer / Customer only. -->
+                  <div class="dropdown" th:if="${account.role.name() != 'ADMIN'
+                      and currentUser != null and currentUser.id != account.id}">
+                    <button type="button" class="btn btn-icon" data-bs-toggle="dropdown"
+                            aria-expanded="false" title="Change role">
+                      <svg th:replace="~{fragments/icons :: icon('pencil', 'icon--sm')}"></svg>
+                      <span class="visually-hidden">Change role</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li th:each="role : ${assignableRoles}">
+                        <form th:action="@{|/admin/users/${account.id}/role|}" method="post">
+                          <input type="hidden" name="role" th:value="${role.name()}">
+                          <button type="submit" class="dropdown-item"
+                                  th:classappend="${role == account.role} ? 'active'"
+                                  th:text="${role.displayName}">Role</button>
+                        </form>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <!-- Spec 4.9: soft-delete / restore. Never self. -->
+                  <form th:if="${account.status.name() == 'ACTIVE'
+                            and currentUser != null and currentUser.id != account.id}"
+                        th:action="@{|/admin/users/${account.id}/deactivate|}" method="post">
+                    <button type="submit" class="btn btn-icon"
+                            title="Deactivate account"
+                            onclick="return confirm('Deactivate this account? Open sessions will end on the next request.');">
+                      <svg th:replace="~{fragments/icons :: icon('circle-minus', 'icon--sm')}"></svg>
+                      <span class="visually-hidden">Deactivate</span>
+                    </button>
+                  </form>
+                  <form th:if="${account.status.name() == 'DEACTIVATED'}"
+                        th:action="@{|/admin/users/${account.id}/reactivate|}" method="post">
+                    <button type="submit" class="btn btn-icon" title="Reactivate account">
+                      <svg th:replace="~{fragments/icons :: icon('unlock', 'icon--sm')}"></svg>
+                      <span class="visually-hidden">Reactivate</span>
+                    </button>
+                  </form>
+                </div>
               </td>
             </tr>
-            <tr th:if="${#lists.isEmpty(users)}">
+            <tr th:if="${users == null or users.isEmpty()}">
               <td colspan="6">
                 <div th:replace="~{fragments/components :: emptyState('users', 'No accounts yet',
                     'Create the first internal account to get started.')}"></div>
@@ -79,9 +154,8 @@
       </div>
     </section>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone D',
-        'Pagination',
-        '20 rows per page.')}"></section>
+    <!-- Zone D: pagination (20 / page) -->
+    <nav th:replace="~{fragments/components :: pager(${users}, '/admin/users')}"></nav>
   </div>
 
   <!-- Zone A: the 600px create dialog. Reopens itself when the submission came

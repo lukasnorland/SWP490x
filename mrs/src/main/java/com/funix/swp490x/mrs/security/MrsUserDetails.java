@@ -98,4 +98,24 @@ public class MrsUserDetails implements UserDetails {
     public boolean isCurator() {
         return role == Role.ADMIN || role == Role.CONTENT_DESIGNER;
     }
+
+    /**
+     * SessionRegistry looks principals up by equality. Email is the login name,
+     * so two MrsUserDetails for the same address must match across requests.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof MrsUserDetails that)) {
+            return false;
+        }
+        return email.equalsIgnoreCase(that.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return email.toLowerCase().hashCode();
+    }
 }

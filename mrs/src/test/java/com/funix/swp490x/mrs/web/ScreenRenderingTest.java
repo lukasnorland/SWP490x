@@ -26,14 +26,20 @@ import com.funix.swp490x.mrs.service.UserAccountService;
 import com.funix.swp490x.mrs.web.admin.AdminController;
 import com.funix.swp490x.mrs.web.admin.AdminUserController;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.nullable;
+import static org.mockito.BDDMockito.given;
 
 /**
  * Renders every screen through the real Thymeleaf layouts, and checks the
@@ -63,6 +69,12 @@ class ScreenRenderingTest {
 
     @MockitoBean
     private SesIdentityService sesIdentityService;
+
+    @BeforeEach
+    void userListIsEmptyByDefault() {
+        given(userAccountService.search(nullable(Role.class), nullable(UserStatus.class),
+                nullable(String.class), anyInt())).willReturn(Page.empty());
+    }
 
     private static MrsUserDetails principal(Role role) {
         User user = new User();

@@ -30,6 +30,12 @@ public final class Routes {
     public static final String ADMIN_USERS = "/admin/users";
     /** P-06a — resend the credentials message for an account (UC-07 E3). */
     public static final String ADMIN_USER_RESEND = "/admin/users/{id}/resend-credentials";
+    /** P-06a — soft-delete an account (spec 4.9 / FT-01 AC-03). */
+    public static final String ADMIN_USER_DEACTIVATE = "/admin/users/{id}/deactivate";
+    /** P-06a — restore a deactivated account. */
+    public static final String ADMIN_USER_REACTIVATE = "/admin/users/{id}/reactivate";
+    /** P-06a — change role (UC-06); ADMIN is not assignable. */
+    public static final String ADMIN_USER_ROLE = "/admin/users/{id}/role";
     /**
      * P-06a — declare the typed address with Amazon SES so the sandbox will
      * accept mail to it (CreateEmailIdentity). Separate from account creation.

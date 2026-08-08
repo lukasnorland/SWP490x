@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.BDDMockito.willThrow;
@@ -36,6 +37,7 @@ import com.funix.swp490x.mrs.security.LoginFailureHandler;
 import com.funix.swp490x.mrs.security.LoginSuccessHandler;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.security.MrsUserDetailsService;
+import com.funix.swp490x.mrs.security.SessionInvalidationService;
 import com.funix.swp490x.mrs.service.UserAccountService;
 import com.funix.swp490x.mrs.web.Messages;
 import com.funix.swp490x.mrs.web.Routes;
@@ -47,6 +49,8 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -82,6 +86,9 @@ class AdminUserManagementTest {
     @MockitoBean
     private JavaMailSender javaMailSender;
 
+    @MockitoBean
+    private SessionInvalidationService sessionInvalidationService;
+
     private static MrsUserDetails admin() {
         User user = new User();
         user.setId(1L);
@@ -104,6 +111,10 @@ class AdminUserManagementTest {
         // Real SMTP is present in this slice, so create() requires a verified
         // SES recipient unless a test overrides this stub.
         given(sesIdentityService.isVerified(anyString())).willReturn(true);
+        // Rejected creates re-render the list; keep the page empty.
+        given(userRepository.search(nullable(Role.class), nullable(UserStatus.class),
+                nullable(String.class), any(Pageable.class)))
+                .willReturn(Page.empty());
     }
 
     private MockHttpServletRequestBuilder createRequest(String email, String password) {
@@ -324,5 +335,91 @@ class AdminUserManagementTest {
 
         then(userRepository).should(never()).save(any(User.class));
         then(mailTransport).should(never()).send(anyString(), anyString(), anyString());
+    }
+
+    @Test
+    void deactivatingAnAccountExpiresItsSessions() throws Exception {
+        User existing = activeDesigner(42L);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+
+        mockMvc.perform(post("/admin/users/42/deactivate")
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(flash().attribute("flash", Messages.USER_DEACTIVATED));
+
+        assertThat(existing.getStatus()).isEqualTo(UserStatus.DEACTIVATED);
+        then(sessionInvalidationService).should().invalidateSessionsForEmail("nina@mrs.local");
+    }
+
+    @Test
+    void anAdminCannotDeactivateThemselves() throws Exception {
+        User self = new User();
+        self.setId(1L);
+        self.setEmail("admin@mrs.local");
+        self.setRole(Role.ADMIN);
+        self.setStatus(UserStatus.ACTIVE);
+        given(userRepository.findById(1L)).willReturn(Optional.of(self));
+
+        mockMvc.perform(post("/admin/users/1/deactivate")
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(flash().attribute("flash", Messages.SELF_MODIFICATION_FORBIDDEN));
+
+        assertThat(self.getStatus()).isEqualTo(UserStatus.ACTIVE);
+        then(sessionInvalidationService).should(never()).invalidateSessionsForEmail(anyString());
+    }
+
+    @Test
+    void reactivatingRestoresAnAccount() throws Exception {
+        User existing = activeDesigner(42L);
+        existing.setStatus(UserStatus.DEACTIVATED);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+
+        mockMvc.perform(post("/admin/users/42/reactivate")
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(flash().attribute("flash", Messages.USER_REACTIVATED));
+
+        assertThat(existing.getStatus()).isEqualTo(UserStatus.ACTIVE);
+    }
+
+    @Test
+    void changingRoleExpiresSessionsAndRejectsAdminAssignment() throws Exception {
+        User existing = activeDesigner(42L);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+
+        mockMvc.perform(post("/admin/users/42/role")
+                        .param("role", Role.CUSTOMER.name())
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(flash().attribute("flash", Messages.USER_ROLE_CHANGED));
+
+        assertThat(existing.getRole()).isEqualTo(Role.CUSTOMER);
+        then(sessionInvalidationService).should().invalidateSessionsForEmail("nina@mrs.local");
+
+        mockMvc.perform(post("/admin/users/42/role")
+                        .param("role", Role.ADMIN.name())
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(flash().attribute("flash",
+                        containsString("Content Designer or Customer")));
+        assertThat(existing.getRole()).isEqualTo(Role.CUSTOMER);
+    }
+
+    private static User activeDesigner(Long id) {
+        User existing = new User();
+        existing.setId(id);
+        existing.setUsername("Nina Designer");
+        existing.setEmail("nina@mrs.local");
+        existing.setPasswordHash("{noop}the-old-one");
+        existing.setRole(Role.CONTENT_DESIGNER);
+        existing.setStatus(UserStatus.ACTIVE);
+        existing.setMustChangePassword(false);
+        return existing;
     }
 }
