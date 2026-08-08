@@ -8,27 +8,172 @@
     <div class="d-flex flex-column gap-1">
       <h1>Catalog Import</h1>
       <p class="small text-secondary">
-        Upload a provider export, review what will change, then apply the batch.
+        Upload song JSON to the staged prefix, review what will change, then apply it.
       </p>
     </div>
+    <a class="btn btn-ghost" th:href="@{/admin/catalog}">
+      <svg th:replace="~{fragments/icons :: icon('music', 'icon--sm')}"></svg>
+      <span>View catalog</span>
+    </a>
   </header>
 
   <div class="d-flex flex-column gap-4">
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A',
-        'Stepper',
-        'Three steps: 1 Upload, 2 Preview, 3 Summary. One centred card per step, capped at 900px.')}"></section>
+
+    <!-- Outcome of the last import. -->
+    <th:block th:if="${flash != null}">
+      <div th:replace="~{fragments/components :: notice(${flashVariant},
+          ${flashVariant == 'success'} ? 'circle-check'
+            : (${flashVariant == 'info'} ? 'info' : 'alert-triangle'), ${flash})}"></div>
+    </th:block>
+
+    <!-- Zone B: what a run would do, and the control to do it. -->
+    <section class="card">
+      <div class="card-body d-flex flex-column gap-3">
+        <div class="d-flex flex-column gap-1">
+          <h2 class="h5 mb-0">Sync from staged JSON</h2>
+          <p class="small text-secondary mb-0">
+            Songs are read from
+            <span class="font-monospace" th:text="${pending != null} ? ${pending.source} : 'the staged prefix'">s3://…</span>.
+            Each object is compared by content hash, so only new or changed songs
+            are read and applied — running this twice does nothing the second time.
+          </p>
+        </div>
+
+        <div th:if="${pendingError != null}" class="alert alert-danger d-flex flex-column gap-2" role="alert">
+          <div class="d-flex align-items-start gap-2">
+            <svg th:replace="~{fragments/icons :: icon('alert-triangle', 'icon--sm')}"></svg>
+            <div>
+              <p class="mb-1 fw-semibold">The staged catalog could not be listed.</p>
+              <p class="small mb-0" th:text="${pendingError}">detail</p>
+            </div>
+          </div>
+          <p class="small mb-0 text-secondary">
+            This page talks to S3; Song Catalog only reads MySQL, so songs can
+            still appear there. On a dev machine, run
+            <span class="font-monospace">aws login --profile mrs-admin</span>,
+            restart the app, then reload. Or set
+            <span class="font-monospace">mrs.catalog.local-dir=../scripts/data</span>
+            in <span class="font-monospace">local.properties</span> to use local
+            JSON instead of S3.
+          </p>
+        </div>
+
+        <div th:if="${pending != null}" class="row g-3">
+          <div class="col-6 col-md-3">
+            <p class="label mb-1">Staged</p>
+            <p class="h4 table__numeric mb-0" th:text="${pending.listed}">0</p>
+          </div>
+          <div class="col-6 col-md-3">
+            <p class="label mb-1">New</p>
+            <p class="h4 table__numeric mb-0" th:text="${pending.newObjects}">0</p>
+          </div>
+          <div class="col-6 col-md-3">
+            <p class="label mb-1">Changed</p>
+            <p class="h4 table__numeric mb-0" th:text="${pending.changed}">0</p>
+          </div>
+          <div class="col-6 col-md-3">
+            <p class="label mb-1">Already in step</p>
+            <p class="h4 table__numeric mb-0 text-secondary" th:text="${pending.unchanged}">0</p>
+          </div>
+        </div>
+
+        <form th:action="@{/admin/import/run}" method="post"
+              class="d-flex flex-column flex-sm-row align-items-sm-center gap-3">
+          <button type="submit" class="btn btn-primary"
+                  th:disabled="${importRunning}">
+            <svg th:replace="~{fragments/icons :: icon('refresh', 'icon--sm')}"></svg>
+            <span th:text="${pending != null and pending.total() > 0}
+                           ? |Import ${pending.total()} song(s)|
+                           : 'Run import'">Run import</span>
+          </button>
+          <div class="form-check mb-0">
+            <input class="form-check-input" type="checkbox" id="forceReread"
+                   name="force" value="true">
+            <label class="form-check-label" for="forceReread">
+              Re-read every object
+              <span class="d-block small text-secondary">
+                Ignores the stored hashes and applies all staged songs again. For
+                recovering from a bad import; a normal run does not need it.
+              </span>
+            </label>
+          </div>
+        </form>
+
+        <p th:if="${importRunning}" class="small text-secondary mb-0">
+          An import is running. Reload this page to see the summary.
+        </p>
+      </div>
+    </section>
+
+    <!-- Zone D: outcome of the run just applied, then the last recorded run. -->
+    <section th:if="${summary != null}" class="card">
+      <div class="card-body d-flex flex-column gap-3">
+        <h2 class="h5 mb-0">Import summary</h2>
+        <div class="row g-3">
+          <div class="col-6 col-md-3">
+            <p class="label mb-1">Added</p>
+            <p class="h4 table__numeric mb-0" th:text="${summary.added}">0</p>
+          </div>
+          <div class="col-6 col-md-3">
+            <p class="label mb-1">Updated</p>
+            <p class="h4 table__numeric mb-0" th:text="${summary.updated}">0</p>
+          </div>
+          <div class="col-6 col-md-3">
+            <p class="label mb-1">Skipped</p>
+            <p class="h4 table__numeric mb-0" th:text="${summary.skipped()}">0</p>
+          </div>
+          <div class="col-6 col-md-3">
+            <p class="label mb-1">Read</p>
+            <p class="h4 table__numeric mb-0 text-secondary" th:text="${summary.read}">0</p>
+          </div>
+        </div>
+
+        <!-- FT-09 NAC-03: rejected rows are named with their reason, never
+             silently dropped. A version conflict is reported, not forced (BR-06). -->
+        <div th:if="${!summary.skippedRows.isEmpty()}" class="table-responsive">
+          <table class="table table-sm align-middle mb-0">
+            <thead>
+              <tr>
+                <th scope="col">Object</th>
+                <th scope="col">Why it was skipped</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="row : ${summary.skippedRows}">
+                <td class="font-monospace small" th:text="${row.key}">key</td>
+                <td class="small" th:text="${row.reason}">reason</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section th:if="${lastRun != null}" class="card">
+      <div class="card-body d-flex flex-column gap-2">
+        <h2 class="h5 mb-0">Last run</h2>
+        <p class="small text-secondary mb-0">
+          <span th:text="${lastRun.triggerType.displayName}">Manual</span>
+          ·
+          <span th:text="${#temporals.format(lastRun.startedAt, 'dd MMM yyyy HH:mm')}">date</span>
+          ·
+          <span class="table__numeric" th:text="${lastRun.objectsListed}">0</span> staged,
+          <span class="table__numeric" th:text="${lastRun.added}">0</span> added,
+          <span class="table__numeric" th:text="${lastRun.updated}">0</span> updated,
+          <span class="table__numeric" th:text="${lastRun.skipped}">0</span> skipped
+        </p>
+        <p th:if="${lastRun.failed}" class="small text-danger-emphasis mb-0"
+           th:text="${lastRun.error}">error</p>
+      </div>
+    </section>
 
     <section th:replace="~{fragments/components :: zonePlaceholder('Zone B — step 1',
-        'Provider select and file dropzone',
-        'Registered providers only; an unregistered source rejects the whole batch with a prompt to register it first (SC-05 exception). Accepts the CSV or XLSX export produced by the provider.')}"></section>
+        'Provider CSV or XLSX upload',
+        'Registered providers only; an unregistered source rejects the whole batch with a prompt to register it first (SC-05 exception). Accepts the CSV or XLSX export produced by the provider. The S3 path above covers the same rules for staged JSON.')}"></section>
 
     <section th:replace="~{fragments/components :: zonePlaceholder('Zone C — step 2',
-        'Preview table',
-        'Rows to add, rows to update, and rejected rows with a per-row reason such as &quot;missing title&quot;. Confirm or cancel.')}"></section>
-
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone D — step 3',
-        'Import summary',
-        'Added, updated and skipped counts, with validation failures and version conflicts listed separately (FT-09 NAC-03). Row report download, and an audit entry (BR-10). A row that conflicts with an in-flight edit is skipped and reported, never force-applied (BR-06).')}"></section>
+        'Preview table before applying',
+        'Rows to add, rows to update, and rejected rows with a per-row reason such as &quot;missing title&quot;. Confirm or cancel. The S3 path reports the same counts, but after applying rather than before.')}"></section>
   </div>
 
 </div>

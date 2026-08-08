@@ -85,6 +85,29 @@ DB_PASSWORD=<from mrs-db-credentials.txt>
 
 S3 bucket for assets: `mrs-133857166188-assets` (objects under `song-data/`).
 
+The catalog import reads that prefix, so the EC2 role needs `s3:ListBucket` on
+the bucket (scoped to the `song-data/*` prefix) and `s3:GetObject` on
+`arn:aws:s3:::mrs-133857166188-assets/song-data/*`. `ListBucket` is a
+bucket-level action and is what returns the ETags the import diffs against, so
+`GetObject` alone is not enough — without it every run reports the prefix as
+empty. Nothing in the app writes to the bucket; JSON is uploaded by the scripts
+under `scripts/` or by hand.
+
+Catalog settings, on the instance:
+
+```text
+mrs.catalog.aws-profile=
+mrs.catalog.sync.enabled=true
+```
+
+Clearing `mrs.catalog.aws-profile` makes the S3 client fall back to the instance
+role, exactly as `mrs.mail.aws-profile` does for SES; leaving it as the local
+default `mrs-admin` would have the app shell out to an AWS CLI profile that does
+not exist there. `mrs.catalog.sync.enabled=true` registers the poller, which is
+what makes uploading a JSON file to `song-data/` all you have to do to add a
+song. Full list of `mrs.catalog.*` settings in the README's *Song catalog*
+section.
+
 SES: EC2 role inline policy `mrs-ses-send` allows send (`ses:SendEmail` /
 `ses:SendRawEmail`), identity read, and identity manage
 (`ses:CreateEmailIdentity`, `ses:DeleteEmailIdentity`) so P-06a's
@@ -92,7 +115,8 @@ SES: EC2 role inline policy `mrs-ses-send` allows send (`ses:SendEmail` /
 SES (sandbox) before the app can send mail; recipients need the same until
 production access is approved.
 
-Apply SQL under `mrs/src/main/resources/db/migration/` when you first bring the app up (V1 schema, V2 seed).
+Flyway applies everything under `mrs/src/main/resources/db/migration/` on startup
+(V1 schema, V2 seed, V3 catalog-import columns and `catalog_import_run`).
 
 ## SSM access (no SSH)
 

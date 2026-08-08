@@ -11,28 +11,159 @@
         The catalog behind every search. Untagged songs stay out of filtered results (DC-03).
       </p>
     </div>
+    <!-- Zone A: songs arrive through the import, so that is the primary action. -->
+    <a class="btn btn-primary" th:href="@{/admin/import}">
+      <svg th:replace="~{fragments/icons :: icon('upload', 'icon--sm')}"></svg>
+      <span>Catalog Import</span>
+    </a>
   </header>
 
   <div class="d-flex flex-column gap-4">
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A',
-        'New song and import shortcut',
-        'Primary &quot;New song&quot; button plus a link through to P-06c Catalog Import.')}"></section>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
-        'Tabs and filters',
-        'Underline tabs Songs and Tags. Filters: provider, tag category and value, &quot;untagged only&quot;, and &quot;no audio&quot; (audioS3Key null).')}"></section>
+    <section class="d-flex flex-wrap gap-4 small text-secondary">
+      <span>
+        <span class="table__numeric fw-semibold text-body" th:text="${totalSongs}">0</span>
+        songs
+      </span>
+      <span th:if="${untaggedCount > 0}" class="text-warning-emphasis">
+        <svg th:replace="~{fragments/icons :: icon('alert-triangle', 'icon--sm')}"></svg>
+        <span class="table__numeric fw-semibold" th:text="${untaggedCount}">0</span>
+        untagged, so not reachable by a filtered search (DC-03)
+      </span>
+    </section>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C — Songs',
-        'Dense song table',
-        'Title, artist, provider and external reference in mono, tag chips, popularity, audio present, version in mono, and edit. Untagged rows carry a warning icon (DC-03). The edit modal submits the loaded version; a stale save returns HTTP 409 with refresh only — songs have no clone option (BR-06, DC-02).')}"></section>
+    <!-- Zone B: filters -->
+    <section class="card">
+      <div class="card-body">
+        <form class="row g-3 align-items-end" method="get" th:action="@{/admin/catalog}">
+          <div class="col-12 col-md-3">
+            <label class="form-label" for="filterProvider">Provider</label>
+            <select class="form-select" id="filterProvider" name="provider">
+              <option value="">All</option>
+              <option th:each="provider : ${providers}"
+                      th:value="${provider}"
+                      th:text="${provider}"
+                      th:selected="${provider == filterProvider}">Provider</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-3">
+            <label class="form-label" for="filterTag">Tag</label>
+            <select class="form-select" id="filterTag" name="tagId">
+              <option value="">All</option>
+              <option th:each="tag : ${tags}"
+                      th:value="${tag.id}"
+                      th:text="|${tag.type.displayName} · ${tag.name}|"
+                      th:selected="${filterTagId != null and tag.id == filterTagId}">Tag</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-3">
+            <label class="form-label" for="filterQuery">Search</label>
+            <input class="form-control" type="search" id="filterQuery" name="q"
+                   placeholder="Title or artist"
+                   th:value="${filterQuery}">
+          </div>
+          <div class="col-12 col-md-3 d-flex gap-2">
+            <button type="submit" class="btn btn-primary flex-grow-1">Filter</button>
+            <a class="btn btn-ghost" th:href="@{/admin/catalog}" title="Clear filters">Clear</a>
+          </div>
+          <div class="col-12 d-flex flex-wrap gap-4">
+            <div class="form-check mb-0">
+              <input class="form-check-input" type="checkbox" id="filterUntagged"
+                     name="untagged" value="true" th:checked="${filterUntagged}">
+              <label class="form-check-label" for="filterUntagged">Untagged only</label>
+            </div>
+            <div class="form-check mb-0">
+              <input class="form-check-input" type="checkbox" id="filterNoPreview"
+                     name="noPreview" value="true" th:checked="${filterNoPreview}">
+              <label class="form-check-label" for="filterNoPreview">No preview audio</label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Zone C — Songs -->
+    <section class="card">
+      <div class="table-responsive">
+        <table class="table align-middle mb-0">
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Artist</th>
+              <th scope="col">Source</th>
+              <th scope="col">Tags</th>
+              <th scope="col">Length</th>
+              <th scope="col">BPM</th>
+              <th scope="col">Ver.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="song : ${songs}">
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <img class="song-cover" th:if="${song.coverUrl != null}"
+                       th:src="${song.coverUrl}" th:alt="|Cover of ${song.title}|"
+                       loading="lazy" width="40" height="40">
+                  <span class="song-cover song-cover--empty" th:if="${song.coverUrl == null}"
+                        aria-hidden="true">
+                    <svg th:replace="~{fragments/icons :: icon('music', 'icon--sm')}"></svg>
+                  </span>
+                  <div class="d-flex flex-column">
+                    <span th:text="${song.title}">Title</span>
+                    <!-- DC-03: a song with no tag cannot be found by a filter. -->
+                    <span th:if="${song.tags.isEmpty()}"
+                          class="small text-warning-emphasis d-inline-flex align-items-center gap-1">
+                      <svg th:replace="~{fragments/icons :: icon('alert-triangle', 'icon--sm')}"></svg>
+                      Untagged
+                    </span>
+                  </div>
+                </div>
+              </td>
+              <td th:text="${song.artist != null} ? ${song.artist} : '—'">Artist</td>
+              <td class="small">
+                <div class="d-flex flex-column">
+                  <span th:text="${song.sourceProvider}">Provider</span>
+                  <span class="font-monospace text-secondary"
+                        th:text="${song.externalSourceId}">id</span>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex flex-wrap gap-1">
+                  <span th:each="tag : ${song.tags}"
+                        class="badge bg-secondary-subtle text-secondary-emphasis"
+                        th:title="${tag.type.displayName}"
+                        th:text="${tag.name}">tag</span>
+                </div>
+              </td>
+              <td class="table__numeric"
+                  th:text="${song.duration != null}
+                           ? ${#numbers.formatInteger(song.duration / 60, 1)} + ':'
+                             + ${#numbers.formatInteger(song.duration % 60, 2)}
+                           : '—'">0:00</td>
+              <td class="table__numeric" th:text="${song.bpm != null} ? ${song.bpm} : '—'">—</td>
+              <td class="table__numeric font-monospace" th:text="${song.version}">0</td>
+            </tr>
+            <tr th:if="${songs == null or songs.isEmpty()}">
+              <td colspan="7">
+                <div th:replace="~{fragments/components :: emptyState('music', 'No songs match',
+                    'Import the provider catalogue from S3, or clear the filters above.')}"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Zone D: pagination (20 / page) -->
+    <nav th:replace="~{fragments/components :: catalogPager(${songs}, '/admin/catalog')}"></nav>
 
     <section th:replace="~{fragments/components :: zonePlaceholder('Zone C — Tags',
         'Tag dictionary',
         'Per-category tag lists (Genre, Mood, Artist, Tags) with add, rename and delete. Deleting warns when the tag is still attached to songs.')}"></section>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone D',
-        'Pagination',
-        '20 rows per page.')}"></section>
+    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A — editing',
+        'New song and per-row edit (UC-29)',
+        'The edit modal submits the loaded version; a stale save returns HTTP 409 with refresh only — songs have no clone option (BR-06, DC-02).')}"></section>
   </div>
 
 </div>

@@ -84,6 +84,21 @@ public final class Messages {
     public static final String REGISTER_REQUEST_EMAIL_FAILED =
             "Your request could not be sent right now. Please try again.";
 
+    /**
+     * Outcomes of the P-06c catalog import (UC-28). The catalogue has no codes
+     * for the S3 path, which reports counts rather than a fixed sentence, so
+     * these cover only the cases with nothing to count.
+     */
+    public static final String IMPORT_NO_CHANGE =
+            "Nothing to import — every staged song is already in the catalog.";
+
+    public static final String IMPORT_ALREADY_RUNNING =
+            "An import is already running. Wait for it to finish, then check the summary.";
+
+    public static final String IMPORT_FAILED =
+            "The import could not be completed. Check that the staged catalog is reachable, "
+                    + "then try again — anything already applied is kept.";
+
     private Messages() {
     }
 }
