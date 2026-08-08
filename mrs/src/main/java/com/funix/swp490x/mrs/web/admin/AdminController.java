@@ -6,30 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * The ADMIN area, P-06b – P-06e. P-06a has its own controller now that it does
- * more than render.
+ * The ADMIN area, P-06d – P-06e. P-06a, P-06b and P-06c have their own
+ * controllers now that they do more than render.
  *
  * <p>Access is granted by SecurityConfig on {@code /admin/**}, so a non-ADMIN
  * request is rejected before any handler here runs (FT-09 NAC-02, BR-01).
  */
 @Controller
 public class AdminController {
-
-    /** P-06b — Song Catalog & Metadata (tabs: Songs · Tags). */
-    @GetMapping(Routes.ADMIN_CATALOG)
-    public String catalog(Model model) {
-        model.addAttribute("pageTitle", "Song Catalog & Metadata");
-        model.addAttribute("activeNav", "admin-catalog");
-        return "admin/catalog";
-    }
-
-    /** P-06c — Catalog Import (Upload · Preview · Summary). */
-    @GetMapping(Routes.ADMIN_IMPORT)
-    public String importCatalog(Model model) {
-        model.addAttribute("pageTitle", "Catalog Import");
-        model.addAttribute("activeNav", "admin-import");
-        return "admin/import";
-    }
 
     /** P-06d — System Settings. */
     @GetMapping(Routes.ADMIN_SETTINGS)

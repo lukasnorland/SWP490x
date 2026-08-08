@@ -1,0 +1,90 @@
+package com.funix.swp490x.mrs.web.admin;
+
+import com.funix.swp490x.mrs.catalog.CatalogImportService;
+import com.funix.swp490x.mrs.catalog.CatalogImportService.PendingChanges;
+import com.funix.swp490x.mrs.catalog.CatalogStoreException;
+import com.funix.swp490x.mrs.catalog.ImportSummary;
+import com.funix.swp490x.mrs.domain.ImportTrigger;
+import com.funix.swp490x.mrs.security.MrsUserDetails;
+import com.funix.swp490x.mrs.web.Messages;
+import com.funix.swp490x.mrs.web.Routes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+/**
+ * P-06c — Catalog Import (spec 4.11, UC-28, flow F-05).
+ *
+ * <p>Imports the JSON staged in S3: upload an object to the prefix and it
+ * arrives here. The provider CSV/XLSX upload of the original flow is still
+ * outstanding, and the screen says so.
+ *
+ * <p>The summary is carried in flash attributes rather than rendered from the
+ * POST, so a refresh after an import cannot repeat it.
+ */
+@Controller
+public class AdminImportController {
+
+    private static final Logger log = LoggerFactory.getLogger(AdminImportController.class);
+
+    private final CatalogImportService importService;
+
+    public AdminImportController(CatalogImportService importService) {
+        this.importService = importService;
+    }
+
+    @GetMapping(Routes.ADMIN_IMPORT)
+    public String importCatalog(Model model) {
+        model.addAttribute("pageTitle", "Catalog Import");
+        model.addAttribute("activeNav", "admin-import");
+        model.addAttribute("importRunning", importService.isRunning());
+        importService.lastRun().ifPresent(run -> model.addAttribute("lastRun", run));
+
+        // A listing-only diff, so this is cheap enough to answer on each view.
+        // It still talks to S3, and a screen that cannot be opened is worse than
+        // one that cannot show the pending count.
+        try {
+            model.addAttribute("pending", importService.pendingChanges());
+        } catch (CatalogStoreException e) {
+            log.error("Could not inspect the staged catalog for P-06c", e);
+            model.addAttribute("pendingError", e.getMessage());
+        }
+        return "admin/import";
+    }
+
+    @PostMapping(Routes.ADMIN_IMPORT_RUN)
+    public String run(@RequestParam(defaultValue = "false") boolean force,
+            @AuthenticationPrincipal MrsUserDetails actor,
+            RedirectAttributes redirectAttributes) {
+
+        ImportSummary summary = importService.sync(ImportTrigger.MANUAL,
+                actor == null ? null : actor.getId(), force);
+
+        if (summary.alreadyRunning()) {
+            flash(redirectAttributes, "warning", Messages.IMPORT_ALREADY_RUNNING);
+        } else if (summary.isFailed()) {
+            flash(redirectAttributes, "danger", Messages.IMPORT_FAILED);
+        } else if (summary.isNoChange()) {
+            flash(redirectAttributes, "info", Messages.IMPORT_NO_CHANGE);
+        } else {
+            flash(redirectAttributes, summary.skipped() > 0 ? "warning" : "success",
+                    "Import finished: %d added, %d updated, %d skipped."
+                            .formatted(summary.added(), summary.updated(), summary.skipped()));
+            // Only worth carrying when there is something to look at.
+            redirectAttributes.addFlashAttribute("summary", summary);
+        }
+
+        return "redirect:" + Routes.ADMIN_IMPORT;
+    }
+
+    private void flash(RedirectAttributes redirectAttributes, String variant, String message) {
+        redirectAttributes.addFlashAttribute("flash", message);
+        redirectAttributes.addFlashAttribute("flashVariant", variant);
+    }
+}

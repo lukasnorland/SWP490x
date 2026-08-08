@@ -144,6 +144,25 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Cover art in the P-06b song table. Fixed box with object-fit so provider
+   images of differing aspect ratios cannot stretch the row. */
+.song-cover {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+
+/* Placeholder for a song whose provider gave no cover. */
+.song-cover--empty {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface-raised);
+  color: var(--color-text-secondary);
+}
+
 /* --- Stepper (P-06c catalog import) ------------------------------------- */
 
 .stepper__step[aria-current="step"] {

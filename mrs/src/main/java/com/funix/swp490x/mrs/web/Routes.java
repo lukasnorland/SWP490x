@@ -45,6 +45,8 @@ public final class Routes {
     public static final String ADMIN_CATALOG = "/admin/catalog";
     /** P-06c Admin — Catalog Import. */
     public static final String ADMIN_IMPORT = "/admin/import";
+    /** P-06c — run the import now, reading the staged JSON from S3 (UC-28). */
+    public static final String ADMIN_IMPORT_RUN = "/admin/import/run";
     /** P-06d Admin — System Settings. */
     public static final String ADMIN_SETTINGS = "/admin/settings";
     /** P-06e Admin — Audit & Recommendation Log. */

@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.funix.swp490x.mrs.catalog.CatalogImportService;
+import com.funix.swp490x.mrs.catalog.CatalogImportService.PendingChanges;
 import com.funix.swp490x.mrs.config.SecurityConfig;
 import com.funix.swp490x.mrs.config.WebConfig;
 import com.funix.swp490x.mrs.domain.Role;
@@ -15,7 +17,9 @@ import com.funix.swp490x.mrs.domain.User;
 import com.funix.swp490x.mrs.domain.UserStatus;
 import com.funix.swp490x.mrs.mail.NotificationService;
 import com.funix.swp490x.mrs.mail.SesIdentityService;
+import com.funix.swp490x.mrs.repository.TagRepository;
 import com.funix.swp490x.mrs.repository.UserRepository;
+import com.funix.swp490x.mrs.service.SongCatalogService;
 import com.funix.swp490x.mrs.security.LoginAttemptService;
 import com.funix.swp490x.mrs.security.LoginFailureHandler;
 import com.funix.swp490x.mrs.security.LoginSuccessHandler;
@@ -23,9 +27,13 @@ import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.security.MrsUserDetailsService;
 import com.funix.swp490x.mrs.security.PasswordResetTokenService;
 import com.funix.swp490x.mrs.service.UserAccountService;
+import com.funix.swp490x.mrs.web.admin.AdminCatalogController;
 import com.funix.swp490x.mrs.web.admin.AdminController;
+import com.funix.swp490x.mrs.web.admin.AdminImportController;
 import com.funix.swp490x.mrs.web.admin.AdminUserController;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -37,6 +45,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.BDDMockito.given;
@@ -49,7 +58,8 @@ import static org.mockito.BDDMockito.given;
  */
 @WebMvcTest(controllers = {AuthController.class, HomeController.class, SearchController.class,
         PlaylistController.class, WorkspaceController.class, ProfileController.class,
-        AdminController.class, AdminUserController.class, AccountPasswordController.class})
+        AdminController.class, AdminUserController.class, AdminCatalogController.class,
+        AdminImportController.class, AccountPasswordController.class})
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
         LoginFailureHandler.class, LoginAttemptService.class, MrsUserDetailsService.class,
         PasswordResetTokenService.class})
@@ -70,10 +80,26 @@ class ScreenRenderingTest {
     @MockitoBean
     private SesIdentityService sesIdentityService;
 
+    @MockitoBean
+    private SongCatalogService songCatalogService;
+
+    @MockitoBean
+    private TagRepository tagRepository;
+
+    @MockitoBean
+    private CatalogImportService catalogImportService;
+
     @BeforeEach
-    void userListIsEmptyByDefault() {
+    void listsAreEmptyByDefault() {
         given(userAccountService.search(nullable(Role.class), nullable(UserStatus.class),
                 nullable(String.class), anyInt())).willReturn(Page.empty());
+        given(songCatalogService.search(nullable(String.class), nullable(Long.class),
+                nullable(String.class), anyBoolean(), anyBoolean(), anyInt()))
+                .willReturn(Page.empty());
+        given(tagRepository.findAllByOrderByTypeAscNameAsc()).willReturn(List.of());
+        given(catalogImportService.lastRun()).willReturn(Optional.empty());
+        given(catalogImportService.pendingChanges())
+                .willReturn(new PendingChanges(0, 0, 0, "s3://bucket/song-data/"));
     }
 
     private static MrsUserDetails principal(Role role) {
