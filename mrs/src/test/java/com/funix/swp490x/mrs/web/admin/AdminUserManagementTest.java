@@ -285,6 +285,7 @@ class AdminUserManagementTest {
 
     @Test
     void theRoleFilterOmitsAdmin() throws Exception {
+        // ADMIN is neither filterable nor listed on P-06a (managed roles only).
         mockMvc.perform(get(Routes.ADMIN_USERS).with(user(admin())))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("filterRoles", UserAccountService.ASSIGNABLE_ROLES));

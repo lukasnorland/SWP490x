@@ -233,7 +233,8 @@ public class AdminUserController {
         model.addAttribute("filterRole", roleFilter);
         model.addAttribute("filterStatus", statusFilter);
         model.addAttribute("filterQuery", query == null ? "" : query);
-        // Same set as create/role-change: the sole ADMIN is not a filter target.
+        // Create, role-change, and the role filter: Content Designer / Customer only.
+        // ADMIN accounts are also omitted from the list query itself.
         model.addAttribute("filterRoles", UserAccountService.ASSIGNABLE_ROLES);
         model.addAttribute("filterStatuses", UserStatus.values());
         model.addAttribute("assignableRoles", UserAccountService.ASSIGNABLE_ROLES);
