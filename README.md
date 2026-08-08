@@ -316,7 +316,7 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 | P-00 Login | Implemented — all five screen states, lockout after 5 failures in 15 min |
 | P-01 Password Reset | Implemented — both steps, live BR-12 checklist, link emailed |
 | Forced password change (FT-09) | Implemented |
-| P-06a User Management | Partly implemented — account creation with the credentials email of BR-15, the account table, and resend; filters and pagination outstanding |
+| P-06a User Management | Implemented — Thymeleaf MVC CRUD: create + credentials email, filters, pagination, deactivate/reactivate with session invalidation, role change, resend |
 | P-02 – P-06e | Scaffolded — real headings and navigation, with each specified zone marked as outstanding |
 
 Each scaffolded screen renders its zones from the spec as dashed placeholders, so what remains on that screen is visible in the running app. Data-backed zones arrive with their feature slice.

@@ -2,30 +2,35 @@ package com.funix.swp490x.mrs.web.admin;
 
 import com.funix.swp490x.mrs.domain.Role;
 import com.funix.swp490x.mrs.domain.User;
+import com.funix.swp490x.mrs.domain.UserStatus;
 import com.funix.swp490x.mrs.mail.MailDeliveryException;
 import com.funix.swp490x.mrs.mail.NotificationService;
 import com.funix.swp490x.mrs.mail.SesIdentityException;
 import com.funix.swp490x.mrs.mail.SesIdentityService;
 import com.funix.swp490x.mrs.mail.SesIdentityService.Outcome;
 import com.funix.swp490x.mrs.security.InitialPasswordGenerator;
+import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.service.DuplicateEmailException;
 import com.funix.swp490x.mrs.service.EmailPolicy;
 import com.funix.swp490x.mrs.service.InvalidEmailException;
+import com.funix.swp490x.mrs.service.InvalidRoleAssignmentException;
+import com.funix.swp490x.mrs.service.SelfModificationException;
 import com.funix.swp490x.mrs.service.UserAccountService;
 import com.funix.swp490x.mrs.service.UserAccountService.InitialCredentials;
 import com.funix.swp490x.mrs.service.WeakPasswordException;
 import com.funix.swp490x.mrs.web.Messages;
 import com.funix.swp490x.mrs.web.Routes;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,17 +43,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 /**
  * P-06a — User Management (UC-06, UC-07).
  *
- * <p>Rejections re-render the screen under the status code the SRS names rather
- * than redirecting, so the response says what happened and the form keeps what
- * ADMIN typed.
+ * <p>Rejections of Create re-render the screen under the status code the SRS
+ * names rather than redirecting, so the response says what happened and the
+ * form keeps what ADMIN typed. Status and role changes redirect with a flash.
  */
 @Controller
 public class AdminUserController {
 
     private static final Logger log = LoggerFactory.getLogger(AdminUserController.class);
-
-    /** UC-07 assigns one of these; ADMIN accounts are not created from a screen. */
-    private static final List<Role> ASSIGNABLE_ROLES = List.of(Role.CONTENT_DESIGNER, Role.CUSTOMER);
 
     private final UserAccountService userAccountService;
     private final NotificationService notificationService;
@@ -66,8 +68,12 @@ public class AdminUserController {
     }
 
     @GetMapping(Routes.ADMIN_USERS)
-    public String users(Model model) {
-        return renderScreen(model);
+    public String users(@RequestParam(required = false) Role role,
+            @RequestParam(required = false) UserStatus status,
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            Model model) {
+        return renderScreen(model, role, status, q, page);
     }
 
     /** UC-07 — the only path to a new account (BR-01). */
@@ -83,11 +89,6 @@ public class AdminUserController {
         model.addAttribute("submittedName", name);
         model.addAttribute("submittedEmail", email);
         model.addAttribute("submittedRole", role);
-
-        if (!ASSIGNABLE_ROLES.contains(role)) {
-            return reject(model, response, HttpStatus.UNPROCESSABLE_ENTITY,
-                    "New accounts can be assigned the Content Designer or Customer role only.");
-        }
 
         if (outboundMailEnabled()) {
             String address = email == null ? "" : email.trim();
@@ -105,6 +106,8 @@ public class AdminUserController {
         User created;
         try {
             created = userAccountService.create(name, email, role, password);
+        } catch (InvalidRoleAssignmentException e) {
+            return reject(model, response, HttpStatus.UNPROCESSABLE_ENTITY, e.getMessage());
         } catch (InvalidEmailException e) {
             return reject(model, response, HttpStatus.UNPROCESSABLE_ENTITY, Messages.INVALID_EMAIL);
         } catch (DuplicateEmailException e) {
@@ -176,11 +179,56 @@ public class AdminUserController {
         return "redirect:" + Routes.ADMIN_USERS;
     }
 
-    private String renderScreen(Model model) {
+    /** Spec 4.9 — soft-delete; open sessions end on the next request (FT-01 AC-03). */
+    @PostMapping(Routes.ADMIN_USER_DEACTIVATE)
+    public String deactivate(@PathVariable Long id,
+            @AuthenticationPrincipal MrsUserDetails actor,
+            RedirectAttributes redirectAttributes) {
+        try {
+            userAccountService.deactivate(id, actor.getId());
+            flash(redirectAttributes, "success", Messages.USER_DEACTIVATED);
+        } catch (SelfModificationException e) {
+            flash(redirectAttributes, "danger", Messages.SELF_MODIFICATION_FORBIDDEN);
+        }
+        return "redirect:" + Routes.ADMIN_USERS;
+    }
+
+    @PostMapping(Routes.ADMIN_USER_REACTIVATE)
+    public String reactivate(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        userAccountService.reactivate(id);
+        flash(redirectAttributes, "success", Messages.USER_REACTIVATED);
+        return "redirect:" + Routes.ADMIN_USERS;
+    }
+
+    /** UC-06 — Content Designer or Customer only; expires the target's sessions. */
+    @PostMapping(Routes.ADMIN_USER_ROLE)
+    public String changeRole(@PathVariable Long id,
+            @RequestParam Role role,
+            @AuthenticationPrincipal MrsUserDetails actor,
+            RedirectAttributes redirectAttributes) {
+        try {
+            userAccountService.changeRole(id, role, actor.getId());
+            flash(redirectAttributes, "success", Messages.USER_ROLE_CHANGED);
+        } catch (SelfModificationException e) {
+            flash(redirectAttributes, "danger", Messages.SELF_MODIFICATION_FORBIDDEN);
+        } catch (InvalidRoleAssignmentException e) {
+            flash(redirectAttributes, "danger", e.getMessage());
+        }
+        return "redirect:" + Routes.ADMIN_USERS;
+    }
+
+    private String renderScreen(Model model, Role roleFilter, UserStatus statusFilter,
+            String query, int page) {
+        Page<User> users = userAccountService.search(roleFilter, statusFilter, query, page);
         model.addAttribute("pageTitle", "User Management");
         model.addAttribute("activeNav", "admin-users");
-        model.addAttribute("users", userAccountService.listAll());
-        model.addAttribute("assignableRoles", ASSIGNABLE_ROLES);
+        model.addAttribute("users", users);
+        model.addAttribute("filterRole", roleFilter);
+        model.addAttribute("filterStatus", statusFilter);
+        model.addAttribute("filterQuery", query == null ? "" : query);
+        model.addAttribute("filterRoles", Role.values());
+        model.addAttribute("filterStatuses", UserStatus.values());
+        model.addAttribute("assignableRoles", UserAccountService.ASSIGNABLE_ROLES);
         // Offered as the default so the flow works without JavaScript; the
         // generate button replaces it in the browser.
         model.addAttribute("suggestedPassword", InitialPasswordGenerator.generate());
@@ -203,7 +251,7 @@ public class AdminUserController {
             model.addAttribute("flashVariant", "danger");
         }
         model.addAttribute("reopenCreateForm", true);
-        return renderScreen(model);
+        return renderScreen(model, null, null, null, 0);
     }
 
     /**

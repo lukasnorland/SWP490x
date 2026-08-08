@@ -102,5 +102,38 @@
   <p class="small text-secondary" th:text="${description}">What this zone contains.</p>
 </section>
 
+<!--/*
+  Page of results (Zone D). `page` is a Spring Data Page; `basePath` is the
+  list route. Optional filter params are read from the model when present
+  (filterRole, filterStatus, filterQuery) so the current query survives paging.
+*/-->
+<nav th:fragment="pager(page, basePath)" th:if="${page != null && page.totalPages > 1}"
+     class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3"
+     aria-label="Pagination">
+  <p class="small text-secondary mb-0">
+    Page
+    <span class="table__numeric" th:text="${page.number + 1}">1</span>
+    of
+    <span class="table__numeric" th:text="${page.totalPages}">1</span>
+    ·
+    <span class="table__numeric" th:text="${page.totalElements}">0</span>
+    total
+  </p>
+  <ul class="pagination mb-0">
+    <li class="page-item" th:classappend="${page.first} ? 'disabled'">
+      <a class="page-link"
+         th:href="@{${basePath}(page=${page.number - 1}, role=${filterRole}, status=${filterStatus}, q=${filterQuery})}"
+         th:attr="aria-disabled=${page.first} ? 'true' : null"
+         th:tabindex="${page.first} ? -1 : null">Previous</a>
+    </li>
+    <li class="page-item" th:classappend="${page.last} ? 'disabled'">
+      <a class="page-link"
+         th:href="@{${basePath}(page=${page.number + 1}, role=${filterRole}, status=${filterStatus}, q=${filterQuery})}"
+         th:attr="aria-disabled=${page.last} ? 'true' : null"
+         th:tabindex="${page.last} ? -1 : null">Next</a>
+    </li>
+  </ul>
+</nav>
+
 </body>
 </html>
