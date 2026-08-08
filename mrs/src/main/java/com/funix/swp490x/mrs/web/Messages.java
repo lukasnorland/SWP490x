@@ -41,6 +41,18 @@ public final class Messages {
             + "the notification email could not be sent. The previous password no longer works, "
             + "so please try resending.";
 
+    /** Soft-delete outcome (spec 4.9). Catalogue has no dedicated code yet. */
+    public static final String USER_DEACTIVATED =
+            "Account deactivated. Any open session will end on the next request.";
+
+    public static final String USER_REACTIVATED = "Account reactivated. The user can sign in again.";
+
+    public static final String USER_ROLE_CHANGED = "Role updated. The user must sign in again "
+            + "before the new permissions apply.";
+
+    public static final String SELF_MODIFICATION_FORBIDDEN =
+            "You cannot deactivate or change the role of your own account.";
+
     /**
      * Outcomes of the P-06a "Verify for SES" control. Not in the SRS catalogue —
      * they exist because the sandbox forces recipient verification before BR-15
