@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
-<!--/* P-06a Admin — User Management — spec 4.9 (UC-06, UC-07, BR-15). */-->
+<!--/* P-06a Admin — User Management — spec 4.9 (UC-06, UC-07, BR-15).
+       Mutations go through Spring REST CRUD at /api/admin/users. */-->
 <body>
-<div th:fragment="content">
+<div th:fragment="content"
+     th:attr="data-admin-users-api=${apiUsersBase}">
 
   <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
     <div class="d-flex flex-column gap-1">
@@ -19,13 +21,9 @@
 
   <div class="d-flex flex-column gap-4">
 
-    <!-- Outcome of the last create, resend, status or role change. -->
-    <th:block th:if="${flash != null}">
-      <div th:replace="~{fragments/components :: notice(${flashVariant},
-          ${flashVariant == 'success'} ? 'circle-check' : 'alert-triangle', ${flash})}"></div>
-    </th:block>
+    <div id="adminUsersFlash" hidden></div>
 
-    <!-- Zone B: filters -->
+    <!-- Zone B: filters (GET — works without JavaScript) -->
     <section class="card">
       <div class="card-body">
         <form class="row g-3 align-items-end" method="get" th:action="@{/admin/users}">
@@ -78,7 +76,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr th:each="account : ${users}">
+            <tr th:each="account : ${users}" th:attr="data-user-id=${account.id}">
               <td th:text="${account.username}">Name</td>
               <td class="font-monospace" th:text="${account.email}">name@mrs.local</td>
               <td>
@@ -92,17 +90,15 @@
               <td class="text-end">
                 <div class="table__actions d-inline-flex align-items-center justify-content-end gap-1">
 
-                  <!-- UC-07 E3: resend credentials (active accounts only). -->
-                  <form th:if="${account.status.name() == 'ACTIVE'}"
-                        th:action="@{|/admin/users/${account.id}/resend-credentials|}" method="post">
-                    <button type="submit" class="btn btn-icon"
-                            title="Resend the credentials email with a new initial password">
-                      <svg th:replace="~{fragments/icons :: icon('refresh', 'icon--sm')}"></svg>
-                      <span class="visually-hidden">Resend credentials</span>
-                    </button>
-                  </form>
+                  <button type="button" class="btn btn-icon"
+                          th:if="${account.status.name() == 'ACTIVE'}"
+                          data-admin-action="resend"
+                          th:attr="data-user-id=${account.id}"
+                          title="Resend the credentials email with a new initial password">
+                    <svg th:replace="~{fragments/icons :: icon('refresh', 'icon--sm')}"></svg>
+                    <span class="visually-hidden">Resend credentials</span>
+                  </button>
 
-                  <!-- UC-06: change role — Content Designer / Customer only. -->
                   <div class="dropdown" th:if="${account.role.name() != 'ADMIN'
                       and currentUser != null and currentUser.id != account.id}">
                     <button type="button" class="btn btn-icon" data-bs-toggle="dropdown"
@@ -112,34 +108,32 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                       <li th:each="role : ${assignableRoles}">
-                        <form th:action="@{|/admin/users/${account.id}/role|}" method="post">
-                          <input type="hidden" name="role" th:value="${role.name()}">
-                          <button type="submit" class="dropdown-item"
-                                  th:classappend="${role == account.role} ? 'active'"
-                                  th:text="${role.displayName}">Role</button>
-                        </form>
+                        <button type="button" class="dropdown-item"
+                                th:classappend="${role == account.role} ? 'active'"
+                                data-admin-action="role"
+                                th:attr="data-user-id=${account.id}, data-role=${role.name()}"
+                                th:text="${role.displayName}">Role</button>
                       </li>
                     </ul>
                   </div>
 
-                  <!-- Spec 4.9: soft-delete / restore. Never self. -->
-                  <form th:if="${account.status.name() == 'ACTIVE'
+                  <button type="button" class="btn btn-icon"
+                          th:if="${account.status.name() == 'ACTIVE'
                             and currentUser != null and currentUser.id != account.id}"
-                        th:action="@{|/admin/users/${account.id}/deactivate|}" method="post">
-                    <button type="submit" class="btn btn-icon"
-                            title="Deactivate account"
-                            onclick="return confirm('Deactivate this account? Open sessions will end on the next request.');">
-                      <svg th:replace="~{fragments/icons :: icon('circle-minus', 'icon--sm')}"></svg>
-                      <span class="visually-hidden">Deactivate</span>
-                    </button>
-                  </form>
-                  <form th:if="${account.status.name() == 'DEACTIVATED'}"
-                        th:action="@{|/admin/users/${account.id}/reactivate|}" method="post">
-                    <button type="submit" class="btn btn-icon" title="Reactivate account">
-                      <svg th:replace="~{fragments/icons :: icon('unlock', 'icon--sm')}"></svg>
-                      <span class="visually-hidden">Reactivate</span>
-                    </button>
-                  </form>
+                          data-admin-action="deactivate"
+                          th:attr="data-user-id=${account.id}"
+                          title="Deactivate account">
+                    <svg th:replace="~{fragments/icons :: icon('circle-minus', 'icon--sm')}"></svg>
+                    <span class="visually-hidden">Deactivate</span>
+                  </button>
+                  <button type="button" class="btn btn-icon"
+                          th:if="${account.status.name() == 'DEACTIVATED'}"
+                          data-admin-action="reactivate"
+                          th:attr="data-user-id=${account.id}"
+                          title="Reactivate account">
+                    <svg th:replace="~{fragments/icons :: icon('unlock', 'icon--sm')}"></svg>
+                    <span class="visually-hidden">Reactivate</span>
+                  </button>
                 </div>
               </td>
             </tr>
@@ -154,18 +148,13 @@
       </div>
     </section>
 
-    <!-- Zone D: pagination (20 / page) -->
     <nav th:replace="~{fragments/components :: pager(${users}, '/admin/users')}"></nav>
   </div>
 
-  <!-- Zone A: the 600px create dialog. Reopens itself when the submission came
-       back rejected, so the message sits with the fields that caused it. -->
   <div class="modal modal--create-user" id="createUser" tabindex="-1"
-       aria-labelledby="createUserTitle" aria-hidden="true"
-       th:attr="data-modal-autoshow=${reopenCreateForm}">
+       aria-labelledby="createUserTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <form class="modal-content" th:action="@{/admin/users}" method="post"
-            data-busy-label="Creating…"
+      <form class="modal-content" id="createUserForm" data-busy-label="Creating…"
             th:attr="data-ses-gate-create=${requireSesRecipient}">
         <div class="modal-header">
           <h2 class="modal-title h4" id="createUserTitle">New user</h2>
@@ -173,21 +162,19 @@
         </div>
 
         <div class="modal-body d-flex flex-column gap-3">
-          <th:block th:if="${violations != null}">
-            <div th:replace="~{fragments/components :: violations(${violations})}"></div>
-          </th:block>
+          <div id="createUserErrors" hidden></div>
 
           <div>
             <label class="form-label" for="newUserName">Name</label>
             <input class="form-control" type="text" id="newUserName" name="name"
-                   maxlength="100" required th:value="${submittedName}">
+                   maxlength="100" required>
           </div>
 
           <div>
             <label class="form-label" for="newUserEmail">Internal email</label>
             <div class="input-group">
               <input class="form-control" type="email" id="newUserEmail" name="email"
-                     maxlength="255" required th:value="${submittedEmail}">
+                     maxlength="255" required>
               <button type="button" class="btn btn-outline-secondary"
                       data-ses-prepare-recipient="newUserEmail"
                       data-ses-status-target="newUserEmailStatus"
@@ -212,8 +199,7 @@
             <select class="form-select" id="newUserRole" name="role" required>
               <option th:each="role : ${assignableRoles}"
                       th:value="${role.name()}"
-                      th:text="${role.displayName}"
-                      th:selected="${role == submittedRole}">Role</option>
+                      th:text="${role.displayName}">Role</option>
             </select>
           </div>
 

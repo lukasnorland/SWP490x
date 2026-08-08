@@ -26,21 +26,10 @@ public final class Routes {
     /** P-05 My Profile & Playlist History. */
     public static final String PROFILE = "/profile";
 
-    /** P-06a Admin — User Management. */
+    /** P-06a Admin — User Management (HTML shell). */
     public static final String ADMIN_USERS = "/admin/users";
-    /** P-06a — resend the credentials message for an account (UC-07 E3). */
-    public static final String ADMIN_USER_RESEND = "/admin/users/{id}/resend-credentials";
-    /** P-06a — soft-delete an account (spec 4.9 / FT-01 AC-03). */
-    public static final String ADMIN_USER_DEACTIVATE = "/admin/users/{id}/deactivate";
-    /** P-06a — restore a deactivated account. */
-    public static final String ADMIN_USER_REACTIVATE = "/admin/users/{id}/reactivate";
-    /** P-06a — change role (UC-06); ADMIN is not assignable. */
-    public static final String ADMIN_USER_ROLE = "/admin/users/{id}/role";
-    /**
-     * P-06a — declare the typed address with Amazon SES so the sandbox will
-     * accept mail to it (CreateEmailIdentity). Separate from account creation.
-     */
-    public static final String ADMIN_USER_PREPARE_RECIPIENT = "/admin/users/prepare-recipient";
+    /** P-06a REST CRUD resource. */
+    public static final String API_ADMIN_USERS = "/api/admin/users";
     /** P-06b Admin — Song Catalog & Metadata. */
     public static final String ADMIN_CATALOG = "/admin/catalog";
     /** P-06c Admin — Catalog Import. */

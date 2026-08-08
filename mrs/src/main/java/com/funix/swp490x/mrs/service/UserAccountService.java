@@ -169,7 +169,13 @@ public class UserAccountService {
     }
 
     private User requireUser(Long userId) {
-        return userRepository.findById(userId).orElseThrow();
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+    }
+
+    @Transactional(readOnly = true)
+    public User requireExisting(Long userId) {
+        return requireUser(userId);
     }
 
     private static void requireAssignable(Role role) {
