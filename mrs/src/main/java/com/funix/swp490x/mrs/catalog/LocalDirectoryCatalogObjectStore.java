@@ -56,6 +56,22 @@ public class LocalDirectoryCatalogObjectStore implements CatalogObjectStore {
     }
 
     @Override
+    public void putJson(String key, String json) {
+        try {
+            Path target = resolve(key);
+            Files.createDirectories(target.getParent() == null ? root : target.getParent());
+            Files.writeString(target, json, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new CatalogStoreException("Could not write " + key + " under " + describe(), e);
+        }
+    }
+
+    @Override
+    public String stagingKey(String externalSourceId) {
+        return externalSourceId + ".json";
+    }
+
+    @Override
     public String describe() {
         return root.toAbsolutePath().toString();
     }

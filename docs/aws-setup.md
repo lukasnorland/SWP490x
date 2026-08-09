@@ -85,13 +85,15 @@ DB_PASSWORD=<from mrs-db-credentials.txt>
 
 S3 bucket for assets: `mrs-133857166188-assets` (objects under `song-data/`).
 
-The catalog import reads that prefix, so the EC2 role needs `s3:ListBucket` on
-the bucket (scoped to the `song-data/*` prefix) and `s3:GetObject` on
+The catalog import and the ADMIN upload form both talk to that prefix, so the
+EC2 role needs `s3:ListBucket` on the bucket (scoped to the `song-data/*`
+prefix), plus `s3:GetObject` and `s3:PutObject` on
 `arn:aws:s3:::mrs-133857166188-assets/song-data/*`. `ListBucket` is a
 bucket-level action and is what returns the ETags the import diffs against, so
 `GetObject` alone is not enough — without it every run reports the prefix as
-empty. Nothing in the app writes to the bucket; JSON is uploaded by the scripts
-under `scripts/` or by hand.
+empty. `PutObject` is what P-06c's upload button uses; without it the form can
+validate files but cannot stage them. Scripts under `scripts/` and a direct
+`aws s3 cp` remain valid ways to stage JSON as well.
 
 Catalog settings, on the instance:
 
