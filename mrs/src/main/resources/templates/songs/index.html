@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
+<!--/* Authenticated song browse — reuse of the P-06b catalog list for listen/preview. */-->
+<body>
+<div th:fragment="content">
+
+  <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
+    <div class="d-flex flex-column gap-1">
+      <h1>Songs</h1>
+      <p class="small text-secondary">
+        Browse the internal catalogue and preview tracks. Click a title to listen.
+      </p>
+    </div>
+  </header>
+
+  <div class="d-flex flex-column gap-4">
+
+    <section class="d-flex flex-wrap gap-4 small text-secondary">
+      <span>
+        <span class="table__numeric fw-semibold text-body" th:text="${totalSongs}">0</span>
+        songs
+      </span>
+    </section>
+
+    <section th:replace="~{fragments/song-catalog :: filters}"></section>
+
+    <div th:replace="~{fragments/song-catalog :: results}"></div>
+
+  </div>
+
+</div>
+</body>
+</html>

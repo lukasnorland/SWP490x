@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/*
+  Shared song list UI for P-06b (/admin/catalog) and authenticated browse (/songs).
+
+  Model:
+    catalogBasePath  — form / pager / clear target
+    browseMode       — true hides admin ops filters and import-oriented empty copy
+*/-->
+<body>
+
+<!-- Zone B: filters — partial fetch keeps the shell player mounted. -->
+<section th:fragment="filters" class="card">
+  <div class="card-body">
+    <form class="row g-3 align-items-end" method="get" th:action="@{${catalogBasePath}}"
+          data-catalog-filters>
+      <div class="col-12 col-md-3">
+        <label class="form-label" for="filterProvider">Provider</label>
+        <select class="form-select" id="filterProvider" name="provider">
+          <option value="">All</option>
+          <option th:each="provider : ${providers}"
+                  th:value="${provider}"
+                  th:text="${provider}"
+                  th:selected="${provider == filterProvider}">Provider</option>
+        </select>
+      </div>
+      <div class="col-12 col-md-3">
+        <label class="form-label" for="filterTag">Tag</label>
+        <select class="form-select" id="filterTag" name="tagId">
+          <option value="">All</option>
+          <option th:each="tag : ${tags}"
+                  th:value="${tag.id}"
+                  th:text="|${tag.type.displayName} · ${tag.name}|"
+                  th:selected="${filterTagId != null and tag.id == filterTagId}">Tag</option>
+        </select>
+      </div>
+      <div class="col-12 col-md-3">
+        <label class="form-label" for="filterQuery">Search</label>
+        <input class="form-control" type="search" id="filterQuery" name="q"
+               placeholder="Title or artist"
+               th:value="${filterQuery}">
+      </div>
+      <div class="col-12 col-md-3 d-flex gap-2">
+        <button type="submit" class="btn btn-primary flex-grow-1">Filter</button>
+        <a class="btn btn-ghost" th:href="@{${catalogBasePath}}" data-catalog-clear
+           title="Clear filters">Clear</a>
+      </div>
+      <div class="col-12 d-flex flex-wrap gap-4">
+        <div class="form-check mb-0" th:if="${!browseMode}">
+          <input class="form-check-input" type="checkbox" id="filterUntagged"
+                 name="untagged" value="true" th:checked="${filterUntagged}">
+          <label class="form-check-label" for="filterUntagged">Untagged only</label>
+        </div>
+        <div class="form-check mb-0">
+          <input class="form-check-input" type="checkbox" id="filterNoPreview"
+                 name="noPreview" value="true" th:checked="${filterNoPreview}">
+          <label class="form-check-label" for="filterNoPreview">No preview audio</label>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Zone C + D: swapped in-place by catalog.js on pager / filter (player stays mounted). -->
+<div id="catalog-results" th:fragment="results" data-catalog-results>
+
+  <section class="card">
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Artist</th>
+            <th scope="col">Source</th>
+            <th scope="col">Tags</th>
+            <th scope="col">Length</th>
+            <th scope="col">BPM</th>
+            <th scope="col">Ver.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="song : ${songs}">
+            <td>
+              <div class="d-flex align-items-center gap-3">
+                <img class="song-cover" th:if="${song.coverUrl != null}"
+                     th:src="${song.coverUrl}" th:alt="|Cover of ${song.title}|"
+                     loading="lazy" width="40" height="40">
+                <span class="song-cover song-cover--empty" th:if="${song.coverUrl == null}"
+                      aria-hidden="true">
+                  <svg th:replace="~{fragments/icons :: icon('music', 'icon--sm')}"></svg>
+                </span>
+                <div class="d-flex flex-column">
+                  <button type="button"
+                          class="song-title-play"
+                          th:if="${song.previewUrl != null and !#strings.isEmpty(song.previewUrl)}"
+                          th:text="${song.title}"
+                          th:data-preview-url="${song.previewUrl}"
+                          th:data-preview-title="${song.title}"
+                          th:data-preview-artist="${song.artist}"
+                          th:data-preview-cover="${song.coverUrl}"
+                          th:data-preview-duration="${song.duration}"
+                          th:aria-label="|Play ${song.title}|">Title</button>
+                  <span th:if="${song.previewUrl == null or #strings.isEmpty(song.previewUrl)}"
+                        th:text="${song.title}">Title</span>
+                  <!-- DC-03: a song with no tag cannot be found by a filter. -->
+                  <span th:if="${song.tags.isEmpty()}"
+                        class="small text-warning-emphasis d-inline-flex align-items-center gap-1">
+                    <svg th:replace="~{fragments/icons :: icon('alert-triangle', 'icon--sm')}"></svg>
+                    Untagged
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td th:text="${song.artist != null} ? ${song.artist} : '—'">Artist</td>
+            <td class="small">
+              <div class="d-flex flex-column">
+                <span th:text="${song.sourceProvider}">Provider</span>
+                <span class="font-monospace text-secondary"
+                      th:text="${song.externalSourceId}">id</span>
+              </div>
+            </td>
+            <td>
+              <div class="d-flex flex-wrap gap-1">
+                <span th:each="tag : ${song.tags}"
+                      class="badge bg-secondary-subtle text-secondary-emphasis"
+                      th:title="${tag.type.displayName}"
+                      th:text="${tag.name}">tag</span>
+              </div>
+            </td>
+            <td class="table__numeric"
+                th:text="${song.duration != null}
+                         ? ${#numbers.formatInteger(song.duration / 60, 1)} + ':'
+                           + ${#numbers.formatInteger(song.duration % 60, 2)}
+                         : '—'">0:00</td>
+            <td class="table__numeric" th:text="${song.bpm != null} ? ${song.bpm} : '—'">—</td>
+            <td class="table__numeric font-monospace" th:text="${song.version}">0</td>
+          </tr>
+          <tr th:if="${songs == null or songs.isEmpty()}">
+            <td colspan="7">
+              <div th:if="${browseMode}"
+                   th:replace="~{fragments/components :: emptyState('music', 'No songs match',
+                      'Try clearing the filters above.')}"></div>
+              <div th:if="${!browseMode}"
+                   th:replace="~{fragments/components :: emptyState('music', 'No songs match',
+                      'Import the provider catalogue from S3, or clear the filters above.')}"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Zone D: pagination (20 / page) -->
+  <nav th:replace="~{fragments/components :: catalogPager(${songs}, ${catalogBasePath})}"></nav>
+
+</div>
+
+</body>
+</html>

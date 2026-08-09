@@ -19,6 +19,8 @@ public final class Routes {
 
     /** P-02 Search & Recommendation. */
     public static final String SEARCH = "/search";
+    /** Authenticated song browse (listen / preview); reuses the catalog list. */
+    public static final String SONGS = "/songs";
     /** P-03a My Playlists. */
     public static final String PLAYLISTS = "/playlists";
     /** P-04a Shared Workspace. */

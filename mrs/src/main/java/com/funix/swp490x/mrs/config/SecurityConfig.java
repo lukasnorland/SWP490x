@@ -69,8 +69,9 @@ public class SecurityConfig {
                         .permitAll()
                         // P-06a–e: ADMIN area (BR-01, BR-02, FT-09 NAC-02).
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        // P-02: curation surface, not offered to Customers (spec 2.1).
-                        .requestMatchers(Routes.SEARCH).hasAnyRole("ADMIN", "CONTENT_DESIGNER")
+                        // P-02 / song browse: curation surfaces, not offered to Customers (spec 2.1).
+                        .requestMatchers(Routes.SEARCH, Routes.SONGS)
+                        .hasAnyRole("ADMIN", "CONTENT_DESIGNER")
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage(Routes.LOGIN)
