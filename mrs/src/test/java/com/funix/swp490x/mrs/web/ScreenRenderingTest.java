@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.funix.swp490x.mrs.catalog.CatalogImportService;
 import com.funix.swp490x.mrs.catalog.CatalogImportService.PendingChanges;
+import com.funix.swp490x.mrs.catalog.CatalogUploadService;
 import com.funix.swp490x.mrs.config.SecurityConfig;
 import com.funix.swp490x.mrs.config.WebConfig;
 import com.funix.swp490x.mrs.domain.Role;
@@ -88,6 +89,9 @@ class ScreenRenderingTest {
 
     @MockitoBean
     private CatalogImportService catalogImportService;
+
+    @MockitoBean
+    private CatalogUploadService catalogUploadService;
 
     @BeforeEach
     void listsAreEmptyByDefault() {

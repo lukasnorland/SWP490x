@@ -386,6 +386,16 @@ class CatalogImportServiceTest {
         }
 
         @Override
+        public void putJson(String key, String json) {
+            delegate.putJson(key, json);
+        }
+
+        @Override
+        public String stagingKey(String externalSourceId) {
+            return delegate.stagingKey(externalSourceId);
+        }
+
+        @Override
         public String describe() {
             return delegate.describe();
         }

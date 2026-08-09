@@ -8,7 +8,7 @@
     <div class="d-flex flex-column gap-1">
       <h1>Catalog Import</h1>
       <p class="small text-secondary">
-        Upload song JSON to the staged prefix, review what will change, then apply it.
+        Upload song JSON to the staged prefix; valid files are imported into the catalog automatically.
       </p>
     </div>
     <a class="btn btn-ghost" th:href="@{/admin/catalog}">
@@ -19,14 +19,68 @@
 
   <div class="d-flex flex-column gap-4">
 
-    <!-- Outcome of the last import. -->
+    <!-- Outcome of the last upload or import. -->
     <th:block th:if="${flash != null}">
       <div th:replace="~{fragments/components :: notice(${flashVariant},
           ${flashVariant == 'success'} ? 'circle-check'
             : (${flashVariant == 'info'} ? 'info' : 'alert-triangle'), ${flash})}"></div>
     </th:block>
 
-    <!-- Zone B: what a run would do, and the control to do it. -->
+    <!-- Upload song JSON — stages under {externalSourceId}.json, then auto-syncs. -->
+    <section class="card">
+      <div class="card-body d-flex flex-column gap-3">
+        <div class="d-flex flex-column gap-1">
+          <h2 class="h5 mb-0">Upload song JSON</h2>
+          <p class="small text-secondary mb-0">
+            One object per file. The staged key is taken from
+            <span class="font-monospace">externalSourceId</span> inside the JSON,
+            not from the file name. Invalid files (missing title, unregistered
+            provider, unreadable JSON) are rejected before staging. Every file
+            that lands triggers an import automatically.
+          </p>
+        </div>
+
+        <form th:action="@{/admin/import/upload}" method="post" enctype="multipart/form-data"
+              class="d-flex flex-column flex-sm-row align-items-sm-end gap-3">
+          <div class="flex-grow-1">
+            <label class="form-label" for="songJsonFiles">JSON files</label>
+            <input class="form-control" type="file" id="songJsonFiles" name="files"
+                   accept=".json,application/json" multiple required>
+            <p class="form-text mb-0">Up to 50 files, 1&nbsp;MB each.</p>
+          </div>
+          <button type="submit" class="btn btn-primary"
+                  th:disabled="${importRunning}">
+            <svg th:replace="~{fragments/icons :: icon('upload', 'icon--sm')}"></svg>
+            <span>Upload and import</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Files rejected at upload time (never staged). -->
+    <section th:if="${uploadRejected != null and !uploadRejected.isEmpty()}" class="card">
+      <div class="card-body d-flex flex-column gap-3">
+        <h2 class="h5 mb-0">Upload rejected</h2>
+        <div class="table-responsive">
+          <table class="table table-sm align-middle mb-0">
+            <thead>
+              <tr>
+                <th scope="col">File</th>
+                <th scope="col">Why it was rejected</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="row : ${uploadRejected}">
+                <td class="font-monospace small" th:text="${row.key}">file.json</td>
+                <td class="small" th:text="${row.reason}">reason</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sync from whatever is already staged (manual re-run / force). -->
     <section class="card">
       <div class="card-body d-flex flex-column gap-3">
         <div class="d-flex flex-column gap-1">
@@ -36,6 +90,7 @@
             <span class="font-monospace" th:text="${pending != null} ? ${pending.source} : 'the staged prefix'">s3://…</span>.
             Each object is compared by content hash, so only new or changed songs
             are read and applied — running this twice does nothing the second time.
+            Use this after a CLI upload, or if an upload's auto-import was skipped.
           </p>
         </div>
 
@@ -105,7 +160,7 @@
       </div>
     </section>
 
-    <!-- Zone D: outcome of the run just applied, then the last recorded run. -->
+    <!-- Outcome of the run just applied, then the last recorded run. -->
     <section th:if="${summary != null}" class="card">
       <div class="card-body d-flex flex-column gap-3">
         <h2 class="h5 mb-0">Import summary</h2>
@@ -167,13 +222,11 @@
       </div>
     </section>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B — step 1',
-        'Provider CSV or XLSX upload',
-        'Registered providers only; an unregistered source rejects the whole batch with a prompt to register it first (SC-05 exception). Accepts the CSV or XLSX export produced by the provider. The S3 path above covers the same rules for staged JSON.')}"></section>
-
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C — step 2',
-        'Preview table before applying',
-        'Rows to add, rows to update, and rejected rows with a per-row reason such as &quot;missing title&quot;. Confirm or cancel. The S3 path reports the same counts, but after applying rather than before.')}"></section>
+    <p class="small text-secondary mb-0">
+      Provider CSV or XLSX upload (UC-28) is still outstanding. Until then, stage
+      song data as JSON — via this form, the CLI, or a direct put under the
+      staged prefix.
+    </p>
   </div>
 
 </div>

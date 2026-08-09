@@ -27,6 +27,22 @@ public interface CatalogObjectStore {
      */
     String readJson(String key);
 
+    /**
+     * Writes (or overwrites) one staged song object.
+     *
+     * <p>The key must be the same shape {@link #list()} returns for that
+     * object, so a put is immediately visible to the next ETag diff.
+     *
+     * @throws CatalogStoreException when the object could not be written
+     */
+    void putJson(String key, String json);
+
+    /**
+     * The key under which a song with this external id is staged — the same
+     * form {@link #list()} would report after a put.
+     */
+    String stagingKey(String externalSourceId);
+
     /** Names the store in the admin UI, e.g. {@code s3://bucket/prefix}. */
     String describe();
 }

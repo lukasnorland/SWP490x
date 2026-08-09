@@ -246,20 +246,24 @@ the Java profile provider cannot read. On the demo EC2 host set
 ### Song catalog
 
 S3 is the source of truth for new songs, MySQL is the read model the UI queries.
-The scripts under `scripts/` write one JSON object per song to
+Song JSON is staged at
 `s3://mrs-133857166188-assets/song-data/<externalSourceId>.json`, and an import
-upserts those objects into `song` / `tag` / `song_tag`. **Uploading a JSON file
-to that prefix is the supported way to add a song** — there is nothing else to
-run afterwards.
+upserts those objects into `song` / `tag` / `song_tag`. Supported ways to stage
+a song:
+
+- **Upload song JSON** on P-06c (validates, writes to the prefix, then auto-imports)
+- The scripts under `scripts/`, or a direct `aws s3 cp` / console put
+- Pointing `mrs.catalog.local-dir` at a directory of `*.json` for offline/dev
 
 An import compares each object's ETag against the `song.source_etag` of the row
 it produced, so it only downloads objects that are new or whose content changed.
 Re-uploading a corrected file for a song already in the catalog updates it in
-place; running an import twice does nothing the second time. Three triggers call
+place; running an import twice does nothing the second time. Triggers that call
 the same service:
 
 | Trigger | When |
 |---------|------|
+| **Upload and import** on P-06c | After staging one or more valid JSON files |
 | `mrs.catalog.import-on-start=true` | Once at startup, for the first bulk load |
 | **Run import** on P-06c | Immediately, attributed to the ADMIN who pressed it |
 | `CatalogSyncJob` | Every `mrs.catalog.sync.interval`, when `mrs.catalog.sync.enabled=true` |
@@ -362,7 +366,7 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 | Forced password change (FT-09) | Implemented |
 | P-06a User Management | Implemented — Thymeleaf MVC CRUD: create + credentials email, filters, pagination, deactivate/reactivate with session invalidation, role change, resend |
 | P-06b Song Catalog | Partly implemented — read-only Songs table with provider/tag/text filters, untagged and no-preview filters, and pagination. Editing (UC-29) and the Tags tab outstanding |
-| P-06c Catalog Import | Implemented for staged JSON — pending-change counts, run button, per-row skip reasons, run history, and a scheduled poller. The provider CSV/XLSX upload of UC-28 is outstanding |
+| P-06c Catalog Import | Implemented for staged JSON — ADMIN upload (validate then PutObject + auto-sync), pending-change counts, run button, per-row skip reasons, run history, and a scheduled poller. The provider CSV/XLSX upload of UC-28 is outstanding |
 | P-02, P-03 – P-06e | Scaffolded — real headings and navigation, with each specified zone marked as outstanding |
 
 Each scaffolded screen renders its zones from the spec as dashed placeholders, so what remains on that screen is visible in the running app. Data-backed zones arrive with their feature slice.

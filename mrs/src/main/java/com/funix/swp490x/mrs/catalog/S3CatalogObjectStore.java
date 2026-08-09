@@ -1,11 +1,14 @@
 package com.funix.swp490x.mrs.catalog;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import software.amazon.awssdk.core.exception.SdkException;
+import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 /**
  * Reads the staged catalog from the S3 assets bucket.
@@ -55,6 +58,25 @@ public class S3CatalogObjectStore implements CatalogObjectStore {
         } catch (SdkException e) {
             throw new CatalogStoreException("Could not read s3://" + bucket + "/" + key, e);
         }
+    }
+
+    @Override
+    public void putJson(String key, String json) {
+        try {
+            PutObjectRequest request = PutObjectRequest.builder()
+                    .bucket(bucket)
+                    .key(key)
+                    .contentType("application/json")
+                    .build();
+            s3.putObject(request, RequestBody.fromString(json, StandardCharsets.UTF_8));
+        } catch (SdkException e) {
+            throw new CatalogStoreException("Could not write s3://" + bucket + "/" + key, e);
+        }
+    }
+
+    @Override
+    public String stagingKey(String externalSourceId) {
+        return prefix + externalSourceId + ".json";
     }
 
     @Override
