@@ -163,6 +163,30 @@
   color: var(--color-text-secondary);
 }
 
+/* Title doubles as the play control when a CDN preview URL is present. */
+.song-title-play {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.song-title-play:hover,
+.song-title-play:focus-visible {
+  color: var(--color-primary-bright);
+  text-decoration: underline;
+}
+
+.song-title-play[aria-pressed="true"] {
+  color: var(--color-primary-bright);
+}
+
 /* --- Stepper (P-06c catalog import) ------------------------------------- */
 
 .stepper__step[aria-current="step"] {

@@ -8,7 +8,7 @@ import java.util.List;
  * letter, one digit and one special character.
  *
  * <p>The same four rules drive the live checklist on P-01, P-05 and P-06a. The
- * checklist in {@code mrs.js} mirrors them for instant feedback; this class is
+ * checklist in {@code forms.js} mirrors them for instant feedback; this class is
  * the authority, because the server is the boundary.
  */
 public final class PasswordPolicy {

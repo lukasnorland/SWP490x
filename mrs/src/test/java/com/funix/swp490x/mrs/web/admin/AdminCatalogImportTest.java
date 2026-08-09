@@ -1,6 +1,7 @@
 package com.funix.swp490x.mrs.web.admin;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -199,6 +200,34 @@ class AdminCatalogImportTest {
         mockMvc.perform(get(Routes.ADMIN_CATALOG).with(user(admin())))
                 .andExpect(content().string(containsString("No songs match")))
                 .andExpect(content().string(containsString("/admin/import")));
+    }
+
+    @Test
+    void catalogPartialReturnsResultsFragmentWithoutShell() throws Exception {
+        showing(song("Ice Cream", "Sugar Blizz"));
+
+        mockMvc.perform(get(Routes.ADMIN_CATALOG)
+                        .header(AdminCatalogController.PARTIAL_RESULTS_HEADER,
+                                AdminCatalogController.PARTIAL_RESULTS_VALUE)
+                        .with(user(admin())))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("catalog-results")))
+                .andExpect(content().string(containsString("Ice Cream")))
+                .andExpect(content().string(containsString("Sugar Blizz")))
+                .andExpect(content().string(not(containsString("data-preview-bar"))))
+                .andExpect(content().string(not(containsString("Song Catalog &amp; Metadata"))))
+                .andExpect(content().string(not(containsString("sidebar__brand"))));
+    }
+
+    @Test
+    void catalogFullPageStillRendersShellChrome() throws Exception {
+        showing(song("Ice Cream", "Sugar Blizz"));
+
+        mockMvc.perform(get(Routes.ADMIN_CATALOG).with(user(admin())))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("data-preview-bar")))
+                .andExpect(content().string(containsString("catalog-results")))
+                .andExpect(content().string(containsString("Ice Cream")));
     }
 
     @Test
