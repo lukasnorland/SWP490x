@@ -11,12 +11,20 @@
    Stacking follows Bootstrap's z-index scale so the shell cannot collide with
    dropdowns, modals or offcanvas backdrops:
      top bar 1020 (sticky-top) < sidebar rail 1025 < preview bar 1030
-     (fixed-bottom) < offcanvas drawer 1045.
+     (fixed-bottom) < offcanvas drawer 1045 < modal 1055.
+
+   Do not put z-index on .shell__main. Bootstrap appends .modal-backdrop to
+   body while page modals stay nested in main.content; a stacking context on
+   .shell__main traps those dialogs under the backdrop (clicks/focus die).
    ========================================================================== */
 
 body.shell {
-  /* The preview bar sits above all content, so the page reserves its height. */
+  /* The preview bar sits above all content, so the page reserves its height.
+     isolation keeps .shell-ambience (z-index: -1) above the body background
+     and under chrome, without trapping Bootstrap modals the way a z-index on
+     .shell__main would. */
   position: relative;
+  isolation: isolate;
   padding-bottom: var(--preview-bar-height);
   --shell-ambience-a: transparent;
   --shell-ambience-b: transparent;
@@ -27,7 +35,7 @@ body.shell {
 .shell-ambience {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: -1;
   pointer-events: none;
   opacity: 0;
   background:
@@ -38,12 +46,6 @@ body.shell {
 
 body.shell.shell--ambience .shell-ambience {
   opacity: 0.38;
-}
-
-/* Main column sits above the wash; sidebar / preview bar keep Bootstrap z-index. */
-body.shell > .shell__main {
-  position: relative;
-  z-index: 1;
 }
 
 /* --- Sidebar ------------------------------------------------------------
