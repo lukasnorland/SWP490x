@@ -433,6 +433,12 @@ class AdminCatalogImportTest {
         then(importService).should(never()).sync(any(), any(), anyBoolean());
     }
 
+    @Test
+    void customersCannotReachTheAdminCatalog() throws Exception {
+        mockMvc.perform(get(Routes.ADMIN_CATALOG).with(user(customer())))
+                .andExpect(status().isForbidden());
+    }
+
     /**
      * CSRF is on by default, so a cross-site form cannot start an import. The
      * request is bounced back to login rather than answered with 403 because
@@ -453,6 +459,18 @@ class AdminCatalogImportTest {
         user.setEmail("cd@mrs.local");
         user.setPasswordHash("{noop}irrelevant");
         user.setRole(Role.CONTENT_DESIGNER);
+        user.setStatus(UserStatus.ACTIVE);
+        user.setMustChangePassword(false);
+        return new MrsUserDetails(user, true);
+    }
+
+    private static MrsUserDetails customer() {
+        User user = new User();
+        user.setId(9L);
+        user.setUsername("Test Customer");
+        user.setEmail("customer@mrs.local");
+        user.setPasswordHash("{noop}irrelevant");
+        user.setRole(Role.CUSTOMER);
         user.setStatus(UserStatus.ACTIVE);
         user.setMustChangePassword(false);
         return new MrsUserDetails(user, true);

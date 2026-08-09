@@ -58,9 +58,9 @@ import static org.mockito.BDDMockito.given;
  * <p>Runs on the web layer only, so no database is needed.
  */
 @WebMvcTest(controllers = {AuthController.class, HomeController.class, SearchController.class,
-        PlaylistController.class, WorkspaceController.class, ProfileController.class,
-        AdminController.class, AdminUserController.class, AdminCatalogController.class,
-        AdminImportController.class, AccountPasswordController.class})
+        SongBrowseController.class, PlaylistController.class, WorkspaceController.class,
+        ProfileController.class, AdminController.class, AdminUserController.class,
+        AdminCatalogController.class, AdminImportController.class, AccountPasswordController.class})
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
         LoginFailureHandler.class, LoginAttemptService.class, MrsUserDetailsService.class,
         PasswordResetTokenService.class})
@@ -163,11 +163,17 @@ class ScreenRenderingTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {Routes.SEARCH, Routes.PLAYLISTS, Routes.PLAYLISTS + "/1",
+    @ValueSource(strings = {Routes.SEARCH, Routes.SONGS, Routes.PLAYLISTS, Routes.PLAYLISTS + "/1",
             Routes.WORKSPACE, Routes.WORKSPACE + "/1", Routes.PROFILE})
     void curationScreensRenderForContentDesigner(String path) throws Exception {
         mockMvc.perform(get(path).with(user(principal(Role.CONTENT_DESIGNER))))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void songsBrowseIsClosedToCustomers() throws Exception {
+        mockMvc.perform(get(Routes.SONGS).with(user(principal(Role.CUSTOMER))))
+                .andExpect(status().isForbidden());
     }
 
     @ParameterizedTest
@@ -185,6 +191,12 @@ class ScreenRenderingTest {
     }
 
     @Test
+    void adminCatalogIsClosedToCustomers() throws Exception {
+        mockMvc.perform(get(Routes.ADMIN_CATALOG).with(user(principal(Role.CUSTOMER))))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
     void searchIsClosedToCustomers() throws Exception {
         mockMvc.perform(get(Routes.SEARCH).with(user(principal(Role.CUSTOMER))))
                 .andExpect(status().isForbidden());
@@ -197,6 +209,18 @@ class ScreenRenderingTest {
 
         mockMvc.perform(get(Routes.WORKSPACE).with(user(principal(Role.CUSTOMER))))
                 .andExpect(content().string(not(containsString("/search"))));
+    }
+
+    @Test
+    void sidebarOffersSongsToContentDesignerOnly() throws Exception {
+        mockMvc.perform(get(Routes.WORKSPACE).with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(content().string(containsString("/songs")));
+
+        mockMvc.perform(get(Routes.WORKSPACE).with(user(principal(Role.CUSTOMER))))
+                .andExpect(content().string(not(containsString("/songs"))));
+
+        mockMvc.perform(get(Routes.PROFILE).with(user(principal(Role.ADMIN))))
+                .andExpect(content().string(not(containsString("href=\"/songs\""))));
     }
 
     @Test

@@ -14,7 +14,8 @@ var CATALOG_PARTIAL_VALUE = "results";
 var activeLoadResults = null;
 
 export function isCatalogPath(pathname) {
-  return pathname === "/admin/catalog" || pathname.indexOf("/admin/catalog/") === 0;
+  return pathname === "/admin/catalog" || pathname.indexOf("/admin/catalog/") === 0
+      || pathname === "/songs" || pathname.indexOf("/songs/") === 0;
 }
 
 export function loadCatalogResults(url, pushUrl) {
@@ -111,7 +112,7 @@ export function initCatalogPartialPaging(root) {
   activeLoadResults = loadResults;
 
   function catalogUrlFromForm(form) {
-    var action = form.getAttribute("action") || "/admin/catalog";
+    var action = form.getAttribute("action") || window.location.pathname;
     var params = new URLSearchParams();
     new FormData(form).forEach(function (value, key) {
       if (value !== "") {
