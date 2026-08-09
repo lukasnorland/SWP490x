@@ -16,7 +16,34 @@
 
 body.shell {
   /* The preview bar sits above all content, so the page reserves its height. */
+  position: relative;
   padding-bottom: var(--preview-bar-height);
+  --shell-ambience-a: transparent;
+  --shell-ambience-b: transparent;
+}
+
+/* Cover-driven backdrop wash. Stays under sidebar/content/player; opacity is
+   kept low so glass surfaces and text remain readable. */
+.shell-ambience {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 18% 12%, var(--shell-ambience-a), transparent 62%),
+    radial-gradient(ellipse 65% 50% at 88% 78%, var(--shell-ambience-b), transparent 58%);
+  transition: opacity 0.5s ease, background 0.5s ease;
+}
+
+body.shell.shell--ambience .shell-ambience {
+  opacity: 0.38;
+}
+
+/* Main column sits above the wash; sidebar / preview bar keep Bootstrap z-index. */
+body.shell > .shell__main {
+  position: relative;
+  z-index: 1;
 }
 
 /* --- Sidebar ------------------------------------------------------------
@@ -220,6 +247,9 @@ body.shell {
    Positioning comes from .fixed-bottom. */
 
 .preview-bar {
+  /* Keep Bootstrap .fixed-bottom (position:fixed); fixed is already a
+     containing block for the ::before wash. */
+  isolation: isolate;
   display: flex;
   align-items: center;
   gap: var(--space-md);
@@ -229,14 +259,44 @@ body.shell {
   backdrop-filter: blur(var(--blur-glass));
   -webkit-backdrop-filter: blur(var(--blur-glass));
   border-top: 1px solid var(--color-border);
+  overflow: hidden;
+  transition: border-color 0.5s ease;
+}
+
+/* Cover wash layered under the glass chrome when ambience is active. */
+.preview-bar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    linear-gradient(105deg, var(--shell-ambience-a), var(--shell-ambience-b));
+  transition: opacity 0.5s ease, background 0.5s ease;
+}
+
+body.shell.shell--ambience .preview-bar {
+  border-top-color: color-mix(in srgb, var(--shell-ambience-a) 40%, var(--color-border));
+}
+
+body.shell.shell--ambience .preview-bar::before {
+  opacity: 0.55;
 }
 
 .preview-bar__art {
+  flex: 0 0 auto;
   width: 48px;
   height: 48px;
   border-radius: var(--radius-sm);
   background: var(--gradient-accent);
+  background-size: cover;
+  background-position: center;
   opacity: 0.4;
+}
+
+.preview-bar__art.has-cover {
+  opacity: 1;
 }
 
 /* A flex item needs min-width:0 before a child can ellipsise; Bootstrap has no
@@ -252,11 +312,25 @@ body.shell {
   text-overflow: ellipsis;
 }
 
+.preview-bar__progress {
+  cursor: pointer;
+  min-width: 4rem;
+}
+
 .preview-bar__time {
   font-family: var(--font-mono);
   font-size: var(--text-body-sm-size);
   color: var(--color-text-secondary);
   font-variant-numeric: tabular-nums;
+  min-width: 6.5rem;
+  text-align: right;
+}
+
+/* Play/pause glyphs read better solid than stroked outlines. */
+.preview-bar [data-preview-icon-play],
+.preview-bar [data-preview-icon-pause] {
+  fill: currentColor;
+  stroke: none;
 }
 
 /* --- Auth layout (P-00, P-01) ------------------------------------------- */
