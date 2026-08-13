@@ -101,7 +101,7 @@ public class SongUpserter {
         song.setBpm(values.bpm());
         song.setExplicit(values.explicit());
         song.setIsrc(values.isrc());
-        song.setPreviewUrl(values.previewUrl());
+        song.setAudioUrl(values.audioUrl());
         song.setCoverUrl(values.coverUrl());
         // Committed with the row, so a hash never claims content that is not
         // actually stored.

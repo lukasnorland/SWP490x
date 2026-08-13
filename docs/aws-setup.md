@@ -57,6 +57,7 @@ Local secrets (not in git): `%USERPROFILE%\.mrs-aws\`
 | Instance profile | `mrs-ec2-profile` |
 | EC2 | `i-0d7e63cb4552af32d` (`t3.small`, Amazon Linux 2023, 30 GB encrypted gp3) |
 | S3 bucket | `mrs-133857166188-assets` (prefix `song-data/`) |
+| CloudFront | stack `mrs-audio-cdn` → `d34ixswlpjs53y.cloudfront.net` (`song-data/audio/`, `song-data/artwork/`) |
 | DB on EC2 | MariaDB **10.11**, database `mrs`, user `mrsapp`@`localhost`, bound to `127.0.0.1:3306` |
 | Budget | `mrs-monthly-5usd` ($5 / month COST) |
 | Billing alarm | `mrs-estimated-charges-5usd` (CloudWatch, `us-east-1`, threshold $5) |
@@ -92,8 +93,29 @@ prefix), plus `s3:GetObject` and `s3:PutObject` on
 bucket-level action and is what returns the ETags the import diffs against, so
 `GetObject` alone is not enough — without it every run reports the prefix as
 empty. `PutObject` is what P-06c's upload button uses; without it the form can
-validate files but cannot stage them. Scripts under `scripts/` and a direct
-`aws s3 cp` remain valid ways to stage JSON as well.
+validate files but cannot stage them. A direct `aws s3 cp` remains a valid way
+to stage JSON as well.
+
+Catalog audio lives under `song-data/audio/` in the same bucket (NCS today
+under `song-data/audio/ncs/`; other vendors can share that prefix later). NCS
+cover art is the same idea under `song-data/artwork/ncs/`. The player and the
+shell wash load those files through CloudFront (stack `mrs-audio-cdn`, Price
+Class 200) so a first request hits a nearby edge instead of the Singapore S3
+origin. Catalog JSON stays private; the bucket policy allows public GET on
+`song-data/audio/*` and `song-data/artwork/*` (see
+`infra/assets-bucket-media-policy.json`). The import lists only `*.json`, so
+the MP3s and JPEGs are not treated as songs.
+
+Create or update the distribution:
+
+```bash
+aws cloudformation deploy --profile mrs-admin --region ap-southeast-1 \
+  --stack-name mrs-audio-cdn \
+  --template-file infra/cloudfront-audio.yaml
+```
+
+After a template change, run catalog import so MySQL picks up any URL
+rewrites in the staged JSON.
 
 Catalog settings, on the instance:
 
@@ -163,7 +185,12 @@ Order matters:
 # 1. Terminate EC2 (deletes root volume if DeleteOnTermination=true)
 aws ec2 terminate-instances --profile mrs-admin --region ap-southeast-1 --instance-ids i-0d7e63cb4552af32d
 
-# 2. Empty and delete S3
+# 2. Empty and delete S3 (after deleting the CloudFront stack, which owns the
+#    bucket policy)
+aws cloudformation delete-stack --stack-name mrs-audio-cdn \
+  --profile mrs-admin --region ap-southeast-1
+aws cloudformation wait stack-delete-complete --stack-name mrs-audio-cdn \
+  --profile mrs-admin --region ap-southeast-1
 aws s3 rm s3://mrs-133857166188-assets --recursive --profile mrs-admin
 aws s3api delete-bucket --bucket mrs-133857166188-assets --profile mrs-admin --region ap-southeast-1
 

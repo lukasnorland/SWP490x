@@ -7,8 +7,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * Where the song catalog is staged and which providers may enter it (UC-28).
  *
- * <p>The offline scripts under {@code scripts/} write one JSON object per song
- * to {@code s3://<bucket>/<prefix><externalSourceId>.json}; an import reads
+ * <p>One JSON object per song is written to
+ * {@code s3://<bucket>/<prefix><externalSourceId>.json}; an import reads
  * that prefix and upserts into {@code song} / {@code tag} / {@code song_tag}.
  */
 @ConfigurationProperties("mrs.catalog")
@@ -32,7 +32,7 @@ public class CatalogProperties {
     /**
      * Set to a directory of {@code *.json} files to import from disk instead of
      * S3. Lets a fresh checkout and the test suite run the whole import path
-     * with no AWS credentials — point it at {@code ../scripts/data}.
+     * with no AWS credentials.
      */
     private String localDir = "";
 
@@ -46,6 +46,59 @@ public class CatalogProperties {
     private boolean importOnStart = false;
 
     private final Sync sync = new Sync();
+
+    private final CoverArt coverArt = new CoverArt();
+
+    /**
+     * Reading cover art to work out the shell's wash colours. Each import fills
+     * in a bounded number of songs, so a scheduled sync stays short and a large
+     * catalog finishes over several runs.
+     */
+    public static class CoverArt {
+
+        private boolean enabled = true;
+
+        /** Songs whose cover is read per import run. */
+        private int batchSize = 2000;
+
+        /** Per-cover budget. A slow CDN should not hold up the run. */
+        private Duration timeout = Duration.ofSeconds(10);
+
+        /** Covers larger than this are left alone rather than pulled into heap. */
+        private int maxBytes = 8 * 1024 * 1024;
+
+        public boolean isEnabled() {
+            return enabled;
+        }
+
+        public void setEnabled(boolean enabled) {
+            this.enabled = enabled;
+        }
+
+        public int getBatchSize() {
+            return batchSize;
+        }
+
+        public void setBatchSize(int batchSize) {
+            this.batchSize = batchSize;
+        }
+
+        public Duration getTimeout() {
+            return timeout;
+        }
+
+        public void setTimeout(Duration timeout) {
+            this.timeout = timeout;
+        }
+
+        public int getMaxBytes() {
+            return maxBytes;
+        }
+
+        public void setMaxBytes(int maxBytes) {
+            this.maxBytes = maxBytes;
+        }
+    }
 
     /** The scheduled poller that picks up objects uploaded straight to S3. */
     public static class Sync {
@@ -135,5 +188,9 @@ public class CatalogProperties {
 
     public Sync getSync() {
         return sync;
+    }
+
+    public CoverArt getCoverArt() {
+        return coverArt;
     }
 }

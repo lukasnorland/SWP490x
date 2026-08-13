@@ -92,6 +92,9 @@ public final class Messages {
     public static final String IMPORT_NO_CHANGE =
             "Nothing to import — every staged song is already in the catalog.";
 
+    public static final String IMPORT_STARTED =
+            "Import started. Keep this page open to watch progress; the summary appears when it finishes.";
+
     public static final String IMPORT_ALREADY_RUNNING =
             "An import is already running. Wait for it to finish, then check the summary.";
 

@@ -51,6 +51,8 @@ public final class Routes {
     public static final String ADMIN_IMPORT_RUN = "/admin/import/run";
     /** P-06c — upload one or more song JSON files to staging, then auto-sync. */
     public static final String ADMIN_IMPORT_UPLOAD = "/admin/import/upload";
+    /** P-06c — live progress of the import currently running (or last finished). */
+    public static final String ADMIN_IMPORT_STATUS = "/admin/import/status";
     /** P-06d Admin — System Settings. */
     public static final String ADMIN_SETTINGS = "/admin/settings";
     /** P-06e Admin — Audit & Recommendation Log. */

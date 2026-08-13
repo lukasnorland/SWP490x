@@ -99,8 +99,9 @@ Detailed requirements and design live under [`docs/`](docs/):
 | `docs/diagrams/` | Context, use case, ERD, flows, sequence, playlist state machine |
 
 **Outstanding documentation update:** the ERD and the RTW data dictionary still
-need catalog columns on `song` (`preview_url`, `cover_url`, `bpm`, `is_explicit`,
-`isrc`, `source_etag`) and the `catalog_import_run` table.
+need catalog columns on `song` (`audio_url`, `cover_url`, `bpm`, `is_explicit`,
+`isrc`, `source_etag`, `ambience_a`, `ambience_b`, `ambience_source_url`) and the
+`catalog_import_run` table.
 
 ---
 
@@ -251,8 +252,55 @@ upserts those objects into `song` / `tag` / `song_tag`. Supported ways to stage
 a song:
 
 - **Upload song JSON** on P-06c (validates, writes to the prefix, then auto-imports)
-- The scripts under `scripts/`, or a direct `aws s3 cp` / console put
+- A direct `aws s3 cp` / console put of `<externalSourceId>.json`
 - Pointing `mrs.catalog.local-dir` at a directory of `*.json` for offline/dev
+
+The object key is always `<externalSourceId>.json`. Required fields are
+`externalSourceId`, `sourceProvider`, and `title`. `sourceProvider` must be one
+of `EpidemicSound`, `NCS`, or `OneOff` (SC-05). Unknown fields are ignored so
+provider dumps can carry extra keys without failing the import. Optional fields
+that are blank, zero, or negative are stored as null rather than rejecting the
+row. Wash colours (`ambience_a` / `ambience_b`) are sampled at import from
+`coverUrl` and are not part of the staged JSON.
+
+```json
+{
+  "externalSourceId": "GB2LD0901581",
+  "sourceProvider": "NCS",
+  "title": "Shine",
+  "artist": "Spektrem",
+  "duration": 255,
+  "bpm": 128,
+  "isExplicit": false,
+  "isrc": "GB2LD0901581",
+  "audioUrl": "https://d34ixswlpjs53y.cloudfront.net/song-data/audio/ncs/GB2LD0901581.mp3",
+  "coverUrl": "https://d34ixswlpjs53y.cloudfront.net/song-data/artwork/ncs/GB2LD0901581.jpg",
+  "genres": ["Electronic"],
+  "moods": ["Energetic"],
+  "tags": ["NCS"]
+}
+```
+
+| Field | Type | Notes |
+|-------|------|--------|
+| `externalSourceId` | string | Required. Unique per provider; also the object filename |
+| `sourceProvider` | string | Required. `EpidemicSound`, `NCS`, or `OneOff` |
+| `title` | string | Required. Truncated to 255 characters |
+| `artist` | string | Truncated to 255. Also stored as an ARTIST tag |
+| `duration` | integer | Seconds. Non-positive values are dropped |
+| `bpm` | integer | Non-positive values are dropped |
+| `isExplicit` | boolean | |
+| `isrc` | string | Truncated to 20 characters |
+| `audioUrl` | string | HTTPS URL the player streams. Truncated to 500 |
+| `coverUrl` | string | HTTPS URL for art and the shell wash. Truncated to 500 |
+| `genres` | string[] | Become GENRE tags |
+| `moods` | string[] | Become MOOD tags |
+| `tags` | string[] | Become TAGS tags |
+
+Epidemic and OneOff keep `audioUrl` / `coverUrl` on the vendor CDN; only the
+JSON object is in our bucket. NCS audio and covers are rehosted under
+`song-data/audio/ncs/` and `song-data/artwork/ncs/` and the JSON URLs point at
+CloudFront (`d34ixswlpjs53y.cloudfront.net`).
 
 An import compares each object's ETag against the `song.source_etag` of the row
 it produced, so it only downloads objects that are new or whose content changed.
@@ -278,10 +326,16 @@ the same service:
 | `mrs.catalog.import-on-start` | `false` | Import the whole prefix at startup |
 | `mrs.catalog.sync.enabled` | `false` | Register the scheduled poller |
 | `mrs.catalog.sync.interval` | `15m` | Delay between the end of one sync and the start of the next |
+| `mrs.catalog.cover-art.*` | *(on)* | Sample cover colours during import for the shell wash |
 
-Setting `mrs.catalog.local-dir=../scripts/data` reads the staged files straight
-off disk, so a fresh checkout can populate the catalog with no AWS credentials —
-which is also how the tests exercise the import. Enable
+NCS audio and covers were rehosted from Dropbox into this bucket
+(`song-data/audio/ncs/*.mp3` and `song-data/artwork/ncs/*.jpg`) and the staged
+JSON `audioUrl` / `coverUrl` values point at CloudFront (stack `mrs-audio-cdn`).
+The import copies those URLs into MySQL as usual.
+
+Setting `mrs.catalog.local-dir` to a directory of `*.json` reads the staged files
+straight off disk, so a fresh checkout can populate the catalog with no AWS
+credentials — which is also how the tests exercise the import. Enable
 `mrs.catalog.sync.enabled=true` on the deployed instance so an upload to S3 is
 picked up without anyone opening the admin UI.
 

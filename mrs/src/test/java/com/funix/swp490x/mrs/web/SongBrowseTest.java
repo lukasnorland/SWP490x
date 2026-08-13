@@ -180,7 +180,7 @@ class SongBrowseTest {
         song.setDuration(213);
         song.setBpm(110);
         song.setCoverUrl("https://cdn.epidemicsound.com/cover.jpg");
-        song.setPreviewUrl("https://audiocdn.epidemicsound.com/preview.mp3");
+        song.setAudioUrl("https://audiocdn.epidemicsound.com/preview.mp3");
         song.setTags(Set.of(new Tag(TagType.GENRE, "Pop")));
         return song;
     }

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 
 /**
- * The staged JSON shape written by the scripts under {@code scripts/}.
+ * The staged JSON shape for one catalog song.
  *
  * <p>Unknown fields are ignored on purpose: the provider dumps carry more than
  * the catalog keeps (stems, slugs, per-format URLs), and a new field appearing

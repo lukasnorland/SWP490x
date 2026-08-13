@@ -19,10 +19,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.funix.swp490x.mrs.catalog.CatalogImportService;
+import com.funix.swp490x.mrs.catalog.CatalogImportService.ImportProgress;
 import com.funix.swp490x.mrs.catalog.CatalogImportService.PendingChanges;
 import com.funix.swp490x.mrs.catalog.CatalogStoreException;
 import com.funix.swp490x.mrs.catalog.CatalogUploadService;
@@ -275,10 +277,37 @@ class AdminCatalogImportTest {
     }
 
     @Test
+    void importScreenIncludesTheProgressPanel() throws Exception {
+        mockMvc.perform(get(Routes.ADMIN_IMPORT).with(user(admin())))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("id=\"importProgress\"")))
+                .andExpect(content().string(containsString("/admin/import/status")))
+                .andExpect(content().string(containsString("data-import-form")));
+    }
+
+    @Test
+    void importStatusReturnsTheCurrentProgress() throws Exception {
+        given(importService.progress()).willReturn(new ImportProgress(
+                true, "importing", "Importing songs…", 3010, 15, 4, 3, 1, 0, 24));
+
+        mockMvc.perform(get(Routes.ADMIN_IMPORT_STATUS).with(user(admin())))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.running").value(true))
+                .andExpect(jsonPath("$.phase").value("importing"))
+                .andExpect(jsonPath("$.detail").value("Importing songs…"))
+                .andExpect(jsonPath("$.listed").value(3010))
+                .andExpect(jsonPath("$.toRead").value(15))
+                .andExpect(jsonPath("$.processed").value(4))
+                .andExpect(jsonPath("$.added").value(3))
+                .andExpect(jsonPath("$.updated").value(1))
+                .andExpect(jsonPath("$.skipped").value(0))
+                .andExpect(jsonPath("$.percent").value(24));
+    }
+
+    @Test
     void uploadingJsonAttributesTheRunToTheSignedInAdmin() throws Exception {
         given(uploadService.upload(anyList(), eq(7L)))
-                .willReturn(new UploadResult(1, List.of(),
-                        new ImportSummary(1, 1, 1, 0, List.of(), false, null), false));
+                .willReturn(new UploadResult(1, List.of(), null, false));
 
         MockMultipartFile file = new MockMultipartFile("files", "song.json",
                 "application/json", "{\"title\":\"T\"}".getBytes());
@@ -288,7 +317,8 @@ class AdminCatalogImportTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(Routes.ADMIN_IMPORT))
                 .andExpect(flash().attribute("flashVariant", "success"))
-                .andExpect(flash().attributeExists("summary"));
+                .andExpect(flash().attribute("flash",
+                        "1 file(s) staged. Import started — this page will show progress."));
 
         then(uploadService).should().upload(anyList(), eq(7L));
     }
@@ -355,67 +385,37 @@ class AdminCatalogImportTest {
     }
 
     @Test
-    void runningTheImportAttributesItToTheSignedInAdmin() throws Exception {
-        given(importService.sync(eq(ImportTrigger.MANUAL), anyLong(), anyBoolean()))
-                .willReturn(new ImportSummary(10, 4, 3, 1, List.of(), false, null));
+    void runningTheImportStartsItInTheBackground() throws Exception {
+        given(importService.startAsync(eq(ImportTrigger.MANUAL), anyLong(), anyBoolean()))
+                .willReturn(true);
 
         mockMvc.perform(post(Routes.ADMIN_IMPORT_RUN).with(csrf()).with(user(admin())))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(Routes.ADMIN_IMPORT))
-                .andExpect(flash().attribute("flashVariant", "success"))
-                .andExpect(flash().attributeExists("summary"));
+                .andExpect(flash().attribute("flashVariant", "info"))
+                .andExpect(flash().attribute("flash", Messages.IMPORT_STARTED));
 
-        then(importService).should().sync(ImportTrigger.MANUAL, 7L, false);
+        then(importService).should().startAsync(ImportTrigger.MANUAL, 7L, false);
+        then(importService).should(never()).sync(any(), any(), anyBoolean());
     }
 
     @Test
     void theForceFlagIsPassedOnWhenAskedFor() throws Exception {
-        given(importService.sync(any(), any(), anyBoolean()))
-                .willReturn(new ImportSummary(10, 10, 0, 10, List.of(), false, null));
+        given(importService.startAsync(any(), any(), anyBoolean())).willReturn(true);
 
         mockMvc.perform(post(Routes.ADMIN_IMPORT_RUN).param("force", "true")
                         .with(csrf()).with(user(admin())))
                 .andExpect(status().is3xxRedirection());
 
-        then(importService).should().sync(ImportTrigger.MANUAL, 7L, true);
-    }
-
-    @Test
-    void aRunWithNothingToDoSaysSoInsteadOfClaimingSuccess() throws Exception {
-        given(importService.sync(any(), any(), anyBoolean()))
-                .willReturn(new ImportSummary(3010, 0, 0, 0, List.of(), false, null));
-
-        mockMvc.perform(post(Routes.ADMIN_IMPORT_RUN).with(csrf()).with(user(admin())))
-                .andExpect(flash().attribute("flash", Messages.IMPORT_NO_CHANGE))
-                .andExpect(flash().attribute("flashVariant", "info"));
-    }
-
-    @Test
-    void skippedRowsMakeTheOutcomeAWarning() throws Exception {
-        given(importService.sync(any(), any(), anyBoolean()))
-                .willReturn(new ImportSummary(10, 10, 8, 0,
-                        List.of(new SkippedRow("bad.json", "missing title")), false, null));
-
-        mockMvc.perform(post(Routes.ADMIN_IMPORT_RUN).with(csrf()).with(user(admin())))
-                .andExpect(flash().attribute("flashVariant", "warning"));
+        then(importService).should().startAsync(ImportTrigger.MANUAL, 7L, true);
     }
 
     @Test
     void aRefusedRunSaysAnImportIsAlreadyGoing() throws Exception {
-        given(importService.sync(any(), any(), anyBoolean())).willReturn(ImportSummary.refused());
+        given(importService.startAsync(any(), any(), anyBoolean())).willReturn(false);
 
         mockMvc.perform(post(Routes.ADMIN_IMPORT_RUN).with(csrf()).with(user(admin())))
                 .andExpect(flash().attribute("flash", Messages.IMPORT_ALREADY_RUNNING));
-    }
-
-    @Test
-    void aFailedRunReportsTheFailure() throws Exception {
-        given(importService.sync(any(), any(), anyBoolean()))
-                .willReturn(new ImportSummary(0, 0, 0, 0, List.of(), false, "S3 timed out"));
-
-        mockMvc.perform(post(Routes.ADMIN_IMPORT_RUN).with(csrf()).with(user(admin())))
-                .andExpect(flash().attribute("flash", Messages.IMPORT_FAILED))
-                .andExpect(flash().attribute("flashVariant", "danger"));
     }
 
     /** Spec 2.1: the whole admin area is ADMIN-only. */
@@ -429,8 +429,11 @@ class AdminCatalogImportTest {
                 .andExpect(status().isForbidden());
         mockMvc.perform(post(Routes.ADMIN_IMPORT_RUN).with(csrf()).with(user(designer)))
                 .andExpect(status().isForbidden());
+        mockMvc.perform(get(Routes.ADMIN_IMPORT_STATUS).with(user(designer)))
+                .andExpect(status().isForbidden());
 
         then(importService).should(never()).sync(any(), any(), anyBoolean());
+        then(importService).should(never()).startAsync(any(), any(), anyBoolean());
     }
 
     @Test
@@ -450,6 +453,7 @@ class AdminCatalogImportTest {
                 .andExpect(status().is3xxRedirection());
 
         then(importService).should(never()).sync(any(), any(), anyBoolean());
+        then(importService).should(never()).startAsync(any(), any(), anyBoolean());
     }
 
     private static MrsUserDetails designer() {
@@ -485,7 +489,7 @@ class AdminCatalogImportTest {
         song.setDuration(213);
         song.setBpm(110);
         song.setCoverUrl("https://cdn.epidemicsound.com/cover.jpg");
-        song.setPreviewUrl("https://audiocdn.epidemicsound.com/preview.mp3");
+        song.setAudioUrl("https://audiocdn.epidemicsound.com/preview.mp3");
         song.setTags(Set.of(new Tag(TagType.GENRE, "Pop")));
         return song;
     }

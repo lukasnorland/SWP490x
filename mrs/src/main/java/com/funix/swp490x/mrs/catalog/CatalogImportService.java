@@ -7,6 +7,7 @@ import com.funix.swp490x.mrs.domain.ImportTrigger;
 import com.funix.swp490x.mrs.repository.AuditLogRepository;
 import com.funix.swp490x.mrs.repository.CatalogImportRunRepository;
 import com.funix.swp490x.mrs.repository.SongRepository;
+import jakarta.annotation.PreDestroy;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +20,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -32,9 +34,10 @@ import org.springframework.stereotype.Service;
  * A sync over an untouched prefix therefore costs one listing and no reads,
  * which is what makes it safe to run on a schedule.
  *
- * <p>All three triggers — startup, the P-06c button, and the poller — call
- * {@link #sync}. Only one may run at a time; a second caller is told the
- * catalog is already syncing rather than racing the first.
+ * <p>Startup and the scheduled poller call {@link #sync} and wait. The P-06c
+ * button calls {@link #startAsync} so the page can poll {@link #progress}
+ * instead of sitting on a frozen POST. Only one may run at a time; a second
+ * caller is told the catalog is already syncing rather than racing the first.
  */
 @Service
 public class CatalogImportService {
@@ -56,6 +59,7 @@ public class CatalogImportService {
     private final CatalogImportRunRepository runRepository;
     private final AuditLogRepository auditLogRepository;
     private final SongUpserter upserter;
+    private final CoverAmbienceService coverAmbience;
 
     /**
      * Single instance, single process, so a flag is enough. Scaling to more
@@ -63,16 +67,28 @@ public class CatalogImportService {
      */
     private final AtomicBoolean running = new AtomicBoolean(false);
 
+    private final AtomicReference<ImportProgress> snapshot =
+            new AtomicReference<>(ImportProgress.idle());
+
+    /** One background import at a time; the HTTP request must not hold it. */
+    private final ExecutorService importExecutor = Executors.newSingleThreadExecutor(r -> {
+        Thread thread = new Thread(r, "catalog-import");
+        thread.setDaemon(true);
+        return thread;
+    });
+
     public CatalogImportService(CatalogObjectStore store,
             SongRepository songRepository,
             CatalogImportRunRepository runRepository,
             AuditLogRepository auditLogRepository,
-            SongUpserter upserter) {
+            SongUpserter upserter,
+            CoverAmbienceService coverAmbience) {
         this.store = store;
         this.songRepository = songRepository;
         this.runRepository = runRepository;
         this.auditLogRepository = auditLogRepository;
         this.upserter = upserter;
+        this.coverAmbience = coverAmbience;
     }
 
     /**
@@ -84,11 +100,56 @@ public class CatalogImportService {
             log.info("Catalog sync already in progress; {} trigger ignored", trigger);
             return ImportSummary.refused();
         }
+        try {
+            return runLocked(trigger, actorId, force);
+        } finally {
+            running.set(false);
+        }
+    }
 
+    /**
+     * Starts a sync on a background thread so P-06c can return immediately and
+     * poll {@link #progress()}.
+     *
+     * @return false when another import already holds the lock
+     */
+    public boolean startAsync(ImportTrigger trigger, Long actorId, boolean force) {
+        if (!running.compareAndSet(false, true)) {
+            log.info("Catalog sync already in progress; {} trigger ignored", trigger);
+            return false;
+        }
+        publish(true, "starting", "Starting import…", 0, 0, 0, 0, 0, 0, 1);
+        try {
+            importExecutor.execute(() -> {
+                try {
+                    runLocked(trigger, actorId, force);
+                } finally {
+                    running.set(false);
+                }
+            });
+        } catch (RuntimeException e) {
+            running.set(false);
+            throw e;
+        }
+        return true;
+    }
+
+    public ImportProgress progress() {
+        return snapshot.get();
+    }
+
+    @PreDestroy
+    void shutdown() {
+        importExecutor.shutdownNow();
+    }
+
+    private ImportSummary runLocked(ImportTrigger trigger, Long actorId, boolean force) {
+        publish(true, "listing", "Listing staged songs…", 0, 0, 0, 0, 0, 0, 3);
         CatalogImportRun run = runRepository.save(new CatalogImportRun(trigger, actorId));
         try {
             ImportSummary summary = doSync(force);
             record(run, summary);
+            publishFinished(summary);
             return summary;
         } catch (RuntimeException e) {
             log.error("Catalog sync ({}) failed", trigger, e);
@@ -100,9 +161,9 @@ public class CatalogImportService {
                 // not worth replacing the reported error with a second one.
                 log.error("Could not record the failed catalog sync", recordFailure);
             }
+            publish(false, "failed", "The import could not be completed.",
+                    0, 0, 0, 0, 0, 0, 100);
             return failed;
-        } finally {
-            running.set(false);
         }
     }
 
@@ -168,14 +229,14 @@ public class CatalogImportService {
 
         if (toRead.isEmpty()) {
             log.info("Catalog sync: {} object(s) listed, all in step", listed.size());
-            return new ImportSummary(listed.size(), 0, 0, 0, List.of(), false, null);
+        } else {
+            log.info("Catalog sync: {} object(s) listed, {} to read", listed.size(), toRead.size());
         }
-
-        log.info("Catalog sync: {} object(s) listed, {} to read", listed.size(), toRead.size());
 
         List<SkippedRow> skipped = Collections.synchronizedList(new ArrayList<>());
         int added = 0;
         int updated = 0;
+        publishImporting(listed.size(), toRead.size(), 0, 0, 0, 0);
 
         try (ExecutorService pool = Executors.newFixedThreadPool(FETCH_THREADS)) {
             for (int from = 0; from < toRead.size(); from += CHUNK_SIZE) {
@@ -198,11 +259,34 @@ public class CatalogImportService {
                         skipped.add(new SkippedRow(item.key(), "chunk failed: " + message(e)));
                     }
                 }
+                publishImporting(listed.size(), toRead.size(),
+                        from + chunk.size(), added, updated, skipped.size());
             }
+
+            // After the rows exist, so songs this run added are covered, and a
+            // catalog imported before the wash existed fills in over a few runs
+            // even when every object is already in step.
+            publish(true, "covers", "Sampling cover colours…",
+                    listed.size(), toRead.size(), toRead.size(),
+                    added, updated, skipped.size(), 92);
+            sampleCovers(pool);
         }
 
         return new ImportSummary(listed.size(), toRead.size(), added, updated,
                 List.copyOf(skipped), false, null);
+    }
+
+    /**
+     * The catalog is already in step by this point, so a cover host being down
+     * is not a failed import; those songs keep no wash and are offered again by
+     * the next run.
+     */
+    private void sampleCovers(ExecutorService pool) {
+        try {
+            coverAmbience.fillMissing(pool);
+        } catch (RuntimeException e) {
+            log.warn("Catalog sync: the cover ambience pass did not finish", e);
+        }
     }
 
     /**
@@ -280,6 +364,30 @@ public class CatalogImportService {
         return message.length() <= 500 ? message : message.substring(0, 500);
     }
 
+    private void publishImporting(int listed, int toRead, int processed,
+            int added, int updated, int skipped) {
+        String detail = toRead == 0
+                ? "Catalog is already in step. Checking cover colours…"
+                : "Importing songs…";
+        int percent = toRead == 0 ? 50 : Math.min(90, Math.round(90f * processed / toRead));
+        publish(true, "importing", detail, listed, toRead, processed, added, updated, skipped,
+                percent);
+    }
+
+    private void publishFinished(ImportSummary summary) {
+        String detail = summary.isNoChange()
+                ? "Nothing to import — every staged song is already in the catalog."
+                : "Import finished.";
+        publish(false, "done", detail, summary.listed(), summary.read(), summary.read(),
+                summary.added(), summary.updated(), summary.skipped(), 100);
+    }
+
+    private void publish(boolean running, String phase, String detail, int listed, int toRead,
+            int processed, int added, int updated, int skipped, int percent) {
+        snapshot.set(new ImportProgress(running, phase, detail, listed, toRead, processed,
+                added, updated, skipped, percent));
+    }
+
     private enum Classification {
         NEW, CHANGED, UNCHANGED
     }
@@ -289,6 +397,28 @@ public class CatalogImportService {
 
         String key() {
             return object.key();
+        }
+    }
+
+    /**
+     * Live status for the P-06c progress panel. {@code running} is the signal
+     * to keep polling; the counts are whatever the current (or last) run has
+     * applied so far.
+     */
+    public record ImportProgress(
+            boolean running,
+            String phase,
+            String detail,
+            int listed,
+            int toRead,
+            int processed,
+            int added,
+            int updated,
+            int skipped,
+            int percent) {
+
+        public static ImportProgress idle() {
+            return new ImportProgress(false, "idle", "", 0, 0, 0, 0, 0, 0, 0);
         }
     }
 

@@ -63,9 +63,9 @@ class SongUpserterTest {
     @Test
     void countsAKnownExternalIdAsAnUpdate() {
         Song existing = new Song();
-        existing.setSourceProvider("DemoProvider");
+        existing.setSourceProvider("NCS");
         existing.setExternalSourceId("a");
-        given(songRepository.findBySourceProviderAndExternalSourceId("DemoProvider", "a"))
+        given(songRepository.findBySourceProviderAndExternalSourceId("NCS", "a"))
                 .willReturn(Optional.of(existing));
 
         SongUpserter.ChunkResult result =
@@ -137,13 +137,13 @@ class SongUpserterTest {
 
     private static String song(String id, String title) {
         return """
-                {"externalSourceId":"%s","sourceProvider":"DemoProvider","title":"%s"}
+                {"externalSourceId":"%s","sourceProvider":"NCS","title":"%s"}
                 """.formatted(id, title);
     }
 
     private static String songWithGenre(String id, String genre) {
         return """
-                {"externalSourceId":"%s","sourceProvider":"DemoProvider","title":"T",
+                {"externalSourceId":"%s","sourceProvider":"NCS","title":"T",
                  "genres":["%s"]}
                 """.formatted(id, genre);
     }

@@ -41,6 +41,7 @@
         </div>
 
         <form th:action="@{/admin/import/upload}" method="post" enctype="multipart/form-data"
+              data-import-form
               class="d-flex flex-column flex-sm-row align-items-sm-end gap-3">
           <div class="flex-grow-1">
             <label class="form-label" for="songJsonFiles">JSON files</label>
@@ -107,8 +108,8 @@
             still appear there. On a dev machine, run
             <span class="font-monospace">aws login --profile mrs-admin</span>,
             restart the app, then reload. Or set
-            <span class="font-monospace">mrs.catalog.local-dir=../scripts/data</span>
-            in <span class="font-monospace">local.properties</span> to use local
+            <span class="font-monospace">mrs.catalog.local-dir</span>
+            in <span class="font-monospace">local.properties</span> to a folder of
             JSON instead of S3.
           </p>
         </div>
@@ -133,6 +134,7 @@
         </div>
 
         <form th:action="@{/admin/import/run}" method="post"
+              data-import-form
               class="d-flex flex-column flex-sm-row align-items-sm-center gap-3">
           <button type="submit" class="btn btn-primary"
                   th:disabled="${importRunning}">
@@ -155,7 +157,7 @@
         </form>
 
         <p th:if="${importRunning}" class="small text-secondary mb-0">
-          An import is running. Reload this page to see the summary.
+          An import is running. This panel will update as songs are applied.
         </p>
       </div>
     </section>
@@ -227,6 +229,47 @@
       song data as JSON — via this form, the CLI, or a direct put under the
       staged prefix.
     </p>
+  </div>
+
+  <div class="modal fade" id="importProgress" tabindex="-1"
+       aria-labelledby="importProgressTitle" aria-modal="true" role="dialog"
+       data-bs-backdrop="static" data-bs-keyboard="false"
+       th:attr="data-status-url=@{/admin/import/status}, data-running=${importRunning}">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h4" id="importProgressTitle">Importing catalog</h2>
+        </div>
+        <div class="modal-body d-flex flex-column gap-3">
+          <p class="small mb-0" data-import-detail>Starting import…</p>
+          <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+               aria-valuenow="0" aria-labelledby="importProgressTitle">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 4%"></div>
+          </div>
+          <div class="row g-3">
+            <div class="col-6 col-md-3">
+              <p class="label mb-1">Added</p>
+              <p class="h5 table__numeric mb-0" data-import-added>0</p>
+            </div>
+            <div class="col-6 col-md-3">
+              <p class="label mb-1">Updated</p>
+              <p class="h5 table__numeric mb-0" data-import-updated>0</p>
+            </div>
+            <div class="col-6 col-md-3">
+              <p class="label mb-1">Skipped</p>
+              <p class="h5 table__numeric mb-0" data-import-skipped>0</p>
+            </div>
+            <div class="col-6 col-md-3">
+              <p class="label mb-1">Processed</p>
+              <p class="h5 table__numeric mb-0" data-import-processed>0 / 0</p>
+            </div>
+          </div>
+          <p class="small text-secondary mb-0">
+            Keep this tab open. You can stay on this page; the summary appears when the import finishes.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>

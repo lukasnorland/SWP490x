@@ -92,15 +92,17 @@
                 <div class="d-flex flex-column">
                   <button type="button"
                           class="song-title-play"
-                          th:if="${song.previewUrl != null and !#strings.isEmpty(song.previewUrl)}"
+                          th:if="${song.audioUrl != null and !#strings.isEmpty(song.audioUrl)}"
                           th:text="${song.title}"
-                          th:data-preview-url="${song.previewUrl}"
+                          th:data-preview-url="${song.audioUrl}"
                           th:data-preview-title="${song.title}"
                           th:data-preview-artist="${song.artist}"
                           th:data-preview-cover="${song.coverUrl}"
+                          th:data-preview-ambience-a="${song.ambienceA}"
+                          th:data-preview-ambience-b="${song.ambienceB}"
                           th:data-preview-duration="${song.duration}"
                           th:aria-label="|Play ${song.title}|">Title</button>
-                  <span th:if="${song.previewUrl == null or #strings.isEmpty(song.previewUrl)}"
+                  <span th:if="${song.audioUrl == null or #strings.isEmpty(song.audioUrl)}"
                         th:text="${song.title}">Title</span>
                   <!-- DC-03: a song with no tag cannot be found by a filter. -->
                   <span th:if="${song.tags.isEmpty()}"

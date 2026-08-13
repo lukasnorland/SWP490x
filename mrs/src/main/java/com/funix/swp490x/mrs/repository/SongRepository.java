@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -48,7 +49,7 @@ public interface SongRepository extends JpaRepository<Song, Long> {
               AND (:q IS NULL OR LOWER(s.title) LIKE LOWER(CONCAT('%', :q, '%'))
                                OR LOWER(s.artist) LIKE LOWER(CONCAT('%', :q, '%')))
               AND (:untagged = FALSE OR s.tags IS EMPTY)
-              AND (:noPreview = FALSE OR s.previewUrl IS NULL)
+              AND (:noPreview = FALSE OR s.audioUrl IS NULL)
             """)
     Page<Long> searchIds(@Param("provider") String provider,
             @Param("tagId") Long tagId,
@@ -69,4 +70,36 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     /** Songs no filtered search can reach until they are tagged (DC-03). */
     @Query("SELECT COUNT(s) FROM Song s WHERE s.tags IS EMPTY")
     long countUntagged();
+
+    /**
+     * Songs whose cover has never been sampled for the shell's wash, or whose
+     * cover has changed since it was.
+     *
+     * <p>Id and url rather than entities: an import may look at thousands of
+     * these, and hydrating a song with its tags to read one column would cost
+     * far more than the update that follows.
+     */
+    @Query("""
+            SELECT s.id, s.coverUrl FROM Song s
+            WHERE s.coverUrl IS NOT NULL
+              AND (s.ambienceSourceUrl IS NULL OR s.ambienceSourceUrl <> s.coverUrl)
+            ORDER BY s.id
+            """)
+    List<Object[]> findCoversNeedingAmbience(Pageable pageable);
+
+    /**
+     * Records what a cover gave, deliberately without touching {@code version}:
+     * wash colours are derived, so recomputing them must not collide with a
+     * designer's own edit (BR-06).
+     */
+    @Modifying
+    @Query("""
+            UPDATE Song s
+            SET s.ambienceA = :a, s.ambienceB = :b, s.ambienceSourceUrl = :sourceUrl
+            WHERE s.id = :id
+            """)
+    void recordAmbience(@Param("id") Long id,
+            @Param("a") String a,
+            @Param("b") String b,
+            @Param("sourceUrl") String sourceUrl);
 }

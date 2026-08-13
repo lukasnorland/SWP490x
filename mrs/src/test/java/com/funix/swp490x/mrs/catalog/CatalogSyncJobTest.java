@@ -82,7 +82,8 @@ class CatalogSyncJobTest {
                 .willAnswer(invocation -> invocation.getArgument(0));
 
         CatalogImportService service = new CatalogImportService(blocking, songRepository,
-                runRepository, mock(AuditLogRepository.class), mock(SongUpserter.class));
+                runRepository, mock(AuditLogRepository.class), mock(SongUpserter.class),
+                mock(CoverAmbienceService.class));
 
         AtomicReference<ImportSummary> first = new AtomicReference<>();
         Thread poller = new Thread(() ->
@@ -91,6 +92,9 @@ class CatalogSyncJobTest {
 
         assertThat(listing.await(5, TimeUnit.SECONDS)).isTrue();
         assertThat(service.isRunning()).isTrue();
+        assertThat(service.progress().running()).isTrue();
+        assertThat(service.progress().phase()).isEqualTo("listing");
+        assertThat(service.startAsync(ImportTrigger.MANUAL, 1L, false)).isFalse();
 
         ImportSummary refused = service.sync(ImportTrigger.MANUAL, 1L, false);
         assertThat(refused.alreadyRunning()).isTrue();

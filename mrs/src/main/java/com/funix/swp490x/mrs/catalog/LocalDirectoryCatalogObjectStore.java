@@ -14,8 +14,8 @@ import java.util.stream.Stream;
 
 /**
  * Reads the staged catalog from a directory of {@code *.json} files, so the
- * whole import path runs with no AWS credentials — a fresh checkout can import
- * {@code scripts/data}, and tests can drive the sync from fixtures.
+ * whole import path runs with no AWS credentials. Tests drive the sync from
+ * fixtures.
  *
  * <p>The ETag is an MD5 of the file content, matching what S3 reports for a
  * single-part upload. The change detection therefore behaves identically here

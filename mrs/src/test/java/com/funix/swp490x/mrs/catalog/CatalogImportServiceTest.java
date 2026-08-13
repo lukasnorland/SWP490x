@@ -27,6 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -100,7 +101,7 @@ class CatalogImportServiceTest {
         SongUpserter upserter = new SongUpserter(songRepository, tagRepository,
                 new SongJsonMapper(), properties);
         service = new CatalogImportService(store, songRepository, runRepository,
-                mock(AuditLogRepository.class), upserter);
+                mock(AuditLogRepository.class), upserter, mock(CoverAmbienceService.class));
     }
 
     @Test
@@ -113,6 +114,11 @@ class CatalogImportServiceTest {
         assertThat(summary.updated()).isZero();
         assertThat(summary.skippedRows()).isEmpty();
         assertThat(songs).hasSize(3);
+        assertThat(service.isRunning()).isFalse();
+        assertThat(service.progress().running()).isFalse();
+        assertThat(service.progress().phase()).isEqualTo("done");
+        assertThat(service.progress().added()).isEqualTo(3);
+        assertThat(service.progress().percent()).isEqualTo(100);
     }
 
     /**
@@ -157,7 +163,7 @@ class CatalogImportServiceTest {
         sync();
         store.reads.clear();
         write("new-song.json", """
-                {"externalSourceId":"new-song","sourceProvider":"DemoProvider",
+                {"externalSourceId":"new-song","sourceProvider":"NCS",
                  "title":"Fresh Upload","genres":["Pop"]}
                 """);
 
@@ -249,7 +255,8 @@ class CatalogImportServiceTest {
                 .willAnswer(invocation -> invocation.getArgument(0));
 
         ImportSummary summary = new CatalogImportService(store, songRepository, runRepository,
-                auditLog, upserter).sync(ImportTrigger.MANUAL, 1L, false);
+                auditLog, upserter, mock(CoverAmbienceService.class))
+                .sync(ImportTrigger.MANUAL, 1L, false);
 
         assertThat(summary.isFailed()).isFalse();
         assertThat(summary.added()).isEqualTo(3);
@@ -267,7 +274,8 @@ class CatalogImportServiceTest {
         given(songRepository.findExternalIdAndEtagPairs()).willReturn(List.of());
 
         CatalogImportService failing = new CatalogImportService(broken, songRepository,
-                runRepository, mock(AuditLogRepository.class), mock(SongUpserter.class));
+                runRepository, mock(AuditLogRepository.class), mock(SongUpserter.class),
+                mock(CoverAmbienceService.class));
 
         ImportSummary summary = failing.sync(ImportTrigger.SCHEDULED, null, false);
 
@@ -293,7 +301,7 @@ class CatalogImportServiceTest {
                 .willAnswer(invocation -> invocation.getArgument(0));
 
         ImportSummary summary = new CatalogImportService(store, songRepository, runRepository,
-                mock(AuditLogRepository.class), refusing)
+                mock(AuditLogRepository.class), refusing, mock(CoverAmbienceService.class))
                 .sync(ImportTrigger.MANUAL, 1L, false);
 
         assertThat(summary.added()).isZero();
@@ -307,7 +315,7 @@ class CatalogImportServiceTest {
         sync();
         rewriteTitle(ICE_CREAM, "Ice Cream (Remastered)");
         write("new-song.json", """
-                {"externalSourceId":"new-song","sourceProvider":"DemoProvider","title":"Fresh"}
+                {"externalSourceId":"new-song","sourceProvider":"NCS","title":"Fresh"}
                 """);
         store.reads.clear();
 
@@ -341,8 +349,25 @@ class CatalogImportServiceTest {
                 assertThat(song.getSourceEtag()).isNotBlank());
     }
 
+    @Test
+    void startAsyncAppliesTheCatalogOffTheCallerThread() throws Exception {
+        assertThat(service.startAsync(ImportTrigger.MANUAL, 1L, false)).isTrue();
+        waitUntilIdle(service);
+        assertThat(songs).hasSize(3);
+        assertThat(service.progress().phase()).isEqualTo("done");
+        assertThat(service.progress().added()).isEqualTo(3);
+    }
+
     private ImportSummary sync() {
         return service.sync(ImportTrigger.MANUAL, 1L, false);
+    }
+
+    private static void waitUntilIdle(CatalogImportService service) throws InterruptedException {
+        long deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(5);
+        while (service.isRunning() && System.nanoTime() < deadline) {
+            Thread.sleep(20);
+        }
+        assertThat(service.isRunning()).isFalse();
     }
 
     private void copyFixture(String name) throws IOException {

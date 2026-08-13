@@ -1,7 +1,7 @@
 package com.funix.swp490x.mrs.web.admin;
 
 import com.funix.swp490x.mrs.catalog.CatalogImportService;
-import com.funix.swp490x.mrs.catalog.CatalogImportService.PendingChanges;
+import com.funix.swp490x.mrs.catalog.CatalogImportService.ImportProgress;
 import com.funix.swp490x.mrs.catalog.CatalogStoreException;
 import com.funix.swp490x.mrs.catalog.CatalogUploadService;
 import com.funix.swp490x.mrs.catalog.CatalogUploadService.UploadResult;
@@ -13,12 +13,14 @@ import com.funix.swp490x.mrs.web.Routes;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -26,12 +28,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * P-06c — Catalog Import (spec 4.11, UC-28, flow F-05).
  *
  * <p>ADMIN can stage song JSON through the upload form (validated, then written
- * to the object store and auto-synced) or press Run import against whatever is
- * already under the prefix. The provider CSV/XLSX upload of the original flow
- * is still outstanding.
- *
- * <p>Summaries are carried in flash attributes rather than rendered from the
- * POST, so a refresh cannot repeat an upload or a sync.
+ * to the object store) or press Run import against whatever is already under
+ * the prefix. Both POSTs start the sync in the background so a large catalog
+ * does not freeze the page; {@code GET /admin/import/status} is the progress
+ * poll. The provider CSV/XLSX upload of the original flow is still outstanding.
  */
 @Controller
 public class AdminImportController {
@@ -66,6 +66,12 @@ public class AdminImportController {
         return "admin/import";
     }
 
+    @GetMapping(path = Routes.ADMIN_IMPORT_STATUS, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ImportProgress status() {
+        return importService.progress();
+    }
+
     @PostMapping(Routes.ADMIN_IMPORT_UPLOAD)
     public String upload(@RequestParam(value = "files", required = false) List<MultipartFile> files,
             @AuthenticationPrincipal MrsUserDetails actor,
@@ -85,33 +91,18 @@ public class AdminImportController {
             return "redirect:" + Routes.ADMIN_IMPORT;
         }
 
-        // Staging succeeded; the sync may still be refused or fail.
+        // Staging succeeded; the background sync may still be refused.
         if (!result.rejected().isEmpty()) {
             redirectAttributes.addFlashAttribute("uploadRejected", result.rejected());
         }
 
         ImportSummary sync = result.sync();
-        if (sync == null) {
-            flash(redirectAttributes, "success",
-                    "%d song file(s) staged.".formatted(result.uploaded()));
-        } else if (sync.alreadyRunning()) {
+        if (sync != null && sync.alreadyRunning()) {
             flash(redirectAttributes, "warning", Messages.UPLOAD_SYNC_SKIPPED);
-        } else if (sync.isFailed()) {
-            flash(redirectAttributes, "danger",
-                    "%d file(s) staged, but the import failed. Press Run import to retry."
-                            .formatted(result.uploaded()));
-        } else if (sync.isNoChange()) {
-            // Unusual after a fresh put, but possible if ETags somehow match.
-            flash(redirectAttributes, "success",
-                    "%d file(s) staged; catalog was already in step."
-                            .formatted(result.uploaded()));
         } else {
-            flash(redirectAttributes, sync.skipped() > 0 || !result.rejected().isEmpty()
-                            ? "warning" : "success",
-                    "%d file(s) staged. Import: %d added, %d updated, %d skipped."
-                            .formatted(result.uploaded(), sync.added(), sync.updated(),
-                                    sync.skipped()));
-            redirectAttributes.addFlashAttribute("summary", sync);
+            flash(redirectAttributes, result.rejected().isEmpty() ? "success" : "warning",
+                    "%d file(s) staged. Import started — this page will show progress."
+                            .formatted(result.uploaded()));
         }
 
         return "redirect:" + Routes.ADMIN_IMPORT;
@@ -122,21 +113,13 @@ public class AdminImportController {
             @AuthenticationPrincipal MrsUserDetails actor,
             RedirectAttributes redirectAttributes) {
 
-        ImportSummary summary = importService.sync(ImportTrigger.MANUAL,
+        boolean started = importService.startAsync(ImportTrigger.MANUAL,
                 actor == null ? null : actor.getId(), force);
 
-        if (summary.alreadyRunning()) {
-            flash(redirectAttributes, "warning", Messages.IMPORT_ALREADY_RUNNING);
-        } else if (summary.isFailed()) {
-            flash(redirectAttributes, "danger", Messages.IMPORT_FAILED);
-        } else if (summary.isNoChange()) {
-            flash(redirectAttributes, "info", Messages.IMPORT_NO_CHANGE);
+        if (started) {
+            flash(redirectAttributes, "info", Messages.IMPORT_STARTED);
         } else {
-            flash(redirectAttributes, summary.skipped() > 0 ? "warning" : "success",
-                    "Import finished: %d added, %d updated, %d skipped."
-                            .formatted(summary.added(), summary.updated(), summary.skipped()));
-            // Only worth carrying when there is something to look at.
-            redirectAttributes.addFlashAttribute("summary", summary);
+            flash(redirectAttributes, "warning", Messages.IMPORT_ALREADY_RUNNING);
         }
 
         return "redirect:" + Routes.ADMIN_IMPORT;

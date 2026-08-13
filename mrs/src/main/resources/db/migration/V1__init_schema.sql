@@ -39,9 +39,11 @@ CREATE TABLE song (
     external_source_id    VARCHAR(100) NULL,                   -- unique per provider (DC-04)
     spotify_popularity    TINYINT      NULL,                   -- 0-100 snapshot; NULL = not synced (BR-08)
     popularity_synced_at  DATETIME     NULL,
-    audio_s3_key          VARCHAR(500) NULL,                   -- licensed audio in our bucket (BR-13)
-    preview_url           VARCHAR(500) NULL,                   -- provider public CDN mp3 from staged JSON
+    audio_url             VARCHAR(500) NULL,                   -- public HTTPS mp3 (vendor CDN or our bucket)
     cover_url             VARCHAR(500) NULL,
+    ambience_a            VARCHAR(40)  NULL,                   -- wash colours sampled from the cover
+    ambience_b            VARCHAR(40)  NULL,
+    ambience_source_url   VARCHAR(500) NULL,                   -- cover those colours were taken from
     bpm                   INT          NULL,
     is_explicit           BOOLEAN      NULL,
     isrc                  VARCHAR(20)  NULL,

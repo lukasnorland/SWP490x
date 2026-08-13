@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Preview bar (4.0): play Song.previewUrl from any row button.
+   Preview bar (4.0): play Song.audioUrl from any row button.
    One global HTML5 audio element. Row controls carry CDN URL + metadata as
    data-* attributes; no backend round-trip. State survives a full navigation
    through sessionStorage, so the bar picks up where it left off.
@@ -70,6 +70,7 @@ export function initPreviewPlayer(root) {
   var activeTrigger = null;
   var appliedCoverUrl = "";
   var currentCoverUrl = "";
+  var currentAmbience = null;
   var currentTrackUrl = "";
   var ambienceRequestId = 0;
   var persistTimer = null;
@@ -101,7 +102,19 @@ export function initPreviewPlayer(root) {
     document.body.style.removeProperty("--shell-ambience-b");
   }
 
-  function applyShellAmbience(coverUrl) {
+  /* The import samples each cover and stores the result on the song, because
+     sampling here needs a canvas and a canvas needs CORS headers that several
+     vendor CDNs never send. Reading the image is kept as the fallback, for
+     songs imported before the colours were stored. */
+  function applyShellAmbience(coverUrl, ambience) {
+    if (ambience && ambience.a && ambience.b) {
+      ambienceRequestId += 1;
+      appliedCoverUrl = coverUrl || "";
+      document.body.style.setProperty("--shell-ambience-a", ambience.a);
+      document.body.style.setProperty("--shell-ambience-b", ambience.b);
+      document.body.classList.add("shell--ambience");
+      return;
+    }
     if (!coverUrl) {
       clearShellAmbience();
       return;
@@ -127,8 +140,10 @@ export function initPreviewPlayer(root) {
     });
   }
 
-  function setArt(coverUrl) {
+  function setArt(coverUrl, ambience) {
     currentCoverUrl = coverUrl || "";
+    currentAmbience = ambience && ambience.a && ambience.b ? ambience : null;
+    applyShellAmbience(currentCoverUrl, currentAmbience);
     if (!art) {
       return;
     }
@@ -139,7 +154,6 @@ export function initPreviewPlayer(root) {
       art.style.backgroundImage = "";
       art.classList.remove("has-cover");
     }
-    applyShellAmbience(coverUrl || "");
   }
 
   function markTrigger(button) {
@@ -190,6 +204,8 @@ export function initPreviewPlayer(root) {
       title: title ? title.textContent : "",
       artist: subtitle ? subtitle.textContent : "",
       cover: currentCoverUrl,
+      ambienceA: currentAmbience ? currentAmbience.a : "",
+      ambienceB: currentAmbience ? currentAmbience.b : "",
       duration: fallbackDuration || knownDuration() || 0,
       currentTime: audio.currentTime || 0,
       playing: !audio.paused && !audio.ended
@@ -217,7 +233,7 @@ export function initPreviewPlayer(root) {
     if (subtitle) {
       subtitle.textContent = meta.artist || "Unknown artist";
     }
-    setArt(meta.cover || "");
+    setArt(meta.cover || "", { a: meta.ambienceA, b: meta.ambienceB });
     toggle.disabled = false;
   }
 
@@ -231,6 +247,8 @@ export function initPreviewPlayer(root) {
       title: button.getAttribute("data-preview-title"),
       artist: button.getAttribute("data-preview-artist"),
       cover: button.getAttribute("data-preview-cover"),
+      ambienceA: button.getAttribute("data-preview-ambience-a"),
+      ambienceB: button.getAttribute("data-preview-ambience-b"),
       duration: button.getAttribute("data-preview-duration")
     });
     markTrigger(button);
