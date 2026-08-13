@@ -18,8 +18,6 @@ public record StagedSong(
         String artist,
         Integer duration,
         Integer bpm,
-        String energyLevel,
-        Boolean hasVocals,
         Boolean isExplicit,
         String isrc,
         String audioUrl,

@@ -1,16 +1,12 @@
 {
   "externalSourceId": "003e518f-2a19-4066-beca-051dc2cd6f0a",
-  "epidemicTrackId": 138022,
   "sourceProvider": "EpidemicSound",
   "title": "Out Into Space",
   "artist": "Vicki Vox, Tape Machines",
   "duration": 213,
   "bpm": 114,
-  "energyLevel": "high",
-  "hasVocals": true,
   "isExplicit": false,
   "isrc": "SE5Q52101336",
-  "publicSlug": "o2jgbcYZF7",
   "audioUrl": "https://audiocdn.epidemicsound.com/lqmp3/01KTFMASPHBDBRGNP8E1TYNRKW.mp3",
   "coverUrl": "https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/6503/3000x3000.jpg?height=300&width=300",
   "genres": [

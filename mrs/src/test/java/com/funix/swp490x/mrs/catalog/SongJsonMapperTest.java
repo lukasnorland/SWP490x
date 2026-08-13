@@ -40,8 +40,6 @@ class SongJsonMapperTest {
         assertThat(values.artist()).isEqualTo("Sugar Blizz");
         assertThat(values.duration()).isEqualTo(213);
         assertThat(values.bpm()).isEqualTo(110);
-        assertThat(values.energyLevel()).isEqualTo("medium");
-        assertThat(values.hasVocals()).isTrue();
         assertThat(values.explicit()).isFalse();
         assertThat(values.isrc()).isEqualTo("SE5Q51900056");
         assertThat(values.previewUrl()).endsWith(".mp3");
@@ -160,10 +158,12 @@ class SongJsonMapperTest {
     }
 
     @Test
-    void ignoresProviderFieldsTheCatalogDoesNotKeep() throws Exception {
-        // The real fixtures carry epidemicTrackId and publicSlug, which have no
-        // column; a new upstream field must not break an import.
-        assertThat(mapper.map(fixture("2f02e814-96a7-4aa8-9a6b-9d8ab2ac0a30.json"), REGISTERED)
-                .isRejected()).isFalse();
+    void ignoresProviderFieldsTheCatalogDoesNotKeep() {
+        // Unknown upstream fields must not break an import.
+        String json = """
+                {"externalSourceId":"x1","sourceProvider":"DemoProvider","title":"T",
+                 "epidemicTrackId":999,"publicSlug":"abc","energyLevel":"high","hasVocals":true}
+                """;
+        assertThat(mapper.map(json, REGISTERED).isRejected()).isFalse();
     }
 }

@@ -40,7 +40,7 @@ public class CatalogProperties {
      * Providers allowed into the catalog (SC-05). An object naming anything
      * else is skipped and reported rather than silently accepted.
      */
-    private List<String> providers = List.of("EpidemicSound", "DemoProvider");
+    private List<String> providers = List.of("EpidemicSound", "NCS", "OneOff");
 
     /** Import the whole prefix once at startup. Off by default. */
     private boolean importOnStart = false;

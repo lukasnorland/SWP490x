@@ -99,8 +99,6 @@ public class SongUpserter {
         song.setSourceProvider(values.sourceProvider());
         song.setExternalSourceId(values.externalSourceId());
         song.setBpm(values.bpm());
-        song.setEnergyLevel(values.energyLevel());
-        song.setHasVocals(values.hasVocals());
         song.setExplicit(values.explicit());
         song.setIsrc(values.isrc());
         song.setPreviewUrl(values.previewUrl());

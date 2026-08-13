@@ -26,7 +26,6 @@ public class SongJsonMapper {
     private static final int MAX_ARTIST = 255;
     private static final int MAX_URL = 500;
     private static final int MAX_ISRC = 20;
-    private static final int MAX_ENERGY = 20;
     private static final int MAX_TAG_NAME = 100;
 
     /**
@@ -77,8 +76,6 @@ public class SongJsonMapper {
                 truncate(trimToNull(staged.artist()), MAX_ARTIST),
                 duration,
                 positiveOrNull(staged.bpm()),
-                truncate(trimToNull(staged.energyLevel()), MAX_ENERGY),
-                staged.hasVocals(),
                 staged.isExplicit(),
                 truncate(trimToNull(staged.isrc()), MAX_ISRC),
                 truncate(trimToNull(staged.audioUrl()), MAX_URL),
@@ -163,8 +160,6 @@ public class SongJsonMapper {
             String artist,
             Integer duration,
             Integer bpm,
-            String energyLevel,
-            Boolean hasVocals,
             Boolean explicit,
             String isrc,
             String previewUrl,

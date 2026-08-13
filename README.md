@@ -98,10 +98,9 @@ Detailed requirements and design live under [`docs/`](docs/):
 | Report 3.2 — Screen Design Spec | IA, flows F-01–F-06, screen specs |
 | `docs/diagrams/` | Context, use case, ERD, flows, sequence, playlist state machine |
 
-**Outstanding documentation update:** migration V3 put the schema ahead of these
-documents. The ERD and the RTW data dictionary still need the eight columns V3
-adds to `song` (`preview_url`, `cover_url`, `bpm`, `energy_level`, `has_vocals`,
-`is_explicit`, `isrc`, `source_etag`) and the new `catalog_import_run` table.
+**Outstanding documentation update:** the ERD and the RTW data dictionary still
+need catalog columns on `song` (`preview_url`, `cover_url`, `bpm`, `is_explicit`,
+`isrc`, `source_etag`) and the `catalog_import_run` table.
 
 ---
 
@@ -119,9 +118,9 @@ adds to `song` (`preview_url`, `cover_url`, `bpm`, `energy_level`, `has_vocals`,
 CREATE DATABASE mrs CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 ```
 
-Flyway applies the migrations under `mrs/src/main/resources/db/migration/` (V1 schema, V2 sample data, V3 catalog-import columns and run history) on every startup — create the empty database and run the app.
+Flyway applies the migrations under `mrs/src/main/resources/db/migration/` (V1 schema, V2 seed) on every startup — create the empty database and run the app.
 
-If you applied V1/V2 by hand before Flyway was wired in, no action is needed: the app baselines an existing schema at V2 (`spring.flyway.baseline-version`) so those two migrations are not replayed over your tables.
+If you applied an older schema by hand before Flyway was wired in, no action is needed: the app baselines an existing schema at V2 (`spring.flyway.baseline-version`) so migrations are not replayed over your tables.
 
 ### Configuration
 
@@ -275,7 +274,7 @@ the same service:
 | `mrs.catalog.region` | `ap-southeast-1` | Region of the bucket |
 | `mrs.catalog.aws-profile` | `mrs-admin` | Named profile; clear on EC2 to use the instance role |
 | `mrs.catalog.local-dir` | *(empty)* | Set to a directory of `*.json` to import from disk instead of S3 |
-| `mrs.catalog.providers` | `EpidemicSound,DemoProvider` | Registered providers; anything else is skipped (SC-05) |
+| `mrs.catalog.providers` | `EpidemicSound,NCS,OneOff` | Registered providers; anything else is skipped (SC-05) |
 | `mrs.catalog.import-on-start` | `false` | Import the whole prefix at startup |
 | `mrs.catalog.sync.enabled` | `false` | Register the scheduled poller |
 | `mrs.catalog.sync.interval` | `15m` | Delay between the end of one sync and the start of the next |
