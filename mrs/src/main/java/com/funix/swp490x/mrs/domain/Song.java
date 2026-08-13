@@ -17,9 +17,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * A catalog track. Maps the {@code song} table created by Flyway V1 and
- * extended by V3; the schema is owned by the migrations and JPA only validates
- * against it.
+ * A catalog track. Maps the {@code song} table created by Flyway V1; the
+ * schema is owned by the migration and JPA only validates against it.
  *
  * <p>{@code (sourceProvider, externalSourceId)} is unique (DC-04), which is
  * what lets an import update in place rather than duplicating a song.
@@ -68,12 +67,6 @@ public class Song {
     private String coverUrl;
 
     private Integer bpm;
-
-    @Column(name = "energy_level", length = 20)
-    private String energyLevel;
-
-    @Column(name = "has_vocals")
-    private Boolean hasVocals;
 
     @Column(name = "is_explicit")
     private Boolean explicit;
@@ -200,22 +193,6 @@ public class Song {
 
     public void setBpm(Integer bpm) {
         this.bpm = bpm;
-    }
-
-    public String getEnergyLevel() {
-        return energyLevel;
-    }
-
-    public void setEnergyLevel(String energyLevel) {
-        this.energyLevel = energyLevel;
-    }
-
-    public Boolean getHasVocals() {
-        return hasVocals;
-    }
-
-    public void setHasVocals(Boolean hasVocals) {
-        this.hasVocals = hasVocals;
     }
 
     public Boolean getExplicit() {

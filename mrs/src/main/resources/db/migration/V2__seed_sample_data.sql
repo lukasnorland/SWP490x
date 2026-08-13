@@ -1,8 +1,7 @@
 -- =====================================================================
 -- MRS — Flyway migration V2: seed data (dev/demo)
--- Covers: initial ADMIN account, tag vocabulary (4 types),
---         sample catalog for the W3 vertical prototype (search API)
--- Also mitigates Risk #4 (Report 2): normalized sample dataset, W2-3
+-- Covers: initial ADMIN account, starter tag vocabulary (4 types).
+-- Catalog songs come from S3 import (EpidemicSound / NCS / OneOff).
 -- =====================================================================
 
 -- ---------------------------------------------------------------------
@@ -27,7 +26,8 @@ INSERT INTO users (username, email, password_hash, role, status, must_change_pas
  'CUSTOMER', 'ACTIVE', TRUE);
 
 -- ---------------------------------------------------------------------
--- 2. Tag vocabulary (GENRE | MOOD | ARTIST | TAGS)
+-- 2. Starter tag vocabulary (GENRE | MOOD | ARTIST | TAGS)
+--    Import creates additional tags from provider metadata as needed.
 -- ---------------------------------------------------------------------
 INSERT INTO tag (type, name) VALUES
 -- GENRE
@@ -42,59 +42,3 @@ INSERT INTO tag (type, name) VALUES
 ('TAGS','driving'), ('TAGS','upbeat'), ('TAGS','hopeful'), ('TAGS','romantic'),
 ('TAGS','ballad'), ('TAGS','uplifting'), ('TAGS','love'), ('TAGS','guitar'),
 ('TAGS','piano'), ('TAGS','feelgood'), ('TAGS','cozy'), ('TAGS','powerful');
-
--- ---------------------------------------------------------------------
--- 3. Sample songs (registered provider: 'DemoProvider')
---    spotify_popularity: 0-100 snapshot; one NULL case to test BR-08
---    (unscored songs always sort last, never hidden)
--- ---------------------------------------------------------------------
-INSERT INTO song (title, artist, duration, source_provider, external_source_id,
-                  spotify_popularity, popularity_synced_at, audio_s3_key, version) VALUES
-('Firework Nights',       'Nova Bloom',      212, 'DemoProvider', 'DP-0001', 88, NOW(), 'audio/demo/dp-0001.mp3', 0),
-('Countdown Lights',      'The Meridians',   198, 'DemoProvider', 'DP-0002', 81, NOW(), 'audio/demo/dp-0002.mp3', 0),
-('Snowfall Waltz',        'Elena Frost',     241, 'DemoProvider', 'DP-0003', 76, NOW(), 'audio/demo/dp-0003.mp3', 0),
-('Sleigh Ride Groove',    'Jolly Union',     185, 'DemoProvider', 'DP-0004', 72, NOW(), 'audio/demo/dp-0004.mp3', 0),
-('Beach Day Anthem',      'Sunset Riders',   205, 'DemoProvider', 'DP-0005', 90, NOW(), 'audio/demo/dp-0005.mp3', 0),
-('Tropical Rush',         'Nova Bloom',      190, 'DemoProvider', 'DP-0006', 68, NOW(), 'audio/demo/dp-0006.mp3', 0),
-('Quiet Snow Piano',      'Elena Frost',     263, 'DemoProvider', 'DP-0007', 64, NOW(), 'audio/demo/dp-0007.mp3', 0),
-('Midnight Confetti',     'The Meridians',   221, 'DemoProvider', 'DP-0008', 79, NOW(), 'audio/demo/dp-0008.mp3', 0),
-('Lazy Sunday Lo-fi',     'Studio Cats',     176, 'DemoProvider', 'DP-0009', 83, NOW(), 'audio/demo/dp-0009.mp3', 0),
-('Hero''s Horizon',       'Grand Ensemble',  312, 'DemoProvider', 'DP-0010', 58, NOW(), 'audio/demo/dp-0010.mp3', 0),
-('Summer Sparks',         'Sunset Riders',   201, 'DemoProvider', 'DP-0011', 74, NOW(), 'audio/demo/dp-0011.mp3', 0),
-('First Dance',           'Elena Frost',     234, 'DemoProvider', 'DP-0012', 70, NOW(), 'audio/demo/dp-0012.mp3', 0),
-('Pumpkin Parade',        'Jolly Union',     193, 'DemoProvider', 'DP-0013', 55, NOW(), 'audio/demo/dp-0013.mp3', 0),
-('Soft Focus',            'Studio Cats',     168, 'DemoProvider', 'DP-0014', 66, NOW(), 'audio/demo/dp-0014.mp3', 0),
-('Rooftop Party',         'The Meridians',   210, 'DemoProvider', 'DP-0015', 85, NOW(), 'audio/demo/dp-0015.mp3', 0),
-('Winter Embers',         'Grand Ensemble',  287, 'DemoProvider', 'DP-0016', 61, NOW(), 'audio/demo/dp-0016.mp3', 0),
-('Neon Tide',             'Nova Bloom',      199, 'DemoProvider', 'DP-0017', 77, NOW(), 'audio/demo/dp-0017.mp3', 0),
-('Gentle Morning',        'Studio Cats',     182, 'DemoProvider', 'DP-0018', 69, NOW(), NULL,                    0),  -- no audio yet -> blank CSV URL cell (BR-13)
-('Carol of Strings',      'Grand Ensemble',  256, 'DemoProvider', 'DP-0019', NULL, NULL, 'audio/demo/dp-0019.mp3', 0), -- unscored -> sorts last (BR-08)
-('New Dawn Fanfare',      'Grand Ensemble',  244, 'DemoProvider', 'DP-0020', 62, NOW(), 'audio/demo/dp-0020.mp3', 0);
-
--- ---------------------------------------------------------------------
--- 4. Song-tag links (every song >= 1 tag so it is filterable, DC-03)
---    Lookups by natural key -> script stays valid regardless of ids
--- ---------------------------------------------------------------------
-INSERT INTO song_tag (song_id, tag_id)
-SELECT s.id, t.id FROM song s JOIN tag t ON (s.external_source_id, t.type, t.name) IN (
-    ('DP-0001','GENRE','Pop'),      ('DP-0001','MOOD','Energetic'), ('DP-0001','TAGS','upbeat'),    ('DP-0001','TAGS','powerful'),
-    ('DP-0002','GENRE','EDM'),      ('DP-0002','MOOD','Energetic'), ('DP-0002','TAGS','driving'),   ('DP-0002','TAGS','uplifting'),
-    ('DP-0003','GENRE','Piano'),    ('DP-0003','MOOD','Emotional'), ('DP-0003','TAGS','romantic'),  ('DP-0003','TAGS','piano'),
-    ('DP-0004','GENRE','Pop'),      ('DP-0004','MOOD','Cheerful'),  ('DP-0004','TAGS','feelgood'),  ('DP-0004','TAGS','upbeat'),
-    ('DP-0005','GENRE','EDM'),      ('DP-0005','MOOD','Energetic'), ('DP-0005','TAGS','driving'),   ('DP-0005','TAGS','uplifting'),
-    ('DP-0006','GENRE','Pop'),      ('DP-0006','MOOD','Cheerful'),  ('DP-0006','TAGS','hopeful'),   ('DP-0006','TAGS','feelgood'),
-    ('DP-0007','GENRE','Piano'),    ('DP-0007','MOOD','Relaxing'),  ('DP-0007','TAGS','cozy'),      ('DP-0007','TAGS','piano'),
-    ('DP-0008','GENRE','Pop'),      ('DP-0008','MOOD','Cheerful'),  ('DP-0008','TAGS','upbeat'),    ('DP-0008','TAGS','feelgood'),
-    ('DP-0009','GENRE','Lo-fi'),    ('DP-0009','MOOD','Relaxing'),  ('DP-0009','TAGS','cozy'),
-    ('DP-0010','GENRE','Orchestral'),('DP-0010','MOOD','Dramatic'), ('DP-0010','TAGS','powerful'),  ('DP-0010','TAGS','hopeful'),
-    ('DP-0011','GENRE','Acoustic'), ('DP-0011','MOOD','Cheerful'),  ('DP-0011','TAGS','guitar'),    ('DP-0011','TAGS','feelgood'),
-    ('DP-0012','GENRE','Acoustic'), ('DP-0012','MOOD','Emotional'), ('DP-0012','TAGS','romantic'),  ('DP-0012','TAGS','love'),
-    ('DP-0013','GENRE','Pop'),      ('DP-0013','MOOD','Cheerful'),  ('DP-0013','TAGS','upbeat'),    ('DP-0013','TAGS','feelgood'),
-    ('DP-0014','GENRE','Lo-fi'),    ('DP-0014','MOOD','Dreamy'),    ('DP-0014','TAGS','cozy'),
-    ('DP-0015','GENRE','EDM'),      ('DP-0015','MOOD','Energetic'), ('DP-0015','TAGS','driving'),   ('DP-0015','TAGS','powerful'),
-    ('DP-0016','GENRE','Orchestral'),('DP-0016','MOOD','Emotional'),('DP-0016','TAGS','ballad'),    ('DP-0016','TAGS','romantic'),
-    ('DP-0017','GENRE','EDM'),      ('DP-0017','MOOD','Dreamy'),    ('DP-0017','TAGS','uplifting'), ('DP-0017','TAGS','driving'),
-    ('DP-0018','GENRE','Acoustic'), ('DP-0018','MOOD','Relaxing'),  ('DP-0018','TAGS','guitar'),    ('DP-0018','TAGS','cozy'),
-    ('DP-0019','GENRE','Orchestral'),('DP-0019','MOOD','Emotional'),('DP-0019','TAGS','ballad'),    ('DP-0019','TAGS','hopeful'),
-    ('DP-0020','GENRE','Orchestral'),('DP-0020','MOOD','Dramatic'), ('DP-0020','TAGS','powerful'),  ('DP-0020','TAGS','uplifting')
-);

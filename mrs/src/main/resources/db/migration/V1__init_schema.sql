@@ -39,14 +39,21 @@ CREATE TABLE song (
     external_source_id    VARCHAR(100) NULL,                   -- unique per provider (DC-04)
     spotify_popularity    TINYINT      NULL,                   -- 0-100 snapshot; NULL = not synced (BR-08)
     popularity_synced_at  DATETIME     NULL,
-    audio_s3_key          VARCHAR(500) NULL,                   -- pre-signed export URLs (BR-13)
+    audio_s3_key          VARCHAR(500) NULL,                   -- licensed audio in our bucket (BR-13)
+    preview_url           VARCHAR(500) NULL,                   -- provider public CDN mp3 from staged JSON
+    cover_url             VARCHAR(500) NULL,
+    bpm                   INT          NULL,
+    is_explicit           BOOLEAN      NULL,
+    isrc                  VARCHAR(20)  NULL,
+    source_etag           VARCHAR(64)  NULL,                   -- S3 object ETag last imported from
     version               INT          NOT NULL DEFAULT 0,     -- optimistic locking (DC-02, BR-06)
     PRIMARY KEY (id),
     UNIQUE KEY uq_song_provider_ext (source_provider, external_source_id),  -- import update-in-place (DC-04)
     KEY ix_song_popularity (spotify_popularity DESC),          -- default sort (FT-03/FT-05)
     CONSTRAINT ck_song_duration   CHECK (duration IS NULL OR duration > 0),
     CONSTRAINT ck_song_popularity CHECK (spotify_popularity IS NULL
-                                         OR spotify_popularity BETWEEN 0 AND 100)
+                                         OR spotify_popularity BETWEEN 0 AND 100),
+    CONSTRAINT ck_song_bpm        CHECK (bpm IS NULL OR bpm > 0)
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -163,4 +170,28 @@ CREATE TABLE audit_log (
     KEY ix_auditlog_entity    (entity_type, entity_id),
     KEY ix_auditlog_timestamp (timestamp),                     -- 12-month purge job
     CONSTRAINT fk_auditlog_actor FOREIGN KEY (actor_id) REFERENCES users (id)
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- 10. catalog_import_run  (history of every S3/local catalog import, BR-10)
+--     Not folded into audit_log: that table requires actor_id NOT NULL
+--     with an FK to users, and a scheduled sync runs with no human actor.
+--     A MANUAL run additionally writes audit_log with the real ADMIN.
+--     trigger_type, not `trigger` — the latter is reserved in MySQL.
+-- ---------------------------------------------------------------------
+CREATE TABLE catalog_import_run (
+    id             BIGINT       NOT NULL AUTO_INCREMENT,
+    trigger_type   VARCHAR(20)  NOT NULL,                  -- STARTUP | SCHEDULED | MANUAL
+    actor_id       BIGINT       NULL,                      -- NULL for unattended runs
+    started_at     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    finished_at    DATETIME     NULL,                      -- NULL while in flight
+    objects_listed INT          NOT NULL DEFAULT 0,
+    added          INT          NOT NULL DEFAULT 0,
+    updated        INT          NOT NULL DEFAULT 0,
+    skipped        INT          NOT NULL DEFAULT 0,
+    error          VARCHAR(500) NULL,                      -- set when the run failed
+    PRIMARY KEY (id),
+    KEY ix_importrun_started_at (started_at DESC),          -- "last run" lookup
+    CONSTRAINT ck_importrun_trigger CHECK (trigger_type IN ('STARTUP','SCHEDULED','MANUAL')),
+    CONSTRAINT fk_importrun_actor FOREIGN KEY (actor_id) REFERENCES users (id)
 ) ENGINE=InnoDB;

@@ -1,2 +1,0 @@
-# Optional deps for epidemic_pages_to_songs.py / epidemic_playlist_to_songs.py (--upload)
-boto3>=1.34
