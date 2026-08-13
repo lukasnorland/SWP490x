@@ -15,7 +15,7 @@ import org.springframework.core.io.ClassPathResource;
 
 /**
  * Maps the JSON the staging scripts actually produce, using real objects copied
- * out of {@code scripts/data} rather than hand-written samples.
+ * out of staged catalog objects rather than hand-written samples.
  */
 class SongJsonMapperTest {
 
@@ -42,7 +42,7 @@ class SongJsonMapperTest {
         assertThat(values.bpm()).isEqualTo(110);
         assertThat(values.explicit()).isFalse();
         assertThat(values.isrc()).isEqualTo("SE5Q51900056");
-        assertThat(values.previewUrl()).endsWith(".mp3");
+        assertThat(values.audioUrl()).endsWith(".mp3");
         assertThat(values.coverUrl()).contains("cdn.epidemicsound.com");
     }
 

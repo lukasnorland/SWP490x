@@ -10,6 +10,7 @@
      player.js     preview bar transport, persistence, ambience
      catalog.js    results-only paging that keeps the player mounted
      shell-nav.js  sidebar soft-navigation
+     import-progress.js  P-06c live import status panel
    ========================================================================== */
 "use strict";
 
@@ -17,12 +18,14 @@ import { enhanceForms } from "./forms.js";
 import { initPreviewPlayer } from "./player.js";
 import { initCatalogPartialPaging } from "./catalog.js";
 import { initShellSoftNav } from "./shell-nav.js";
+import { initImportProgress } from "./import-progress.js";
 
 function start() {
   enhanceForms(document);
   initPreviewPlayer(document);
   initCatalogPartialPaging(document);
   initShellSoftNav();
+  initImportProgress(document);
 }
 
 if (document.readyState === "loading") {

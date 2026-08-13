@@ -55,16 +55,31 @@ public class Song {
     @Column(name = "popularity_synced_at")
     private LocalDateTime popularitySyncedAt;
 
-    /** Licensed audio held in our own bucket, exported pre-signed (BR-13). */
-    @Column(name = "audio_s3_key", length = 500)
-    private String audioS3Key;
-
-    /** The provider's public CDN mp3, as staged by the import. */
-    @Column(name = "preview_url", length = 500)
-    private String previewUrl;
+    /** Public HTTPS mp3: a vendor CDN, or a copy we host ourselves. */
+    @Column(name = "audio_url", length = 500)
+    private String audioUrl;
 
     @Column(name = "cover_url", length = 500)
     private String coverUrl;
+
+    /**
+     * Wash colours sampled from the cover, as CSS rgba() values. Worked out on
+     * the server because reading pixels in the browser needs a canvas, and a
+     * canvas needs CORS headers that several vendor CDNs do not send.
+     */
+    @Column(name = "ambience_a", length = 40)
+    private String ambienceA;
+
+    @Column(name = "ambience_b", length = 40)
+    private String ambienceB;
+
+    /**
+     * The cover the colours above were read from. Lets a changed cover be
+     * recomputed, and a cover that could not be read be left alone rather than
+     * retried by every import.
+     */
+    @Column(name = "ambience_source_url", length = 500)
+    private String ambienceSourceUrl;
 
     private Integer bpm;
 
@@ -163,20 +178,12 @@ public class Song {
         this.popularitySyncedAt = popularitySyncedAt;
     }
 
-    public String getAudioS3Key() {
-        return audioS3Key;
+    public String getAudioUrl() {
+        return audioUrl;
     }
 
-    public void setAudioS3Key(String audioS3Key) {
-        this.audioS3Key = audioS3Key;
-    }
-
-    public String getPreviewUrl() {
-        return previewUrl;
-    }
-
-    public void setPreviewUrl(String previewUrl) {
-        this.previewUrl = previewUrl;
+    public void setAudioUrl(String audioUrl) {
+        this.audioUrl = audioUrl;
     }
 
     public String getCoverUrl() {
@@ -185,6 +192,30 @@ public class Song {
 
     public void setCoverUrl(String coverUrl) {
         this.coverUrl = coverUrl;
+    }
+
+    public String getAmbienceA() {
+        return ambienceA;
+    }
+
+    public void setAmbienceA(String ambienceA) {
+        this.ambienceA = ambienceA;
+    }
+
+    public String getAmbienceB() {
+        return ambienceB;
+    }
+
+    public void setAmbienceB(String ambienceB) {
+        this.ambienceB = ambienceB;
+    }
+
+    public String getAmbienceSourceUrl() {
+        return ambienceSourceUrl;
+    }
+
+    public void setAmbienceSourceUrl(String ambienceSourceUrl) {
+        this.ambienceSourceUrl = ambienceSourceUrl;
     }
 
     public Integer getBpm() {

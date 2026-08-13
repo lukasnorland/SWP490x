@@ -1,0 +1,74 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  CloudFront in front of catalog audio and artwork on the MRS assets bucket.
+  Catalog JSON stays private. Viewers fetch song-data/audio/* and
+  song-data/artwork/* through the CDN. The bucket already has a public-read
+  policy on those prefixes, so this stack does not manage AWS::S3::BucketPolicy.
+
+Parameters:
+  BucketName:
+    Type: String
+    Default: mrs-133857166188-assets
+    AllowedPattern: "^[a-z0-9.-]{3,63}$"
+    Description: Existing assets bucket (not created by this stack).
+
+Resources:
+  AudioOriginAccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Sub "${AWS::StackName}-s3"
+        Description: Sign CloudFront GETs to the MRS assets bucket
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+  AudioDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      Tags:
+        - Key: Project
+          Value: mrs
+        - Key: Purpose
+          Value: catalog-audio
+      DistributionConfig:
+        Enabled: true
+        Comment: MRS catalog audio CDN
+        HttpVersion: http2
+        IPV6Enabled: true
+        PriceClass: PriceClass_200
+        Origins:
+          - Id: MrsAssetsS3
+            DomainName: !Sub "${BucketName}.s3.${AWS::Region}.amazonaws.com"
+            OriginAccessControlId: !GetAtt AudioOriginAccessControl.Id
+            S3OriginConfig:
+              OriginAccessIdentity: ""
+        DefaultCacheBehavior:
+          TargetOriginId: MrsAssetsS3
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods:
+            - GET
+            - HEAD
+            - OPTIONS
+          CachedMethods:
+            - GET
+            - HEAD
+          Compress: false
+          # CachingOptimizedForUncompressedObjects - MP3s should not be gzipped.
+          CachePolicyId: b2884449-e4de-46a7-ac36-70bc7f1ddd6d
+          # SimpleCORS so the player can issue Range requests from any origin.
+          ResponseHeadersPolicyId: 60669652-455b-4ae9-85a4-c4c02393f86c
+
+Outputs:
+  DistributionId:
+    Description: CloudFront distribution ID
+    Value: !Ref AudioDistribution
+  DomainName:
+    Description: HTTPS host for catalog audioUrl values
+    Value: !GetAtt AudioDistribution.DomainName
+  AudioUrlPrefix:
+    Description: Prefix to write into staged JSON audioUrl
+    Value: !Sub "https://${AudioDistribution.DomainName}/song-data/audio/"
+  ArtworkUrlPrefix:
+    Description: Prefix to write into staged JSON coverUrl
+    Value: !Sub "https://${AudioDistribution.DomainName}/song-data/artwork/"

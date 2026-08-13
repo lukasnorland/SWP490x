@@ -14,8 +14,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * Stages song JSON uploaded from P-06c, then runs the normal ETag sync so the
- * songs land in MySQL in the same request.
+ * Stages song JSON uploaded from P-06c, then queues the normal ETag sync so
+ * the songs land in MySQL without holding the HTTP request open for a large
+ * catalog.
  *
  * <p>Validation reuses {@link SongJsonMapper}: a rejected file never reaches
  * the store. The staging key is always {@code <externalSourceId>.json} (with
@@ -104,7 +105,10 @@ public class CatalogUploadService {
 
         ImportSummary sync = null;
         if (uploaded > 0) {
-            sync = importService.sync(ImportTrigger.MANUAL, actorId, false);
+            // The HTTP request returns as soon as the files are staged; P-06c
+            // polls progress rather than waiting out a large catalog.
+            boolean started = importService.startAsync(ImportTrigger.MANUAL, actorId, false);
+            sync = started ? null : ImportSummary.refused();
         }
 
         return new UploadResult(uploaded, List.copyOf(rejected), sync, false);
@@ -122,7 +126,8 @@ public class CatalogUploadService {
     /**
      * @param uploaded files that were written to staging
      * @param rejected files that never left the browser/server (with reasons)
-     * @param sync outcome of the auto-sync, or null when nothing was staged
+     * @param sync outcome of the auto-sync when it was refused, or null when
+     *     the sync was queued in the background (or nothing was staged)
      * @param tooMany true when the whole batch was refused for size
      */
     public record UploadResult(

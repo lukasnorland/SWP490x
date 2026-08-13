@@ -1,0 +1,15 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadCatalogMedia",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": [
+        "arn:aws:s3:::mrs-133857166188-assets/song-data/audio/*",
+        "arn:aws:s3:::mrs-133857166188-assets/song-data/artwork/*"
+      ]
+    }
+  ]
+}

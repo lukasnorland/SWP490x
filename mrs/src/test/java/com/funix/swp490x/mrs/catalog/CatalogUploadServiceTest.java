@@ -41,8 +41,7 @@ class CatalogUploadServiceTest {
     void setUp() {
         store = new LocalDirectoryCatalogObjectStore(staged);
         importService = mock(CatalogImportService.class);
-        given(importService.sync(any(), any(), anyBoolean()))
-                .willReturn(new ImportSummary(1, 1, 1, 0, List.of(), false, null));
+        given(importService.startAsync(any(), any(), anyBoolean())).willReturn(true);
 
         uploadService = new CatalogUploadService(store, new SongJsonMapper(),
                 new CatalogProperties(), importService);
@@ -58,15 +57,14 @@ class CatalogUploadServiceTest {
         assertThat(result.rejected()).isEmpty();
         assertThat(Files.exists(staged.resolve(
                 "003c5571-5014-387b-978c-2836125178a4.json"))).isTrue();
-        then(importService).should().sync(ImportTrigger.MANUAL, 7L, false);
-        assertThat(result.sync()).isNotNull();
-        assertThat(result.sync().added()).isEqualTo(1);
+        then(importService).should().startAsync(ImportTrigger.MANUAL, 7L, false);
+        assertThat(result.sync()).isNull();
     }
 
     @Test
     void rejectsMissingTitleBeforeAnyWrite() {
         MockMultipartFile file = jsonFile("bad.json", """
-                {"externalSourceId":"x1","sourceProvider":"DemoProvider","title":"  "}
+                {"externalSourceId":"x1","sourceProvider":"NCS","title":"  "}
                 """);
 
         CatalogUploadService.UploadResult result = uploadService.upload(List.of(file), 1L);
@@ -77,7 +75,7 @@ class CatalogUploadServiceTest {
             assertThat(row.reason()).isEqualTo("missing title");
         });
         assertThat(staged).isEmptyDirectory();
-        then(importService).should(never()).sync(any(), any(), anyBoolean());
+        then(importService).should(never()).startAsync(any(), any(), anyBoolean());
     }
 
     @Test
@@ -90,7 +88,7 @@ class CatalogUploadServiceTest {
 
         assertThat(result.uploaded()).isZero();
         assertThat(result.rejected().getFirst().reason()).contains("unregistered provider");
-        then(importService).should(never()).sync(any(), any(), anyBoolean());
+        then(importService).should(never()).startAsync(any(), any(), anyBoolean());
     }
 
     @Test
@@ -101,7 +99,7 @@ class CatalogUploadServiceTest {
 
         assertThat(result.uploaded()).isZero();
         assertThat(result.rejected().getFirst().reason()).contains("parsed");
-        then(importService).should(never()).sync(any(), any(), anyBoolean());
+        then(importService).should(never()).startAsync(any(), any(), anyBoolean());
     }
 
     @Test
@@ -112,14 +110,14 @@ class CatalogUploadServiceTest {
         CatalogUploadService.UploadResult result = uploadService.upload(List.of(file), 1L);
 
         assertThat(result.rejected().getFirst().reason()).isEqualTo("not a .json file");
-        then(importService).should(never()).sync(any(), any(), anyBoolean());
+        then(importService).should(never()).startAsync(any(), any(), anyBoolean());
     }
 
     @Test
     void aMixedBatchStagesOnlyTheValidFilesThenSyncsOnce() throws Exception {
         MockMultipartFile good = jsonFile("good.json", fixture(FIXTURE));
         MockMultipartFile bad = jsonFile("bad.json", """
-                {"externalSourceId":"x1","sourceProvider":"DemoProvider"}
+                {"externalSourceId":"x1","sourceProvider":"NCS"}
                 """);
 
         CatalogUploadService.UploadResult result =
@@ -128,7 +126,7 @@ class CatalogUploadServiceTest {
         assertThat(result.uploaded()).isEqualTo(1);
         assertThat(result.rejected()).hasSize(1);
         assertThat(Files.list(staged).count()).isEqualTo(1);
-        then(importService).should().sync(ImportTrigger.MANUAL, 3L, false);
+        then(importService).should().startAsync(ImportTrigger.MANUAL, 3L, false);
     }
 
     @Test
@@ -136,7 +134,7 @@ class CatalogUploadServiceTest {
         CatalogUploadService.UploadResult result = uploadService.upload(List.of(), 1L);
 
         assertThat(result.isEmptySelection()).isTrue();
-        then(importService).should(never()).sync(any(), any(), anyBoolean());
+        then(importService).should(never()).startAsync(any(), any(), anyBoolean());
     }
 
     @Test
@@ -153,19 +151,19 @@ class CatalogUploadServiceTest {
         assertThat(result.tooMany()).isTrue();
         assertThat(result.uploaded()).isZero();
         assertThat(staged).isEmptyDirectory();
-        then(importService).should(never()).sync(any(), any(), anyBoolean());
+        then(importService).should(never()).startAsync(any(), any(), anyBoolean());
     }
 
     @Test
     void passesANullActorThroughToSync() throws Exception {
         uploadService.upload(List.of(jsonFile("a.json", fixture(FIXTURE))), null);
 
-        then(importService).should().sync(eq(ImportTrigger.MANUAL), isNull(), eq(false));
+        then(importService).should().startAsync(eq(ImportTrigger.MANUAL), isNull(), eq(false));
     }
 
     @Test
     void keepsTheStagingWhenSyncIsAlreadyRunning() throws Exception {
-        given(importService.sync(any(), any(), anyBoolean())).willReturn(ImportSummary.refused());
+        given(importService.startAsync(any(), any(), anyBoolean())).willReturn(false);
 
         CatalogUploadService.UploadResult result =
                 uploadService.upload(List.of(jsonFile("a.json", fixture(FIXTURE))), 1L);

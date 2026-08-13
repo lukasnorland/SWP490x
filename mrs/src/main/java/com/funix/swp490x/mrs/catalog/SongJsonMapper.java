@@ -162,7 +162,7 @@ public class SongJsonMapper {
             Integer bpm,
             Boolean explicit,
             String isrc,
-            String previewUrl,
+            String audioUrl,
             String coverUrl,
             Set<TagRef> tags) {
     }

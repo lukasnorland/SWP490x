@@ -9,6 +9,7 @@
 import { enhanceForms } from "./forms.js";
 import { syncPlayingTitleHighlight } from "./player.js";
 import { isCatalogPath, loadCatalogResults } from "./catalog.js";
+import { initImportProgress } from "./import-progress.js";
 
 var bound = false;
 
@@ -155,6 +156,7 @@ export function initShellSoftNav() {
         updateSidebarActive(new URL(payload.url, window.location.origin).pathname);
         closeMobileSidebar();
         enhanceForms(currentMain);
+        initImportProgress(currentMain);
         syncPlayingTitleHighlight(document);
 
         if (pushUrl) {
