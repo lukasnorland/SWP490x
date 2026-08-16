@@ -2,6 +2,7 @@ package com.funix.swp490x.mrs.web.admin;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -44,6 +45,8 @@ import com.funix.swp490x.mrs.service.UserAccountService;
 import com.funix.swp490x.mrs.web.Messages;
 import com.funix.swp490x.mrs.web.Routes;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,6 +55,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -289,6 +293,21 @@ class AdminUserManagementTest {
         mockMvc.perform(get(Routes.ADMIN_USERS).with(user(admin())))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("filterRoles", UserAccountService.ASSIGNABLE_ROLES));
+    }
+
+    @Test
+    void theAccountListRendersViewRecordsWithoutThePasswordHash() throws Exception {
+        User existing = activeDesigner(42L);
+        existing.setCreatedAt(LocalDateTime.of(2026, 8, 1, 12, 0));
+        given(userRepository.search(nullable(Role.class), nullable(UserStatus.class),
+                nullable(String.class), any(Pageable.class)))
+                .willReturn(new PageImpl<>(List.of(existing)));
+
+        mockMvc.perform(get(Routes.ADMIN_USERS).with(user(admin())))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Nina Designer")))
+                .andExpect(content().string(containsString("nina@mrs.local")))
+                .andExpect(content().string(not(containsString("{noop}the-old-one"))));
     }
 
     @Test

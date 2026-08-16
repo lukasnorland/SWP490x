@@ -1,6 +1,5 @@
 package com.funix.swp490x.mrs.mail;
 
-import com.funix.swp490x.mrs.domain.User;
 import com.funix.swp490x.mrs.security.PasswordResetTokenService;
 import com.funix.swp490x.mrs.web.Routes;
 import java.util.Locale;
@@ -45,15 +44,16 @@ public class NotificationService {
      * recipient's mailbox afterwards, which the forced change at first login
      * limits but does not remove (UC-07, Other Information).
      */
-    public void sendAccountCredentials(User user, String initialPassword) {
+    public void sendAccountCredentials(String name, String email, String roleDisplayName,
+            String initialPassword) {
         Context context = new Context(Locale.ENGLISH);
-        context.setVariable("name", user.getUsername());
-        context.setVariable("email", user.getEmail());
+        context.setVariable("name", name);
+        context.setVariable("email", email);
         context.setVariable("password", initialPassword);
-        context.setVariable("role", user.getRole().getDisplayName());
+        context.setVariable("role", roleDisplayName);
         context.setVariable("loginUrl", absolute(Routes.LOGIN));
 
-        transport.send(user.getEmail(), "Your MRS account",
+        transport.send(email, "Your MRS account",
                 templateEngine.process("email/account-credentials", context));
     }
 

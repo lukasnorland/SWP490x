@@ -37,6 +37,27 @@ public class MrsUserDetails implements UserDetails {
         this.accountNonLocked = accountNonLocked;
     }
 
+    private MrsUserDetails(Long id, String email, String displayName, String passwordHash,
+            Role role, boolean active, boolean mustChangePassword, boolean accountNonLocked) {
+        this.id = id;
+        this.email = email;
+        this.displayName = displayName;
+        this.passwordHash = passwordHash;
+        this.role = role;
+        this.active = active;
+        this.mustChangePassword = mustChangePassword;
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    /**
+     * Copy of this principal after UC-34 succeeded, so the interceptor no
+     * longer holds the session on the change-password screen.
+     */
+    public MrsUserDetails withoutForcedPasswordChange() {
+        return new MrsUserDetails(id, email, displayName, passwordHash, role, active, false,
+                accountNonLocked);
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.getAuthority()));

@@ -1,20 +1,10 @@
 package com.funix.swp490x.mrs.web;
 
-import com.funix.swp490x.mrs.domain.User;
-import com.funix.swp490x.mrs.mail.MailDeliveryException;
-import com.funix.swp490x.mrs.mail.NotificationService;
-import com.funix.swp490x.mrs.repository.UserRepository;
-import com.funix.swp490x.mrs.security.PasswordPolicy;
-import com.funix.swp490x.mrs.security.PasswordResetTokenService;
-import com.funix.swp490x.mrs.service.EmailPolicy;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.funix.swp490x.mrs.service.AuthService;
+import com.funix.swp490x.mrs.service.AuthService.AccountRequestResult;
+import com.funix.swp490x.mrs.service.AuthService.AccountRequestStatus;
+import com.funix.swp490x.mrs.service.AuthService.PasswordResetResult;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,25 +15,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * P-00 Login and P-01 Password Reset.
  *
  * <p>Login itself is handled by the Spring Security filter chain; this
- * controller only renders the screen. Which banner it shows is driven by the
+ * controller only renders the screen and forwards mutating work to
+ * {@link AuthService}. Which banner the login screen shows is driven by the
  * query parameter the security handlers redirect with (spec 4.1 screen states).
  */
 @Controller
 public class AuthController {
 
-    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
+    private final AuthService authService;
 
-    private final UserRepository userRepository;
-    private final PasswordResetTokenService tokenService;
-    private final NotificationService notificationService;
-    private final PasswordEncoder passwordEncoder;
-
-    public AuthController(UserRepository userRepository, PasswordResetTokenService tokenService,
-            NotificationService notificationService, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.tokenService = tokenService;
-        this.notificationService = notificationService;
-        this.passwordEncoder = passwordEncoder;
+    public AuthController(AuthService authService) {
+        this.authService = authService;
     }
 
     /** P-00 Login / anonymous landing page. */
@@ -71,25 +53,22 @@ public class AuthController {
      */
     @PostMapping(Routes.REGISTER_REQUEST)
     public String registerRequest(@RequestParam String email, RedirectAttributes redirectAttributes) {
-        String address = email == null ? "" : email.trim();
-        if (!EmailPolicy.isWellFormed(address)) {
+        AccountRequestResult result = authService.requestAccount(email);
+        if (result.status() == AccountRequestStatus.INVALID_EMAIL) {
             redirectAttributes.addFlashAttribute("registerEmailError", Messages.REGISTER_REQUEST_INVALID_EMAIL);
-            redirectAttributes.addFlashAttribute("submittedRegisterEmail", address);
+            redirectAttributes.addFlashAttribute("submittedRegisterEmail", result.email());
             redirectAttributes.addFlashAttribute("reopenRegisterModal", true);
             return "redirect:" + Routes.LOGIN;
         }
-
-        try {
-            notificationService.sendRegistrationRequest(address);
-            redirectAttributes.addFlashAttribute("flashVariant", "success");
-            redirectAttributes.addFlashAttribute("flash", Messages.REGISTER_REQUEST_SENT);
-        } catch (MailDeliveryException e) {
-            log.error("Could not deliver registration request for {}", address, e);
+        if (result.status() == AccountRequestStatus.MAIL_FAILED) {
             redirectAttributes.addFlashAttribute("flashVariant", "warning");
             redirectAttributes.addFlashAttribute("flash", Messages.REGISTER_REQUEST_EMAIL_FAILED);
-            redirectAttributes.addFlashAttribute("submittedRegisterEmail", address);
+            redirectAttributes.addFlashAttribute("submittedRegisterEmail", result.email());
             redirectAttributes.addFlashAttribute("reopenRegisterModal", true);
+            return "redirect:" + Routes.LOGIN;
         }
+        redirectAttributes.addFlashAttribute("flashVariant", "success");
+        redirectAttributes.addFlashAttribute("flash", Messages.REGISTER_REQUEST_SENT);
         return "redirect:" + Routes.LOGIN;
     }
 
@@ -107,27 +86,12 @@ public class AuthController {
      */
     @PostMapping(Routes.PASSWORD_RESET)
     public String resetRequestSubmit(@RequestParam String email, Model model) {
-        userRepository.findByEmail(email.trim()).ifPresent(this::sendResetLink);
+        authService.requestPasswordReset(email);
 
         model.addAttribute("pageTitle", "Reset your password");
         model.addAttribute("sent", true);
-        model.addAttribute("email", email.trim());
+        model.addAttribute("email", email == null ? "" : email.trim());
         return "auth/password-reset-request";
-    }
-
-    /**
-     * A delivery failure is logged and swallowed rather than surfaced: the
-     * screen shows the same confirmation whether or not the address is
-     * registered, so it cannot start reporting mail outcomes without giving
-     * that away.
-     */
-    private void sendResetLink(User user) {
-        String token = tokenService.issue(user.getEmail());
-        try {
-            notificationService.sendPasswordResetLink(user.getEmail(), token);
-        } catch (MailDeliveryException e) {
-            log.error("Could not deliver the reset link for {}", user.getEmail(), e);
-        }
     }
 
     /** P-01 step 2 — set a new password from an emailed link. */
@@ -135,7 +99,7 @@ public class AuthController {
     public String resetSet(@RequestParam(required = false) String token, Model model) {
         model.addAttribute("pageTitle", "Reset your password");
         model.addAttribute("token", token);
-        model.addAttribute("expired", tokenService.emailFor(token).isEmpty());
+        model.addAttribute("expired", !authService.isResetTokenValid(token));
         return "auth/password-reset-set";
     }
 
@@ -144,7 +108,6 @@ public class AuthController {
      * the rest of its 30-minute window (FT-01 NAC-04).
      */
     @PostMapping(Routes.PASSWORD_RESET_SET)
-    @Transactional
     public String resetSetSubmit(@RequestParam(required = false) String token,
             @RequestParam String password,
             @RequestParam String confirmPassword,
@@ -153,28 +116,14 @@ public class AuthController {
         model.addAttribute("pageTitle", "Reset your password");
         model.addAttribute("token", token);
 
-        Optional<String> email = tokenService.emailFor(token);
-        if (email.isEmpty()) {
-            model.addAttribute("expired", true);
-            return "auth/password-reset-set";
+        PasswordResetResult result = authService.completePasswordReset(token, password, confirmPassword);
+        if (result.succeeded()) {
+            return "redirect:" + Routes.LOGIN + "?reset";
         }
-
-        List<String> violations = new ArrayList<>(PasswordPolicy.violations(password));
-        if (!password.equals(confirmPassword)) {
-            violations.add("Both entries must match");
+        model.addAttribute("expired", result.expired());
+        if (!result.violations().isEmpty()) {
+            model.addAttribute("violations", result.violations());
         }
-        if (!violations.isEmpty()) {
-            model.addAttribute("expired", false);
-            model.addAttribute("violations", violations);
-            return "auth/password-reset-set";
-        }
-
-        User user = userRepository.findByEmail(email.get()).orElseThrow();
-        user.setPasswordHash(passwordEncoder.encode(password));
-        user.setMustChangePassword(false);
-        userRepository.save(user);
-        tokenService.invalidate(token);
-
-        return "redirect:" + Routes.LOGIN + "?reset";
+        return "auth/password-reset-set";
     }
 }

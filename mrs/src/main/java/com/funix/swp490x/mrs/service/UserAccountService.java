@@ -20,9 +20,11 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Account administration for P-06a (UC-06, UC-07).
  *
- * <p>Sending the credentials message is deliberately not done here. BR-15 wants
- * the account to survive a failed delivery (UC-07 E3), so the caller sends only
- * once the transaction opened by these methods has committed.
+ * <p>Every public method returns a {@link UserView}, never the {@link User}
+ * entity (TDS Part 2.5). Sending the credentials message is deliberately not
+ * done here. BR-15 wants the account to survive a failed delivery (UC-07 E3),
+ * so the caller sends only once the transaction opened by these methods has
+ * committed.
  */
 @Service
 public class UserAccountService {
@@ -53,12 +55,12 @@ public class UserAccountService {
      * Customers only.
      */
     @Transactional(readOnly = true)
-    public Page<User> search(Role role, UserStatus status, String query, int page) {
+    public Page<UserView> search(Role role, UserStatus status, String query, int page) {
         String q = query == null || query.isBlank() ? null : query.trim();
         int pageIndex = Math.max(page, 0);
         PageRequest pageable = PageRequest.of(pageIndex, PAGE_SIZE,
                 Sort.by(Sort.Direction.DESC, "createdAt"));
-        return userRepository.search(role, status, q, pageable);
+        return userRepository.search(role, status, q, pageable).map(UserView::of);
     }
 
     /**
@@ -71,7 +73,7 @@ public class UserAccountService {
      * @throws InvalidRoleAssignmentException when the role is not assignable
      */
     @Transactional
-    public User create(String name, String email, Role role, String password) {
+    public UserView create(String name, String email, Role role, String password) {
         requireAssignable(role);
 
         String address = email == null ? "" : email.trim();
@@ -94,7 +96,7 @@ public class UserAccountService {
         user.setRole(role);
         user.setStatus(UserStatus.ACTIVE);
         user.setMustChangePassword(true);
-        return userRepository.save(user);
+        return UserView.of(userRepository.save(user));
     }
 
     /**
@@ -104,27 +106,27 @@ public class UserAccountService {
      * @throws SelfModificationException when {@code actorUserId} is the target
      */
     @Transactional
-    public User deactivate(Long userId, Long actorUserId) {
+    public UserView deactivate(Long userId, Long actorUserId) {
         User user = requireUser(userId);
         rejectSelf(user, actorUserId);
         if (user.getStatus() == UserStatus.DEACTIVATED) {
-            return user;
+            return UserView.of(user);
         }
         user.setStatus(UserStatus.DEACTIVATED);
         User saved = userRepository.save(user);
         sessionInvalidationService.invalidateSessionsForEmail(saved.getEmail());
-        return saved;
+        return UserView.of(saved);
     }
 
     /** Restores a deactivated account so it can authenticate again. */
     @Transactional
-    public User reactivate(Long userId) {
+    public UserView reactivate(Long userId) {
         User user = requireUser(userId);
         if (user.getStatus() == UserStatus.ACTIVE) {
-            return user;
+            return UserView.of(user);
         }
         user.setStatus(UserStatus.ACTIVE);
-        return userRepository.save(user);
+        return UserView.of(userRepository.save(user));
     }
 
     /**
@@ -135,7 +137,7 @@ public class UserAccountService {
      * @throws InvalidRoleAssignmentException when the new role is not allowed
      */
     @Transactional
-    public User changeRole(Long userId, Role newRole, Long actorUserId) {
+    public UserView changeRole(Long userId, Role newRole, Long actorUserId) {
         requireAssignable(newRole);
         User user = requireUser(userId);
         rejectSelf(user, actorUserId);
@@ -144,13 +146,13 @@ public class UserAccountService {
                     "ADMIN accounts keep their role; reassign Content Designer or Customer only.");
         }
         if (user.getRole() == newRole) {
-            return user;
+            return UserView.of(user);
         }
         user.setRole(newRole);
         User saved = userRepository.save(user);
         // Authorities live on the session principal — force a fresh login.
         sessionInvalidationService.invalidateSessionsForEmail(saved.getEmail());
-        return saved;
+        return UserView.of(saved);
     }
 
     /**
@@ -170,17 +172,12 @@ public class UserAccountService {
         String password = InitialPasswordGenerator.generate();
         user.setPasswordHash(passwordEncoder.encode(password));
         user.setMustChangePassword(true);
-        return new InitialCredentials(userRepository.save(user), password);
+        return new InitialCredentials(UserView.of(userRepository.save(user)), password);
     }
 
     private User requireUser(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
-    }
-
-    @Transactional(readOnly = true)
-    public User requireExisting(Long userId) {
-        return requireUser(userId);
     }
 
     private static void requireAssignable(Role role) {
@@ -197,6 +194,6 @@ public class UserAccountService {
     }
 
     /** An account together with the plain-text password to send it. */
-    public record InitialCredentials(User user, String password) {
+    public record InitialCredentials(UserView user, String password) {
     }
 }
