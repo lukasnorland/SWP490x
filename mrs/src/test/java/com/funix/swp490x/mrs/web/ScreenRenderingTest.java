@@ -27,6 +27,7 @@ import com.funix.swp490x.mrs.security.LoginSuccessHandler;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.security.MrsUserDetailsService;
 import com.funix.swp490x.mrs.security.PasswordResetTokenService;
+import com.funix.swp490x.mrs.service.AuthService;
 import com.funix.swp490x.mrs.service.UserAccountService;
 import com.funix.swp490x.mrs.web.admin.AdminCatalogController;
 import com.funix.swp490x.mrs.web.admin.AdminController;
@@ -71,6 +72,9 @@ class ScreenRenderingTest {
 
     @MockitoBean
     private UserRepository userRepository;
+
+    @MockitoBean
+    private AuthService authService;
 
     @MockitoBean
     private UserAccountService userAccountService;

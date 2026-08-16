@@ -27,6 +27,7 @@ import com.funix.swp490x.mrs.security.LoginSuccessHandler;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.security.MrsUserDetailsService;
 import com.funix.swp490x.mrs.security.PasswordResetTokenService;
+import com.funix.swp490x.mrs.service.AuthService;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -48,7 +49,7 @@ import org.springframework.test.web.servlet.MockMvc;
         PlaylistController.class, AccountPasswordController.class})
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
         LoginFailureHandler.class, LoginAttemptService.class, MrsUserDetailsService.class,
-        PasswordResetTokenService.class})
+        PasswordResetTokenService.class, AuthService.class})
 class LoginFlowTest {
 
     private static final String PASSWORD = "Admin@2026";

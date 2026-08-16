@@ -1,7 +1,6 @@
 package com.funix.swp490x.mrs.web.admin;
 
 import com.funix.swp490x.mrs.domain.Role;
-import com.funix.swp490x.mrs.domain.User;
 import com.funix.swp490x.mrs.domain.UserStatus;
 import com.funix.swp490x.mrs.mail.MailDeliveryException;
 import com.funix.swp490x.mrs.mail.NotificationService;
@@ -17,6 +16,7 @@ import com.funix.swp490x.mrs.service.InvalidRoleAssignmentException;
 import com.funix.swp490x.mrs.service.SelfModificationException;
 import com.funix.swp490x.mrs.service.UserAccountService;
 import com.funix.swp490x.mrs.service.UserAccountService.InitialCredentials;
+import com.funix.swp490x.mrs.service.UserView;
 import com.funix.swp490x.mrs.service.WeakPasswordException;
 import com.funix.swp490x.mrs.web.Messages;
 import com.funix.swp490x.mrs.web.Routes;
@@ -103,7 +103,7 @@ public class AdminUserController {
             }
         }
 
-        User created;
+        UserView created;
         try {
             created = userAccountService.create(name, email, role, password);
         } catch (InvalidRoleAssignmentException e) {
@@ -120,10 +120,11 @@ public class AdminUserController {
         // E3: the account stands even when the message does not go out, so
         // delivery is attempted only once create() has committed.
         try {
-            notificationService.sendAccountCredentials(created, password);
+            notificationService.sendAccountCredentials(
+                    created.username(), created.email(), created.role().getDisplayName(), password);
             flash(redirectAttributes, "success", Messages.USER_CREATED);
         } catch (MailDeliveryException e) {
-            reportUndelivered(created.getEmail(), e);
+            reportUndelivered(created.email(), e);
             flash(redirectAttributes, "warning", Messages.USER_CREATED_EMAIL_FAILED);
         }
 
@@ -174,10 +175,13 @@ public class AdminUserController {
             InitialCredentials credentials =
                     userAccountService.reissueInitialPassword(id, actor.getId());
             try {
-                notificationService.sendAccountCredentials(credentials.user(), credentials.password());
+                UserView account = credentials.user();
+                notificationService.sendAccountCredentials(
+                        account.username(), account.email(), account.role().getDisplayName(),
+                        credentials.password());
                 flash(redirectAttributes, "success", Messages.CREDENTIALS_RESENT);
             } catch (MailDeliveryException e) {
-                reportUndelivered(credentials.user().getEmail(), e);
+                reportUndelivered(credentials.user().email(), e);
                 flash(redirectAttributes, "warning", Messages.CREDENTIALS_RESEND_FAILED);
             }
         } catch (SelfModificationException e) {
@@ -226,7 +230,7 @@ public class AdminUserController {
 
     private String renderScreen(Model model, Role roleFilter, UserStatus statusFilter,
             String query, int page) {
-        Page<User> users = userAccountService.search(roleFilter, statusFilter, query, page);
+        Page<UserView> users = userAccountService.search(roleFilter, statusFilter, query, page);
         model.addAttribute("pageTitle", "User Management");
         model.addAttribute("activeNav", "admin-users");
         model.addAttribute("users", users);
