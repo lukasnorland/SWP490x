@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.nullable;
@@ -25,8 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.funix.swp490x.mrs.catalog.CatalogImportService;
 import com.funix.swp490x.mrs.catalog.CatalogImportService.ImportProgress;
-import com.funix.swp490x.mrs.catalog.CatalogUploadService;
-import com.funix.swp490x.mrs.catalog.CatalogUploadService.UploadResult;
 import com.funix.swp490x.mrs.catalog.ImportSummary;
 import com.funix.swp490x.mrs.catalog.ImportSummary.SkippedRow;
 import com.funix.swp490x.mrs.catalog.SongDraftUploadService;
@@ -89,9 +86,6 @@ class AdminCatalogImportTest {
 
     @MockitoBean
     private CatalogImportService importService;
-
-    @MockitoBean
-    private CatalogUploadService uploadService;
 
     @MockitoBean
     private SongDraftUploadService draftUploadService;
@@ -262,16 +256,15 @@ class AdminCatalogImportTest {
     }
 
     @Test
-    void importScreenShowsTheUploadForm() throws Exception {
+    void importScreenShowsTheAudioUploadForm() throws Exception {
         mockMvc.perform(get(Routes.ADMIN_IMPORT).with(user(admin())))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Upload song JSON")))
-                .andExpect(content().string(containsString("name=\"files\"")))
-                .andExpect(content().string(containsString("/admin/import/upload")))
-                .andExpect(content().string(containsString("Audio &amp; artwork")))
+                .andExpect(content().string(containsString("Upload audio")))
                 .andExpect(content().string(containsString("/admin/import/media")))
                 .andExpect(content().string(containsString("data-song-upload")))
-                .andExpect(content().string(containsString("NCS")));
+                .andExpect(content().string(containsString("NCS")))
+                .andExpect(content().string(not(containsString("Upload song JSON"))))
+                .andExpect(content().string(not(containsString("/admin/import/upload"))));
     }
 
     @Test
@@ -303,86 +296,6 @@ class AdminCatalogImportTest {
     }
 
     @Test
-    void uploadingJsonAttributesTheRunToTheSignedInAdmin() throws Exception {
-        given(uploadService.upload(anyList(), eq(7L)))
-                .willReturn(new UploadResult(1, List.of(), null, false));
-
-        MockMultipartFile file = new MockMultipartFile("files", "song.json",
-                "application/json", "{\"title\":\"T\"}".getBytes());
-
-        mockMvc.perform(multipart(Routes.ADMIN_IMPORT_UPLOAD).file(file)
-                        .with(csrf()).with(user(admin())))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl(Routes.ADMIN_IMPORT))
-                .andExpect(flash().attribute("flashVariant", "success"))
-                .andExpect(flash().attribute("flash",
-                        "1 file(s) staged. Import started — this page will show progress."));
-
-        then(uploadService).should().upload(anyList(), eq(7L));
-    }
-
-    @Test
-    void anEmptyUploadSelectionIsReported() throws Exception {
-        given(uploadService.upload(any(), any()))
-                .willReturn(UploadResult.emptySelection());
-
-        mockMvc.perform(multipart(Routes.ADMIN_IMPORT_UPLOAD)
-                        .with(csrf()).with(user(admin())))
-                .andExpect(flash().attribute("flash", Messages.UPLOAD_EMPTY));
-    }
-
-    @Test
-    void allRejectedUploadsAreListedInFlash() throws Exception {
-        given(uploadService.upload(anyList(), anyLong()))
-                .willReturn(new UploadResult(0,
-                        List.of(new SkippedRow("bad.json", "missing title")), null, false));
-
-        MockMultipartFile file = new MockMultipartFile("files", "bad.json",
-                "application/json", "{}".getBytes());
-
-        mockMvc.perform(multipart(Routes.ADMIN_IMPORT_UPLOAD).file(file)
-                        .with(csrf()).with(user(admin())))
-                .andExpect(flash().attribute("flash", Messages.UPLOAD_ALL_REJECTED))
-                .andExpect(flash().attributeExists("uploadRejected"));
-    }
-
-    @Test
-    void aStagedUploadWhoseSyncIsAlreadyRunningWarnsTheAdmin() throws Exception {
-        given(uploadService.upload(anyList(), anyLong()))
-                .willReturn(new UploadResult(2, List.of(), ImportSummary.refused(), false));
-
-        MockMultipartFile file = new MockMultipartFile("files", "song.json",
-                "application/json", "{}".getBytes());
-
-        mockMvc.perform(multipart(Routes.ADMIN_IMPORT_UPLOAD).file(file)
-                        .with(csrf()).with(user(admin())))
-                .andExpect(flash().attribute("flash", Messages.UPLOAD_SYNC_SKIPPED));
-    }
-
-    @Test
-    void contentDesignersCannotUploadJson() throws Exception {
-        MockMultipartFile file = new MockMultipartFile("files", "song.json",
-                "application/json", "{}".getBytes());
-
-        mockMvc.perform(multipart(Routes.ADMIN_IMPORT_UPLOAD).file(file)
-                        .with(csrf()).with(user(designer())))
-                .andExpect(status().isForbidden());
-
-        then(uploadService).should(never()).upload(any(), any());
-    }
-
-    @Test
-    void anUploadCannotBeTriggeredWithoutACsrfToken() throws Exception {
-        MockMultipartFile file = new MockMultipartFile("files", "song.json",
-                "application/json", "{}".getBytes());
-
-        mockMvc.perform(multipart(Routes.ADMIN_IMPORT_UPLOAD).file(file).with(user(admin())))
-                .andExpect(status().is3xxRedirection());
-
-        then(uploadService).should(never()).upload(any(), any());
-    }
-
-    @Test
     void uploadingMediaAttributesTheRunToTheSignedInAdmin() throws Exception {
         given(draftUploadService.upload(any(), eq(7L)))
                 .willReturn(new MediaUploadResult(1, List.of(), null, false));
@@ -399,6 +312,21 @@ class AdminCatalogImportTest {
                 .andExpect(flash().attribute("flashVariant", "success"));
 
         then(draftUploadService).should().upload(any(), eq(7L));
+    }
+
+    @Test
+    void aStagedMediaUploadWhoseSyncIsAlreadyRunningWarnsTheAdmin() throws Exception {
+        given(draftUploadService.upload(any(), eq(7L)))
+                .willReturn(new MediaUploadResult(1, List.of(), ImportSummary.refused(), false));
+
+        MockMultipartFile audio = new MockMultipartFile("drafts[0].audio", "track.mp3",
+                "audio/mpeg", new byte[] {1, 2, 3});
+
+        mockMvc.perform(multipart(Routes.ADMIN_IMPORT_MEDIA).file(audio)
+                        .param("drafts[0].title", "Shine")
+                        .param("drafts[0].sourceProvider", "NCS")
+                        .with(csrf()).with(user(admin())))
+                .andExpect(flash().attribute("flash", Messages.UPLOAD_SYNC_SKIPPED));
     }
 
     @Test

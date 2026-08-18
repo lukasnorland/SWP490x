@@ -8,7 +8,8 @@
     <div class="d-flex flex-column gap-1">
       <h1>Catalog Import</h1>
       <p class="small text-secondary">
-        Stage songs as JSON, or drop audio and fill in metadata — valid files are imported into the catalog automatically.
+        Drop audio, fill in metadata, and the server writes song-data JSON then
+        imports it into the catalog.
       </p>
     </div>
     <a class="btn btn-ghost" th:href="@{/admin/catalog}">
@@ -26,163 +27,83 @@
             : (${flashVariant == 'info'} ? 'info' : 'alert-triangle'), ${flash})}"></div>
     </th:block>
 
-    <ul class="nav nav-underline" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="tab-song-json" data-bs-toggle="tab" data-bs-target="#song-json"
-                type="button" role="tab" aria-controls="song-json"
-                th:classappend="${mediaRejected == null} ? ' active'"
-                th:attr="aria-selected=${mediaRejected == null}">Song JSON</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="tab-audio-artwork" data-bs-toggle="tab" data-bs-target="#audio-artwork"
-                type="button" role="tab" aria-controls="audio-artwork"
-                th:classappend="${mediaRejected != null} ? ' active'"
-                th:attr="aria-selected=${mediaRejected != null}">Audio &amp; artwork</button>
-      </li>
-    </ul>
+    <section class="card" data-song-upload
+             th:attr="data-upload-url=@{/admin/import/media}">
+      <div class="card-body d-flex flex-column gap-3">
+        <div class="d-flex flex-column gap-1">
+          <h2 class="h5 mb-0">Upload audio &amp; artwork</h2>
+          <p class="small text-secondary mb-0">
+            Drop one or more audio files. Each file becomes a section to fill
+            in (vendor, title, cover art, tags). On upload the files go to
+            <span class="font-monospace">song-data/audio/&lt;vendor&gt;/</span>
+            and
+            <span class="font-monospace">song-data/artwork/&lt;vendor&gt;/</span>,
+            and a song JSON is generated under the staged prefix for the
+            catalog import into MySQL.
+          </p>
+        </div>
 
-    <div class="tab-content d-flex flex-column gap-4">
+        <div class="dropzone rounded-3 p-4 d-flex flex-column align-items-center justify-content-center gap-2 text-center"
+             data-audio-dropzone tabindex="0" role="button"
+             aria-label="Drop audio files here or click to browse">
+          <svg th:replace="~{fragments/icons :: icon('upload', '')}"></svg>
+          <p class="mb-0">Drop audio files here, or click to browse</p>
+          <p class="small text-secondary mb-0">MP3, WAV, FLAC, M4A or OGG. Up to 10 songs, 50&nbsp;MB each.</p>
+          <input class="d-none" type="file" data-audio-picker
+                 accept="audio/mpeg,audio/wav,audio/flac,audio/mp4,audio/ogg,audio/aac,.mp3,.wav,.flac,.m4a,.ogg,.aac"
+                 multiple>
+        </div>
 
-      <div class="tab-pane fade" id="song-json" role="tabpanel" aria-labelledby="tab-song-json"
-           th:classappend="${mediaRejected == null} ? ' show active'">
+        <form th:action="@{/admin/import/media}" method="post" enctype="multipart/form-data"
+              data-song-upload-form class="d-flex flex-column gap-3">
+          <div data-song-drafts class="d-flex flex-column gap-3"></div>
 
-        <!-- Upload song JSON — stages under {externalSourceId}.json, then auto-syncs. -->
-        <section class="card">
-          <div class="card-body d-flex flex-column gap-3">
-            <div class="d-flex flex-column gap-1">
-              <h2 class="h5 mb-0">Upload song JSON</h2>
-              <p class="small text-secondary mb-0">
-                One object per file. The staged key is taken from
-                <span class="font-monospace">externalSourceId</span> inside the JSON,
-                not from the file name. Invalid files (missing title, unregistered
-                provider, unreadable JSON) are rejected before staging. Every file
-                that lands triggers an import automatically.
-              </p>
-            </div>
-
-            <form th:action="@{/admin/import/upload}" method="post" enctype="multipart/form-data"
-                  data-import-form
-                  class="d-flex flex-column flex-sm-row align-items-sm-end gap-3">
-              <div class="flex-grow-1">
-                <label class="form-label" for="songJsonFiles">JSON files</label>
-                <input class="form-control" type="file" id="songJsonFiles" name="files"
-                       accept=".json,application/json" multiple required>
-                <p class="form-text mb-0">Up to 50 files, 1&nbsp;MB each.</p>
-              </div>
-              <button type="submit" class="btn btn-primary"
-                      th:disabled="${importRunning}">
-                <svg th:replace="~{fragments/icons :: icon('upload', 'icon--sm')}"></svg>
-                <span>Upload and import</span>
-              </button>
-            </form>
-          </div>
-        </section>
-
-        <!-- Files rejected at upload time (never staged). -->
-        <section th:if="${uploadRejected != null and !uploadRejected.isEmpty()}" class="card">
-          <div class="card-body d-flex flex-column gap-3">
-            <h2 class="h5 mb-0">Upload rejected</h2>
-            <div class="table-responsive">
-              <table class="table table-sm align-middle mb-0">
-                <thead>
-                  <tr>
-                    <th scope="col">File</th>
-                    <th scope="col">Why it was rejected</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr th:each="row : ${uploadRejected}">
-                    <td class="font-monospace small" th:text="${row.key}">file.json</td>
-                    <td class="small" th:text="${row.reason}">reason</td>
-                  </tr>
-                </tbody>
-              </table>
+          <div class="d-none" data-upload-progress>
+            <p class="small mb-1" data-upload-progress-label>Uploading…</p>
+            <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 4%"></div>
             </div>
           </div>
-        </section>
+
+          <p class="small text-danger mb-0 d-none" data-upload-error role="alert"></p>
+
+          <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-3">
+            <button type="submit" class="btn btn-primary" data-song-upload-submit
+                    th:disabled="${importRunning}" disabled>
+              <svg th:replace="~{fragments/icons :: icon('upload', 'icon--sm')}"></svg>
+              <span>Upload and import</span>
+            </button>
+            <p class="small text-secondary mb-0">
+              Cover art is optional. Duration is read from the file and can be edited.
+            </p>
+          </div>
+        </form>
       </div>
+    </section>
 
-      <div class="tab-pane fade" id="audio-artwork" role="tabpanel" aria-labelledby="tab-audio-artwork"
-           th:classappend="${mediaRejected != null} ? ' show active'">
-
-        <section class="card" data-song-upload
-                 th:attr="data-upload-url=@{/admin/import/media}">
-          <div class="card-body d-flex flex-column gap-3">
-            <div class="d-flex flex-column gap-1">
-              <h2 class="h5 mb-0">Upload audio &amp; artwork</h2>
-              <p class="small text-secondary mb-0">
-                Drop one or more audio files. Each file becomes a section to fill
-                in (vendor, title, cover art, tags). On upload the files go to
-                <span class="font-monospace">song-data/audio/&lt;vendor&gt;/</span>
-                and
-                <span class="font-monospace">song-data/artwork/&lt;vendor&gt;/</span>,
-                and a song JSON is generated for the catalog import.
-              </p>
-            </div>
-
-            <div class="dropzone rounded-3 p-4 d-flex flex-column align-items-center justify-content-center gap-2 text-center"
-                 data-audio-dropzone tabindex="0" role="button"
-                 aria-label="Drop audio files here or click to browse">
-              <svg th:replace="~{fragments/icons :: icon('upload', '')}"></svg>
-              <p class="mb-0">Drop audio files here, or click to browse</p>
-              <p class="small text-secondary mb-0">MP3, WAV, FLAC, M4A or OGG. Up to 10 songs, 50&nbsp;MB each.</p>
-              <input class="d-none" type="file" data-audio-picker
-                     accept="audio/mpeg,audio/wav,audio/flac,audio/mp4,audio/ogg,audio/aac,.mp3,.wav,.flac,.m4a,.ogg,.aac"
-                     multiple>
-            </div>
-
-            <form th:action="@{/admin/import/media}" method="post" enctype="multipart/form-data"
-                  data-song-upload-form class="d-flex flex-column gap-3">
-              <div data-song-drafts class="d-flex flex-column gap-3"></div>
-
-              <div class="d-none" data-upload-progress>
-                <p class="small mb-1" data-upload-progress-label>Uploading…</p>
-                <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 4%"></div>
-                </div>
-              </div>
-
-              <p class="small text-danger mb-0 d-none" data-upload-error role="alert"></p>
-
-              <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-3">
-                <button type="submit" class="btn btn-primary" data-song-upload-submit
-                        th:disabled="${importRunning}" disabled>
-                  <svg th:replace="~{fragments/icons :: icon('upload', 'icon--sm')}"></svg>
-                  <span>Upload and import</span>
-                </button>
-                <p class="small text-secondary mb-0">
-                  Cover art is optional. Duration is read from the file and can be edited.
-                </p>
-              </div>
-            </form>
-          </div>
-        </section>
-
-        <section th:if="${mediaRejected != null and !mediaRejected.isEmpty()}" class="card">
-          <div class="card-body d-flex flex-column gap-3">
-            <h2 class="h5 mb-0">Upload rejected</h2>
-            <div class="table-responsive">
-              <table class="table table-sm align-middle mb-0">
-                <thead>
-                  <tr>
-                    <th scope="col">Song</th>
-                    <th scope="col">Why it was rejected</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr th:each="row : ${mediaRejected}">
-                    <td class="font-monospace small" th:text="${row.key}">song</td>
-                    <td class="small" th:text="${row.reason}">reason</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
+    <section th:if="${mediaRejected != null and !mediaRejected.isEmpty()}" class="card">
+      <div class="card-body d-flex flex-column gap-3">
+        <h2 class="h5 mb-0">Upload rejected</h2>
+        <div class="table-responsive">
+          <table class="table table-sm align-middle mb-0">
+            <thead>
+              <tr>
+                <th scope="col">Song</th>
+                <th scope="col">Why it was rejected</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="row : ${mediaRejected}">
+                <td class="font-monospace small" th:text="${row.key}">song</td>
+                <td class="small" th:text="${row.reason}">reason</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Sync from whatever is already staged (manual re-run / force). -->
+    <!-- Sync staged song-data JSON (S3 or local-dir) into MySQL. -->
     <section class="card">
       <div class="card-body d-flex flex-column gap-3">
         <div class="d-flex flex-column gap-1">
@@ -192,8 +113,8 @@
             <span class="font-monospace" th:text="${catalogSource}">s3://…</span>.
             Pressing the button lists the prefix and compares each object by
             content hash, so only new or changed songs are read and applied —
-            running this twice does nothing the second time. Use this after a
-            CLI upload, or if an upload's auto-import was skipped.
+            running this twice does nothing the second time. Use this to convert
+            staged song-data JSON (CLI dumps, previous audio uploads) into MySQL.
           </p>
         </div>
 
@@ -287,9 +208,9 @@
     </section>
 
     <p class="small text-secondary mb-0">
-      Provider CSV or XLSX upload (UC-28) is still outstanding. Until then, stage
-      song data as JSON or as audio + artwork — via this form, the CLI, or a
-      direct put under the staged prefix.
+      Song JSON is the staged object on S3, not an upload form. Drop audio here
+      to generate it, or put JSON under the prefix with the CLI and press
+      Run import. Provider CSV or XLSX (UC-28) is still outstanding.
     </p>
   </div>
 

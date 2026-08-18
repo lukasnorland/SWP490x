@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.funix.swp490x.mrs.catalog.CatalogImportService;
-import com.funix.swp490x.mrs.catalog.CatalogUploadService;
 import com.funix.swp490x.mrs.catalog.SongDraftUploadService;
 import com.funix.swp490x.mrs.config.SecurityConfig;
 import com.funix.swp490x.mrs.config.WebConfig;
@@ -93,9 +92,6 @@ class ScreenRenderingTest {
 
     @MockitoBean
     private CatalogImportService catalogImportService;
-
-    @MockitoBean
-    private CatalogUploadService catalogUploadService;
 
     @MockitoBean
     private SongDraftUploadService songDraftUploadService;

@@ -102,13 +102,6 @@ public final class Messages {
             "The import could not be completed. Check that the staged catalog is reachable, "
                     + "then try again — anything already applied is kept.";
 
-    /** Outcomes of the P-06c JSON upload control. */
-    public static final String UPLOAD_EMPTY =
-            "Choose one or more .json song files to upload.";
-
-    public static final String UPLOAD_ALL_REJECTED =
-            "None of the files could be staged. Fix the issues listed below and try again.";
-
     public static final String UPLOAD_SYNC_SKIPPED =
             "The files were staged, but an import is already running. Press Run import when it finishes.";
 

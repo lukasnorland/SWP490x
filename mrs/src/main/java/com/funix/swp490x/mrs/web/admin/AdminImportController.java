@@ -2,8 +2,6 @@ package com.funix.swp490x.mrs.web.admin;
 
 import com.funix.swp490x.mrs.catalog.CatalogImportService;
 import com.funix.swp490x.mrs.catalog.CatalogImportService.ImportProgress;
-import com.funix.swp490x.mrs.catalog.CatalogUploadService;
-import com.funix.swp490x.mrs.catalog.CatalogUploadService.UploadResult;
 import com.funix.swp490x.mrs.catalog.ImportSummary;
 import com.funix.swp490x.mrs.catalog.SongDraftUploadService;
 import com.funix.swp490x.mrs.catalog.SongDraftUploadService.MediaUploadResult;
@@ -24,31 +22,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * P-06c — Catalog Import (spec 4.11, UC-28, flow F-05).
  *
- * <p>ADMIN can stage song JSON through the upload form (validated, then written
- * to the object store), drop audio + artwork + metadata (the server writes the
- * JSON), or press Run import against whatever is already under the prefix.
- * Both POSTs start the sync in the background so a large catalog does not
- * freeze the page; {@code GET /admin/import/status} is the progress poll. The
- * provider CSV/XLSX upload of the original flow is still outstanding.
+ * <p>ADMIN drops audio + artwork + metadata; the server writes song-data JSON
+ * and queues the ETag sync into MySQL. Run import converts JSON already under
+ * the prefix (CLI dumps, previous uploads). The provider CSV/XLSX upload of
+ * the original flow is still outstanding.
  */
 @Controller
 public class AdminImportController {
 
     private final CatalogImportService importService;
-    private final CatalogUploadService uploadService;
     private final SongDraftUploadService draftUploadService;
 
     public AdminImportController(CatalogImportService importService,
-            CatalogUploadService uploadService,
             SongDraftUploadService draftUploadService) {
         this.importService = importService;
-        this.uploadService = uploadService;
         this.draftUploadService = draftUploadService;
     }
 
@@ -69,42 +61,6 @@ public class AdminImportController {
         return importService.progress();
     }
 
-    @PostMapping(Routes.ADMIN_IMPORT_UPLOAD)
-    public String upload(@RequestParam(value = "files", required = false) List<MultipartFile> files,
-            @AuthenticationPrincipal MrsUserDetails actor,
-            RedirectAttributes redirectAttributes) {
-
-        UploadResult result = uploadService.upload(files,
-                actor == null ? null : actor.getId());
-
-        if (result.isEmptySelection()) {
-            flash(redirectAttributes, "warning", Messages.UPLOAD_EMPTY);
-            return "redirect:" + Routes.ADMIN_IMPORT;
-        }
-
-        if (result.uploaded() == 0) {
-            flash(redirectAttributes, "danger", Messages.UPLOAD_ALL_REJECTED);
-            redirectAttributes.addFlashAttribute("uploadRejected", result.rejected());
-            return "redirect:" + Routes.ADMIN_IMPORT;
-        }
-
-        // Staging succeeded; the background sync may still be refused.
-        if (!result.rejected().isEmpty()) {
-            redirectAttributes.addFlashAttribute("uploadRejected", result.rejected());
-        }
-
-        ImportSummary sync = result.sync();
-        if (sync != null && sync.alreadyRunning()) {
-            flash(redirectAttributes, "warning", Messages.UPLOAD_SYNC_SKIPPED);
-        } else {
-            flash(redirectAttributes, result.rejected().isEmpty() ? "success" : "warning",
-                    "%d file(s) staged. Import started — this page will show progress."
-                            .formatted(result.uploaded()));
-        }
-
-        return "redirect:" + Routes.ADMIN_IMPORT;
-    }
-
     @PostMapping(Routes.ADMIN_IMPORT_MEDIA)
     public Object uploadMedia(@ModelAttribute SongDraftBatchForm form,
             @AuthenticationPrincipal MrsUserDetails actor,
@@ -122,7 +78,7 @@ public class AdminImportController {
                         "rejected", List.of()));
             }
             flash(redirectAttributes, "warning", Messages.MEDIA_UPLOAD_EMPTY);
-            return "redirect:" + Routes.ADMIN_IMPORT + "#audio-artwork";
+            return "redirect:" + Routes.ADMIN_IMPORT;
         }
 
         if (result.uploaded() == 0) {
@@ -133,7 +89,7 @@ public class AdminImportController {
             }
             flash(redirectAttributes, "danger", Messages.MEDIA_UPLOAD_ALL_REJECTED);
             redirectAttributes.addFlashAttribute("mediaRejected", result.rejected());
-            return "redirect:" + Routes.ADMIN_IMPORT + "#audio-artwork";
+            return "redirect:" + Routes.ADMIN_IMPORT;
         }
 
         if (!result.rejected().isEmpty()) {
