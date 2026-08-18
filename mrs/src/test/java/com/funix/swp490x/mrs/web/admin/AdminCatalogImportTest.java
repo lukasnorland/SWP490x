@@ -263,6 +263,7 @@ class AdminCatalogImportTest {
                 .andExpect(content().string(containsString("/admin/import/media")))
                 .andExpect(content().string(containsString("data-song-upload")))
                 .andExpect(content().string(containsString("NCS")))
+                .andExpect(content().string(containsString("id=\"i-upload\"")))
                 .andExpect(content().string(not(containsString("Upload song JSON"))))
                 .andExpect(content().string(not(containsString("/admin/import/upload"))));
     }
