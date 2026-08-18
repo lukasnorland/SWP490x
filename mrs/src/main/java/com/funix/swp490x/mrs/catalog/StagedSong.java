@@ -1,6 +1,7 @@
 package com.funix.swp490x.mrs.catalog;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 /**
@@ -9,6 +10,10 @@ import java.util.List;
  * <p>Unknown fields are ignored on purpose: the provider dumps carry more than
  * the catalog keeps (stems, slugs, per-format URLs), and a new field appearing
  * upstream must not fail an import.
+ *
+ * <p>{@code isExplicit} is named explicitly so serialising this record produces
+ * the same key the 5,000+ existing objects use, rather than Jackson's bean
+ * default of {@code explicit}.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record StagedSong(
@@ -18,7 +23,7 @@ public record StagedSong(
         String artist,
         Integer duration,
         Integer bpm,
-        Boolean isExplicit,
+        @JsonProperty("isExplicit") Boolean isExplicit,
         String isrc,
         String audioUrl,
         String coverUrl,

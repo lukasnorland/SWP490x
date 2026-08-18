@@ -416,6 +416,11 @@ class CatalogImportServiceTest {
         }
 
         @Override
+        public void putBinary(String key, String contentType, java.io.InputStream body, long length) {
+            delegate.putBinary(key, contentType, body, length);
+        }
+
+        @Override
         public String stagingKey(String externalSourceId) {
             return delegate.stagingKey(externalSourceId);
         }

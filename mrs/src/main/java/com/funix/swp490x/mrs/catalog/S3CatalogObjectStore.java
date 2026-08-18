@@ -1,5 +1,6 @@
 package com.funix.swp490x.mrs.catalog;
 
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +70,20 @@ public class S3CatalogObjectStore implements CatalogObjectStore {
                     .contentType("application/json")
                     .build();
             s3.putObject(request, RequestBody.fromString(json, StandardCharsets.UTF_8));
+        } catch (SdkException e) {
+            throw new CatalogStoreException("Could not write s3://" + bucket + "/" + key, e);
+        }
+    }
+
+    @Override
+    public void putBinary(String key, String contentType, InputStream body, long length) {
+        try {
+            PutObjectRequest request = PutObjectRequest.builder()
+                    .bucket(bucket)
+                    .key(key)
+                    .contentType(contentType)
+                    .build();
+            s3.putObject(request, RequestBody.fromInputStream(body, length));
         } catch (SdkException e) {
             throw new CatalogStoreException("Could not write s3://" + bucket + "/" + key, e);
         }

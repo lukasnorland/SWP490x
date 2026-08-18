@@ -11,6 +11,7 @@
      catalog.js    results-only paging that keeps the player mounted
      shell-nav.js  sidebar soft-navigation
      import-progress.js  P-06c live import status panel
+     song-upload.js      P-06c audio + artwork dropzone
    ========================================================================== */
 "use strict";
 
@@ -19,6 +20,7 @@ import { initPreviewPlayer } from "./player.js";
 import { initCatalogPartialPaging } from "./catalog.js";
 import { initShellSoftNav } from "./shell-nav.js";
 import { initImportProgress } from "./import-progress.js";
+import { initSongUpload } from "./song-upload.js";
 
 function start() {
   enhanceForms(document);
@@ -26,6 +28,7 @@ function start() {
   initCatalogPartialPaging(document);
   initShellSoftNav();
   initImportProgress(document);
+  initSongUpload(document);
 }
 
 if (document.readyState === "loading") {

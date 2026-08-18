@@ -222,6 +222,27 @@
   color: var(--color-primary-bright);
 }
 
+/* --- P-06c audio dropzone ----------------------------------------------
+   Dashed outline like a zone placeholder, but this one is finished UI. */
+
+.dropzone {
+  border: 1px dashed var(--color-border-strong);
+  background-color: rgba(30, 41, 59, 0.4);
+  cursor: pointer;
+  min-height: 8rem;
+}
+
+.dropzone.is-dragover {
+  border-color: var(--color-primary-bright);
+  background-color: rgba(56, 189, 248, 0.08);
+}
+
+.cover-preview {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
