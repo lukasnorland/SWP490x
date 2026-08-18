@@ -9,6 +9,8 @@
 var AUDIO_EXTENSIONS = /\.(mp3|wav|flac|m4a|mp4|ogg|aac)$/i;
 var COVER_EXTENSIONS = /\.(jpe?g|png|webp)$/i;
 var MAX_DRAFTS = 10;
+var MAX_AUDIO_BYTES = 100 * 1024 * 1024;
+var MAX_COVER_BYTES = 5 * 1024 * 1024;
 
 export function initSongUpload(root) {
   var scope = root || document;
@@ -51,6 +53,20 @@ export function initSongUpload(root) {
     if (!files.length) {
       return;
     }
+    var oversized = [];
+    files = files.filter(function (file) {
+      if (file.size > MAX_AUDIO_BYTES) {
+        oversized.push(file.name);
+        return false;
+      }
+      return true;
+    });
+    if (oversized.length) {
+      showError(oversized.join(", ") + " is larger than 100 MB.");
+      if (!files.length) {
+        return;
+      }
+    }
     var remaining = MAX_DRAFTS - list.querySelectorAll("[data-song-draft]").length;
     if (remaining <= 0) {
       showError("At most " + MAX_DRAFTS + " songs per upload.");
@@ -59,7 +75,7 @@ export function initSongUpload(root) {
     files.slice(0, remaining).forEach(addDraft);
     if (files.length > remaining) {
       showError("Only the first " + remaining + " file(s) were added (max " + MAX_DRAFTS + ").");
-    } else {
+    } else if (!oversized.length) {
       clearError();
     }
     reindex();
@@ -99,6 +115,10 @@ export function initSongUpload(root) {
     bindDropzone(coverZone, coverInput, function (files) {
       var cover = Array.prototype.slice.call(files || []).find(isCoverFile);
       if (!cover) {
+        return;
+      }
+      if (cover.size > MAX_COVER_BYTES) {
+        showError(cover.name + " is larger than 5 MB.");
         return;
       }
       assignFile(coverInput, cover);
@@ -143,6 +163,14 @@ export function initSongUpload(root) {
     xhr.open("POST", panel.getAttribute("data-upload-url") || form.getAttribute("action"));
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
     xhr.setRequestHeader("Accept", "application/json");
+    // CSRF must be a header. CsrfFilter runs before the multipart body is
+    // parsed, so a token that only lives in FormData is invisible. Tomcat
+    // then cannot drain a song larger than 2 MB and Chrome shows
+    // net::ERR_CONNECTION_RESET instead of 403.
+    var csrf = form.querySelector("input[name='_csrf']");
+    if (csrf && csrf.value) {
+      xhr.setRequestHeader("X-CSRF-TOKEN", csrf.value);
+    }
 
     xhr.upload.addEventListener("progress", function (event) {
       if (!event.lengthComputable) {
@@ -160,7 +188,9 @@ export function initSongUpload(root) {
         window.location.assign(redirect);
         return;
       }
-      var message = (payload && payload.message) || "The songs could not be uploaded.";
+      var message = (payload && payload.message) || (xhr.status === 413
+          ? "A file is larger than 100 MB. Compress it or split the batch and try again."
+          : "The songs could not be uploaded.");
       if (payload && payload.rejected && payload.rejected.length) {
         message += " " + payload.rejected.map(function (row) {
           return (row.key || "song") + ": " + (row.reason || "");

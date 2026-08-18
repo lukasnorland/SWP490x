@@ -35,7 +35,7 @@ public class SongDraftUploadService {
 
     /**
      * Soft cap so one request stays inside
-     * {@code spring.servlet.multipart.max-request-size} (10 × 50 MB audio +
+     * {@code spring.servlet.multipart.max-request-size} (10 × 100 MB audio +
      * 10 × 5 MB covers).
      */
     static final int MAX_DRAFTS = 10;

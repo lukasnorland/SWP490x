@@ -229,8 +229,8 @@ public class CatalogProperties {
                 "NCS", "ncs",
                 "OneOff", "one-off"));
 
-        /** 50 MB — typical WAV ceiling for a campaign cut. */
-        private long maxAudioBytes = 50L * 1024 * 1024;
+        /** 100 MB — a full-length 16-bit WAV; 24-bit masters should be MP3. */
+        private long maxAudioBytes = 100L * 1024 * 1024;
 
         /** 5 MB — covers are JPEGs, not print masters. */
         private long maxCoverBytes = 5L * 1024 * 1024;
