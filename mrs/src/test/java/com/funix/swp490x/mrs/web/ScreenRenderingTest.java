@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.funix.swp490x.mrs.catalog.CatalogImportService;
 import com.funix.swp490x.mrs.catalog.CatalogImportService.PendingChanges;
 import com.funix.swp490x.mrs.catalog.CatalogUploadService;
+import com.funix.swp490x.mrs.catalog.SongDraftUploadService;
 import com.funix.swp490x.mrs.config.SecurityConfig;
 import com.funix.swp490x.mrs.config.WebConfig;
 import com.funix.swp490x.mrs.domain.Role;
@@ -97,6 +98,9 @@ class ScreenRenderingTest {
     @MockitoBean
     private CatalogUploadService catalogUploadService;
 
+    @MockitoBean
+    private SongDraftUploadService songDraftUploadService;
+
     @BeforeEach
     void listsAreEmptyByDefault() {
         given(userAccountService.search(nullable(Role.class), nullable(UserStatus.class),
@@ -108,6 +112,8 @@ class ScreenRenderingTest {
         given(catalogImportService.lastRun()).willReturn(Optional.empty());
         given(catalogImportService.pendingChanges())
                 .willReturn(new PendingChanges(0, 0, 0, "s3://bucket/song-data/"));
+        given(songDraftUploadService.registeredProviders())
+                .willReturn(List.of("EpidemicSound", "NCS", "OneOff"));
     }
 
     private static MrsUserDetails principal(Role role) {

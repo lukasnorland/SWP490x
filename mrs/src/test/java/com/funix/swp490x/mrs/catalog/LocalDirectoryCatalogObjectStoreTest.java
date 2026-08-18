@@ -52,4 +52,16 @@ class LocalDirectoryCatalogObjectStoreTest {
 
         assertThat(store.readJson("song-a.json")).contains("\"v\":2");
     }
+
+    @Test
+    void putBinaryWritesNestedMediaWithoutListingItAsASong() throws Exception {
+        store.putBinary("song-data/audio/ncs/id-1.mp3", "audio/mpeg",
+                new java.io.ByteArrayInputStream(new byte[] {1, 2, 3}), 3);
+
+        assertThat(Files.readAllBytes(root.resolve("song-data/audio/ncs/id-1.mp3")))
+                .containsExactly(1, 2, 3);
+        assertThat(store.list()).isEmpty();
+        assertThat(store.mediaKey(MediaKind.AUDIO, "ncs", "id-1", "mp3"))
+                .isEqualTo("song-data/audio/ncs/id-1.mp3");
+    }
 }

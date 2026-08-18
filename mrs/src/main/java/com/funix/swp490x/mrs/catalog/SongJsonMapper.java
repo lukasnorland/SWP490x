@@ -86,6 +86,14 @@ public class SongJsonMapper {
     }
 
     /**
+     * Writes one song in the staged shape, pretty-printed so a human can read
+     * the object the same way the vendor dumps are read.
+     */
+    public String write(StagedSong staged) {
+        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(staged);
+    }
+
+    /**
      * Genres, moods and freeform descriptors become tags of their own type; the
      * artist is additionally tagged so search can group by it while the
      * free-text name stays on the song.

@@ -1,10 +1,12 @@
 package com.funix.swp490x.mrs.catalog;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Comparator;
@@ -59,8 +61,19 @@ public class LocalDirectoryCatalogObjectStore implements CatalogObjectStore {
     public void putJson(String key, String json) {
         try {
             Path target = resolve(key);
-            Files.createDirectories(target.getParent() == null ? root : target.getParent());
+            Files.createDirectories(parentOf(target));
             Files.writeString(target, json, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new CatalogStoreException("Could not write " + key + " under " + describe(), e);
+        }
+    }
+
+    @Override
+    public void putBinary(String key, String contentType, InputStream body, long length) {
+        try {
+            Path target = resolve(key);
+            Files.createDirectories(parentOf(target));
+            Files.copy(body, target, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             throw new CatalogStoreException("Could not write " + key + " under " + describe(), e);
         }
@@ -77,8 +90,9 @@ public class LocalDirectoryCatalogObjectStore implements CatalogObjectStore {
     }
 
     /**
-     * Keys are plain file names here, so anything that would escape the root
-     * (a separator or {@code ..}) is a bug or an attempt at traversal.
+     * Keys that contain a separator (media under {@code song-data/audio/…})
+     * stay inside the root; anything that would escape it
+     * ({@code ..}) is a bug or an attempt at traversal.
      */
     private Path resolve(String key) {
         Path resolved = root.resolve(key).normalize();
@@ -86,6 +100,11 @@ public class LocalDirectoryCatalogObjectStore implements CatalogObjectStore {
             throw new CatalogStoreException("Key escapes the catalog directory: " + key);
         }
         return resolved;
+    }
+
+    private Path parentOf(Path target) {
+        Path parent = target.getParent();
+        return parent == null ? root : parent;
     }
 
     private static String md5(Path file) {

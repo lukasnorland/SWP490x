@@ -1,7 +1,9 @@
 package com.funix.swp490x.mrs.catalog;
 
 import java.time.Duration;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -48,6 +50,8 @@ public class CatalogProperties {
     private final Sync sync = new Sync();
 
     private final CoverArt coverArt = new CoverArt();
+
+    private final Media media = new Media();
 
     /**
      * Reading cover art to work out the shell's wash colours. Each import fills
@@ -192,5 +196,139 @@ public class CatalogProperties {
 
     public CoverArt getCoverArt() {
         return coverArt;
+    }
+
+    public Media getMedia() {
+        return media;
+    }
+
+    /**
+     * Company-hosted audio and cover art uploaded from P-06c. JSON staging
+     * still lives on {@link #prefix}; this block is only the binaries and the
+     * public URL the staged JSON points at.
+     */
+    public static class Media {
+
+        /**
+         * Origin the player and the shell load media from. CloudFront in
+         * production; a local store still writes the same URL shape so the
+         * JSON is identical to what an S3 upload produces.
+         */
+        private String publicBaseUrl = "https://d34ixswlpjs53y.cloudfront.net";
+
+        private String audioPrefix = "song-data/audio/";
+
+        private String artworkPrefix = "song-data/artwork/";
+
+        /**
+         * Folder name under the audio/artwork prefixes for each registered
+         * provider. Keys match {@code mrs.catalog.providers}.
+         */
+        private Map<String, String> vendorSlugs = new LinkedHashMap<>(Map.of(
+                "EpidemicSound", "epidemic",
+                "NCS", "ncs",
+                "OneOff", "one-off"));
+
+        /** 50 MB — typical WAV ceiling for a campaign cut. */
+        private long maxAudioBytes = 50L * 1024 * 1024;
+
+        /** 5 MB — covers are JPEGs, not print masters. */
+        private long maxCoverBytes = 5L * 1024 * 1024;
+
+        private List<String> audioTypes = List.of(
+                "audio/mpeg", "audio/wav", "audio/flac", "audio/mp4", "audio/ogg");
+
+        private List<String> coverTypes = List.of(
+                "image/jpeg", "image/png", "image/webp");
+
+        public String getPublicBaseUrl() {
+            return publicBaseUrl;
+        }
+
+        public void setPublicBaseUrl(String publicBaseUrl) {
+            this.publicBaseUrl = publicBaseUrl;
+        }
+
+        public String getAudioPrefix() {
+            return audioPrefix;
+        }
+
+        public void setAudioPrefix(String audioPrefix) {
+            this.audioPrefix = audioPrefix;
+        }
+
+        public String getArtworkPrefix() {
+            return artworkPrefix;
+        }
+
+        public void setArtworkPrefix(String artworkPrefix) {
+            this.artworkPrefix = artworkPrefix;
+        }
+
+        public Map<String, String> getVendorSlugs() {
+            return vendorSlugs;
+        }
+
+        public void setVendorSlugs(Map<String, String> vendorSlugs) {
+            this.vendorSlugs = vendorSlugs;
+        }
+
+        public long getMaxAudioBytes() {
+            return maxAudioBytes;
+        }
+
+        public void setMaxAudioBytes(long maxAudioBytes) {
+            this.maxAudioBytes = maxAudioBytes;
+        }
+
+        public long getMaxCoverBytes() {
+            return maxCoverBytes;
+        }
+
+        public void setMaxCoverBytes(long maxCoverBytes) {
+            this.maxCoverBytes = maxCoverBytes;
+        }
+
+        public List<String> getAudioTypes() {
+            return audioTypes;
+        }
+
+        public void setAudioTypes(List<String> audioTypes) {
+            this.audioTypes = audioTypes;
+        }
+
+        public List<String> getCoverTypes() {
+            return coverTypes;
+        }
+
+        public void setCoverTypes(List<String> coverTypes) {
+            this.coverTypes = coverTypes;
+        }
+
+        /**
+         * Folder slug for a registered provider, or {@code null} when the
+         * provider has no mapping (treated as a validation error).
+         */
+        public String slugFor(String sourceProvider) {
+            if (sourceProvider == null || vendorSlugs == null) {
+                return null;
+            }
+            String mapped = vendorSlugs.get(sourceProvider);
+            if (mapped != null) {
+                return mapped;
+            }
+            return vendorSlugs.entrySet().stream()
+                    .filter(e -> e.getKey().equalsIgnoreCase(sourceProvider))
+                    .map(Map.Entry::getValue)
+                    .findFirst()
+                    .orElse(null);
+        }
+
+        /** HTTPS URL the staged JSON stores for a key under this bucket. */
+        public String publicUrl(String key) {
+            String base = publicBaseUrl == null ? "" : publicBaseUrl.replaceAll("/+$", "");
+            String path = key.startsWith("/") ? key : "/" + key;
+            return base + path;
+        }
     }
 }

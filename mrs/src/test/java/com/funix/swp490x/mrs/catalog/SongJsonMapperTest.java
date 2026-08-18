@@ -166,4 +166,23 @@ class SongJsonMapperTest {
                 """;
         assertThat(mapper.map(json, REGISTERED).isRejected()).isFalse();
     }
+
+    @Test
+    void serialisesIsExplicitUnderTheCatalogKeyAndReadsItBack() {
+        StagedSong staged = new StagedSong(
+                "id-1", "EpidemicSound", "T", "A", 90, 120, true, "ISRC1",
+                "https://cdn.example/a.mp3", "https://cdn.example/c.jpg",
+                List.of("Pop"), List.of("Happy"), List.of("hook"));
+
+        String json = mapper.write(staged);
+
+        assertThat(json).contains("\"isExplicit\"");
+        assertThat(json).doesNotContain("\"explicit\"");
+
+        SongJsonMapper.Result result = mapper.map(json, REGISTERED);
+        assertThat(result.isRejected()).isFalse();
+        assertThat(result.values().explicit()).isTrue();
+        assertThat(result.values().title()).isEqualTo("T");
+        assertThat(result.values().audioUrl()).endsWith("a.mp3");
+    }
 }

@@ -112,6 +112,12 @@ public final class Messages {
     public static final String UPLOAD_SYNC_SKIPPED =
             "The files were staged, but an import is already running. Press Run import when it finishes.";
 
+    public static final String MEDIA_UPLOAD_EMPTY =
+            "Drop one or more audio files, fill in each song, then upload.";
+
+    public static final String MEDIA_UPLOAD_ALL_REJECTED =
+            "None of the songs could be staged. Fix the issues listed below and try again.";
+
     private Messages() {
     }
 }

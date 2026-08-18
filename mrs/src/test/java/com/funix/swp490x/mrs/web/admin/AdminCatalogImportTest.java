@@ -31,6 +31,8 @@ import com.funix.swp490x.mrs.catalog.CatalogUploadService;
 import com.funix.swp490x.mrs.catalog.CatalogUploadService.UploadResult;
 import com.funix.swp490x.mrs.catalog.ImportSummary;
 import com.funix.swp490x.mrs.catalog.ImportSummary.SkippedRow;
+import com.funix.swp490x.mrs.catalog.SongDraftUploadService;
+import com.funix.swp490x.mrs.catalog.SongDraftUploadService.MediaUploadResult;
 import com.funix.swp490x.mrs.config.SecurityConfig;
 import com.funix.swp490x.mrs.config.WebConfig;
 import com.funix.swp490x.mrs.domain.CatalogImportRun;
@@ -93,6 +95,9 @@ class AdminCatalogImportTest {
     @MockitoBean
     private CatalogUploadService uploadService;
 
+    @MockitoBean
+    private SongDraftUploadService draftUploadService;
+
     @BeforeEach
     void defaults() {
         given(songCatalogService.search(nullable(String.class), nullable(Long.class),
@@ -103,6 +108,8 @@ class AdminCatalogImportTest {
         given(importService.lastRun()).willReturn(Optional.empty());
         given(importService.pendingChanges())
                 .willReturn(new PendingChanges(0, 0, 0, "s3://bucket/song-data/"));
+        given(draftUploadService.registeredProviders())
+                .willReturn(List.of("EpidemicSound", "NCS", "OneOff"));
     }
 
     private static MrsUserDetails admin() {
@@ -273,7 +280,11 @@ class AdminCatalogImportTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Upload song JSON")))
                 .andExpect(content().string(containsString("name=\"files\"")))
-                .andExpect(content().string(containsString("/admin/import/upload")));
+                .andExpect(content().string(containsString("/admin/import/upload")))
+                .andExpect(content().string(containsString("Audio &amp; artwork")))
+                .andExpect(content().string(containsString("/admin/import/media")))
+                .andExpect(content().string(containsString("data-song-upload")))
+                .andExpect(content().string(containsString("NCS")));
     }
 
     @Test
@@ -382,6 +393,66 @@ class AdminCatalogImportTest {
                 .andExpect(status().is3xxRedirection());
 
         then(uploadService).should(never()).upload(any(), any());
+    }
+
+    @Test
+    void uploadingMediaAttributesTheRunToTheSignedInAdmin() throws Exception {
+        given(draftUploadService.upload(any(), eq(7L)))
+                .willReturn(new MediaUploadResult(1, List.of(), null, false));
+
+        MockMultipartFile audio = new MockMultipartFile("drafts[0].audio", "track.mp3",
+                "audio/mpeg", new byte[] {1, 2, 3});
+
+        mockMvc.perform(multipart(Routes.ADMIN_IMPORT_MEDIA).file(audio)
+                        .param("drafts[0].title", "Shine")
+                        .param("drafts[0].sourceProvider", "NCS")
+                        .with(csrf()).with(user(admin())))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(Routes.ADMIN_IMPORT))
+                .andExpect(flash().attribute("flashVariant", "success"));
+
+        then(draftUploadService).should().upload(any(), eq(7L));
+    }
+
+    @Test
+    void anAjaxMediaUploadReturnsJsonSoTheFormCanShowErrors() throws Exception {
+        given(draftUploadService.upload(any(), any()))
+                .willReturn(new MediaUploadResult(0,
+                        List.of(new SkippedRow("Shine", "missing title")), null, false));
+
+        MockMultipartFile audio = new MockMultipartFile("drafts[0].audio", "track.mp3",
+                "audio/mpeg", new byte[] {1, 2, 3});
+
+        mockMvc.perform(multipart(Routes.ADMIN_IMPORT_MEDIA).file(audio)
+                        .param("drafts[0].title", "Shine")
+                        .header("X-Requested-With", "XMLHttpRequest")
+                        .with(csrf()).with(user(admin())))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.message").value(Messages.MEDIA_UPLOAD_ALL_REJECTED))
+                .andExpect(jsonPath("$.rejected[0].reason").value("missing title"));
+    }
+
+    @Test
+    void contentDesignersCannotUploadMedia() throws Exception {
+        MockMultipartFile audio = new MockMultipartFile("drafts[0].audio", "track.mp3",
+                "audio/mpeg", new byte[] {1});
+
+        mockMvc.perform(multipart(Routes.ADMIN_IMPORT_MEDIA).file(audio)
+                        .with(csrf()).with(user(designer())))
+                .andExpect(status().isForbidden());
+
+        then(draftUploadService).should(never()).upload(any(), any());
+    }
+
+    @Test
+    void aMediaUploadCannotBeTriggeredWithoutACsrfToken() throws Exception {
+        MockMultipartFile audio = new MockMultipartFile("drafts[0].audio", "track.mp3",
+                "audio/mpeg", new byte[] {1});
+
+        mockMvc.perform(multipart(Routes.ADMIN_IMPORT_MEDIA).file(audio).with(user(admin())))
+                .andExpect(status().is3xxRedirection());
+
+        then(draftUploadService).should(never()).upload(any(), any());
     }
 
     @Test
