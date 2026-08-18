@@ -2,8 +2,7 @@
    P-06c audio & artwork upload.
    Drop audio files to spawn one metadata section each. Duration is read from
    the file in the browser. The form still posts multipart; XHR is used only
-   so a large batch can show upload progress. Without JavaScript the dropzone
-   is inert and the JSON tab remains the way in.
+   so a large batch can show upload progress.
    ========================================================================== */
 "use strict";
 
@@ -30,8 +29,6 @@ export function initSongUpload(root) {
   if (!template || !form || !list || !dropzone) {
     return;
   }
-
-  activateTabFromHash();
 
   bindDropzone(dropzone, picker, function (files) {
     addAudioFiles(files);
@@ -339,26 +336,5 @@ function parseJson(text) {
     return JSON.parse(text);
   } catch (e) {
     return null;
-  }
-}
-
-function activateTabFromHash() {
-  var hash = window.location.hash.replace(/^#/, "");
-  if (hash !== "audio-artwork") {
-    return;
-  }
-  var button = document.getElementById("tab-audio-artwork");
-  if (button && window.bootstrap && window.bootstrap.Tab) {
-    window.bootstrap.Tab.getOrCreateInstance(button).show();
-  } else if (button) {
-    button.classList.add("active");
-    var pane = document.getElementById("audio-artwork");
-    if (pane) {
-      pane.classList.add("show", "active");
-    }
-    var jsonPane = document.getElementById("song-json");
-    if (jsonPane) {
-      jsonPane.classList.remove("show", "active");
-    }
   }
 }

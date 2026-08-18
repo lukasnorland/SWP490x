@@ -20,9 +20,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * Stages audio, cover art and a generated song JSON from the P-06c audio tab,
- * then queues the normal ETag sync so the songs land in MySQL the same way a
- * JSON upload does.
+ * Stages audio, cover art and a generated song-data JSON from P-06c, then
+ * queues the ETag sync so the songs land in MySQL the same way a CLI dump of
+ * JSON would.
  *
  * <p>The whole batch is validated before anything is written. The IAM role
  * that talks to the bucket cannot delete objects, so a half-written batch

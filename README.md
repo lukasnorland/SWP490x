@@ -250,14 +250,12 @@ the Java profile provider cannot read. On the demo EC2 host set
 S3 is the source of truth for new songs, MySQL is the read model the UI queries.
 Song JSON is staged at
 `s3://mrs-133857166188-assets/song-data/<externalSourceId>.json`, and an import
-upserts those objects into `song` / `tag` / `song_tag`. Supported ways to stage
-a song:
+upserts those objects into `song` / `tag` / `song_tag`. Ways to stage a song:
 
 - **Upload audio & artwork** on P-06c (ADMIN drops one or more audio files, fills
   metadata and optional cover art per song; the server writes media under
   `song-data/audio/<vendor>/` and `song-data/artwork/<vendor>/`, generates the
   song JSON, then auto-imports)
-- **Upload song JSON** on P-06c (validates, writes to the prefix, then auto-imports)
 - A direct `aws s3 cp` / console put of `<externalSourceId>.json`
 - Pointing `mrs.catalog.local-dir` at a directory of `*.json` for offline/dev
 
@@ -307,8 +305,8 @@ row. Wash colours (`ambience_a` / `ambience_b`) are sampled at import from
 Epidemic and OneOff catalog entries that arrived as provider dumps keep
 `audioUrl` / `coverUrl` on the vendor CDN; only the JSON object is in our
 bucket. NCS audio and covers were rehosted under `song-data/audio/ncs/` and
-`song-data/artwork/ncs/`. Songs uploaded through P-06c's **Audio & artwork**
-tab always rehost both files, regardless of vendor:
+`song-data/artwork/ncs/`. Songs uploaded through P-06c always rehost both
+files, regardless of vendor:
 
 ```
 song-data/audio/<vendor-slug>/<uuid>.<ext>
@@ -330,10 +328,9 @@ the same service:
 
 | Trigger | When |
 |---------|------|
-| **Upload and import** on P-06c | After staging one or more valid JSON files |
 | **Audio & artwork** on P-06c | After writing media + generated JSON |
 | `mrs.catalog.import-on-start=true` | Once at startup, for the first bulk load |
-| **Run import** on P-06c | Immediately, attributed to the ADMIN who pressed it |
+| **Run import** on P-06c | Immediately, attributed to the ADMIN who pressed it — converts staged song-data JSON into MySQL |
 | `CatalogSyncJob` | Every `mrs.catalog.sync.interval`, when `mrs.catalog.sync.enabled=true` |
 
 | Property | Default | Meaning |
@@ -349,7 +346,7 @@ the same service:
 | `mrs.catalog.sync.interval` | `15m` | Delay between the end of one sync and the start of the next |
 | `mrs.catalog.cover-art.*` | *(on)* | Sample cover colours during import for the shell wash |
 | `mrs.catalog.media.public-base-url` | CloudFront origin | Prefix for generated `audioUrl` / `coverUrl` |
-| `mrs.catalog.media.max-audio-bytes` | 50 MB | Per-file cap for the audio tab |
+| `mrs.catalog.media.max-audio-bytes` | 50 MB | Per-file cap for the audio upload |
 | `mrs.catalog.media.max-cover-bytes` | 5 MB | Per-file cap for cover art |
 | `mrs.catalog.media.vendor-slugs.*` | epidemic / ncs / one-off | Folder name under `audio/` and `artwork/` |
 
@@ -361,8 +358,8 @@ picked up without anyone opening the admin UI.
 
 P-06c does not list the prefix on page load — opening Catalog Import only
 reads MySQL for the last-run card. Listing and the ETag check run when you
-press **Run import**, or after an upload stages files. Staging JSON or audio
-still needs a working AWS profile, or a local directory:
+press **Run import**, or after an audio upload stages files. Staging still
+needs a working AWS profile, or a local directory:
 
 ```properties
 # mrs/local.properties — stay off S3 while developing
@@ -453,7 +450,7 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 | Forced password change (FT-09) | Implemented |
 | P-06a User Management | Implemented — Thymeleaf MVC CRUD: create + credentials email, filters, pagination, deactivate/reactivate with session invalidation, role change, resend |
 | P-06b Song Catalog | Partly implemented — read-only Songs table with provider/tag/text filters, untagged and no-preview filters, pagination (partial fetch so the shell player stays mounted), and CDN playback via clicking the song title. Authenticated shell soft-navigates sidebar/content links so the player survives leaving Catalog for Users, Audit Log, etc. Editing (UC-29) and the Tags tab outstanding |
-| P-06c Catalog Import | Implemented for staged JSON and for audio + artwork — ADMIN JSON upload, drag-and-drop audio with per-song metadata/cover sections (server writes media + generated JSON, then auto-syncs), Run import (lists and diffs only then), per-row skip reasons, run history, and a scheduled poller. The provider CSV/XLSX upload of UC-28 is outstanding |
+| P-06c Catalog Import | Implemented — ADMIN audio + artwork upload (server writes media + generated song-data JSON, then auto-syncs into MySQL), Run import to convert JSON already under the prefix, per-row skip reasons, run history, and a scheduled poller. Browser JSON file upload was removed; JSON remains the staged object format. The provider CSV/XLSX of UC-28 is outstanding |
 | P-02, P-03 – P-06e | Scaffolded — real headings and navigation, with each specified zone marked as outstanding |
 
 Each scaffolded screen renders its zones from the spec as dashed placeholders, so what remains on that screen is visible in the running app. Data-backed zones arrive with their feature slice.
