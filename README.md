@@ -359,9 +359,10 @@ credentials — which is also how the tests exercise the import. Enable
 `mrs.catalog.sync.enabled=true` on the deployed instance so an upload to S3 is
 picked up without anyone opening the admin UI.
 
-P-06c lists that prefix on every page load. An expired `aws login` session no
-longer 500s the screen; it shows the listing error and how to recover. Staging
-JSON or audio still needs a working profile, or a local directory:
+P-06c does not list the prefix on page load — opening Catalog Import only
+reads MySQL for the last-run card. Listing and the ETag check run when you
+press **Run import**, or after an upload stages files. Staging JSON or audio
+still needs a working AWS profile, or a local directory:
 
 ```properties
 # mrs/local.properties — stay off S3 while developing
@@ -452,7 +453,7 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 | Forced password change (FT-09) | Implemented |
 | P-06a User Management | Implemented — Thymeleaf MVC CRUD: create + credentials email, filters, pagination, deactivate/reactivate with session invalidation, role change, resend |
 | P-06b Song Catalog | Partly implemented — read-only Songs table with provider/tag/text filters, untagged and no-preview filters, pagination (partial fetch so the shell player stays mounted), and CDN playback via clicking the song title. Authenticated shell soft-navigates sidebar/content links so the player survives leaving Catalog for Users, Audit Log, etc. Editing (UC-29) and the Tags tab outstanding |
-| P-06c Catalog Import | Implemented for staged JSON and for audio + artwork — ADMIN JSON upload, drag-and-drop audio with per-song metadata/cover sections (server writes media + generated JSON, then auto-syncs), pending-change counts, run button, per-row skip reasons, run history, and a scheduled poller. The provider CSV/XLSX upload of UC-28 is outstanding |
+| P-06c Catalog Import | Implemented for staged JSON and for audio + artwork — ADMIN JSON upload, drag-and-drop audio with per-song metadata/cover sections (server writes media + generated JSON, then auto-syncs), Run import (lists and diffs only then), per-row skip reasons, run history, and a scheduled poller. The provider CSV/XLSX upload of UC-28 is outstanding |
 | P-02, P-03 – P-06e | Scaffolded — real headings and navigation, with each specified zone marked as outstanding |
 
 Each scaffolded screen renders its zones from the spec as dashed placeholders, so what remains on that screen is visible in the running app. Data-backed zones arrive with their feature slice.

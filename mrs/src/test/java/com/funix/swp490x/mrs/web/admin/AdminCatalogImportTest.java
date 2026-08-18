@@ -25,8 +25,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.funix.swp490x.mrs.catalog.CatalogImportService;
 import com.funix.swp490x.mrs.catalog.CatalogImportService.ImportProgress;
-import com.funix.swp490x.mrs.catalog.CatalogImportService.PendingChanges;
-import com.funix.swp490x.mrs.catalog.CatalogStoreException;
 import com.funix.swp490x.mrs.catalog.CatalogUploadService;
 import com.funix.swp490x.mrs.catalog.CatalogUploadService.UploadResult;
 import com.funix.swp490x.mrs.catalog.ImportSummary;
@@ -106,8 +104,7 @@ class AdminCatalogImportTest {
         given(songCatalogService.providers()).willReturn(List.of("EpidemicSound"));
         given(tagRepository.findAllByOrderByTypeAscNameAsc()).willReturn(List.of());
         given(importService.lastRun()).willReturn(Optional.empty());
-        given(importService.pendingChanges())
-                .willReturn(new PendingChanges(0, 0, 0, "s3://bucket/song-data/"));
+        given(importService.sourceDescription()).willReturn("s3://bucket/song-data/");
         given(draftUploadService.registeredProviders())
                 .willReturn(List.of("EpidemicSound", "NCS", "OneOff"));
     }
@@ -240,43 +237,16 @@ class AdminCatalogImportTest {
     }
 
     @Test
-    void importScreenShowsWhatARunWouldChange() throws Exception {
-        given(importService.pendingChanges())
-                .willReturn(new PendingChanges(3010, 12, 3, "s3://mrs-assets/song-data/"));
+    void importScreenShowsTheSyncControlWithoutListingThePrefix() throws Exception {
+        given(importService.sourceDescription()).willReturn("s3://mrs-assets/song-data/");
 
         mockMvc.perform(get(Routes.ADMIN_IMPORT).with(user(admin())))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("s3://mrs-assets/song-data/")))
-                .andExpect(content().string(containsString("3010")))
-                .andExpect(content().string(containsString("Import 15 song(s)")));
-    }
+                .andExpect(content().string(containsString("Run import")))
+                .andExpect(content().string(not(containsString("Import 15 song(s)"))));
 
-    /** An unreachable bucket must not take the screen down with it. */
-    @Test
-    void importScreenStillRendersWhenTheStoreCannotBeListed() throws Exception {
-        given(importService.pendingChanges())
-                .willThrow(new CatalogStoreException("no credentials"));
-
-        mockMvc.perform(get(Routes.ADMIN_IMPORT).with(user(admin())))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("could not be listed")));
-    }
-
-    /**
-     * {@code aws login} expiry is an IllegalStateException from the process
-     * credentials provider, not CatalogStoreException. The page must still open.
-     */
-    @Test
-    void importScreenStillRendersWhenAwsLoginHasExpired() throws Exception {
-        given(importService.pendingChanges())
-                .willThrow(new IllegalStateException("Failed to refresh process-based credentials.",
-                        new IllegalStateException("aws: [ERROR]: Your session has expired. "
-                                + "Please reauthenticate using 'aws login'.")));
-
-        mockMvc.perform(get(Routes.ADMIN_IMPORT).with(user(admin())))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("could not be listed")))
-                .andExpect(content().string(containsString("session has expired")));
+        then(importService).should(never()).pendingChanges();
     }
 
     @Test
