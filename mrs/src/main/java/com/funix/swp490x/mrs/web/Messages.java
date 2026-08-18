@@ -111,6 +111,10 @@ public final class Messages {
     public static final String MEDIA_UPLOAD_ALL_REJECTED =
             "None of the songs could be staged. Fix the issues listed below and try again.";
 
+    public static final String MEDIA_UPLOAD_TOO_LARGE =
+            "A file is larger than 100 MB (audio) or 5 MB (cover), or the batch is over 1.1 GB. "
+                    + "Use a smaller file and try again.";
+
     private Messages() {
     }
 }

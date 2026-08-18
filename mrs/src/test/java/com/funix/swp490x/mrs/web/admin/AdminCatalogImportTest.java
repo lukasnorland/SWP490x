@@ -48,6 +48,7 @@ import com.funix.swp490x.mrs.security.MrsUserDetailsService;
 import com.funix.swp490x.mrs.service.SongCatalogService;
 import com.funix.swp490x.mrs.web.Messages;
 import com.funix.swp490x.mrs.web.Routes;
+import com.funix.swp490x.mrs.web.support.MultipartUploadAdvice;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
 import java.util.List;
 import java.util.Optional;
@@ -68,8 +69,9 @@ import org.springframework.test.web.servlet.MockMvc;
  * P-06b's song table and P-06c's import control (UC-28, spec 4.10 and 4.11).
  */
 @WebMvcTest(controllers = {AdminCatalogController.class, AdminImportController.class})
-@Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
-        LoginFailureHandler.class, LoginAttemptService.class, MrsUserDetailsService.class})
+@Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, MultipartUploadAdvice.class,
+        LoginSuccessHandler.class, LoginFailureHandler.class, LoginAttemptService.class,
+        MrsUserDetailsService.class})
 class AdminCatalogImportTest {
 
     @Autowired
@@ -262,6 +264,7 @@ class AdminCatalogImportTest {
                 .andExpect(content().string(containsString("Upload audio")))
                 .andExpect(content().string(containsString("/admin/import/media")))
                 .andExpect(content().string(containsString("data-song-upload")))
+                .andExpect(content().string(containsString("name=\"_csrf\"")))
                 .andExpect(content().string(containsString("NCS")))
                 .andExpect(content().string(containsString("id=\"i-upload\"")))
                 .andExpect(content().string(not(containsString("Upload song JSON"))))
