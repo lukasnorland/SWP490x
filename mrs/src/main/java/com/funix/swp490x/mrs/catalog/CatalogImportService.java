@@ -193,7 +193,18 @@ public class CatalogImportService {
         }
     }
 
-    /** What a sync would do right now, without changing anything (P-06c). */
+    /**
+     * Where the staged catalog lives, for the P-06c copy. This is a configured
+     * string — it does not list the prefix or touch AWS.
+     */
+    public String sourceDescription() {
+        return store.describe();
+    }
+
+    /**
+     * What a sync would do right now, without changing anything. P-06c no longer
+     * calls this on GET; listing happens when the ADMIN presses Run import.
+     */
     public PendingChanges pendingChanges() {
         List<CatalogObject> listed;
         try {

@@ -322,6 +322,7 @@ class CatalogImportServiceTest {
 
         CatalogImportService.PendingChanges pending = service.pendingChanges();
 
+        assertThat(service.sourceDescription()).isEqualTo(staged.toAbsolutePath().toString());
         assertThat(pending.listed()).isEqualTo(4);
         assertThat(pending.newObjects()).isEqualTo(1);
         assertThat(pending.changed()).isEqualTo(1);

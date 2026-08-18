@@ -16,7 +16,9 @@ diff → MySQL upsert).
 | `/admin/import/media` | POST | `AdminImportController#uploadMedia` | redirect to `/admin/import`, or JSON when `X-Requested-With: XMLHttpRequest` | `drafts[]` (`SongDraftForm`: audio, cover, sourceProvider, title, artist, duration, bpm, isExplicit, isrc, genres, moods, tags) | ADMIN |
 
 `GET /admin/import` now also exposes `providers` (from `mrs.catalog.providers`)
-for the vendor dropdown on the Audio & artwork tab.
+for the vendor dropdown on the Audio & artwork tab. It does not list the staged
+prefix; that listing runs on `POST /admin/import/run` and after a successful
+upload.
 
 ## §5.4 Input Validation Strategy — File upload row
 

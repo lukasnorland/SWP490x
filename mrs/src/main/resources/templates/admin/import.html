@@ -189,49 +189,12 @@
           <h2 class="h5 mb-0">Sync from staged JSON</h2>
           <p class="small text-secondary mb-0">
             Songs are read from
-            <span class="font-monospace" th:text="${pending != null} ? ${pending.source} : 'the staged prefix'">s3://…</span>.
-            Each object is compared by content hash, so only new or changed songs
-            are read and applied — running this twice does nothing the second time.
-            Use this after a CLI upload, or if an upload's auto-import was skipped.
+            <span class="font-monospace" th:text="${catalogSource}">s3://…</span>.
+            Pressing the button lists the prefix and compares each object by
+            content hash, so only new or changed songs are read and applied —
+            running this twice does nothing the second time. Use this after a
+            CLI upload, or if an upload's auto-import was skipped.
           </p>
-        </div>
-
-        <div th:if="${pendingError != null}" class="alert alert-danger d-flex flex-column gap-2" role="alert">
-          <div class="d-flex align-items-start gap-2">
-            <svg th:replace="~{fragments/icons :: icon('alert-triangle', 'icon--sm')}"></svg>
-            <div>
-              <p class="mb-1 fw-semibold">The staged catalog could not be listed.</p>
-              <p class="small mb-0" th:text="${pendingError}">detail</p>
-            </div>
-          </div>
-          <p class="small mb-0 text-secondary">
-            This page talks to S3; Song Catalog only reads MySQL, so songs can
-            still appear there. On a dev machine, run
-            <span class="font-monospace">aws login --profile mrs-admin</span>,
-            restart the app, then reload. Or set
-            <span class="font-monospace">mrs.catalog.local-dir</span>
-            in <span class="font-monospace">local.properties</span> to a folder of
-            JSON instead of S3.
-          </p>
-        </div>
-
-        <div th:if="${pending != null}" class="row g-3">
-          <div class="col-6 col-md-3">
-            <p class="label mb-1">Staged</p>
-            <p class="h4 table__numeric mb-0" th:text="${pending.listed}">0</p>
-          </div>
-          <div class="col-6 col-md-3">
-            <p class="label mb-1">New</p>
-            <p class="h4 table__numeric mb-0" th:text="${pending.newObjects}">0</p>
-          </div>
-          <div class="col-6 col-md-3">
-            <p class="label mb-1">Changed</p>
-            <p class="h4 table__numeric mb-0" th:text="${pending.changed}">0</p>
-          </div>
-          <div class="col-6 col-md-3">
-            <p class="label mb-1">Already in step</p>
-            <p class="h4 table__numeric mb-0 text-secondary" th:text="${pending.unchanged}">0</p>
-          </div>
         </div>
 
         <form th:action="@{/admin/import/run}" method="post"
@@ -240,9 +203,7 @@
           <button type="submit" class="btn btn-primary"
                   th:disabled="${importRunning}">
             <svg th:replace="~{fragments/icons :: icon('refresh', 'icon--sm')}"></svg>
-            <span th:text="${pending != null and pending.total() > 0}
-                           ? |Import ${pending.total()} song(s)|
-                           : 'Run import'">Run import</span>
+            <span>Run import</span>
           </button>
           <div class="form-check mb-0">
             <input class="form-check-input" type="checkbox" id="forceReread"

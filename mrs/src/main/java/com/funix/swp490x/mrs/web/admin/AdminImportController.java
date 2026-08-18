@@ -2,7 +2,6 @@ package com.funix.swp490x.mrs.web.admin;
 
 import com.funix.swp490x.mrs.catalog.CatalogImportService;
 import com.funix.swp490x.mrs.catalog.CatalogImportService.ImportProgress;
-import com.funix.swp490x.mrs.catalog.CatalogStoreException;
 import com.funix.swp490x.mrs.catalog.CatalogUploadService;
 import com.funix.swp490x.mrs.catalog.CatalogUploadService.UploadResult;
 import com.funix.swp490x.mrs.catalog.ImportSummary;
@@ -14,8 +13,6 @@ import com.funix.swp490x.mrs.web.Messages;
 import com.funix.swp490x.mrs.web.Routes;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -43,8 +40,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class AdminImportController {
 
-    private static final Logger log = LoggerFactory.getLogger(AdminImportController.class);
-
     private final CatalogImportService importService;
     private final CatalogUploadService uploadService;
     private final SongDraftUploadService draftUploadService;
@@ -63,19 +58,8 @@ public class AdminImportController {
         model.addAttribute("activeNav", "admin-import");
         model.addAttribute("importRunning", importService.isRunning());
         model.addAttribute("providers", draftUploadService.registeredProviders());
+        model.addAttribute("catalogSource", importService.sourceDescription());
         importService.lastRun().ifPresent(run -> model.addAttribute("lastRun", run));
-
-        // A listing-only diff, so this is cheap enough to answer on each view.
-        // It still talks to S3, and a screen that cannot be opened is worse than
-        // one that cannot show the pending count. Catch RuntimeException, not
-        // only CatalogStoreException: an expired `aws login` surfaces as
-        // IllegalStateException from ProcessCredentialsProvider.
-        try {
-            model.addAttribute("pending", importService.pendingChanges());
-        } catch (RuntimeException e) {
-            log.error("Could not inspect the staged catalog for P-06c", e);
-            model.addAttribute("pendingError", CatalogStoreException.deepestMessage(e));
-        }
         return "admin/import";
     }
 

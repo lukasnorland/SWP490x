@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.funix.swp490x.mrs.catalog.CatalogImportService;
-import com.funix.swp490x.mrs.catalog.CatalogImportService.PendingChanges;
 import com.funix.swp490x.mrs.catalog.CatalogUploadService;
 import com.funix.swp490x.mrs.catalog.SongDraftUploadService;
 import com.funix.swp490x.mrs.config.SecurityConfig;
@@ -110,8 +109,7 @@ class ScreenRenderingTest {
                 .willReturn(Page.empty());
         given(tagRepository.findAllByOrderByTypeAscNameAsc()).willReturn(List.of());
         given(catalogImportService.lastRun()).willReturn(Optional.empty());
-        given(catalogImportService.pendingChanges())
-                .willReturn(new PendingChanges(0, 0, 0, "s3://bucket/song-data/"));
+        given(catalogImportService.sourceDescription()).willReturn("s3://bucket/song-data/");
         given(songDraftUploadService.registeredProviders())
                 .willReturn(List.of("EpidemicSound", "NCS", "OneOff"));
     }
