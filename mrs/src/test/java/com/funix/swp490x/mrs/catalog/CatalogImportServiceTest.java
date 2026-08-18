@@ -1,6 +1,7 @@
 package com.funix.swp490x.mrs.catalog;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.BDDMockito.given;
@@ -326,6 +327,22 @@ class CatalogImportServiceTest {
         assertThat(pending.changed()).isEqualTo(1);
         assertThat(pending.unchanged()).isEqualTo(2);
         assertThat(store.reads).as("a preview must not download anything").isEmpty();
+    }
+
+    @Test
+    void pendingChangesWrapsAnExpiredAwsLoginAsCatalogStoreException() {
+        CatalogObjectStore broken = mock(CatalogObjectStore.class);
+        given(broken.list()).willThrow(new IllegalStateException(
+                "Failed to refresh process-based credentials."));
+        given(broken.describe()).willReturn("s3://mrs-assets/song-data/");
+
+        CatalogImportService failing = new CatalogImportService(broken, mock(SongRepository.class),
+                mock(CatalogImportRunRepository.class), mock(AuditLogRepository.class),
+                mock(SongUpserter.class), mock(CoverAmbienceService.class));
+
+        assertThatThrownBy(failing::pendingChanges)
+                .isInstanceOf(CatalogStoreException.class)
+                .hasMessageContaining("Failed to refresh process-based credentials");
     }
 
     /** Songs staged with metadata always land tagged, which DC-03 requires. */

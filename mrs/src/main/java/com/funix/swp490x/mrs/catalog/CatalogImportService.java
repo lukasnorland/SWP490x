@@ -195,7 +195,12 @@ public class CatalogImportService {
 
     /** What a sync would do right now, without changing anything (P-06c). */
     public PendingChanges pendingChanges() {
-        List<CatalogObject> listed = store.list();
+        List<CatalogObject> listed;
+        try {
+            listed = store.list();
+        } catch (RuntimeException e) {
+            throw CatalogStoreException.of("Could not list " + store.describe(), e);
+        }
         Map<String, String> known = knownEtags();
         int newObjects = 0;
         int changed = 0;

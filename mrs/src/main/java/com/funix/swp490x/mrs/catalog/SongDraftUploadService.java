@@ -134,7 +134,7 @@ public class SongDraftUploadService {
             } catch (IOException e) {
                 log.warn("Could not read uploaded media for {}", label, e);
                 rejected.add(new SkippedRow(label, "could not be read"));
-            } catch (CatalogStoreException e) {
+            } catch (RuntimeException e) {
                 log.error("Could not stage uploaded media for {}", label, e);
                 rejected.add(new SkippedRow(label, "could not be written to staging"));
             }

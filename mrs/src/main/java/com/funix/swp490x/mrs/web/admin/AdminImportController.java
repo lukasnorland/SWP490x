@@ -67,12 +67,14 @@ public class AdminImportController {
 
         // A listing-only diff, so this is cheap enough to answer on each view.
         // It still talks to S3, and a screen that cannot be opened is worse than
-        // one that cannot show the pending count.
+        // one that cannot show the pending count. Catch RuntimeException, not
+        // only CatalogStoreException: an expired `aws login` surfaces as
+        // IllegalStateException from ProcessCredentialsProvider.
         try {
             model.addAttribute("pending", importService.pendingChanges());
-        } catch (CatalogStoreException e) {
+        } catch (RuntimeException e) {
             log.error("Could not inspect the staged catalog for P-06c", e);
-            model.addAttribute("pendingError", e.getMessage());
+            model.addAttribute("pendingError", CatalogStoreException.deepestMessage(e));
         }
         return "admin/import";
     }

@@ -359,6 +359,19 @@ credentials — which is also how the tests exercise the import. Enable
 `mrs.catalog.sync.enabled=true` on the deployed instance so an upload to S3 is
 picked up without anyone opening the admin UI.
 
+P-06c lists that prefix on every page load. An expired `aws login` session no
+longer 500s the screen; it shows the listing error and how to recover. Staging
+JSON or audio still needs a working profile, or a local directory:
+
+```properties
+# mrs/local.properties — stay off S3 while developing
+mrs.catalog.local-dir=./catalog-staging
+```
+
+Audio, artwork, and generated JSON then land under that folder. Run
+`aws login --profile mrs-admin` (and restart the app) when you want the real
+bucket again.
+
 ### Run
 
 ```bash
