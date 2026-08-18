@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import software.amazon.awssdk.core.exception.SdkException;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
@@ -46,8 +45,10 @@ public class S3CatalogObjectStore implements CatalogObjectStore {
                         .filter(o -> o.key().endsWith(".json"))
                         .forEach(o -> objects.add(new CatalogObject(o.key(), unquote(o.eTag()))));
             }
-        } catch (SdkException e) {
-            throw new CatalogStoreException("Could not list " + describe(), e);
+        } catch (RuntimeException e) {
+            // ProcessCredentialsProvider throws IllegalStateException when
+            // `aws login` has expired — that is not an SdkException.
+            throw CatalogStoreException.of("Could not list " + describe(), e);
         }
         return objects;
     }
@@ -56,8 +57,8 @@ public class S3CatalogObjectStore implements CatalogObjectStore {
     public String readJson(String key) {
         try {
             return s3.getObjectAsBytes(b -> b.bucket(bucket).key(key)).asUtf8String();
-        } catch (SdkException e) {
-            throw new CatalogStoreException("Could not read s3://" + bucket + "/" + key, e);
+        } catch (RuntimeException e) {
+            throw CatalogStoreException.of("Could not read s3://" + bucket + "/" + key, e);
         }
     }
 
@@ -70,8 +71,8 @@ public class S3CatalogObjectStore implements CatalogObjectStore {
                     .contentType("application/json")
                     .build();
             s3.putObject(request, RequestBody.fromString(json, StandardCharsets.UTF_8));
-        } catch (SdkException e) {
-            throw new CatalogStoreException("Could not write s3://" + bucket + "/" + key, e);
+        } catch (RuntimeException e) {
+            throw CatalogStoreException.of("Could not write s3://" + bucket + "/" + key, e);
         }
     }
 
@@ -84,8 +85,8 @@ public class S3CatalogObjectStore implements CatalogObjectStore {
                     .contentType(contentType)
                     .build();
             s3.putObject(request, RequestBody.fromInputStream(body, length));
-        } catch (SdkException e) {
-            throw new CatalogStoreException("Could not write s3://" + bucket + "/" + key, e);
+        } catch (RuntimeException e) {
+            throw CatalogStoreException.of("Could not write s3://" + bucket + "/" + key, e);
         }
     }
 

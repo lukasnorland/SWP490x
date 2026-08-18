@@ -1,6 +1,8 @@
 package com.funix.swp490x.mrs.catalog;
 
 import com.funix.swp490x.mrs.aws.AwsCredentialsFactory;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,8 +51,14 @@ public class CatalogConfig {
             @Lazy S3Client s3Client) {
 
         if (StringUtils.hasText(properties.getLocalDir())) {
-            Path root = Path.of(properties.getLocalDir().trim());
-            log.info("Catalog import reads from the local directory {}", root.toAbsolutePath());
+            Path root = Path.of(properties.getLocalDir().trim()).toAbsolutePath();
+            try {
+                Files.createDirectories(root);
+            } catch (IOException e) {
+                log.warn("Could not create mrs.catalog.local-dir {}; listing will stay empty until it exists",
+                        root, e);
+            }
+            log.info("Catalog import reads from the local directory {}", root);
             return new LocalDirectoryCatalogObjectStore(root);
         }
 

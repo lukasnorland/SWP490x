@@ -3,6 +3,9 @@ target/
 
 # Local database credentials, imported by application.properties when present.
 local.properties
+
+# Offline catalog staging when mrs.catalog.local-dir points here.
+catalog-staging/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

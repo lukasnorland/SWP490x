@@ -262,6 +262,23 @@ class AdminCatalogImportTest {
                 .andExpect(content().string(containsString("could not be listed")));
     }
 
+    /**
+     * {@code aws login} expiry is an IllegalStateException from the process
+     * credentials provider, not CatalogStoreException. The page must still open.
+     */
+    @Test
+    void importScreenStillRendersWhenAwsLoginHasExpired() throws Exception {
+        given(importService.pendingChanges())
+                .willThrow(new IllegalStateException("Failed to refresh process-based credentials.",
+                        new IllegalStateException("aws: [ERROR]: Your session has expired. "
+                                + "Please reauthenticate using 'aws login'.")));
+
+        mockMvc.perform(get(Routes.ADMIN_IMPORT).with(user(admin())))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("could not be listed")))
+                .andExpect(content().string(containsString("session has expired")));
+    }
+
     @Test
     void importScreenShowsTheLastRun() throws Exception {
         CatalogImportRun run = new CatalogImportRun(ImportTrigger.SCHEDULED, null);

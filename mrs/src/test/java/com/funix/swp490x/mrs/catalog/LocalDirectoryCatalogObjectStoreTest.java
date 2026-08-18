@@ -64,4 +64,12 @@ class LocalDirectoryCatalogObjectStoreTest {
         assertThat(store.mediaKey(MediaKind.AUDIO, "ncs", "id-1", "mp3"))
                 .isEqualTo("song-data/audio/ncs/id-1.mp3");
     }
+
+    @Test
+    void listOfAMissingDirectoryIsEmptyRatherThanAnError() {
+        LocalDirectoryCatalogObjectStore missing =
+                new LocalDirectoryCatalogObjectStore(root.resolve("does-not-exist"));
+
+        assertThat(missing.list()).isEmpty();
+    }
 }

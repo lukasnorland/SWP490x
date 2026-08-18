@@ -97,7 +97,7 @@ public class CatalogUploadService {
             } catch (IOException e) {
                 log.warn("Could not read uploaded file {}", label, e);
                 rejected.add(new SkippedRow(label, "could not be read"));
-            } catch (CatalogStoreException e) {
+            } catch (RuntimeException e) {
                 log.error("Could not stage uploaded file {}", label, e);
                 rejected.add(new SkippedRow(label, "could not be written to staging"));
             }

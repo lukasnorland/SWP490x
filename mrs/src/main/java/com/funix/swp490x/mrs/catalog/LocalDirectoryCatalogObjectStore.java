@@ -33,6 +33,9 @@ public class LocalDirectoryCatalogObjectStore implements CatalogObjectStore {
 
     @Override
     public List<CatalogObject> list() {
+        if (!Files.exists(root)) {
+            return List.of();
+        }
         if (!Files.isDirectory(root)) {
             throw new CatalogStoreException("Not a directory: " + root.toAbsolutePath());
         }
