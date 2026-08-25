@@ -22,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -70,6 +71,23 @@ class CatalogImportServiceTest {
                 songs.values().stream()
                         .map(song -> new Object[] {song.getExternalSourceId(), song.getSourceEtag()})
                         .toList());
+        given(songRepository.findIdAndExternalIdPairs()).willAnswer(invocation ->
+                songs.values().stream()
+                        .map(song -> new Object[] {song.getId(), song.getExternalSourceId()})
+                        .toList());
+        given(songRepository.findIdsByExternalSourceIdIn(any())).willReturn(List.of());
+        given(songRepository.deleteByExternalSourceIdIn(any())).willAnswer(invocation -> {
+            Collection<String> extIds = invocation.getArgument(0);
+            int removed = 0;
+            var iterator = songs.entrySet().iterator();
+            while (iterator.hasNext()) {
+                if (extIds.contains(iterator.next().getValue().getExternalSourceId())) {
+                    iterator.remove();
+                    removed++;
+                }
+            }
+            return removed;
+        });
         given(songRepository.findBySourceProviderAndExternalSourceId(any(), any()))
                 .willAnswer(invocation -> Optional.ofNullable(
                         songs.get(key(invocation.getArgument(0), invocation.getArgument(1)))));
@@ -174,6 +192,39 @@ class CatalogImportServiceTest {
         assertThat(summary.read()).isEqualTo(1);
         assertThat(summary.added()).isEqualTo(1);
         assertThat(store.reads).containsExactly("new-song.json");
+    }
+
+    @Test
+    void removingAStagedObjectDeletesTheSong() throws IOException {
+        sync();
+        Files.delete(staged.resolve(ICE_CREAM));
+        store.reads.clear();
+
+        ImportSummary summary = sync();
+
+        assertThat(summary.removed()).isEqualTo(1);
+        assertThat(summary.added()).isZero();
+        assertThat(summary.updated()).isZero();
+        assertThat(songs).hasSize(2);
+        assertThat(songs.values())
+                .extracting(Song::getExternalSourceId)
+                .doesNotContain("003c5571-5014-387b-978c-2836125178a4");
+    }
+
+    @Test
+    void anEmptyListingDoesNotWipeTheCatalog() throws IOException {
+        sync();
+        try (var files = Files.list(staged)) {
+            for (Path file : files.toList()) {
+                Files.delete(file);
+            }
+        }
+
+        ImportSummary summary = sync();
+
+        assertThat(summary.listed()).isZero();
+        assertThat(summary.removed()).isZero();
+        assertThat(songs).hasSize(3);
     }
 
     @Test

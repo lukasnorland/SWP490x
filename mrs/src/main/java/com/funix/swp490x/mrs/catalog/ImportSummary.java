@@ -10,6 +10,7 @@ import java.util.List;
  *     their stored ETag and were skipped without a read
  * @param added songs created
  * @param updated songs updated in place (DC-04)
+ * @param removed songs whose staged object is no longer under the prefix
  * @param skippedRows rows that were rejected, each with a reason
  * @param alreadyRunning true when another import held the lock and this call
  *     did nothing
@@ -20,13 +21,14 @@ public record ImportSummary(
         int read,
         int added,
         int updated,
+        int removed,
         List<SkippedRow> skippedRows,
         boolean alreadyRunning,
         String error) {
 
     /** Another import held the lock, so this call did nothing. */
     public static ImportSummary refused() {
-        return new ImportSummary(0, 0, 0, 0, List.of(), true, null);
+        return new ImportSummary(0, 0, 0, 0, 0, List.of(), true, null);
     }
 
     public int skipped() {
@@ -39,7 +41,8 @@ public record ImportSummary(
 
     /** Nothing to do: everything under the prefix was already in step. */
     public boolean isNoChange() {
-        return !alreadyRunning && error == null && added == 0 && updated == 0 && skipped() == 0;
+        return !alreadyRunning && error == null && added == 0 && updated == 0
+                && removed == 0 && skipped() == 0;
     }
 
     /** One rejected object, named so ADMIN can find and fix it. */

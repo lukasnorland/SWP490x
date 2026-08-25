@@ -12,7 +12,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
-import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -51,9 +50,6 @@ public class Song {
     /** 0-100 snapshot; null means never synced (BR-08). */
     @Column(name = "spotify_popularity")
     private Byte spotifyPopularity;
-
-    @Column(name = "popularity_synced_at")
-    private LocalDateTime popularitySyncedAt;
 
     /** Public HTTPS mp3: a vendor CDN, or a copy we host ourselves. */
     @Column(name = "audio_url", length = 500)
@@ -168,14 +164,6 @@ public class Song {
 
     public void setSpotifyPopularity(Byte spotifyPopularity) {
         this.spotifyPopularity = spotifyPopularity;
-    }
-
-    public LocalDateTime getPopularitySyncedAt() {
-        return popularitySyncedAt;
-    }
-
-    public void setPopularitySyncedAt(LocalDateTime popularitySyncedAt) {
-        this.popularitySyncedAt = popularitySyncedAt;
     }
 
     public String getAudioUrl() {

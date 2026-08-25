@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -31,8 +33,9 @@ import org.springframework.stereotype.Service;
  * <p>Work is decided from the object listing alone. Every listing entry carries
  * an ETag, and {@code song.source_etag} records the hash each row was built
  * from, so an object is downloaded only when it is new or its content changed.
- * A sync over an untouched prefix therefore costs one listing and no reads,
- * which is what makes it safe to run on a schedule.
+ * Rows whose object has left the prefix are removed, so MySQL does not keep
+ * songs S3 no longer stages. A sync over an untouched prefix therefore costs
+ * one listing and no reads, which is what makes it safe to run on a schedule.
  *
  * <p>Startup and the scheduled poller call {@link #sync} and wait. The P-06c
  * button calls {@link #startAsync} so the page can poll {@link #progress}
@@ -153,7 +156,7 @@ public class CatalogImportService {
             return summary;
         } catch (RuntimeException e) {
             log.error("Catalog sync ({}) failed", trigger, e);
-            ImportSummary failed = new ImportSummary(0, 0, 0, 0, List.of(), false, message(e));
+            ImportSummary failed = new ImportSummary(0, 0, 0, 0, 0, List.of(), false, message(e));
             try {
                 record(run, failed);
             } catch (RuntimeException recordFailure) {
@@ -288,8 +291,44 @@ public class CatalogImportService {
             sampleCovers(pool);
         }
 
-        return new ImportSummary(listed.size(), toRead.size(), added, updated,
+        int removed = pruneMissing(listed);
+        if (removed > 0) {
+            log.info("Catalog sync: removed {} song(s) no longer staged", removed);
+        }
+
+        return new ImportSummary(listed.size(), toRead.size(), added, updated, removed,
                 List.copyOf(skipped), false, null);
+    }
+
+    /**
+     * Rows whose object left the prefix stay in MySQL otherwise, because upsert
+     * never deletes. An empty listing is treated as a failed or misconfigured
+     * store rather than an instruction to wipe the catalog.
+     */
+    private int pruneMissing(List<CatalogObject> listed) {
+        if (listed.isEmpty()) {
+            log.warn("Catalog sync: listing was empty; not removing songs");
+            return 0;
+        }
+        Set<String> staged = listed.stream()
+                .map(CatalogObject::externalSourceIdHint)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
+        if (staged.isEmpty()) {
+            log.warn("Catalog sync: listing had no staging filenames; not removing songs");
+            return 0;
+        }
+        List<String> gone = new ArrayList<>();
+        for (Object[] pair : songRepository.findIdAndExternalIdPairs()) {
+            String externalId = (String) pair[1];
+            if (externalId != null && !staged.contains(externalId)) {
+                gone.add(externalId);
+            }
+        }
+        if (gone.isEmpty()) {
+            return 0;
+        }
+        return upserter.removeMissing(gone);
     }
 
     /**

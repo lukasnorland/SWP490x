@@ -38,7 +38,6 @@ CREATE TABLE song (
     source_provider       VARCHAR(100) NOT NULL,               -- must be a registered provider (SC-05)
     external_source_id    VARCHAR(100) NULL,                   -- unique per provider (DC-04)
     spotify_popularity    TINYINT      NULL,                   -- 0-100 snapshot; NULL = not synced (BR-08)
-    popularity_synced_at  DATETIME     NULL,
     audio_url             VARCHAR(500) NULL,                   -- public HTTPS mp3 (vendor CDN or our bucket)
     cover_url             VARCHAR(500) NULL,
     ambience_a            VARCHAR(40)  NULL,                   -- wash colours sampled from the cover
