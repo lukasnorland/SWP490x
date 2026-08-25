@@ -1,5 +1,6 @@
 package com.funix.swp490x.mrs.catalog;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -26,6 +27,18 @@ class S3CatalogObjectStoreTest {
     void setUp() {
         s3 = mock(S3Client.class);
         store = new S3CatalogObjectStore(s3, "mrs-assets", "song-data/");
+    }
+
+    @Test
+    void stagedSongKeysAreOnlyJsonDirectlyUnderThePrefix() {
+        assertThat(S3CatalogObjectStore.isStagedSongKey("song-data/", "song-data/3.json"))
+                .isTrue();
+        assertThat(S3CatalogObjectStore.isStagedSongKey("song-data/",
+                "song-data/one-off/3.json")).isFalse();
+        assertThat(S3CatalogObjectStore.isStagedSongKey("song-data/",
+                "song-data/ncs/GB2LD0901581.json")).isFalse();
+        assertThat(S3CatalogObjectStore.isStagedSongKey("song-data/",
+                "song-data/audio/ncs/id.json")).isFalse();
     }
 
     @Test

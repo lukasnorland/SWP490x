@@ -125,6 +125,44 @@ class SongUpserterTest {
                 assertThat(row.key()).isEqualTo("bad"));
     }
 
+    @Test
+    void skipsARowWhoseIsrcAlreadyBelongsToAnotherSong() {
+        Song owner = new Song();
+        owner.setSourceProvider("EpidemicSound");
+        owner.setExternalSourceId("uuid");
+        given(songRepository.findByIsrc("SE5Q51900056")).willReturn(Optional.of(owner));
+
+        SongUpserter.ChunkResult result = upserter.upsertChunk(List.of(fetched("clip.json", "e1",
+                """
+                        {"externalSourceId":"clip","sourceProvider":"OneOff",
+                         "title":"T","isrc":"SE5Q51900056"}
+                        """)));
+
+        assertThat(result.added()).isZero();
+        assertThat(result.skipped()).singleElement().satisfies(row ->
+                assertThat(row.reason()).contains("duplicate ISRC"));
+        verify(songRepository, never()).save(any(Song.class));
+    }
+
+    @Test
+    void aSongMayKeepItsOwnIsrcOnUpdate() {
+        Song owner = new Song();
+        owner.setSourceProvider("OneOff");
+        owner.setExternalSourceId("clip");
+        given(songRepository.findByIsrc("SE5Q51900056")).willReturn(Optional.of(owner));
+        given(songRepository.findBySourceProviderAndExternalSourceId("OneOff", "clip"))
+                .willReturn(Optional.of(owner));
+
+        SongUpserter.ChunkResult result = upserter.upsertChunk(List.of(fetched("clip.json", "e2",
+                """
+                        {"externalSourceId":"clip","sourceProvider":"OneOff",
+                         "title":"T","isrc":"SE5Q51900056"}
+                        """)));
+
+        assertThat(result.updated()).isEqualTo(1);
+        assertThat(result.skipped()).isEmpty();
+    }
+
     private Song savedSong() {
         ArgumentCaptor<Song> captor = ArgumentCaptor.forClass(Song.class);
         verify(songRepository).save(captor.capture());

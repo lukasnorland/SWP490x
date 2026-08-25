@@ -1,6 +1,7 @@
 package com.funix.swp490x.mrs.repository;
 
 import com.funix.swp490x.mrs.domain.Song;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,8 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     Optional<Song> findBySourceProviderAndExternalSourceId(String sourceProvider,
             String externalSourceId);
 
+    Optional<Song> findByIsrc(String isrc);
+
     /**
      * Everything the import diff needs, and nothing else.
      *
@@ -26,6 +29,22 @@ public interface SongRepository extends JpaRepository<Song, Long> {
      */
     @Query("SELECT s.externalSourceId, s.sourceEtag FROM Song s WHERE s.externalSourceId IS NOT NULL")
     List<Object[]> findExternalIdAndEtagPairs();
+
+    /** Ids plus staging filenames, so a sync can drop rows whose object left the prefix. */
+    @Query("SELECT s.id, s.externalSourceId FROM Song s WHERE s.externalSourceId IS NOT NULL")
+    List<Object[]> findIdAndExternalIdPairs();
+
+    @Query("SELECT s.id FROM Song s WHERE s.externalSourceId IN :extIds")
+    List<Long> findIdsByExternalSourceIdIn(@Param("extIds") Collection<String> extIds);
+
+    /** playlist_song has no ON DELETE CASCADE, so detach before removing the song. */
+    @Modifying
+    @Query(value = "DELETE FROM playlist_song WHERE song_id IN :ids", nativeQuery = true)
+    void detachFromPlaylists(@Param("ids") Collection<Long> ids);
+
+    @Modifying
+    @Query("DELETE FROM Song s WHERE s.externalSourceId IN :extIds")
+    int deleteByExternalSourceIdIn(@Param("extIds") Collection<String> extIds);
 
     /**
      * P-06b Zone B/C — ids of the songs on one page, filtered.

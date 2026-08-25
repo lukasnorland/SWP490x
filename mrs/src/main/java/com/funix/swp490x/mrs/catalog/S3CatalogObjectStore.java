@@ -35,6 +35,11 @@ public class S3CatalogObjectStore implements CatalogObjectStore {
             ListObjectsV2Request request = ListObjectsV2Request.builder()
                     .bucket(bucket)
                     .prefix(prefix)
+                    // Without a delimiter, ListObjectsV2 is recursive. Media
+                    // under song-data/audio/ and any extra vendor trees then
+                    // appear as songs. The nested copy is applied after the
+                    // real object and can wipe fields the copy does not have.
+                    .delimiter("/")
                     .build();
 
             for (ListObjectsV2Response page : s3.listObjectsV2Paginator(request)) {
@@ -42,7 +47,7 @@ public class S3CatalogObjectStore implements CatalogObjectStore {
                         // A "directory marker" is a zero-byte object at the
                         // prefix itself; it carries no song.
                         .filter(o -> o.size() != null && o.size() > 0)
-                        .filter(o -> o.key().endsWith(".json"))
+                        .filter(o -> isStagedSongKey(prefix, o.key()))
                         .forEach(o -> objects.add(new CatalogObject(o.key(), unquote(o.eTag()))));
             }
         } catch (RuntimeException e) {
@@ -98,6 +103,20 @@ public class S3CatalogObjectStore implements CatalogObjectStore {
     @Override
     public String describe() {
         return "s3://" + bucket + "/" + prefix;
+    }
+
+    /**
+     * Staged songs live at {@code {prefix}{externalSourceId}.json}, the same
+     * one-level listing {@link LocalDirectoryCatalogObjectStore} uses. JSON
+     * under a subfolder is media metadata or a duplicate vendor tree, not a
+     * catalog object of its own.
+     */
+    static boolean isStagedSongKey(String prefix, String key) {
+        if (key == null || prefix == null || !key.startsWith(prefix) || !key.endsWith(".json")) {
+            return false;
+        }
+        String name = key.substring(prefix.length());
+        return !name.isEmpty() && name.indexOf('/') < 0;
     }
 
     /** S3 returns the ETag wrapped in literal double quotes. */

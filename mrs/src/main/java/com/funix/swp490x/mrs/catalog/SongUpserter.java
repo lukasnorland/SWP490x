@@ -9,6 +9,7 @@ import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.repository.SongRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -66,6 +67,10 @@ public class SongUpserter {
             }
 
             try {
+                if (isDuplicateIsrc(mapped.values())) {
+                    skipped.add(new SkippedRow(item.key(), "duplicate ISRC"));
+                    continue;
+                }
                 if (apply(mapped.values(), item.object().etag(), tagCache)) {
                     added++;
                 } else {
@@ -83,6 +88,38 @@ public class SongUpserter {
         }
 
         return new ChunkResult(added, updated, skipped);
+    }
+
+    /**
+     * Drops catalog rows whose staged object is gone. Playlist membership is
+     * cleared first because {@code playlist_song} does not cascade.
+     */
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public int removeMissing(Collection<String> externalSourceIds) {
+        if (externalSourceIds.isEmpty()) {
+            return 0;
+        }
+        List<Long> ids = songRepository.findIdsByExternalSourceIdIn(externalSourceIds);
+        if (!ids.isEmpty()) {
+            songRepository.detachFromPlaylists(ids);
+        }
+        return songRepository.deleteByExternalSourceIdIn(externalSourceIds);
+    }
+
+    private boolean isDuplicateIsrc(SongValues values) {
+        if (values.isrc() == null) {
+            return false;
+        }
+        Optional<Song> byIsrc = songRepository.findByIsrc(values.isrc());
+        if (byIsrc.isEmpty()) {
+            return false;
+        }
+        Song owner = byIsrc.get();
+        if (owner.getSourceProvider() == null || owner.getExternalSourceId() == null) {
+            return true;
+        }
+        return !values.sourceProvider().equalsIgnoreCase(owner.getSourceProvider())
+                || !values.externalSourceId().equals(owner.getExternalSourceId());
     }
 
     /** @return true when the song was created, false when updated in place */
