@@ -97,7 +97,7 @@ Detailed requirements and design live under [`docs/`](docs/):
 | Report 3.1 — MRS RTW | Traceability, permission matrix, data dictionary, business rules |
 | Report 3.2 — Screen Design Spec | IA, flows F-01–F-06, screen specs |
 | Report 4 — TDS | Architecture, interfaces, data model, security |
-| TDS addendum — audio upload | P-06c `POST /admin/import/media` against TDS §2.3, §5.4, §9.5 |
+| TDS addendum — audio upload | P-06b `POST /admin/catalog/songs` against TDS §2.3, §5.4, §9.5 |
 | `docs/diagrams/` | Context, use case, ERD, flows, sequence, playlist state machine |
 
 **Outstanding documentation update:** the ERD and the RTW data dictionary still
@@ -256,7 +256,7 @@ moved to a later put. Wash colours (`ambience_*`) are derived at import from
 `s3://mrs-133857166188-assets/song-data/<externalSourceId>.json`, and an import
 upserts those objects into `song` / `tag` / `song_tag`. Ways to stage a song:
 
-- **Upload audio & artwork** on P-06c (ADMIN drops one or more audio files, fills
+- **Add Song** on P-06b (ADMIN drops one or more audio files, fills
   metadata and optional cover art per song; the server writes media under
   `song-data/audio/<vendor>/` and `song-data/artwork/<vendor>/`, generates the
   song JSON, then auto-imports)
@@ -309,7 +309,7 @@ row. Wash colours (`ambience_a` / `ambience_b`) are sampled at import from
 Epidemic and OneOff catalog entries that arrived as provider dumps keep
 `audioUrl` / `coverUrl` on the vendor CDN; only the JSON object is in our
 bucket. NCS audio and covers were rehosted under `song-data/audio/ncs/` and
-`song-data/artwork/ncs/`. Songs uploaded through P-06c always rehost both
+`song-data/artwork/ncs/`. Songs uploaded through Add Song always rehost both
 files, regardless of vendor:
 
 ```
@@ -332,9 +332,9 @@ the same service:
 
 | Trigger | When |
 |---------|------|
-| **Audio & artwork** on P-06c | After writing media + generated JSON |
+| **Add Song** on P-06b | After writing media + generated JSON |
 | `mrs.catalog.import-on-start=true` | Once at startup, for the first bulk load |
-| **Run import** on P-06c | Immediately, attributed to the ADMIN who pressed it — converts staged song-data JSON into MySQL |
+| **Sync Catalog** on P-06b | Immediately, attributed to the ADMIN who pressed it — converts staged song-data JSON into MySQL |
 | `CatalogSyncJob` | Every `mrs.catalog.sync.interval`, when `mrs.catalog.sync.enabled=true` |
 
 | Property | Default | Meaning |
@@ -360,9 +360,9 @@ credentials — which is also how the tests exercise the import. Enable
 `mrs.catalog.sync.enabled=true` on the deployed instance so an upload to S3 is
 picked up without anyone opening the admin UI.
 
-P-06c does not list the prefix on page load — opening Catalog Import only
-reads MySQL for the last-run card. Listing and the ETag check run when you
-press **Run import**, or after an audio upload stages files. Staging still
+P-06b does not list the prefix on page load — opening the Songs screen only
+reads MySQL for the last-sync line. Listing and the ETag check run when you
+press **Sync Catalog**, or after an audio upload stages files. Staging still
 needs a working AWS profile, or a local directory:
 
 ```properties
@@ -453,8 +453,8 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 | P-01 Password Reset | Implemented — both steps, live BR-12 checklist, link emailed |
 | Forced password change (FT-09) | Implemented |
 | P-06a User Management | Implemented — Thymeleaf MVC CRUD: create + credentials email, filters, pagination, deactivate/reactivate with session invalidation, role change, resend |
-| P-06b Song Catalog | Implemented as RUD — Songs table with provider/tag/text filters, untagged and no-preview filters, pagination (partial fetch so the shell player stays mounted), CDN playback via clicking the song title, per-row edit modal (optimistic lock, HTTP 409 refresh-only, BR-06/DC-02; classification is written to MySQL and the staged song-data JSON), and delete (hosted audio/cover first, then staged JSON, then the MySQL row so the next import cannot recreate the song). Create stays on Catalog Import. Authenticated shell soft-navigates sidebar/content links so the player survives leaving Catalog for Users, Audit Log, etc. The Tags dictionary tab is still outstanding |
-| P-06c Catalog Import | Implemented — ADMIN audio + artwork upload (server writes media + generated song-data JSON, then auto-syncs into MySQL), Run import to convert JSON already under the prefix, per-row skip reasons, run history, and a scheduled poller. Browser JSON file upload was removed; JSON remains the staged object format. The provider CSV/XLSX of UC-28 is outstanding |
+| P-06b Song Catalog | Implemented as CRUD — Songs table with provider/tag/text filters, untagged and no-preview filters, pagination (partial fetch so the shell player stays mounted), CDN playback via clicking the song title, per-row edit modal (optimistic lock, HTTP 409 refresh-only, BR-06/DC-02; classification is written to MySQL and the staged song-data JSON), and delete (hosted audio/cover first, then staged JSON, then the MySQL row so the next import cannot recreate the song). Create is the Add Song modal, and Sync Catalog converts JSON already under the prefix. Authenticated shell soft-navigates sidebar/content links so the player survives leaving Catalog for Users, Audit Log, etc. The Tags dictionary tab is still outstanding |
+| Catalog import (was P-06c) | Implemented, folded into P-06b — ADMIN audio + artwork upload (server writes media + generated song-data JSON, then auto-syncs into MySQL), Sync Catalog to convert JSON already under the prefix, per-row skip reasons, a last-sync line, and a scheduled poller. The separate Catalog Import screen was retired; browser JSON file upload was removed, though JSON remains the staged object format. The provider CSV/XLSX of UC-28 is outstanding |
 | P-02, P-03 – P-06e | Scaffolded — real headings and navigation, with each specified zone marked as outstanding |
 
 Each scaffolded screen renders its zones from the spec as dashed placeholders, so what remains on that screen is visible in the running app. Data-backed zones arrive with their feature slice.

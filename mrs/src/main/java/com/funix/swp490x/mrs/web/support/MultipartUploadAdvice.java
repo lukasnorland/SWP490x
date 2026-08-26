@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * Tomcat rejects an oversize multipart with HTTP 413 before the import
+ * Tomcat rejects an oversize multipart with HTTP 413 before the catalog
  * controller runs. Map that to the same JSON the upload form already reads.
  */
 @ControllerAdvice
@@ -35,7 +35,7 @@ public class MultipartUploadAdvice {
         }
         redirectAttributes.addFlashAttribute("flash", Messages.MEDIA_UPLOAD_TOO_LARGE);
         redirectAttributes.addFlashAttribute("flashVariant", "danger");
-        return "redirect:" + Routes.ADMIN_IMPORT;
+        return "redirect:" + Routes.ADMIN_CATALOG;
     }
 
     private static String rootMessage(Throwable ex) {

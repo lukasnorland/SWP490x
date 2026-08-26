@@ -5,7 +5,7 @@
 
   Model:
     catalogBasePath  — form / pager / clear target
-    browseMode       — true hides admin ops filters and import-oriented empty copy
+    browseMode       — true hides admin ops filters and upload-oriented empty copy
 */-->
 <body>
 
@@ -210,12 +210,12 @@
           </tr>
           <tr th:if="${songs == null or songs.isEmpty()}">
             <td colspan="8">
-              <div th:if="${browseMode}"
-                   th:replace="~{fragments/components :: emptyState('music', 'No songs match',
-                      'Try clearing the filters above.')}"></div>
-              <div th:if="${!browseMode}"
-                   th:replace="~{fragments/components :: emptyState('music', 'No songs match',
-                      'Import the provider catalogue from S3, or clear the filters above.')}"></div>
+              <!-- One element, because th:replace outranks th:if: two guarded
+                   divs would both be swapped in and both copies would show. -->
+              <div th:replace="~{fragments/components :: emptyState('music', 'No songs match',
+                      ${browseMode}
+                        ? 'Try clearing the filters above.'
+                        : 'Use Add Song to upload one, or clear the filters above.')}"></div>
             </td>
           </tr>
         </tbody>

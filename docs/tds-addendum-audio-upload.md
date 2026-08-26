@@ -1,4 +1,4 @@
-# TDS addendum — P-06c audio & artwork upload
+# TDS addendum — P-06b audio & artwork upload
 
 This addendum records the design of the ADMIN audio upload path against
 [Report 4_TDS_luannnfx05543.docx](Report%204_TDS_luannnfx05543.docx). The
@@ -13,12 +13,14 @@ format that the ETag import upserts into MySQL.
 
 | URL pattern | Method | Controller#method | Template | Model attributes | Roles |
 |-------------|--------|-------------------|----------|------------------|-------|
-| `/admin/import/media` | POST | `AdminImportController#uploadMedia` | redirect to `/admin/import`, or JSON when `X-Requested-With: XMLHttpRequest` | `drafts[]` (`SongDraftForm`: audio, cover, sourceProvider, title, artist, duration, bpm, isExplicit, isrc, genres, moods, tags) | ADMIN |
+| `/admin/catalog/songs` | POST | `AdminCatalogController#uploadSongs` | redirect to `/admin/catalog`, or JSON when `X-Requested-With: XMLHttpRequest` | `drafts[]` (`SongDraftForm`: audio, cover, sourceProvider, title, artist, duration, bpm, isExplicit, isrc, genres, moods, tags) | ADMIN |
 
-`GET /admin/import` exposes `providers` (from `mrs.catalog.providers`) for
-the vendor dropdown. It does not list the staged prefix; that listing runs
-on `POST /admin/import/run` and after a successful audio upload. There is
-no browser JSON-file upload; `POST /admin/import/upload` was removed.
+The separate Catalog Import screen (P-06c) was retired: `GET /admin/catalog`
+carries the Add Song modal and the Sync Catalog control, and exposes
+`uploadProviders` (from `mrs.catalog.providers`) for the vendor dropdown. It
+does not list the staged prefix; that listing runs on
+`POST /admin/catalog/sync` and after a successful audio upload. There is no
+browser JSON-file upload.
 
 ## §5.4 Input Validation Strategy — File upload row
 
@@ -35,12 +37,13 @@ Servlet multipart limits are 50 MB/file and 600 MB/request, with
 t3.small heap.
 
 Staged song-data JSON (written by this form, or put with the CLI) is still
-validated by `SongJsonMapper` when **Run import** applies it to MySQL.
+validated by `SongJsonMapper` when **Sync Catalog** applies it to MySQL.
 
 ## §9.5 Implementation Conformance
 
 | Area | Specified in TDS | Current build | Resolution |
 |------|------------------|---------------|------------|
 | UC-28 staging | Provider CSV/XLSX upload | Audio/artwork upload that generates the same JSON schema; CLI/S3 put of JSON remains | CSV/XLSX remains outstanding; browser JSON upload is not offered |
-| Object storage (1.1, 1.4) | S3 holds staged catalog data and company-hosted audio; CloudFront delivers it | Audio and artwork from P-06c are PutObject'd under `song-data/audio/<slug>/` and `song-data/artwork/<slug>/`; generated JSON uses the CloudFront public base URL | Matches the stated design. Pre-signed browser PUTs were not used; the app streams multipart parts through the existing IAM S3 client |
-| `POST /admin/import/media` | Not in the original §2.3 table | Implemented, ADMIN + CSRF | This addendum |
+| Object storage (1.1, 1.4) | S3 holds staged catalog data and company-hosted audio; CloudFront delivers it | Audio and artwork from Add Song are PutObject'd under `song-data/audio/<slug>/` and `song-data/artwork/<slug>/`; generated JSON uses the CloudFront public base URL | Matches the stated design. Pre-signed browser PUTs were not used; the app streams multipart parts through the existing IAM S3 client |
+| `POST /admin/catalog/songs` | Not in the original §2.3 table | Implemented, ADMIN + CSRF | This addendum |
+| P-06c Catalog Import screen | Own page under `/admin/import` | Folded into P-06b: Add Song modal plus a Sync Catalog header action on `/admin/catalog` | One catalog screen owns create, read, update and delete; `/admin/import` no longer exists |

@@ -1,8 +1,8 @@
 /* ==========================================================================
-   P-06c catalog import — progress panel.
-   The POST returns as soon as the sync is queued. This polls /admin/import/status
-   and fills the modal so a long run is not a frozen page. Without JavaScript
-   the forms still submit; the admin reloads to see the last-run summary.
+   P-06b catalog sync — progress panel.
+   The POST returns as soon as the sync is queued. This polls the status URL on
+   the modal and fills it in so a long run is not a frozen page. Without
+   JavaScript the forms still submit; the admin reloads to see the last run.
    ========================================================================== */
 "use strict";
 

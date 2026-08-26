@@ -71,9 +71,10 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 /**
- * P-06b's song table and P-06c's import control (UC-28, spec 4.10 and 4.11).
+ * P-06b's song table together with the Add Song and Sync Catalog controls it
+ * absorbed from the retired import screen (UC-28, UC-29, spec 4.10).
  */
-@WebMvcTest(controllers = {AdminCatalogController.class, AdminImportController.class})
+@WebMvcTest(controllers = AdminCatalogController.class)
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, MultipartUploadAdvice.class,
         LoginSuccessHandler.class, LoginFailureHandler.class, LoginAttemptService.class,
         MrsUserDetailsService.class})
@@ -227,10 +228,10 @@ class AdminCatalogImportTest {
     }
 
     @Test
-    void catalogShowsAnEmptyStatePointingAtTheImport() throws Exception {
+    void catalogShowsAnEmptyStatePointingAtAddSong() throws Exception {
         mockMvc.perform(get(Routes.ADMIN_CATALOG).with(user(admin())))
                 .andExpect(content().string(containsString("No songs match")))
-                .andExpect(content().string(containsString("/admin/import")));
+                .andExpect(content().string(containsString("Use Add Song to upload one")));
     }
 
     @Test
@@ -262,59 +263,74 @@ class AdminCatalogImportTest {
     }
 
     @Test
-    void importScreenShowsTheSyncControlWithoutListingThePrefix() throws Exception {
+    void catalogShowsTheSyncControlWithoutListingThePrefix() throws Exception {
         given(importService.sourceDescription()).willReturn("s3://mrs-assets/song-data/");
 
-        mockMvc.perform(get(Routes.ADMIN_IMPORT).with(user(admin())))
+        mockMvc.perform(get(Routes.ADMIN_CATALOG).with(user(admin())))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("s3://mrs-assets/song-data/")))
-                .andExpect(content().string(containsString("Run import")))
+                .andExpect(content().string(containsString("Sync Catalog")))
+                .andExpect(content().string(containsString("/admin/catalog/sync")))
                 .andExpect(content().string(not(containsString("Import 15 song(s)"))));
 
         then(importService).should(never()).pendingChanges();
     }
 
     @Test
-    void importScreenShowsTheLastRun() throws Exception {
+    void catalogShowsTheLastRun() throws Exception {
         CatalogImportRun run = new CatalogImportRun(ImportTrigger.SCHEDULED, null);
         run.setObjectsListed(3010);
         run.setAdded(2);
         given(importService.lastRun()).willReturn(Optional.of(run));
 
-        mockMvc.perform(get(Routes.ADMIN_IMPORT).with(user(admin())))
-                .andExpect(content().string(containsString("Last run")))
+        mockMvc.perform(get(Routes.ADMIN_CATALOG).with(user(admin())))
+                .andExpect(content().string(containsString("Last sync")))
                 .andExpect(content().string(containsString("Scheduled")));
     }
 
     @Test
-    void importScreenShowsTheAudioUploadForm() throws Exception {
-        mockMvc.perform(get(Routes.ADMIN_IMPORT).with(user(admin())))
+    void catalogCarriesTheAddSongUploadModal() throws Exception {
+        mockMvc.perform(get(Routes.ADMIN_CATALOG).with(user(admin())))
                 .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Add Song")))
                 .andExpect(content().string(containsString("Upload audio")))
-                .andExpect(content().string(containsString("/admin/import/media")))
+                .andExpect(content().string(containsString("/admin/catalog/songs")))
                 .andExpect(content().string(containsString("data-song-upload")))
+                .andExpect(content().string(containsString("data-audio-dropzone")))
+                .andExpect(content().string(containsString("songDraftTemplate")))
                 .andExpect(content().string(containsString("name=\"_csrf\"")))
                 .andExpect(content().string(containsString("NCS")))
-                .andExpect(content().string(containsString("id=\"i-upload\"")))
-                .andExpect(content().string(not(containsString("Upload song JSON"))))
-                .andExpect(content().string(not(containsString("/admin/import/upload"))));
+                .andExpect(content().string(not(containsString("Catalog Import"))))
+                .andExpect(content().string(not(containsString("/admin/import"))));
     }
 
     @Test
-    void importScreenIncludesTheProgressPanel() throws Exception {
-        mockMvc.perform(get(Routes.ADMIN_IMPORT).with(user(admin())))
+    void catalogIncludesTheSyncProgressPanel() throws Exception {
+        mockMvc.perform(get(Routes.ADMIN_CATALOG).with(user(admin())))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("id=\"importProgress\"")))
-                .andExpect(content().string(containsString("/admin/import/status")))
+                .andExpect(content().string(containsString("/admin/catalog/sync/status")))
                 .andExpect(content().string(containsString("data-import-form")));
     }
 
+    /** The results-only swap must not drag the modals along with it. */
     @Test
-    void importStatusReturnsTheCurrentProgress() throws Exception {
+    void catalogPartialLeavesTheUploadModalOut() throws Exception {
+        mockMvc.perform(get(Routes.ADMIN_CATALOG)
+                        .header(AdminCatalogController.PARTIAL_RESULTS_HEADER,
+                                AdminCatalogController.PARTIAL_RESULTS_VALUE)
+                        .with(user(admin())))
+                .andExpect(status().isOk())
+                .andExpect(content().string(not(containsString("data-song-upload"))))
+                .andExpect(content().string(not(containsString("id=\"importProgress\""))));
+    }
+
+    @Test
+    void syncStatusReturnsTheCurrentProgress() throws Exception {
         given(importService.progress()).willReturn(new ImportProgress(
                 true, "importing", "Importing songs…", 3010, 15, 4, 3, 1, 0, 24));
 
-        mockMvc.perform(get(Routes.ADMIN_IMPORT_STATUS).with(user(admin())))
+        mockMvc.perform(get(Routes.ADMIN_CATALOG_SYNC_STATUS).with(user(admin())))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.running").value(true))
                 .andExpect(jsonPath("$.phase").value("importing"))
@@ -336,12 +352,12 @@ class AdminCatalogImportTest {
         MockMultipartFile audio = new MockMultipartFile("drafts[0].audio", "track.mp3",
                 "audio/mpeg", new byte[] {1, 2, 3});
 
-        mockMvc.perform(multipart(Routes.ADMIN_IMPORT_MEDIA).file(audio)
+        mockMvc.perform(multipart(Routes.ADMIN_CATALOG_SONGS).file(audio)
                         .param("drafts[0].title", "Shine")
                         .param("drafts[0].sourceProvider", "NCS")
                         .with(csrf()).with(user(admin())))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl(Routes.ADMIN_IMPORT))
+                .andExpect(redirectedUrl(Routes.ADMIN_CATALOG))
                 .andExpect(flash().attribute("flashVariant", "success"));
 
         then(draftUploadService).should().upload(any(), eq(7L));
@@ -355,11 +371,33 @@ class AdminCatalogImportTest {
         MockMultipartFile audio = new MockMultipartFile("drafts[0].audio", "track.mp3",
                 "audio/mpeg", new byte[] {1, 2, 3});
 
-        mockMvc.perform(multipart(Routes.ADMIN_IMPORT_MEDIA).file(audio)
+        mockMvc.perform(multipart(Routes.ADMIN_CATALOG_SONGS).file(audio)
                         .param("drafts[0].title", "Shine")
                         .param("drafts[0].sourceProvider", "NCS")
                         .with(csrf()).with(user(admin())))
                 .andExpect(flash().attribute("flash", Messages.UPLOAD_SYNC_SKIPPED));
+    }
+
+    /**
+     * FT-09 NAC-03: the catalog has no rejection table, so a partly rejected
+     * batch has to name the offender in the notice itself.
+     */
+    @Test
+    void aPartlyRejectedUploadNamesTheRejectedSongInTheFlash() throws Exception {
+        given(draftUploadService.upload(any(), eq(7L)))
+                .willReturn(new MediaUploadResult(1,
+                        List.of(new SkippedRow("track.mp3", "missing title")), null, false));
+
+        MockMultipartFile audio = new MockMultipartFile("drafts[0].audio", "track.mp3",
+                "audio/mpeg", new byte[] {1, 2, 3});
+
+        mockMvc.perform(multipart(Routes.ADMIN_CATALOG_SONGS).file(audio)
+                        .param("drafts[0].title", "Shine")
+                        .param("drafts[0].sourceProvider", "NCS")
+                        .with(csrf()).with(user(admin())))
+                .andExpect(flash().attribute("flashVariant", "warning"))
+                .andExpect(flash().attribute("flash",
+                        containsString("track.mp3 — missing title")));
     }
 
     @Test
@@ -371,7 +409,7 @@ class AdminCatalogImportTest {
         MockMultipartFile audio = new MockMultipartFile("drafts[0].audio", "track.mp3",
                 "audio/mpeg", new byte[] {1, 2, 3});
 
-        mockMvc.perform(multipart(Routes.ADMIN_IMPORT_MEDIA).file(audio)
+        mockMvc.perform(multipart(Routes.ADMIN_CATALOG_SONGS).file(audio)
                         .param("drafts[0].title", "Shine")
                         .header("X-Requested-With", "XMLHttpRequest")
                         .with(csrf()).with(user(admin())))
@@ -381,11 +419,29 @@ class AdminCatalogImportTest {
     }
 
     @Test
+    void anAjaxMediaUploadSendsTheFormBackToTheCatalog() throws Exception {
+        given(draftUploadService.upload(any(), any()))
+                .willReturn(new MediaUploadResult(1, List.of(), null, false));
+
+        MockMultipartFile audio = new MockMultipartFile("drafts[0].audio", "track.mp3",
+                "audio/mpeg", new byte[] {1, 2, 3});
+
+        mockMvc.perform(multipart(Routes.ADMIN_CATALOG_SONGS).file(audio)
+                        .param("drafts[0].title", "Shine")
+                        .param("drafts[0].sourceProvider", "NCS")
+                        .header("X-Requested-With", "XMLHttpRequest")
+                        .with(csrf()).with(user(admin())))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.uploaded").value(1))
+                .andExpect(jsonPath("$.redirect").value(Routes.ADMIN_CATALOG));
+    }
+
+    @Test
     void contentDesignersCannotUploadMedia() throws Exception {
         MockMultipartFile audio = new MockMultipartFile("drafts[0].audio", "track.mp3",
                 "audio/mpeg", new byte[] {1});
 
-        mockMvc.perform(multipart(Routes.ADMIN_IMPORT_MEDIA).file(audio)
+        mockMvc.perform(multipart(Routes.ADMIN_CATALOG_SONGS).file(audio)
                         .with(csrf()).with(user(designer())))
                 .andExpect(status().isForbidden());
 
@@ -397,20 +453,20 @@ class AdminCatalogImportTest {
         MockMultipartFile audio = new MockMultipartFile("drafts[0].audio", "track.mp3",
                 "audio/mpeg", new byte[] {1});
 
-        mockMvc.perform(multipart(Routes.ADMIN_IMPORT_MEDIA).file(audio).with(user(admin())))
+        mockMvc.perform(multipart(Routes.ADMIN_CATALOG_SONGS).file(audio).with(user(admin())))
                 .andExpect(status().is3xxRedirection());
 
         then(draftUploadService).should(never()).upload(any(), any());
     }
 
     @Test
-    void runningTheImportStartsItInTheBackground() throws Exception {
+    void syncingTheCatalogStartsTheImportInTheBackground() throws Exception {
         given(importService.startAsync(eq(ImportTrigger.MANUAL), anyLong(), anyBoolean()))
                 .willReturn(true);
 
-        mockMvc.perform(post(Routes.ADMIN_IMPORT_RUN).with(csrf()).with(user(admin())))
+        mockMvc.perform(post(Routes.ADMIN_CATALOG_SYNC).with(csrf()).with(user(admin())))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl(Routes.ADMIN_IMPORT))
+                .andExpect(redirectedUrl(Routes.ADMIN_CATALOG))
                 .andExpect(flash().attribute("flashVariant", "info"))
                 .andExpect(flash().attribute("flash", Messages.IMPORT_STARTED));
 
@@ -419,21 +475,10 @@ class AdminCatalogImportTest {
     }
 
     @Test
-    void theForceFlagIsPassedOnWhenAskedFor() throws Exception {
-        given(importService.startAsync(any(), any(), anyBoolean())).willReturn(true);
-
-        mockMvc.perform(post(Routes.ADMIN_IMPORT_RUN).param("force", "true")
-                        .with(csrf()).with(user(admin())))
-                .andExpect(status().is3xxRedirection());
-
-        then(importService).should().startAsync(ImportTrigger.MANUAL, 7L, true);
-    }
-
-    @Test
     void aRefusedRunSaysAnImportIsAlreadyGoing() throws Exception {
         given(importService.startAsync(any(), any(), anyBoolean())).willReturn(false);
 
-        mockMvc.perform(post(Routes.ADMIN_IMPORT_RUN).with(csrf()).with(user(admin())))
+        mockMvc.perform(post(Routes.ADMIN_CATALOG_SYNC).with(csrf()).with(user(admin())))
                 .andExpect(flash().attribute("flash", Messages.IMPORT_ALREADY_RUNNING));
     }
 
@@ -444,9 +489,7 @@ class AdminCatalogImportTest {
 
         mockMvc.perform(get(Routes.ADMIN_CATALOG).with(user(designer)))
                 .andExpect(status().isForbidden());
-        mockMvc.perform(get(Routes.ADMIN_IMPORT).with(user(designer)))
-                .andExpect(status().isForbidden());
-        mockMvc.perform(post(Routes.ADMIN_IMPORT_RUN).with(csrf()).with(user(designer)))
+        mockMvc.perform(post(Routes.ADMIN_CATALOG_SYNC).with(csrf()).with(user(designer)))
                 .andExpect(status().isForbidden());
         mockMvc.perform(post("/admin/catalog/12")
                         .param("title", "Ice Cream")
@@ -456,7 +499,7 @@ class AdminCatalogImportTest {
                 .andExpect(status().isForbidden());
         mockMvc.perform(post("/admin/catalog/12/delete").with(csrf()).with(user(designer)))
                 .andExpect(status().isForbidden());
-        mockMvc.perform(get(Routes.ADMIN_IMPORT_STATUS).with(user(designer)))
+        mockMvc.perform(get(Routes.ADMIN_CATALOG_SYNC_STATUS).with(user(designer)))
                 .andExpect(status().isForbidden());
 
         then(importService).should(never()).sync(any(), any(), anyBoolean());
@@ -478,7 +521,7 @@ class AdminCatalogImportTest {
      */
     @Test
     void anImportCannotBeTriggeredWithoutACsrfToken() throws Exception {
-        mockMvc.perform(post(Routes.ADMIN_IMPORT_RUN).with(user(admin())))
+        mockMvc.perform(post(Routes.ADMIN_CATALOG_SYNC).with(user(admin())))
                 .andExpect(status().is3xxRedirection());
 
         then(importService).should(never()).sync(any(), any(), anyBoolean());
