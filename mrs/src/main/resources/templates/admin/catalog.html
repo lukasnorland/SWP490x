@@ -6,10 +6,7 @@
 
   <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
     <div class="d-flex flex-column gap-1">
-      <h1>Song Catalog &amp; Metadata</h1>
-      <p class="small text-secondary">
-        The catalog behind every search. Untagged songs stay out of filtered results (DC-03).
-      </p>
+      <h1>Song Catalog</h1>
     </div>
     <!-- Zone A: songs arrive through the import, so that is the primary create action. -->
     <a class="btn btn-primary" th:href="@{/admin/import}">
@@ -40,10 +37,6 @@
     <section th:replace="~{fragments/song-catalog :: filters}"></section>
 
     <div th:replace="~{fragments/song-catalog :: results}"></div>
-
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C — Tags',
-        'Tag dictionary',
-        'Per-category tag lists (Genre, Mood, Artist, Tags) with add, rename and delete. Deleting warns when the tag is still attached to songs.')}"></section>
   </div>
 
   <!-- UC-29: one modal, filled from the row so opening it does not remount the player.

@@ -46,7 +46,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.BDDMockito.given;
@@ -101,7 +100,7 @@ class ScreenRenderingTest {
         given(userAccountService.search(nullable(Role.class), nullable(UserStatus.class),
                 nullable(String.class), anyInt())).willReturn(Page.empty());
         given(songCatalogService.search(nullable(String.class), nullable(Long.class),
-                nullable(String.class), anyBoolean(), anyBoolean(), anyInt()))
+                nullable(Long.class), nullable(Long.class), nullable(String.class), anyInt()))
                 .willReturn(Page.empty());
         given(tagRepository.findAllByOrderByTypeAscNameAsc()).willReturn(List.of());
         given(catalogImportService.lastRun()).willReturn(Optional.empty());

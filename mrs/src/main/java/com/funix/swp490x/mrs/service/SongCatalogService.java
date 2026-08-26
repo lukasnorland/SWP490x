@@ -57,6 +57,9 @@ public class SongCatalogService {
     /**
      * One page of songs with their tags loaded.
      *
+     * <p>Genre, mood and freeform tag filters are ANDed: a song must carry
+     * each selected value. A null id leaves that vocabulary unconstrained.
+     *
      * <p>Two queries by design: the page of ids, then that page's rows with
      * tags. Fetching tags and paging in a single query would make Hibernate
      * apply the limit in memory. Transactional because
@@ -64,18 +67,18 @@ public class SongCatalogService {
      * initialised before the view renders.
      */
     @Transactional(readOnly = true)
-    public Page<Song> search(String provider, Long tagId, String query,
-            boolean untagged, boolean noPreview, int page) {
+    public Page<Song> search(String provider, Long genreId, Long moodId, Long tagId,
+            String query, int page) {
 
         Pageable pageable = PageRequest.of(Math.max(page, 0), PAGE_SIZE,
                 Sort.by(Sort.Order.asc("title"), Sort.Order.asc("id")));
 
         Page<Long> ids = songRepository.searchIds(
                 StringUtils.hasText(provider) ? provider : null,
+                genreId,
+                moodId,
                 tagId,
                 StringUtils.hasText(query) ? query.trim() : null,
-                untagged,
-                noPreview,
                 pageable);
 
         if (ids.isEmpty()) {

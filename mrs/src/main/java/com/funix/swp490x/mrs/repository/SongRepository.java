@@ -56,25 +56,29 @@ public interface SongRepository extends JpaRepository<Song, Long> {
      * memory, which over 3,000 songs means loading the whole catalog per page.
      * {@link #findAllWithTags} then fetches just this page's tags.
      *
-     * <p>{@code untagged} selects songs carrying no tag at all — the rows DC-03
-     * keeps out of filtered search results.
+     * <p>Genre, mood and freeform tag ids are ANDed (a song must carry each
+     * selected value). A null id means that vocabulary is not constraining.
      */
     @Query("""
             SELECT s.id FROM Song s
             WHERE (:provider IS NULL OR s.sourceProvider = :provider)
+              AND (:genreId IS NULL OR EXISTS (
+                    SELECT 1 FROM Song sg JOIN sg.tags tg
+                    WHERE sg.id = s.id AND tg.id = :genreId))
+              AND (:moodId IS NULL OR EXISTS (
+                    SELECT 1 FROM Song sm JOIN sm.tags tm
+                    WHERE sm.id = s.id AND tm.id = :moodId))
               AND (:tagId IS NULL OR EXISTS (
-                    SELECT 1 FROM Song s2 JOIN s2.tags t2
-                    WHERE s2.id = s.id AND t2.id = :tagId))
+                    SELECT 1 FROM Song st JOIN st.tags tt
+                    WHERE st.id = s.id AND tt.id = :tagId))
               AND (:q IS NULL OR LOWER(s.title) LIKE LOWER(CONCAT('%', :q, '%'))
                                OR LOWER(s.artist) LIKE LOWER(CONCAT('%', :q, '%')))
-              AND (:untagged = FALSE OR s.tags IS EMPTY)
-              AND (:noPreview = FALSE OR s.audioUrl IS NULL)
             """)
     Page<Long> searchIds(@Param("provider") String provider,
+            @Param("genreId") Long genreId,
+            @Param("moodId") Long moodId,
             @Param("tagId") Long tagId,
             @Param("q") String q,
-            @Param("untagged") boolean untagged,
-            @Param("noPreview") boolean noPreview,
             Pageable pageable);
 
     /** The page's songs with their tags, in one query and with no limit. */

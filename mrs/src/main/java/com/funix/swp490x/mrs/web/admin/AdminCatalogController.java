@@ -32,7 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * <p>Read is the Songs table. Update covers classification only (explicit,
  * genres, moods, tags) on both MySQL and the staged song-data JSON; licensed
  * identity is immutable. Delete runs from the same screen. Create stays on
- * Catalog Import (P-06c). The Tags dictionary is still outstanding.
+ * Catalog Import (P-06c).
  *
  * <p>Full-page GETs render the shell. Requests with {@code X-MRS-Partial: results}
  * return only the table + pager fragment so the player bar stays mounted.
@@ -56,14 +56,14 @@ public class AdminCatalogController {
 
     @GetMapping(Routes.ADMIN_CATALOG)
     public String catalog(@RequestParam(required = false) String provider,
+            @RequestParam(required = false) Long genreId,
+            @RequestParam(required = false) Long moodId,
             @RequestParam(required = false) Long tagId,
             @RequestParam(required = false) String q,
-            @RequestParam(defaultValue = "false") boolean untagged,
-            @RequestParam(defaultValue = "false") boolean noPreview,
             @RequestParam(defaultValue = "0") int page,
             @RequestHeader(value = PARTIAL_RESULTS_HEADER, required = false) String partial,
             Model model) {
-        populateResults(model, provider, tagId, q, untagged, noPreview, page);
+        populateResults(model, provider, genreId, moodId, tagId, q, page);
         if (PARTIAL_RESULTS_VALUE.equals(partial)) {
             return "fragments/song-catalog :: results";
         }
@@ -109,23 +109,23 @@ public class AdminCatalogController {
         return "redirect:" + Routes.ADMIN_CATALOG;
     }
 
-    private void populateResults(Model model, String provider, Long tagId, String q,
-            boolean untagged, boolean noPreview, int page) {
-        Page<Song> songs = catalogService.search(provider, tagId, q, untagged, noPreview, page);
+    private void populateResults(Model model, String provider, Long genreId, Long moodId,
+            Long tagId, String q, int page) {
+        Page<Song> songs = catalogService.search(provider, genreId, moodId, tagId, q, page);
         model.addAttribute("songs", songs);
         model.addAttribute("catalogBasePath", Routes.ADMIN_CATALOG);
         model.addAttribute("browseMode", false);
         // Echoed back so the filter form and the pager keep the current query.
         model.addAttribute("filterProvider", provider);
+        model.addAttribute("filterGenreId", genreId);
+        model.addAttribute("filterMoodId", moodId);
         model.addAttribute("filterTagId", tagId);
         model.addAttribute("filterQuery", q == null ? "" : q);
-        model.addAttribute("filterUntagged", untagged);
-        model.addAttribute("filterNoPreview", noPreview);
     }
 
     private void populateShell(Model model) {
         List<Tag> tags = tagRepository.findAllByOrderByTypeAscNameAsc();
-        model.addAttribute("pageTitle", "Song Catalog & Metadata");
+        model.addAttribute("pageTitle", "Song Catalog");
         model.addAttribute("activeNav", "admin-catalog");
         model.addAttribute("totalSongs", catalogService.total());
         model.addAttribute("untaggedCount", catalogService.untaggedCount());
@@ -145,7 +145,7 @@ public class AdminCatalogController {
         model.addAttribute("reopenEditForm", reopenModal);
         model.addAttribute("editSongId", id);
         model.addAttribute("songEdit", form);
-        populateResults(model, null, null, null, false, false, 0);
+        populateResults(model, null, null, null, null, null, 0);
         populateShell(model);
         return "admin/catalog";
     }
