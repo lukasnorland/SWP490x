@@ -23,14 +23,19 @@ class LocalDirectoryCatalogObjectStoreTest {
 
     @Test
     void putJsonWritesAFileThatListAndReadCanSee() throws Exception {
-        store.putJson("song-a.json", "{\"title\":\"A\"}");
+        String etag = store.putJson("song-a.json", "{\"title\":\"A\"}");
 
         assertThat(Files.readString(root.resolve("song-a.json"))).contains("\"title\":\"A\"");
         assertThat(store.list()).singleElement().satisfies(object -> {
             assertThat(object.key()).isEqualTo("song-a.json");
-            assertThat(object.etag()).isNotBlank();
+            assertThat(object.etag()).isEqualTo(etag);
         });
         assertThat(store.readJson("song-a.json")).contains("\"title\":\"A\"");
+    }
+
+    @Test
+    void findJsonIsEmptyWhenTheObjectIsMissing() {
+        assertThat(store.findJson("never-there.json")).isEmpty();
     }
 
     @Test
@@ -54,6 +59,31 @@ class LocalDirectoryCatalogObjectStoreTest {
     }
 
     @Test
+    void deleteJsonRemovesAStagedObject() throws Exception {
+        store.putJson("song-a.json", "{\"title\":\"A\"}");
+
+        store.deleteJson("song-a.json");
+
+        assertThat(store.list()).isEmpty();
+        assertThatThrownBy(() -> store.readJson("song-a.json"))
+                .isInstanceOf(CatalogStoreException.class);
+    }
+
+    @Test
+    void deleteJsonOfAMissingObjectIsNotAnError() {
+        store.deleteJson("never-there.json");
+
+        assertThat(store.list()).isEmpty();
+    }
+
+    @Test
+    void deleteJsonRejectsAKeyThatEscapesTheRoot() {
+        assertThatThrownBy(() -> store.deleteJson("../escape.json"))
+                .isInstanceOf(CatalogStoreException.class)
+                .hasMessageContaining("escapes");
+    }
+
+    @Test
     void putBinaryWritesNestedMediaWithoutListingItAsASong() throws Exception {
         store.putBinary("song-data/audio/ncs/id-1.mp3", "audio/mpeg",
                 new java.io.ByteArrayInputStream(new byte[] {1, 2, 3}), 3);
@@ -63,6 +93,22 @@ class LocalDirectoryCatalogObjectStoreTest {
         assertThat(store.list()).isEmpty();
         assertThat(store.mediaKey(MediaKind.AUDIO, "ncs", "id-1", "mp3"))
                 .isEqualTo("song-data/audio/ncs/id-1.mp3");
+    }
+
+    @Test
+    void deleteBinaryRemovesMediaWithoutListingItAsASong() throws Exception {
+        store.putBinary("song-data/audio/ncs/id-1.mp3", "audio/mpeg",
+                new java.io.ByteArrayInputStream(new byte[] {1, 2, 3}), 3);
+
+        store.deleteBinary("song-data/audio/ncs/id-1.mp3");
+
+        assertThat(Files.exists(root.resolve("song-data/audio/ncs/id-1.mp3"))).isFalse();
+        assertThat(store.list()).isEmpty();
+    }
+
+    @Test
+    void deleteBinaryOfAMissingObjectIsNotAnError() {
+        store.deleteBinary("song-data/audio/ncs/never.mp3");
     }
 
     @Test

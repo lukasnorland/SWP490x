@@ -247,8 +247,12 @@ the Java profile provider cannot read. On the demo EC2 host set
 
 ### Song catalog
 
-S3 is the source of truth for new songs, MySQL is the read model the UI queries.
-Song JSON is staged at
+S3 is the source of truth for catalog songs; MySQL is the read model the UI
+queries. Every create/update/delete of catalog identity or classification must
+touch the staged JSON first, then MySQL, so the two stay in step. Import is
+one-way S3 → MySQL and will not overwrite a row whose `source_etag` already
+moved to a later put. Wash colours (`ambience_*`) are derived at import from
+`coverUrl` and are MySQL-only. Song JSON is staged at
 `s3://mrs-133857166188-assets/song-data/<externalSourceId>.json`, and an import
 upserts those objects into `song` / `tag` / `song_tag`. Ways to stage a song:
 
@@ -449,7 +453,7 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 | P-01 Password Reset | Implemented — both steps, live BR-12 checklist, link emailed |
 | Forced password change (FT-09) | Implemented |
 | P-06a User Management | Implemented — Thymeleaf MVC CRUD: create + credentials email, filters, pagination, deactivate/reactivate with session invalidation, role change, resend |
-| P-06b Song Catalog | Partly implemented — read-only Songs table with provider/tag/text filters, untagged and no-preview filters, pagination (partial fetch so the shell player stays mounted), and CDN playback via clicking the song title. Authenticated shell soft-navigates sidebar/content links so the player survives leaving Catalog for Users, Audit Log, etc. Editing (UC-29) and the Tags tab outstanding |
+| P-06b Song Catalog | Implemented as RUD — Songs table with provider/tag/text filters, untagged and no-preview filters, pagination (partial fetch so the shell player stays mounted), CDN playback via clicking the song title, per-row edit modal (optimistic lock, HTTP 409 refresh-only, BR-06/DC-02; classification is written to MySQL and the staged song-data JSON), and delete (hosted audio/cover first, then staged JSON, then the MySQL row so the next import cannot recreate the song). Create stays on Catalog Import. Authenticated shell soft-navigates sidebar/content links so the player survives leaving Catalog for Users, Audit Log, etc. The Tags dictionary tab is still outstanding |
 | P-06c Catalog Import | Implemented — ADMIN audio + artwork upload (server writes media + generated song-data JSON, then auto-syncs into MySQL), Run import to convert JSON already under the prefix, per-row skip reasons, run history, and a scheduled poller. Browser JSON file upload was removed; JSON remains the staged object format. The provider CSV/XLSX of UC-28 is outstanding |
 | P-02, P-03 – P-06e | Scaffolded — real headings and navigation, with each specified zone marked as outstanding |
 

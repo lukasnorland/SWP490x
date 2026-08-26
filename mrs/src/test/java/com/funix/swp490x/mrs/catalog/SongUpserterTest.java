@@ -163,6 +163,45 @@ class SongUpserterTest {
         assertThat(result.skipped()).isEmpty();
     }
 
+    @Test
+    void doesNotRollBackARowAlreadyMovedByALaterCatalogWrite() {
+        Song existing = new Song();
+        existing.setSourceProvider("NCS");
+        existing.setExternalSourceId("a");
+        existing.setTitle("Edited");
+        existing.setSourceEtag("etag-b");
+        given(songRepository.findBySourceProviderAndExternalSourceId("NCS", "a"))
+                .willReturn(Optional.of(existing));
+
+        SongUpserter.ChunkResult result = upserter.upsertChunk(List.of(
+                fetched("a", "etag-a", song("a", "Stale fetch"), "etag-x")));
+
+        assertThat(result.updated()).isZero();
+        assertThat(result.skipped()).singleElement().satisfies(row ->
+                assertThat(row.reason()).contains("later catalog write"));
+        assertThat(existing.getTitle()).isEqualTo("Edited");
+        assertThat(existing.getSourceEtag()).isEqualTo("etag-b");
+        verify(songRepository, never()).save(any(Song.class));
+    }
+
+    @Test
+    void stillAppliesWhenMysqlStillHasTheEtagTheListingCompared() {
+        Song existing = new Song();
+        existing.setSourceProvider("NCS");
+        existing.setExternalSourceId("a");
+        existing.setTitle("Was");
+        existing.setSourceEtag("etag-x");
+        given(songRepository.findBySourceProviderAndExternalSourceId("NCS", "a"))
+                .willReturn(Optional.of(existing));
+
+        SongUpserter.ChunkResult result = upserter.upsertChunk(List.of(
+                fetched("a", "etag-a", song("a", "From S3"), "etag-x")));
+
+        assertThat(result.updated()).isEqualTo(1);
+        assertThat(existing.getTitle()).isEqualTo("From S3");
+        assertThat(existing.getSourceEtag()).isEqualTo("etag-a");
+    }
+
     private Song savedSong() {
         ArgumentCaptor<Song> captor = ArgumentCaptor.forClass(Song.class);
         verify(songRepository).save(captor.capture());
@@ -170,7 +209,11 @@ class SongUpserterTest {
     }
 
     private static Fetched fetched(String key, String etag, String json) {
-        return new Fetched(new CatalogObject(key, etag), json);
+        return fetched(key, etag, json, null);
+    }
+
+    private static Fetched fetched(String key, String etag, String json, String listedSourceEtag) {
+        return new Fetched(new CatalogObject(key, etag), json, listedSourceEtag);
     }
 
     private static String song(String id, String title) {

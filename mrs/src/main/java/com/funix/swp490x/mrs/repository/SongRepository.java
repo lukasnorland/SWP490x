@@ -82,6 +82,11 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     @EntityGraph(attributePaths = "tags")
     List<Song> findAllWithTags(@Param("ids") List<Long> ids);
 
+    /** One song with its tags, for the P-06b edit modal (UC-29). */
+    @Query("SELECT s FROM Song s WHERE s.id = :id")
+    @EntityGraph(attributePaths = "tags")
+    Optional<Song> findByIdWithTags(@Param("id") Long id);
+
     /** Provider values actually present, for the P-06b filter. */
     @Query("SELECT DISTINCT s.sourceProvider FROM Song s ORDER BY s.sourceProvider")
     List<String> findDistinctProviders();

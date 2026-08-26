@@ -3,6 +3,7 @@ package com.funix.swp490x.mrs.catalog;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 /**
  * The staged song JSON, wherever it lives.
@@ -30,14 +31,32 @@ public interface CatalogObjectStore {
     String readJson(String key);
 
     /**
+     * Body of one object, or empty when it is not there. A missing object is
+     * not an error: an edit may write a new staged file from the catalog row.
+     *
+     * @throws CatalogStoreException when the store could not be contacted
+     */
+    Optional<String> findJson(String key);
+
+    /**
      * Writes (or overwrites) one staged song object.
      *
      * <p>The key must be the same shape {@link #list()} returns for that
      * object, so a put is immediately visible to the next ETag diff.
      *
+     * @return the ETag of the written object, the same hash {@link #list()}
+     *     would report, so the catalog row can skip the next import
      * @throws CatalogStoreException when the object could not be written
      */
-    void putJson(String key, String json);
+    String putJson(String key, String json);
+
+    /**
+     * Removes one staged song object. A missing object is not an error: the
+     * next listing will not recreate the catalog row.
+     *
+     * @throws CatalogStoreException when the object could not be deleted
+     */
+    void deleteJson(String key);
 
     /**
      * The key under which a song with this external id is staged — the same
@@ -54,6 +73,13 @@ public interface CatalogObjectStore {
      * @throws CatalogStoreException when the object could not be written
      */
     void putBinary(String key, String contentType, InputStream body, long length);
+
+    /**
+     * Removes one audio or cover object. A missing object is not an error.
+     *
+     * @throws CatalogStoreException when the object could not be deleted
+     */
+    void deleteBinary(String key);
 
     /**
      * Canonical key for company-hosted media, matching the CloudFront prefixes

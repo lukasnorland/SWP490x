@@ -89,7 +89,7 @@
                       aria-hidden="true">
                   <svg th:replace="~{fragments/icons :: icon('music', 'icon--sm')}"></svg>
                 </span>
-                <div class="d-flex flex-column">
+                <div class="d-flex flex-column flex-grow-1 min-w-0">
                   <button type="button"
                           class="song-title-play"
                           th:if="${song.audioUrl != null and !#strings.isEmpty(song.audioUrl)}"
@@ -110,6 +110,40 @@
                     <svg th:replace="~{fragments/icons :: icon('alert-triangle', 'icon--sm')}"></svg>
                     Untagged
                   </span>
+                </div>
+                <div th:if="${!browseMode}"
+                     class="catalog-row-ops d-inline-flex align-items-center flex-shrink-0 gap-1">
+                  <button type="button" class="btn btn-icon"
+                          title="Edit song"
+                          data-bs-toggle="modal"
+                          data-bs-target="#editSong"
+                          data-edit-song
+                          th:data-song-id="${song.id}"
+                          th:data-song-version="${song.version}"
+                          th:data-song-title="${song.title}"
+                          th:data-song-artist="${song.artist}"
+                          th:data-song-duration="${song.duration}"
+                          th:data-song-bpm="${song.bpm}"
+                          th:data-song-isrc="${song.isrc}"
+                          th:data-song-explicit="${song.explicit == true}"
+                          th:data-song-genres="${song.genreNames}"
+                          th:data-song-moods="${song.moodNames}"
+                          th:data-song-tags="${song.freeformTagNames}"
+                          th:data-song-provider="${song.sourceProvider}"
+                          th:data-song-external-id="${song.externalSourceId}"
+                          th:data-song-audio-url="${song.audioUrl}"
+                          th:data-song-cover-url="${song.coverUrl}">
+                    <svg th:replace="~{fragments/icons :: icon('pencil', 'icon--sm')}"></svg>
+                    <span class="visually-hidden">Edit</span>
+                  </button>
+                  <form th:action="@{|/admin/catalog/${song.id}/delete|}" method="post">
+                    <button type="submit" class="btn btn-icon"
+                            title="Delete song"
+                            onclick="return confirm('Remove this song from the catalog? Playlists that include it will lose the track.');">
+                      <svg th:replace="~{fragments/icons :: icon('trash-2', 'icon--sm')}"></svg>
+                      <span class="visually-hidden">Delete</span>
+                    </button>
+                  </form>
                 </div>
               </div>
             </td>

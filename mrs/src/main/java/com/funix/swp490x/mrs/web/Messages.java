@@ -115,6 +115,25 @@ public final class Messages {
             "A file is larger than 100 MB (audio) or 5 MB (cover), or the batch is over 1.1 GB. "
                     + "Use a smaller file and try again.";
 
+    /**
+     * Outcomes of P-06b song edit and delete (UC-29). Songs have no clone
+     * option on a stale save (BR-06, DC-02) — refresh only.
+     */
+    public static final String SONG_SAVED = "Song updated.";
+
+    public static final String SONG_SAVE_FAILED =
+            "The staged catalog object could not be updated. The song was not changed — try again.";
+
+    public static final String SONG_DELETED = "Song removed from the catalog.";
+
+    public static final String SONG_STALE =
+            "This song changed while you were editing. Refresh the page and try again.";
+
+    public static final String SONG_NOT_FOUND = "That song is no longer in the catalog.";
+
+    public static final String SONG_DELETE_FAILED =
+            "The song could not be removed from staging. It is still in the catalog — try again.";
+
     private Messages() {
     }
 }

@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
@@ -53,6 +54,17 @@ class S3CatalogObjectStoreTest {
     }
 
     @Test
+    void putJsonWrapsAnExpiredAwsLoginAsCatalogStoreException() {
+        given(s3.putObject(any(PutObjectRequest.class), any(RequestBody.class)))
+                .willThrow(expiredLogin());
+
+        assertThatThrownBy(() -> store.putJson("song-data/abc.json", "{}"))
+                .isInstanceOf(CatalogStoreException.class)
+                .hasMessageContaining("session has expired")
+                .hasMessageContaining("s3://mrs-assets/song-data/abc.json");
+    }
+
+    @Test
     void putBinaryWrapsAnExpiredAwsLoginAsCatalogStoreException() {
         given(s3.putObject(any(PutObjectRequest.class), any(RequestBody.class)))
                 .willThrow(expiredLogin());
@@ -61,6 +73,16 @@ class S3CatalogObjectStoreTest {
                 "audio/mpeg", new ByteArrayInputStream(new byte[] {1}), 1))
                 .isInstanceOf(CatalogStoreException.class)
                 .hasMessageContaining("session has expired");
+    }
+
+    @Test
+    void deleteJsonWrapsAnExpiredAwsLoginAsCatalogStoreException() {
+        given(s3.deleteObject(any(DeleteObjectRequest.class))).willThrow(expiredLogin());
+
+        assertThatThrownBy(() -> store.deleteJson("song-data/abc.json"))
+                .isInstanceOf(CatalogStoreException.class)
+                .hasMessageContaining("session has expired")
+                .hasMessageContaining("s3://mrs-assets/song-data/abc.json");
     }
 
     private static IllegalStateException expiredLogin() {

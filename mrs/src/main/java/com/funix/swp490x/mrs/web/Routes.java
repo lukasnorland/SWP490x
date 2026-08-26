@@ -45,6 +45,10 @@ public final class Routes {
     public static final String ADMIN_USER_PREPARE_RECIPIENT = "/admin/users/prepare-recipient";
     /** P-06b Admin — Song Catalog & Metadata. */
     public static final String ADMIN_CATALOG = "/admin/catalog";
+    /** P-06b — save an edited song (UC-29). */
+    public static final String ADMIN_CATALOG_SONG = "/admin/catalog/{id}";
+    /** P-06b — delete a song (UC-29). */
+    public static final String ADMIN_CATALOG_SONG_DELETE = "/admin/catalog/{id}/delete";
     /** P-06c Admin — Catalog Import. */
     public static final String ADMIN_IMPORT = "/admin/import";
     /** P-06c — run the import now, reading the staged JSON from S3 (UC-28). */

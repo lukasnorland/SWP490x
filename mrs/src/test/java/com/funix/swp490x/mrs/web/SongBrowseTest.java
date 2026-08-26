@@ -96,9 +96,14 @@ class SongBrowseTest {
     }
 
     @Test
-    void browseChromeHidesAdminImportForContentDesigner() throws Exception {
+    void browseChromeHidesAdminImportAndCatalogEditsForContentDesigner() throws Exception {
+        showing(song("Ice Cream", "Sugar Blizz"));
+
         mockMvc.perform(get(Routes.SONGS).with(user(principal(Role.CONTENT_DESIGNER))))
-                .andExpect(content().string(not(containsString("Catalog Import"))));
+                .andExpect(content().string(not(containsString("Catalog Import"))))
+                .andExpect(content().string(not(containsString("Edit song"))))
+                .andExpect(content().string(not(containsString("/admin/catalog/"))))
+                .andExpect(content().string(not(containsString("data-edit-song"))));
     }
 
     @Test

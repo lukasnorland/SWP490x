@@ -126,6 +126,10 @@
   max-width: 600px;
 }
 
+.modal--edit-song .modal-dialog {
+  max-width: 720px;
+}
+
 /* --- Dense tables ------------------------------------------------------- */
 
 /* Row actions stay hidden until the row is hovered or focused, keeping dense
@@ -185,6 +189,13 @@
 
 .song-title-play[aria-pressed="true"] {
   color: var(--color-primary-bright);
+}
+
+/* Catalog edit/delete sit next to the title and stay visible. Hover-reveal
+   (.table__actions) would hide them at the far edge of a wide table. */
+.catalog-row-ops .btn-icon {
+  --bs-btn-color: var(--color-text);
+  --bs-btn-hover-color: var(--color-primary-bright);
 }
 
 /* --- Stepper (P-06c catalog import) ------------------------------------- */

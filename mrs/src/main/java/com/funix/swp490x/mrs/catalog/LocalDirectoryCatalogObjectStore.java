@@ -12,6 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Comparator;
 import java.util.HexFormat;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -53,21 +54,52 @@ public class LocalDirectoryCatalogObjectStore implements CatalogObjectStore {
 
     @Override
     public String readJson(String key) {
+        return findJson(key).orElseThrow(() ->
+                new CatalogStoreException("Could not read " + key + " under " + describe()
+                        + ": object is missing"));
+    }
+
+    @Override
+    public Optional<String> findJson(String key) {
+        Path target = resolve(key);
+        if (!Files.exists(target)) {
+            return Optional.empty();
+        }
         try {
-            return Files.readString(resolve(key), StandardCharsets.UTF_8);
+            return Optional.of(Files.readString(target, StandardCharsets.UTF_8));
         } catch (IOException e) {
             throw new CatalogStoreException("Could not read " + key + " under " + describe(), e);
         }
     }
 
     @Override
-    public void putJson(String key, String json) {
+    public String putJson(String key, String json) {
         try {
             Path target = resolve(key);
             Files.createDirectories(parentOf(target));
-            Files.writeString(target, json, StandardCharsets.UTF_8);
+            byte[] bytes = json.getBytes(StandardCharsets.UTF_8);
+            Files.write(target, bytes);
+            return md5(bytes);
         } catch (IOException e) {
             throw new CatalogStoreException("Could not write " + key + " under " + describe(), e);
+        }
+    }
+
+    @Override
+    public void deleteJson(String key) {
+        deleteObject(key);
+    }
+
+    @Override
+    public void deleteBinary(String key) {
+        deleteObject(key);
+    }
+
+    private void deleteObject(String key) {
+        try {
+            Files.deleteIfExists(resolve(key));
+        } catch (IOException e) {
+            throw new CatalogStoreException("Could not delete " + key + " under " + describe(), e);
         }
     }
 
@@ -112,10 +144,15 @@ public class LocalDirectoryCatalogObjectStore implements CatalogObjectStore {
 
     private static String md5(Path file) {
         try {
-            MessageDigest digest = MessageDigest.getInstance("MD5");
-            return HexFormat.of().formatHex(digest.digest(Files.readAllBytes(file)));
+            return md5(Files.readAllBytes(file));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
+        }
+    }
+
+    private static String md5(byte[] content) {
+        try {
+            return HexFormat.of().formatHex(MessageDigest.getInstance("MD5").digest(content));
         } catch (NoSuchAlgorithmException e) {
             throw new IllegalStateException("MD5 is required of every JVM", e);
         }

@@ -480,13 +480,28 @@ class CatalogImportServiceTest {
         }
 
         @Override
-        public void putJson(String key, String json) {
-            delegate.putJson(key, json);
+        public java.util.Optional<String> findJson(String key) {
+            return delegate.findJson(key);
+        }
+
+        @Override
+        public String putJson(String key, String json) {
+            return delegate.putJson(key, json);
+        }
+
+        @Override
+        public void deleteJson(String key) {
+            delegate.deleteJson(key);
         }
 
         @Override
         public void putBinary(String key, String contentType, java.io.InputStream body, long length) {
             delegate.putBinary(key, contentType, body, length);
+        }
+
+        @Override
+        public void deleteBinary(String key) {
+            delegate.deleteBinary(key);
         }
 
         @Override

@@ -37,5 +37,7 @@ replay_pid*
 epidemic-pages/
 song-data/
 
-# Editor / agent local (optional commit of shared settings only via .vscode)
-.cursor/
+# Editor / agent local — share Cursor rules with the repo
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
