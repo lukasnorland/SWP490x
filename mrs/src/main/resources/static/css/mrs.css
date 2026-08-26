@@ -198,6 +198,82 @@
   --bs-btn-hover-color: var(--color-primary-bright);
 }
 
+/* Catalog list: fill the main column, wrap badges, and only scroll sideways
+   when the viewport is too narrow for the remaining columns. */
+.content:has([data-catalog-results]) {
+  max-width: none;
+}
+
+.catalog-table-wrap {
+  overflow-x: visible;
+}
+
+.catalog-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.catalog-table > tbody > tr > td {
+  height: auto;
+  min-height: var(--row-height);
+  vertical-align: middle;
+}
+
+.catalog-table .table__numeric {
+  white-space: nowrap;
+}
+
+.catalog-col-title {
+  width: 18%;
+}
+
+.catalog-col-artist {
+  width: 11%;
+}
+
+.catalog-col-source {
+  width: 11%;
+}
+
+.catalog-col-genre,
+.catalog-col-mood {
+  width: 10%;
+}
+
+.catalog-col-tags {
+  width: 30%;
+}
+
+.catalog-col-length {
+  width: 6%;
+}
+
+.catalog-col-bpm {
+  width: 4%;
+}
+
+.catalog-source-id {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.catalog-tag-list {
+  min-width: 0;
+}
+
+@media (max-width: 1024px) {
+  .catalog-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .catalog-table {
+    min-width: 72rem;
+  }
+}
+
 /* --- Stepper (P-06c catalog import) ------------------------------------- */
 
 .stepper__step[aria-current="step"] {

@@ -40,17 +40,17 @@ public class SongBrowseController {
     @GetMapping(Routes.SONGS)
     public String songs(@AuthenticationPrincipal MrsUserDetails user,
             @RequestParam(required = false) String provider,
+            @RequestParam(required = false) Long genreId,
+            @RequestParam(required = false) Long moodId,
             @RequestParam(required = false) Long tagId,
             @RequestParam(required = false) String q,
-            @RequestParam(defaultValue = "false") boolean untagged,
-            @RequestParam(defaultValue = "false") boolean noPreview,
             @RequestParam(defaultValue = "0") int page,
             @RequestHeader(value = PARTIAL_RESULTS_HEADER, required = false) String partial,
             Model model) {
         if (user != null && user.isAdmin()) {
             return "redirect:" + Routes.ADMIN_CATALOG;
         }
-        populateResults(model, provider, tagId, q, untagged, noPreview, page);
+        populateResults(model, provider, genreId, moodId, tagId, q, page);
         if (PARTIAL_RESULTS_VALUE.equals(partial)) {
             return "fragments/song-catalog :: results";
         }
@@ -58,17 +58,17 @@ public class SongBrowseController {
         return "songs/index";
     }
 
-    private void populateResults(Model model, String provider, Long tagId, String q,
-            boolean untagged, boolean noPreview, int page) {
-        Page<Song> songs = catalogService.search(provider, tagId, q, untagged, noPreview, page);
+    private void populateResults(Model model, String provider, Long genreId, Long moodId,
+            Long tagId, String q, int page) {
+        Page<Song> songs = catalogService.search(provider, genreId, moodId, tagId, q, page);
         model.addAttribute("songs", songs);
         model.addAttribute("catalogBasePath", Routes.SONGS);
         model.addAttribute("browseMode", true);
         model.addAttribute("filterProvider", provider);
+        model.addAttribute("filterGenreId", genreId);
+        model.addAttribute("filterMoodId", moodId);
         model.addAttribute("filterTagId", tagId);
         model.addAttribute("filterQuery", q == null ? "" : q);
-        model.addAttribute("filterUntagged", untagged);
-        model.addAttribute("filterNoPreview", noPreview);
     }
 
     private void populateShell(Model model) {

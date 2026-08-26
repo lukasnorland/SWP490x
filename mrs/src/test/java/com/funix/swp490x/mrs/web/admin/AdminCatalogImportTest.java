@@ -100,7 +100,7 @@ class AdminCatalogImportTest {
     @BeforeEach
     void defaults() {
         given(songCatalogService.search(nullable(String.class), nullable(Long.class),
-                nullable(String.class), anyBoolean(), anyBoolean(), anyInt()))
+                nullable(Long.class), nullable(Long.class), nullable(String.class), anyInt()))
                 .willReturn(Page.empty());
         given(songCatalogService.providers()).willReturn(List.of("EpidemicSound"));
         given(tagRepository.findAllByOrderByTypeAscNameAsc()).willReturn(List.of());
@@ -131,6 +131,11 @@ class AdminCatalogImportTest {
                 .andExpect(content().string(containsString("Ice Cream")))
                 .andExpect(content().string(containsString("Sugar Blizz")))
                 .andExpect(content().string(containsString("Pop")))
+                .andExpect(content().string(containsString("Dreamy")))
+                .andExpect(content().string(containsString("smooth")))
+                .andExpect(content().string(containsString("<th scope=\"col\">Genre</th>")))
+                .andExpect(content().string(containsString("<th scope=\"col\">Mood</th>")))
+                .andExpect(content().string(containsString("<th scope=\"col\">Tags</th>")))
                 .andExpect(content().string(containsString("EpidemicSound")))
                 .andExpect(content().string(
                         containsString("003c5571-5014-387b-978c-2836125178a4")))
@@ -173,7 +178,7 @@ class AdminCatalogImportTest {
 
     private void showing(Song... songs) {
         given(songCatalogService.search(nullable(String.class), nullable(Long.class),
-                nullable(String.class), anyBoolean(), anyBoolean(), anyInt()))
+                nullable(Long.class), nullable(Long.class), nullable(String.class), anyInt()))
                 .willReturn(new PageImpl<>(List.of(songs), PageRequest.of(0, 20), songs.length));
     }
 
@@ -181,16 +186,35 @@ class AdminCatalogImportTest {
     void catalogPassesEveryFilterThrough() throws Exception {
         mockMvc.perform(get(Routes.ADMIN_CATALOG)
                         .param("provider", "EpidemicSound")
+                        .param("genreId", "3")
+                        .param("moodId", "4")
                         .param("tagId", "5")
                         .param("q", "ice")
-                        .param("untagged", "true")
-                        .param("noPreview", "true")
                         .param("page", "2")
                         .with(user(admin())))
                 .andExpect(status().isOk());
 
         then(songCatalogService).should()
-                .search("EpidemicSound", 5L, "ice", true, true, 2);
+                .search("EpidemicSound", 3L, 4L, 5L, "ice", 2);
+    }
+
+    @Test
+    void catalogSplitsGenreMoodAndTagFilters() throws Exception {
+        given(tagRepository.findAllByOrderByTypeAscNameAsc()).willReturn(List.of(
+                new Tag(TagType.GENRE, "Pop"),
+                new Tag(TagType.MOOD, "Dreamy"),
+                new Tag(TagType.TAGS, "smooth")));
+
+        mockMvc.perform(get(Routes.ADMIN_CATALOG).with(user(admin())))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("id=\"filterGenre\"")))
+                .andExpect(content().string(containsString("id=\"filterMood\"")))
+                .andExpect(content().string(containsString("id=\"filterTag\"")))
+                .andExpect(content().string(containsString("name=\"genreId\"")))
+                .andExpect(content().string(containsString("name=\"moodId\"")))
+                .andExpect(content().string(not(containsString("Untagged only"))))
+                .andExpect(content().string(not(containsString("No preview audio"))))
+                .andExpect(content().string(not(containsString("Tag dictionary"))));
     }
 
     /** DC-03: songs no filtered search can reach are called out, not hidden. */
@@ -222,7 +246,7 @@ class AdminCatalogImportTest {
                 .andExpect(content().string(containsString("Ice Cream")))
                 .andExpect(content().string(containsString("Sugar Blizz")))
                 .andExpect(content().string(not(containsString("data-preview-bar"))))
-                .andExpect(content().string(not(containsString("Song Catalog &amp; Metadata"))))
+                .andExpect(content().string(not(containsString("Song Catalog"))))
                 .andExpect(content().string(not(containsString("sidebar__brand"))));
     }
 
@@ -607,7 +631,10 @@ class AdminCatalogImportTest {
         song.setBpm(110);
         song.setCoverUrl("https://cdn.epidemicsound.com/cover.jpg");
         song.setAudioUrl("https://audiocdn.epidemicsound.com/preview.mp3");
-        song.setTags(Set.of(new Tag(TagType.GENRE, "Pop")));
+        song.setTags(Set.of(
+                new Tag(TagType.GENRE, "Pop"),
+                new Tag(TagType.MOOD, "Dreamy"),
+                new Tag(TagType.TAGS, "smooth")));
         return song;
     }
 }

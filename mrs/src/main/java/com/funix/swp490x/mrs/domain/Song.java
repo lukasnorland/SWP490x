@@ -12,7 +12,9 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
+import java.util.Comparator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -267,6 +269,21 @@ public class Song {
         return tagNames(TagType.TAGS);
     }
 
+    /** Genre badges for the catalog table (JSON {@code genres}). */
+    public List<Tag> getGenreTags() {
+        return tagsOf(TagType.GENRE);
+    }
+
+    /** Mood badges for the catalog table (JSON {@code moods}). */
+    public List<Tag> getMoodTags() {
+        return tagsOf(TagType.MOOD);
+    }
+
+    /** Freeform descriptor badges (JSON {@code tags}). */
+    public List<Tag> getFreeformTags() {
+        return tagsOf(TagType.TAGS);
+    }
+
     /** Comma-separated names of one vocabulary, for the P-06b edit modal. */
     public String tagNames(TagType type) {
         if (tags == null || tags.isEmpty()) {
@@ -276,5 +293,15 @@ public class Song {
                 .filter(tag -> tag.getType() == type)
                 .map(Tag::getName)
                 .collect(Collectors.joining(", "));
+    }
+
+    private List<Tag> tagsOf(TagType type) {
+        if (tags == null || tags.isEmpty()) {
+            return List.of();
+        }
+        return tags.stream()
+                .filter(tag -> tag.getType() == type)
+                .sorted(Comparator.comparing(Tag::getName, String.CASE_INSENSITIVE_ORDER))
+                .toList();
     }
 }

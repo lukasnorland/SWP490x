@@ -122,18 +122,16 @@
     <li class="page-item" th:classappend="${page.first} ? 'disabled'">
       <a class="page-link"
          th:href="@{${basePath}(page=${page.number - 1}, provider=${filterProvider},
-                   tagId=${filterTagId}, q=${filterQuery},
-                   untagged=${filterUntagged} ? 'true' : null,
-                   noPreview=${filterNoPreview} ? 'true' : null)}"
+                   genreId=${filterGenreId}, moodId=${filterMoodId}, tagId=${filterTagId},
+                   q=${filterQuery})}"
          th:attr="aria-disabled=${page.first} ? 'true' : null"
          th:tabindex="${page.first} ? -1 : null">Previous</a>
     </li>
     <li class="page-item" th:classappend="${page.last} ? 'disabled'">
       <a class="page-link"
          th:href="@{${basePath}(page=${page.number + 1}, provider=${filterProvider},
-                   tagId=${filterTagId}, q=${filterQuery},
-                   untagged=${filterUntagged} ? 'true' : null,
-                   noPreview=${filterNoPreview} ? 'true' : null)}"
+                   genreId=${filterGenreId}, moodId=${filterMoodId}, tagId=${filterTagId},
+                   q=${filterQuery})}"
          th:attr="aria-disabled=${page.last} ? 'true' : null"
          th:tabindex="${page.last} ? -1 : null">Next</a>
     </li>

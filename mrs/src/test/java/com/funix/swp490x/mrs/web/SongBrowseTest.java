@@ -2,7 +2,6 @@ package com.funix.swp490x.mrs.web;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
-import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.BDDMockito.given;
@@ -69,7 +68,7 @@ class SongBrowseTest {
     @BeforeEach
     void defaults() {
         given(songCatalogService.search(nullable(String.class), nullable(Long.class),
-                nullable(String.class), anyBoolean(), anyBoolean(), anyInt()))
+                nullable(Long.class), nullable(Long.class), nullable(String.class), anyInt()))
                 .willReturn(Page.empty());
         given(songCatalogService.providers()).willReturn(List.of("EpidemicSound"));
         given(songCatalogService.total()).willReturn(0L);
@@ -138,15 +137,16 @@ class SongBrowseTest {
     void songsPassesBrowseFiltersThrough() throws Exception {
         mockMvc.perform(get(Routes.SONGS)
                         .param("provider", "EpidemicSound")
+                        .param("genreId", "3")
+                        .param("moodId", "4")
                         .param("tagId", "5")
                         .param("q", "ice")
-                        .param("noPreview", "true")
                         .param("page", "1")
                         .with(user(principal(Role.CONTENT_DESIGNER))))
                 .andExpect(status().isOk());
 
         then(songCatalogService).should()
-                .search("EpidemicSound", 5L, "ice", false, true, 1);
+                .search("EpidemicSound", 3L, 4L, 5L, "ice", 1);
     }
 
     @Test
@@ -159,7 +159,7 @@ class SongBrowseTest {
 
     private void showing(Song... songs) {
         given(songCatalogService.search(nullable(String.class), nullable(Long.class),
-                nullable(String.class), anyBoolean(), anyBoolean(), anyInt()))
+                nullable(Long.class), nullable(Long.class), nullable(String.class), anyInt()))
                 .willReturn(new PageImpl<>(List.of(songs), PageRequest.of(0, 20), songs.length));
         given(songCatalogService.total()).willReturn((long) songs.length);
     }
@@ -186,7 +186,10 @@ class SongBrowseTest {
         song.setBpm(110);
         song.setCoverUrl("https://cdn.epidemicsound.com/cover.jpg");
         song.setAudioUrl("https://audiocdn.epidemicsound.com/preview.mp3");
-        song.setTags(Set.of(new Tag(TagType.GENRE, "Pop")));
+        song.setTags(Set.of(
+                new Tag(TagType.GENRE, "Pop"),
+                new Tag(TagType.MOOD, "Dreamy"),
+                new Tag(TagType.TAGS, "smooth")));
         return song;
     }
 }
