@@ -88,13 +88,29 @@ S3 bucket for assets: `mrs-133857166188-assets` (objects under `song-data/`).
 
 The catalog import and the ADMIN upload form both talk to that prefix, so the
 EC2 role needs `s3:ListBucket` on the bucket (scoped to the `song-data/*`
-prefix), plus `s3:GetObject` and `s3:PutObject` on
+prefix), plus `s3:GetObject`, `s3:PutObject` and `s3:DeleteObject` on
 `arn:aws:s3:::mrs-133857166188-assets/song-data/*`. `ListBucket` is a
 bucket-level action and is what returns the ETags the import diffs against, so
 `GetObject` alone is not enough — without it every run reports the prefix as
 empty. `PutObject` is what P-06c's upload button uses; without it the form can
-validate files but cannot stage them. A direct `aws s3 cp` remains a valid way
-to stage JSON as well.
+validate files but cannot stage them. `DeleteObject` is what P-06b uses to
+remove a song's JSON and hosted audio/cover; without it the catalog row would
+stay because a failed store delete never reaches MySQL. A direct `aws s3 cp`
+remains a valid way to stage JSON as well.
+
+The live inline policy is `mrs-s3-assets` on `mrs-ec2-role` (source:
+`infra/ec2-s3-assets-policy.json`). It already allows Get, Put and Delete on
+the bucket. Re-apply after editing the file:
+
+```bash
+aws iam put-role-policy --profile mrs-admin --role-name mrs-ec2-role \
+  --policy-name mrs-s3-assets \
+  --policy-document file://infra/ec2-s3-assets-policy.json
+```
+
+IAM updates apply to the instance role without a reboot. The Spring process
+picks them up on the next S3 call once the instance metadata credentials
+refresh.
 
 Catalog audio lives under `song-data/audio/` in the same bucket (NCS today
 under `song-data/audio/ncs/`; other vendors can share that prefix later). NCS

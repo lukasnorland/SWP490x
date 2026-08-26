@@ -185,4 +185,26 @@ class SongJsonMapperTest {
         assertThat(result.values().title()).isEqualTo("T");
         assertThat(result.values().audioUrl()).endsWith("a.mp3");
     }
+
+    @Test
+    void patchClassificationKeepsUnknownProviderFieldsAndLicensedIdentity() {
+        String json = """
+                {"externalSourceId":"x1","sourceProvider":"DemoProvider","title":"Ice Cream",
+                 "artist":"Sugar Blizz","epidemicTrackId":999,"publicSlug":"abc",
+                 "isExplicit":false,"genres":["Old"],"moods":["Whatever"],"tags":["stale"]}
+                """;
+
+        String patched = mapper.patchClassification(json, true, List.of("Pop"),
+                List.of("Dreamy"), List.of("smooth"));
+
+        assertThat(patched).contains("\"epidemicTrackId\" : 999");
+        assertThat(patched).contains("\"publicSlug\" : \"abc\"");
+        assertThat(patched).contains("\"title\" : \"Ice Cream\"");
+        assertThat(patched).contains("\"artist\" : \"Sugar Blizz\"");
+        assertThat(patched).contains("\"isExplicit\" : true");
+        assertThat(patched).contains("\"Pop\"");
+        assertThat(patched).doesNotContain("\"Old\"");
+        assertThat(patched).doesNotContain("\"Whatever\"");
+        assertThat(patched).doesNotContain("\"stale\"");
+    }
 }

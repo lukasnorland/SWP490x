@@ -1,0 +1,34 @@
+---
+description: Catalog data — S3 staged JSON and MySQL song rows must stay in sync
+alwaysApply: true
+---
+
+# Catalog S3 / MySQL sync
+
+Staged song-data JSON (S3, or `mrs.catalog.local-dir`) is the source of truth.
+MySQL `song` / `song_tag` is the read model. They must not drift.
+
+- **Create** only by writing JSON (and media) to the object store, then import.
+  Never `save` a new `Song` from a form or service.
+- **Update** catalog fields that live in JSON (`isExplicit`, genres, moods,
+  tags, and any later identity fields) by patching the staged object first,
+  then MySQL, then `source_etag` to the put's ETag. Preserve unknown JSON keys.
+  Refuse the edit if the song has no `externalSourceId` or the put fails.
+- **Delete** hosted audio/artwork under {@code song-data/}, then staged JSON,
+  then the MySQL row. Vendor CDN URLs are not ours. Missing objects are success.
+- **Import** is S3 → MySQL only. Do not apply a fetched object when the row's
+  `source_etag` has already moved to a different write (concurrent admin edit).
+- **MySQL-only columns** are derived, not catalog identity: `version`,
+  `ambience_*`, `spotify_popularity`, playlist membership.
+
+```java
+// BAD — MySQL changes that the next import will overwrite or that S3 never sees
+song.setExplicit(true);
+songRepository.save(song);
+
+// GOOD — object store first, row second, etag matches the bytes just written
+String etag = store.putJson(key, patchedJson);
+song.setExplicit(true);
+song.setSourceEtag(etag);
+songRepository.save(song);
+```

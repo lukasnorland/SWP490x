@@ -10,6 +10,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.never;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
@@ -24,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.funix.swp490x.mrs.catalog.CatalogImportService;
 import com.funix.swp490x.mrs.catalog.CatalogImportService.ImportProgress;
+import com.funix.swp490x.mrs.catalog.CatalogStoreException;
 import com.funix.swp490x.mrs.catalog.ImportSummary;
 import com.funix.swp490x.mrs.catalog.ImportSummary.SkippedRow;
 import com.funix.swp490x.mrs.catalog.SongDraftUploadService;
@@ -46,6 +48,9 @@ import com.funix.swp490x.mrs.security.LoginSuccessHandler;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.security.MrsUserDetailsService;
 import com.funix.swp490x.mrs.service.SongCatalogService;
+import com.funix.swp490x.mrs.service.SongCatalogService.SongEdit;
+import com.funix.swp490x.mrs.service.SongNotFoundException;
+import com.funix.swp490x.mrs.service.StaleSongException;
 import com.funix.swp490x.mrs.web.Messages;
 import com.funix.swp490x.mrs.web.Routes;
 import com.funix.swp490x.mrs.web.support.MultipartUploadAdvice;
@@ -419,11 +424,21 @@ class AdminCatalogImportTest {
                 .andExpect(status().isForbidden());
         mockMvc.perform(post(Routes.ADMIN_IMPORT_RUN).with(csrf()).with(user(designer)))
                 .andExpect(status().isForbidden());
+        mockMvc.perform(post("/admin/catalog/12")
+                        .param("title", "Ice Cream")
+                        .param("version", "0")
+                        .with(csrf())
+                        .with(user(designer)))
+                .andExpect(status().isForbidden());
+        mockMvc.perform(post("/admin/catalog/12/delete").with(csrf()).with(user(designer)))
+                .andExpect(status().isForbidden());
         mockMvc.perform(get(Routes.ADMIN_IMPORT_STATUS).with(user(designer)))
                 .andExpect(status().isForbidden());
 
         then(importService).should(never()).sync(any(), any(), anyBoolean());
         then(importService).should(never()).startAsync(any(), any(), anyBoolean());
+        then(songCatalogService).should(never()).update(any(), anyInt(), any());
+        then(songCatalogService).should(never()).delete(any());
     }
 
     @Test
@@ -444,6 +459,117 @@ class AdminCatalogImportTest {
 
         then(importService).should(never()).sync(any(), any(), anyBoolean());
         then(importService).should(never()).startAsync(any(), any(), anyBoolean());
+    }
+
+    @Test
+    void catalogOffersPerRowEditAndDelete() throws Exception {
+        showing(song("Ice Cream", "Sugar Blizz"));
+
+        mockMvc.perform(get(Routes.ADMIN_CATALOG).with(user(admin())))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Edit song")))
+                .andExpect(content().string(containsString("data-edit-song")))
+                .andExpect(content().string(containsString("/admin/catalog/12/delete")))
+                .andExpect(content().string(containsString("cannot be changed here")))
+                .andExpect(content().string(not(containsString("name=\"title\""))))
+                .andExpect(content().string(not(containsString("name=\"artist\""))))
+                .andExpect(content().string(not(containsString("name=\"isrc\""))));
+    }
+
+    @Test
+    void catalogSaveReportsAStagingFailure() throws Exception {
+        willThrow(new CatalogStoreException("denied")).given(songCatalogService)
+                .update(eq(12L), eq(3), any(SongEdit.class));
+
+        mockMvc.perform(post("/admin/catalog/12")
+                        .param("explicit", "true")
+                        .param("version", "3")
+                        .with(csrf())
+                        .with(user(admin())))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(Routes.ADMIN_CATALOG))
+                .andExpect(flash().attribute("flash", Messages.SONG_SAVE_FAILED));
+    }
+
+    @Test
+    void catalogSaveRedirectsOnSuccess() throws Exception {
+        mockMvc.perform(post("/admin/catalog/12")
+                        .param("explicit", "true")
+                        .param("genres", "Pop")
+                        .param("version", "3")
+                        .with(csrf())
+                        .with(user(admin())))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(Routes.ADMIN_CATALOG))
+                .andExpect(flash().attribute("flash", Messages.SONG_SAVED));
+
+        then(songCatalogService).should().update(eq(12L), eq(3), any(SongEdit.class));
+    }
+
+    @Test
+    void catalogSaveReturns409WhenTheVersionIsStale() throws Exception {
+        willThrow(new StaleSongException(12L)).given(songCatalogService)
+                .update(eq(12L), eq(0), any(SongEdit.class));
+
+        mockMvc.perform(post("/admin/catalog/12")
+                        .param("title", "Ice Cream")
+                        .param("version", "0")
+                        .with(csrf())
+                        .with(user(admin())))
+                .andExpect(status().isConflict())
+                .andExpect(content().string(containsString(Messages.SONG_STALE)))
+                .andExpect(content().string(not(containsString("data-modal-autoshow=\"true\""))));
+    }
+
+    @Test
+    void catalogSaveReturns404WhenTheSongIsGone() throws Exception {
+        willThrow(new SongNotFoundException(12L)).given(songCatalogService)
+                .update(eq(12L), eq(0), any(SongEdit.class));
+
+        mockMvc.perform(post("/admin/catalog/12")
+                        .param("title", "Ice Cream")
+                        .param("version", "0")
+                        .with(csrf())
+                        .with(user(admin())))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(containsString(Messages.SONG_NOT_FOUND)));
+    }
+
+    @Test
+    void catalogDeleteRedirectsOnSuccess() throws Exception {
+        mockMvc.perform(post("/admin/catalog/12/delete")
+                        .with(csrf())
+                        .with(user(admin())))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(Routes.ADMIN_CATALOG))
+                .andExpect(flash().attribute("flash", Messages.SONG_DELETED));
+
+        then(songCatalogService).should().delete(12L);
+    }
+
+    @Test
+    void catalogDeleteReportsAStagingFailure() throws Exception {
+        willThrow(new CatalogStoreException("denied")).given(songCatalogService).delete(12L);
+
+        mockMvc.perform(post("/admin/catalog/12/delete")
+                        .with(csrf())
+                        .with(user(admin())))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(flash().attribute("flash", Messages.SONG_DELETE_FAILED));
+    }
+
+    @Test
+    void aSongCannotBeEditedOrDeletedWithoutACsrfToken() throws Exception {
+        mockMvc.perform(post("/admin/catalog/12")
+                        .param("title", "Ice Cream")
+                        .param("version", "0")
+                        .with(user(admin())))
+                .andExpect(status().is3xxRedirection());
+        mockMvc.perform(post("/admin/catalog/12/delete").with(user(admin())))
+                .andExpect(status().is3xxRedirection());
+
+        then(songCatalogService).should(never()).update(any(), anyInt(), any());
+        then(songCatalogService).should(never()).delete(any());
     }
 
     private static MrsUserDetails designer() {
@@ -472,6 +598,7 @@ class AdminCatalogImportTest {
 
     private static Song song(String title, String artist) {
         Song song = new Song();
+        song.setId(12L);
         song.setTitle(title);
         song.setArtist(artist);
         song.setSourceProvider("EpidemicSound");

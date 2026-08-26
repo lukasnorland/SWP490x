@@ -27,7 +27,7 @@ built screen accepts audio extensions `mp3`, `wav`, `flac`, `m4a`, `ogg`,
 `aac` and cover extensions `jpg`/`jpeg`, `png`, `webp`; content-type
 allowlist plus size caps (`mrs.catalog.media.max-audio-bytes` = 50 MB,
 `max-cover-bytes` = 5 MB). The whole batch is validated before any S3 write
-(the instance role has no `s3:DeleteObject`). Title and a registered
+(the upload path still does not roll back a partial stage). Title and a registered
 `sourceProvider` are required. Cover art is optional.
 
 Servlet multipart limits are 50 MB/file and 600 MB/request, with

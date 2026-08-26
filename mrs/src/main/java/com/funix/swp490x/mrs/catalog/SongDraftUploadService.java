@@ -22,7 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * Stages audio, cover art and a generated song-data JSON from P-06c, then
  * queues the ETag sync so the songs land in MySQL the same way a CLI dump of
- * JSON would.
+ * JSON would. The object store is written first; MySQL is never inserted
+ * here — import is the only path that creates catalog rows.
  *
  * <p>The whole batch is validated before anything is written. The IAM role
  * that talks to the bucket cannot delete objects, so a half-written batch

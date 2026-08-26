@@ -1,14 +1,18 @@
 package com.funix.swp490x.mrs.catalog;
 
 import com.funix.swp490x.mrs.domain.TagType;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Set;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.node.ObjectNode;
 
 /**
  * Turns one staged JSON object into the values an upsert needs, rejecting what
@@ -93,20 +97,74 @@ public class SongJsonMapper {
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(staged);
     }
 
+    /** Best-effort parse so a delete can collect media URLs without failing the row. */
+    public Optional<StagedSong> readStaged(String json) {
+        try {
+            return Optional.ofNullable(objectMapper.readValue(json, StagedSong.class));
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Overwrites classification on an existing staged object and leaves every
+     * other field — licensed identity and unknown provider extras — as they
+     * were, so an admin edit does not strip vendor dumps.
+     */
+    public String patchClassification(String json, boolean explicit, List<String> genres,
+            List<String> moods, List<String> tags) {
+        JsonNode tree;
+        try {
+            tree = objectMapper.readTree(json);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("staged object is not valid JSON", e);
+        }
+        if (tree == null || !tree.isObject()) {
+            throw new IllegalArgumentException("staged object is not a JSON object");
+        }
+        ObjectNode object = (ObjectNode) tree;
+        object.put("isExplicit", explicit);
+        object.set("genres", objectMapper.valueToTree(cleanNames(genres)));
+        object.set("moods", objectMapper.valueToTree(cleanNames(moods)));
+        object.set("tags", objectMapper.valueToTree(cleanNames(tags)));
+        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
+    }
+
+    /** Collapses whitespace and drops blanks, matching {@link #tagRefs}. */
+    public List<String> cleanNames(List<String> names) {
+        if (names == null) {
+            return List.of();
+        }
+        Set<String> seen = new LinkedHashSet<>();
+        List<String> cleaned = new ArrayList<>();
+        for (String name : names) {
+            String normalised = normaliseTagName(name);
+            if (normalised != null && seen.add(normalised.toLowerCase(Locale.ROOT))) {
+                cleaned.add(normalised);
+            }
+        }
+        return cleaned;
+    }
+
     /**
      * Genres, moods and freeform descriptors become tags of their own type; the
      * artist is additionally tagged so search can group by it while the
      * free-text name stays on the song.
      */
-    private Set<TagRef> tagsOf(StagedSong staged) {
+    public Set<TagRef> tagRefs(List<String> genres, List<String> moods, List<String> tags,
+            String artist) {
         Set<TagRef> refs = new LinkedHashSet<>();
-        addAll(refs, TagType.GENRE, staged.genres());
-        addAll(refs, TagType.MOOD, staged.moods());
-        addAll(refs, TagType.TAGS, staged.tags());
-        if (StringUtils.hasText(staged.artist())) {
-            addAll(refs, TagType.ARTIST, List.of(staged.artist()));
+        addAll(refs, TagType.GENRE, genres);
+        addAll(refs, TagType.MOOD, moods);
+        addAll(refs, TagType.TAGS, tags);
+        if (StringUtils.hasText(artist)) {
+            addAll(refs, TagType.ARTIST, List.of(artist));
         }
         return refs;
+    }
+
+    private Set<TagRef> tagsOf(StagedSong staged) {
+        return tagRefs(staged.genres(), staged.moods(), staged.tags(), staged.artist());
     }
 
     private void addAll(Set<TagRef> refs, TagType type, List<String> names) {

@@ -262,7 +262,7 @@ public class CatalogImportService {
                 List<CatalogObject> chunk = toRead.subList(from,
                         Math.min(from + CHUNK_SIZE, toRead.size()));
 
-                List<Fetched> fetched = fetch(pool, chunk, skipped);
+                List<Fetched> fetched = fetch(pool, chunk, skipped, known);
                 try {
                     SongUpserter.ChunkResult result = upserter.upsertChunk(fetched);
                     added += result.added();
@@ -352,12 +352,14 @@ public class CatalogImportService {
      * rest of the application or trip S3 request limits.
      */
     private List<Fetched> fetch(ExecutorService pool, List<CatalogObject> chunk,
-            List<SkippedRow> skipped) {
+            List<SkippedRow> skipped, Map<String, String> known) {
 
         List<CompletableFuture<Fetched>> futures = chunk.stream()
                 .map(object -> CompletableFuture.supplyAsync(() -> {
                     try {
-                        return new Fetched(object, store.readJson(object.key()));
+                        String id = object.externalSourceIdHint();
+                        String listedEtag = id == null ? null : known.get(id);
+                        return new Fetched(object, store.readJson(object.key()), listedEtag);
                     } catch (CatalogStoreException e) {
                         log.warn("Catalog sync: could not read {}", object.key(), e);
                         skipped.add(new SkippedRow(object.key(), "could not be read"));
@@ -447,8 +449,14 @@ public class CatalogImportService {
         NEW, CHANGED, UNCHANGED
     }
 
-    /** One object and its body, ready to be mapped. */
-    record Fetched(CatalogObject object, String json) {
+    /**
+     * One object and its body, ready to be mapped.
+     *
+     * @param listedSourceEtag {@code song.source_etag} at listing time, or
+     *     null when the row is new or the run is forced. Lets the upsert skip
+     *     a body that would overwrite a catalog write that landed after list.
+     */
+    record Fetched(CatalogObject object, String json, String listedSourceEtag) {
 
         String key() {
             return object.key();

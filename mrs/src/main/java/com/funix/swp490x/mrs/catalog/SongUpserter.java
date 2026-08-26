@@ -24,14 +24,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Writes one chunk of staged songs in a single transaction.
- *
- * <p>Separate from {@link CatalogImportService} so the transaction boundary is
- * a real bean call: a chunk either commits whole or leaves the previous chunks
- * intact, and the objects it did not manage to write still differ by ETag, so
- * the following sync retries exactly those.
- */
+    /**
+     * Writes one chunk of staged songs in a single transaction.
+     *
+     * <p>Separate from {@link CatalogImportService} so the transaction boundary is
+     * a real bean call: a chunk either commits whole or leaves the previous chunks
+     * intact, and the objects it did not manage to write still differ by ETag, so
+     * the following sync retries exactly those.
+     *
+     * <p>This class never writes the object store. S3 is applied onto MySQL, and
+     * a row whose {@code source_etag} has already moved (an ADMIN edit that put
+     * JSON after this run listed) is left alone rather than rolled back.
+     */
 @Component
 public class SongUpserter {
 
@@ -71,7 +75,14 @@ public class SongUpserter {
                     skipped.add(new SkippedRow(item.key(), "duplicate ISRC"));
                     continue;
                 }
-                if (apply(mapped.values(), item.object().etag(), tagCache)) {
+                Boolean created = apply(mapped.values(), item.object().etag(),
+                        item.listedSourceEtag(), tagCache);
+                if (created == null) {
+                    skipped.add(new SkippedRow(item.key(),
+                            "left in place — a later catalog write already updated this row"));
+                    continue;
+                }
+                if (created) {
                     added++;
                 } else {
                     updated++;
@@ -122,13 +133,21 @@ public class SongUpserter {
                 || !values.externalSourceId().equals(owner.getExternalSourceId());
     }
 
-    /** @return true when the song was created, false when updated in place */
-    private boolean apply(SongValues values, String etag, Map<String, Tag> tagCache) {
+    /**
+     * @return true when created, false when updated, null when a concurrent
+     *     S3+MySQL write already moved {@code source_etag} past this fetch
+     */
+    private Boolean apply(SongValues values, String etag, String listedSourceEtag,
+            Map<String, Tag> tagCache) {
         Optional<Song> existing = songRepository.findBySourceProviderAndExternalSourceId(
                 values.sourceProvider(), values.externalSourceId());
 
         Song song = existing.orElseGet(Song::new);
         boolean isNew = existing.isEmpty();
+
+        if (!isNew && hasNewerWrite(song.getSourceEtag(), etag, listedSourceEtag)) {
+            return null;
+        }
 
         song.setTitle(values.title());
         song.setArtist(values.artist());
@@ -147,6 +166,19 @@ public class SongUpserter {
 
         songRepository.save(song);
         return isNew;
+    }
+
+    /**
+     * True when MySQL already records a different object than the one this
+     * fetch carried — typically an ADMIN edit that put JSON after we listed.
+     * Applying would walk the row back and leave S3 ahead until another run.
+     */
+    static boolean hasNewerWrite(String currentEtag, String applyingEtag,
+            String listedSourceEtag) {
+        if (currentEtag == null || currentEtag.equals(applyingEtag)) {
+            return false;
+        }
+        return listedSourceEtag == null || !currentEtag.equals(listedSourceEtag);
     }
 
     /**

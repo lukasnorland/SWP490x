@@ -1,9 +1,11 @@
 package com.funix.swp490x.mrs.catalog;
 
+import java.net.URI;
 import java.time.Duration;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -329,6 +331,56 @@ public class CatalogProperties {
             String base = publicBaseUrl == null ? "" : publicBaseUrl.replaceAll("/+$", "");
             String path = key.startsWith("/") ? key : "/" + key;
             return base + path;
+        }
+
+        /**
+         * Object key when {@code publicUrl} is company-hosted media
+         * ({@code song-data/audio|artwork/…}). Vendor CDN URLs yield empty:
+         * those bytes are not in our bucket and must not be deleted.
+         */
+        public Optional<String> hostedObjectKey(String publicUrl) {
+            if (publicUrl == null || publicUrl.isBlank()) {
+                return Optional.empty();
+            }
+            URI uri;
+            try {
+                uri = URI.create(publicUrl.trim());
+            } catch (IllegalArgumentException e) {
+                return Optional.empty();
+            }
+            String path = uri.getPath();
+            if (path == null || path.isEmpty()) {
+                return Optional.empty();
+            }
+            String key = path.startsWith("/") ? path.substring(1) : path;
+            if (key.contains("..") || key.contains("\\")) {
+                return Optional.empty();
+            }
+            if (!isHostedMediaKey(key)) {
+                return Optional.empty();
+            }
+            return Optional.of(key);
+        }
+
+        /**
+         * {@code song-data/{audio|artwork}/<slug>/<file>} — four segments, no
+         * extra folders, so a crafted URL cannot aim at JSON or another prefix.
+         */
+        boolean isHostedMediaKey(String key) {
+            if (key == null) {
+                return false;
+            }
+            String audio = audioPrefix == null ? "song-data/audio/" : audioPrefix;
+            String artwork = artworkPrefix == null ? "song-data/artwork/" : artworkPrefix;
+            if (!key.startsWith(audio) && !key.startsWith(artwork)) {
+                return false;
+            }
+            String[] parts = key.split("/");
+            return parts.length == 4
+                    && "song-data".equals(parts[0])
+                    && ("audio".equals(parts[1]) || "artwork".equals(parts[1]))
+                    && !parts[2].isEmpty()
+                    && !parts[3].isEmpty();
         }
     }
 }

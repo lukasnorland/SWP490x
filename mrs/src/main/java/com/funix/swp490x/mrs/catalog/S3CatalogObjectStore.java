@@ -4,11 +4,16 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
+import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.PutObjectResponse;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 
 /**
  * Reads the staged catalog from the S3 assets bucket.
@@ -60,24 +65,62 @@ public class S3CatalogObjectStore implements CatalogObjectStore {
 
     @Override
     public String readJson(String key) {
+        return findJson(key).orElseThrow(() ->
+                new CatalogStoreException("Could not read s3://" + bucket + "/" + key
+                        + ": object is missing"));
+    }
+
+    @Override
+    public Optional<String> findJson(String key) {
         try {
-            return s3.getObjectAsBytes(b -> b.bucket(bucket).key(key)).asUtf8String();
+            return Optional.of(s3.getObjectAsBytes(b -> b.bucket(bucket).key(key)).asUtf8String());
+        } catch (NoSuchKeyException e) {
+            return Optional.empty();
+        } catch (S3Exception e) {
+            if (e.statusCode() == 404) {
+                return Optional.empty();
+            }
+            throw CatalogStoreException.of("Could not read s3://" + bucket + "/" + key, e);
         } catch (RuntimeException e) {
             throw CatalogStoreException.of("Could not read s3://" + bucket + "/" + key, e);
         }
     }
 
     @Override
-    public void putJson(String key, String json) {
+    public String putJson(String key, String json) {
         try {
             PutObjectRequest request = PutObjectRequest.builder()
                     .bucket(bucket)
                     .key(key)
                     .contentType("application/json")
                     .build();
-            s3.putObject(request, RequestBody.fromString(json, StandardCharsets.UTF_8));
+            PutObjectResponse response = s3.putObject(request,
+                    RequestBody.fromString(json, StandardCharsets.UTF_8));
+            return unquote(response.eTag());
         } catch (RuntimeException e) {
             throw CatalogStoreException.of("Could not write s3://" + bucket + "/" + key, e);
+        }
+    }
+
+    @Override
+    public void deleteJson(String key) {
+        deleteObject(key);
+    }
+
+    @Override
+    public void deleteBinary(String key) {
+        deleteObject(key);
+    }
+
+    private void deleteObject(String key) {
+        try {
+            DeleteObjectRequest request = DeleteObjectRequest.builder()
+                    .bucket(bucket)
+                    .key(key)
+                    .build();
+            s3.deleteObject(request);
+        } catch (RuntimeException e) {
+            throw CatalogStoreException.of("Could not delete s3://" + bucket + "/" + key, e);
         }
     }
 

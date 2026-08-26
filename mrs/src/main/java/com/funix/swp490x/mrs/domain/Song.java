@@ -14,6 +14,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * A catalog track. Maps the {@code song} table created by Flyway V1; the
@@ -116,6 +117,10 @@ public class Song {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -248,5 +253,28 @@ public class Song {
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
+    }
+
+    public String getGenreNames() {
+        return tagNames(TagType.GENRE);
+    }
+
+    public String getMoodNames() {
+        return tagNames(TagType.MOOD);
+    }
+
+    public String getFreeformTagNames() {
+        return tagNames(TagType.TAGS);
+    }
+
+    /** Comma-separated names of one vocabulary, for the P-06b edit modal. */
+    public String tagNames(TagType type) {
+        if (tags == null || tags.isEmpty()) {
+            return "";
+        }
+        return tags.stream()
+                .filter(tag -> tag.getType() == type)
+                .map(Tag::getName)
+                .collect(Collectors.joining(", "));
     }
 }
