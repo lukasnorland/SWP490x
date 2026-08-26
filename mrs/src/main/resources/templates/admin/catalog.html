@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
-<!--/* P-06b Admin — Song Catalog & Metadata — spec 4.10 (FT-09, FT-03, UC-29). */-->
+<!--/* P-06b Admin — Song Catalog & Metadata — spec 4.10 (FT-09, FT-03, UC-29, UC-28). */-->
 <body>
 <div th:fragment="content">
 
@@ -8,18 +8,32 @@
     <div class="d-flex flex-column gap-1">
       <h1>Song Catalog</h1>
     </div>
-    <!-- Zone A: songs arrive through the import, so that is the primary create action. -->
-    <a class="btn btn-primary" th:href="@{/admin/import}">
-      <svg th:replace="~{fragments/icons :: icon('upload', 'icon--sm')}"></svg>
-      <span>Catalog Import</span>
-    </a>
+    <!-- Zone A: Add Song stages new songs, Sync Catalog pulls in JSON that is
+         already under the prefix. Both are refused while a run holds the lock. -->
+    <div class="d-flex flex-wrap align-items-center gap-2">
+      <button type="button" class="btn btn-primary"
+              data-bs-toggle="modal" data-bs-target="#addSong"
+              th:disabled="${importRunning}">
+        <svg th:replace="~{fragments/icons :: icon('upload', 'icon--sm')}"></svg>
+        <span>Add Song</span>
+      </button>
+      <form th:action="@{/admin/catalog/sync}" method="post" data-import-form class="mb-0">
+        <button type="submit" class="btn btn-ghost"
+                th:disabled="${importRunning}"
+                th:title="|Read staged song JSON from ${catalogSource} and apply what changed|">
+          <svg th:replace="~{fragments/icons :: icon('refresh', 'icon--sm')}"></svg>
+          <span>Sync Catalog</span>
+        </button>
+      </form>
+    </div>
   </header>
 
   <div class="d-flex flex-column gap-4">
 
     <th:block th:if="${flash != null}">
       <div th:replace="~{fragments/components :: notice(${flashVariant},
-          ${flashVariant == 'success'} ? 'circle-check' : 'alert-triangle', ${flash})}"></div>
+          ${flashVariant == 'success'} ? 'circle-check'
+            : (${flashVariant == 'info'} ? 'info' : 'alert-triangle'), ${flash})}"></div>
     </th:block>
 
     <section class="d-flex flex-wrap gap-4 small text-secondary">
@@ -31,6 +45,18 @@
         <svg th:replace="~{fragments/icons :: icon('alert-triangle', 'icon--sm')}"></svg>
         <span class="table__numeric fw-semibold" th:text="${untaggedCount}">0</span>
         untagged, so not reachable by a filtered search (DC-03)
+      </span>
+      <span th:if="${lastRun != null}">
+        Last sync
+        <span th:text="${lastRun.triggerType.displayName}">Manual</span>
+        ·
+        <span th:text="${#temporals.format(lastRun.startedAt, 'dd MMM yyyy HH:mm')}">date</span>
+        ·
+        <span class="table__numeric" th:text="${lastRun.added}">0</span> added,
+        <span class="table__numeric" th:text="${lastRun.updated}">0</span> updated,
+        <span class="table__numeric" th:text="${lastRun.skipped}">0</span> skipped
+        <span th:if="${lastRun.failed}" class="text-danger-emphasis"
+              th:text="|· ${lastRun.error}|">· error</span>
       </span>
     </section>
 
@@ -135,6 +161,201 @@
           <button type="submit" class="btn btn-primary">Save</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- UC-28: drop audio, fill in metadata, and the server writes the song-data
+       JSON then queues the sync into MySQL. -->
+  <div class="modal fade" id="addSong" tabindex="-1"
+       aria-labelledby="addSongTitle" aria-hidden="true"
+       data-song-upload th:attr="data-upload-url=@{/admin/catalog/songs}">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+      <form class="modal-content" th:action="@{/admin/catalog/songs}" method="post"
+            enctype="multipart/form-data" data-song-upload-form>
+        <div class="modal-header">
+          <h2 class="modal-title h4" id="addSongTitle">Upload audio &amp; artwork</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body d-flex flex-column gap-3">
+          <p class="small text-secondary mb-0">
+            Drop one or more audio files. Each file becomes a section to fill
+            in (vendor, title, cover art, tags). On upload the files go to
+            <span class="font-monospace">song-data/audio/&lt;vendor&gt;/</span>
+            and
+            <span class="font-monospace">song-data/artwork/&lt;vendor&gt;/</span>,
+            and a song JSON is generated under the staged prefix for the
+            catalog sync into MySQL.
+          </p>
+
+          <div class="dropzone rounded-3 p-4 d-flex flex-column align-items-center justify-content-center gap-2 text-center"
+               data-audio-dropzone tabindex="0" role="button"
+               aria-label="Drop audio files here or click to browse">
+            <svg th:replace="~{fragments/icons :: icon('upload', '')}"></svg>
+            <p class="mb-0">Drop audio files here, or click to browse</p>
+            <p class="small text-secondary mb-0">MP3, WAV, FLAC, M4A or OGG. Up to 10 songs, 100&nbsp;MB each.</p>
+            <input class="d-none" type="file" data-audio-picker
+                   accept="audio/mpeg,audio/wav,audio/flac,audio/mp4,audio/ogg,audio/aac,.mp3,.wav,.flac,.m4a,.ogg,.aac"
+                   multiple>
+          </div>
+
+          <div data-song-drafts class="d-flex flex-column gap-3"></div>
+
+          <div class="d-none" data-upload-progress>
+            <p class="small mb-1" data-upload-progress-label>Uploading…</p>
+            <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 4%"></div>
+            </div>
+          </div>
+
+          <p class="small text-danger mb-0 d-none" data-upload-error role="alert"></p>
+
+          <p class="small text-secondary mb-0">
+            Cover art is optional. Duration is read from the file and can be edited.
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" data-song-upload-submit
+                  th:disabled="${importRunning}" disabled>
+            <svg th:replace="~{fragments/icons :: icon('upload', 'icon--sm')}"></svg>
+            <span>Upload and import</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <template id="songDraftTemplate">
+    <article class="card song-draft" data-song-draft>
+      <div class="card-body d-flex flex-column gap-3">
+        <div class="d-flex align-items-start justify-content-between gap-3">
+          <div>
+            <h3 class="h6 mb-1" data-draft-heading>New song</h3>
+            <p class="small text-secondary mb-0" data-draft-filename></p>
+          </div>
+          <button type="button" class="btn btn-ghost btn-sm" data-remove-draft>
+            <svg th:replace="~{fragments/icons :: icon('trash-2', 'icon--sm')}"></svg>
+            <span>Remove</span>
+          </button>
+        </div>
+
+        <input type="file" class="d-none" data-field="audio" name="drafts[__i__].audio" accept="audio/*">
+
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label">Vendor</label>
+            <select class="form-select" data-field="sourceProvider" name="drafts[__i__].sourceProvider" required>
+              <option value="" disabled selected>Choose vendor</option>
+              <option th:each="provider : ${uploadProviders}" th:value="${provider}"
+                      th:text="${provider}">NCS</option>
+            </select>
+          </div>
+          <div class="col-md-8">
+            <label class="form-label">Title</label>
+            <input class="form-control" type="text" data-field="title" name="drafts[__i__].title"
+                   maxlength="255" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Artist</label>
+            <input class="form-control" type="text" data-field="artist" name="drafts[__i__].artist"
+                   maxlength="255">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Duration (seconds)</label>
+            <input class="form-control" type="number" min="1" step="1"
+                   data-field="duration" name="drafts[__i__].duration">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">BPM</label>
+            <input class="form-control" type="number" min="1" step="1"
+                   data-field="bpm" name="drafts[__i__].bpm">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">ISRC</label>
+            <input class="form-control" type="text" data-field="isrc" name="drafts[__i__].isrc"
+                   maxlength="20">
+          </div>
+          <div class="col-md-8 d-flex align-items-end">
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="checkbox" value="true"
+                     data-field="isExplicit" name="drafts[__i__].isExplicit">
+              <label class="form-check-label">Explicit</label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Genres</label>
+            <input class="form-control" type="text" data-field="genres" name="drafts[__i__].genres"
+                   placeholder="Pop, Electronic">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Moods</label>
+            <input class="form-control" type="text" data-field="moods" name="drafts[__i__].moods"
+                   placeholder="Energetic, Happy">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Tags</label>
+            <input class="form-control" type="text" data-field="tags" name="drafts[__i__].tags">
+          </div>
+        </div>
+
+        <div>
+          <p class="form-label mb-2">Cover art</p>
+          <div class="d-flex gap-3 align-items-start">
+            <img class="cover-preview rounded d-none" alt="" data-cover-preview>
+            <div class="dropzone rounded-3 p-3 flex-grow-1 d-flex flex-column align-items-center justify-content-center gap-1 text-center"
+                 data-cover-dropzone tabindex="0" role="button"
+                 aria-label="Drop cover art here or click to browse">
+              <svg th:replace="~{fragments/icons :: icon('image', 'icon--sm')}"></svg>
+              <p class="small mb-0">Drop a JPEG, PNG or WebP, or click to browse. Optional, 5&nbsp;MB max.</p>
+              <input class="d-none" type="file" data-field="cover" name="drafts[__i__].cover"
+                     accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp">
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <div class="modal fade" id="importProgress" tabindex="-1"
+       aria-labelledby="importProgressTitle" aria-modal="true" role="dialog"
+       data-bs-backdrop="static" data-bs-keyboard="false"
+       th:attr="data-status-url=@{/admin/catalog/sync/status}, data-running=${importRunning}">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h4" id="importProgressTitle">Syncing catalog</h2>
+        </div>
+        <div class="modal-body d-flex flex-column gap-3">
+          <p class="small mb-0" data-import-detail>Starting import…</p>
+          <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+               aria-valuenow="0" aria-labelledby="importProgressTitle">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 4%"></div>
+          </div>
+          <div class="row g-3">
+            <div class="col-6 col-md-3">
+              <p class="label mb-1">Added</p>
+              <p class="h5 table__numeric mb-0" data-import-added>0</p>
+            </div>
+            <div class="col-6 col-md-3">
+              <p class="label mb-1">Updated</p>
+              <p class="h5 table__numeric mb-0" data-import-updated>0</p>
+            </div>
+            <div class="col-6 col-md-3">
+              <p class="label mb-1">Skipped</p>
+              <p class="h5 table__numeric mb-0" data-import-skipped>0</p>
+            </div>
+            <div class="col-6 col-md-3">
+              <p class="label mb-1">Processed</p>
+              <p class="h5 table__numeric mb-0" data-import-processed>0 / 0</p>
+            </div>
+          </div>
+          <p class="small text-secondary mb-0">
+            Keep this tab open. You can stay on this page; the catalog reloads when the sync finishes.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 

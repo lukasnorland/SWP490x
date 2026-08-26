@@ -30,7 +30,6 @@ import com.funix.swp490x.mrs.service.AuthService;
 import com.funix.swp490x.mrs.service.UserAccountService;
 import com.funix.swp490x.mrs.web.admin.AdminCatalogController;
 import com.funix.swp490x.mrs.web.admin.AdminController;
-import com.funix.swp490x.mrs.web.admin.AdminImportController;
 import com.funix.swp490x.mrs.web.admin.AdminUserController;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
 import java.util.List;
@@ -59,7 +58,7 @@ import static org.mockito.BDDMockito.given;
 @WebMvcTest(controllers = {AuthController.class, HomeController.class, SearchController.class,
         SongBrowseController.class, PlaylistController.class, WorkspaceController.class,
         ProfileController.class, AdminController.class, AdminUserController.class,
-        AdminCatalogController.class, AdminImportController.class, AccountPasswordController.class})
+        AdminCatalogController.class, AccountPasswordController.class})
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
         LoginFailureHandler.class, LoginAttemptService.class, MrsUserDetailsService.class,
         PasswordResetTokenService.class})
@@ -180,7 +179,7 @@ class ScreenRenderingTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {Routes.ADMIN_USERS, Routes.ADMIN_CATALOG, Routes.ADMIN_IMPORT,
+    @ValueSource(strings = {Routes.ADMIN_USERS, Routes.ADMIN_CATALOG,
             Routes.ADMIN_SETTINGS, Routes.ADMIN_LOGS})
     void adminScreensRenderForAdmin(String path) throws Exception {
         mockMvc.perform(get(path).with(user(principal(Role.ADMIN))))
@@ -229,10 +228,10 @@ class ScreenRenderingTest {
     @Test
     void sidebarShowsTheAdminGroupToAdminsOnly() throws Exception {
         mockMvc.perform(get(Routes.PROFILE).with(user(principal(Role.ADMIN))))
-                .andExpect(content().string(containsString("Catalog Import")));
+                .andExpect(content().string(containsString("System Settings")));
 
         mockMvc.perform(get(Routes.PROFILE).with(user(principal(Role.CONTENT_DESIGNER))))
-                .andExpect(content().string(not(containsString("Catalog Import"))));
+                .andExpect(content().string(not(containsString("System Settings"))));
     }
 
     @Test

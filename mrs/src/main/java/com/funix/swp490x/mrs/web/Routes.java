@@ -49,14 +49,12 @@ public final class Routes {
     public static final String ADMIN_CATALOG_SONG = "/admin/catalog/{id}";
     /** P-06b — delete a song (UC-29). */
     public static final String ADMIN_CATALOG_SONG_DELETE = "/admin/catalog/{id}/delete";
-    /** P-06c Admin — Catalog Import. */
-    public static final String ADMIN_IMPORT = "/admin/import";
-    /** P-06c — run the import now, reading the staged JSON from S3 (UC-28). */
-    public static final String ADMIN_IMPORT_RUN = "/admin/import/run";
-    /** P-06c — upload audio, cover art and metadata; the server writes the JSON. */
-    public static final String ADMIN_IMPORT_MEDIA = "/admin/import/media";
-    /** P-06c — live progress of the import currently running (or last finished). */
-    public static final String ADMIN_IMPORT_STATUS = "/admin/import/status";
+    /** P-06b — upload audio, cover art and metadata; the server writes the JSON. */
+    public static final String ADMIN_CATALOG_SONGS = "/admin/catalog/songs";
+    /** P-06b — sync the staged song-data JSON into MySQL now (UC-28). */
+    public static final String ADMIN_CATALOG_SYNC = "/admin/catalog/sync";
+    /** P-06b — live progress of the sync currently running (or last finished). */
+    public static final String ADMIN_CATALOG_SYNC_STATUS = "/admin/catalog/sync/status";
     /** P-06d Admin — System Settings. */
     public static final String ADMIN_SETTINGS = "/admin/settings";
     /** P-06e Admin — Audit & Recommendation Log. */

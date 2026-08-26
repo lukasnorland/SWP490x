@@ -10,8 +10,8 @@
      player.js     preview bar transport, persistence, ambience
      catalog.js    results-only paging that keeps the player mounted; edit-modal fill
      shell-nav.js  sidebar soft-navigation
-     import-progress.js  P-06c live import status panel
-     song-upload.js      P-06c audio + artwork dropzone
+     import-progress.js  P-06b live catalog sync status panel
+     song-upload.js      P-06b Add Song audio + artwork dropzone
    ========================================================================== */
 "use strict";
 

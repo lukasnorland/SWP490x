@@ -95,11 +95,12 @@ class SongBrowseTest {
     }
 
     @Test
-    void browseChromeHidesAdminImportAndCatalogEditsForContentDesigner() throws Exception {
+    void browseChromeHidesAdminUploadAndCatalogEditsForContentDesigner() throws Exception {
         showing(song("Ice Cream", "Sugar Blizz"));
 
         mockMvc.perform(get(Routes.SONGS).with(user(principal(Role.CONTENT_DESIGNER))))
-                .andExpect(content().string(not(containsString("Catalog Import"))))
+                .andExpect(content().string(not(containsString("Add Song"))))
+                .andExpect(content().string(not(containsString("Sync Catalog"))))
                 .andExpect(content().string(not(containsString("Edit song"))))
                 .andExpect(content().string(not(containsString("/admin/catalog/"))))
                 .andExpect(content().string(not(containsString("data-edit-song"))));
@@ -150,11 +151,11 @@ class SongBrowseTest {
     }
 
     @Test
-    void emptyBrowseStateDoesNotPointAtAdminImport() throws Exception {
+    void emptyBrowseStateDoesNotPointAtTheAdminUpload() throws Exception {
         mockMvc.perform(get(Routes.SONGS).with(user(principal(Role.CONTENT_DESIGNER))))
                 .andExpect(content().string(containsString("No songs match")))
                 .andExpect(content().string(containsString("clearing the filters")))
-                .andExpect(content().string(not(containsString("/admin/import"))));
+                .andExpect(content().string(not(containsString("Add Song"))));
     }
 
     private void showing(Song... songs) {

@@ -10,6 +10,7 @@ import { enhanceForms } from "./forms.js";
 import { syncPlayingTitleHighlight } from "./player.js";
 import { isCatalogPath, loadCatalogResults, initCatalogSongEdit } from "./catalog.js";
 import { initImportProgress } from "./import-progress.js";
+import { initSongUpload } from "./song-upload.js";
 
 var bound = false;
 
@@ -157,6 +158,7 @@ export function initShellSoftNav() {
         closeMobileSidebar();
         enhanceForms(currentMain);
         initImportProgress(currentMain);
+        initSongUpload(currentMain);
         initCatalogSongEdit(document);
         syncPlayingTitleHighlight(document);
 

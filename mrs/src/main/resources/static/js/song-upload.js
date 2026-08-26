@@ -1,5 +1,5 @@
 /* ==========================================================================
-   P-06c audio & artwork upload.
+   P-06b Add Song — audio & artwork upload.
    Drop audio files to spawn one metadata section each. Duration is read from
    the file in the browser. The form still posts multipart; XHR is used only
    so a large batch can show upload progress.
