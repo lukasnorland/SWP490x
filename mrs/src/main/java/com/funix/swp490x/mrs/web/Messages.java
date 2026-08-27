@@ -134,6 +134,49 @@ public final class Messages {
     public static final String SONG_DELETE_FAILED =
             "The song could not be removed from staging. It is still in the catalog — try again.";
 
+    /**
+     * Outcomes of P-03a / P-03b (FT-06 – FT-08). The catalogue has no codes for
+     * the playlist screens yet, so these say what happened in the same voice.
+     */
+    public static final String PLAYLIST_CREATED = "Playlist created.";
+
+    public static final String PLAYLIST_CREATED_WITH_SONG =
+            "Playlist created and the song added to it.";
+
+    public static final String PLAYLIST_RENAMED = "Playlist renamed.";
+
+    public static final String PLAYLIST_NAME_REQUIRED = "Give the playlist a name.";
+
+    public static final String PLAYLIST_NOT_FOUND =
+            "That playlist no longer exists, or it is not shared with you.";
+
+    public static final String SONG_ADDED_TO_PLAYLIST = "Song added to the playlist.";
+
+    public static final String SONG_ALREADY_IN_PLAYLIST =
+            "That song is already in the playlist — nothing was changed.";
+
+    public static final String SONG_REMOVED_FROM_PLAYLIST = "Song removed from the playlist.";
+
+    public static final String PLAYLIST_LOCKED =
+            "Published playlists are locked — unpublish it first, then edit.";
+
+    public static final String PLAYLIST_PUBLISH_EMPTY =
+            "Add at least one song before publishing.";
+
+    public static final String PLAYLIST_PUBLISHED =
+            "Playlist published. It is now read-only in the Shared Workspace.";
+
+    public static final String PLAYLIST_UNPUBLISHED =
+            "Playlist returned to Draft. You can edit it again.";
+
+    public static final String PLAYLIST_DELETED = "Playlist deleted.";
+
+    public static final String PLAYLIST_DELETE_PUBLISHED =
+            "A published playlist cannot be deleted. Unpublish it first.";
+
+    public static final String PLAYLIST_PICK_ONE =
+            "Choose a playlist, or create a new one.";
+
     private Messages() {
     }
 }

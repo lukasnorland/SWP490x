@@ -12,6 +12,8 @@ import com.funix.swp490x.mrs.catalog.CatalogImportService;
 import com.funix.swp490x.mrs.catalog.SongDraftUploadService;
 import com.funix.swp490x.mrs.config.SecurityConfig;
 import com.funix.swp490x.mrs.config.WebConfig;
+import com.funix.swp490x.mrs.domain.Playlist;
+import com.funix.swp490x.mrs.domain.PlaylistStatus;
 import com.funix.swp490x.mrs.domain.Role;
 import com.funix.swp490x.mrs.domain.User;
 import com.funix.swp490x.mrs.domain.UserStatus;
@@ -27,6 +29,7 @@ import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.security.MrsUserDetailsService;
 import com.funix.swp490x.mrs.security.PasswordResetTokenService;
 import com.funix.swp490x.mrs.service.AuthService;
+import com.funix.swp490x.mrs.service.PlaylistService;
 import com.funix.swp490x.mrs.service.UserAccountService;
 import com.funix.swp490x.mrs.web.admin.AdminCatalogController;
 import com.funix.swp490x.mrs.web.admin.AdminController;
@@ -43,6 +46,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -94,10 +98,26 @@ class ScreenRenderingTest {
     @MockitoBean
     private SongDraftUploadService songDraftUploadService;
 
+    @MockitoBean
+    private PlaylistService playlistService;
+
     @BeforeEach
     void listsAreEmptyByDefault() {
         given(userAccountService.search(nullable(Role.class), nullable(UserStatus.class),
                 nullable(String.class), anyInt())).willReturn(Page.empty());
+        given(playlistService.search(nullable(Long.class), nullable(PlaylistStatus.class),
+                nullable(String.class), anyInt())).willReturn(Page.empty());
+        given(playlistService.editableDrafts(nullable(Long.class))).willReturn(List.of());
+        given(playlistService.view(nullable(Long.class), nullable(Long.class)))
+                .willReturn(draftPlaylist());
+        given(playlistService.songs(nullable(Long.class), nullable(Long.class)))
+                .willReturn(List.of());
+        given(playlistService.searchPublished(nullable(Long.class), nullable(String.class), anyInt()))
+                .willReturn(Page.empty());
+        given(playlistService.publishedOwners()).willReturn(List.of());
+        given(playlistService.viewPublished(nullable(Long.class))).willReturn(publishedPlaylist());
+        given(playlistService.publishedSongs(nullable(Long.class))).willReturn(List.of());
+        given(playlistService.ownerName(nullable(Long.class))).willReturn("Dana Designer");
         given(songCatalogService.search(nullable(String.class), nullable(Long.class),
                 nullable(Long.class), nullable(Long.class), nullable(String.class), anyInt()))
                 .willReturn(Page.empty());
@@ -106,6 +126,26 @@ class ScreenRenderingTest {
         given(catalogImportService.sourceDescription()).willReturn("s3://bucket/song-data/");
         given(songDraftUploadService.registeredProviders())
                 .willReturn(List.of("EpidemicSound", "NCS", "OneOff"));
+    }
+
+    /**
+     * A saved-looking Draft. The id and timestamps are only set on persist, and
+     * the detail screen formats {@code lastModifiedAt} rather than guarding it.
+     */
+    private static Playlist draftPlaylist() {
+        Playlist playlist = new Playlist("Morning coffee", 1L);
+        playlist.touch(1L);
+        ReflectionTestUtils.setField(playlist, "id", 5L);
+        return playlist;
+    }
+
+    private static Playlist publishedPlaylist() {
+        Playlist playlist = new Playlist("Launch party", 1L);
+        playlist.setStatus(PlaylistStatus.PUBLISHED);
+        playlist.setPublishedAt(java.time.LocalDateTime.now());
+        playlist.touch(1L);
+        ReflectionTestUtils.setField(playlist, "id", 8L);
+        return playlist;
     }
 
     private static MrsUserDetails principal(Role role) {

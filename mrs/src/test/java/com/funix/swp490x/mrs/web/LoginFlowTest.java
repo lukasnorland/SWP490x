@@ -28,6 +28,7 @@ import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.security.MrsUserDetailsService;
 import com.funix.swp490x.mrs.security.PasswordResetTokenService;
 import com.funix.swp490x.mrs.service.AuthService;
+import com.funix.swp490x.mrs.service.PlaylistService;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -62,6 +63,10 @@ class LoginFlowTest {
 
     @MockitoBean
     private NotificationService notificationService;
+
+    /** A Content Designer lands on My Playlists, so P-03a has to render. */
+    @MockitoBean
+    private PlaylistService playlistService;
 
     private User account(Role role, boolean mustChangePassword) {
         User user = new User();

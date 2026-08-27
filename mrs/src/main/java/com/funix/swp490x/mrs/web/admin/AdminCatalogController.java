@@ -12,6 +12,7 @@ import com.funix.swp490x.mrs.domain.Song;
 import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
+import com.funix.swp490x.mrs.service.PlaylistService;
 import com.funix.swp490x.mrs.service.SongCatalogService;
 import com.funix.swp490x.mrs.service.SongCatalogService.SongEdit;
 import com.funix.swp490x.mrs.service.SongNotFoundException;
@@ -67,19 +68,23 @@ public class AdminCatalogController {
     private final TagRepository tagRepository;
     private final CatalogImportService importService;
     private final SongDraftUploadService draftUploadService;
+    private final PlaylistService playlistService;
 
     public AdminCatalogController(SongCatalogService catalogService,
             TagRepository tagRepository,
             CatalogImportService importService,
-            SongDraftUploadService draftUploadService) {
+            SongDraftUploadService draftUploadService,
+            PlaylistService playlistService) {
         this.catalogService = catalogService;
         this.tagRepository = tagRepository;
         this.importService = importService;
         this.draftUploadService = draftUploadService;
+        this.playlistService = playlistService;
     }
 
     @GetMapping(Routes.ADMIN_CATALOG)
-    public String catalog(@RequestParam(required = false) String provider,
+    public String catalog(@AuthenticationPrincipal MrsUserDetails actor,
+            @RequestParam(required = false) String provider,
             @RequestParam(required = false) Long genreId,
             @RequestParam(required = false) Long moodId,
             @RequestParam(required = false) Long tagId,
@@ -91,13 +96,14 @@ public class AdminCatalogController {
         if (PARTIAL_RESULTS_VALUE.equals(partial)) {
             return "fragments/song-catalog :: results";
         }
-        populateShell(model);
+        populateShell(model, actor);
         return "admin/catalog";
     }
 
     @PostMapping(Routes.ADMIN_CATALOG_SONG)
     public String save(@PathVariable Long id,
             @ModelAttribute SongEditForm form,
+            @AuthenticationPrincipal MrsUserDetails actor,
             Model model,
             HttpServletResponse response,
             RedirectAttributes redirectAttributes) {
@@ -105,10 +111,11 @@ public class AdminCatalogController {
         try {
             catalogService.update(id, form.getVersion(), toEdit(form));
         } catch (StaleSongException e) {
-            return reject(model, response, HttpStatus.CONFLICT, Messages.SONG_STALE, false, form, id);
+            return reject(model, response, HttpStatus.CONFLICT, Messages.SONG_STALE, false, form, id,
+                    actor);
         } catch (SongNotFoundException e) {
             return reject(model, response, HttpStatus.NOT_FOUND, Messages.SONG_NOT_FOUND, false,
-                    form, id);
+                    form, id, actor);
         } catch (CatalogStoreException e) {
             log.error("Could not write staged JSON for song {}", id, e);
             flash(redirectAttributes, "danger", Messages.SONG_SAVE_FAILED);
@@ -243,8 +250,16 @@ public class AdminCatalogController {
         model.addAttribute("filterQuery", q == null ? "" : q);
     }
 
-    private void populateShell(Model model) {
+    /**
+     * Only on a full-page GET: the Add-to-playlist dialog sits outside
+     * {@code #catalog-results}, so the partial response has no use for the list
+     * and should not pay for the query.
+     */
+    private void populateShell(Model model, MrsUserDetails actor) {
         List<Tag> tags = tagRepository.findAllByOrderByTypeAscNameAsc();
+        model.addAttribute("myPlaylists", actor == null
+                ? List.of()
+                : playlistService.editableDrafts(actor.getId()));
         model.addAttribute("pageTitle", "Song Catalog");
         model.addAttribute("activeNav", "admin-catalog");
         model.addAttribute("totalSongs", catalogService.total());
@@ -264,7 +279,8 @@ public class AdminCatalogController {
      * the modal — refresh only, no clone. Validation failures reopen it.
      */
     private String reject(Model model, HttpServletResponse response, HttpStatus status,
-            String message, boolean reopenModal, SongEditForm form, Long id) {
+            String message, boolean reopenModal, SongEditForm form, Long id,
+            MrsUserDetails actor) {
         response.setStatus(status.value());
         model.addAttribute("flash", message);
         model.addAttribute("flashVariant", "danger");
@@ -272,7 +288,7 @@ public class AdminCatalogController {
         model.addAttribute("editSongId", id);
         model.addAttribute("songEdit", form);
         populateResults(model, null, null, null, null, null, 0);
-        populateShell(model);
+        populateShell(model, actor);
         return "admin/catalog";
     }
 
