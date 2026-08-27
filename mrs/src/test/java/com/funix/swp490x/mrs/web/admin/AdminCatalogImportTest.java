@@ -47,6 +47,8 @@ import com.funix.swp490x.mrs.security.LoginFailureHandler;
 import com.funix.swp490x.mrs.security.LoginSuccessHandler;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.security.MrsUserDetailsService;
+import com.funix.swp490x.mrs.service.PlaylistOption;
+import com.funix.swp490x.mrs.service.PlaylistService;
 import com.funix.swp490x.mrs.service.SongCatalogService;
 import com.funix.swp490x.mrs.service.SongCatalogService.SongEdit;
 import com.funix.swp490x.mrs.service.SongNotFoundException;
@@ -98,6 +100,9 @@ class AdminCatalogImportTest {
     @MockitoBean
     private SongDraftUploadService draftUploadService;
 
+    @MockitoBean
+    private PlaylistService playlistService;
+
     @BeforeEach
     void defaults() {
         given(songCatalogService.search(nullable(String.class), nullable(Long.class),
@@ -105,6 +110,7 @@ class AdminCatalogImportTest {
                 .willReturn(Page.empty());
         given(songCatalogService.providers()).willReturn(List.of("EpidemicSound"));
         given(tagRepository.findAllByOrderByTypeAscNameAsc()).willReturn(List.of());
+        given(playlistService.editableDrafts(nullable(Long.class))).willReturn(List.of());
         given(importService.lastRun()).willReturn(Optional.empty());
         given(importService.sourceDescription()).willReturn("s3://bucket/song-data/");
         given(draftUploadService.registeredProviders())
@@ -313,6 +319,21 @@ class AdminCatalogImportTest {
                 .andExpect(content().string(containsString("data-import-form")));
     }
 
+    /** FT-06: ADMIN never reaches /songs, so the + has to be here too. */
+    @Test
+    void catalogOffersTheAddToPlaylistColumn() throws Exception {
+        showing(song("Ice Cream", "Sugar Blizz"));
+        given(playlistService.editableDrafts(7L))
+                .willReturn(List.of(new PlaylistOption(3L, "Morning coffee", 2)));
+
+        mockMvc.perform(get(Routes.ADMIN_CATALOG).with(user(admin())))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(">Add</th>")))
+                .andExpect(content().string(containsString("data-add-to-playlist")))
+                .andExpect(content().string(containsString("id=\"addToPlaylist\"")))
+                .andExpect(content().string(containsString("Morning coffee")));
+    }
+
     /** The results-only swap must not drag the modals along with it. */
     @Test
     void catalogPartialLeavesTheUploadModalOut() throws Exception {
@@ -322,7 +343,8 @@ class AdminCatalogImportTest {
                         .with(user(admin())))
                 .andExpect(status().isOk())
                 .andExpect(content().string(not(containsString("data-song-upload"))))
-                .andExpect(content().string(not(containsString("id=\"importProgress\""))));
+                .andExpect(content().string(not(containsString("id=\"importProgress\""))))
+                .andExpect(content().string(not(containsString("id=\"addToPlaylist\""))));
     }
 
     @Test

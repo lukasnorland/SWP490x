@@ -6,6 +6,7 @@ import com.funix.swp490x.mrs.security.LoginSuccessHandler;
 import com.funix.swp490x.mrs.web.Routes;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.session.SessionRegistry;
@@ -71,6 +72,11 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         // P-02 / song browse: curation surfaces, not offered to Customers (spec 2.1).
                         .requestMatchers(Routes.SEARCH, Routes.SONGS)
+                        .hasAnyRole("ADMIN", "CONTENT_DESIGNER")
+                        // P-03: a Customer may read a playlist shared with them but
+                        // never create or change one (FT-06 NAC-03). Reading stays
+                        // on the authenticated default below.
+                        .requestMatchers(HttpMethod.POST, Routes.PLAYLISTS, Routes.PLAYLISTS + "/**")
                         .hasAnyRole("ADMIN", "CONTENT_DESIGNER")
                         .anyRequest().authenticated())
                 .formLogin(form -> form

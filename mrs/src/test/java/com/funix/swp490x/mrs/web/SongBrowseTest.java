@@ -27,6 +27,8 @@ import com.funix.swp490x.mrs.security.LoginFailureHandler;
 import com.funix.swp490x.mrs.security.LoginSuccessHandler;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.security.MrsUserDetailsService;
+import com.funix.swp490x.mrs.service.PlaylistOption;
+import com.funix.swp490x.mrs.service.PlaylistService;
 import com.funix.swp490x.mrs.service.SongCatalogService;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
 import java.util.List;
@@ -65,6 +67,9 @@ class SongBrowseTest {
     @MockitoBean
     private TagRepository tagRepository;
 
+    @MockitoBean
+    private PlaylistService playlistService;
+
     @BeforeEach
     void defaults() {
         given(songCatalogService.search(nullable(String.class), nullable(Long.class),
@@ -73,6 +78,7 @@ class SongBrowseTest {
         given(songCatalogService.providers()).willReturn(List.of("EpidemicSound"));
         given(songCatalogService.total()).willReturn(0L);
         given(tagRepository.findAllByOrderByTypeAscNameAsc()).willReturn(List.of());
+        given(playlistService.editableDrafts(nullable(Long.class))).willReturn(List.of());
     }
 
     @ParameterizedTest
@@ -104,6 +110,33 @@ class SongBrowseTest {
                 .andExpect(content().string(not(containsString("Edit song"))))
                 .andExpect(content().string(not(containsString("/admin/catalog/"))))
                 .andExpect(content().string(not(containsString("data-edit-song"))));
+    }
+
+    /** FT-06: the + in the Add column is how a song reaches a playlist. */
+    @Test
+    void browseOffersTheAddToPlaylistColumn() throws Exception {
+        showing(song("Ice Cream", "Sugar Blizz"));
+        given(playlistService.editableDrafts(1L))
+                .willReturn(List.of(new PlaylistOption(7L, "Morning coffee", 3)));
+
+        mockMvc.perform(get(Routes.SONGS).with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(content().string(containsString(">Add</th>")))
+                .andExpect(content().string(containsString("data-add-to-playlist")))
+                .andExpect(content().string(containsString("id=\"addToPlaylist\"")))
+                .andExpect(content().string(containsString("Morning coffee")));
+    }
+
+    /** The dialog is on the page, not inside the swapped results fragment. */
+    @Test
+    void theAddToPlaylistDialogStaysOutOfThePartial() throws Exception {
+        showing(song("Ice Cream", "Sugar Blizz"));
+
+        mockMvc.perform(get(Routes.SONGS)
+                        .header(SongBrowseController.PARTIAL_RESULTS_HEADER,
+                                SongBrowseController.PARTIAL_RESULTS_VALUE)
+                        .with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(content().string(containsString("data-add-to-playlist")))
+                .andExpect(content().string(not(containsString("id=\"addToPlaylist\""))));
     }
 
     @Test

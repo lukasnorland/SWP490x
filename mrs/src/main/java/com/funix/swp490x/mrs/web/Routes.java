@@ -23,8 +23,28 @@ public final class Routes {
     public static final String SONGS = "/songs";
     /** P-03a My Playlists. */
     public static final String PLAYLISTS = "/playlists";
+    /** P-03b Playlist Detail / Editor. */
+    public static final String PLAYLIST = "/playlists/{id}";
+    /** FT-06 — add a song from the Songs table or P-02 (UC-14). */
+    public static final String PLAYLIST_SONGS = "/playlists/{id}/songs";
+    /** FT-06 — drop a song and renumber the rest 1..N (AC-03). */
+    public static final String PLAYLIST_SONG_REMOVE = "/playlists/{id}/songs/{songId}/remove";
+    /** FT-06 — swap a song with its neighbour (AC-03). */
+    public static final String PLAYLIST_SONG_MOVE = "/playlists/{id}/songs/{songId}/move";
+    /** FT-06 — rename a Draft playlist (DC-08). */
+    public static final String PLAYLIST_RENAME = "/playlists/{id}/rename";
+    /** FT-06 — delete a Draft playlist (DC-05). */
+    public static final String PLAYLIST_DELETE = "/playlists/{id}/delete";
+    /** FT-07 — publish to the Shared Workspace; needs at least one song (BR-05). */
+    public static final String PLAYLIST_PUBLISH = "/playlists/{id}/publish";
+    /** FT-07 — return a Published playlist to Draft so it can be edited (DC-08). */
+    public static final String PLAYLIST_UNPUBLISH = "/playlists/{id}/unpublish";
+    /** FT-08 — CSV of the playlist contents in playing order. */
+    public static final String PLAYLIST_EXPORT = "/playlists/{id}/export.csv";
     /** P-04a Shared Workspace. */
     public static final String WORKSPACE = "/workspace";
+    /** P-04b Published Playlist View. */
+    public static final String WORKSPACE_PLAYLIST = "/workspace/{id}";
     /** P-05 My Profile & Playlist History. */
     public static final String PROFILE = "/profile";
 

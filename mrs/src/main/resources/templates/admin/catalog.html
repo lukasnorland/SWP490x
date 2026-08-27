@@ -65,6 +65,9 @@
     <div th:replace="~{fragments/song-catalog :: results}"></div>
   </div>
 
+  <div th:if="${currentUser != null and currentUser.curator}"
+       th:replace="~{fragments/add-to-playlist :: dialog}"></div>
+
   <!-- UC-29: one modal, filled from the row so opening it does not remount the player.
        Reopens itself when a validation rejection comes back (not on a stale 409). -->
   <div class="modal fade modal--edit-song" id="editSong" tabindex="-1"

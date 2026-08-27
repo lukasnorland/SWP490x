@@ -12,6 +12,7 @@
      shell-nav.js  sidebar soft-navigation
      import-progress.js  P-06b live catalog sync status panel
      song-upload.js      P-06b Add Song audio + artwork dropzone
+     playlist-add.js     FT-06 Add-to-playlist dialog from a Songs row
    ========================================================================== */
 "use strict";
 
@@ -21,6 +22,7 @@ import { initCatalogPartialPaging, initCatalogSongEdit } from "./catalog.js";
 import { initShellSoftNav } from "./shell-nav.js";
 import { initImportProgress } from "./import-progress.js";
 import { initSongUpload } from "./song-upload.js";
+import { initPlaylistAdd } from "./playlist-add.js";
 
 function start() {
   enhanceForms(document);
@@ -30,6 +32,7 @@ function start() {
   initShellSoftNav();
   initImportProgress(document);
   initSongUpload(document);
+  initPlaylistAdd();
 }
 
 if (document.readyState === "loading") {

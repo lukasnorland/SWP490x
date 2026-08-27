@@ -4,6 +4,7 @@ import com.funix.swp490x.mrs.domain.Song;
 import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
+import com.funix.swp490x.mrs.service.PlaylistService;
 import com.funix.swp490x.mrs.service.SongCatalogService;
 import java.util.List;
 import org.springframework.data.domain.Page;
@@ -30,11 +31,14 @@ public class SongBrowseController {
 
     private final SongCatalogService catalogService;
     private final TagRepository tagRepository;
+    private final PlaylistService playlistService;
 
     public SongBrowseController(SongCatalogService catalogService,
-            TagRepository tagRepository) {
+            TagRepository tagRepository,
+            PlaylistService playlistService) {
         this.catalogService = catalogService;
         this.tagRepository = tagRepository;
+        this.playlistService = playlistService;
     }
 
     @GetMapping(Routes.SONGS)
@@ -54,7 +58,7 @@ public class SongBrowseController {
         if (PARTIAL_RESULTS_VALUE.equals(partial)) {
             return "fragments/song-catalog :: results";
         }
-        populateShell(model);
+        populateShell(model, user);
         return "songs/index";
     }
 
@@ -71,12 +75,20 @@ public class SongBrowseController {
         model.addAttribute("filterQuery", q == null ? "" : q);
     }
 
-    private void populateShell(Model model) {
+    /**
+     * Only on a full-page GET: the Add-to-playlist dialog sits outside
+     * {@code #catalog-results}, so the partial response has no use for the list
+     * and should not pay for the query.
+     */
+    private void populateShell(Model model, MrsUserDetails user) {
         List<Tag> tags = tagRepository.findAllByOrderByTypeAscNameAsc();
         model.addAttribute("pageTitle", "Songs");
         model.addAttribute("activeNav", "songs");
         model.addAttribute("totalSongs", catalogService.total());
         model.addAttribute("providers", catalogService.providers());
         model.addAttribute("tags", tags);
+        model.addAttribute("myPlaylists", user == null
+                ? List.of()
+                : playlistService.editableDrafts(user.getId()));
     }
 }

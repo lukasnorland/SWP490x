@@ -87,6 +87,7 @@
           <col class="catalog-col-tags">
           <col class="catalog-col-length">
           <col class="catalog-col-bpm">
+          <col class="catalog-col-add" th:if="${currentUser != null and currentUser.curator}">
         </colgroup>
         <thead>
           <tr>
@@ -98,6 +99,7 @@
             <th scope="col">Tags</th>
             <th scope="col">Length</th>
             <th scope="col">BPM</th>
+            <th scope="col" th:if="${currentUser != null and currentUser.curator}">Add</th>
           </tr>
         </thead>
         <tbody>
@@ -207,9 +209,22 @@
                            + ${#numbers.formatInteger(song.duration % 60, 2)}
                          : '—'">0:00</td>
             <td class="table__numeric" th:text="${song.bpm != null} ? ${song.bpm} : '—'">—</td>
+            <!-- The dialog itself lives on the page, outside #catalog-results,
+                 so paging cannot swap it away mid-use. -->
+            <td th:if="${currentUser != null and currentUser.curator}">
+              <button type="button" class="btn btn-icon"
+                      title="Add to playlist"
+                      data-add-to-playlist
+                      th:data-song-id="${song.id}"
+                      th:data-song-title="${song.title}"
+                      th:data-song-artist="${song.artist}"
+                      th:aria-label="|Add ${song.title} to a playlist|">
+                <svg th:replace="~{fragments/icons :: icon('plus', 'icon--sm')}"></svg>
+              </button>
+            </td>
           </tr>
           <tr th:if="${songs == null or songs.isEmpty()}">
-            <td colspan="8">
+            <td th:attr="colspan=${currentUser != null and currentUser.curator} ? 9 : 8">
               <!-- One element, because th:replace outranks th:if: two guarded
                    divs would both be swapped in and both copies would show. -->
               <div th:replace="~{fragments/components :: emptyState('music', 'No songs match',

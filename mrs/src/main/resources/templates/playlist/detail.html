@@ -4,40 +4,205 @@
 <body>
 <div th:fragment="content">
 
+  <!-- Zone A: header and actions -->
   <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
-    <div class="d-flex flex-column gap-1">
-      <h1>Playlist detail</h1>
-      <p class="small text-secondary">
-        Playlist <span class="font-monospace" th:text="${playlistId}">0</span> — not yet loaded from the database.
+    <div class="d-flex flex-column gap-2">
+      <div class="d-flex align-items-center gap-3">
+        <h1 class="mb-0" th:text="${playlist.name}">Playlist</h1>
+        <span th:replace="~{fragments/components :: statusBadge(${playlist.status.name()})}"></span>
+        <button type="button" class="btn btn-icon"
+                th:if="${canEdit}"
+                title="Rename playlist"
+                data-rename-playlist
+                th:data-playlist-id="${playlist.id}"
+                th:data-playlist-name="${playlist.name}"
+                th:aria-label="|Rename ${playlist.name}|">
+          <svg th:replace="~{fragments/icons :: icon('pencil', 'icon--sm')}"></svg>
+        </button>
+      </div>
+      <p class="small text-secondary mb-0">
+        <span class="font-monospace">v<span th:text="${playlist.version}">1</span></span>
+        · last changed
+        <span th:text="${#temporals.format(playlist.lastModifiedAt, 'dd MMM yyyy HH:mm')}">01 Jan 2026 09:00</span>
       </p>
+    </div>
+
+    <div class="d-flex flex-wrap align-items-center gap-2">
+      <a class="btn btn-ghost" th:href="@{|/playlists/${playlist.id}/export.csv|}" download>
+        <svg th:replace="~{fragments/icons :: icon('download', 'icon--sm')}"></svg>
+        <span>Export CSV</span>
+      </a>
+
+      <!-- BR-05: publishing needs at least one song. -->
+      <form th:if="${canEdit}" th:action="@{|/playlists/${playlist.id}/publish|}" method="post"
+            class="mb-0">
+        <button type="submit" class="btn btn-primary" th:disabled="${entries.isEmpty()}"
+                th:title="${entries.isEmpty()}
+                          ? 'Add at least one song before publishing'
+                          : 'Publish to the Shared Workspace'"
+                onclick="return confirm('Publish this playlist? It will appear in the Shared Workspace and become read-only until you unpublish it.');">
+          <svg th:replace="~{fragments/icons :: icon('lock', 'icon--sm')}"></svg>
+          <span>Publish</span>
+        </button>
+      </form>
+
+      <form th:if="${playlist.published and currentUser != null and currentUser.curator}"
+            th:action="@{|/playlists/${playlist.id}/unpublish|}" method="post" class="mb-0">
+        <button type="submit" class="btn btn-primary"
+                onclick="return confirm('Unpublish this playlist? It will leave the Shared Workspace and become editable again.');">
+          <svg th:replace="~{fragments/icons :: icon('unlock', 'icon--sm')}"></svg>
+          <span>Unpublish</span>
+        </button>
+      </form>
+
+      <form th:if="${canEdit}" th:action="@{|/playlists/${playlist.id}/delete|}" method="post"
+            class="mb-0">
+        <button type="submit" class="btn btn-ghost"
+                onclick="return confirm('Delete this playlist? The songs stay in the catalog.');">
+          <svg th:replace="~{fragments/icons :: icon('trash-2', 'icon--sm')}"></svg>
+          <span>Delete</span>
+        </button>
+      </form>
     </div>
   </header>
 
   <div class="d-flex flex-column gap-4">
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A',
-        'Header and actions',
-        'Inline-editable name (Draft only), status badge, version in mono, and last modified by/at (FT-06 AC-06). Actions: Export CSV, Publish (enabled only at 1+ song, BR-05) or Unpublish, Duplicate, Delete, and ADMIN-only Reassign owner (BR-14).')}"></section>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
-        'Songs tab — ordered table',
-        'Drag handle, position, cover art, title, artist, duration, tags, hover preview, and remove. Reordering renumbers 1..N atomically (FT-06 AC-03, DC-04). &quot;Add songs&quot; routes to P-02 with this playlist preselected.')}"></section>
+    <th:block th:if="${flash != null}">
+      <div th:replace="~{fragments/components :: notice(${flashVariant},
+          ${flashVariant == 'success'} ? 'circle-check'
+            : (${flashVariant == 'info'} ? 'info' : 'alert-triangle'), ${flash})}"></div>
+    </th:block>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C',
-        'Collaborators &amp; Details tab',
-        'Collaborator list with grant and revoke, restricted to active Content Designers (FT-06 NAC-08/09). Details: createdBy and createdAt (immutable), lineage link when sourcePlaylistId is set (DC-07), publishedAt.')}"></section>
+    <!-- Locked state: every mutating control above and below is already gone;
+         this says why (FT-06 NAC-06, DC-08). -->
+    <th:block th:if="${playlist.published}">
+      <div th:replace="~{fragments/components :: notice('info', 'lock',
+          'Published playlists are locked — unpublish to edit.')}"></div>
+      <p class="small mb-0">
+        <a th:href="@{|/workspace/${playlist.id}|}">View in Shared Workspace</a>
+      </p>
+    </th:block>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone D',
-        'Footer',
-        'Add-songs shortcut, song count, total duration.')}"></section>
+    <!-- Zone B: songs tab — ordered table -->
+    <section class="card">
+      <div class="table-responsive">
+        <table class="table align-middle mb-0">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Title</th>
+              <th scope="col">Artist</th>
+              <th scope="col">Tags</th>
+              <th scope="col">Length</th>
+              <th scope="col" class="text-end" th:if="${canEdit}">Order</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="entry : ${entries}">
+              <td class="table__numeric text-secondary" th:text="${entry.position}">1</td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <img class="song-cover" th:if="${entry.song.coverUrl != null}"
+                       th:src="${entry.song.coverUrl}" th:alt="|Cover of ${entry.song.title}|"
+                       loading="lazy" width="40" height="40">
+                  <span class="song-cover song-cover--empty" th:if="${entry.song.coverUrl == null}"
+                        aria-hidden="true">
+                    <svg th:replace="~{fragments/icons :: icon('music', 'icon--sm')}"></svg>
+                  </span>
+                  <!-- Same data-preview-* contract as the catalog, so the shell
+                       player bar handles playback without knowing this screen. -->
+                  <button type="button"
+                          class="song-title-play"
+                          th:if="${entry.song.audioUrl != null and !#strings.isEmpty(entry.song.audioUrl)}"
+                          th:text="${entry.song.title}"
+                          th:data-preview-url="${entry.song.audioUrl}"
+                          th:data-preview-title="${entry.song.title}"
+                          th:data-preview-artist="${entry.song.artist}"
+                          th:data-preview-cover="${entry.song.coverUrl}"
+                          th:data-preview-ambience-a="${entry.song.ambienceA}"
+                          th:data-preview-ambience-b="${entry.song.ambienceB}"
+                          th:data-preview-duration="${entry.song.duration}"
+                          th:aria-label="|Play ${entry.song.title}|">Title</button>
+                  <span th:if="${entry.song.audioUrl == null or #strings.isEmpty(entry.song.audioUrl)}"
+                        th:text="${entry.song.title}">Title</span>
+                </div>
+              </td>
+              <td th:text="${entry.song.artist != null} ? ${entry.song.artist} : '—'">Artist</td>
+              <td>
+                <div class="catalog-tag-list d-flex flex-wrap gap-1"
+                     th:if="${!entry.song.tags.isEmpty()}">
+                  <span th:each="tag : ${entry.song.tags}"
+                        class="badge bg-secondary-subtle text-secondary-emphasis"
+                        th:text="${tag.name}">tag</span>
+                </div>
+                <span th:if="${entry.song.tags.isEmpty()}" class="text-secondary">—</span>
+              </td>
+              <td class="table__numeric"
+                  th:text="${entry.song.duration != null}
+                           ? ${#numbers.formatInteger(entry.song.duration / 60, 1)} + ':'
+                             + ${#numbers.formatInteger(entry.song.duration % 60, 2)}
+                           : '—'">0:00</td>
+              <td class="text-end" th:if="${canEdit}">
+                <div class="table__actions d-inline-flex align-items-center justify-content-end gap-1">
+                  <!-- Reordering renumbers 1..N atomically (FT-06 AC-03, DC-04). -->
+                  <form th:action="@{|/playlists/${playlist.id}/songs/${entry.song.id}/move|}"
+                        method="post">
+                    <input type="hidden" name="direction" value="up">
+                    <button type="submit" class="btn btn-icon" title="Move up"
+                            th:disabled="${entry.position == 1}">
+                      <svg th:replace="~{fragments/icons :: icon('chevron-up', 'icon--sm')}"></svg>
+                      <span class="visually-hidden">Move up</span>
+                    </button>
+                  </form>
+                  <form th:action="@{|/playlists/${playlist.id}/songs/${entry.song.id}/move|}"
+                        method="post">
+                    <input type="hidden" name="direction" value="down">
+                    <button type="submit" class="btn btn-icon" title="Move down"
+                            th:disabled="${entry.position == entries.size()}">
+                      <svg th:replace="~{fragments/icons :: icon('chevron-down', 'icon--sm')}"></svg>
+                      <span class="visually-hidden">Move down</span>
+                    </button>
+                  </form>
+                  <form th:action="@{|/playlists/${playlist.id}/songs/${entry.song.id}/remove|}"
+                        method="post">
+                    <button type="submit" class="btn btn-icon" title="Remove from playlist">
+                      <svg th:replace="~{fragments/icons :: icon('circle-minus', 'icon--sm')}"></svg>
+                      <span class="visually-hidden">Remove</span>
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            <tr th:if="${entries.isEmpty()}">
+              <td th:attr="colspan=${canEdit} ? 6 : 5">
+                <div th:replace="~{fragments/components :: emptyState('music', 'No songs yet',
+                        'Open Songs and use the + button in the Add column to put a track in here.')}"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Blocking state',
-        'Conflict dialog (720px)',
-        'On HTTP 409: &quot;This playlist changed while you were editing&quot; with two equal-weight options — refresh and reapply, or clone my edits. No other action is possible until one is chosen (BR-06, BR-11, flow F-02).')}"></section>
+    <!-- Zone D: footer -->
+    <section class="d-flex flex-wrap gap-4 small text-secondary">
+      <span>
+        <span class="table__numeric fw-semibold text-body" th:text="${entries.size()}">0</span>
+        songs
+      </span>
+      <span>
+        <span class="table__numeric fw-semibold text-body"
+              th:text="${#numbers.formatInteger(totalDuration / 60, 1)} + ':'
+                       + ${#numbers.formatInteger(totalDuration % 60, 2)}">0:00</span>
+        total
+      </span>
+      <a th:if="${canEdit}" th:href="@{/songs}">Add songs from the catalog</a>
+    </section>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Locked state',
-        'Published lock banner',
-        'A Published playlist is read-only: every mutating control is disabled behind &quot;Published playlists are locked — unpublish to edit&quot; (FT-06 NAC-06, DC-08).')}"></section>
   </div>
+
+  <div th:if="${canEdit}" th:replace="~{fragments/rename-playlist :: dialog}"></div>
 
 </div>
 </body>

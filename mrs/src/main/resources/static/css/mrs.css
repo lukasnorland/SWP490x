@@ -191,9 +191,10 @@
   color: var(--color-primary-bright);
 }
 
-/* Catalog edit/delete sit next to the title and stay visible. Hover-reveal
+/* Catalog edit/delete and Add-to-playlist stay visible. Hover-reveal
    (.table__actions) would hide them at the far edge of a wide table. */
-.catalog-row-ops .btn-icon {
+.catalog-row-ops .btn-icon,
+.btn-icon[data-add-to-playlist] {
   --bs-btn-color: var(--color-text);
   --bs-btn-hover-color: var(--color-primary-bright);
 }
@@ -241,7 +242,7 @@
 }
 
 .catalog-col-tags {
-  width: 30%;
+  width: 26%;
 }
 
 .catalog-col-length {
@@ -249,6 +250,10 @@
 }
 
 .catalog-col-bpm {
+  width: 4%;
+}
+
+.catalog-col-add {
   width: 4%;
 }
 
@@ -328,6 +333,36 @@
   width: 96px;
   height: 96px;
   object-fit: cover;
+}
+
+/* P-04a Shared Workspace cards: 2x2 cover mosaic, then name and owner. */
+.workspace-card {
+  color: inherit;
+  overflow: hidden;
+}
+
+.workspace-mosaic {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  aspect-ratio: 1;
+  background-color: var(--color-surface-raised);
+}
+
+.workspace-mosaic > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 0;
+}
+
+.workspace-mosaic__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface-raised);
 }
 
 @media (prefers-reduced-motion: reduce) {

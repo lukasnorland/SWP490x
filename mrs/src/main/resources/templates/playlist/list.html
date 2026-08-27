@@ -11,25 +11,176 @@
         Playlists you own, plus those shared with you as a collaborator.
       </p>
     </div>
+    <!-- Zone A: Content Designer and ADMIN only — never a Customer (FT-06 NAC-03). -->
+    <button type="button" class="btn btn-primary"
+            th:if="${currentUser != null and currentUser.curator}"
+            data-bs-toggle="modal" data-bs-target="#createPlaylist">
+      <svg th:replace="~{fragments/icons :: icon('plus', 'icon--sm')}"></svg>
+      <span>New playlist</span>
+    </button>
   </header>
 
   <div class="d-flex flex-column gap-4">
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A',
-        'New playlist action',
-        'Primary &quot;New playlist&quot; button, rendered for Content Designer and ADMIN only — never for Customer (FT-06 NAC-03).')}"></section>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
-        'Status filter and name search',
-        'All / Draft / Published filter plus a name search box.')}"></section>
+    <th:block th:if="${flash != null}">
+      <div th:replace="~{fragments/components :: notice(${flashVariant},
+          ${flashVariant == 'success'} ? 'circle-check'
+            : (${flashVariant == 'info'} ? 'info' : 'alert-triangle'), ${flash})}"></div>
+    </th:block>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C',
-        'Playlist table',
-        'Name, status badge, song count, version, last modified by and at, collaborator count, and row actions (Open, Export CSV, Delete). Delete is Draft-only; Published rows disable it with an &quot;Unpublish first&quot; tooltip (DC-05). Collaborator rows carry a &quot;Shared with me&quot; tag (BR-03).')}"></section>
+    <!-- Zone B: status filter and name search -->
+    <section class="card">
+      <div class="card-body">
+        <form class="row g-3 align-items-end" method="get" th:action="@{/playlists}">
+          <div class="col-12 col-md-3">
+            <label class="form-label" for="filterStatus">Status</label>
+            <select class="form-select" id="filterStatus" name="status">
+              <option value="">All</option>
+              <option value="DRAFT" th:selected="${filterStatus == 'DRAFT'}">Draft</option>
+              <option value="PUBLISHED" th:selected="${filterStatus == 'PUBLISHED'}">Published</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="filterQuery">Search</label>
+            <input class="form-control" type="search" id="filterQuery" name="q"
+                   placeholder="Playlist name" th:value="${filterQuery}">
+          </div>
+          <div class="col-12 col-md-3 d-flex gap-2">
+            <button type="submit" class="btn btn-primary flex-grow-1">Filter</button>
+            <a class="btn btn-ghost" th:href="@{/playlists}" title="Clear filters">Clear</a>
+          </div>
+        </form>
+      </div>
+    </section>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone D',
-        'Pagination',
-        '20 rows per page.')}"></section>
+    <!-- Zone C: playlist table -->
+    <section class="card">
+      <div class="table-responsive">
+        <table class="table align-middle mb-0">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Status</th>
+              <th scope="col">Songs</th>
+              <th scope="col">Version</th>
+              <th scope="col">Last modified</th>
+              <th scope="col">Collaborators</th>
+              <th scope="col" class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="playlist : ${playlists}">
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <a th:href="@{|/playlists/${playlist.id}|}" th:text="${playlist.name}">Name</a>
+                  <!-- BR-03: a grant, not ownership. -->
+                  <span th:if="${playlist.sharedWithMe}"
+                        class="badge bg-secondary-subtle text-secondary-emphasis">Shared with me</span>
+                </div>
+              </td>
+              <td>
+                <span th:replace="~{fragments/components :: statusBadge(${playlist.status.name()})}"></span>
+              </td>
+              <td class="table__numeric" th:text="${playlist.songCount}">0</td>
+              <td class="table__numeric font-monospace small text-secondary"
+                  th:text="${playlist.version}">1</td>
+              <td class="small text-secondary">
+                <div class="d-flex flex-column">
+                  <span th:text="${playlist.lastModifiedByName}">Someone</span>
+                  <span class="table__numeric"
+                        th:text="${#temporals.format(playlist.lastModifiedAt, 'dd MMM yyyy HH:mm')}">01 Jan 2026 09:00</span>
+                </div>
+              </td>
+              <td class="table__numeric" th:text="${playlist.collaboratorCount}">0</td>
+              <td class="text-end">
+                <div class="table__actions d-inline-flex align-items-center justify-content-end gap-1">
+                  <!-- The name already opens the playlist; this edits it (DC-08). -->
+                  <button type="button" class="btn btn-icon"
+                          th:if="${playlist.draft and currentUser != null and currentUser.curator}"
+                          title="Rename playlist"
+                          data-rename-playlist
+                          th:data-playlist-id="${playlist.id}"
+                          th:data-playlist-name="${playlist.name}"
+                          th:aria-label="|Rename ${playlist.name}|">
+                    <svg th:replace="~{fragments/icons :: icon('pencil', 'icon--sm')}"></svg>
+                  </button>
+                  <button type="button" class="btn btn-icon" disabled
+                          th:if="${!playlist.draft and currentUser != null and currentUser.curator}"
+                          title="Unpublish first">
+                    <svg th:replace="~{fragments/icons :: icon('pencil', 'icon--sm')}"></svg>
+                    <span class="visually-hidden">Rename (unpublish first)</span>
+                  </button>
+                  <a class="btn btn-icon" th:href="@{|/playlists/${playlist.id}/export.csv|}"
+                     title="Export CSV" download>
+                    <svg th:replace="~{fragments/icons :: icon('download', 'icon--sm')}"></svg>
+                    <span class="visually-hidden">Export CSV</span>
+                  </a>
+
+                  <!-- DC-05: delete is Draft-only; a Published row says why instead. -->
+                  <form th:if="${playlist.draft and currentUser != null and currentUser.curator}"
+                        th:action="@{|/playlists/${playlist.id}/delete|}" method="post">
+                    <button type="submit" class="btn btn-icon" title="Delete playlist"
+                            onclick="return confirm('Delete this playlist? The songs stay in the catalog.');">
+                      <svg th:replace="~{fragments/icons :: icon('trash-2', 'icon--sm')}"></svg>
+                      <span class="visually-hidden">Delete</span>
+                    </button>
+                  </form>
+                  <button type="button" class="btn btn-icon" disabled
+                          th:if="${!playlist.draft and currentUser != null and currentUser.curator}"
+                          title="Unpublish first">
+                    <svg th:replace="~{fragments/icons :: icon('trash-2', 'icon--sm')}"></svg>
+                    <span class="visually-hidden">Delete (unpublish first)</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr th:if="${playlists == null or playlists.isEmpty()}">
+              <td colspan="7">
+                <!-- One element, because th:replace outranks th:if: two guarded
+                     divs would both be swapped in and both copies would show. -->
+                <div th:replace="~{fragments/components :: emptyState('list-music', 'No playlists yet',
+                        ${currentUser != null and currentUser.curator}
+                          ? 'Use New playlist, or add a song from the Songs table with the + button.'
+                          : 'Playlists shared with you as a collaborator will appear here.')}"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Zone D: pagination (20 / page) -->
+    <nav th:replace="~{fragments/components :: pager(${playlists}, '/playlists')}"></nav>
+
   </div>
+
+  <div class="modal fade" id="createPlaylist" tabindex="-1"
+       th:if="${currentUser != null and currentUser.curator}"
+       aria-labelledby="createPlaylistTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <form class="modal-content" th:action="@{/playlists}" method="post">
+        <div class="modal-header">
+          <h2 class="modal-title h4" id="createPlaylistTitle">New playlist</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body d-flex flex-column gap-2">
+          <label class="form-label" for="newPlaylistName">Name</label>
+          <input class="form-control" type="text" id="newPlaylistName" name="name"
+                 maxlength="200" required placeholder="Morning coffee">
+          <p class="small text-secondary mb-0">
+            New playlists start as a Draft, so you can add and reorder songs before publishing.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div th:if="${currentUser != null and currentUser.curator}"
+       th:replace="~{fragments/rename-playlist :: dialog}"></div>
 
 </div>
 </body>

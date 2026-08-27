@@ -5,30 +5,128 @@
 <div th:fragment="content">
 
   <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
-    <div class="d-flex flex-column gap-1">
-      <h1>Published playlist</h1>
-      <p class="small text-secondary">
-        Playlist <span class="font-monospace" th:text="${playlistId}">0</span> — not yet loaded from the database.
+    <div class="d-flex flex-column gap-2">
+      <div class="d-flex align-items-center gap-3">
+        <h1 class="mb-0" th:text="${playlist.name}">Playlist</h1>
+        <span th:replace="~{fragments/components :: statusBadge(${playlist.status.name()})}"></span>
+      </div>
+      <p class="small text-secondary mb-0">
+        <span th:text="${ownerName}">Owner</span>
+        <span th:if="${playlist.publishedAt != null}">
+          · published
+          <span th:text="${#temporals.format(playlist.publishedAt, 'dd MMM yyyy HH:mm')}">01 Jan 2026 09:00</span>
+        </span>
       </p>
+    </div>
+
+    <div class="d-flex flex-wrap align-items-center gap-2">
+      <!-- BR-09: Customers never export. -->
+      <a class="btn btn-ghost" th:if="${canExport}"
+         th:href="@{|/playlists/${playlist.id}/export.csv|}" download>
+        <svg th:replace="~{fragments/icons :: icon('download', 'icon--sm')}"></svg>
+        <span>Export CSV</span>
+      </a>
+
+      <form th:if="${canUnpublish}" th:action="@{|/playlists/${playlist.id}/unpublish|}"
+            method="post" class="mb-0">
+        <input type="hidden" name="returnTo" value="/workspace">
+        <button type="submit" class="btn btn-primary"
+                onclick="return confirm('Unpublish this playlist? It will leave the Shared Workspace and become editable again.');">
+          <svg th:replace="~{fragments/icons :: icon('unlock', 'icon--sm')}"></svg>
+          <span>Unpublish</span>
+        </button>
+      </form>
     </div>
   </header>
 
   <div class="d-flex flex-column gap-4">
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A',
-        'Header and role-scoped actions',
-        'Name, Published badge, owner, publishedAt. Duplicate for every viewer; Export CSV for Content Designer and ADMIN only, hidden for Customer (BR-09); Unpublish for owner and ADMIN only.')}"></section>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
-        'Read-only song table',
-        'Position, title, artist, duration, tags, popularity. No drag handles and no remove controls.')}"></section>
+    <th:block th:if="${flash != null}">
+      <div th:replace="~{fragments/components :: notice(${flashVariant},
+          ${flashVariant == 'success'} ? 'circle-check'
+            : (${flashVariant == 'info'} ? 'info' : 'alert-triangle'), ${flash})}"></div>
+    </th:block>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C',
-        'Lineage note',
-        'Shown when this playlist was itself duplicated: &quot;Based on …&quot; with the source link (DC-07).')}"></section>
+    <section class="card">
+      <div class="table-responsive">
+        <table class="table align-middle mb-0">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Title</th>
+              <th scope="col">Artist</th>
+              <th scope="col">Tags</th>
+              <th scope="col">Length</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="entry : ${entries}">
+              <td class="table__numeric text-secondary" th:text="${entry.position}">1</td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <img class="song-cover" th:if="${entry.song.coverUrl != null}"
+                       th:src="${entry.song.coverUrl}" th:alt="|Cover of ${entry.song.title}|"
+                       loading="lazy" width="40" height="40">
+                  <span class="song-cover song-cover--empty" th:if="${entry.song.coverUrl == null}"
+                        aria-hidden="true">
+                    <svg th:replace="~{fragments/icons :: icon('music', 'icon--sm')}"></svg>
+                  </span>
+                  <button type="button"
+                          class="song-title-play"
+                          th:if="${entry.song.audioUrl != null and !#strings.isEmpty(entry.song.audioUrl)}"
+                          th:text="${entry.song.title}"
+                          th:data-preview-url="${entry.song.audioUrl}"
+                          th:data-preview-title="${entry.song.title}"
+                          th:data-preview-artist="${entry.song.artist}"
+                          th:data-preview-cover="${entry.song.coverUrl}"
+                          th:data-preview-ambience-a="${entry.song.ambienceA}"
+                          th:data-preview-ambience-b="${entry.song.ambienceB}"
+                          th:data-preview-duration="${entry.song.duration}"
+                          th:aria-label="|Play ${entry.song.title}|">Title</button>
+                  <span th:if="${entry.song.audioUrl == null or #strings.isEmpty(entry.song.audioUrl)}"
+                        th:text="${entry.song.title}">Title</span>
+                </div>
+              </td>
+              <td th:text="${entry.song.artist != null} ? ${entry.song.artist} : '—'">Artist</td>
+              <td>
+                <div class="catalog-tag-list d-flex flex-wrap gap-1"
+                     th:if="${!entry.song.tags.isEmpty()}">
+                  <span th:each="tag : ${entry.song.tags}"
+                        class="badge bg-secondary-subtle text-secondary-emphasis"
+                        th:text="${tag.name}">tag</span>
+                </div>
+                <span th:if="${entry.song.tags.isEmpty()}" class="text-secondary">—</span>
+              </td>
+              <td class="table__numeric"
+                  th:text="${entry.song.duration != null}
+                           ? ${#numbers.formatInteger(entry.song.duration / 60, 1)} + ':'
+                             + ${#numbers.formatInteger(entry.song.duration % 60, 2)}
+                           : '—'">0:00</td>
+            </tr>
+            <tr th:if="${entries.isEmpty()}">
+              <td colspan="5">
+                <div th:replace="~{fragments/components :: emptyState('music', 'No songs',
+                        'This playlist was published empty — it should not have been.')}"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Forbidden state',
-        'Out-of-scope direct link',
-        'A playlist outside the granted scope of the viewer returns HTTP 403 and a generic &quot;not available&quot; page that does not confirm the playlist exists (SC-06 exception).')}"></section>
+    <section class="d-flex flex-wrap gap-4 small text-secondary">
+      <span>
+        <span class="table__numeric fw-semibold text-body" th:text="${entries.size()}">0</span>
+        songs
+      </span>
+      <span>
+        <span class="table__numeric fw-semibold text-body"
+              th:text="${#numbers.formatInteger(totalDuration / 60, 1)} + ':'
+                       + ${#numbers.formatInteger(totalDuration % 60, 2)}">0:00</span>
+        total
+      </span>
+    </section>
+
   </div>
 
 </div>

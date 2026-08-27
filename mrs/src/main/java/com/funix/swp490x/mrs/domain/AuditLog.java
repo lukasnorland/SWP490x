@@ -26,6 +26,23 @@ public class AuditLog {
 
     public static final String ENTITY_CATALOG_IMPORT_RUN = "CATALOG_IMPORT_RUN";
 
+    /** P-03a / P-03b playlist changes (FT-06). */
+    public static final String ACTION_PLAYLIST_CREATE = "PLAYLIST_CREATE";
+
+    public static final String ACTION_PLAYLIST_RENAME = "PLAYLIST_RENAME";
+
+    public static final String ACTION_PLAYLIST_DELETE = "PLAYLIST_DELETE";
+
+    public static final String ACTION_PLAYLIST_SONG_ADD = "PLAYLIST_SONG_ADD";
+
+    public static final String ACTION_PLAYLIST_SONG_REMOVE = "PLAYLIST_SONG_REMOVE";
+
+    public static final String ACTION_PLAYLIST_PUBLISH = "PLAYLIST_PUBLISH";
+
+    public static final String ACTION_PLAYLIST_UNPUBLISH = "PLAYLIST_UNPUBLISH";
+
+    public static final String ENTITY_PLAYLIST = "PLAYLIST";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
