@@ -296,6 +296,11 @@ public class CatalogImportService {
             log.info("Catalog sync: removed {} song(s) no longer staged", removed);
         }
 
+        int unusedTags = upserter.pruneUnusedTags();
+        if (unusedTags > 0) {
+            log.info("Catalog sync: dropped {} unused tag(s)", unusedTags);
+        }
+
         return new ImportSummary(listed.size(), toRead.size(), added, updated, removed,
                 List.copyOf(skipped), false, null);
     }

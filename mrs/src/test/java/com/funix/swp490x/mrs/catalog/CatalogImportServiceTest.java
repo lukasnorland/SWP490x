@@ -7,6 +7,7 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willAnswer;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import com.funix.swp490x.mrs.domain.CatalogImportRun;
 import com.funix.swp490x.mrs.domain.ImportTrigger;
@@ -57,6 +58,7 @@ class CatalogImportServiceTest {
 
     private CatalogImportService service;
     private CountingStore store;
+    private TagRepository tagRepository;
 
     @BeforeEach
     void setUp() throws IOException {
@@ -97,7 +99,7 @@ class CatalogImportServiceTest {
             return song;
         });
 
-        TagRepository tagRepository = mock(TagRepository.class);
+        tagRepository = mock(TagRepository.class);
         given(tagRepository.findByTypeAndName(any(), any())).willAnswer(invocation ->
                 Optional.ofNullable(tags.get(
                         invocation.getArgument(0) + ":" + invocation.getArgument(1))));
@@ -106,6 +108,7 @@ class CatalogImportServiceTest {
             tags.put(tag.getType() + ":" + tag.getName(), tag);
             return tag;
         });
+        given(tagRepository.deleteUnused()).willReturn(0);
 
         CatalogImportRunRepository runRepository = mock(CatalogImportRunRepository.class);
         given(runRepository.save(any(CatalogImportRun.class))).willAnswer(invocation -> {
@@ -138,6 +141,7 @@ class CatalogImportServiceTest {
         assertThat(service.progress().phase()).isEqualTo("done");
         assertThat(service.progress().added()).isEqualTo(3);
         assertThat(service.progress().percent()).isEqualTo(100);
+        verify(tagRepository).deleteUnused();
     }
 
     /**

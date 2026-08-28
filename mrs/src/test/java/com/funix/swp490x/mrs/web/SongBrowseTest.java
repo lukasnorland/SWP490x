@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.never;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -77,7 +78,7 @@ class SongBrowseTest {
                 .willReturn(Page.empty());
         given(songCatalogService.providers()).willReturn(List.of("EpidemicSound"));
         given(songCatalogService.total()).willReturn(0L);
-        given(tagRepository.findAllByOrderByTypeAscNameAsc()).willReturn(List.of());
+        given(tagRepository.findAllUsedOrderByTypeAscNameAsc()).willReturn(List.of());
         given(playlistService.editableDrafts(nullable(Long.class))).willReturn(List.of());
     }
 
@@ -165,6 +166,8 @@ class SongBrowseTest {
                 .andExpect(content().string(containsString("Ice Cream")))
                 .andExpect(content().string(not(containsString("data-preview-bar"))))
                 .andExpect(content().string(not(containsString("sidebar__brand"))));
+
+        then(tagRepository).should(never()).findAllUsedOrderByTypeAscNameAsc();
     }
 
     @Test

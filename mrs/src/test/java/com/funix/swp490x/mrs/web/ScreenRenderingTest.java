@@ -121,7 +121,7 @@ class ScreenRenderingTest {
         given(songCatalogService.search(nullable(String.class), nullable(Long.class),
                 nullable(Long.class), nullable(Long.class), nullable(String.class), anyInt()))
                 .willReturn(Page.empty());
-        given(tagRepository.findAllByOrderByTypeAscNameAsc()).willReturn(List.of());
+        given(tagRepository.findAllUsedOrderByTypeAscNameAsc()).willReturn(List.of());
         given(catalogImportService.lastRun()).willReturn(Optional.empty());
         given(catalogImportService.sourceDescription()).willReturn("s3://bucket/song-data/");
         given(songDraftUploadService.registeredProviders())

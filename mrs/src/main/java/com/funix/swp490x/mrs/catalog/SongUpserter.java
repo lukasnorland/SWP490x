@@ -117,6 +117,15 @@ public class SongUpserter {
         return songRepository.deleteByExternalSourceIdIn(externalSourceIds);
     }
 
+    /**
+     * After songs are in step with staged JSON, drop tag names no song still
+     * carries so the catalog filters match the data.
+     */
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public int pruneUnusedTags() {
+        return tagRepository.deleteUnused();
+    }
+
     private boolean isDuplicateIsrc(SongValues values) {
         if (values.isrc() == null) {
             return false;

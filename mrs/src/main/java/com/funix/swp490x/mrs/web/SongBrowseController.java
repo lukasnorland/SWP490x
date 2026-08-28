@@ -81,7 +81,7 @@ public class SongBrowseController {
      * and should not pay for the query.
      */
     private void populateShell(Model model, MrsUserDetails user) {
-        List<Tag> tags = tagRepository.findAllByOrderByTypeAscNameAsc();
+        List<Tag> tags = tagRepository.findAllUsedOrderByTypeAscNameAsc();
         model.addAttribute("pageTitle", "Songs");
         model.addAttribute("activeNav", "songs");
         model.addAttribute("totalSongs", catalogService.total());
