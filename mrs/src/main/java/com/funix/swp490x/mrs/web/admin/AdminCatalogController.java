@@ -256,7 +256,7 @@ public class AdminCatalogController {
      * and should not pay for the query.
      */
     private void populateShell(Model model, MrsUserDetails actor) {
-        List<Tag> tags = tagRepository.findAllByOrderByTypeAscNameAsc();
+        List<Tag> tags = tagRepository.findAllUsedOrderByTypeAscNameAsc();
         model.addAttribute("myPlaylists", actor == null
                 ? List.of()
                 : playlistService.editableDrafts(actor.getId()));
@@ -264,8 +264,8 @@ public class AdminCatalogController {
         model.addAttribute("activeNav", "admin-catalog");
         model.addAttribute("totalSongs", catalogService.total());
         model.addAttribute("untaggedCount", catalogService.untaggedCount());
-        // The filter dropdown lists what is already in MySQL; Add Song lists
-        // the vendors the upload service knows how to key objects for.
+        // Filters list names currently on a song, not leftover dictionary rows.
+        // Add Song lists the vendors the upload service knows how to key for.
         model.addAttribute("providers", catalogService.providers());
         model.addAttribute("uploadProviders", draftUploadService.registeredProviders());
         model.addAttribute("tags", tags);

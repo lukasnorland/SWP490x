@@ -109,7 +109,7 @@ class AdminCatalogImportTest {
                 nullable(Long.class), nullable(Long.class), nullable(String.class), anyInt()))
                 .willReturn(Page.empty());
         given(songCatalogService.providers()).willReturn(List.of("EpidemicSound"));
-        given(tagRepository.findAllByOrderByTypeAscNameAsc()).willReturn(List.of());
+        given(tagRepository.findAllUsedOrderByTypeAscNameAsc()).willReturn(List.of());
         given(playlistService.editableDrafts(nullable(Long.class))).willReturn(List.of());
         given(importService.lastRun()).willReturn(Optional.empty());
         given(importService.sourceDescription()).willReturn("s3://bucket/song-data/");
@@ -207,7 +207,7 @@ class AdminCatalogImportTest {
 
     @Test
     void catalogSplitsGenreMoodAndTagFilters() throws Exception {
-        given(tagRepository.findAllByOrderByTypeAscNameAsc()).willReturn(List.of(
+        given(tagRepository.findAllUsedOrderByTypeAscNameAsc()).willReturn(List.of(
                 new Tag(TagType.GENRE, "Pop"),
                 new Tag(TagType.MOOD, "Dreamy"),
                 new Tag(TagType.TAGS, "smooth")));
@@ -219,9 +219,13 @@ class AdminCatalogImportTest {
                 .andExpect(content().string(containsString("id=\"filterTag\"")))
                 .andExpect(content().string(containsString("name=\"genreId\"")))
                 .andExpect(content().string(containsString("name=\"moodId\"")))
+                .andExpect(content().string(containsString(">Pop</option>")))
+                .andExpect(content().string(not(containsString(">2010s</option>"))))
                 .andExpect(content().string(not(containsString("Untagged only"))))
                 .andExpect(content().string(not(containsString("No preview audio"))))
                 .andExpect(content().string(not(containsString("Tag dictionary"))));
+
+        then(tagRepository).should().findAllUsedOrderByTypeAscNameAsc();
     }
 
     /** DC-03: songs no filtered search can reach are called out, not hidden. */
@@ -255,6 +259,8 @@ class AdminCatalogImportTest {
                 .andExpect(content().string(not(containsString("data-preview-bar"))))
                 .andExpect(content().string(not(containsString("Song Catalog"))))
                 .andExpect(content().string(not(containsString("sidebar__brand"))));
+
+        then(tagRepository).should(never()).findAllUsedOrderByTypeAscNameAsc();
     }
 
     @Test

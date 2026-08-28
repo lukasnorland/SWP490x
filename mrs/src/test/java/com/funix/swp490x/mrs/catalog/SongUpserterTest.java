@@ -202,6 +202,14 @@ class SongUpserterTest {
         assertThat(existing.getSourceEtag()).isEqualTo("etag-a");
     }
 
+    @Test
+    void pruneUnusedTagsDeletesDictionaryRowsNoSongStillCarries() {
+        given(tagRepository.deleteUnused()).willReturn(4);
+
+        assertThat(upserter.pruneUnusedTags()).isEqualTo(4);
+        verify(tagRepository).deleteUnused();
+    }
+
     private Song savedSong() {
         ArgumentCaptor<Song> captor = ArgumentCaptor.forClass(Song.class);
         verify(songRepository).save(captor.capture());
