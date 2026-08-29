@@ -420,7 +420,7 @@ public final class CatalogTaxonomy {
             }
             parts.add(titleToken(word));
         }
-        return String.join(" ", parts);
+        return collapseAdjacentDuplicates(String.join(" ", parts));
     }
 
     private static String titleToken(String word) {
@@ -428,12 +428,30 @@ public final class CatalogTaxonomy {
             return word;
         }
         String folded = SYNONYMS.get(word.toLowerCase(Locale.ROOT));
-        if (folded != null) {
+        if (folded != null && !folded.contains(" ")) {
             return folded;
         }
         int first = word.offsetByCodePoints(0, 1);
         return word.substring(0, first).toUpperCase(Locale.ROOT)
                 + word.substring(first).toLowerCase(Locale.ROOT);
+    }
+
+    /** A one-token alias such as {@code bossa} → Bossa Nova must not grow a longer tag. */
+    private static String collapseAdjacentDuplicates(String titled) {
+        String[] words = titled.split(" ");
+        List<String> parts = new ArrayList<>(words.length);
+        String last = null;
+        for (String word : words) {
+            if (word.isEmpty()) {
+                continue;
+            }
+            if (last != null && last.equalsIgnoreCase(word)) {
+                continue;
+            }
+            parts.add(word);
+            last = word;
+        }
+        return String.join(" ", parts);
     }
 
     private static void indexGenre(String raw) {

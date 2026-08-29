@@ -24,6 +24,8 @@ class CatalogTaxonomyTest {
         assertThat(taxonomy.canonicalName("female vocals")).isEqualTo("Female Vocals");
         assertThat(taxonomy.canonicalName("nu-disco")).isEqualTo("Nu Disco");
         assertThat(taxonomy.canonicalName("brazilian funk")).isEqualTo("Funk Carioca");
+        assertThat(taxonomy.canonicalName("bossa")).isEqualTo("Bossa Nova");
+        assertThat(taxonomy.canonicalName("Bossa Nova Nova Beat")).isEqualTo("Bossa Nova Beat");
     }
 
     @Test
