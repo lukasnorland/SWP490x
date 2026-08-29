@@ -141,15 +141,44 @@
       Click a song title to play
     </span>
   </div>
-  <button type="button" class="btn btn-icon" data-preview-toggle disabled
-          aria-label="Play" aria-pressed="false">
-    <svg class="icon" data-preview-icon-play aria-hidden="true" focusable="false">
-      <use href="#i-play"></use>
-    </svg>
-    <svg class="icon d-none" data-preview-icon-pause aria-hidden="true" focusable="false">
-      <use href="#i-pause"></use>
-    </svg>
-  </button>
+  <div class="preview-bar__transport">
+    <button type="button" class="btn btn-icon" data-preview-shuffle disabled
+            aria-label="Shuffle" aria-pressed="false">
+      <svg class="icon" aria-hidden="true" focusable="false">
+        <use href="#i-shuffle"></use>
+      </svg>
+    </button>
+    <button type="button" class="btn btn-icon" data-preview-prev disabled
+            aria-label="Previous">
+      <svg class="icon" aria-hidden="true" focusable="false">
+        <use href="#i-skip-back"></use>
+      </svg>
+    </button>
+    <button type="button" class="btn btn-icon" data-preview-toggle disabled
+            aria-label="Play" aria-pressed="false">
+      <svg class="icon" data-preview-icon-play aria-hidden="true" focusable="false">
+        <use href="#i-play"></use>
+      </svg>
+      <svg class="icon d-none" data-preview-icon-pause aria-hidden="true" focusable="false">
+        <use href="#i-pause"></use>
+      </svg>
+    </button>
+    <button type="button" class="btn btn-icon" data-preview-next disabled
+            aria-label="Next">
+      <svg class="icon" aria-hidden="true" focusable="false">
+        <use href="#i-skip-forward"></use>
+      </svg>
+    </button>
+    <button type="button" class="btn btn-icon" data-preview-repeat disabled
+            aria-label="Repeat" aria-pressed="false">
+      <svg class="icon" data-preview-icon-repeat aria-hidden="true" focusable="false">
+        <use href="#i-repeat"></use>
+      </svg>
+      <svg class="icon d-none" data-preview-icon-repeat-one aria-hidden="true" focusable="false">
+        <use href="#i-repeat-1"></use>
+      </svg>
+    </button>
+  </div>
   <div class="progress preview-bar__progress flex-fill" data-preview-progress
        role="progressbar" aria-label="Playback position"
        aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">

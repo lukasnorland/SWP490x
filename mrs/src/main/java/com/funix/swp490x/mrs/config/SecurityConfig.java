@@ -71,7 +71,7 @@ public class SecurityConfig {
                         // P-06a–e: ADMIN area (BR-01, BR-02, FT-09 NAC-02).
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         // P-02 / song browse: curation surfaces, not offered to Customers (spec 2.1).
-                        .requestMatchers(Routes.SEARCH, Routes.SONGS)
+                        .requestMatchers(Routes.SEARCH, Routes.SONGS, Routes.SONGS_PLAY_QUEUE)
                         .hasAnyRole("ADMIN", "CONTENT_DESIGNER")
                         // P-03: a Customer may read a playlist shared with them but
                         // never create or change one (FT-06 NAC-03). Reading stays

@@ -108,7 +108,7 @@
       th:text="${selected == null or #lists.isEmpty(selected)} ? 'All' : (${#lists.size(selected)} + ' selected')">All</span>
 
 <!-- Zone C + D: swapped in-place by catalog.js on pager / filter (player stays mounted). -->
-<div id="catalog-results" th:fragment="results" data-catalog-results>
+<div id="catalog-results" th:fragment="results" data-catalog-results data-preview-queue="catalog">
 
   <section class="card">
     <div class="catalog-table-wrap">
@@ -153,6 +153,7 @@
                           class="song-title-play"
                           th:if="${song.audioUrl != null and !#strings.isEmpty(song.audioUrl)}"
                           th:text="${song.title}"
+                          th:data-preview-id="${song.id}"
                           th:data-preview-url="${song.audioUrl}"
                           th:data-preview-title="${song.title}"
                           th:data-preview-artist="${song.artist}"

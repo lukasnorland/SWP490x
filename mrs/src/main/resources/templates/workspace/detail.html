@@ -49,7 +49,7 @@
 
     <section class="card">
       <div class="table-responsive">
-        <table class="table align-middle mb-0">
+        <table class="table align-middle mb-0" data-preview-queue="list">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -75,6 +75,7 @@
                           class="song-title-play"
                           th:if="${entry.song.audioUrl != null and !#strings.isEmpty(entry.song.audioUrl)}"
                           th:text="${entry.song.title}"
+                          th:data-preview-id="${entry.song.id}"
                           th:data-preview-url="${entry.song.audioUrl}"
                           th:data-preview-title="${entry.song.title}"
                           th:data-preview-artist="${entry.song.artist}"
