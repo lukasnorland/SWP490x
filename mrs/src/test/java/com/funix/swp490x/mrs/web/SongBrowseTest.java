@@ -73,8 +73,8 @@ class SongBrowseTest {
 
     @BeforeEach
     void defaults() {
-        given(songCatalogService.search(nullable(String.class), nullable(Long.class),
-                nullable(Long.class), nullable(Long.class), nullable(String.class), anyInt()))
+        given(songCatalogService.search(nullable(List.class), nullable(List.class),
+                nullable(List.class), nullable(List.class), nullable(String.class), anyInt()))
                 .willReturn(Page.empty());
         given(songCatalogService.providers()).willReturn(List.of("EpidemicSound"));
         given(songCatalogService.total()).willReturn(0L);
@@ -183,7 +183,21 @@ class SongBrowseTest {
                 .andExpect(status().isOk());
 
         then(songCatalogService).should()
-                .search("EpidemicSound", 3L, 4L, 5L, "ice", 1);
+                .search(List.of("EpidemicSound"), List.of(3L), List.of(4L), List.of(5L), "ice", 1);
+    }
+
+    @Test
+    void songsPassesRepeatedBrowseFiltersThrough() throws Exception {
+        mockMvc.perform(get(Routes.SONGS)
+                        .param("genreId", "3")
+                        .param("genreId", "7")
+                        .param("moodId", "4")
+                        .param("moodId", "8")
+                        .with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk());
+
+        then(songCatalogService).should()
+                .search(null, List.of(3L, 7L), List.of(4L, 8L), null, null, 0);
     }
 
     @Test
@@ -195,8 +209,8 @@ class SongBrowseTest {
     }
 
     private void showing(Song... songs) {
-        given(songCatalogService.search(nullable(String.class), nullable(Long.class),
-                nullable(Long.class), nullable(Long.class), nullable(String.class), anyInt()))
+        given(songCatalogService.search(nullable(List.class), nullable(List.class),
+                nullable(List.class), nullable(List.class), nullable(String.class), anyInt()))
                 .willReturn(new PageImpl<>(List.of(songs), PageRequest.of(0, 20), songs.length));
         given(songCatalogService.total()).willReturn((long) songs.length);
     }

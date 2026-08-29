@@ -13,6 +13,41 @@ var CATALOG_PARTIAL_VALUE = "results";
    through loadCatalogResults so catalog history stays on the partial path. */
 var activeLoadResults = null;
 
+export function syncCatalogFilterLabels(root) {
+  var scope = root || document;
+  var form = scope.querySelector("[data-catalog-filters]");
+  if (!form) {
+    return;
+  }
+  form.querySelectorAll("[data-catalog-filter]").forEach(syncFilterLabel);
+}
+
+function selectedFilterNames(dropdown) {
+  var names = [];
+  dropdown.querySelectorAll("input[type='checkbox']:checked").forEach(function (box) {
+    var text = box.nextElementSibling;
+    names.push(text ? text.textContent.trim() : box.value);
+  });
+  return names;
+}
+
+function formatFilterLabel(names) {
+  return names.length === 0 ? "All" : names.join(", ");
+}
+
+function syncFilterLabel(dropdown) {
+  var label = dropdown.querySelector("[data-catalog-filter-label]");
+  if (!label) {
+    return;
+  }
+  var names = selectedFilterNames(dropdown);
+  label.textContent = formatFilterLabel(names);
+  var toggle = dropdown.querySelector(".catalog-filter-toggle");
+  if (toggle) {
+    toggle.title = names.length === 0 ? "" : names.join(", ");
+  }
+}
+
 export function isCatalogPath(pathname) {
   return pathname === "/admin/catalog" || pathname.indexOf("/admin/catalog/") === 0
       || pathname === "/songs" || pathname.indexOf("/songs/") === 0;
@@ -26,6 +61,8 @@ export function loadCatalogResults(url, pushUrl) {
 }
 
 export function initCatalogPartialPaging(root) {
+  syncCatalogFilterLabels(root);
+
   if (activeLoadResults) {
     return;
   }
@@ -134,6 +171,7 @@ export function initCatalogPartialPaging(root) {
           return;
         }
         form.reset();
+        syncCatalogFilterLabels(form);
       });
       return;
     }
@@ -154,6 +192,15 @@ export function initCatalogPartialPaging(root) {
     event.preventDefault();
     event.stopPropagation();
     loadResults(link.href, true);
+  });
+
+  root.addEventListener("change", function (event) {
+    var dropdown = event.target.closest("[data-catalog-filter]");
+    var form = catalogForm();
+    if (!dropdown || !form || !form.contains(dropdown)) {
+      return;
+    }
+    syncFilterLabel(dropdown);
   });
 
   root.addEventListener("submit", function (event) {

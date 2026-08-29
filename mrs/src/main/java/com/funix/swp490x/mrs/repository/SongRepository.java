@@ -56,28 +56,35 @@ public interface SongRepository extends JpaRepository<Song, Long> {
      * memory, which over 3,000 songs means loading the whole catalog per page.
      * {@link #findAllWithTags} then fetches just this page's tags.
      *
-     * <p>Genre, mood and freeform tag ids are ANDed (a song must carry each
-     * selected value). A null id means that vocabulary is not constraining.
+     * <p>Genre, mood and freeform tag filters are OR within a vocabulary and
+     * AND across them: a song must match at least one selected value in each
+     * category that has a selection. An empty list leaves that vocabulary
+     * unconstrained. Hibernate rejects {@code IN ()}, so an unused list is
+     * bound to a dummy value and skipped with a boolean flag.
      */
     @Query("""
             SELECT s.id FROM Song s
-            WHERE (:provider IS NULL OR s.sourceProvider = :provider)
-              AND (:genreId IS NULL OR EXISTS (
+            WHERE (:providerEmpty = true OR s.sourceProvider IN :providers)
+              AND (:genreEmpty = true OR EXISTS (
                     SELECT 1 FROM Song sg JOIN sg.tags tg
-                    WHERE sg.id = s.id AND tg.id = :genreId))
-              AND (:moodId IS NULL OR EXISTS (
+                    WHERE sg.id = s.id AND tg.id IN :genreIds))
+              AND (:moodEmpty = true OR EXISTS (
                     SELECT 1 FROM Song sm JOIN sm.tags tm
-                    WHERE sm.id = s.id AND tm.id = :moodId))
-              AND (:tagId IS NULL OR EXISTS (
+                    WHERE sm.id = s.id AND tm.id IN :moodIds))
+              AND (:tagEmpty = true OR EXISTS (
                     SELECT 1 FROM Song st JOIN st.tags tt
-                    WHERE st.id = s.id AND tt.id = :tagId))
+                    WHERE st.id = s.id AND tt.id IN :tagIds))
               AND (:q IS NULL OR LOWER(s.title) LIKE LOWER(CONCAT('%', :q, '%'))
                                OR LOWER(s.artist) LIKE LOWER(CONCAT('%', :q, '%')))
             """)
-    Page<Long> searchIds(@Param("provider") String provider,
-            @Param("genreId") Long genreId,
-            @Param("moodId") Long moodId,
-            @Param("tagId") Long tagId,
+    Page<Long> searchIds(@Param("providerEmpty") boolean providerEmpty,
+            @Param("providers") Collection<String> providers,
+            @Param("genreEmpty") boolean genreEmpty,
+            @Param("genreIds") Collection<Long> genreIds,
+            @Param("moodEmpty") boolean moodEmpty,
+            @Param("moodIds") Collection<Long> moodIds,
+            @Param("tagEmpty") boolean tagEmpty,
+            @Param("tagIds") Collection<Long> tagIds,
             @Param("q") String q,
             Pageable pageable);
 

@@ -84,10 +84,10 @@ public class AdminCatalogController {
 
     @GetMapping(Routes.ADMIN_CATALOG)
     public String catalog(@AuthenticationPrincipal MrsUserDetails actor,
-            @RequestParam(required = false) String provider,
-            @RequestParam(required = false) Long genreId,
-            @RequestParam(required = false) Long moodId,
-            @RequestParam(required = false) Long tagId,
+            @RequestParam(required = false) List<String> provider,
+            @RequestParam(required = false) List<Long> genreId,
+            @RequestParam(required = false) List<Long> moodId,
+            @RequestParam(required = false) List<Long> tagId,
             @RequestParam(required = false) String q,
             @RequestParam(defaultValue = "0") int page,
             @RequestHeader(value = PARTIAL_RESULTS_HEADER, required = false) String partial,
@@ -236,18 +236,22 @@ public class AdminCatalogController {
                 .collect(Collectors.joining("; "));
     }
 
-    private void populateResults(Model model, String provider, Long genreId, Long moodId,
-            Long tagId, String q, int page) {
-        Page<Song> songs = catalogService.search(provider, genreId, moodId, tagId, q, page);
+    private void populateResults(Model model, List<String> providers, List<Long> genreIds,
+            List<Long> moodIds, List<Long> tagIds, String q, int page) {
+        Page<Song> songs = catalogService.search(providers, genreIds, moodIds, tagIds, q, page);
         model.addAttribute("songs", songs);
         model.addAttribute("catalogBasePath", Routes.ADMIN_CATALOG);
         model.addAttribute("browseMode", false);
         // Echoed back so the filter form and the pager keep the current query.
-        model.addAttribute("filterProvider", provider);
-        model.addAttribute("filterGenreId", genreId);
-        model.addAttribute("filterMoodId", moodId);
-        model.addAttribute("filterTagId", tagId);
+        model.addAttribute("filterProviders", orEmpty(providers));
+        model.addAttribute("filterGenreIds", orEmpty(genreIds));
+        model.addAttribute("filterMoodIds", orEmpty(moodIds));
+        model.addAttribute("filterTagIds", orEmpty(tagIds));
         model.addAttribute("filterQuery", q == null ? "" : q);
+    }
+
+    private static <T> List<T> orEmpty(List<T> values) {
+        return values == null || values.isEmpty() ? List.of() : values;
     }
 
     /**

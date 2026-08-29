@@ -118,8 +118,8 @@ class ScreenRenderingTest {
         given(playlistService.viewPublished(nullable(Long.class))).willReturn(publishedPlaylist());
         given(playlistService.publishedSongs(nullable(Long.class))).willReturn(List.of());
         given(playlistService.ownerName(nullable(Long.class))).willReturn("Dana Designer");
-        given(songCatalogService.search(nullable(String.class), nullable(Long.class),
-                nullable(Long.class), nullable(Long.class), nullable(String.class), anyInt()))
+        given(songCatalogService.search(nullable(List.class), nullable(List.class),
+                nullable(List.class), nullable(List.class), nullable(String.class), anyInt()))
                 .willReturn(Page.empty());
         given(tagRepository.findAllUsedOrderByTypeAscNameAsc()).willReturn(List.of());
         given(catalogImportService.lastRun()).willReturn(Optional.empty());

@@ -105,8 +105,8 @@ class AdminCatalogImportTest {
 
     @BeforeEach
     void defaults() {
-        given(songCatalogService.search(nullable(String.class), nullable(Long.class),
-                nullable(Long.class), nullable(Long.class), nullable(String.class), anyInt()))
+        given(songCatalogService.search(nullable(List.class), nullable(List.class),
+                nullable(List.class), nullable(List.class), nullable(String.class), anyInt()))
                 .willReturn(Page.empty());
         given(songCatalogService.providers()).willReturn(List.of("EpidemicSound"));
         given(tagRepository.findAllUsedOrderByTypeAscNameAsc()).willReturn(List.of());
@@ -184,8 +184,8 @@ class AdminCatalogImportTest {
     }
 
     private void showing(Song... songs) {
-        given(songCatalogService.search(nullable(String.class), nullable(Long.class),
-                nullable(Long.class), nullable(Long.class), nullable(String.class), anyInt()))
+        given(songCatalogService.search(nullable(List.class), nullable(List.class),
+                nullable(List.class), nullable(List.class), nullable(String.class), anyInt()))
                 .willReturn(new PageImpl<>(List.of(songs), PageRequest.of(0, 20), songs.length));
     }
 
@@ -202,7 +202,43 @@ class AdminCatalogImportTest {
                 .andExpect(status().isOk());
 
         then(songCatalogService).should()
-                .search("EpidemicSound", 3L, 4L, 5L, "ice", 2);
+                .search(List.of("EpidemicSound"), List.of(3L), List.of(4L), List.of(5L), "ice", 2);
+    }
+
+    @Test
+    void catalogPassesRepeatedFilterParamsThrough() throws Exception {
+        mockMvc.perform(get(Routes.ADMIN_CATALOG)
+                        .param("provider", "EpidemicSound")
+                        .param("provider", "NCS")
+                        .param("genreId", "3")
+                        .param("genreId", "7")
+                        .param("moodId", "4")
+                        .param("tagId", "5")
+                        .param("tagId", "9")
+                        .with(user(admin())))
+                .andExpect(status().isOk());
+
+        then(songCatalogService).should()
+                .search(List.of("EpidemicSound", "NCS"), List.of(3L, 7L), List.of(4L),
+                        List.of(5L, 9L), null, 0);
+    }
+
+    @Test
+    void catalogPagerRepeatsMultiValueFilters() throws Exception {
+        given(songCatalogService.search(nullable(List.class), nullable(List.class),
+                nullable(List.class), nullable(List.class), nullable(String.class), anyInt()))
+                .willReturn(new PageImpl<>(List.of(song("Ice Cream", "Sugar Blizz")),
+                        PageRequest.of(0, 20), 40));
+
+        mockMvc.perform(get(Routes.ADMIN_CATALOG)
+                        .param("genreId", "3")
+                        .param("genreId", "7")
+                        .header(AdminCatalogController.PARTIAL_RESULTS_HEADER,
+                                AdminCatalogController.PARTIAL_RESULTS_VALUE)
+                        .with(user(admin())))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("genreId=3")))
+                .andExpect(content().string(containsString("genreId=7")));
     }
 
     @Test
@@ -219,7 +255,8 @@ class AdminCatalogImportTest {
                 .andExpect(content().string(containsString("id=\"filterTag\"")))
                 .andExpect(content().string(containsString("name=\"genreId\"")))
                 .andExpect(content().string(containsString("name=\"moodId\"")))
-                .andExpect(content().string(containsString(">Pop</option>")))
+                .andExpect(content().string(containsString("type=\"checkbox\"")))
+                .andExpect(content().string(containsString(">Pop</span>")))
                 .andExpect(content().string(not(containsString(">2010s</option>"))))
                 .andExpect(content().string(not(containsString("Untagged only"))))
                 .andExpect(content().string(not(containsString("No preview audio"))))
