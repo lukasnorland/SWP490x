@@ -36,6 +36,10 @@ public class SongCatalogService {
     /** Spec 4.10 Zone D. */
     public static final int PAGE_SIZE = 20;
 
+    /** Hibernate will not bind an empty IN list, so unused filters get a dummy. */
+    private static final List<Long> UNUSED_IDS = List.of(-1L);
+    private static final List<String> UNUSED_PROVIDERS = List.of("");
+
     private final SongRepository songRepository;
     private final TagRepository tagRepository;
     private final CatalogObjectStore catalogStore;
@@ -57,8 +61,10 @@ public class SongCatalogService {
     /**
      * One page of songs with their tags loaded.
      *
-     * <p>Genre, mood and freeform tag filters are ANDed: a song must carry
-     * each selected value. A null id leaves that vocabulary unconstrained.
+     * <p>Genre, mood and freeform tag filters are OR within a vocabulary and
+     * AND across them: a song must match at least one selected value in each
+     * category that has a selection. A null or empty list leaves that
+     * vocabulary unconstrained.
      *
      * <p>Two queries by design: the page of ids, then that page's rows with
      * tags. Fetching tags and paging in a single query would make Hibernate
@@ -67,17 +73,27 @@ public class SongCatalogService {
      * initialised before the view renders.
      */
     @Transactional(readOnly = true)
-    public Page<Song> search(String provider, Long genreId, Long moodId, Long tagId,
-            String query, int page) {
+    public Page<Song> search(List<String> providers, List<Long> genreIds, List<Long> moodIds,
+            List<Long> tagIds, String query, int page) {
 
         Pageable pageable = PageRequest.of(Math.max(page, 0), PAGE_SIZE,
                 Sort.by(Sort.Order.asc("title"), Sort.Order.asc("id")));
 
+        List<String> providerValues = nonBlank(providers);
+        boolean providerEmpty = providerValues.isEmpty();
+        boolean genreEmpty = empty(genreIds);
+        boolean moodEmpty = empty(moodIds);
+        boolean tagEmpty = empty(tagIds);
+
         Page<Long> ids = songRepository.searchIds(
-                StringUtils.hasText(provider) ? provider : null,
-                genreId,
-                moodId,
-                tagId,
+                providerEmpty,
+                providerEmpty ? UNUSED_PROVIDERS : providerValues,
+                genreEmpty,
+                genreEmpty ? UNUSED_IDS : genreIds,
+                moodEmpty,
+                moodEmpty ? UNUSED_IDS : moodIds,
+                tagEmpty,
+                tagEmpty ? UNUSED_IDS : tagIds,
                 StringUtils.hasText(query) ? query.trim() : null,
                 pageable);
 
@@ -97,6 +113,17 @@ public class SongCatalogService {
                 .toList();
 
         return new PageImpl<>(ordered, pageable, ids.getTotalElements());
+    }
+
+    private static boolean empty(List<?> values) {
+        return values == null || values.isEmpty();
+    }
+
+    private static List<String> nonBlank(List<String> values) {
+        if (values == null) {
+            return List.of();
+        }
+        return values.stream().filter(StringUtils::hasText).toList();
     }
 
     public List<String> providers() {

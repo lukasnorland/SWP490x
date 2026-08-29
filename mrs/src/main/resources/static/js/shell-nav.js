@@ -8,7 +8,8 @@
 
 import { enhanceForms } from "./forms.js";
 import { syncPlayingTitleHighlight } from "./player.js";
-import { isCatalogPath, loadCatalogResults, initCatalogSongEdit } from "./catalog.js";
+import { isCatalogPath, loadCatalogResults, initCatalogSongEdit,
+    syncCatalogFilterLabels } from "./catalog.js";
 import { initImportProgress } from "./import-progress.js";
 import { initSongUpload } from "./song-upload.js";
 import { initPlaylistAdd } from "./playlist-add.js";
@@ -162,6 +163,7 @@ export function initShellSoftNav() {
         initSongUpload(currentMain);
         initCatalogSongEdit(document);
         initPlaylistAdd();
+        syncCatalogFilterLabels(currentMain);
         syncPlayingTitleHighlight(document);
 
         if (pushUrl) {

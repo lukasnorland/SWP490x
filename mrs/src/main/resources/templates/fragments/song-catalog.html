@@ -16,46 +16,74 @@
           data-catalog-filters>
       <div class="col-12 col-md-3">
         <label class="form-label" for="filterProvider">Provider</label>
-        <select class="form-select" id="filterProvider" name="provider">
-          <option value="">All</option>
-          <option th:each="provider : ${providers}"
-                  th:value="${provider}"
-                  th:text="${provider}"
-                  th:selected="${provider == filterProvider}">Provider</option>
-        </select>
+        <div class="dropdown catalog-filter-dropdown" data-catalog-filter>
+          <button class="form-select catalog-filter-toggle" type="button" id="filterProvider"
+                  data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+            <span th:replace="~{fragments/song-catalog :: filterSummary(${filterProviders})}">All</span>
+          </button>
+          <div class="dropdown-menu catalog-filter-menu" aria-labelledby="filterProvider">
+            <label class="dropdown-item catalog-filter-option" th:each="provider : ${providers}">
+              <input class="form-check-input" type="checkbox" name="provider"
+                     th:value="${provider}"
+                     th:checked="${#lists.contains(filterProviders, provider)}">
+              <span th:text="${provider}">Provider</span>
+            </label>
+          </div>
+        </div>
       </div>
       <div class="col-12 col-md-3">
         <label class="form-label" for="filterGenre">Genre</label>
-        <select class="form-select" id="filterGenre" name="genreId">
-          <option value="">All</option>
-          <option th:each="tag : ${tags}"
-                  th:if="${tag.type.name() == 'GENRE'}"
-                  th:value="${tag.id}"
-                  th:text="${tag.name}"
-                  th:selected="${filterGenreId != null and tag.id == filterGenreId}">Genre</option>
-        </select>
+        <div class="dropdown catalog-filter-dropdown" data-catalog-filter>
+          <button class="form-select catalog-filter-toggle" type="button" id="filterGenre"
+                  data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+            <span th:replace="~{fragments/song-catalog :: filterSummary(${filterGenreIds})}">All</span>
+          </button>
+          <div class="dropdown-menu catalog-filter-menu" aria-labelledby="filterGenre">
+            <label class="dropdown-item catalog-filter-option" th:each="tag : ${tags}"
+                   th:if="${tag.type.name() == 'GENRE'}">
+              <input class="form-check-input" type="checkbox" name="genreId"
+                     th:value="${tag.id}"
+                     th:checked="${tag.id != null and #lists.contains(filterGenreIds, tag.id)}">
+              <span th:text="${tag.name}">Genre</span>
+            </label>
+          </div>
+        </div>
       </div>
       <div class="col-12 col-md-3">
         <label class="form-label" for="filterMood">Mood</label>
-        <select class="form-select" id="filterMood" name="moodId">
-          <option value="">All</option>
-          <option th:each="tag : ${tags}"
-                  th:if="${tag.type.name() == 'MOOD'}"
-                  th:value="${tag.id}"
-                  th:text="${tag.name}"
-                  th:selected="${filterMoodId != null and tag.id == filterMoodId}">Mood</option>
-        </select>
+        <div class="dropdown catalog-filter-dropdown" data-catalog-filter>
+          <button class="form-select catalog-filter-toggle" type="button" id="filterMood"
+                  data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+            <span th:replace="~{fragments/song-catalog :: filterSummary(${filterMoodIds})}">All</span>
+          </button>
+          <div class="dropdown-menu catalog-filter-menu" aria-labelledby="filterMood">
+            <label class="dropdown-item catalog-filter-option" th:each="tag : ${tags}"
+                   th:if="${tag.type.name() == 'MOOD'}">
+              <input class="form-check-input" type="checkbox" name="moodId"
+                     th:value="${tag.id}"
+                     th:checked="${tag.id != null and #lists.contains(filterMoodIds, tag.id)}">
+              <span th:text="${tag.name}">Mood</span>
+            </label>
+          </div>
+        </div>
       </div>
       <div class="col-12 col-md-3">
         <label class="form-label" for="filterTag">Tags</label>
-        <select class="form-select" id="filterTag" name="tagId">
-          <option value="">All</option>
-          <option th:each="tag : ${tags}"
-                  th:if="${tag.type.name() == 'TAGS'}"
-                  th:value="${tag.id}"
-                  th:text="${tag.name}"
-                  th:selected="${filterTagId != null and tag.id == filterTagId}">Tag</option>
-        </select>
+        <div class="dropdown catalog-filter-dropdown" data-catalog-filter>
+          <button class="form-select catalog-filter-toggle" type="button" id="filterTag"
+                  data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+            <span th:replace="~{fragments/song-catalog :: filterSummary(${filterTagIds})}">All</span>
+          </button>
+          <div class="dropdown-menu catalog-filter-menu" aria-labelledby="filterTag">
+            <label class="dropdown-item catalog-filter-option" th:each="tag : ${tags}"
+                   th:if="${tag.type.name() == 'TAGS'}">
+              <input class="form-check-input" type="checkbox" name="tagId"
+                     th:value="${tag.id}"
+                     th:checked="${tag.id != null and #lists.contains(filterTagIds, tag.id)}">
+              <span th:text="${tag.name}">Tag</span>
+            </label>
+          </div>
+        </div>
       </div>
       <div class="col-12 col-md-6">
         <label class="form-label" for="filterQuery">Search</label>
@@ -71,6 +99,13 @@
     </form>
   </div>
 </section>
+
+<!--/*
+  Toggle text for a catalog filter. JS fills in the selected names (ellipsis
+  if they overflow the control). Without JS this is All or "N selected".
+*/-->
+<span th:fragment="filterSummary(selected)" class="catalog-filter-label" data-catalog-filter-label
+      th:text="${selected == null or #lists.isEmpty(selected)} ? 'All' : (${#lists.size(selected)} + ' selected')">All</span>
 
 <!-- Zone C + D: swapped in-place by catalog.js on pager / filter (player stays mounted). -->
 <div id="catalog-results" th:fragment="results" data-catalog-results>

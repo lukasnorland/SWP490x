@@ -29,6 +29,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,6 +48,34 @@ class SongCatalogServiceTest {
     void setUp() {
         service = new SongCatalogService(songRepository, tagRepository, catalogStore,
                 new CatalogProperties(), new SongJsonMapper());
+    }
+
+    @Test
+    void searchORsWithinAVocabularyAndSkipsEmptyLists() {
+        given(songRepository.searchIds(eq(true), eq(List.of("")), eq(false), eq(List.of(3L, 7L)),
+                eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(null), any()))
+                .willReturn(Page.empty());
+
+        Page<Song> result = service.search(null, List.of(3L, 7L), null, null, "  ", 0);
+
+        assertThat(result.isEmpty()).isTrue();
+        then(songRepository).should().searchIds(eq(true), eq(List.of("")), eq(false),
+                eq(List.of(3L, 7L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
+                eq(null), any());
+    }
+
+    @Test
+    void searchBindsSelectedProviders() {
+        given(songRepository.searchIds(eq(false), eq(List.of("EpidemicSound", "NCS")),
+                eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
+                eq("ice"), any()))
+                .willReturn(Page.empty());
+
+        service.search(List.of("EpidemicSound", "NCS"), null, List.of(), null, "ice", 0);
+
+        then(songRepository).should().searchIds(eq(false), eq(List.of("EpidemicSound", "NCS")),
+                eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
+                eq("ice"), any());
     }
 
     @Test
