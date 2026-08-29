@@ -302,10 +302,18 @@ class CatalogImportServiceTest {
     void anImportStillSucceedsWhenTheAuditWriteFails() {
         AuditLogRepository auditLog = mock(AuditLogRepository.class);
         given(auditLog.save(any())).willThrow(new IllegalStateException("audit is down"));
-        SongUpserter upserter = new SongUpserter(mock(SongRepository.class),
-                mock(TagRepository.class), new SongJsonMapper(), new CatalogProperties());
         SongRepository songRepository = mock(SongRepository.class);
         given(songRepository.findExternalIdAndEtagPairs()).willReturn(List.of());
+        given(songRepository.findIdAndExternalIdPairs()).willReturn(List.of());
+        given(songRepository.findBySourceProviderAndExternalSourceId(any(), any()))
+                .willReturn(Optional.empty());
+        given(songRepository.save(any(Song.class))).willAnswer(invocation -> invocation.getArgument(0));
+        TagRepository tags = mock(TagRepository.class);
+        given(tags.findByTypeAndName(any(), any())).willReturn(Optional.empty());
+        given(tags.save(any(Tag.class))).willAnswer(invocation -> invocation.getArgument(0));
+        given(tags.deleteUnused()).willReturn(0);
+        SongUpserter upserter = new SongUpserter(songRepository, tags,
+                new SongJsonMapper(), new CatalogProperties());
         CatalogImportRunRepository runRepository = mock(CatalogImportRunRepository.class);
         given(runRepository.save(any(CatalogImportRun.class)))
                 .willAnswer(invocation -> invocation.getArgument(0));
