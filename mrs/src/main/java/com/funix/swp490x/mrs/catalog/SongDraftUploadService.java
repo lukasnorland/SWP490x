@@ -211,6 +211,12 @@ public class SongDraftUploadService {
             return "no folder mapping for provider '" + provider + "'";
         }
 
+        try {
+            mapper.requireAllowlisted(splitCsv(draft.getGenres()), splitCsv(draft.getMoods()));
+        } catch (InvalidClassificationException e) {
+            return e.getMessage();
+        }
+
         MultipartFile audio = draft.getAudio();
         if (isEmpty(audio)) {
             return "missing audio file";

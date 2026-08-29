@@ -1,6 +1,7 @@
 package com.funix.swp490x.mrs.catalog;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.funix.swp490x.mrs.catalog.CatalogTaxonomy.Buckets;
 import com.funix.swp490x.mrs.domain.TagType;
@@ -21,6 +22,8 @@ class CatalogTaxonomyTest {
         assertThat(taxonomy.canonicalName("hip-hop")).isEqualTo("Hip Hop");
         assertThat(taxonomy.canonicalName("r&b")).isEqualTo("R&B");
         assertThat(taxonomy.canonicalName("female vocals")).isEqualTo("Female Vocals");
+        assertThat(taxonomy.canonicalName("nu-disco")).isEqualTo("Nu Disco");
+        assertThat(taxonomy.canonicalName("brazilian funk")).isEqualTo("Funk Carioca");
     }
 
     @Test
@@ -50,13 +53,41 @@ class CatalogTaxonomyTest {
     }
 
     @Test
-    void keepsUnknownMoodsThatWereAlreadyMoods() {
+    void unknownMoodsAndNonMusicBrainzGenresBecomeTags() {
         Buckets buckets = taxonomy.classify(
-                List.of("Pop"),
+                List.of("Pop", "Cinematic", "Acoustic"),
                 List.of("Sports Arena"),
                 List.of());
 
-        assertThat(buckets.moods()).containsExactly("Sports Arena");
-        assertThat(buckets.tags()).isEmpty();
+        assertThat(buckets.genres()).containsExactly("Pop");
+        assertThat(buckets.moods()).isEmpty();
+        assertThat(buckets.tags()).containsExactly("Cinematic", "Acoustic", "Sports Arena");
+    }
+
+    @Test
+    void mapsProviderAliasesOntoMusicBrainzNames() {
+        Buckets buckets = taxonomy.classify(
+                List.of("Rap", "Indie", "Hardcore", "Alternative"),
+                List.of(),
+                List.of());
+
+        assertThat(buckets.genres()).containsExactly(
+                "Hip Hop", "Indie Rock", "Hardcore Techno", "Alternative Rock");
+    }
+
+    @Test
+    void requireAllowlistedRejectsUnknownGenresAndMoods() {
+        assertThatThrownBy(() -> taxonomy.requireAllowlisted(List.of("Cinematic"), List.of("Dreamy")))
+                .isInstanceOf(InvalidClassificationException.class)
+                .hasMessageContaining("Cinematic");
+        taxonomy.requireAllowlisted(List.of("Pop"), List.of("Dreamy"));
+    }
+
+    @Test
+    void suggestPrefersPrefixMatches() {
+        List<String> names = taxonomy.suggest(TagType.GENRE, "dub", 20);
+        assertThat(names.getFirst()).startsWith("Dub");
+        assertThat(taxonomy.allGenres()).hasSizeGreaterThan(2000);
+        assertThat(taxonomy.suggest(TagType.MOOD, "en", 10)).contains("Energetic");
     }
 }

@@ -5,8 +5,11 @@ import com.funix.swp490x.mrs.catalog.CatalogImportService.ImportProgress;
 import com.funix.swp490x.mrs.catalog.CatalogStoreException;
 import com.funix.swp490x.mrs.catalog.ImportSummary;
 import com.funix.swp490x.mrs.catalog.ImportSummary.SkippedRow;
+import com.funix.swp490x.mrs.catalog.InvalidClassificationException;
 import com.funix.swp490x.mrs.catalog.SongDraftUploadService;
 import com.funix.swp490x.mrs.catalog.SongDraftUploadService.MediaUploadResult;
+import com.funix.swp490x.mrs.catalog.TagSuggestionService;
+import com.funix.swp490x.mrs.domain.TagType;
 import com.funix.swp490x.mrs.domain.ImportTrigger;
 import com.funix.swp490x.mrs.domain.Song;
 import com.funix.swp490x.mrs.domain.Tag;
@@ -69,17 +72,20 @@ public class AdminCatalogController {
     private final CatalogImportService importService;
     private final SongDraftUploadService draftUploadService;
     private final PlaylistService playlistService;
+    private final TagSuggestionService tagSuggestionService;
 
     public AdminCatalogController(SongCatalogService catalogService,
             TagRepository tagRepository,
             CatalogImportService importService,
             SongDraftUploadService draftUploadService,
-            PlaylistService playlistService) {
+            PlaylistService playlistService,
+            TagSuggestionService tagSuggestionService) {
         this.catalogService = catalogService;
         this.tagRepository = tagRepository;
         this.importService = importService;
         this.draftUploadService = draftUploadService;
         this.playlistService = playlistService;
+        this.tagSuggestionService = tagSuggestionService;
     }
 
     @GetMapping(Routes.ADMIN_CATALOG)
@@ -116,6 +122,9 @@ public class AdminCatalogController {
         } catch (SongNotFoundException e) {
             return reject(model, response, HttpStatus.NOT_FOUND, Messages.SONG_NOT_FOUND, false,
                     form, id, actor);
+        } catch (InvalidClassificationException e) {
+            return reject(model, response, HttpStatus.BAD_REQUEST, e.getMessage(), true, form, id,
+                    actor);
         } catch (CatalogStoreException e) {
             log.error("Could not write staged JSON for song {}", id, e);
             flash(redirectAttributes, "danger", Messages.SONG_SAVE_FAILED);
@@ -144,6 +153,15 @@ public class AdminCatalogController {
     @ResponseBody
     public ImportProgress syncStatus() {
         return importService.progress();
+    }
+
+    @GetMapping(path = Routes.ADMIN_CATALOG_TAG_SUGGEST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map<String, List<String>> suggestTags(
+            @RequestParam(defaultValue = "TAGS") TagType type,
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "20") int limit) {
+        return Map.of("items", tagSuggestionService.suggest(type, q, limit));
     }
 
     /**

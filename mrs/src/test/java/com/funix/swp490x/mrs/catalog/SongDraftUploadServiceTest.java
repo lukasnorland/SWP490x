@@ -129,6 +129,20 @@ class SongDraftUploadServiceTest {
     }
 
     @Test
+    void rejectsUnknownGenresBeforeAnyWrite() {
+        SongDraftForm draft = draft("NCS", "T", "a.mp3", null);
+        draft.setGenres("Cinematic");
+
+        SongDraftUploadService.MediaUploadResult result =
+                uploadService.upload(List.of(draft), 1L);
+
+        assertThat(result.uploaded()).isZero();
+        assertThat(result.rejected().getFirst().reason()).contains("Cinematic");
+        assertThat(Files.exists(staged.resolve("song-data"))).isFalse();
+        then(importService).should(never()).startAsync(any(), any(), anyBoolean());
+    }
+
+    @Test
     void rejectsANonAudioFilename() {
         SongDraftForm draft = draft("NCS", "T", "notes.txt", null);
 

@@ -101,6 +101,9 @@ class ScreenRenderingTest {
     @MockitoBean
     private PlaylistService playlistService;
 
+    @MockitoBean
+    private com.funix.swp490x.mrs.catalog.TagSuggestionService tagSuggestionService;
+
     @BeforeEach
     void listsAreEmptyByDefault() {
         given(userAccountService.search(nullable(Role.class), nullable(UserStatus.class),

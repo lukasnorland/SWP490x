@@ -121,6 +121,9 @@ public final class Messages {
      */
     public static final String SONG_SAVED = "Song updated.";
 
+    public static final String SONG_UNKNOWN_CLASSIFICATION =
+            "Pick a listed MusicBrainz genre or mood. Unknown names cannot be saved as Genre or Mood.";
+
     public static final String SONG_SAVE_FAILED =
             "The staged catalog object could not be updated. The song was not changed — try again.";
 

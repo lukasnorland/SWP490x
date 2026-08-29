@@ -77,6 +77,8 @@ public final class Routes {
     public static final String ADMIN_CATALOG_SYNC = "/admin/catalog/sync";
     /** P-06b — live progress of the sync currently running (or last finished). */
     public static final String ADMIN_CATALOG_SYNC_STATUS = "/admin/catalog/sync/status";
+    /** P-06b — typeahead for genre / mood / tag fields. */
+    public static final String ADMIN_CATALOG_TAG_SUGGEST = "/admin/catalog/tags/suggest";
     /** P-06d Admin — System Settings. */
     public static final String ADMIN_SETTINGS = "/admin/settings";
     /** P-06e Admin — Audit & Recommendation Log. */

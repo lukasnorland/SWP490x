@@ -6,6 +6,7 @@
 "use strict";
 
 import { syncPlayingTitleHighlight } from "./player.js";
+import { setTagSuggestValue } from "./tag-suggest.js";
 
 var CATALOG_PARTIAL_VALUE = "results";
 
@@ -248,9 +249,9 @@ function fillEditSongForm(form, trigger) {
   var id = trigger.getAttribute("data-song-id");
   form.setAttribute("action", "/admin/catalog/" + id);
   setInputValue(form, "editVersion", trigger.getAttribute("data-song-version") || "0");
-  setInputValue(form, "editGenres", trigger.getAttribute("data-song-genres"));
-  setInputValue(form, "editMoods", trigger.getAttribute("data-song-moods"));
-  setInputValue(form, "editTags", trigger.getAttribute("data-song-tags"));
+  setTagSuggestValue(form.querySelector("#editGenres"), trigger.getAttribute("data-song-genres"));
+  setTagSuggestValue(form.querySelector("#editMoods"), trigger.getAttribute("data-song-moods"));
+  setTagSuggestValue(form.querySelector("#editTags"), trigger.getAttribute("data-song-tags"));
 
   var explicit = form.querySelector("#editExplicit");
   if (explicit) {

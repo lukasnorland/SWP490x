@@ -28,8 +28,10 @@ import com.funix.swp490x.mrs.catalog.CatalogImportService.ImportProgress;
 import com.funix.swp490x.mrs.catalog.CatalogStoreException;
 import com.funix.swp490x.mrs.catalog.ImportSummary;
 import com.funix.swp490x.mrs.catalog.ImportSummary.SkippedRow;
+import com.funix.swp490x.mrs.catalog.InvalidClassificationException;
 import com.funix.swp490x.mrs.catalog.SongDraftUploadService;
 import com.funix.swp490x.mrs.catalog.SongDraftUploadService.MediaUploadResult;
+import com.funix.swp490x.mrs.catalog.TagSuggestionService;
 import com.funix.swp490x.mrs.config.SecurityConfig;
 import com.funix.swp490x.mrs.config.WebConfig;
 import com.funix.swp490x.mrs.domain.CatalogImportRun;
@@ -103,6 +105,9 @@ class AdminCatalogImportTest {
     @MockitoBean
     private PlaylistService playlistService;
 
+    @MockitoBean
+    private TagSuggestionService tagSuggestionService;
+
     @BeforeEach
     void defaults() {
         given(songCatalogService.search(nullable(List.class), nullable(List.class),
@@ -115,6 +120,8 @@ class AdminCatalogImportTest {
         given(importService.sourceDescription()).willReturn("s3://bucket/song-data/");
         given(draftUploadService.registeredProviders())
                 .willReturn(List.of("EpidemicSound", "NCS", "OneOff"));
+        given(tagSuggestionService.suggest(any(), nullable(String.class), anyInt()))
+                .willReturn(List.of("Pop", "Dubstep"));
     }
 
     private static MrsUserDetails admin() {
@@ -571,6 +578,11 @@ class AdminCatalogImportTest {
                 .andExpect(status().isForbidden());
         mockMvc.perform(get(Routes.ADMIN_CATALOG_SYNC_STATUS).with(user(designer)))
                 .andExpect(status().isForbidden());
+        mockMvc.perform(get(Routes.ADMIN_CATALOG_TAG_SUGGEST)
+                        .param("type", "GENRE")
+                        .param("q", "dub")
+                        .with(user(designer)))
+                .andExpect(status().isForbidden());
 
         then(importService).should(never()).sync(any(), any(), anyBoolean());
         then(importService).should(never()).startAsync(any(), any(), anyBoolean());
@@ -641,6 +653,31 @@ class AdminCatalogImportTest {
                 .andExpect(flash().attribute("flash", Messages.SONG_SAVED));
 
         then(songCatalogService).should().update(eq(12L), eq(3), any(SongEdit.class));
+    }
+
+    @Test
+    void catalogSaveReopensTheModalWhenAGenreIsUnknown() throws Exception {
+        willThrow(new InvalidClassificationException(List.of("Cinematic"), List.of()))
+                .given(songCatalogService).update(eq(12L), eq(3), any(SongEdit.class));
+
+        mockMvc.perform(post("/admin/catalog/12")
+                        .param("genres", "Cinematic")
+                        .param("version", "3")
+                        .with(csrf())
+                        .with(user(admin())))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(containsString("Cinematic")))
+                .andExpect(content().string(containsString("data-modal-autoshow=\"true\"")));
+    }
+
+    @Test
+    void catalogSuggestReturnsMusicBrainzNames() throws Exception {
+        mockMvc.perform(get(Routes.ADMIN_CATALOG_TAG_SUGGEST)
+                        .param("type", "GENRE")
+                        .param("q", "dub")
+                        .with(user(admin())))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.items[0]").value("Pop"));
     }
 
     @Test
