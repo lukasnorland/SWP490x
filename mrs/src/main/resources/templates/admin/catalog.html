@@ -216,7 +216,8 @@
           <p class="small text-danger mb-0 d-none" data-upload-error role="alert"></p>
 
           <p class="small text-secondary mb-0">
-            Cover art is optional. Duration is read from the file and can be edited.
+            Artist, ISRC, cover art, genre and mood are required.
+            Duration is read from the file and can be edited.
           </p>
         </div>
 
@@ -265,7 +266,7 @@
           <div class="col-md-6">
             <label class="form-label">Artist</label>
             <input class="form-control" type="text" data-field="artist" name="drafts[__i__].artist"
-                   maxlength="255">
+                   maxlength="255" required>
           </div>
           <div class="col-md-3">
             <label class="form-label">Duration (seconds)</label>
@@ -280,7 +281,7 @@
           <div class="col-md-4">
             <label class="form-label">ISRC</label>
             <input class="form-control" type="text" data-field="isrc" name="drafts[__i__].isrc"
-                   maxlength="20">
+                   maxlength="20" required>
           </div>
           <div class="col-md-8 d-flex align-items-end">
             <div class="form-check mb-2">
@@ -314,7 +315,7 @@
                  data-cover-dropzone tabindex="0" role="button"
                  aria-label="Drop cover art here or click to browse">
               <svg th:replace="~{fragments/icons :: icon('image', 'icon--sm')}"></svg>
-              <p class="small mb-0">Drop a JPEG, PNG or WebP, or click to browse. Optional, 5&nbsp;MB max.</p>
+              <p class="small mb-0">Drop a JPEG, PNG or WebP, or click to browse. Required, 5&nbsp;MB max.</p>
               <input class="d-none" type="file" data-field="cover" name="drafts[__i__].cover"
                      accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp">
             </div>

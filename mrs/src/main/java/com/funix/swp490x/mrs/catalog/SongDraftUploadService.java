@@ -2,10 +2,12 @@ package com.funix.swp490x.mrs.catalog;
 
 import com.funix.swp490x.mrs.catalog.ImportSummary.SkippedRow;
 import com.funix.swp490x.mrs.domain.ImportTrigger;
+import com.funix.swp490x.mrs.repository.SongRepository;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -68,25 +70,29 @@ public class SongDraftUploadService {
     private final SongJsonMapper mapper;
     private final CatalogProperties properties;
     private final CatalogImportService importService;
+    private final SongRepository songRepository;
     private final Supplier<UUID> ids;
 
     @Autowired
     public SongDraftUploadService(CatalogObjectStore store,
             SongJsonMapper mapper,
             CatalogProperties properties,
-            CatalogImportService importService) {
-        this(store, mapper, properties, importService, UUID::randomUUID);
+            CatalogImportService importService,
+            SongRepository songRepository) {
+        this(store, mapper, properties, importService, songRepository, UUID::randomUUID);
     }
 
     SongDraftUploadService(CatalogObjectStore store,
             SongJsonMapper mapper,
             CatalogProperties properties,
             CatalogImportService importService,
+            SongRepository songRepository,
             Supplier<UUID> ids) {
         this.store = store;
         this.mapper = mapper;
         this.properties = properties;
         this.importService = importService;
+        this.songRepository = songRepository;
         this.ids = ids;
     }
 
@@ -115,10 +121,20 @@ public class SongDraftUploadService {
         }
 
         List<SkippedRow> rejected = new ArrayList<>();
+        Set<String> seenIsrcs = new HashSet<>();
         for (int i = 0; i < batch.size(); i++) {
-            String reason = validate(batch.get(i));
+            SongDraftForm draft = batch.get(i);
+            String reason = validate(draft);
+            if (reason == null) {
+                String isrc = draft.getIsrc().trim();
+                String key = isrc.toUpperCase(Locale.ROOT);
+                if (seenIsrcs.contains(key) || songRepository.existsByIsrcIgnoreCase(isrc)) {
+                    reason = "duplicate ISRC";
+                }
+                seenIsrcs.add(key);
+            }
             if (reason != null) {
-                rejected.add(new SkippedRow(labelOf(batch.get(i), i), reason));
+                rejected.add(new SkippedRow(labelOf(draft, i), reason));
             }
         }
         if (!rejected.isEmpty()) {
@@ -210,9 +226,23 @@ public class SongDraftUploadService {
         if (properties.getMedia().slugFor(provider) == null) {
             return "no folder mapping for provider '" + provider + "'";
         }
+        if (!StringUtils.hasText(draft.getArtist())) {
+            return "missing artist";
+        }
+        if (!StringUtils.hasText(draft.getIsrc())) {
+            return "missing ISRC";
+        }
 
+        List<String> genres = splitCsv(draft.getGenres());
+        List<String> moods = splitCsv(draft.getMoods());
+        if (genres.isEmpty()) {
+            return "missing genres";
+        }
+        if (moods.isEmpty()) {
+            return "missing moods";
+        }
         try {
-            mapper.requireAllowlisted(splitCsv(draft.getGenres()), splitCsv(draft.getMoods()));
+            mapper.requireAllowlisted(genres, moods);
         } catch (InvalidClassificationException e) {
             return e.getMessage();
         }
@@ -235,7 +265,7 @@ public class SongDraftUploadService {
 
         MultipartFile cover = draft.getCover();
         if (isEmpty(cover)) {
-            return null;
+            return "missing cover art";
         }
         if (cover.getSize() > properties.getMedia().getMaxCoverBytes()) {
             return "cover larger than " + megabytes(properties.getMedia().getMaxCoverBytes());

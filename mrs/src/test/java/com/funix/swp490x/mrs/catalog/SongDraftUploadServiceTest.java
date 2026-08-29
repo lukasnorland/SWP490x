@@ -3,12 +3,14 @@ package com.funix.swp490x.mrs.catalog;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 
 import com.funix.swp490x.mrs.domain.ImportTrigger;
+import com.funix.swp490x.mrs.repository.SongRepository;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,6 +34,7 @@ class SongDraftUploadServiceTest {
     private Path staged;
 
     private CatalogImportService importService;
+    private SongRepository songRepository;
     private LocalDirectoryCatalogObjectStore store;
     private SongDraftUploadService uploadService;
     private AtomicInteger ids;
@@ -40,21 +43,21 @@ class SongDraftUploadServiceTest {
     void setUp() {
         store = new LocalDirectoryCatalogObjectStore(staged);
         importService = mock(CatalogImportService.class);
+        songRepository = mock(SongRepository.class);
         given(importService.startAsync(any(), any(), anyBoolean())).willReturn(true);
+        given(songRepository.existsByIsrcIgnoreCase(anyString())).willReturn(false);
         ids = new AtomicInteger();
         Supplier<UUID> nextId = () -> new UUID(0L, ids.incrementAndGet());
         uploadService = new SongDraftUploadService(store, new SongJsonMapper(),
-                new CatalogProperties(), importService, nextId);
+                new CatalogProperties(), importService, songRepository, nextId);
     }
 
     @Test
     void stagesAudioCoverAndJsonUnderTheVendorThenSyncs() throws Exception {
-        SongDraftForm draft = draft("NCS", "Shine", "track.mp3", "cover.jpg");
+        SongDraftForm draft = draft("NCS", "Shine", "track.mp3");
         draft.setArtist("Spektrem");
         draft.setDuration(255);
         draft.setBpm(128);
-        draft.setGenres("Electronic");
-        draft.setMoods("Energetic");
         draft.setTags("NCS");
 
         SongDraftUploadService.MediaUploadResult result =
@@ -90,7 +93,7 @@ class SongDraftUploadServiceTest {
 
     @Test
     void usesTheEpidemicFolderForEpidemicSound() {
-        uploadService.upload(List.of(draft("EpidemicSound", "BALLING", "a.mp3", null)), 1L);
+        uploadService.upload(List.of(draft("EpidemicSound", "BALLING", "a.mp3")), 1L);
 
         String id = new UUID(0L, 1L).toString();
         assertThat(staged.resolve("song-data/audio/epidemic/" + id + ".mp3")).exists();
@@ -98,7 +101,7 @@ class SongDraftUploadServiceTest {
 
     @Test
     void usesTheOneOffFolder() {
-        uploadService.upload(List.of(draft("OneOff", "Cut", "a.wav", null)), 1L);
+        uploadService.upload(List.of(draft("OneOff", "Cut", "a.wav")), 1L);
 
         String id = new UUID(0L, 1L).toString();
         assertThat(staged.resolve("song-data/audio/one-off/" + id + ".wav")).exists();
@@ -106,7 +109,7 @@ class SongDraftUploadServiceTest {
 
     @Test
     void rejectsMissingTitleBeforeAnyWrite() {
-        SongDraftForm draft = draft("NCS", "  ", "a.mp3", null);
+        SongDraftForm draft = draft("NCS", "  ", "a.mp3");
 
         SongDraftUploadService.MediaUploadResult result =
                 uploadService.upload(List.of(draft), 1L);
@@ -119,7 +122,7 @@ class SongDraftUploadServiceTest {
 
     @Test
     void rejectsAnUnregisteredProviderBeforeAnyWrite() {
-        SongDraftForm draft = draft("SomeLabel", "T", "a.mp3", null);
+        SongDraftForm draft = draft("SomeLabel", "T", "a.mp3");
 
         SongDraftUploadService.MediaUploadResult result =
                 uploadService.upload(List.of(draft), 1L);
@@ -130,7 +133,7 @@ class SongDraftUploadServiceTest {
 
     @Test
     void rejectsUnknownGenresBeforeAnyWrite() {
-        SongDraftForm draft = draft("NCS", "T", "a.mp3", null);
+        SongDraftForm draft = draft("NCS", "T", "a.mp3");
         draft.setGenres("Cinematic");
 
         SongDraftUploadService.MediaUploadResult result =
@@ -144,7 +147,7 @@ class SongDraftUploadServiceTest {
 
     @Test
     void rejectsANonAudioFilename() {
-        SongDraftForm draft = draft("NCS", "T", "notes.txt", null);
+        SongDraftForm draft = draft("NCS", "T", "notes.txt");
 
         SongDraftUploadService.MediaUploadResult result =
                 uploadService.upload(List.of(draft), 1L);
@@ -155,8 +158,8 @@ class SongDraftUploadServiceTest {
 
     @Test
     void aMixedBatchWritesNothingWhenOneSongIsInvalid() {
-        SongDraftForm good = draft("NCS", "Good", "a.mp3", null);
-        SongDraftForm bad = draft("NCS", "", "b.mp3", null);
+        SongDraftForm good = draft("NCS", "Good", "a.mp3");
+        SongDraftForm bad = draft("NCS", "", "b.mp3");
 
         SongDraftUploadService.MediaUploadResult result =
                 uploadService.upload(List.of(good, bad), 1L);
@@ -179,7 +182,7 @@ class SongDraftUploadServiceTest {
     void refusesABatchLargerThanTheCap() {
         List<SongDraftForm> drafts = new ArrayList<>();
         for (int i = 0; i < SongDraftUploadService.MAX_DRAFTS + 1; i++) {
-            drafts.add(draft("NCS", "T" + i, "a" + i + ".mp3", null));
+            drafts.add(draft("NCS", "T" + i, "a" + i + ".mp3"));
         }
 
         SongDraftUploadService.MediaUploadResult result =
@@ -191,21 +194,107 @@ class SongDraftUploadServiceTest {
     }
 
     @Test
-    void coverIsOptional() throws Exception {
-        SongDraftUploadService.MediaUploadResult result =
-                uploadService.upload(List.of(draft("NCS", "Bare", "a.mp3", null)), 1L);
+    void rejectsMissingCoverBeforeAnyWrite() {
+        SongDraftForm draft = draft("NCS", "Bare", "a.mp3", null);
 
-        assertThat(result.uploaded()).isEqualTo(1);
-        String id = new UUID(0L, 1L).toString();
-        String json = Files.readString(staged.resolve(id + ".json"));
-        assertThat(json).contains("\"coverUrl\" : null");
-        assertThat(Files.exists(staged.resolve("song-data/artwork"))).isFalse();
+        SongDraftUploadService.MediaUploadResult result =
+                uploadService.upload(List.of(draft), 1L);
+
+        assertThat(result.uploaded()).isZero();
+        assertThat(result.rejected().getFirst().reason()).isEqualTo("missing cover art");
+        assertThat(Files.exists(staged.resolve("song-data"))).isFalse();
+        then(importService).should(never()).startAsync(any(), any(), anyBoolean());
+    }
+
+    @Test
+    void rejectsMissingArtistBeforeAnyWrite() {
+        SongDraftForm draft = draft("NCS", "T", "a.mp3");
+        draft.setArtist("  ");
+
+        SongDraftUploadService.MediaUploadResult result =
+                uploadService.upload(List.of(draft), 1L);
+
+        assertThat(result.rejected().getFirst().reason()).isEqualTo("missing artist");
+        assertThat(Files.exists(staged.resolve("song-data"))).isFalse();
+        then(importService).should(never()).startAsync(any(), any(), anyBoolean());
+    }
+
+    @Test
+    void rejectsMissingIsrcBeforeAnyWrite() {
+        SongDraftForm draft = draft("NCS", "T", "a.mp3");
+        draft.setIsrc("  ");
+
+        SongDraftUploadService.MediaUploadResult result =
+                uploadService.upload(List.of(draft), 1L);
+
+        assertThat(result.rejected().getFirst().reason()).isEqualTo("missing ISRC");
+        assertThat(Files.exists(staged.resolve("song-data"))).isFalse();
+        then(importService).should(never()).startAsync(any(), any(), anyBoolean());
+    }
+
+    @Test
+    void rejectsMissingGenresBeforeAnyWrite() {
+        SongDraftForm draft = draft("NCS", "T", "a.mp3");
+        draft.setGenres("");
+
+        SongDraftUploadService.MediaUploadResult result =
+                uploadService.upload(List.of(draft), 1L);
+
+        assertThat(result.rejected().getFirst().reason()).isEqualTo("missing genres");
+        assertThat(Files.exists(staged.resolve("song-data"))).isFalse();
+        then(importService).should(never()).startAsync(any(), any(), anyBoolean());
+    }
+
+    @Test
+    void rejectsMissingMoodsBeforeAnyWrite() {
+        SongDraftForm draft = draft("NCS", "T", "a.mp3");
+        draft.setMoods("");
+
+        SongDraftUploadService.MediaUploadResult result =
+                uploadService.upload(List.of(draft), 1L);
+
+        assertThat(result.rejected().getFirst().reason()).isEqualTo("missing moods");
+        assertThat(Files.exists(staged.resolve("song-data"))).isFalse();
+        then(importService).should(never()).startAsync(any(), any(), anyBoolean());
+    }
+
+    @Test
+    void rejectsAnIsrcAlreadyInTheDatabase() {
+        given(songRepository.existsByIsrcIgnoreCase("SE5Q51900056")).willReturn(true);
+        SongDraftForm draft = draft("NCS", "T", "a.mp3");
+        draft.setIsrc("SE5Q51900056");
+
+        SongDraftUploadService.MediaUploadResult result =
+                uploadService.upload(List.of(draft), 1L);
+
+        assertThat(result.uploaded()).isZero();
+        assertThat(result.rejected().getFirst().reason()).isEqualTo("duplicate ISRC");
+        assertThat(Files.exists(staged.resolve("song-data"))).isFalse();
+        then(importService).should(never()).startAsync(any(), any(), anyBoolean());
+    }
+
+    @Test
+    void rejectsADuplicateIsrcInTheSameBatch() {
+        SongDraftForm first = draft("NCS", "One", "a.mp3");
+        first.setIsrc("se5q51900056");
+        SongDraftForm second = draft("NCS", "Two", "b.mp3");
+        second.setIsrc("SE5Q51900056");
+
+        SongDraftUploadService.MediaUploadResult result =
+                uploadService.upload(List.of(first, second), 1L);
+
+        assertThat(result.uploaded()).isZero();
+        assertThat(result.rejected()).hasSize(1);
+        assertThat(result.rejected().getFirst().key()).isEqualTo("Two");
+        assertThat(result.rejected().getFirst().reason()).isEqualTo("duplicate ISRC");
+        assertThat(Files.exists(staged.resolve("song-data"))).isFalse();
+        then(importService).should(never()).startAsync(any(), any(), anyBoolean());
     }
 
     @Test
     void rejectsAnOversizedCover() {
         byte[] huge = new byte[6 * 1024 * 1024];
-        SongDraftForm draft = draft("NCS", "T", "a.mp3", null);
+        SongDraftForm draft = draft("NCS", "T", "a.mp3");
         draft.setCover(new MockMultipartFile("cover", "cover.jpg", "image/jpeg", huge));
 
         SongDraftUploadService.MediaUploadResult result =
@@ -215,11 +304,19 @@ class SongDraftUploadServiceTest {
         then(importService).should(never()).startAsync(any(), any(), anyBoolean());
     }
 
+    private static SongDraftForm draft(String provider, String title, String audioName) {
+        return draft(provider, title, audioName, "cover.jpg");
+    }
+
     private static SongDraftForm draft(String provider, String title, String audioName,
             String coverName) {
         SongDraftForm form = new SongDraftForm();
         form.setSourceProvider(provider);
         form.setTitle(title);
+        form.setArtist("Artist");
+        form.setIsrc("USRC17607839");
+        form.setGenres("Electronic");
+        form.setMoods("Energetic");
         form.setAudio(new MockMultipartFile("audio", audioName, "audio/mpeg",
                 "id3".getBytes(StandardCharsets.UTF_8)));
         if (coverName != null) {
