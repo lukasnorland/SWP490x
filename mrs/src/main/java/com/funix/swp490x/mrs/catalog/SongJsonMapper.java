@@ -37,6 +37,7 @@ public class SongJsonMapper {
      * so its leniency should not shift when the HTTP JSON settings change.
      */
     private final ObjectMapper objectMapper = JsonMapper.builder().build();
+    private final CatalogTaxonomy taxonomy = new CatalogTaxonomy();
 
     /**
      * @param registeredProviders providers allowed into the catalog; an object
@@ -94,7 +95,23 @@ public class SongJsonMapper {
      * the object the same way the vendor dumps are read.
      */
     public String write(StagedSong staged) {
-        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(staged);
+        CatalogTaxonomy.Buckets buckets = taxonomy.classify(
+                staged.genres(), staged.moods(), staged.tags());
+        StagedSong classified = new StagedSong(
+                staged.externalSourceId(),
+                staged.sourceProvider(),
+                staged.title(),
+                staged.artist(),
+                staged.duration(),
+                staged.bpm(),
+                staged.isExplicit(),
+                staged.isrc(),
+                staged.audioUrl(),
+                staged.coverUrl(),
+                buckets.genres(),
+                buckets.moods(),
+                buckets.tags());
+        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(classified);
     }
 
     /** Best-effort parse so a delete can collect media URLs without failing the row. */
@@ -123,14 +140,39 @@ public class SongJsonMapper {
             throw new IllegalArgumentException("staged object is not a JSON object");
         }
         ObjectNode object = (ObjectNode) tree;
+        CatalogTaxonomy.Buckets buckets = taxonomy.classify(genres, moods, tags);
         object.put("isExplicit", explicit);
-        object.set("genres", objectMapper.valueToTree(cleanNames(genres)));
-        object.set("moods", objectMapper.valueToTree(cleanNames(moods)));
-        object.set("tags", objectMapper.valueToTree(cleanNames(tags)));
+        object.set("genres", objectMapper.valueToTree(buckets.genres()));
+        object.set("moods", objectMapper.valueToTree(buckets.moods()));
+        object.set("tags", objectMapper.valueToTree(buckets.tags()));
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
     }
 
-    /** Collapses whitespace and drops blanks, matching {@link #tagRefs}. */
+    /**
+     * Rebuilds {@code genres}/{@code moods}/{@code tags} when names sit in the
+     * wrong array or the casing drifted. Empty when the object is already in
+     * step, so a bulk rewrite can skip the put.
+     */
+    public Optional<String> reclassifyJson(String json) {
+        Optional<StagedSong> staged = readStaged(json);
+        if (staged.isEmpty()) {
+            return Optional.empty();
+        }
+        StagedSong song = staged.get();
+        List<String> genres = song.genres() == null ? List.of() : song.genres();
+        List<String> moods = song.moods() == null ? List.of() : song.moods();
+        List<String> tags = song.tags() == null ? List.of() : song.tags();
+        CatalogTaxonomy.Buckets buckets = taxonomy.classify(genres, moods, tags);
+        if (buckets.genres().equals(genres)
+                && buckets.moods().equals(moods)
+                && buckets.tags().equals(tags)) {
+            return Optional.empty();
+        }
+        return Optional.of(patchClassification(json, Boolean.TRUE.equals(song.isExplicit()),
+                genres, moods, tags));
+    }
+
+    /** Title Case and drop blanks, without moving a name to another vocabulary. */
     public List<String> cleanNames(List<String> names) {
         if (names == null) {
             return List.of();
@@ -149,16 +191,19 @@ public class SongJsonMapper {
     /**
      * Genres, moods and freeform descriptors become tags of their own type; the
      * artist is additionally tagged so search can group by it while the
-     * free-text name stays on the song.
+     * free-text name stays on the song. Known subgenres or moods that arrived
+     * under {@code tags} are attached as GENRE / MOOD so the filters stay
+     * unmixed even before the staged JSON is rewritten.
      */
     public Set<TagRef> tagRefs(List<String> genres, List<String> moods, List<String> tags,
             String artist) {
+        CatalogTaxonomy.Buckets buckets = taxonomy.classify(genres, moods, tags);
         Set<TagRef> refs = new LinkedHashSet<>();
-        addAll(refs, TagType.GENRE, genres);
-        addAll(refs, TagType.MOOD, moods);
-        addAll(refs, TagType.TAGS, tags);
+        addAll(refs, TagType.GENRE, buckets.genres());
+        addAll(refs, TagType.MOOD, buckets.moods());
+        addAll(refs, TagType.TAGS, buckets.tags());
         if (StringUtils.hasText(artist)) {
-            addAll(refs, TagType.ARTIST, List.of(artist));
+            addAll(refs, TagType.ARTIST, List.of(artist.trim().replaceAll("\\s+", " ")));
         }
         return refs;
     }
@@ -172,26 +217,22 @@ public class SongJsonMapper {
             return;
         }
         for (String name : names) {
-            String cleaned = normaliseTagName(name);
-            if (cleaned != null) {
-                refs.add(new TagRef(type, cleaned));
+            if (name != null && !name.isBlank()) {
+                refs.add(new TagRef(type, truncate(name, MAX_TAG_NAME)));
             }
         }
     }
 
     /**
-     * Collapses inner whitespace and trims, so "  Laid   Back " and "Laid Back"
-     * do not become two rows in a dictionary that is unique on the name.
+     * Collapses inner whitespace, folds synonyms, and Title Cases, so
+     * "high energy" and "High Energy" do not become two dictionary rows.
      */
-    private static String normaliseTagName(String raw) {
-        if (raw == null) {
+    private String normaliseTagName(String raw) {
+        String canonical = taxonomy.canonicalName(raw);
+        if (canonical == null) {
             return null;
         }
-        String cleaned = raw.trim().replaceAll("\\s+", " ");
-        if (cleaned.isEmpty()) {
-            return null;
-        }
-        return truncate(cleaned, MAX_TAG_NAME);
+        return truncate(canonical, MAX_TAG_NAME);
     }
 
     private static Integer positiveOrNull(Integer value) {

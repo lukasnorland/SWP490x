@@ -38,9 +38,17 @@ class SongUpserterTest {
                 .willAnswer(invocation -> invocation.getArgument(0));
 
         tagRepository = mock(TagRepository.class);
-        given(tagRepository.findByTypeAndName(any(), any())).willAnswer(invocation ->
-                Optional.ofNullable(tags.get(
-                        invocation.getArgument(0) + ":" + invocation.getArgument(1))));
+        given(tagRepository.findByTypeAndName(any(), any())).willAnswer(invocation -> {
+            TagType type = invocation.getArgument(0);
+            String name = invocation.getArgument(1);
+            String wanted = type + ":" + name;
+            for (var entry : tags.entrySet()) {
+                if (entry.getKey().equalsIgnoreCase(wanted)) {
+                    return Optional.of(entry.getValue());
+                }
+            }
+            return Optional.empty();
+        });
         given(tagRepository.save(any(Tag.class))).willAnswer(invocation -> {
             Tag tag = invocation.getArgument(0);
             tags.put(tag.getType() + ":" + tag.getName(), tag);
@@ -200,6 +208,20 @@ class SongUpserterTest {
         assertThat(result.updated()).isEqualTo(1);
         assertThat(existing.getTitle()).isEqualTo("From S3");
         assertThat(existing.getSourceEtag()).isEqualTo("etag-a");
+    }
+
+    @Test
+    void updatesStoredCasingWhenMysqlMatchesIgnoreCase() {
+        Tag stale = new Tag(TagType.TAGS, "female vocals");
+        tags.put(TagType.TAGS + ":female vocals", stale);
+
+        upserter.upsertChunk(List.of(fetched("a", "e1", """
+                {"externalSourceId":"a","sourceProvider":"NCS","title":"T",
+                 "tags":["female vocals"]}
+                """)));
+
+        assertThat(stale.getName()).isEqualTo("Female Vocals");
+        verify(tagRepository).save(stale);
     }
 
     @Test

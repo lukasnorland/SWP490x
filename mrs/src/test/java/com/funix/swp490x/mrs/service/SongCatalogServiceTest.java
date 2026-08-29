@@ -110,7 +110,7 @@ class SongCatalogServiceTest {
         assertThat(song.getSourceEtag()).isEqualTo("new-etag");
         assertThat(song.getTags())
                 .extracting(Tag::getName)
-                .containsExactlyInAnyOrder("Pop", "Dreamy", "smooth", "Sugar Blizz");
+                .containsExactlyInAnyOrder("Pop", "Dreamy", "Smooth", "Sugar Blizz");
 
         ArgumentCaptor<String> body = ArgumentCaptor.forClass(String.class);
         InOrder order = inOrder(catalogStore, songRepository);
@@ -119,7 +119,7 @@ class SongCatalogServiceTest {
         assertThat(body.getValue()).contains("\"isExplicit\" : true");
         assertThat(body.getValue()).contains("\"Pop\"");
         assertThat(body.getValue()).contains("\"Dreamy\"");
-        assertThat(body.getValue()).contains("\"smooth\"");
+        assertThat(body.getValue()).contains("\"Smooth\"");
         assertThat(body.getValue()).contains("\"epidemicTrackId\" : 999");
         assertThat(body.getValue()).contains("\"title\" : \"Ice Cream\"");
         assertThat(body.getValue()).doesNotContain("\"Old\"");

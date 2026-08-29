@@ -240,7 +240,7 @@ class SongBrowseTest {
         song.setTags(Set.of(
                 new Tag(TagType.GENRE, "Pop"),
                 new Tag(TagType.MOOD, "Dreamy"),
-                new Tag(TagType.TAGS, "smooth")));
+                new Tag(TagType.TAGS, "Female Vocals")));
         return song;
     }
 }

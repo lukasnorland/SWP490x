@@ -58,8 +58,47 @@ class SongJsonMapperTest {
         assertThat(result.values().tags())
                 .contains(new TagRef(TagType.GENRE, "Pop"),
                         new TagRef(TagType.MOOD, "Dreamy"),
-                        new TagRef(TagType.TAGS, "smooth"),
+                        new TagRef(TagType.MOOD, "Mysterious"),
+                        new TagRef(TagType.MOOD, "Smooth"),
+                        new TagRef(TagType.TAGS, "Female Vocals"),
+                        new TagRef(TagType.TAGS, "2010s"),
                         new TagRef(TagType.ARTIST, "Sugar Blizz"));
+        assertThat(result.values().tags())
+                .filteredOn(ref -> ref.type() == TagType.TAGS)
+                .extracting(TagRef::name)
+                .doesNotContain("Pop", "Dreamy");
+        assertThat(result.values().tags())
+                .filteredOn(ref -> ref.type() == TagType.GENRE)
+                .extracting(TagRef::name)
+                .doesNotContain("2010s");
+    }
+
+    @Test
+    void routesASubgenreInTagsToGenreAndTitleCasesMoods() {
+        String json = """
+                {"externalSourceId":"x1","sourceProvider":"DemoProvider","title":"T",
+                 "genres":["Electronic"],"moods":[],"tags":["dubstep","agressive","female vocals"]}
+                """;
+
+        assertThat(mapper.map(json, REGISTERED).values().tags())
+                .contains(new TagRef(TagType.GENRE, "Electronic"),
+                        new TagRef(TagType.GENRE, "Dubstep"),
+                        new TagRef(TagType.MOOD, "Aggressive"),
+                        new TagRef(TagType.TAGS, "Female Vocals"));
+    }
+
+    @Test
+    void patchClassificationMovesNamesIntoTheRightArrays() {
+        String json = """
+                {"externalSourceId":"x1","sourceProvider":"DemoProvider","title":"T",
+                 "isExplicit":false,"genres":["Electronic"],"moods":[],"tags":["dubstep"]}
+                """;
+
+        String patched = mapper.patchClassification(json, false, List.of("Electronic"),
+                List.of(), List.of("dubstep"));
+
+        assertThat(patched).contains("\"Dubstep\"");
+        assertThat(mapper.reclassifyJson(patched)).isEmpty();
     }
 
     /** DC-03 depends on this: an object with no metadata yields no tags. */
