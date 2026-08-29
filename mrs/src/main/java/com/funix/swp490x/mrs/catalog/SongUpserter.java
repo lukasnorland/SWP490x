@@ -197,9 +197,18 @@ public class SongUpserter {
     private Set<Tag> resolveTags(Set<TagRef> refs, Map<String, Tag> tagCache) {
         Set<Tag> tags = new LinkedHashSet<>();
         for (TagRef ref : refs) {
-            Tag tag = tagCache.computeIfAbsent(ref.dedupeKey(), key ->
-                    tagRepository.findByTypeAndName(ref.type(), ref.name())
-                            .orElseGet(() -> tagRepository.save(new Tag(ref.type(), ref.name()))));
+            Tag tag = tagCache.computeIfAbsent(ref.dedupeKey(), key -> {
+                Tag resolved = tagRepository.findByTypeAndName(ref.type(), ref.name())
+                        .orElseGet(() -> tagRepository.save(new Tag(ref.type(), ref.name())));
+                // MySQL compares names case-insensitively, so "female vocals"
+                // is reused for "Female Vocals". Write the canonical spelling
+                // onto the row so the filter dropdowns match the staged JSON.
+                if (!resolved.getName().equals(ref.name())) {
+                    resolved.setName(ref.name());
+                    resolved = tagRepository.save(resolved);
+                }
+                return resolved;
+            });
             tags.add(tag);
         }
         return tags;

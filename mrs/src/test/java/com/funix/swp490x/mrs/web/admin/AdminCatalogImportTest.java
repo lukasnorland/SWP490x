@@ -139,7 +139,7 @@ class AdminCatalogImportTest {
                 .andExpect(content().string(containsString("Sugar Blizz")))
                 .andExpect(content().string(containsString("Pop")))
                 .andExpect(content().string(containsString("Dreamy")))
-                .andExpect(content().string(containsString("smooth")))
+                .andExpect(content().string(containsString("Female Vocals")))
                 .andExpect(content().string(containsString("<th scope=\"col\">Genre</th>")))
                 .andExpect(content().string(containsString("<th scope=\"col\">Mood</th>")))
                 .andExpect(content().string(containsString("<th scope=\"col\">Tags</th>")))
@@ -245,8 +245,10 @@ class AdminCatalogImportTest {
     void catalogSplitsGenreMoodAndTagFilters() throws Exception {
         given(tagRepository.findAllUsedOrderByTypeAscNameAsc()).willReturn(List.of(
                 new Tag(TagType.GENRE, "Pop"),
+                new Tag(TagType.GENRE, "Dubstep"),
                 new Tag(TagType.MOOD, "Dreamy"),
-                new Tag(TagType.TAGS, "smooth")));
+                new Tag(TagType.MOOD, "Aggressive"),
+                new Tag(TagType.TAGS, "Female Vocals")));
 
         mockMvc.perform(get(Routes.ADMIN_CATALOG).with(user(admin())))
                 .andExpect(status().isOk())
@@ -257,6 +259,9 @@ class AdminCatalogImportTest {
                 .andExpect(content().string(containsString("name=\"moodId\"")))
                 .andExpect(content().string(containsString("type=\"checkbox\"")))
                 .andExpect(content().string(containsString(">Pop</span>")))
+                .andExpect(content().string(containsString(">Dubstep</span>")))
+                .andExpect(content().string(containsString(">Aggressive</span>")))
+                .andExpect(content().string(containsString(">Female Vocals</span>")))
                 .andExpect(content().string(not(containsString(">2010s</option>"))))
                 .andExpect(content().string(not(containsString("Untagged only"))))
                 .andExpect(content().string(not(containsString("No preview audio"))))
@@ -742,7 +747,7 @@ class AdminCatalogImportTest {
         song.setTags(Set.of(
                 new Tag(TagType.GENRE, "Pop"),
                 new Tag(TagType.MOOD, "Dreamy"),
-                new Tag(TagType.TAGS, "smooth")));
+                new Tag(TagType.TAGS, "Female Vocals")));
         return song;
     }
 }

@@ -286,9 +286,15 @@ public class SongCatalogService {
         Map<String, Tag> cache = new HashMap<>();
         Set<Tag> tags = new LinkedHashSet<>();
         for (TagRef ref : refs) {
-            Tag tag = cache.computeIfAbsent(ref.dedupeKey(), key ->
-                    tagRepository.findByTypeAndName(ref.type(), ref.name())
-                            .orElseGet(() -> tagRepository.save(new Tag(ref.type(), ref.name()))));
+            Tag tag = cache.computeIfAbsent(ref.dedupeKey(), key -> {
+                Tag resolved = tagRepository.findByTypeAndName(ref.type(), ref.name())
+                        .orElseGet(() -> tagRepository.save(new Tag(ref.type(), ref.name())));
+                if (!resolved.getName().equals(ref.name())) {
+                    resolved.setName(ref.name());
+                    resolved = tagRepository.save(resolved);
+                }
+                return resolved;
+            });
             tags.add(tag);
         }
         song.getTags().clear();
