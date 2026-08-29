@@ -162,6 +162,12 @@ export function initSongUpload(root) {
       return;
     }
 
+    var clientError = validateDrafts();
+    if (clientError) {
+      showError(clientError);
+      return;
+    }
+
     var xhr = new XMLHttpRequest();
     xhr.open("POST", panel.getAttribute("data-upload-url") || form.getAttribute("action"));
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
@@ -212,6 +218,39 @@ export function initSongUpload(root) {
     setBusy(true);
     showProgress(4, "Uploading…");
     xhr.send(new FormData(form));
+  }
+
+  function validateDrafts() {
+    var articles = list.querySelectorAll("[data-song-draft]");
+    var seenIsrc = {};
+    for (var i = 0; i < articles.length; i++) {
+      var article = articles[i];
+      var label = draftLabel(article, i);
+      var artist = fieldValue(article, "artist");
+      if (!artist) {
+        return label + ": missing artist";
+      }
+      var isrc = fieldValue(article, "isrc");
+      if (!isrc) {
+        return label + ": missing ISRC";
+      }
+      var isrcKey = isrc.toUpperCase();
+      if (seenIsrc[isrcKey]) {
+        return label + ": duplicate ISRC";
+      }
+      seenIsrc[isrcKey] = true;
+      if (!tagValues(article.querySelector("[data-field='genres']")).length) {
+        return label + ": missing genres";
+      }
+      if (!tagValues(article.querySelector("[data-field='moods']")).length) {
+        return label + ": missing moods";
+      }
+      var cover = article.querySelector("[data-field='cover']");
+      if (!cover || !cover.files || !cover.files.length) {
+        return label + ": missing cover art";
+      }
+    }
+    return null;
   }
 
   function setBusy(busy) {
@@ -352,6 +391,39 @@ function isCoverFile(file) {
     return true;
   }
   return COVER_EXTENSIONS.test(file.name || "");
+}
+
+function fieldValue(article, field) {
+  var input = article.querySelector("[data-field='" + field + "']");
+  return input && input.value ? input.value.trim() : "";
+}
+
+function draftLabel(article, index) {
+  var title = fieldValue(article, "title");
+  if (title) {
+    return title;
+  }
+  var filename = article.querySelector("[data-draft-filename]");
+  if (filename && filename.textContent) {
+    return filename.textContent.trim();
+  }
+  return "song " + (index + 1);
+}
+
+function tagValues(input) {
+  if (!input) {
+    return [];
+  }
+  if (input.tomselect) {
+    var value = input.tomselect.getValue();
+    if (Array.isArray(value)) {
+      return value.filter(Boolean);
+    }
+    return value ? [value] : [];
+  }
+  return String(input.value || "").split(/[,;]/).map(function (part) {
+    return part.trim();
+  }).filter(Boolean);
 }
 
 function stemOf(name) {

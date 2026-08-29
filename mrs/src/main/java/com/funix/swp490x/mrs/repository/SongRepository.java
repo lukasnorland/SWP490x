@@ -20,6 +20,8 @@ public interface SongRepository extends JpaRepository<Song, Long> {
 
     Optional<Song> findByIsrc(String isrc);
 
+    boolean existsByIsrcIgnoreCase(String isrc);
+
     /**
      * Everything the import diff needs, and nothing else.
      *
