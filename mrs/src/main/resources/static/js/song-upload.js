@@ -6,6 +6,8 @@
    ========================================================================== */
 "use strict";
 
+import { initTagSuggest } from "./tag-suggest.js";
+
 var AUDIO_EXTENSIONS = /\.(mp3|wav|flac|m4a|mp4|ogg|aac)$/i;
 var COVER_EXTENSIONS = /\.(jpe?g|png|webp)$/i;
 var MAX_DRAFTS = 10;
@@ -103,6 +105,7 @@ export function initSongUpload(root) {
 
     assignFile(article.querySelector("[data-field='audio']"), file);
     readDuration(file, article.querySelector("[data-field='duration']"));
+    initTagSuggest(article);
 
     article.querySelector("[data-remove-draft]").addEventListener("click", function () {
       article.remove();

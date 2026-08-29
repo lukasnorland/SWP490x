@@ -203,6 +203,7 @@ public class SongCatalogService {
         List<String> genres = splitCsv(edit.genres());
         List<String> moods = splitCsv(edit.moods());
         List<String> tags = splitCsv(edit.tags());
+        mapper.requireAllowlisted(genres, moods);
 
         writeStagedClassification(song, explicit, genres, moods, tags);
 

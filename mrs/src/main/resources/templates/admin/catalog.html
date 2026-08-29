@@ -72,7 +72,7 @@
        Reopens itself when a validation rejection comes back (not on a stale 409). -->
   <div class="modal fade modal--edit-song" id="editSong" tabindex="-1"
        aria-labelledby="editSongTitle" aria-hidden="true"
-       th:attr="data-modal-autoshow=${reopenEditForm}">
+       th:attr="data-modal-autoshow=${reopenEditForm}, data-suggest-url=@{/admin/catalog/tags/suggest}">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <form class="modal-content"
             th:action="${editSongId != null} ? @{|/admin/catalog/${editSongId}|} : @{/admin/catalog/0}"
@@ -142,18 +142,19 @@
             <div class="col-md-4">
               <label class="form-label" for="editGenres">Genres</label>
               <input class="form-control" type="text" id="editGenres" name="genres"
-                     placeholder="Pop, Electronic"
+                     placeholder="Pop, Electronic" data-tag-suggest="GENRE"
                      th:value="${songEdit != null} ? ${songEdit.genres} : ''">
             </div>
             <div class="col-md-4">
               <label class="form-label" for="editMoods">Moods</label>
               <input class="form-control" type="text" id="editMoods" name="moods"
-                     placeholder="Energetic, Happy"
+                     placeholder="Energetic, Happy" data-tag-suggest="MOOD"
                      th:value="${songEdit != null} ? ${songEdit.moods} : ''">
             </div>
             <div class="col-md-4">
               <label class="form-label" for="editTags">Tags</label>
               <input class="form-control" type="text" id="editTags" name="tags"
+                     data-tag-suggest="TAGS"
                      th:value="${songEdit != null} ? ${songEdit.tags} : ''">
             </div>
           </div>
@@ -171,7 +172,8 @@
        JSON then queues the sync into MySQL. -->
   <div class="modal fade" id="addSong" tabindex="-1"
        aria-labelledby="addSongTitle" aria-hidden="true"
-       data-song-upload th:attr="data-upload-url=@{/admin/catalog/songs}">
+       data-song-upload
+       th:attr="data-upload-url=@{/admin/catalog/songs}, data-suggest-url=@{/admin/catalog/tags/suggest}">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
       <form class="modal-content" th:action="@{/admin/catalog/songs}" method="post"
             enctype="multipart/form-data" data-song-upload-form>
@@ -290,16 +292,17 @@
           <div class="col-md-4">
             <label class="form-label">Genres</label>
             <input class="form-control" type="text" data-field="genres" name="drafts[__i__].genres"
-                   placeholder="Pop, Electronic">
+                   placeholder="Pop, Electronic" data-tag-suggest="GENRE">
           </div>
           <div class="col-md-4">
             <label class="form-label">Moods</label>
             <input class="form-control" type="text" data-field="moods" name="drafts[__i__].moods"
-                   placeholder="Energetic, Happy">
+                   placeholder="Energetic, Happy" data-tag-suggest="MOOD">
           </div>
           <div class="col-md-4">
             <label class="form-label">Tags</label>
-            <input class="form-control" type="text" data-field="tags" name="drafts[__i__].tags">
+            <input class="form-control" type="text" data-field="tags" name="drafts[__i__].tags"
+                   data-tag-suggest="TAGS">
           </div>
         </div>
 

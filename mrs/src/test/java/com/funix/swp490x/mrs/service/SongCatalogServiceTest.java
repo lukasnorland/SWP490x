@@ -14,6 +14,7 @@ import static org.mockito.Mockito.never;
 import com.funix.swp490x.mrs.catalog.CatalogObjectStore;
 import com.funix.swp490x.mrs.catalog.CatalogProperties;
 import com.funix.swp490x.mrs.catalog.CatalogStoreException;
+import com.funix.swp490x.mrs.catalog.InvalidClassificationException;
 import com.funix.swp490x.mrs.catalog.SongJsonMapper;
 import com.funix.swp490x.mrs.domain.Song;
 import com.funix.swp490x.mrs.domain.Tag;
@@ -237,6 +238,20 @@ class SongCatalogServiceTest {
 
         then(songRepository).should(never()).save(any());
         then(catalogStore).shouldHaveNoInteractions();
+    }
+
+    @Test
+    void updateRejectsUnknownGenresBeforeWriting() {
+        Song song = existing(12L, 3);
+        song.setExternalSourceId("abc-123");
+        given(songRepository.findByIdWithTags(12L)).willReturn(Optional.of(song));
+
+        assertThatThrownBy(() -> service.update(12L, 3, new SongEdit(false, "Cinematic", null, null)))
+                .isInstanceOf(InvalidClassificationException.class)
+                .hasMessageContaining("Cinematic");
+
+        then(catalogStore).shouldHaveNoInteractions();
+        then(songRepository).should(never()).save(any());
     }
 
     @Test

@@ -195,6 +195,14 @@ public class SongJsonMapper {
      * under {@code tags} are attached as GENRE / MOOD so the filters stay
      * unmixed even before the staged JSON is rewritten.
      */
+    /**
+     * ADMIN save/upload: refuse names that are not a MusicBrainz genre or a
+     * listed mood. Import still classifies unknowns as Tags.
+     */
+    public void requireAllowlisted(List<String> genres, List<String> moods) {
+        taxonomy.requireAllowlisted(genres, moods);
+    }
+
     public Set<TagRef> tagRefs(List<String> genres, List<String> moods, List<String> tags,
             String artist) {
         CatalogTaxonomy.Buckets buckets = taxonomy.classify(genres, moods, tags);
