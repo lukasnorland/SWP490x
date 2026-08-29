@@ -1,8 +1,9 @@
 /* ==========================================================================
    Preview bar (4.0): play Song.audioUrl from any row button.
    One global HTML5 audio element. Row controls carry CDN URL + metadata as
-   data-* attributes; no backend round-trip. State survives a full navigation
-   through sessionStorage, so the bar picks up where it left off.
+   data-* attributes; no backend round-trip to start a track. Next/previous
+   walk the list the title was clicked in (catalog JSON queue, or the playlist
+   table). State survives a full navigation through sessionStorage.
    ========================================================================== */
 "use strict";
 
@@ -11,6 +12,11 @@ import { extractCoverAmbience } from "./color.js";
 var IDLE_TITLE = "Nothing playing";
 var IDLE_SUBTITLE = "Click a song title to play";
 var PLAYER_STATE_KEY = "mrs.previewPlayer";
+var PLAY_QUEUE_PATH = "/songs/play-queue";
+var REPEAT_OFF = "off";
+var REPEAT_ALL = "all";
+var REPEAT_ONE = "one";
+var PREV_RESTART_SECONDS = 3;
 
 function formatClock(seconds) {
   if (!isFinite(seconds) || seconds < 0) {
@@ -24,6 +30,78 @@ function formatClock(seconds) {
 
 function formatElapsedDuration(elapsed, duration) {
   return formatClock(elapsed) + "/" + formatClock(duration);
+}
+
+function emptyTrack() {
+  return {
+    id: "",
+    url: "",
+    title: "",
+    artist: "",
+    cover: "",
+    ambienceA: "",
+    ambienceB: "",
+    duration: ""
+  };
+}
+
+function normalizeTrack(raw) {
+  if (!raw) {
+    return emptyTrack();
+  }
+  return {
+    id: raw.id != null && raw.id !== "" ? String(raw.id) : "",
+    url: raw.url || "",
+    title: raw.title || "",
+    artist: raw.artist || "",
+    cover: raw.cover || "",
+    ambienceA: raw.ambienceA || "",
+    ambienceB: raw.ambienceB || "",
+    duration: raw.duration != null ? raw.duration : ""
+  };
+}
+
+function sameTrack(a, b) {
+  if (!a || !b) {
+    return false;
+  }
+  if (a.id && b.id) {
+    return String(a.id) === String(b.id);
+  }
+  return !!(a.url && a.url === b.url);
+}
+
+function findTrackIndex(tracks, track) {
+  for (var i = 0; i < tracks.length; i++) {
+    if (sameTrack(tracks[i], track)) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+function identityOrder(length) {
+  var out = [];
+  for (var i = 0; i < length; i++) {
+    out.push(i);
+  }
+  return out;
+}
+
+function shuffleKeepingFirst(length, firstIndex) {
+  var rest = [];
+  for (var i = 0; i < length; i++) {
+    if (i !== firstIndex) {
+      rest.push(i);
+    }
+  }
+  for (var j = rest.length - 1; j > 0; j--) {
+    var k = Math.floor(Math.random() * (j + 1));
+    var tmp = rest[j];
+    rest[j] = rest[k];
+    rest[k] = tmp;
+  }
+  return [firstIndex].concat(rest);
 }
 
 /* Re-mark the row whose title matches what the bar is playing. Content swaps
@@ -62,6 +140,12 @@ export function initPreviewPlayer(root) {
   var progress = bar.querySelector("[data-preview-progress]");
   var progressBar = bar.querySelector("[data-preview-progress-bar]");
   var time = bar.querySelector("[data-preview-time]");
+  var shuffleBtn = bar.querySelector("[data-preview-shuffle]");
+  var prevBtn = bar.querySelector("[data-preview-prev]");
+  var nextBtn = bar.querySelector("[data-preview-next]");
+  var repeatBtn = bar.querySelector("[data-preview-repeat]");
+  var repeatIconAll = bar.querySelector("[data-preview-icon-repeat]");
+  var repeatIconOne = bar.querySelector("[data-preview-icon-repeat-one]");
   if (!audio || !toggle || !progress || !progressBar || !time) {
     return;
   }
@@ -72,8 +156,16 @@ export function initPreviewPlayer(root) {
   var currentCoverUrl = "";
   var currentAmbience = null;
   var currentTrackUrl = "";
+  var currentTrack = emptyTrack();
   var ambienceRequestId = 0;
   var persistTimer = null;
+  var queue = [];
+  var order = [];
+  var orderPos = -1;
+  var shuffleOn = false;
+  var repeatMode = REPEAT_OFF;
+  var queueFetchController = null;
+  var queueFetchGeneration = 0;
 
   function setPlayingUi(playing) {
     if (playIcon) {
@@ -166,13 +258,28 @@ export function initPreviewPlayer(root) {
     }
   }
 
+  function findTriggerFor(track) {
+    if (!track || !window.CSS || !CSS.escape) {
+      return null;
+    }
+    if (track.id) {
+      var byId = root.querySelector('[data-preview-id="' + CSS.escape(String(track.id)) + '"]');
+      if (byId) {
+        return byId;
+      }
+    }
+    if (track.url) {
+      return root.querySelector('[data-preview-url="' + CSS.escape(track.url) + '"]');
+    }
+    return null;
+  }
+
   function syncActiveTitleTrigger() {
     if (!currentTrackUrl) {
       markTrigger(null);
       return;
     }
-    var match = root.querySelector('[data-preview-url="' + CSS.escape(currentTrackUrl) + '"]');
-    markTrigger(match);
+    markTrigger(findTriggerFor(currentTrack.url ? currentTrack : { url: currentTrackUrl }));
   }
 
   function knownDuration() {
@@ -184,6 +291,87 @@ export function initPreviewPlayer(root) {
 
   function syncTimeDisplay() {
     time.textContent = formatElapsedDuration(audio.currentTime || 0, knownDuration());
+  }
+
+  function syncRepeatButton() {
+    if (!repeatBtn) {
+      return;
+    }
+    var pressed = repeatMode !== REPEAT_OFF;
+    repeatBtn.disabled = !currentTrackUrl;
+    repeatBtn.setAttribute("aria-pressed", pressed ? "true" : "false");
+    var label = "Repeat";
+    if (repeatMode === REPEAT_ALL) {
+      label = "Repeat all";
+    } else if (repeatMode === REPEAT_ONE) {
+      label = "Repeat one";
+    }
+    repeatBtn.setAttribute("aria-label", label);
+    if (repeatIconAll) {
+      repeatIconAll.classList.toggle("d-none", repeatMode === REPEAT_ONE);
+    }
+    if (repeatIconOne) {
+      repeatIconOne.classList.toggle("d-none", repeatMode !== REPEAT_ONE);
+    }
+  }
+
+  function syncTransportUi() {
+    var loaded = !!currentTrackUrl;
+    if (prevBtn) {
+      prevBtn.disabled = !loaded;
+    }
+    if (nextBtn) {
+      nextBtn.disabled = !loaded;
+    }
+    if (shuffleBtn) {
+      shuffleBtn.disabled = queue.length < 2;
+      shuffleBtn.setAttribute("aria-pressed", shuffleOn ? "true" : "false");
+      shuffleBtn.setAttribute("aria-label", shuffleOn ? "Shuffle on" : "Shuffle");
+    }
+    syncRepeatButton();
+  }
+
+  function currentQueueTrack() {
+    if (orderPos < 0 || orderPos >= order.length) {
+      return currentTrack;
+    }
+    return queue[order[orderPos]] || currentTrack;
+  }
+
+  function rebuildOrder(keepCurrent) {
+    var current = keepCurrent || currentQueueTrack() || currentTrack;
+    var idx = findTrackIndex(queue, current);
+    if (idx < 0) {
+      idx = 0;
+    }
+    if (shuffleOn && queue.length > 1) {
+      order = shuffleKeepingFirst(queue.length, idx);
+      orderPos = 0;
+    } else {
+      shuffleOn = shuffleOn && queue.length > 1;
+      order = identityOrder(queue.length);
+      orderPos = idx;
+    }
+  }
+
+  function adoptQueue(tracks, current) {
+    var next = (tracks || []).filter(function (item) {
+      return item && item.url;
+    });
+    var idx = findTrackIndex(next, current);
+    if (idx < 0 && current && current.url) {
+      next = [current].concat(next);
+      idx = 0;
+    }
+    queue = next;
+    if (queue.length === 0) {
+      order = [];
+      orderPos = -1;
+      syncTransportUi();
+      return;
+    }
+    rebuildOrder(current);
+    syncTransportUi();
   }
 
   function clearPersistedState() {
@@ -201,6 +389,7 @@ export function initPreviewPlayer(root) {
     }
     var payload = {
       url: currentTrackUrl,
+      id: currentTrack.id || "",
       title: title ? title.textContent : "",
       artist: subtitle ? subtitle.textContent : "",
       cover: currentCoverUrl,
@@ -208,12 +397,35 @@ export function initPreviewPlayer(root) {
       ambienceB: currentAmbience ? currentAmbience.b : "",
       duration: fallbackDuration || knownDuration() || 0,
       currentTime: audio.currentTime || 0,
-      playing: !audio.paused && !audio.ended
+      playing: !audio.paused && !audio.ended,
+      queue: queue,
+      order: order,
+      orderPos: orderPos,
+      shuffle: shuffleOn,
+      repeat: repeatMode
     };
     try {
       sessionStorage.setItem(PLAYER_STATE_KEY, JSON.stringify(payload));
     } catch (ignored) {
-      // Ignore quota / privacy errors.
+      try {
+        var slim = {
+          url: payload.url,
+          id: payload.id,
+          title: payload.title,
+          artist: payload.artist,
+          cover: payload.cover,
+          ambienceA: payload.ambienceA,
+          ambienceB: payload.ambienceB,
+          duration: payload.duration,
+          currentTime: payload.currentTime,
+          playing: payload.playing,
+          shuffle: payload.shuffle,
+          repeat: payload.repeat
+        };
+        sessionStorage.setItem(PLAYER_STATE_KEY, JSON.stringify(slim));
+      } catch (ignoredQuota) {
+        // Ignore quota / privacy errors.
+      }
     }
   }
 
@@ -235,15 +447,13 @@ export function initPreviewPlayer(root) {
     }
     setArt(meta.cover || "", { a: meta.ambienceA, b: meta.ambienceB });
     toggle.disabled = false;
+    syncTransportUi();
   }
 
-  function loadFromButton(button) {
-    var url = button.getAttribute("data-preview-url");
-    if (!url) {
-      return;
-    }
-
-    applyTrackMeta({
+  function trackFromButton(button) {
+    return normalizeTrack({
+      id: button.getAttribute("data-preview-id"),
+      url: button.getAttribute("data-preview-url"),
       title: button.getAttribute("data-preview-title"),
       artist: button.getAttribute("data-preview-artist"),
       cover: button.getAttribute("data-preview-cover"),
@@ -251,26 +461,186 @@ export function initPreviewPlayer(root) {
       ambienceB: button.getAttribute("data-preview-ambience-b"),
       duration: button.getAttribute("data-preview-duration")
     });
-    markTrigger(button);
+  }
+
+  function tracksFromButtons(scope) {
+    var tracks = [];
+    if (!scope) {
+      return tracks;
+    }
+    scope.querySelectorAll("[data-preview-url]").forEach(function (el) {
+      var track = trackFromButton(el);
+      if (track.url) {
+        tracks.push(track);
+      }
+    });
+    return tracks;
+  }
+
+  function catalogQueueParams() {
+    var form = root.querySelector("[data-catalog-filters]");
+    if (form) {
+      var data = new FormData(form);
+      data.delete("page");
+      return new URLSearchParams(data).toString();
+    }
+    var parts = [];
+    new URLSearchParams(window.location.search).forEach(function (value, key) {
+      if (key !== "page") {
+        parts.push(encodeURIComponent(key) + "=" + encodeURIComponent(value));
+      }
+    });
+    return parts.join("&");
+  }
+
+  function fetchCatalogQueue(track) {
+    if (queueFetchController) {
+      queueFetchController.abort();
+    }
+    var generation = ++queueFetchGeneration;
+    var controller = new AbortController();
+    queueFetchController = controller;
+    var params = catalogQueueParams();
+    var url = PLAY_QUEUE_PATH + (params ? "?" + params : "");
+    fetch(url, {
+      headers: { Accept: "application/json" },
+      signal: controller.signal
+    }).then(function (response) {
+      if (!response.ok) {
+        throw new Error("queue " + response.status);
+      }
+      return response.json();
+    }).then(function (body) {
+      if (generation !== queueFetchGeneration) {
+        return;
+      }
+      var tracks = Array.isArray(body && body.tracks)
+          ? body.tracks.map(normalizeTrack)
+          : [];
+      if (tracks.length) {
+        adoptQueue(tracks, track);
+      }
+      persistPlayerState();
+    }).catch(function (err) {
+      if (err && err.name === "AbortError") {
+        return;
+      }
+      persistPlayerState();
+    });
+  }
+
+  function bindQueueFromSource(button, track) {
+    var source = button.closest("[data-preview-queue]");
+    var kind = source ? source.getAttribute("data-preview-queue") : "";
+    if (kind === "catalog") {
+      adoptQueue(tracksFromButtons(source), track);
+      fetchCatalogQueue(track);
+      return;
+    }
+    if (kind === "list" && source) {
+      adoptQueue(tracksFromButtons(source), track);
+      persistPlayerState();
+      return;
+    }
+    adoptQueue([track], track);
+    persistPlayerState();
+  }
+
+  function playFromStart() {
+    try {
+      audio.currentTime = 0;
+    } catch (ignored) {
+      // Some browsers throw until metadata is ready.
+    }
+    setProgress(0);
+    syncTimeDisplay();
+    return audio.play().then(function () {
+      setPlayingUi(true);
+      persistPlayerState();
+    }).catch(onPlayError);
+  }
+
+  function loadTrack(track) {
+    if (!track || !track.url) {
+      return;
+    }
+    currentTrack = track;
+    currentTrackUrl = track.url;
+    applyTrackMeta(track);
+    markTrigger(findTriggerFor(track));
     setProgress(0);
     syncTimeDisplay();
     setPlayingUi(false);
 
-    // Title click always (re)starts from 0. Pause/resume lives only on the bar.
-    var sameTrack = currentTrackUrl === url && audio.getAttribute("src") === url;
-    if (sameTrack) {
-      audio.pause();
+    var sameTrackPlaying = audio.getAttribute("src") === track.url;
+    if (sameTrackPlaying) {
+      playFromStart();
+      return;
+    }
+    audio.src = track.url;
+    audio.load();
+    audio.play().then(function () {
+      setPlayingUi(true);
+      persistPlayerState();
+    }).catch(onPlayError);
+  }
+
+  function stopAtEnd() {
+    setPlayingUi(false);
+    setProgress(0);
+    try {
       audio.currentTime = 0;
-      syncTimeDisplay();
-      audio.play().then(function () {
-        setPlayingUi(true);
-        persistPlayerState();
-      }).catch(onPlayError);
+    } catch (ignored) {
+      // Keep the bar ready even if the element is not seekable yet.
+    }
+    syncTimeDisplay();
+    persistPlayerState();
+  }
+
+  function playAdjacent(delta, fromEnded) {
+    if (!queue.length || order.length === 0) {
+      if (fromEnded) {
+        stopAtEnd();
+      }
+      return;
+    }
+    var nextPos = orderPos + delta;
+    if (nextPos < 0 || nextPos >= order.length) {
+      if (repeatMode === REPEAT_ALL && order.length > 0) {
+        nextPos = ((nextPos % order.length) + order.length) % order.length;
+      } else if (fromEnded) {
+        stopAtEnd();
+        return;
+      } else {
+        return;
+      }
+    }
+    orderPos = nextPos;
+    loadTrack(queue[order[orderPos]]);
+  }
+
+  function loadFromButton(button) {
+    var track = trackFromButton(button);
+    if (!track.url) {
       return;
     }
 
-    currentTrackUrl = url;
-    audio.src = url;
+    var sameLoaded = currentTrackUrl === track.url && audio.getAttribute("src") === track.url;
+    currentTrack = track;
+    currentTrackUrl = track.url;
+    applyTrackMeta(track);
+    markTrigger(button);
+    setProgress(0);
+    syncTimeDisplay();
+    setPlayingUi(false);
+    bindQueueFromSource(button, track);
+
+    if (sameLoaded) {
+      playFromStart();
+      return;
+    }
+
+    audio.src = track.url;
     audio.load();
     audio.play().then(function () {
       setPlayingUi(true);
@@ -301,11 +671,38 @@ export function initPreviewPlayer(root) {
       return;
     }
 
+    currentTrack = normalizeTrack(state);
+    currentTrack.url = state.url;
     currentTrackUrl = state.url;
+    shuffleOn = !!state.shuffle;
+    repeatMode = state.repeat === REPEAT_ALL || state.repeat === REPEAT_ONE
+        ? state.repeat
+        : REPEAT_OFF;
+    if (Array.isArray(state.queue) && state.queue.length) {
+      queue = state.queue.map(normalizeTrack).filter(function (item) {
+        return !!item.url;
+      });
+      if (Array.isArray(state.order) && state.order.length) {
+        order = state.order.filter(function (index) {
+          return index >= 0 && index < queue.length;
+        });
+      } else {
+        order = identityOrder(queue.length);
+      }
+      orderPos = parseInt(state.orderPos, 10);
+      if (!isFinite(orderPos) || orderPos < 0 || orderPos >= order.length) {
+        var restoredIndex = findTrackIndex(queue, currentTrack);
+        orderPos = restoredIndex < 0 ? 0 : restoredIndex;
+        if (!Array.isArray(state.order)) {
+          order = identityOrder(queue.length);
+        }
+      }
+    }
     applyTrackMeta(state);
     syncActiveTitleTrigger();
     setProgress(0);
     setPlayingUi(false);
+    syncTransportUi();
 
     var resumeAt = Math.max(0, parseFloat(state.currentTime) || 0);
     var shouldPlay = !!state.playing;
@@ -371,6 +768,51 @@ export function initPreviewPlayer(root) {
     }
   });
 
+  if (prevBtn) {
+    prevBtn.addEventListener("click", function () {
+      if (!audio.getAttribute("src")) {
+        return;
+      }
+      if ((audio.currentTime || 0) > PREV_RESTART_SECONDS) {
+        playFromStart();
+        return;
+      }
+      playAdjacent(-1, false);
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener("click", function () {
+      playAdjacent(1, false);
+    });
+  }
+
+  if (shuffleBtn) {
+    shuffleBtn.addEventListener("click", function () {
+      if (queue.length < 2) {
+        return;
+      }
+      shuffleOn = !shuffleOn;
+      rebuildOrder(currentQueueTrack() || currentTrack);
+      syncTransportUi();
+      persistPlayerState();
+    });
+  }
+
+  if (repeatBtn) {
+    repeatBtn.addEventListener("click", function () {
+      if (repeatMode === REPEAT_OFF) {
+        repeatMode = REPEAT_ALL;
+      } else if (repeatMode === REPEAT_ALL) {
+        repeatMode = REPEAT_ONE;
+      } else {
+        repeatMode = REPEAT_OFF;
+      }
+      syncRepeatButton();
+      persistPlayerState();
+    });
+  }
+
   progress.addEventListener("click", function (event) {
     var duration = knownDuration();
     if (!duration) {
@@ -400,12 +842,11 @@ export function initPreviewPlayer(root) {
     schedulePersist();
   });
   audio.addEventListener("ended", function () {
-    setPlayingUi(false);
-    setProgress(0);
-    audio.currentTime = 0;
-    syncTimeDisplay();
-    // Keep the track loaded in the bar, but mark it stopped for the next page.
-    persistPlayerState();
+    if (repeatMode === REPEAT_ONE) {
+      playFromStart();
+      return;
+    }
+    playAdjacent(1, true);
   });
   audio.addEventListener("timeupdate", function () {
     var duration = knownDuration();
@@ -442,5 +883,6 @@ export function initPreviewPlayer(root) {
   }
   setPlayingUi(false);
   syncTimeDisplay();
+  syncTransportUi();
   restorePersistedState();
 }

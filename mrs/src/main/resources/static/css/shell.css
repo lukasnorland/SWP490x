@@ -305,6 +305,15 @@ body.shell.shell--ambience .preview-bar::before {
    utility for it. */
 .preview-bar__meta {
   min-width: 0;
+  flex: 1 1 8rem;
+  max-width: 16rem;
+}
+
+.preview-bar__transport {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--space-xs);
 }
 
 .preview-bar__title {
@@ -333,6 +342,17 @@ body.shell.shell--ambience .preview-bar::before {
 .preview-bar [data-preview-icon-pause] {
   fill: currentColor;
   stroke: none;
+}
+
+.preview-bar [data-preview-shuffle][aria-pressed="true"],
+.preview-bar [data-preview-repeat][aria-pressed="true"] {
+  color: var(--color-primary-bright);
+}
+
+@media (max-width: 767px) {
+  .preview-bar__time {
+    display: none;
+  }
 }
 
 /* --- Auth layout (P-00, P-01) ------------------------------------------- */

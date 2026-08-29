@@ -6,14 +6,18 @@ import com.funix.swp490x.mrs.repository.TagRepository;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.service.PlaylistService;
 import com.funix.swp490x.mrs.service.SongCatalogService;
+import com.funix.swp490x.mrs.service.SongCatalogService.PreviewTrack;
 import java.util.List;
+import java.util.Map;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Song browse for Content Designer. Reuses {@link SongCatalogService} and the
@@ -60,6 +64,23 @@ public class SongBrowseController {
         }
         populateShell(model, user);
         return "songs/index";
+    }
+
+    /**
+     * Full filtered catalog for the preview bar. ADMIN is not redirected: the
+     * admin catalog page uses this same URL so next/previous can leave the
+     * current page of 20.
+     */
+    @GetMapping(path = Routes.SONGS_PLAY_QUEUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map<String, List<PreviewTrack>> playQueue(
+            @RequestParam(required = false) List<String> provider,
+            @RequestParam(required = false) List<Long> genreId,
+            @RequestParam(required = false) List<Long> moodId,
+            @RequestParam(required = false) List<Long> tagId,
+            @RequestParam(required = false) String q) {
+        return Map.of("tracks",
+                catalogService.playQueue(provider, genreId, moodId, tagId, q));
     }
 
     private void populateResults(Model model, List<String> providers, List<Long> genreIds,

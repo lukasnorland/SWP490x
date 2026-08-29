@@ -10,6 +10,7 @@ import static org.mockito.Mockito.never;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -31,6 +32,7 @@ import com.funix.swp490x.mrs.security.MrsUserDetailsService;
 import com.funix.swp490x.mrs.service.PlaylistOption;
 import com.funix.swp490x.mrs.service.PlaylistService;
 import com.funix.swp490x.mrs.service.SongCatalogService;
+import com.funix.swp490x.mrs.service.SongCatalogService.PreviewTrack;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
 import java.util.List;
 import java.util.Set;
@@ -41,6 +43,7 @@ import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -92,6 +95,10 @@ class SongBrowseTest {
                 .andExpect(content().string(containsString("Ice Cream")))
                 .andExpect(content().string(containsString("Sugar Blizz")))
                 .andExpect(content().string(containsString("data-preview-bar")))
+                .andExpect(content().string(containsString("data-preview-shuffle")))
+                .andExpect(content().string(containsString("data-preview-prev")))
+                .andExpect(content().string(containsString("data-preview-next")))
+                .andExpect(content().string(containsString("data-preview-repeat")))
                 .andExpect(content().string(not(containsString("Untagged only"))));
     }
 
@@ -198,6 +205,61 @@ class SongBrowseTest {
 
         then(songCatalogService).should()
                 .search(null, List.of(3L, 7L), List.of(4L, 8L), null, null, 0);
+    }
+
+    @Test
+    void playQueueReturnsJsonForContentDesigner() throws Exception {
+        given(songCatalogService.playQueue(nullable(List.class), nullable(List.class),
+                nullable(List.class), nullable(List.class), nullable(String.class)))
+                .willReturn(List.of(new PreviewTrack(12L, "https://cdn.example/a.mp3", "Alpha",
+                        "Sugar Blizz", "https://cdn.example/cover.jpg",
+                        "rgba(1, 2, 3, 0.4)", "rgba(4, 5, 6, 0.4)", 180)));
+
+        mockMvc.perform(get(Routes.SONGS_PLAY_QUEUE).with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.tracks[0].id").value(12))
+                .andExpect(jsonPath("$.tracks[0].url").value("https://cdn.example/a.mp3"))
+                .andExpect(jsonPath("$.tracks[0].title").value("Alpha"))
+                .andExpect(jsonPath("$.tracks[0].artist").value("Sugar Blizz"))
+                .andExpect(jsonPath("$.tracks[0].cover").value("https://cdn.example/cover.jpg"))
+                .andExpect(jsonPath("$.tracks[0].duration").value(180));
+    }
+
+    @Test
+    void playQueueIsClosedToCustomers() throws Exception {
+        mockMvc.perform(get(Routes.SONGS_PLAY_QUEUE).with(user(principal(Role.CUSTOMER))))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void playQueueIsOpenToAdminWithoutRedirecting() throws Exception {
+        given(songCatalogService.playQueue(nullable(List.class), nullable(List.class),
+                nullable(List.class), nullable(List.class), nullable(String.class)))
+                .willReturn(List.of());
+
+        mockMvc.perform(get(Routes.SONGS_PLAY_QUEUE).with(user(principal(Role.ADMIN))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.tracks").isArray());
+    }
+
+    @Test
+    void playQueuePassesBrowseFiltersThrough() throws Exception {
+        given(songCatalogService.playQueue(nullable(List.class), nullable(List.class),
+                nullable(List.class), nullable(List.class), nullable(String.class)))
+                .willReturn(List.of());
+
+        mockMvc.perform(get(Routes.SONGS_PLAY_QUEUE)
+                        .param("provider", "EpidemicSound")
+                        .param("genreId", "3")
+                        .param("moodId", "4")
+                        .param("tagId", "5")
+                        .param("q", "ice")
+                        .with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk());
+
+        then(songCatalogService).should()
+                .playQueue(List.of("EpidemicSound"), List.of(3L), List.of(4L), List.of(5L), "ice");
     }
 
     @Test

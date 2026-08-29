@@ -30,6 +30,9 @@ import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
@@ -76,6 +79,53 @@ class SongCatalogServiceTest {
         then(songRepository).should().searchIds(eq(false), eq(List.of("EpidemicSound", "NCS")),
                 eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
                 eq("ice"), any());
+    }
+
+    @Test
+    void playQueueKeepsTableOrderAndDropsSongsWithNoAudio() {
+        given(songRepository.searchIds(eq(true), eq(List.of("")), eq(false), eq(List.of(3L, 7L)),
+                eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(null), any()))
+                .willReturn(new PageImpl<>(List.of(3L, 1L, 2L)));
+        Song silent = existing(1L, 0);
+        silent.setTitle("Muted");
+        Song first = playable(3L, "Alpha", "https://cdn.example/a.mp3");
+        Song second = playable(2L, "Zulu", "https://cdn.example/z.mp3");
+        given(songRepository.findAllById(List.of(3L, 1L, 2L)))
+                .willReturn(List.of(silent, second, first));
+
+        List<SongCatalogService.PreviewTrack> tracks =
+                service.playQueue(null, List.of(3L, 7L), null, null, "  ");
+
+        assertThat(tracks).extracting(SongCatalogService.PreviewTrack::id)
+                .containsExactly(3L, 2L);
+        assertThat(tracks.get(0).url()).isEqualTo("https://cdn.example/a.mp3");
+        assertThat(tracks.get(0).title()).isEqualTo("Alpha");
+        assertThat(tracks.get(0).artist()).isEqualTo("Sugar Blizz");
+        assertThat(tracks.get(0).cover()).isEqualTo("https://cdn.example/cover.jpg");
+        assertThat(tracks.get(0).ambienceA()).isEqualTo("rgba(1, 2, 3, 0.4)");
+        assertThat(tracks.get(0).ambienceB()).isEqualTo("rgba(4, 5, 6, 0.4)");
+        assertThat(tracks.get(0).duration()).isEqualTo(180);
+
+        ArgumentCaptor<Pageable> pageable = ArgumentCaptor.forClass(Pageable.class);
+        then(songRepository).should().searchIds(eq(true), eq(List.of("")), eq(false),
+                eq(List.of(3L, 7L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
+                eq(null), pageable.capture());
+        assertThat(pageable.getValue().isUnpaged()).isTrue();
+        assertThat(pageable.getValue().getSort().getOrderFor("title").getDirection())
+                .isEqualTo(Sort.Direction.ASC);
+        assertThat(pageable.getValue().getSort().getOrderFor("id").getDirection())
+                .isEqualTo(Sort.Direction.ASC);
+        then(songRepository).should().findAllById(List.of(3L, 1L, 2L));
+    }
+
+    @Test
+    void playQueueIsEmptyWhenNothingMatches() {
+        given(songRepository.searchIds(eq(true), eq(List.of("")), eq(true), eq(List.of(-1L)),
+                eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(null), any()))
+                .willReturn(Page.empty());
+
+        assertThat(service.playQueue(null, null, null, null, null)).isEmpty();
+        then(songRepository).should(never()).findAllById(any());
     }
 
     @Test
@@ -262,6 +312,18 @@ class SongCatalogServiceTest {
 
         assertThatThrownBy(() -> service.delete(12L))
                 .isInstanceOf(SongNotFoundException.class);
+    }
+
+    private static Song playable(Long id, String title, String audioUrl) {
+        Song song = existing(id, 0);
+        song.setTitle(title);
+        song.setArtist("Sugar Blizz");
+        song.setAudioUrl(audioUrl);
+        song.setCoverUrl("https://cdn.example/cover.jpg");
+        song.setAmbienceA("rgba(1, 2, 3, 0.4)");
+        song.setAmbienceB("rgba(4, 5, 6, 0.4)");
+        song.setDuration(180);
+        return song;
     }
 
     private static Song existing(Long id, int version) {

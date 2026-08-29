@@ -36,6 +36,9 @@ public class SongCatalogService {
     /** Spec 4.10 Zone D. */
     public static final int PAGE_SIZE = 20;
 
+    private static final Sort TITLE_THEN_ID =
+            Sort.by(Sort.Order.asc("title"), Sort.Order.asc("id"));
+
     /** Hibernate will not bind an empty IN list, so unused filters get a dummy. */
     private static final List<Long> UNUSED_IDS = List.of(-1L);
     private static final List<String> UNUSED_PROVIDERS = List.of("");
@@ -76,26 +79,8 @@ public class SongCatalogService {
     public Page<Song> search(List<String> providers, List<Long> genreIds, List<Long> moodIds,
             List<Long> tagIds, String query, int page) {
 
-        Pageable pageable = PageRequest.of(Math.max(page, 0), PAGE_SIZE,
-                Sort.by(Sort.Order.asc("title"), Sort.Order.asc("id")));
-
-        List<String> providerValues = nonBlank(providers);
-        boolean providerEmpty = providerValues.isEmpty();
-        boolean genreEmpty = empty(genreIds);
-        boolean moodEmpty = empty(moodIds);
-        boolean tagEmpty = empty(tagIds);
-
-        Page<Long> ids = songRepository.searchIds(
-                providerEmpty,
-                providerEmpty ? UNUSED_PROVIDERS : providerValues,
-                genreEmpty,
-                genreEmpty ? UNUSED_IDS : genreIds,
-                moodEmpty,
-                moodEmpty ? UNUSED_IDS : moodIds,
-                tagEmpty,
-                tagEmpty ? UNUSED_IDS : tagIds,
-                StringUtils.hasText(query) ? query.trim() : null,
-                pageable);
+        Pageable pageable = PageRequest.of(Math.max(page, 0), PAGE_SIZE, TITLE_THEN_ID);
+        Page<Long> ids = matchingIds(providers, genreIds, moodIds, tagIds, query, pageable);
 
         if (ids.isEmpty()) {
             return new PageImpl<>(List.of(), pageable, ids.getTotalElements());
@@ -113,6 +98,58 @@ public class SongCatalogService {
                 .toList();
 
         return new PageImpl<>(ordered, pageable, ids.getTotalElements());
+    }
+
+    /**
+     * Every playable song matching the Songs / catalog filters, in table order
+     * ({@code title}, {@code id}). Used by the preview bar so next/previous can
+     * walk the full result, not just the current page of 20.
+     *
+     * <p>Rows with no {@code audioUrl} are dropped — the table already hides a
+     * play control for those. Tags are not loaded.
+     */
+    @Transactional(readOnly = true)
+    public List<PreviewTrack> playQueue(List<String> providers, List<Long> genreIds,
+            List<Long> moodIds, List<Long> tagIds, String query) {
+
+        Page<Long> ids = matchingIds(providers, genreIds, moodIds, tagIds, query,
+                Pageable.unpaged(TITLE_THEN_ID));
+        if (ids.isEmpty()) {
+            return List.of();
+        }
+
+        Map<Long, Song> byId = new LinkedHashMap<>();
+        for (Song song : songRepository.findAllById(ids.getContent())) {
+            byId.put(song.getId(), song);
+        }
+        return ids.getContent().stream()
+                .map(byId::get)
+                .filter(Objects::nonNull)
+                .filter(song -> StringUtils.hasText(song.getAudioUrl()))
+                .map(PreviewTrack::from)
+                .toList();
+    }
+
+    private Page<Long> matchingIds(List<String> providers, List<Long> genreIds,
+            List<Long> moodIds, List<Long> tagIds, String query, Pageable pageable) {
+
+        List<String> providerValues = nonBlank(providers);
+        boolean providerEmpty = providerValues.isEmpty();
+        boolean genreEmpty = empty(genreIds);
+        boolean moodEmpty = empty(moodIds);
+        boolean tagEmpty = empty(tagIds);
+
+        return songRepository.searchIds(
+                providerEmpty,
+                providerEmpty ? UNUSED_PROVIDERS : providerValues,
+                genreEmpty,
+                genreEmpty ? UNUSED_IDS : genreIds,
+                moodEmpty,
+                moodEmpty ? UNUSED_IDS : moodIds,
+                tagEmpty,
+                tagEmpty ? UNUSED_IDS : tagIds,
+                StringUtils.hasText(query) ? query.trim() : null,
+                pageable);
     }
 
     private static boolean empty(List<?> values) {
@@ -322,5 +359,29 @@ public class SongCatalogService {
             String genres,
             String moods,
             String tags) {
+    }
+
+    /** Preview-bar fields only — no tags, no licensed extras. */
+    public record PreviewTrack(
+            Long id,
+            String url,
+            String title,
+            String artist,
+            String cover,
+            String ambienceA,
+            String ambienceB,
+            Integer duration) {
+
+        static PreviewTrack from(Song song) {
+            return new PreviewTrack(
+                    song.getId(),
+                    song.getAudioUrl(),
+                    song.getTitle(),
+                    song.getArtist(),
+                    song.getCoverUrl(),
+                    song.getAmbienceA(),
+                    song.getAmbienceB(),
+                    song.getDuration());
+        }
     }
 }
