@@ -19,6 +19,10 @@ public final class Routes {
 
     /** P-02 Search & Recommendation. */
     public static final String SEARCH = "/search";
+    /** FT-04 — interpret a contextual query once, then redirect to GET filters. */
+    public static final String SEARCH_INTERPRET = "/search/interpret";
+    /** Preview-bar queue for the current Search filters, in relevance order. */
+    public static final String SEARCH_PLAY_QUEUE = "/search/play-queue";
     /** Authenticated song browse (listen / preview); reuses the catalog list. */
     public static final String SONGS = "/songs";
     /** Preview-bar queue: every playable row matching the current Songs filters. */

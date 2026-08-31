@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div id="catalog-results" th:fragment="results" data-catalog-results data-preview-queue="catalog"
+     data-preview-queue-url="/search/play-queue">
+
+  <div class="d-flex flex-wrap gap-2 mb-3" th:if="${chips != null and !chips.isEmpty()}">
+    <a th:each="chip : ${chips}" class="badge bg-secondary-subtle text-secondary-emphasis text-decoration-none"
+       th:href="${chip.removeUrl}" data-catalog-partial
+       th:title="|Remove ${chip.label}|">
+      <span class="text-secondary" th:text="${chip.type}">Genre</span>
+      <span th:text="${chip.label}">Name</span>
+      <span aria-hidden="true">×</span>
+    </a>
+  </div>
+
+  <section class="card">
+    <div class="catalog-table-wrap">
+      <table class="table catalog-table align-middle mb-0">
+        <thead>
+          <tr>
+            <th scope="col" class="search-col-select">
+              <span class="visually-hidden">Select</span>
+            </th>
+            <th scope="col">Title</th>
+            <th scope="col">Artist</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Matched tags</th>
+            <th scope="col">Popularity</th>
+            <th scope="col" th:if="${currentUser != null and currentUser.curator}">Add</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="song : ${songs}">
+            <td>
+              <input class="form-check-input" type="checkbox" data-search-select
+                     th:value="${song.id}"
+                     th:aria-label="|Select ${song.title}|">
+            </td>
+            <td>
+              <div class="d-flex align-items-center gap-3">
+                <img class="song-cover" th:if="${song.coverUrl != null}"
+                     th:src="${song.coverUrl}" th:alt="|Cover of ${song.title}|"
+                     loading="lazy" width="40" height="40">
+                <span class="song-cover song-cover--empty" th:if="${song.coverUrl == null}"
+                      aria-hidden="true">
+                  <svg th:replace="~{fragments/icons :: icon('music', 'icon--sm')}"></svg>
+                </span>
+                <div class="d-flex flex-column flex-grow-1 min-w-0">
+                  <button type="button"
+                          class="song-title-play"
+                          th:if="${song.audioUrl != null and !#strings.isEmpty(song.audioUrl)}"
+                          th:text="${song.title}"
+                          th:data-preview-id="${song.id}"
+                          th:data-preview-url="${song.audioUrl}"
+                          th:data-preview-title="${song.title}"
+                          th:data-preview-artist="${song.artist}"
+                          th:data-preview-cover="${song.coverUrl}"
+                          th:data-preview-ambience-a="${song.ambienceA}"
+                          th:data-preview-ambience-b="${song.ambienceB}"
+                          th:data-preview-duration="${song.duration}"
+                          th:aria-label="|Play ${song.title}|">Title</button>
+                  <span th:if="${song.audioUrl == null or #strings.isEmpty(song.audioUrl)}"
+                        th:text="${song.title}">Title</span>
+                </div>
+              </div>
+            </td>
+            <td th:text="${song.artist != null} ? ${song.artist} : '—'">Artist</td>
+            <td class="table__numeric"
+                th:text="${song.duration != null}
+                         ? ${#numbers.formatInteger(song.duration / 60, 1)} + ':'
+                           + ${#numbers.formatInteger(song.duration % 60, 2)}
+                         : '—'">0:00</td>
+            <td>
+              <div class="catalog-tag-list d-flex flex-wrap gap-1">
+                <span th:each="tag : ${song.tags}"
+                      th:if="${activeFilterIds != null and #lists.contains(activeFilterIds, tag.id)}"
+                      class="badge bg-secondary-subtle text-secondary-emphasis"
+                      th:text="${tag.name}">tag</span>
+              </div>
+            </td>
+            <td class="table__numeric"
+                th:text="${song.spotifyPopularity != null} ? ${song.spotifyPopularity} : '—'">—</td>
+            <td th:if="${currentUser != null and currentUser.curator}">
+              <button type="button" class="btn btn-icon"
+                      title="Add to playlist"
+                      data-add-to-playlist
+                      th:data-song-id="${song.id}"
+                      th:data-song-title="${song.title}"
+                      th:data-song-artist="${song.artist}"
+                      th:aria-label="|Add ${song.title} to a playlist|">
+                <svg th:replace="~{fragments/icons :: icon('plus', 'icon--sm')}"></svg>
+              </button>
+            </td>
+          </tr>
+          <tr th:if="${songs == null or songs.isEmpty()}">
+            <td th:attr="colspan=${currentUser != null and currentUser.curator} ? 7 : 6">
+              <div th:replace="~{fragments/components :: emptyState('search',
+                      ${hasSearchCriteria} ? 'No songs match' : 'Describe a playlist need',
+                      ${hasSearchCriteria}
+                        ? 'Try a broader prompt, or open Songs to filter by metadata.'
+                        : 'Type 10–200 characters above, then Interpret.')}"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="search-selection-bar card mt-3" data-search-selection-bar hidden
+       th:if="${currentUser != null and currentUser.curator}">
+    <div class="card-body d-flex flex-wrap align-items-center justify-content-between gap-3 py-3">
+      <p class="mb-0 small">
+        <span data-search-selected-count>0</span> selected
+      </p>
+      <button type="button" class="btn btn-primary" data-add-to-playlist data-add-selected
+              disabled>
+        Add <span data-search-selected-count>0</span> selected to playlist
+      </button>
+    </div>
+  </div>
+
+  <nav th:replace="~{fragments/components :: catalogPager(${songs}, ${catalogBasePath})}"></nav>
+
+</div>
+
+</body>
+</html>

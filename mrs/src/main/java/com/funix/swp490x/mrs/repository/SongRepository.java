@@ -73,6 +73,9 @@ public interface SongRepository extends JpaRepository<Song, Long> {
               AND (:moodEmpty = true OR EXISTS (
                     SELECT 1 FROM Song sm JOIN sm.tags tm
                     WHERE sm.id = s.id AND tm.id IN :moodIds))
+              AND (:artistEmpty = true OR EXISTS (
+                    SELECT 1 FROM Song sa JOIN sa.tags ta
+                    WHERE sa.id = s.id AND ta.id IN :artistIds))
               AND (:tagEmpty = true OR EXISTS (
                     SELECT 1 FROM Song st JOIN st.tags tt
                     WHERE st.id = s.id AND tt.id IN :tagIds))
@@ -85,6 +88,46 @@ public interface SongRepository extends JpaRepository<Song, Long> {
             @Param("genreIds") Collection<Long> genreIds,
             @Param("moodEmpty") boolean moodEmpty,
             @Param("moodIds") Collection<Long> moodIds,
+            @Param("artistEmpty") boolean artistEmpty,
+            @Param("artistIds") Collection<Long> artistIds,
+            @Param("tagEmpty") boolean tagEmpty,
+            @Param("tagIds") Collection<Long> tagIds,
+            @Param("q") String q,
+            Pageable pageable);
+
+    /**
+     * P-02: songs related to <em>any</em> selected vocabulary (or title/artist
+     * {@code q}), so ranking by matched-chip count has a pool to sort. Songs
+     * and admin catalog keep {@link #searchIds} (AND across vocabularies).
+     */
+    @Query("""
+            SELECT s.id FROM Song s
+            WHERE (:providerEmpty = true OR s.sourceProvider IN :providers)
+              AND (
+                    (:genreEmpty = false AND EXISTS (
+                        SELECT 1 FROM Song sg JOIN sg.tags tg
+                        WHERE sg.id = s.id AND tg.id IN :genreIds))
+                 OR (:moodEmpty = false AND EXISTS (
+                        SELECT 1 FROM Song sm JOIN sm.tags tm
+                        WHERE sm.id = s.id AND tm.id IN :moodIds))
+                 OR (:artistEmpty = false AND EXISTS (
+                        SELECT 1 FROM Song sa JOIN sa.tags ta
+                        WHERE sa.id = s.id AND ta.id IN :artistIds))
+                 OR (:tagEmpty = false AND EXISTS (
+                        SELECT 1 FROM Song st JOIN st.tags tt
+                        WHERE st.id = s.id AND tt.id IN :tagIds))
+                 OR (:q IS NOT NULL AND (LOWER(s.title) LIKE LOWER(CONCAT('%', :q, '%'))
+                                      OR LOWER(s.artist) LIKE LOWER(CONCAT('%', :q, '%'))))
+              )
+            """)
+    Page<Long> searchIdsMatchingAny(@Param("providerEmpty") boolean providerEmpty,
+            @Param("providers") Collection<String> providers,
+            @Param("genreEmpty") boolean genreEmpty,
+            @Param("genreIds") Collection<Long> genreIds,
+            @Param("moodEmpty") boolean moodEmpty,
+            @Param("moodIds") Collection<Long> moodIds,
+            @Param("artistEmpty") boolean artistEmpty,
+            @Param("artistIds") Collection<Long> artistIds,
             @Param("tagEmpty") boolean tagEmpty,
             @Param("tagIds") Collection<Long> tagIds,
             @Param("q") String q,

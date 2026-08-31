@@ -18,6 +18,7 @@ import com.funix.swp490x.mrs.catalog.InvalidClassificationException;
 import com.funix.swp490x.mrs.catalog.SongJsonMapper;
 import com.funix.swp490x.mrs.domain.Song;
 import com.funix.swp490x.mrs.domain.Tag;
+import com.funix.swp490x.mrs.domain.TagType;
 import com.funix.swp490x.mrs.repository.SongRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import com.funix.swp490x.mrs.service.SongCatalogService.SongEdit;
@@ -57,7 +58,8 @@ class SongCatalogServiceTest {
     @Test
     void searchORsWithinAVocabularyAndSkipsEmptyLists() {
         given(songRepository.searchIds(eq(true), eq(List.of("")), eq(false), eq(List.of(3L, 7L)),
-                eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(null), any()))
+                eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
+                eq(null), any()))
                 .willReturn(Page.empty());
 
         Page<Song> result = service.search(null, List.of(3L, 7L), null, null, "  ", 0);
@@ -65,27 +67,28 @@ class SongCatalogServiceTest {
         assertThat(result.isEmpty()).isTrue();
         then(songRepository).should().searchIds(eq(true), eq(List.of("")), eq(false),
                 eq(List.of(3L, 7L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
-                eq(null), any());
+                eq(true), eq(List.of(-1L)), eq(null), any());
     }
 
     @Test
     void searchBindsSelectedProviders() {
         given(songRepository.searchIds(eq(false), eq(List.of("EpidemicSound", "NCS")),
                 eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
-                eq("ice"), any()))
+                eq(true), eq(List.of(-1L)), eq("ice"), any()))
                 .willReturn(Page.empty());
 
         service.search(List.of("EpidemicSound", "NCS"), null, List.of(), null, "ice", 0);
 
         then(songRepository).should().searchIds(eq(false), eq(List.of("EpidemicSound", "NCS")),
                 eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
-                eq("ice"), any());
+                eq(true), eq(List.of(-1L)), eq("ice"), any());
     }
 
     @Test
     void playQueueKeepsTableOrderAndDropsSongsWithNoAudio() {
         given(songRepository.searchIds(eq(true), eq(List.of("")), eq(false), eq(List.of(3L, 7L)),
-                eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(null), any()))
+                eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
+                eq(null), any()))
                 .willReturn(new PageImpl<>(List.of(3L, 1L, 2L)));
         Song silent = existing(1L, 0);
         silent.setTitle("Muted");
@@ -110,7 +113,7 @@ class SongCatalogServiceTest {
         ArgumentCaptor<Pageable> pageable = ArgumentCaptor.forClass(Pageable.class);
         then(songRepository).should().searchIds(eq(true), eq(List.of("")), eq(false),
                 eq(List.of(3L, 7L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
-                eq(null), pageable.capture());
+                eq(true), eq(List.of(-1L)), eq(null), pageable.capture());
         assertThat(pageable.getValue().isUnpaged()).isTrue();
         assertThat(pageable.getValue().getSort().getOrderFor("title").getDirection())
                 .isEqualTo(Sort.Direction.ASC);
@@ -122,11 +125,64 @@ class SongCatalogServiceTest {
     @Test
     void playQueueIsEmptyWhenNothingMatches() {
         given(songRepository.searchIds(eq(true), eq(List.of("")), eq(true), eq(List.of(-1L)),
-                eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(null), any()))
+                eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
+                eq(null), any()))
                 .willReturn(Page.empty());
 
         assertThat(service.playQueue(null, null, null, null, null)).isEmpty();
         then(songRepository).should(never()).findAllById(any());
+    }
+
+    @Test
+    void searchBindsArtistIds() {
+        given(songRepository.searchIds(eq(true), eq(List.of("")), eq(true), eq(List.of(-1L)),
+                eq(true), eq(List.of(-1L)), eq(false), eq(List.of(9L)), eq(true), eq(List.of(-1L)),
+                eq(null), any()))
+                .willReturn(Page.empty());
+
+        service.search(null, null, null, List.of(9L), null, null, 0);
+
+        then(songRepository).should().searchIds(eq(true), eq(List.of("")), eq(true),
+                eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(false), eq(List.of(9L)),
+                eq(true), eq(List.of(-1L)), eq(null), any());
+    }
+
+    @Test
+    void searchRecommendedOrdersByMatchedChipCountThenCapsTopN() {
+        given(songRepository.searchIdsMatchingAny(eq(true), eq(List.of("")), eq(false),
+                eq(List.of(1L)), eq(false), eq(List.of(2L)), eq(true), eq(List.of(-1L)),
+                eq(true), eq(List.of(-1L)), eq(null), any()))
+                .willReturn(new PageImpl<>(List.of(10L, 11L, 12L)));
+        Song oneHit = tagged(10L, "Alpha", 1L);
+        Song twoHits = tagged(11L, "Zulu", 1L, 2L);
+        Song alsoTwo = tagged(12L, "Beta", 1L, 2L);
+        given(songRepository.findAllWithTags(List.of(10L, 11L, 12L)))
+                .willReturn(List.of(oneHit, twoHits, alsoTwo));
+
+        Page<Song> page = service.searchRecommended(List.of(1L), List.of(2L), null, null, null, 2, 0);
+
+        assertThat(page.getContent()).extracting(Song::getId).containsExactly(12L, 11L);
+        assertThat(page.getTotalElements()).isEqualTo(2);
+    }
+
+    @Test
+    void searchRecommendedUnionsVocabulariesInsteadOfRequiringEveryChip() {
+        given(songRepository.searchIdsMatchingAny(eq(true), eq(List.of("")), eq(false),
+                eq(List.of(1L)), eq(false), eq(List.of(2L)), eq(true), eq(List.of(-1L)),
+                eq(true), eq(List.of(-1L)), eq(null), any()))
+                .willReturn(new PageImpl<>(List.of(10L, 20L)));
+        Song popOnly = tagged(10L, "Alpha", 1L);
+        Song moodOnly = tagged(20L, "Zulu", 2L);
+        given(songRepository.findAllWithTags(List.of(10L, 20L)))
+                .willReturn(List.of(popOnly, moodOnly));
+
+        Page<Song> page = service.searchRecommended(List.of(1L), List.of(2L), null, null, null,
+                null, 0);
+
+        assertThat(page.getContent()).extracting(Song::getId).containsExactly(10L, 20L);
+        then(songRepository).should(never()).searchIds(eq(true), eq(List.of("")), eq(false),
+                eq(List.of(1L)), eq(false), eq(List.of(2L)), eq(true), eq(List.of(-1L)),
+                eq(true), eq(List.of(-1L)), eq(null), any());
     }
 
     @Test
@@ -338,6 +394,17 @@ class SongCatalogServiceTest {
         song.setAmbienceA("rgba(1, 2, 3, 0.4)");
         song.setAmbienceB("rgba(4, 5, 6, 0.4)");
         song.setDuration(180);
+        return song;
+    }
+
+    private static Song tagged(Long id, String title, Long... tagIds) {
+        Song song = existing(id, 0);
+        song.setTitle(title);
+        for (Long tagId : tagIds) {
+            Tag tag = new Tag(TagType.GENRE, "t" + tagId);
+            ReflectionTestUtils.setField(tag, "id", tagId);
+            song.getTags().add(tag);
+        }
         return song;
     }
 

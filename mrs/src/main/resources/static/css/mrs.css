@@ -461,6 +461,16 @@
   color: var(--color-text-disabled);
 }
 
+.search-selection-bar {
+  position: sticky;
+  bottom: var(--preview-bar-height);
+  z-index: 5;
+}
+
+.search-col-select {
+  width: 2.5rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

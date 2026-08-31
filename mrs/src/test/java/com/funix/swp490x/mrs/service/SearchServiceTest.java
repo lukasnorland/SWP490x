@@ -1,0 +1,127 @@
+package com.funix.swp490x.mrs.service;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.never;
+
+import com.funix.swp490x.mrs.domain.RecommendationLog;
+import com.funix.swp490x.mrs.domain.Song;
+import com.funix.swp490x.mrs.domain.Tag;
+import com.funix.swp490x.mrs.domain.TagType;
+import com.funix.swp490x.mrs.llm.FilterMapper;
+import com.funix.swp490x.mrs.llm.InterpretedFilters;
+import com.funix.swp490x.mrs.llm.LlmInterpreter;
+import com.funix.swp490x.mrs.llm.LlmProperties;
+import com.funix.swp490x.mrs.repository.RecommendationLogRepository;
+import com.funix.swp490x.mrs.repository.TagRepository;
+import java.util.List;
+import java.util.Optional;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.test.util.ReflectionTestUtils;
+
+@ExtendWith(MockitoExtension.class)
+class SearchServiceTest {
+
+    @Mock
+    private LlmInterpreter interpreter;
+    @Mock
+    private FilterMapper filterMapper;
+    @Mock
+    private TagRepository tagRepository;
+    @Mock
+    private SongCatalogService catalogService;
+    @Mock
+    private RecommendationLogRepository recommendationLogRepository;
+
+    private SearchService service;
+
+    @BeforeEach
+    void setUp() {
+        service = new SearchService(interpreter, new LlmProperties(), filterMapper, tagRepository,
+                catalogService, recommendationLogRepository);
+        lenient().when(tagRepository.findAllUsedOrderByTypeAscNameAsc()).thenReturn(List.of());
+    }
+
+    @Test
+    void interpretRejectsShortQueries() {
+        assertThatThrownBy(() -> service.interpretRedirect(1L, "too short", null))
+                .isInstanceOf(InvalidSearchQueryException.class);
+        then(recommendationLogRepository).should(never()).save(any());
+    }
+
+    @Test
+    void interpretFallsBackToKeywordWhenNothingMatches() {
+        given(interpreter.interpret(eq("upbeat summer campaign for a beach game"), any()))
+                .willReturn(Optional.empty());
+        given(catalogService.searchRecommended(eq(List.of()), eq(List.of()), eq(List.of()),
+                eq(List.of()), eq("upbeat summer campaign for a beach game"), isNull(), eq(0)))
+                .willReturn(new PageImpl<>(List.of(new Song())));
+
+        String path = service.interpretRedirect(7L, "upbeat summer campaign for a beach game", null);
+
+        assertThat(path).startsWith("/search?");
+        assertThat(path).contains("q=");
+        ArgumentCaptor<RecommendationLog> captor = ArgumentCaptor.forClass(RecommendationLog.class);
+        then(recommendationLogRepository).should().save(captor.capture());
+        assertThat(captor.getValue().isLlmUsed()).isFalse();
+        assertThat(captor.getValue().getLlmSucceeded()).isFalse();
+        assertThat(captor.getValue().getResultCount()).isEqualTo(1);
+        assertThat(captor.getValue().getUserId()).isEqualTo(7L);
+    }
+
+    @Test
+    void interpretRedirectsToFilterIdsWhenVocabularyHits() {
+        InterpretedFilters filters = new InterpretedFilters(List.of("Pop"), List.of("Energetic"),
+                List.of(), List.of(), null);
+        given(interpreter.interpret(eq("energetic pop playlist now"), any()))
+                .willReturn(Optional.of(filters));
+        given(filterMapper.map(filters)).willReturn(new FilterMapper.MappedFilters(
+                List.of(2L), List.of(1L), List.of(), List.of()));
+        given(catalogService.searchRecommended(eq(List.of(2L)), eq(List.of(1L)), eq(List.of()),
+                eq(List.of()), isNull(), eq(10), eq(0)))
+                .willReturn(Page.empty());
+
+        String path = service.interpretRedirect(1L, "energetic pop playlist now", 10);
+
+        assertThat(path).contains("genreId=2");
+        assertThat(path).contains("moodId=1");
+        assertThat(path).contains("topN=10");
+        assertThat(path).doesNotContain("q=");
+        ArgumentCaptor<RecommendationLog> captor = ArgumentCaptor.forClass(RecommendationLog.class);
+        then(recommendationLogRepository).should().save(captor.capture());
+        assertThat(captor.getValue().getLlmSucceeded()).isNull();
+        assertThat(captor.getValue().getInterpretedFilters()).contains("\"fallback\":false");
+    }
+
+    @Test
+    void searchWithoutCriteriaIsEmpty() {
+        assertThat(service.search(null, null, null, null, "  ", null, 0)).isEmpty();
+        then(catalogService).shouldHaveNoInteractions();
+    }
+
+    @Test
+    void chipsOmitRemovedIdFromUrl() {
+        Tag mood = new Tag(TagType.MOOD, "Energetic");
+        ReflectionTestUtils.setField(mood, "id", 1L);
+        given(tagRepository.findAllUsedOrderByTypeAscNameAsc()).willReturn(List.of(mood));
+
+        var chips = service.chips(null, List.of(1L, 2L), null, null, null, null);
+
+        assertThat(chips).hasSize(2);
+        assertThat(chips.get(0).removeUrl()).contains("moodId=2");
+        assertThat(chips.get(0).removeUrl()).doesNotContain("moodId=1");
+    }
+}

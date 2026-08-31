@@ -13,6 +13,7 @@ import { isCatalogPath, loadCatalogResults, initCatalogSongEdit,
 import { initImportProgress } from "./import-progress.js";
 import { initSongUpload } from "./song-upload.js";
 import { initPlaylistAdd } from "./playlist-add.js";
+import { initSearchPrompt, initSearchSelection } from "./search.js";
 
 var bound = false;
 
@@ -163,6 +164,8 @@ export function initShellSoftNav() {
         initSongUpload(currentMain);
         initCatalogSongEdit(document);
         initPlaylistAdd();
+        initSearchPrompt(currentMain);
+        initSearchSelection(currentMain);
         syncCatalogFilterLabels(currentMain);
         syncPlayingTitleHighlight(document);
 

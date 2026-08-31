@@ -97,7 +97,7 @@ public final class CatalogTaxonomy {
         putMood("Powerful");
         putMood("Quirky");
         putMood("Reflective", "reflection");
-        putMood("Relaxing", "relaxed");
+        putMood("Relaxing", "relaxed", "relax");
         putMood("Restless");
         putMood("Romantic");
         putMood("Running");

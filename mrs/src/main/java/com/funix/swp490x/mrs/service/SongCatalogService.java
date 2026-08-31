@@ -11,6 +11,7 @@ import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.repository.SongRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -78,9 +79,21 @@ public class SongCatalogService {
     @Transactional(readOnly = true)
     public Page<Song> search(List<String> providers, List<Long> genreIds, List<Long> moodIds,
             List<Long> tagIds, String query, int page) {
+        return search(providers, genreIds, moodIds, null, tagIds, query, page);
+    }
+
+    /**
+     * Same filter as {@link #search} with an Artist vocabulary (P-02). Songs
+     * and admin catalog keep calling the shorter overload so their sort and
+     * columns do not change.
+     */
+    @Transactional(readOnly = true)
+    public Page<Song> search(List<String> providers, List<Long> genreIds, List<Long> moodIds,
+            List<Long> artistIds, List<Long> tagIds, String query, int page) {
 
         Pageable pageable = PageRequest.of(Math.max(page, 0), PAGE_SIZE, TITLE_THEN_ID);
-        Page<Long> ids = matchingIds(providers, genreIds, moodIds, tagIds, query, pageable);
+        Page<Long> ids = matchingIds(providers, genreIds, moodIds, artistIds, tagIds, query,
+                pageable);
 
         if (ids.isEmpty()) {
             return new PageImpl<>(List.of(), pageable, ids.getTotalElements());
@@ -112,7 +125,7 @@ public class SongCatalogService {
     public List<PreviewTrack> playQueue(List<String> providers, List<Long> genreIds,
             List<Long> moodIds, List<Long> tagIds, String query) {
 
-        Page<Long> ids = matchingIds(providers, genreIds, moodIds, tagIds, query,
+        Page<Long> ids = matchingIds(providers, genreIds, moodIds, null, tagIds, query,
                 Pageable.unpaged(TITLE_THEN_ID));
         if (ids.isEmpty()) {
             return List.of();
@@ -130,26 +143,143 @@ public class SongCatalogService {
                 .toList();
     }
 
+    /**
+     * P-02: songs that match <em>any</em> selected genre, mood, artist, or tag
+     * (and/or title/artist {@code query}), ordered by how many of those chips
+     * the row carries, then title. {@code topN} caps the ranked list before
+     * paging. Songs / admin catalog keep AND-across via {@link #search}.
+     */
+    @Transactional(readOnly = true)
+    public Page<Song> searchRecommended(List<Long> genreIds, List<Long> moodIds,
+            List<Long> artistIds, List<Long> tagIds, String query, Integer topN, int page) {
+
+        List<Song> limited = rankedSongs(genreIds, moodIds, artistIds, tagIds, query, topN);
+        Pageable pageable = PageRequest.of(Math.max(page, 0), PAGE_SIZE);
+        int from = Math.min((int) pageable.getOffset(), limited.size());
+        int to = Math.min(from + PAGE_SIZE, limited.size());
+        return new PageImpl<>(limited.subList(from, to), pageable, limited.size());
+    }
+
+    /**
+     * Playable tracks for the Search preview bar, in recommendation order.
+     */
+    @Transactional(readOnly = true)
+    public List<PreviewTrack> playQueueRecommended(List<Long> genreIds, List<Long> moodIds,
+            List<Long> artistIds, List<Long> tagIds, String query, Integer topN) {
+
+        return rankedSongs(genreIds, moodIds, artistIds, tagIds, query, topN).stream()
+                .filter(song -> StringUtils.hasText(song.getAudioUrl()))
+                .map(PreviewTrack::from)
+                .toList();
+    }
+
+    private List<Song> rankedSongs(List<Long> genreIds, List<Long> moodIds,
+            List<Long> artistIds, List<Long> tagIds, String query, Integer topN) {
+
+        Page<Long> ids = matchingIds(null, genreIds, moodIds, artistIds, tagIds, query,
+                Pageable.unpaged(TITLE_THEN_ID), true);
+        if (ids.isEmpty()) {
+            return List.of();
+        }
+        Map<Long, Song> byId = new LinkedHashMap<>();
+        for (Song song : songRepository.findAllWithTags(ids.getContent())) {
+            byId.put(song.getId(), song);
+        }
+        Set<Long> relevance = relevanceIds(genreIds, moodIds, artistIds, tagIds);
+        List<Song> ranked = ids.getContent().stream()
+                .map(byId::get)
+                .filter(Objects::nonNull)
+                .sorted(relevanceOrder(relevance))
+                .toList();
+        int cap = positive(topN) ? Math.min(topN, ranked.size()) : ranked.size();
+        return ranked.subList(0, cap);
+    }
+
     private Page<Long> matchingIds(List<String> providers, List<Long> genreIds,
-            List<Long> moodIds, List<Long> tagIds, String query, Pageable pageable) {
+            List<Long> moodIds, List<Long> artistIds, List<Long> tagIds, String query,
+            Pageable pageable) {
+        return matchingIds(providers, genreIds, moodIds, artistIds, tagIds, query, pageable,
+                false);
+    }
+
+    private Page<Long> matchingIds(List<String> providers, List<Long> genreIds,
+            List<Long> moodIds, List<Long> artistIds, List<Long> tagIds, String query,
+            Pageable pageable, boolean matchAny) {
 
         List<String> providerValues = nonBlank(providers);
         boolean providerEmpty = providerValues.isEmpty();
         boolean genreEmpty = empty(genreIds);
         boolean moodEmpty = empty(moodIds);
+        boolean artistEmpty = empty(artistIds);
         boolean tagEmpty = empty(tagIds);
+        List<String> providersBound = providerEmpty ? UNUSED_PROVIDERS : providerValues;
+        List<Long> genreBound = genreEmpty ? UNUSED_IDS : genreIds;
+        List<Long> moodBound = moodEmpty ? UNUSED_IDS : moodIds;
+        List<Long> artistBound = artistEmpty ? UNUSED_IDS : artistIds;
+        List<Long> tagBound = tagEmpty ? UNUSED_IDS : tagIds;
+        String q = StringUtils.hasText(query) ? query.trim() : null;
 
+        if (matchAny) {
+            return songRepository.searchIdsMatchingAny(
+                    providerEmpty, providersBound,
+                    genreEmpty, genreBound,
+                    moodEmpty, moodBound,
+                    artistEmpty, artistBound,
+                    tagEmpty, tagBound,
+                    q, pageable);
+        }
         return songRepository.searchIds(
-                providerEmpty,
-                providerEmpty ? UNUSED_PROVIDERS : providerValues,
-                genreEmpty,
-                genreEmpty ? UNUSED_IDS : genreIds,
-                moodEmpty,
-                moodEmpty ? UNUSED_IDS : moodIds,
-                tagEmpty,
-                tagEmpty ? UNUSED_IDS : tagIds,
-                StringUtils.hasText(query) ? query.trim() : null,
-                pageable);
+                providerEmpty, providersBound,
+                genreEmpty, genreBound,
+                moodEmpty, moodBound,
+                artistEmpty, artistBound,
+                tagEmpty, tagBound,
+                q, pageable);
+    }
+
+    private static Set<Long> relevanceIds(List<Long> genreIds, List<Long> moodIds,
+            List<Long> artistIds, List<Long> tagIds) {
+        Set<Long> ids = new LinkedHashSet<>();
+        addAll(ids, genreIds);
+        addAll(ids, moodIds);
+        addAll(ids, artistIds);
+        addAll(ids, tagIds);
+        return ids;
+    }
+
+    private static void addAll(Set<Long> into, List<Long> values) {
+        if (values == null) {
+            return;
+        }
+        for (Long id : values) {
+            if (id != null) {
+                into.add(id);
+            }
+        }
+    }
+
+    private static Comparator<Song> relevanceOrder(Set<Long> relevance) {
+        return Comparator
+                .comparingInt((Song song) -> matchCount(song, relevance)).reversed()
+                .thenComparing(Song::getTitle, Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER))
+                .thenComparing(Song::getId, Comparator.nullsLast(Long::compareTo));
+    }
+
+    private static int matchCount(Song song, Set<Long> relevance) {
+        if (relevance.isEmpty() || song.getTags() == null) {
+            return 0;
+        }
+        int count = 0;
+        for (var tag : song.getTags()) {
+            if (tag.getId() != null && relevance.contains(tag.getId())) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private static boolean positive(Integer value) {
+        return value != null && value > 0;
     }
 
     private static boolean empty(List<?> values) {

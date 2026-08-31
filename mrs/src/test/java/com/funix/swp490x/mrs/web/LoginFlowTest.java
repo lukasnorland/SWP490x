@@ -68,6 +68,9 @@ class LoginFlowTest {
     @MockitoBean
     private PlaylistService playlistService;
 
+    @MockitoBean
+    private com.funix.swp490x.mrs.service.SearchService searchService;
+
     private User account(Role role, boolean mustChangePassword) {
         User user = new User();
         user.setId(1L);
