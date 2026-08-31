@@ -477,6 +477,15 @@ export function initPreviewPlayer(root) {
     return tracks;
   }
 
+  function catalogQueueUrl(source) {
+    var path = PLAY_QUEUE_PATH;
+    if (source && source.getAttribute("data-preview-queue-url")) {
+      path = source.getAttribute("data-preview-queue-url");
+    }
+    var params = catalogQueueParams();
+    return path + (params ? "?" + params : "");
+  }
+
   function catalogQueueParams() {
     var form = root.querySelector("[data-catalog-filters]");
     if (form) {
@@ -493,15 +502,14 @@ export function initPreviewPlayer(root) {
     return parts.join("&");
   }
 
-  function fetchCatalogQueue(track) {
+  function fetchCatalogQueue(track, source) {
     if (queueFetchController) {
       queueFetchController.abort();
     }
     var generation = ++queueFetchGeneration;
     var controller = new AbortController();
     queueFetchController = controller;
-    var params = catalogQueueParams();
-    var url = PLAY_QUEUE_PATH + (params ? "?" + params : "");
+    var url = catalogQueueUrl(source);
     fetch(url, {
       headers: { Accept: "application/json" },
       signal: controller.signal
@@ -534,7 +542,7 @@ export function initPreviewPlayer(root) {
     var kind = source ? source.getAttribute("data-preview-queue") : "";
     if (kind === "catalog") {
       adoptQueue(tracksFromButtons(source), track);
-      fetchCatalogQueue(track);
+      fetchCatalogQueue(track, source);
       return;
     }
     if (kind === "list" && source) {

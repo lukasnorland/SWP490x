@@ -241,8 +241,28 @@ public class PlaylistService {
      */
     @Transactional
     public Playlist createWithSong(Long userId, String name, Long songId) {
+        return createWithSongs(userId, name, List.of(songId));
+    }
+
+    /**
+     * New Draft plus every listed song, skipping duplicates so a multi-select
+     * from Search still lands a playlist.
+     */
+    @Transactional
+    public Playlist createWithSongs(Long userId, String name, List<Long> songIds) {
         Playlist playlist = create(userId, name);
-        addSong(playlist.getId(), songId, userId);
+        if (songIds != null) {
+            for (Long songId : songIds) {
+                if (songId == null) {
+                    continue;
+                }
+                try {
+                    addSong(playlist.getId(), songId, userId);
+                } catch (DuplicatePlaylistSongException ignored) {
+                    // Same song twice in the selection — the first insert stands.
+                }
+            }
+        }
         return playlist;
     }
 

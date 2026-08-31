@@ -265,7 +265,9 @@ public class AdminCatalogController {
         model.addAttribute("filterGenreIds", orEmpty(genreIds));
         model.addAttribute("filterMoodIds", orEmpty(moodIds));
         model.addAttribute("filterTagIds", orEmpty(tagIds));
+        model.addAttribute("filterArtistIds", List.of());
         model.addAttribute("filterQuery", q == null ? "" : q);
+        model.addAttribute("filterTopN", "");
     }
 
     private static <T> List<T> orEmpty(List<T> values) {

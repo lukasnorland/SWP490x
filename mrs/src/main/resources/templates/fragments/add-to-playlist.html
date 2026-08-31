@@ -32,8 +32,10 @@
               class="d-flex flex-column gap-2 mb-0"
               data-add-existing-form
               th:if="${myPlaylists != null and !myPlaylists.isEmpty()}">
-          <input type="hidden" name="songId" data-add-song-id value="">
           <input type="hidden" name="returnTo" data-add-return-to value="">
+          <div data-add-song-ids>
+            <input type="hidden" name="songId" data-add-song-id value="">
+          </div>
 
           <label class="form-label" for="addToPlaylistPick">Existing playlist</label>
           <div class="d-flex gap-2">
@@ -57,8 +59,10 @@
         <!--/* Create-and-add, so the whole loop is one action (NFR-U01). */-->
         <form th:action="@{/playlists}" method="post"
               class="d-flex flex-column gap-2 mb-0" data-add-create-form>
-          <input type="hidden" name="songId" data-add-song-id value="">
           <input type="hidden" name="returnTo" data-add-return-to value="">
+          <div data-add-song-ids>
+            <input type="hidden" name="songId" data-add-song-id value="">
+          </div>
 
           <label class="form-label" for="addToPlaylistName">New playlist</label>
           <div class="d-flex gap-2">

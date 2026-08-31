@@ -6,6 +6,7 @@
 "use strict";
 
 import { syncPlayingTitleHighlight } from "./player.js";
+import { initSearchSelection } from "./search.js";
 import { setTagSuggestValue } from "./tag-suggest.js";
 
 var CATALOG_PARTIAL_VALUE = "results";
@@ -51,7 +52,8 @@ function syncFilterLabel(dropdown) {
 
 export function isCatalogPath(pathname) {
   return pathname === "/admin/catalog" || pathname.indexOf("/admin/catalog/") === 0
-      || pathname === "/songs" || pathname.indexOf("/songs/") === 0;
+      || pathname === "/songs" || pathname.indexOf("/songs/") === 0
+      || pathname === "/search" || pathname.indexOf("/search/") === 0;
 }
 
 export function loadCatalogResults(url, pushUrl) {
@@ -135,6 +137,7 @@ export function initCatalogPartialPaging(root) {
           history.pushState({ mrsCatalogPartial: true }, "", url);
         }
         syncPlayingTitleHighlight(root);
+        initSearchSelection(root);
       })
       .catch(function (error) {
         if (error && error.name === "AbortError") {
@@ -181,7 +184,7 @@ export function initCatalogPartialPaging(root) {
     if (!resultsEl) {
       return;
     }
-    var link = event.target.closest(".pagination .page-link");
+    var link = event.target.closest(".pagination .page-link, [data-catalog-partial]");
     if (!link || !resultsEl.contains(link)) {
       return;
     }

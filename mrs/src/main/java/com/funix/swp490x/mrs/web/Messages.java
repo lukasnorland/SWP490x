@@ -180,6 +180,12 @@ public final class Messages {
     public static final String PLAYLIST_PICK_ONE =
             "Choose a playlist, or create a new one.";
 
+    /** P-02 FT-04: contextual query length. */
+    public static final String SEARCH_QUERY_LENGTH =
+            "Describe the playlist in 10–200 characters.";
+
+    public static final String SONGS_ADDED_TO_PLAYLIST = "Songs added to the playlist.";
+
     private Messages() {
     }
 }

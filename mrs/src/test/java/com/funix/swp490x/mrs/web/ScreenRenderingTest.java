@@ -104,6 +104,9 @@ class ScreenRenderingTest {
     @MockitoBean
     private com.funix.swp490x.mrs.catalog.TagSuggestionService tagSuggestionService;
 
+    @MockitoBean
+    private com.funix.swp490x.mrs.service.SearchService searchService;
+
     @BeforeEach
     void listsAreEmptyByDefault() {
         given(userAccountService.search(nullable(Role.class), nullable(UserStatus.class),
@@ -129,6 +132,14 @@ class ScreenRenderingTest {
         given(catalogImportService.sourceDescription()).willReturn("s3://bucket/song-data/");
         given(songDraftUploadService.registeredProviders())
                 .willReturn(List.of("EpidemicSound", "NCS", "OneOff"));
+        given(searchService.search(nullable(List.class), nullable(List.class),
+                nullable(List.class), nullable(List.class), nullable(String.class),
+                nullable(Integer.class), anyInt()))
+                .willReturn(Page.empty());
+        given(searchService.chips(nullable(List.class), nullable(List.class),
+                nullable(List.class), nullable(List.class), nullable(String.class),
+                nullable(Integer.class)))
+                .willReturn(List.of());
     }
 
     /**

@@ -8,28 +8,52 @@
     <div class="d-flex flex-column gap-1">
       <h1>Search the catalog</h1>
       <p class="small text-secondary">
-        Describe the context you are curating for, or filter by metadata directly.
+        Describe the playlist you are curating for. Matches are ranked from the catalog.
       </p>
     </div>
   </header>
 
   <div class="d-flex flex-column gap-4">
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A',
-        'Contextual query box',
-        'Sparkles-marked input, 10–200 characters with a live counter. Sends the raw query to the LLM for interpretation (FT-04 BV).')}"></section>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
-        'Filter panel — 240px rail',
-        'Genre, Mood, Artist and Tags multi-selects. Songs must match every category set; values inside one category are OR (FT-03). Tags carry freeform provider descriptors for LLM context. Below it, the Top-N recommendation input, positive integers only (FT-05 NAC-03).')}"></section>
+    <section class="card">
+      <div class="card-body">
+        <form method="post" th:action="@{/search/interpret}" class="d-flex flex-column gap-3"
+              data-search-prompt>
+          <label class="form-label mb-0" for="searchPrompt">Playlist need</label>
+          <div class="input-group">
+            <span class="input-group-text" title="Interpreted against catalog metadata">
+              <svg th:replace="~{fragments/icons :: icon('sparkles', 'icon--sm')}"></svg>
+            </span>
+            <textarea class="form-control" id="searchPrompt" name="q" rows="2"
+                      minlength="10" maxlength="200" required
+                      placeholder="e.g. upbeat summer campaign for a beach game"
+                      th:text="${promptQuery}"></textarea>
+          </div>
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+            <p class="small text-secondary mb-0">
+              <span data-search-count>0</span>/200 · 10–200 characters
+            </p>
+            <div class="d-flex align-items-end gap-2">
+              <div>
+                <label class="form-label mb-1" for="searchTopN">Top-N</label>
+                <input class="form-control" type="number" id="searchTopN" name="topN"
+                       min="1" step="1" inputmode="numeric" placeholder="All matches"
+                       style="width: 7rem"
+                       th:value="${filterTopN}" title="Keep only the N best-ranked matches">
+              </div>
+              <button type="submit" class="btn btn-primary" data-search-submit>Interpret</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C',
-        'Interpreted chips and results table',
-        'Removable LLM filter chips with a confidence indicator, then the results table: cover, title, artist, duration, matched tags, popularity. Default sort popularity desc, toggle to relevance without re-filtering. Unscored songs show a dash and always sort last (BR-08). 20 rows per page.')}"></section>
+    <div th:replace="~{fragments/search-results :: results}"></div>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone D',
-        'Sticky selection bar',
-        '&quot;Add N selected to playlist&quot; with a dropdown offering a new playlist or an existing editable Draft (BR-03). The whole loop must stay within five actions (NFR-U01).')}"></section>
   </div>
+
+  <div th:if="${currentUser != null and currentUser.curator}"
+       th:replace="~{fragments/add-to-playlist :: dialog}"></div>
 
 </div>
 </body>

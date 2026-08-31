@@ -71,13 +71,13 @@ export function initPlaylistAdd() {
 }
 
 function fillDialog(dialog, trigger) {
-  var songId = trigger.getAttribute("data-song-id") || "";
+  var ids = selectedSongIds(trigger);
   var title = trigger.getAttribute("data-song-title") || "";
   var artist = trigger.getAttribute("data-song-artist");
   var returnTo = window.location.pathname + window.location.search;
 
-  dialog.querySelectorAll("[data-add-song-id]").forEach(function (input) {
-    input.value = songId;
+  dialog.querySelectorAll("[data-add-song-ids]").forEach(function (holder) {
+    fillSongIds(holder, ids);
   });
   dialog.querySelectorAll("[data-add-return-to]").forEach(function (input) {
     input.value = returnTo;
@@ -85,7 +85,11 @@ function fillDialog(dialog, trigger) {
 
   var label = dialog.querySelector("[data-add-song-label]");
   if (label) {
-    label.textContent = artist && artist !== "null" ? title + " — " + artist : title;
+    if (ids.length > 1) {
+      label.textContent = ids.length + " songs selected.";
+    } else {
+      label.textContent = artist && artist !== "null" ? title + " — " + artist : title;
+    }
   }
 
   var select = dialog.querySelector("[data-add-playlist-select]");
@@ -96,6 +100,43 @@ function fillDialog(dialog, trigger) {
   var name = dialog.querySelector("#addToPlaylistName");
   if (name) {
     name.value = "";
+  }
+}
+
+function selectedSongIds(trigger) {
+  if (trigger.hasAttribute("data-add-selected")) {
+    var ids = [];
+    document.querySelectorAll("[data-search-select]:checked").forEach(function (box) {
+      if (box.value) {
+        ids.push(box.value);
+      }
+    });
+    return ids;
+  }
+  var one = trigger.getAttribute("data-song-id") || "";
+  return one ? [one] : [];
+}
+
+function fillSongIds(holder, ids) {
+  var template = holder.querySelector("[data-add-song-id]");
+  if (!template) {
+    return;
+  }
+  holder.querySelectorAll("[data-add-song-id]").forEach(function (input, index) {
+    if (index > 0) {
+      input.remove();
+    }
+  });
+  var first = holder.querySelector("[data-add-song-id]");
+  if (!ids.length) {
+    first.value = "";
+    return;
+  }
+  first.value = ids[0];
+  for (var i = 1; i < ids.length; i++) {
+    var extra = first.cloneNode(true);
+    extra.value = ids[i];
+    holder.appendChild(extra);
   }
 }
 

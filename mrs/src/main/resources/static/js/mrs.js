@@ -14,6 +14,7 @@
      import-progress.js  P-06b live catalog sync status panel
      song-upload.js      P-06b Add Song audio + artwork dropzone
      playlist-add.js     FT-06 Add-to-playlist dialog from a Songs row
+     search.js     P-02 prompt counter and multi-select bar
    ========================================================================== */
 "use strict";
 
@@ -25,6 +26,7 @@ import { initShellSoftNav } from "./shell-nav.js";
 import { initImportProgress } from "./import-progress.js";
 import { initSongUpload } from "./song-upload.js";
 import { initPlaylistAdd } from "./playlist-add.js";
+import { initSearchPrompt, initSearchSelection } from "./search.js";
 
 function start() {
   enhanceForms(document);
@@ -36,6 +38,8 @@ function start() {
   initImportProgress(document);
   initSongUpload(document);
   initPlaylistAdd();
+  initSearchPrompt(document);
+  initSearchSelection(document);
 }
 
 if (document.readyState === "loading") {

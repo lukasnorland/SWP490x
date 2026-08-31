@@ -279,7 +279,12 @@ public class Song {
         return tagsOf(TagType.MOOD);
     }
 
-    /** Freeform descriptor badges (JSON {@code tags}). */
+    /** Artist badges for P-02 filters and chips. */
+    public List<Tag> getArtistTags() {
+        return tagsOf(TagType.ARTIST);
+    }
+
+    /** Freeform tag badges for the catalog table (JSON {@code tags}). */
     public List<Tag> getFreeformTags() {
         return tagsOf(TagType.TAGS);
     }

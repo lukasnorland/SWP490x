@@ -100,18 +100,23 @@ public class PlaylistController {
     @PostMapping(Routes.PLAYLISTS)
     public String create(@AuthenticationPrincipal MrsUserDetails user,
             @RequestParam String name,
-            @RequestParam(required = false) Long songId,
+            @RequestParam(required = false) List<Long> songId,
             @RequestParam(required = false) String returnTo,
             RedirectAttributes redirectAttributes) {
 
         try {
-            if (songId == null) {
+            if (songId == null || songId.isEmpty()) {
                 Playlist created = playlistService.create(userId(user), name);
                 flash(redirectAttributes, "success", Messages.PLAYLIST_CREATED);
                 return "redirect:" + Routes.PLAYLISTS + "/" + created.getId();
             }
-            playlistService.createWithSong(userId(user), name, songId);
-            flash(redirectAttributes, "success", Messages.PLAYLIST_CREATED_WITH_SONG);
+            if (songId.size() == 1) {
+                playlistService.createWithSong(userId(user), name, songId.get(0));
+                flash(redirectAttributes, "success", Messages.PLAYLIST_CREATED_WITH_SONG);
+            } else {
+                playlistService.createWithSongs(userId(user), name, songId);
+                flash(redirectAttributes, "success", Messages.SONGS_ADDED_TO_PLAYLIST);
+            }
         } catch (InvalidPlaylistStateException e) {
             flash(redirectAttributes, "warning", Messages.PLAYLIST_NAME_REQUIRED);
         } catch (SongNotFoundException e) {
@@ -146,15 +151,33 @@ public class PlaylistController {
     @PostMapping(Routes.PLAYLIST_SONGS)
     public String addSong(@PathVariable Long id,
             @AuthenticationPrincipal MrsUserDetails user,
-            @RequestParam Long songId,
+            @RequestParam List<Long> songId,
             @RequestParam(required = false) String returnTo,
             RedirectAttributes redirectAttributes) {
 
         try {
-            playlistService.addSong(id, songId, userId(user));
-            flash(redirectAttributes, "success", Messages.SONG_ADDED_TO_PLAYLIST);
-        } catch (DuplicatePlaylistSongException e) {
-            flash(redirectAttributes, "warning", Messages.SONG_ALREADY_IN_PLAYLIST);
+            int added = 0;
+            boolean duplicate = false;
+            for (Long one : songId) {
+                if (one == null) {
+                    continue;
+                }
+                try {
+                    playlistService.addSong(id, one, userId(user));
+                    added++;
+                } catch (DuplicatePlaylistSongException e) {
+                    duplicate = true;
+                }
+            }
+            if (added == 0 && duplicate) {
+                flash(redirectAttributes, "warning", Messages.SONG_ALREADY_IN_PLAYLIST);
+            } else if (added == 1 && !duplicate) {
+                flash(redirectAttributes, "success", Messages.SONG_ADDED_TO_PLAYLIST);
+            } else if (added > 0) {
+                flash(redirectAttributes, "success", Messages.SONGS_ADDED_TO_PLAYLIST);
+            } else {
+                flash(redirectAttributes, "danger", Messages.SONG_NOT_FOUND);
+            }
         } catch (PlaylistLockedException e) {
             flash(redirectAttributes, "warning", Messages.PLAYLIST_LOCKED);
         } catch (PlaylistNotFoundException e) {
