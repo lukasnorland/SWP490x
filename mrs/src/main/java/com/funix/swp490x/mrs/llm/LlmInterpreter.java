@@ -3,8 +3,10 @@ package com.funix.swp490x.mrs.llm;
 import java.util.Optional;
 
 /**
- * Turns a curator prompt into catalog filter names. Gemini will implement this
- * later; vocabulary matching is the BR-07 fallback and the only bean for now.
+ * Turns a curator prompt into catalog filter names.
+ *
+ * <p>Bean is {@link GeminiLlmInterpreter} when {@code mrs.llm.api-key} is set,
+ * otherwise {@link VocabularyMatchInterpreter}.
  */
 public interface LlmInterpreter {
 

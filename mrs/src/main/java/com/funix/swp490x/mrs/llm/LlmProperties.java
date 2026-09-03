@@ -5,23 +5,24 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * How contextual Search talks to an LLM (FT-04). The key stays out of git —
- * empty here, set in {@code local.properties} when Gemini is wired.
+ * empty here, set in {@code local.properties} when Gemini is enabled.
  *
- * <p>This slice does not call a provider. {@code api-key} is ignored until a
- * later {@code GeminiLlmInterpreter} reads it.
+ * <p>When {@code api-key} is blank, {@link LlmConfig} wires vocabulary matching
+ * only. When set, {@link GeminiLlmInterpreter} calls Gemini and falls back on
+ * failure.
  */
 @ConfigurationProperties("mrs.llm")
 public class LlmProperties {
 
     private String provider = "gemini";
 
-    private String model = "gemini-2.5-flash";
+    private String model = "gemini-3.8-flash";
 
     /** Empty until Gemini is enabled. Never commit a real value. */
     private String apiKey = "";
 
     /** FT-04 interpretation budget. */
-    private Duration timeout = Duration.ofSeconds(5);
+    private Duration timeout = Duration.ofSeconds(30);
 
     private int minQueryChars = 10;
 

@@ -18,18 +18,33 @@
     <section class="card">
       <div class="card-body">
         <form method="post" th:action="@{/search/interpret}" class="d-flex flex-column gap-3"
-              data-search-prompt>
+              data-search-prompt data-busy-label="Finding matches…">
           <label class="form-label mb-0" for="searchPrompt">Playlist need</label>
-          <div class="input-group">
-            <span class="input-group-text" title="Interpreted against catalog metadata">
+          <div class="search-prompt-field">
+            <div class="input-group">
+              <span class="input-group-text" title="Interpreted against catalog metadata">
+                <svg th:replace="~{fragments/icons :: icon('sparkles', 'icon--sm')}"></svg>
+              </span>
+              <textarea class="form-control" id="searchPrompt" name="q" rows="2"
+                        minlength="10" maxlength="200" required
+                        placeholder="e.g. upbeat summer campaign for a beach game"
+                        th:text="${promptQuery}"></textarea>
+            </div>
+          </div>
+          <div class="search-interpreting-status" data-busy-status hidden role="status"
+               aria-live="polite">
+            <span class="search-interpreting-status__icon" aria-hidden="true">
               <svg th:replace="~{fragments/icons :: icon('sparkles', 'icon--sm')}"></svg>
             </span>
-            <textarea class="form-control" id="searchPrompt" name="q" rows="2"
-                      minlength="10" maxlength="200" required
-                      placeholder="e.g. upbeat summer campaign for a beach game"
-                      th:text="${promptQuery}"></textarea>
+            <div class="search-interpreting-status__copy">
+              <p class="mb-1 fw-medium">Putting your playlist together</p>
+              <p class="small text-secondary mb-0">
+                Matching moods and tags against the catalog. This can take up to 30 seconds —
+                please stay on this page.
+              </p>
+            </div>
           </div>
-          <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 search-prompt-controls">
             <p class="small text-secondary mb-0">
               <span data-search-count>0</span>/200 · 10–200 characters
             </p>

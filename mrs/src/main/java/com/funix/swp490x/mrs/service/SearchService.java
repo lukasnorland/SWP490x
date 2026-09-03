@@ -7,6 +7,7 @@ import com.funix.swp490x.mrs.llm.FilterMapper;
 import com.funix.swp490x.mrs.llm.FilterMapper.MappedFilters;
 import com.funix.swp490x.mrs.llm.FilterVocabulary;
 import com.funix.swp490x.mrs.llm.InterpretedFilters;
+import com.funix.swp490x.mrs.llm.GeminiLlmInterpreter;
 import com.funix.swp490x.mrs.llm.LlmInterpreter;
 import com.funix.swp490x.mrs.llm.LlmProperties;
 import com.funix.swp490x.mrs.repository.RecommendationLogRepository;
@@ -95,15 +96,20 @@ public class SearchService {
                 mapped.genreIds(), mapped.moodIds(), mapped.artistIds(), mapped.tagIds(),
                 keyword, topN, 0);
 
+        boolean llmUsed = interpreter instanceof GeminiLlmInterpreter;
+        Boolean llmSucceeded = fallback
+                ? Boolean.FALSE
+                : (llmUsed ? Boolean.TRUE : null);
+
         recommendationLogRepository.save(new RecommendationLog(
                 userId,
                 query,
                 detailsJson(interpreted.orElse(InterpretedFilters.empty()), mapped, fallback),
-                false,
-                fallback ? Boolean.FALSE : null,
+                llmUsed,
+                llmSucceeded,
                 (int) results.getTotalElements()));
 
-        return redirectPath(mapped, keyword, topN);
+        return redirectPath(mapped, keyword, topN, query);
     }
 
     @Transactional(readOnly = true)
@@ -152,7 +158,7 @@ public class SearchService {
         }
     }
 
-    static String redirectPath(MappedFilters mapped, String keyword, Integer topN) {
+    static String redirectPath(MappedFilters mapped, String keyword, Integer topN, String prompt) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromPath(Routes.SEARCH);
         appendIds(builder, "genreId", mapped.genreIds());
         appendIds(builder, "moodId", mapped.moodIds());
@@ -160,6 +166,9 @@ public class SearchService {
         appendIds(builder, "tagId", mapped.tagIds());
         if (StringUtils.hasText(keyword)) {
             builder.queryParam("q", keyword);
+        }
+        if (StringUtils.hasText(prompt)) {
+            builder.queryParam("prompt", prompt);
         }
         if (topN != null && topN > 0) {
             builder.queryParam("topN", topN);
@@ -187,22 +196,27 @@ public class SearchService {
     }
 
     public List<SearchChip> chips(List<Long> genreIds, List<Long> moodIds, List<Long> artistIds,
-            List<Long> tagIds, String query, Integer topN) {
+            List<Long> tagIds, String keyword, String prompt, Integer topN) {
 
         List<SearchChip> chips = new ArrayList<>();
         Map<Long, String> names = new LinkedHashMap<>();
         tagRepository.findAllUsedOrderByTypeAscNameAsc()
                 .forEach(tag -> names.put(tag.getId(), tag.getName()));
-        addChips(chips, "Genre", genreIds, names, genreIds, moodIds, artistIds, tagIds, query, topN);
-        addChips(chips, "Mood", moodIds, names, genreIds, moodIds, artistIds, tagIds, query, topN);
-        addChips(chips, "Artist", artistIds, names, genreIds, moodIds, artistIds, tagIds, query, topN);
-        addChips(chips, "Tag", tagIds, names, genreIds, moodIds, artistIds, tagIds, query, topN);
+        addChips(chips, "Genre", genreIds, names, genreIds, moodIds, artistIds, tagIds, keyword,
+                prompt, topN);
+        addChips(chips, "Mood", moodIds, names, genreIds, moodIds, artistIds, tagIds, keyword,
+                prompt, topN);
+        addChips(chips, "Artist", artistIds, names, genreIds, moodIds, artistIds, tagIds, keyword,
+                prompt, topN);
+        addChips(chips, "Tag", tagIds, names, genreIds, moodIds, artistIds, tagIds, keyword,
+                prompt, topN);
         return List.copyOf(chips);
     }
 
     private void addChips(List<SearchChip> chips, String type, List<Long> ofType,
             Map<Long, String> names, List<Long> genreIds, List<Long> moodIds,
-            List<Long> artistIds, List<Long> tagIds, String query, Integer topN) {
+            List<Long> artistIds, List<Long> tagIds, String keyword, String prompt,
+            Integer topN) {
         if (ofType == null) {
             return;
         }
@@ -213,7 +227,7 @@ public class SearchService {
             String label = names.getOrDefault(id, "#" + id);
             String remove = redirectPath(
                     without(genreIds, moodIds, artistIds, tagIds, type, id),
-                    query, topN);
+                    keyword, topN, prompt);
             chips.add(new SearchChip(type, id, label, remove));
         }
     }
