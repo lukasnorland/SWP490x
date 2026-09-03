@@ -42,12 +42,13 @@ public class SearchController {
             @RequestParam(required = false) List<Long> artistId,
             @RequestParam(required = false) List<Long> tagId,
             @RequestParam(required = false) String q,
+            @RequestParam(required = false) String prompt,
             @RequestParam(required = false) Integer topN,
             @RequestParam(defaultValue = "0") int page,
             @RequestHeader(value = PARTIAL_RESULTS_HEADER, required = false) String partial,
             Model model) {
 
-        populateResults(model, genreId, moodId, artistId, tagId, q, topN, page);
+        populateResults(model, genreId, moodId, artistId, tagId, q, prompt, topN, page);
         if (PARTIAL_RESULTS_VALUE.equals(partial)) {
             return "fragments/search-results :: results";
         }
@@ -65,6 +66,7 @@ public class SearchController {
         } catch (InvalidSearchQueryException e) {
             redirectAttributes.addFlashAttribute("flash", Messages.SEARCH_QUERY_LENGTH);
             redirectAttributes.addFlashAttribute("flashVariant", "warning");
+            redirectAttributes.addFlashAttribute("promptQuery", q);
             return "redirect:" + Routes.SEARCH;
         }
     }
@@ -83,10 +85,16 @@ public class SearchController {
     }
 
     private void populateResults(Model model, List<Long> genreIds, List<Long> moodIds,
-            List<Long> artistIds, List<Long> tagIds, String q, Integer topN, int page) {
+            List<Long> artistIds, List<Long> tagIds, String q, String prompt, Integer topN,
+            int page) {
 
         Page<Song> songs = searchService.search(genreIds, moodIds, artistIds, tagIds, q, topN,
                 page);
+        String keyword = q == null ? "" : q.trim();
+        String promptText = prompt == null ? "" : prompt.trim();
+        if (promptText.isEmpty() && !keyword.isEmpty()) {
+            promptText = keyword;
+        }
         model.addAttribute("songs", songs);
         model.addAttribute("catalogBasePath", Routes.SEARCH);
         model.addAttribute("browseMode", true);
@@ -95,18 +103,19 @@ public class SearchController {
         model.addAttribute("filterMoodIds", orEmpty(moodIds));
         model.addAttribute("filterArtistIds", orEmpty(artistIds));
         model.addAttribute("filterTagIds", orEmpty(tagIds));
-        model.addAttribute("filterQuery", q == null ? "" : q);
+        model.addAttribute("filterQuery", keyword);
+        model.addAttribute("filterPrompt", promptText);
         model.addAttribute("filterTopN", topN == null || topN < 1 ? "" : String.valueOf(topN));
-        model.addAttribute("promptQuery", q == null ? "" : q);
+        model.addAttribute("promptQuery", promptText);
         List<Long> active = new java.util.ArrayList<>();
         active.addAll(orEmpty(genreIds));
         active.addAll(orEmpty(moodIds));
         active.addAll(orEmpty(artistIds));
         active.addAll(orEmpty(tagIds));
         model.addAttribute("activeFilterIds", active);
-        model.addAttribute("chips", searchService.chips(genreIds, moodIds, artistIds, tagIds, q,
-                topN));
-        model.addAttribute("hasSearchCriteria", !active.isEmpty() || (q != null && !q.isBlank()));
+        model.addAttribute("chips", searchService.chips(genreIds, moodIds, artistIds, tagIds,
+                keyword.isEmpty() ? null : keyword, promptText.isEmpty() ? null : promptText, topN));
+        model.addAttribute("hasSearchCriteria", !active.isEmpty() || !keyword.isEmpty());
     }
 
     private void populateShell(Model model, MrsUserDetails user) {

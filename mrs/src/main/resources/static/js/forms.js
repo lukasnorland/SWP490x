@@ -229,21 +229,40 @@ function showSesStatus(element, variant, message) {
 export function initSubmitStates(root) {
   root.querySelectorAll("form[data-busy-label]").forEach(function (form) {
     form.addEventListener("submit", function () {
+      if (form.getAttribute("data-busy") === "true") {
+        return;
+      }
       var button = form.querySelector("[type='submit']");
       if (!button || button.disabled) {
         return;
       }
+      form.setAttribute("data-busy", "true");
+      form.setAttribute("aria-busy", "true");
+      document.body.setAttribute("aria-busy", "true");
+
       button.disabled = true;
       button.innerHTML = "";
       var spinner = document.createElement("span");
-      spinner.className = "spinner-border spinner-border-sm";
+      spinner.className = "spinner-border spinner-border-sm me-2";
       spinner.setAttribute("aria-hidden", "true");
       var label = document.createElement("span");
       label.textContent = form.getAttribute("data-busy-label");
       button.append(spinner, label);
 
-      form.querySelectorAll("input").forEach(function (input) {
-        input.readOnly = true;
+      form.querySelectorAll("input, textarea, select").forEach(function (field) {
+        if (field === button || field.type === "submit" || field.type === "hidden") {
+          return;
+        }
+        if (field.type === "checkbox" || field.type === "radio" || field.tagName === "SELECT") {
+          field.disabled = true;
+          return;
+        }
+        // readOnly keeps values in the POST body; disabled fields are omitted.
+        field.readOnly = true;
+      });
+
+      form.querySelectorAll("[data-busy-status]").forEach(function (status) {
+        status.hidden = false;
       });
     });
   });

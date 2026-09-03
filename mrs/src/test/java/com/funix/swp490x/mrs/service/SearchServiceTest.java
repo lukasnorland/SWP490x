@@ -99,6 +99,7 @@ class SearchServiceTest {
         assertThat(path).contains("genreId=2");
         assertThat(path).contains("moodId=1");
         assertThat(path).contains("topN=10");
+        assertThat(path).contains("prompt=");
         assertThat(path).doesNotContain("q=");
         ArgumentCaptor<RecommendationLog> captor = ArgumentCaptor.forClass(RecommendationLog.class);
         then(recommendationLogRepository).should().save(captor.capture());
@@ -118,7 +119,7 @@ class SearchServiceTest {
         ReflectionTestUtils.setField(mood, "id", 1L);
         given(tagRepository.findAllUsedOrderByTypeAscNameAsc()).willReturn(List.of(mood));
 
-        var chips = service.chips(null, List.of(1L, 2L), null, null, null, null);
+        var chips = service.chips(null, List.of(1L, 2L), null, null, null, "summer vibes", null);
 
         assertThat(chips).hasSize(2);
         assertThat(chips.get(0).removeUrl()).contains("moodId=2");

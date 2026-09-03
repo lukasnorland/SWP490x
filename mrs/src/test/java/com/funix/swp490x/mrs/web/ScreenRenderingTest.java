@@ -138,7 +138,7 @@ class ScreenRenderingTest {
                 .willReturn(Page.empty());
         given(searchService.chips(nullable(List.class), nullable(List.class),
                 nullable(List.class), nullable(List.class), nullable(String.class),
-                nullable(Integer.class)))
+                nullable(String.class), nullable(Integer.class)))
                 .willReturn(List.of());
     }
 

@@ -4,6 +4,7 @@ import com.funix.swp490x.mrs.catalog.CatalogTaxonomy;
 import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.domain.TagType;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -19,14 +20,17 @@ public final class FilterVocabulary {
     private final Map<String, String> moods;
     private final Map<String, String> artists;
     private final Map<String, String> tags;
+    private final List<String> catalogGenreNames;
     private final List<Phrase> phrases;
 
     private FilterVocabulary(Map<String, String> genres, Map<String, String> moods,
-            Map<String, String> artists, Map<String, String> tags, List<Phrase> phrases) {
+            Map<String, String> artists, Map<String, String> tags,
+            List<String> catalogGenreNames, List<Phrase> phrases) {
         this.genres = Map.copyOf(genres);
         this.moods = Map.copyOf(moods);
         this.artists = Map.copyOf(artists);
         this.tags = Map.copyOf(tags);
+        this.catalogGenreNames = List.copyOf(catalogGenreNames);
         this.phrases = List.copyOf(phrases);
     }
 
@@ -39,6 +43,7 @@ public final class FilterVocabulary {
         Map<String, String> moods = new LinkedHashMap<>();
         Map<String, String> artists = new LinkedHashMap<>();
         Map<String, String> tags = new LinkedHashMap<>();
+        List<String> catalogGenreNames = new ArrayList<>();
         for (String name : taxonomy.allGenres()) {
             put(genres, name);
         }
@@ -51,7 +56,10 @@ public final class FilterVocabulary {
                     continue;
                 }
                 switch (tag.getType()) {
-                    case GENRE -> put(genres, tag.getName());
+                    case GENRE -> {
+                        put(genres, tag.getName());
+                        catalogGenreNames.add(tag.getName());
+                    }
                     case MOOD -> put(moods, tag.getName());
                     case ARTIST -> put(artists, tag.getName());
                     case TAGS -> put(tags, tag.getName());
@@ -64,7 +72,7 @@ public final class FilterVocabulary {
         addPhrases(phrases, TagType.ARTIST, artists);
         addPhrases(phrases, TagType.TAGS, tags);
         phrases.sort((a, b) -> Integer.compare(b.key().length(), a.key().length()));
-        return new FilterVocabulary(genres, moods, artists, tags, phrases);
+        return new FilterVocabulary(genres, moods, artists, tags, catalogGenreNames, phrases);
     }
 
     public Map<String, String> genres() {
@@ -81,6 +89,11 @@ public final class FilterVocabulary {
 
     public Map<String, String> tags() {
         return tags;
+    }
+
+    /** Genres attached to at least one song; kept out of the Gemini prompt's giant MB list. */
+    public Collection<String> catalogGenreNames() {
+        return catalogGenreNames;
     }
 
     /** Display names, longest first, so "high energy" wins over "energy". */
