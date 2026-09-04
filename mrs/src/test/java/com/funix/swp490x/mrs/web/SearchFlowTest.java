@@ -3,6 +3,7 @@ package com.funix.swp490x.mrs.web;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.BDDMockito.given;
@@ -19,7 +20,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.funix.swp490x.mrs.config.SecurityConfig;
 import com.funix.swp490x.mrs.config.WebConfig;
+import com.funix.swp490x.mrs.domain.Playlist;
 import com.funix.swp490x.mrs.domain.Role;
+import com.funix.swp490x.mrs.domain.Song;
 import com.funix.swp490x.mrs.domain.User;
 import com.funix.swp490x.mrs.domain.UserStatus;
 import com.funix.swp490x.mrs.repository.UserRepository;
@@ -39,7 +42,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(controllers = SearchController.class)
@@ -122,6 +128,107 @@ class SearchFlowTest {
                         .param("q", "energetic pop playlist now"))
                 .andExpect(status().isForbidden());
         then(searchService).shouldHaveNoInteractions();
+    }
+
+    @Test
+    void resultsOfferCreatePlaylistFromResultsToCurators() throws Exception {
+        Song song = new Song();
+        song.setId(7L);
+        song.setTitle("Ice Cream");
+        song.setArtist("Sugar Blizz");
+        song.setSourceProvider("EpidemicSound");
+        song.setExternalSourceId("ext-7");
+        song.setTags(java.util.Set.of());
+        given(searchService.search(nullable(List.class), nullable(List.class),
+                nullable(List.class), nullable(List.class), eq("summer"),
+                nullable(Integer.class), anyInt()))
+                .willReturn(new PageImpl<>(List.of(song), PageRequest.of(0, 20), 41));
+
+        mockMvc.perform(get(Routes.SEARCH).param("q", "summer")
+                        .with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("data-create-from-results")))
+                .andExpect(content().string(containsString("data-result-count=\"41\"")))
+                .andExpect(content().string(containsString("Create playlist from results")))
+                .andExpect(content().string(containsString("/search/create-playlist")));
+    }
+
+    @Test
+    void emptyResultsDoNotOfferCreatePlaylistFromResults() throws Exception {
+        mockMvc.perform(get(Routes.SEARCH).with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(not(containsString("Create playlist from results"))))
+                .andExpect(content().string(not(containsString("data-result-count"))));
+    }
+
+    @Test
+    void createPlaylistFromResultsAddsEveryMatchAndOpensThePlaylist() throws Exception {
+        given(searchService.resultSongIds(eq(List.of(2L)), eq(List.of(1L)), nullable(List.class),
+                nullable(List.class), nullable(String.class), eq(25)))
+                .willReturn(List.of(7L, 3L, 9L));
+        Playlist created = new Playlist("Summer beach", 1L);
+        ReflectionTestUtils.setField(created, "id", 12L);
+        given(playlistService.createWithSongs(1L, "Summer beach", List.of(7L, 3L, 9L)))
+                .willReturn(created);
+
+        mockMvc.perform(post(Routes.SEARCH_CREATE_PLAYLIST).with(csrf())
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .param("name", "Summer beach")
+                        .param("genreId", "2")
+                        .param("moodId", "1")
+                        .param("topN", "25")
+                        .param("returnTo", "/search?genreId=2&moodId=1&topN=25"))
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("/playlists/12"))
+                .andExpect(flash().attribute("flash", Messages.PLAYLIST_CREATED_FROM_RESULTS));
+
+        then(playlistService).should().createWithSongs(1L, "Summer beach", List.of(7L, 3L, 9L));
+    }
+
+    @Test
+    void createPlaylistFromResultsWarnsWhenNothingMatches() throws Exception {
+        given(searchService.resultSongIds(nullable(List.class), nullable(List.class),
+                nullable(List.class), nullable(List.class), eq("nothing here"),
+                nullable(Integer.class)))
+                .willReturn(List.of());
+
+        mockMvc.perform(post(Routes.SEARCH_CREATE_PLAYLIST).with(csrf())
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .param("name", "Empty")
+                        .param("q", "nothing here")
+                        .param("returnTo", "/search?q=nothing+here"))
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("/search?q=nothing+here"))
+                .andExpect(flash().attribute("flash", Messages.SEARCH_NO_RESULTS_TO_ADD));
+
+        then(playlistService).should(org.mockito.Mockito.never())
+                .createWithSongs(nullable(Long.class), nullable(String.class), anyList());
+    }
+
+    @Test
+    void createPlaylistFromResultsIgnoresForeignReturnTo() throws Exception {
+        given(searchService.resultSongIds(nullable(List.class), nullable(List.class),
+                nullable(List.class), nullable(List.class), eq("x y z"),
+                nullable(Integer.class)))
+                .willReturn(List.of());
+
+        mockMvc.perform(post(Routes.SEARCH_CREATE_PLAYLIST).with(csrf())
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .param("name", "Empty")
+                        .param("q", "x y z")
+                        .param("returnTo", "//evil.example/search"))
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl(Routes.SEARCH));
+    }
+
+    @Test
+    void createPlaylistFromResultsIsClosedToCustomers() throws Exception {
+        mockMvc.perform(post(Routes.SEARCH_CREATE_PLAYLIST).with(csrf())
+                        .with(user(principal(Role.CUSTOMER)))
+                        .param("name", "Nope")
+                        .param("q", "energetic pop"))
+                .andExpect(status().isForbidden());
+        then(playlistService).shouldHaveNoInteractions();
     }
 
     private static MrsUserDetails principal(Role role) {

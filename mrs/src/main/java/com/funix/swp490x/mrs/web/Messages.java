@@ -146,6 +146,12 @@ public final class Messages {
     public static final String PLAYLIST_CREATED_WITH_SONG =
             "Playlist created and the song added to it.";
 
+    public static final String PLAYLIST_CREATED_FROM_RESULTS =
+            "Playlist created with every song from the search results.";
+
+    public static final String SEARCH_NO_RESULTS_TO_ADD =
+            "The search has no results to put in a playlist — refine it first.";
+
     public static final String PLAYLIST_RENAMED = "Playlist renamed.";
 
     public static final String PLAYLIST_NAME_REQUIRED = "Give the playlist a name.";

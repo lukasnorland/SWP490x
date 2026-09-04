@@ -34,6 +34,23 @@ export function initPlaylistAdd() {
     }
   });
 
+  /* "Create playlist from results": same dialog, only the naming form, and
+     the current Search filters copied from the URL so all pages are covered. */
+  document.addEventListener("click", function (event) {
+    var trigger = event.target.closest("[data-create-from-results]");
+    if (!trigger) {
+      return;
+    }
+    var dialog = document.getElementById("addToPlaylist");
+    if (!dialog) {
+      return;
+    }
+    fillFromResultsDialog(dialog, trigger);
+    if (window.bootstrap && window.bootstrap.Modal) {
+      window.bootstrap.Modal.getOrCreateInstance(dialog).show();
+    }
+  });
+
   document.addEventListener("change", function (event) {
     var select = event.target.closest("[data-add-playlist-select]");
     if (select) {
@@ -70,7 +87,67 @@ export function initPlaylistAdd() {
   });
 }
 
+var SEARCH_CRITERIA = ["genreId", "moodId", "artistId", "tagId", "q", "topN"];
+
+function setMode(dialog, fromResults) {
+  dialog.querySelectorAll("[data-add-song-mode]").forEach(function (node) {
+    node.hidden = fromResults;
+  });
+  var results = dialog.querySelector("[data-create-from-results-form]");
+  if (results) {
+    results.hidden = !fromResults;
+    var name = results.querySelector("#createFromResultsName");
+    if (name) {
+      name.required = fromResults;
+    }
+  }
+  var title = dialog.querySelector("[data-add-title]");
+  if (title) {
+    title.textContent = fromResults ? "Create playlist from results" : "Add to playlist";
+  }
+}
+
+function fillFromResultsDialog(dialog, trigger) {
+  setMode(dialog, true);
+  var returnTo = window.location.pathname + window.location.search;
+  dialog.querySelectorAll("[data-add-return-to]").forEach(function (input) {
+    input.value = returnTo;
+  });
+
+  var holder = dialog.querySelector("[data-create-from-results-criteria]");
+  if (holder) {
+    holder.textContent = "";
+    var params = new URLSearchParams(window.location.search);
+    SEARCH_CRITERIA.forEach(function (key) {
+      params.getAll(key).forEach(function (value) {
+        if (value === "") {
+          return;
+        }
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = value;
+        holder.appendChild(input);
+      });
+    });
+  }
+
+  var count = parseInt(trigger.getAttribute("data-result-count") || "0", 10);
+  var label = dialog.querySelector("[data-add-song-label]");
+  if (label) {
+    label.textContent = count === 1
+        ? "The 1 matching song will be added, in ranked order."
+        : "All " + count + " matching songs will be added, in ranked order.";
+  }
+
+  var name = dialog.querySelector("#createFromResultsName");
+  if (name) {
+    name.value = "";
+  }
+}
+
 function fillDialog(dialog, trigger) {
+  setMode(dialog, false);
   var ids = selectedSongIds(trigger);
   var title = trigger.getAttribute("data-song-title") || "";
   var artist = trigger.getAttribute("data-song-artist");
