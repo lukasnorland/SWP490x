@@ -528,3 +528,12 @@ form[data-busy="true"] .search-prompt-field::after {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Add-to-playlist dialog modes. A plain flex stack, deliberately without
+   .d-flex: Bootstrap's display utilities are !important and declared after its
+   [hidden] reset, so [hidden] on a .d-flex element does nothing. */
+.mode-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}

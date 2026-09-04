@@ -33,6 +33,7 @@ import com.funix.swp490x.mrs.service.PlaylistService;
 import com.funix.swp490x.mrs.service.UserAccountService;
 import com.funix.swp490x.mrs.web.admin.AdminCatalogController;
 import com.funix.swp490x.mrs.web.admin.AdminController;
+import com.funix.swp490x.mrs.web.admin.AdminPlaylistController;
 import com.funix.swp490x.mrs.web.admin.AdminUserController;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
 import java.util.List;
@@ -62,7 +63,8 @@ import static org.mockito.BDDMockito.given;
 @WebMvcTest(controllers = {AuthController.class, HomeController.class, SearchController.class,
         SongBrowseController.class, PlaylistController.class, WorkspaceController.class,
         ProfileController.class, AdminController.class, AdminUserController.class,
-        AdminCatalogController.class, AccountPasswordController.class})
+        AdminPlaylistController.class, AdminCatalogController.class,
+        AccountPasswordController.class})
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
         LoginFailureHandler.class, LoginAttemptService.class, MrsUserDetailsService.class,
         PasswordResetTokenService.class})
@@ -233,7 +235,7 @@ class ScreenRenderingTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {Routes.ADMIN_USERS, Routes.ADMIN_CATALOG,
+    @ValueSource(strings = {Routes.ADMIN_USERS, Routes.ADMIN_CATALOG, Routes.ADMIN_PLAYLISTS,
             Routes.ADMIN_SETTINGS, Routes.ADMIN_LOGS})
     void adminScreensRenderForAdmin(String path) throws Exception {
         mockMvc.perform(get(path).with(user(principal(Role.ADMIN))))
@@ -265,6 +267,27 @@ class ScreenRenderingTest {
 
         mockMvc.perform(get(Routes.WORKSPACE).with(user(principal(Role.CUSTOMER))))
                 .andExpect(content().string(not(containsString("/search"))));
+    }
+
+    @Test
+    void sidebarOffersAllPlaylistsToAdminOnly() throws Exception {
+        mockMvc.perform(get(Routes.PROFILE).with(user(principal(Role.ADMIN))))
+                .andExpect(content().string(containsString("href=\"/admin/playlists\"")));
+
+        mockMvc.perform(get(Routes.WORKSPACE).with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(content().string(not(containsString("/admin/playlists"))));
+
+        mockMvc.perform(get(Routes.ADMIN_PLAYLISTS).with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void sidebarOffersMyPlaylistsToCuratorsOnly() throws Exception {
+        mockMvc.perform(get(Routes.WORKSPACE).with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(content().string(containsString("href=\"/playlists\"")));
+
+        mockMvc.perform(get(Routes.WORKSPACE).with(user(principal(Role.CUSTOMER))))
+                .andExpect(content().string(not(containsString("href=\"/playlists\""))));
     }
 
     @Test

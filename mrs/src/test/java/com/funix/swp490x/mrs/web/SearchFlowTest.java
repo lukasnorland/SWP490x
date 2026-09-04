@@ -78,6 +78,28 @@ class SearchFlowTest {
         given(playlistService.editableDrafts(nullable(Long.class))).willReturn(List.of());
     }
 
+    /**
+     * "Create and add" from a search row and a failed "Create playlist from
+     * results" both redirect back here with a flash; the page has to show it,
+     * or the outcome is invisible and the form looks like it did nothing.
+     */
+    @Test
+    void searchShowsTheFlashItWasRedirectedBackWith() throws Exception {
+        mockMvc.perform(get(Routes.SEARCH)
+                        .flashAttr("flash", Messages.PLAYLIST_CREATED_WITH_SONG)
+                        .flashAttr("flashVariant", "success")
+                        .with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(Messages.PLAYLIST_CREATED_WITH_SONG)));
+
+        mockMvc.perform(get(Routes.SEARCH)
+                        .flashAttr("flash", Messages.SEARCH_NO_RESULTS_TO_ADD)
+                        .flashAttr("flashVariant", "warning")
+                        .with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("refine it first")));
+    }
+
     @Test
     void searchRendersPromptForCurators() throws Exception {
         mockMvc.perform(get(Routes.SEARCH).with(user(principal(Role.CONTENT_DESIGNER))))
@@ -151,6 +173,23 @@ class SearchFlowTest {
                 .andExpect(content().string(containsString("data-result-count=\"41\"")))
                 .andExpect(content().string(containsString("Create playlist from results")))
                 .andExpect(content().string(containsString("/search/create-playlist")));
+    }
+
+    /**
+     * The two dialog modes toggle [hidden] on plain wrappers. Putting it on the
+     * .d-flex forms themselves left both "Create and add" and "Create" showing
+     * at once, and the wrong one posted with no criteria.
+     */
+    @Test
+    void theDialogModesAreWrappedSoOnlyOneShowsAtATime() throws Exception {
+        mockMvc.perform(get(Routes.SEARCH).with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(
+                        "class=\"mode-stack\" data-add-song-mode")))
+                .andExpect(content().string(containsString(
+                        "class=\"mode-stack\" data-create-from-results-mode hidden")))
+                .andExpect(content().string(not(containsString(
+                        "data-create-from-results-form hidden"))));
     }
 
     @Test

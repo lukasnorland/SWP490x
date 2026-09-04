@@ -102,6 +102,67 @@ public class PlaylistService {
         return new PageImpl<>(ordered, pageable, ids.getTotalElements());
     }
 
+    /**
+     * One page of every playlist in the system, any owner and either status,
+     * for the ADMIN All Playlists screen. Same two-query shape as
+     * {@link #search}; {@code sharedWithMe} is always false here because the
+     * rows are not the viewer's.
+     */
+    @Transactional(readOnly = true)
+    public Page<PlaylistSummary> searchAll(Long ownerId, PlaylistStatus status, String query,
+            int page) {
+        Pageable pageable = PageRequest.of(Math.max(page, 0), PAGE_SIZE);
+
+        Page<Long> ids = playlistRepository.searchAllIds(
+                ownerId == null ? 0L : ownerId,
+                status == null ? "" : status.name(),
+                StringUtils.hasText(query) ? query.trim() : "",
+                pageable);
+
+        if (ids.isEmpty()) {
+            return new PageImpl<>(List.of(), pageable, ids.getTotalElements());
+        }
+
+        Map<Long, PlaylistSummary> byId = new LinkedHashMap<>();
+        for (SummaryRow row : playlistRepository.findSummaries(ids.getContent())) {
+            byId.put(row.getId(), toSummary(row, row.getOwnerId()));
+        }
+        List<PlaylistSummary> ordered = ids.getContent().stream()
+                .map(byId::get)
+                .filter(Objects::nonNull)
+                .toList();
+
+        return new PageImpl<>(ordered, pageable, ids.getTotalElements());
+    }
+
+    /** Owner choices for the ADMIN All Playlists filter. */
+    @Transactional(readOnly = true)
+    public List<PlaylistOwner> playlistOwners() {
+        List<PlaylistOwner> owners = new java.util.ArrayList<>();
+        for (OwnerOption row : playlistRepository.findPlaylistOwners()) {
+            owners.add(new PlaylistOwner(row.getId(), row.getName()));
+        }
+        return owners;
+    }
+
+    /**
+     * Any playlist by id, Draft or Published, regardless of who owns it.
+     * ADMIN oversight only: the caller must already be behind the ADMIN
+     * route guard, since this deliberately skips the visibility rule.
+     */
+    @Transactional(readOnly = true)
+    public Playlist inspect(Long playlistId) {
+        return playlistRepository.findById(playlistId)
+                .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
+    }
+
+    /** Songs of any playlist in position order; see {@link #inspect}. */
+    @Transactional(readOnly = true)
+    public List<PlaylistSong> inspectSongs(Long playlistId) {
+        inspect(playlistId);
+        return playlistSongRepository.findOrdered(playlistId);
+    }
+
     /** Drafts the Add-to-playlist dialog may offer, newest change first. */
     @Transactional(readOnly = true)
     public List<PlaylistOption> editableDrafts(Long userId) {
@@ -372,6 +433,32 @@ public class PlaylistService {
         audit(userId, AuditLog.ACTION_PLAYLIST_UNPUBLISH, playlistId, null);
     }
 
+    /**
+     * Moves every playlist {@code fromUserId} owns to {@code toUserId}, and
+     * drops the collaborator grants {@code fromUserId} held on other people's
+     * drafts. Called when an account leaves the Content Designer role, so its
+     * playlists do not end up with an owner who can no longer touch them.
+     * Status is untouched: a Published playlist stays in the Shared Workspace,
+     * now under the new owner's name.
+     *
+     * @return how many playlists changed owner
+     */
+    @Transactional
+    public int transferOwnership(Long fromUserId, Long toUserId, Long actorId) {
+        List<Playlist> owned = playlistRepository.findByOwnerId(fromUserId);
+        for (Playlist playlist : owned) {
+            playlist.setOwnerId(toUserId);
+            playlist.touch(actorId);
+            audit(actorId, AuditLog.ACTION_PLAYLIST_TRANSFER, playlist.getId(),
+                    "{\"from\":" + fromUserId + ",\"to\":" + toUserId + "}");
+        }
+        if (!owned.isEmpty()) {
+            playlistRepository.saveAll(owned);
+        }
+        playlistRepository.deleteCollaboratorGrantsOf(fromUserId);
+        return owned.size();
+    }
+
     /** RFC 4180 CSV of the playlist contents, in playing order. */
     @Transactional(readOnly = true)
     public String exportCsv(Long playlistId, Long userId) {
@@ -480,7 +567,8 @@ public class PlaylistService {
                 row.getLastModifiedByName(),
                 count(row.getCollaboratorCount()),
                 // Reachable but not owned means it arrived through a grant (BR-03).
-                !Objects.equals(row.getOwnerId(), userId));
+                !Objects.equals(row.getOwnerId(), userId),
+                row.getOwnerName());
     }
 
     private static long count(Long value) {

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{email/layout :: message(~{::content})}">
+<!--/* UC-06 — tells the holder that ADMIN moved the account to another role (P-06a). */-->
+<body>
+<div th:fragment="content">
+
+  <p style="margin:0 0 16px; font-size:20px; font-weight:600;">
+    Your MRS role has changed
+  </p>
+
+  <p style="margin:0 0 24px;">
+    Hello <span th:text="${name}">Name</span>, an administrator has changed the
+    role of your account on the Music Recommendation System from
+    <strong th:text="${previousRole}">Content Designer</strong> to
+    <strong th:text="${newRole}">Customer</strong>.
+  </p>
+
+  <p th:if="${transferredPlaylists > 0}" style="margin:0 0 24px;">
+    The <span th:text="${transferredPlaylists}">2</span>
+    <span th:text="${transferredPlaylists == 1 ? 'playlist' : 'playlists'}">playlists</span>
+    you owned now belong to an administrator. Anything already published stays
+    available in the Shared Workspace.
+  </p>
+
+  <p style="margin:0 0 24px;">
+    Any session that was still open has been closed. Sign in again and the new
+    permissions apply from that point.
+  </p>
+
+  <p style="margin:0 0 24px;">
+    <a th:href="${loginUrl}"
+       style="display:inline-block; padding:12px 24px; background-color:#6366f1;
+              color:#ffffff; text-decoration:none; border-radius:8px; font-weight:600;">
+      Sign in to MRS
+    </a>
+  </p>
+
+  <p style="margin:0; color:#475569;">
+    If you were not expecting this change, please contact your administrator.
+  </p>
+
+</div>
+</body>
+</html>

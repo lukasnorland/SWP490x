@@ -39,13 +39,16 @@ public class UserAccountService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final SessionInvalidationService sessionInvalidationService;
+    private final PlaylistService playlistService;
 
     public UserAccountService(UserRepository userRepository,
             PasswordEncoder passwordEncoder,
-            SessionInvalidationService sessionInvalidationService) {
+            SessionInvalidationService sessionInvalidationService,
+            PlaylistService playlistService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.sessionInvalidationService = sessionInvalidationService;
+        this.playlistService = playlistService;
     }
 
     /**
@@ -101,21 +104,26 @@ public class UserAccountService {
 
     /**
      * Soft-delete (spec 4.9): accounts are never hard-deleted. Marks the row
-     * DEACTIVATED and expires every open session (FT-01 AC-03).
+     * DEACTIVATED and expires every open session (FT-01 AC-03). Any playlist
+     * the account owns goes to the acting ADMIN, for the same reason as a
+     * demotion: nobody else could edit or unpublish it afterwards.
      *
      * @throws SelfModificationException when {@code actorUserId} is the target
      */
     @Transactional
-    public UserView deactivate(Long userId, Long actorUserId) {
+    public Deactivation deactivate(Long userId, Long actorUserId) {
         User user = requireUser(userId);
         rejectSelf(user, actorUserId);
         if (user.getStatus() == UserStatus.DEACTIVATED) {
-            return UserView.of(user);
+            return new Deactivation(UserView.of(user), false, 0);
         }
         user.setStatus(UserStatus.DEACTIVATED);
         User saved = userRepository.save(user);
+        int transferred = actorUserId == null
+                ? 0
+                : playlistService.transferOwnership(saved.getId(), actorUserId, actorUserId);
         sessionInvalidationService.invalidateSessionsForEmail(saved.getEmail());
-        return UserView.of(saved);
+        return new Deactivation(UserView.of(saved), true, transferred);
     }
 
     /** Restores a deactivated account so it can authenticate again. */
@@ -133,11 +141,15 @@ public class UserAccountService {
      * UC-06 role change. Only Content Designer and Customer are assignable;
      * ADMIN rows keep their role (they are not created from this screen either).
      *
+     * <p>Demoting a Content Designer to Customer hands every playlist they own
+     * to the acting ADMIN, since a Customer can neither edit nor unpublish, and
+     * the playlist service checks ownership rather than role.
+     *
      * @throws SelfModificationException when {@code actorUserId} is the target
      * @throws InvalidRoleAssignmentException when the new role is not allowed
      */
     @Transactional
-    public UserView changeRole(Long userId, Role newRole, Long actorUserId) {
+    public RoleChange changeRole(Long userId, Role newRole, Long actorUserId) {
         requireAssignable(newRole);
         User user = requireUser(userId);
         rejectSelf(user, actorUserId);
@@ -145,14 +157,20 @@ public class UserAccountService {
             throw new InvalidRoleAssignmentException(
                     "ADMIN accounts keep their role; reassign Content Designer or Customer only.");
         }
-        if (user.getRole() == newRole) {
-            return UserView.of(user);
+        Role previousRole = user.getRole();
+        if (previousRole == newRole) {
+            return new RoleChange(UserView.of(user), previousRole, 0);
         }
         user.setRole(newRole);
         User saved = userRepository.save(user);
+        int transferred = 0;
+        if (previousRole == Role.CONTENT_DESIGNER && newRole == Role.CUSTOMER
+                && actorUserId != null) {
+            transferred = playlistService.transferOwnership(saved.getId(), actorUserId, actorUserId);
+        }
         // Authorities live on the session principal — force a fresh login.
         sessionInvalidationService.invalidateSessionsForEmail(saved.getEmail());
-        return UserView.of(saved);
+        return new RoleChange(UserView.of(saved), previousRole, transferred);
     }
 
     /**
@@ -195,5 +213,24 @@ public class UserAccountService {
 
     /** An account together with the plain-text password to send it. */
     public record InitialCredentials(UserView user, String password) {
+    }
+
+    /**
+     * Outcome of {@link #deactivate}. {@code changed} is false when the account
+     * was already deactivated, so callers can skip notifying the holder twice;
+     * {@code transferredPlaylists} is how many playlists moved to the acting ADMIN.
+     */
+    public record Deactivation(UserView user, boolean changed, int transferredPlaylists) {
+    }
+
+    /**
+     * Outcome of {@link #changeRole}: the account as it now stands, the role it
+     * held before, and how many playlists moved to the acting ADMIN (non-zero
+     * only for a Content Designer demoted to Customer).
+     */
+    public record RoleChange(UserView user, Role previousRole, int transferredPlaylists) {
+        public boolean changed() {
+            return previousRole != user.role();
+        }
     }
 }

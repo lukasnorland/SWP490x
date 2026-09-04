@@ -58,6 +58,42 @@ public class NotificationService {
     }
 
     /**
+     * Spec 4.9: the account holder learns that ADMIN deactivated the account.
+     * Sent after the soft-delete committed, so a failed delivery never leaves
+     * the account active. {@code transferredPlaylists} is how many of their
+     * playlists went to an administrator; zero hides that paragraph.
+     */
+    public void sendAccountDeactivated(String name, String email, int transferredPlaylists) {
+        Context context = new Context(Locale.ENGLISH);
+        context.setVariable("name", name);
+        context.setVariable("email", email);
+        context.setVariable("transferredPlaylists", transferredPlaylists);
+
+        transport.send(email, "Your MRS account has been deactivated",
+                templateEngine.process("email/account-deactivated", context));
+    }
+
+    /**
+     * UC-06: the account holder learns which role ADMIN moved them from and to.
+     * Their sessions are already gone by the time this goes out, so the message
+     * also says to sign in again. {@code transferredPlaylists} is how many of
+     * their playlists went to an administrator with the demotion; zero hides
+     * that paragraph.
+     */
+    public void sendRoleChanged(String name, String email, String previousRoleDisplayName,
+            String newRoleDisplayName, int transferredPlaylists) {
+        Context context = new Context(Locale.ENGLISH);
+        context.setVariable("name", name);
+        context.setVariable("previousRole", previousRoleDisplayName);
+        context.setVariable("newRole", newRoleDisplayName);
+        context.setVariable("transferredPlaylists", transferredPlaylists);
+        context.setVariable("loginUrl", absolute(Routes.LOGIN));
+
+        transport.send(email, "Your MRS role has changed",
+                templateEngine.process("email/role-changed", context));
+    }
+
+    /**
      * Public registration intent from the login landing page.
      *
      * <p>The notification goes to the configured main mailbox ({@code mrs.mail.from}),

@@ -7,10 +7,23 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
+
+    /** Every playlist an account owns, Draft or Published. */
+    List<Playlist> findByOwnerId(Long ownerId);
+
+    /**
+     * Drops every collaborator grant held by one account. Used when the
+     * account leaves the Content Designer role, since grants go to Content
+     * Designers only (BR-03).
+     */
+    @Modifying
+    @Query(value = "DELETE FROM playlist_collaborator WHERE user_id = :userId", nativeQuery = true)
+    int deleteCollaboratorGrantsOf(@Param("userId") Long userId);
 
     /**
      * Ids of the playlists on one page of P-03a: owned, or shared as a
@@ -49,6 +62,39 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
             Pageable pageable);
 
     /**
+     * Ids of one page of every playlist in the system, for ADMIN oversight.
+     * {@code ownerId} is 0 for "any owner"; {@code status} and {@code q} are
+     * empty strings when unset, as in {@link #searchVisibleIds}.
+     */
+    @Query(value = """
+            SELECT p.id FROM playlist p
+            WHERE (:ownerId = 0 OR p.owner_id = :ownerId)
+              AND (:status = '' OR p.status = :status)
+              AND (:q = '' OR LOWER(p.name) LIKE LOWER(CONCAT('%', :q, '%')))
+            ORDER BY p.last_modified_at DESC, p.id DESC
+            """,
+            countQuery = """
+            SELECT COUNT(*) FROM playlist p
+            WHERE (:ownerId = 0 OR p.owner_id = :ownerId)
+              AND (:status = '' OR p.status = :status)
+              AND (:q = '' OR LOWER(p.name) LIKE LOWER(CONCAT('%', :q, '%')))
+            """,
+            nativeQuery = true)
+    Page<Long> searchAllIds(@Param("ownerId") long ownerId,
+            @Param("status") String status,
+            @Param("q") String q,
+            Pageable pageable);
+
+    /** Everyone who owns at least one playlist, Draft or Published. */
+    @Query(value = """
+            SELECT DISTINCT u.id AS id, u.username AS name
+            FROM playlist p
+            JOIN users u ON u.id = p.owner_id
+            ORDER BY u.username
+            """, nativeQuery = true)
+    List<OwnerOption> findPlaylistOwners();
+
+    /**
      * Everything one page of the P-03a table shows, in a single query. The
      * counts are correlated subqueries rather than joins so a playlist with no
      * songs and no collaborators still returns a row.
@@ -64,9 +110,11 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
                     WHERE ps.playlist_id = p.id)         AS songCount,
                    (SELECT COUNT(*) FROM playlist_collaborator c
                     WHERE c.playlist_id = p.id)          AS collaboratorCount,
-                   p.owner_id                            AS ownerId
+                   p.owner_id                            AS ownerId,
+                   o.username                            AS ownerName
             FROM playlist p
             JOIN users u ON u.id = p.last_modified_by
+            JOIN users o ON o.id = p.owner_id
             WHERE p.id IN (:ids)
             """, nativeQuery = true)
     List<SummaryRow> findSummaries(@Param("ids") Collection<Long> ids);
@@ -193,6 +241,8 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
         Long getSongCount();
 
         Long getCollaboratorCount();
+
+        String getOwnerName();
 
         /**
          * Raw, rather than a {@code owner_id <> :userId} comparison: MySQL

@@ -17,7 +17,8 @@ public record PlaylistSummary(
         LocalDateTime lastModifiedAt,
         String lastModifiedByName,
         long collaboratorCount,
-        boolean sharedWithMe) {
+        boolean sharedWithMe,
+        String ownerName) {
 
     /** Draft is the only editable state (DC-08); delete is Draft-only too (DC-05). */
     public boolean isDraft() {

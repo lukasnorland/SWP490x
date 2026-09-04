@@ -104,13 +104,11 @@ class PlaylistFlowTest {
                         containsString("Open playlist"))));
     }
 
-    /** FT-06 NAC-03: a Customer may read a shared playlist but never make one. */
+    /** FT-06 NAC-03: a Customer reads shared work in the Workspace; My Playlists is curator-only. */
     @Test
-    void aCustomerIsNotOfferedNewPlaylist() throws Exception {
+    void aCustomerCannotOpenMyPlaylists() throws Exception {
         mockMvc.perform(get(Routes.PLAYLISTS).with(user(principal(Role.CUSTOMER))))
-                .andExpect(status().isOk())
-                .andExpect(content().string(org.hamcrest.Matchers.not(
-                        containsString("New playlist"))));
+                .andExpect(status().isForbidden());
     }
 
     @Test
@@ -310,7 +308,7 @@ class PlaylistFlowTest {
     private static PlaylistSummary summary(Long id, String name, PlaylistStatus status,
             boolean shared) {
         return new PlaylistSummary(id, name, status, 3, 1, LocalDateTime.now(), "Dana Designer",
-                shared ? 1 : 0, shared);
+                shared ? 1 : 0, shared, "Dana Designer");
     }
 
     private static Song song(Long id, String title, int duration) {
