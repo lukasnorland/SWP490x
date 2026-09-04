@@ -249,17 +249,22 @@ export function initSubmitStates(root) {
       label.textContent = form.getAttribute("data-busy-label");
       button.append(spinner, label);
 
-      form.querySelectorAll("input, textarea, select").forEach(function (field) {
-        if (field === button || field.type === "submit" || field.type === "hidden") {
-          return;
-        }
-        if (field.type === "checkbox" || field.type === "radio" || field.tagName === "SELECT") {
-          field.disabled = true;
-          return;
-        }
-        // readOnly keeps values in the POST body; disabled fields are omitted.
-        field.readOnly = true;
-      });
+      // The browser builds the POST body right after this handler returns,
+      // and disabled fields are left out of it. Deferring the lock keeps
+      // every value (notably <select>s such as Role) in the submission.
+      var fields = form.querySelectorAll("input, textarea, select");
+      window.setTimeout(function () {
+        fields.forEach(function (field) {
+          if (field === button || field.type === "submit" || field.type === "hidden") {
+            return;
+          }
+          if (field.type === "checkbox" || field.type === "radio" || field.tagName === "SELECT") {
+            field.disabled = true;
+            return;
+          }
+          field.readOnly = true;
+        });
+      }, 0);
 
       form.querySelectorAll("[data-busy-status]").forEach(function (status) {
         status.hidden = false;

@@ -156,7 +156,7 @@ SES (sandbox) before the app can send mail; recipients need the same until
 production access is approved.
 
 Flyway applies everything under `mrs/src/main/resources/db/migration/` on startup
-(V1 schema, V2 seed).
+(V1 schema, V2 initial admin account).
 
 ## SSM access (no SSH)
 

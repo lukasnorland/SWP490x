@@ -37,7 +37,6 @@ CREATE TABLE song (
     duration              INT          NULL,                   -- seconds, > 0 when present
     source_provider       VARCHAR(100) NOT NULL,               -- must be a registered provider (SC-05)
     external_source_id    VARCHAR(100) NULL,                   -- unique per provider (DC-04)
-    spotify_popularity    TINYINT      NULL,                   -- 0-100 snapshot; NULL = not synced (BR-08)
     audio_url             VARCHAR(500) NULL,                   -- public HTTPS mp3 (vendor CDN or our bucket)
     cover_url             VARCHAR(500) NULL,
     ambience_a            VARCHAR(40)  NULL,                   -- wash colours sampled from the cover
@@ -50,10 +49,7 @@ CREATE TABLE song (
     version               INT          NOT NULL DEFAULT 0,     -- optimistic locking (DC-02, BR-06)
     PRIMARY KEY (id),
     UNIQUE KEY uq_song_provider_ext (source_provider, external_source_id),  -- import update-in-place (DC-04)
-    KEY ix_song_popularity (spotify_popularity DESC),          -- default sort (FT-03/FT-05)
     CONSTRAINT ck_song_duration   CHECK (duration IS NULL OR duration > 0),
-    CONSTRAINT ck_song_popularity CHECK (spotify_popularity IS NULL
-                                         OR spotify_popularity BETWEEN 0 AND 100),
     CONSTRAINT ck_song_bpm        CHECK (bpm IS NULL OR bpm > 0)
 ) ENGINE=InnoDB;
 
