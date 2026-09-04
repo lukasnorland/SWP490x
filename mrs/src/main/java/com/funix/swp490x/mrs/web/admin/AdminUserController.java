@@ -15,7 +15,9 @@ import com.funix.swp490x.mrs.service.InvalidEmailException;
 import com.funix.swp490x.mrs.service.InvalidRoleAssignmentException;
 import com.funix.swp490x.mrs.service.SelfModificationException;
 import com.funix.swp490x.mrs.service.UserAccountService;
+import com.funix.swp490x.mrs.service.UserAccountService.Deactivation;
 import com.funix.swp490x.mrs.service.UserAccountService.InitialCredentials;
+import com.funix.swp490x.mrs.service.UserAccountService.RoleChange;
 import com.funix.swp490x.mrs.service.UserView;
 import com.funix.swp490x.mrs.service.WeakPasswordException;
 import com.funix.swp490x.mrs.web.Messages;
@@ -124,7 +126,7 @@ public class AdminUserController {
                     created.username(), created.email(), created.role().getDisplayName(), password);
             flash(redirectAttributes, "success", Messages.USER_CREATED);
         } catch (MailDeliveryException e) {
-            reportUndelivered(created.email(), e);
+            reportUndelivered("Credentials", created.email(), e);
             flash(redirectAttributes, "warning", Messages.USER_CREATED_EMAIL_FAILED);
         }
 
@@ -181,7 +183,7 @@ public class AdminUserController {
                         credentials.password());
                 flash(redirectAttributes, "success", Messages.CREDENTIALS_RESENT);
             } catch (MailDeliveryException e) {
-                reportUndelivered(credentials.user().email(), e);
+                reportUndelivered("Credentials", credentials.user().email(), e);
                 flash(redirectAttributes, "warning", Messages.CREDENTIALS_RESEND_FAILED);
             }
         } catch (SelfModificationException e) {
@@ -190,16 +192,39 @@ public class AdminUserController {
         return "redirect:" + Routes.ADMIN_USERS;
     }
 
-    /** Spec 4.9 — soft-delete; open sessions end on the next request (FT-01 AC-03). */
+    /**
+     * Spec 4.9 — soft-delete; open sessions end on the next request (FT-01 AC-03).
+     * The holder is told by email once the change has committed; as with Create,
+     * a failed delivery leaves the change in place and warns ADMIN instead.
+     */
     @PostMapping(Routes.ADMIN_USER_DEACTIVATE)
     public String deactivate(@PathVariable Long id,
             @AuthenticationPrincipal MrsUserDetails actor,
             RedirectAttributes redirectAttributes) {
+        Deactivation outcome;
         try {
-            userAccountService.deactivate(id, actor.getId());
-            flash(redirectAttributes, "success", Messages.USER_DEACTIVATED);
+            outcome = userAccountService.deactivate(id, actor.getId());
         } catch (SelfModificationException e) {
             flash(redirectAttributes, "danger", Messages.SELF_MODIFICATION_FORBIDDEN);
+            return "redirect:" + Routes.ADMIN_USERS;
+        }
+
+        if (!outcome.changed()) {
+            flash(redirectAttributes, "success", Messages.USER_DEACTIVATED);
+            return "redirect:" + Routes.ADMIN_USERS;
+        }
+        UserView account = outcome.user();
+        String transferNote = outcome.transferredPlaylists() == 0
+                ? ""
+                : " " + Messages.playlistsTransferred(outcome.transferredPlaylists());
+        try {
+            notificationService.sendAccountDeactivated(account.username(), account.email(),
+                    outcome.transferredPlaylists());
+            flash(redirectAttributes, "success", Messages.USER_DEACTIVATED + transferNote);
+        } catch (MailDeliveryException e) {
+            reportUndelivered("Deactivation", account.email(), e);
+            flash(redirectAttributes, "warning",
+                    Messages.USER_DEACTIVATED_EMAIL_FAILED + transferNote);
         }
         return "redirect:" + Routes.ADMIN_USERS;
     }
@@ -211,19 +236,44 @@ public class AdminUserController {
         return "redirect:" + Routes.ADMIN_USERS;
     }
 
-    /** UC-06 — Content Designer or Customer only; expires the target's sessions. */
+    /**
+     * UC-06 — Content Designer or Customer only; expires the target's sessions
+     * and tells the holder which role they moved from and to. A no-op change
+     * (same role again) sends nothing.
+     */
     @PostMapping(Routes.ADMIN_USER_ROLE)
     public String changeRole(@PathVariable Long id,
             @RequestParam Role role,
             @AuthenticationPrincipal MrsUserDetails actor,
             RedirectAttributes redirectAttributes) {
+        RoleChange outcome;
         try {
-            userAccountService.changeRole(id, role, actor.getId());
-            flash(redirectAttributes, "success", Messages.USER_ROLE_CHANGED);
+            outcome = userAccountService.changeRole(id, role, actor.getId());
         } catch (SelfModificationException e) {
             flash(redirectAttributes, "danger", Messages.SELF_MODIFICATION_FORBIDDEN);
+            return "redirect:" + Routes.ADMIN_USERS;
         } catch (InvalidRoleAssignmentException e) {
             flash(redirectAttributes, "danger", e.getMessage());
+            return "redirect:" + Routes.ADMIN_USERS;
+        }
+
+        if (!outcome.changed()) {
+            flash(redirectAttributes, "success", Messages.USER_ROLE_CHANGED);
+            return "redirect:" + Routes.ADMIN_USERS;
+        }
+        UserView account = outcome.user();
+        String transferNote = outcome.transferredPlaylists() == 0
+                ? ""
+                : " " + Messages.playlistsTransferred(outcome.transferredPlaylists());
+        try {
+            notificationService.sendRoleChanged(account.username(), account.email(),
+                    outcome.previousRole().getDisplayName(), account.role().getDisplayName(),
+                    outcome.transferredPlaylists());
+            flash(redirectAttributes, "success", Messages.USER_ROLE_CHANGED + transferNote);
+        } catch (MailDeliveryException e) {
+            reportUndelivered("Role change", account.email(), e);
+            flash(redirectAttributes, "warning",
+                    Messages.USER_ROLE_CHANGED_EMAIL_FAILED + transferNote);
         }
         return "redirect:" + Routes.ADMIN_USERS;
     }
@@ -271,8 +321,8 @@ public class AdminUserController {
      * BR-10 puts this in the audit log. Nothing writes that table yet, so the
      * application log carries it while ADMIN is told on screen.
      */
-    private void reportUndelivered(String email, MailDeliveryException cause) {
-        log.error("Credentials message to {} was not delivered", email, cause);
+    private void reportUndelivered(String kind, String email, MailDeliveryException cause) {
+        log.error("{} message to {} was not delivered", kind, email, cause);
     }
 
     private void flash(RedirectAttributes redirectAttributes, String variant, String message) {

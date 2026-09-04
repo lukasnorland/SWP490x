@@ -45,10 +45,22 @@ public final class Messages {
     public static final String USER_DEACTIVATED =
             "Account deactivated. Any open session will end on the next request.";
 
+    public static final String USER_DEACTIVATED_EMAIL_FAILED = "Account deactivated, but the "
+            + "notification email could not be sent. The user has not been told.";
+
     public static final String USER_REACTIVATED = "Account reactivated. The user can sign in again.";
 
     public static final String USER_ROLE_CHANGED = "Role updated. The user must sign in again "
             + "before the new permissions apply.";
+
+    public static final String USER_ROLE_CHANGED_EMAIL_FAILED = "Role updated, but the "
+            + "notification email could not be sent. The user has not been told.";
+
+    /** Appended to the role-change or deactivation flash when playlists moved to the acting ADMIN. */
+    public static String playlistsTransferred(int count) {
+        return count + (count == 1 ? " playlist" : " playlists")
+                + " the user owned now belong to you.";
+    }
 
     public static final String SELF_MODIFICATION_FORBIDDEN =
             "You cannot deactivate, change the role of, or resend credentials for your own account.";

@@ -40,6 +40,8 @@ public class AuditLog {
     public static final String ACTION_PLAYLIST_PUBLISH = "PLAYLIST_PUBLISH";
 
     public static final String ACTION_PLAYLIST_UNPUBLISH = "PLAYLIST_UNPUBLISH";
+    /** Ownership moved to another account, e.g. when the owner lost the curator role. */
+    public static final String ACTION_PLAYLIST_TRANSFER = "PLAYLIST_TRANSFER";
 
     public static final String ENTITY_PLAYLIST = "PLAYLIST";
 

@@ -1,5 +1,6 @@
 package com.funix.swp490x.mrs.web;
 
+import com.funix.swp490x.mrs.web.Messages;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -100,6 +101,17 @@ class SongBrowseTest {
                 .andExpect(content().string(containsString("data-preview-next")))
                 .andExpect(content().string(containsString("data-preview-repeat")))
                 .andExpect(content().string(not(containsString("Untagged only"))));
+    }
+
+    /** "Create and add" from a song row redirects back here with its outcome. */
+    @Test
+    void songsShowsTheFlashItWasRedirectedBackWith() throws Exception {
+        mockMvc.perform(get(Routes.SONGS)
+                        .flashAttr("flash", Messages.PLAYLIST_CREATED_WITH_SONG)
+                        .flashAttr("flashVariant", "success")
+                        .with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(Messages.PLAYLIST_CREATED_WITH_SONG)));
     }
 
     @Test

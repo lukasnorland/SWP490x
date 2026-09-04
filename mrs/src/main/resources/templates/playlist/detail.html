@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
-<!--/* P-03b Playlist Detail / Editor — spec 4.5 (FT-06, FT-07, FT-08). */-->
+<!--/* P-03b Playlist Detail / Editor — spec 4.5 (FT-06, FT-07, FT-08).
+     With inspecting=true (P-06f, ADMIN All Playlists) every action is hidden
+     and the owner is named: the same page, read-only. */-->
 <body>
 <div th:fragment="content">
 
@@ -21,13 +23,16 @@
         </button>
       </div>
       <p class="small text-secondary mb-0">
+        <span th:if="${ownerName != null}">
+          owned by <span class="text-body" th:text="${ownerName}">Owner</span> ·
+        </span>
         <span class="font-monospace">v<span th:text="${playlist.version}">1</span></span>
         · last changed
         <span th:text="${#temporals.format(playlist.lastModifiedAt, 'dd MMM yyyy HH:mm')}">01 Jan 2026 09:00</span>
       </p>
     </div>
 
-    <div class="d-flex flex-wrap align-items-center gap-2">
+    <div class="d-flex flex-wrap align-items-center gap-2" th:if="${inspecting != true}">
       <a class="btn btn-ghost" th:href="@{|/playlists/${playlist.id}/export.csv|}" download>
         <svg th:replace="~{fragments/icons :: icon('download', 'icon--sm')}"></svg>
         <span>Export CSV</span>
@@ -74,10 +79,16 @@
             : (${flashVariant == 'info'} ? 'info' : 'alert-triangle'), ${flash})}"></div>
     </th:block>
 
+    <th:block th:if="${inspecting == true}">
+      <div th:replace="~{fragments/components :: notice('info', 'eye',
+          'Viewing as administrator. Only the owner and their collaborators can change this playlist.')}"></div>
+    </th:block>
+
     <!-- Locked state: every mutating control above and below is already gone;
          this says why (FT-06 NAC-06, DC-08). -->
     <th:block th:if="${playlist.published}">
-      <div th:replace="~{fragments/components :: notice('info', 'lock',
+      <div th:if="${inspecting != true}"
+           th:replace="~{fragments/components :: notice('info', 'lock',
           'Published playlists are locked — unpublish to edit.')}"></div>
       <p class="small mb-0">
         <a th:href="@{|/workspace/${playlist.id}|}">View in Shared Workspace</a>
@@ -203,7 +214,10 @@
 
   </div>
 
-  <div th:if="${canEdit}" th:replace="~{fragments/rename-playlist :: dialog}"></div>
+  <!-- th:block, because th:replace outranks th:if on the same element. -->
+  <th:block th:if="${canEdit}">
+    <div th:replace="~{fragments/rename-playlist :: dialog}"></div>
+  </th:block>
 
 </div>
 </body>

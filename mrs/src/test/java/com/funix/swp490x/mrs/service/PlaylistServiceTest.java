@@ -1,5 +1,7 @@
 package com.funix.swp490x.mrs.service;
 
+import static org.mockito.ArgumentMatchers.eq;
+import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -291,5 +293,72 @@ class PlaylistServiceTest {
         song.setArtist("Sugar Blizz");
         song.setSourceProvider("EpidemicSound");
         return song;
+    }
+
+    @Test
+    void transferringOwnershipMovesEveryPlaylistAndAuditsEach() {
+        Playlist draft = new Playlist("Morning", 7L);
+        Playlist published = new Playlist("Evening", 7L);
+        given(playlistRepository.findByOwnerId(7L)).willReturn(List.of(draft, published));
+
+        int moved = service.transferOwnership(7L, 1L, 1L);
+
+        assertThat(moved).isEqualTo(2);
+        assertThat(draft.getOwnerId()).isEqualTo(1L);
+        assertThat(published.getOwnerId()).isEqualTo(1L);
+        then(playlistRepository).should().saveAll(List.of(draft, published));
+        then(playlistRepository).should().deleteCollaboratorGrantsOf(7L);
+
+        ArgumentCaptor<AuditLog> audit = ArgumentCaptor.forClass(AuditLog.class);
+        then(auditLogRepository).should(org.mockito.Mockito.times(2)).save(audit.capture());
+        assertThat(audit.getAllValues())
+                .allSatisfy(entry -> {
+                    assertThat(entry.getAction()).isEqualTo(AuditLog.ACTION_PLAYLIST_TRANSFER);
+                    assertThat(entry.getActorId()).isEqualTo(1L);
+                    assertThat(entry.getDetails()).contains("\"from\":7").contains("\"to\":1");
+                });
+    }
+
+    @Test
+    void transferringNothingStillClearsCollaboratorGrants() {
+        given(playlistRepository.findByOwnerId(7L)).willReturn(List.of());
+
+        assertThat(service.transferOwnership(7L, 1L, 1L)).isZero();
+
+        then(playlistRepository).should(org.mockito.Mockito.never()).saveAll(org.mockito.ArgumentMatchers.any());
+        then(playlistRepository).should().deleteCollaboratorGrantsOf(7L);
+    }
+
+    @Test
+    void searchAllListsAnyOwnerWithTheOwnerNamed() {
+        PlaylistRepository.SummaryRow row = org.mockito.Mockito.mock(PlaylistRepository.SummaryRow.class);
+        given(row.getId()).willReturn(7L);
+        given(row.getName()).willReturn("Morning coffee");
+        given(row.getStatus()).willReturn("DRAFT");
+        given(row.getVersion()).willReturn(2);
+        given(row.getOwnerId()).willReturn(5L);
+        given(row.getOwnerName()).willReturn("Dana Designer");
+        given(playlistRepository.searchAllIds(eq(0L), eq(""), eq(""), any()))
+                .willReturn(new org.springframework.data.domain.PageImpl<>(List.of(7L)));
+        given(playlistRepository.findSummaries(List.of(7L))).willReturn(List.of(row));
+
+        var page = service.searchAll(null, null, null, 0);
+
+        assertThat(page.getContent()).hasSize(1);
+        PlaylistSummary summary = page.getContent().get(0);
+        assertThat(summary.ownerName()).isEqualTo("Dana Designer");
+        assertThat(summary.sharedWithMe()).isFalse();
+        assertThat(summary.version()).isEqualTo(2);
+    }
+
+    @Test
+    void inspectFindsAnyPlaylistOrReportsNotFound() {
+        Playlist someoneElses = new Playlist("Launch party", 9L);
+        given(playlistRepository.findById(8L)).willReturn(java.util.Optional.of(someoneElses));
+        given(playlistRepository.findById(99L)).willReturn(java.util.Optional.empty());
+
+        assertThat(service.inspect(8L)).isSameAs(someoneElses);
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> service.inspect(99L))
+                .isInstanceOf(PlaylistNotFoundException.class);
     }
 }

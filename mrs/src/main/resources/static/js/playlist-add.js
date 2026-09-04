@@ -93,7 +93,7 @@ function setMode(dialog, fromResults) {
   dialog.querySelectorAll("[data-add-song-mode]").forEach(function (node) {
     node.hidden = fromResults;
   });
-  var results = dialog.querySelector("[data-create-from-results-form]");
+  var results = dialog.querySelector("[data-create-from-results-mode]");
   if (results) {
     results.hidden = !fromResults;
     var name = results.querySelector("#createFromResultsName");

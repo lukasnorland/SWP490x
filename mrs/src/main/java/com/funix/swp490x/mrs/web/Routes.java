@@ -72,6 +72,10 @@ public final class Routes {
      */
     public static final String ADMIN_USER_PREPARE_RECIPIENT = "/admin/users/prepare-recipient";
     /** P-06b Admin — Song Catalog & Metadata. */
+    /** P-06f — every playlist in the system, read-only, for ADMIN oversight. */
+    public static final String ADMIN_PLAYLISTS = "/admin/playlists";
+    public static final String ADMIN_PLAYLIST = "/admin/playlists/{id}";
+
     public static final String ADMIN_CATALOG = "/admin/catalog";
     /** P-06b — save an edited song (UC-29). */
     public static final String ADMIN_CATALOG_SONG = "/admin/catalog/{id}";

@@ -67,7 +67,12 @@
     <th:block th:if="${currentUser != null and currentUser.curator and !currentUser.admin}">
       <a th:replace="~{fragments/components :: navItem('songs', '/songs', 'music', 'Songs', false)}"></a>
     </th:block>
-    <a th:replace="~{fragments/components :: navItem('playlists', '/playlists', 'list-music', 'My Playlists', false)}"></a>
+    <th:block th:if="${currentUser != null and currentUser.curator}">
+      <a th:replace="~{fragments/components :: navItem('playlists', '/playlists', 'list-music', 'My Playlists', false)}"></a>
+    </th:block>
+    <th:block th:if="${currentUser != null and currentUser.admin}">
+      <a th:replace="~{fragments/components :: navItem('admin-playlists', '/admin/playlists', 'library', 'All Playlists', false)}"></a>
+    </th:block>
     <a th:replace="~{fragments/components :: navItem('workspace', '/workspace', 'users', 'Shared Workspace', false)}"></a>
   </nav>
 

@@ -15,6 +15,14 @@
 
   <div class="d-flex flex-column gap-4">
 
+    <!-- Outcome of the Add-to-playlist dialog and of Interpret, which both
+         redirect back here (UC-03 / NFR-U01). -->
+    <th:block th:if="${flash != null}">
+      <div th:replace="~{fragments/components :: notice(${flashVariant},
+          ${flashVariant == 'success'} ? 'circle-check'
+            : (${flashVariant == 'info'} ? 'info' : 'alert-triangle'), ${flash})}"></div>
+    </th:block>
+
     <section class="card">
       <div class="card-body">
         <form method="post" th:action="@{/search/interpret}" class="d-flex flex-column gap-3"
@@ -67,8 +75,10 @@
 
   </div>
 
-  <div th:if="${currentUser != null and currentUser.curator}"
-       th:replace="~{fragments/add-to-playlist :: dialog}"></div>
+  <!-- th:block, because th:replace outranks th:if on the same element. -->
+  <th:block th:if="${currentUser != null and currentUser.curator}">
+    <div th:replace="~{fragments/add-to-playlist :: dialog}"></div>
+  </th:block>
 
 </div>
 </body>

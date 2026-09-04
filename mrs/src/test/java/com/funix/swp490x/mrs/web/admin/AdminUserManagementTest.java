@@ -1,5 +1,6 @@
 package com.funix.swp490x.mrs.web.admin;
 
+import com.funix.swp490x.mrs.service.PlaylistService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
@@ -94,6 +95,10 @@ class AdminUserManagementTest {
 
     @MockitoBean
     private SessionInvalidationService sessionInvalidationService;
+
+    /** Demotion hands playlists to the acting ADMIN through this. */
+    @MockitoBean
+    private PlaylistService playlistService;
 
     private static MrsUserDetails admin() {
         User user = new User();
@@ -380,7 +385,7 @@ class AdminUserManagementTest {
     }
 
     @Test
-    void deactivatingAnAccountExpiresItsSessions() throws Exception {
+    void deactivatingAnAccountExpiresItsSessionsAndTellsTheHolder() throws Exception {
         User existing = activeDesigner(42L);
         given(userRepository.findById(42L)).willReturn(Optional.of(existing));
 
@@ -392,6 +397,66 @@ class AdminUserManagementTest {
 
         assertThat(existing.getStatus()).isEqualTo(UserStatus.DEACTIVATED);
         then(sessionInvalidationService).should().invalidateSessionsForEmail("nina@mrs.local");
+
+        ArgumentCaptor<String> body = ArgumentCaptor.forClass(String.class);
+        then(mailTransport).should().send(eq("nina@mrs.local"),
+                eq("Your MRS account has been deactivated"), body.capture());
+        assertThat(body.getValue()).contains("Nina Designer").contains("deactivated");
+    }
+
+    @Test
+    void deactivatingADesignerHandsTheirPlaylistsToTheActingAdmin() throws Exception {
+        User existing = activeDesigner(42L);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+        given(playlistService.transferOwnership(42L, 1L, 1L)).willReturn(3);
+
+        mockMvc.perform(post("/admin/users/42/deactivate")
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(flash().attribute("flash",
+                        Messages.USER_DEACTIVATED + " " + Messages.playlistsTransferred(3)));
+
+        assertThat(existing.getStatus()).isEqualTo(UserStatus.DEACTIVATED);
+        then(playlistService).should().transferOwnership(42L, 1L, 1L);
+
+        ArgumentCaptor<String> body = ArgumentCaptor.forClass(String.class);
+        then(mailTransport).should().send(eq("nina@mrs.local"), anyString(), body.capture());
+        assertThat(body.getValue()).contains("3").contains("playlists").contains("administrator");
+    }
+
+    @Test
+    void deactivatingAnAlreadyDeactivatedAccountSendsNothing() throws Exception {
+        User existing = activeDesigner(42L);
+        existing.setStatus(UserStatus.DEACTIVATED);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+
+        mockMvc.perform(post("/admin/users/42/deactivate")
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(flash().attribute("flash", Messages.USER_DEACTIVATED));
+
+        then(mailTransport).should(never()).send(anyString(), anyString(), anyString());
+        then(playlistService).should(never()).transferOwnership(any(), any(), any());
+    }
+
+    /** As with Create (E3): the change stands, ADMIN is warned. */
+    @Test
+    void anUndeliverableDeactivationNoticeLeavesTheAccountDeactivated() throws Exception {
+        User existing = activeDesigner(42L);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+        willThrow(new MailDeliveryException("smtp is down", new IllegalStateException()))
+                .given(mailTransport).send(anyString(), anyString(), anyString());
+
+        mockMvc.perform(post("/admin/users/42/deactivate")
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(flash().attribute("flash", Messages.USER_DEACTIVATED_EMAIL_FAILED))
+                .andExpect(flash().attribute("flashVariant", "warning"));
+
+        assertThat(existing.getStatus()).isEqualTo(UserStatus.DEACTIVATED);
     }
 
     @Test
@@ -443,6 +508,14 @@ class AdminUserManagementTest {
         assertThat(existing.getRole()).isEqualTo(Role.CUSTOMER);
         then(sessionInvalidationService).should().invalidateSessionsForEmail("nina@mrs.local");
 
+        ArgumentCaptor<String> body = ArgumentCaptor.forClass(String.class);
+        then(mailTransport).should().send(eq("nina@mrs.local"),
+                eq("Your MRS role has changed"), body.capture());
+        assertThat(body.getValue())
+                .contains("Nina Designer")
+                .contains(Role.CONTENT_DESIGNER.getDisplayName())
+                .contains(Role.CUSTOMER.getDisplayName());
+
         mockMvc.perform(post("/admin/users/42/role")
                         .param("role", Role.ADMIN.name())
                         .with(user(admin()))
@@ -450,6 +523,80 @@ class AdminUserManagementTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(flash().attribute("flash",
                         containsString("Content Designer or Customer")));
+        assertThat(existing.getRole()).isEqualTo(Role.CUSTOMER);
+        // The rejected ADMIN assignment sent nothing further.
+        then(mailTransport).should().send(anyString(), anyString(), anyString());
+    }
+
+    @Test
+    void demotingADesignerHandsTheirPlaylistsToTheActingAdmin() throws Exception {
+        User existing = activeDesigner(42L);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+        given(playlistService.transferOwnership(42L, 1L, 1L)).willReturn(2);
+
+        mockMvc.perform(post("/admin/users/42/role")
+                        .param("role", Role.CUSTOMER.name())
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(flash().attribute("flash",
+                        Messages.USER_ROLE_CHANGED + " " + Messages.playlistsTransferred(2)));
+
+        then(playlistService).should().transferOwnership(42L, 1L, 1L);
+
+        ArgumentCaptor<String> body = ArgumentCaptor.forClass(String.class);
+        then(mailTransport).should().send(eq("nina@mrs.local"), anyString(), body.capture());
+        assertThat(body.getValue()).contains("2").contains("playlists").contains("administrator");
+    }
+
+    @Test
+    void promotingACustomerMovesNoPlaylists() throws Exception {
+        User existing = activeDesigner(42L);
+        existing.setRole(Role.CUSTOMER);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+
+        mockMvc.perform(post("/admin/users/42/role")
+                        .param("role", Role.CONTENT_DESIGNER.name())
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(flash().attribute("flash", Messages.USER_ROLE_CHANGED));
+
+        assertThat(existing.getRole()).isEqualTo(Role.CONTENT_DESIGNER);
+        then(playlistService).should(never()).transferOwnership(any(), any(), any());
+    }
+
+    @Test
+    void reassigningTheSameRoleSendsNothing() throws Exception {
+        User existing = activeDesigner(42L);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+
+        mockMvc.perform(post("/admin/users/42/role")
+                        .param("role", Role.CONTENT_DESIGNER.name())
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(flash().attribute("flash", Messages.USER_ROLE_CHANGED));
+
+        then(sessionInvalidationService).should(never()).invalidateSessionsForEmail(anyString());
+        then(mailTransport).should(never()).send(anyString(), anyString(), anyString());
+    }
+
+    @Test
+    void anUndeliverableRoleNoticeLeavesTheNewRoleInPlace() throws Exception {
+        User existing = activeDesigner(42L);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+        willThrow(new MailDeliveryException("smtp is down", new IllegalStateException()))
+                .given(mailTransport).send(anyString(), anyString(), anyString());
+
+        mockMvc.perform(post("/admin/users/42/role")
+                        .param("role", Role.CUSTOMER.name())
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(flash().attribute("flash", Messages.USER_ROLE_CHANGED_EMAIL_FAILED))
+                .andExpect(flash().attribute("flashVariant", "warning"));
+
         assertThat(existing.getRole()).isEqualTo(Role.CUSTOMER);
     }
 

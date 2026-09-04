@@ -65,8 +65,10 @@
     <div th:replace="~{fragments/song-catalog :: results}"></div>
   </div>
 
-  <div th:if="${currentUser != null and currentUser.curator}"
-       th:replace="~{fragments/add-to-playlist :: dialog}"></div>
+  <!-- th:block, because th:replace outranks th:if on the same element. -->
+  <th:block th:if="${currentUser != null and currentUser.curator}">
+    <div th:replace="~{fragments/add-to-playlist :: dialog}"></div>
+  </th:block>
 
   <!-- UC-29: one modal, filled from the row so opening it does not remount the player.
        Reopens itself when a validation rejection comes back (not on a stale 409). -->

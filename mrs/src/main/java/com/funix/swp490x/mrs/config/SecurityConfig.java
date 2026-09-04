@@ -73,10 +73,11 @@ public class SecurityConfig {
                         // P-02 / song browse: curation surfaces, not offered to Customers (spec 2.1).
                         .requestMatchers("/search", "/search/**", Routes.SONGS, Routes.SONGS_PLAY_QUEUE)
                         .hasAnyRole("ADMIN", "CONTENT_DESIGNER")
-                        // P-03: a Customer may read a playlist shared with them but
-                        // never create or change one (FT-06 NAC-03). Reading stays
-                        // on the authenticated default below.
-                        .requestMatchers(HttpMethod.POST, Routes.PLAYLISTS, Routes.PLAYLISTS + "/**")
+                        // P-03 is a curation surface. A Customer reads shared work
+                        // through the Shared Workspace only (FT-06 NAC-03), owns no
+                        // playlists (demotion hands them to ADMIN) and never
+                        // creates or changes one.
+                        .requestMatchers(Routes.PLAYLISTS, Routes.PLAYLISTS + "/**")
                         .hasAnyRole("ADMIN", "CONTENT_DESIGNER")
                         .anyRequest().authenticated())
                 .formLogin(form -> form

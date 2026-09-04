@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
+<!--/* P-06f All Playlists — ADMIN oversight of every playlist, read-only. */-->
+<body>
+<div th:fragment="content">
+
+  <header class="d-flex flex-column gap-1 mb-xl">
+    <h1>All Playlists</h1>
+    <p class="small text-secondary">
+      Every playlist in the system, Draft or Published, whoever owns it. View only:
+      editing stays with the owner and their collaborators.
+    </p>
+  </header>
+
+  <div class="d-flex flex-column gap-4">
+
+    <!-- Zone B: owner, status and name filters -->
+    <section class="card">
+      <div class="card-body">
+        <form class="row g-3 align-items-end" method="get" th:action="@{/admin/playlists}">
+          <div class="col-12 col-md-3">
+            <label class="form-label" for="filterOwner">Owner</label>
+            <select class="form-select" id="filterOwner" name="ownerId">
+              <option value="">All</option>
+              <option th:each="owner : ${owners}"
+                      th:value="${owner.id}"
+                      th:text="${owner.name}"
+                      th:selected="${filterOwnerId != null and filterOwnerId == owner.id}">Owner</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-2">
+            <label class="form-label" for="filterStatus">Status</label>
+            <select class="form-select" id="filterStatus" name="status">
+              <option value="">All</option>
+              <option value="DRAFT" th:selected="${filterStatus == 'DRAFT'}">Draft</option>
+              <option value="PUBLISHED" th:selected="${filterStatus == 'PUBLISHED'}">Published</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-4">
+            <label class="form-label" for="filterQuery">Search</label>
+            <input class="form-control" type="search" id="filterQuery" name="q"
+                   placeholder="Playlist name" th:value="${filterQuery}">
+          </div>
+          <div class="col-12 col-md-3 d-flex gap-2">
+            <button type="submit" class="btn btn-primary flex-grow-1">Filter</button>
+            <a class="btn btn-ghost" th:href="@{/admin/playlists}" title="Clear filters">Clear</a>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Zone C: playlist table -->
+    <section class="card">
+      <div class="table-responsive">
+        <table class="table align-middle mb-0">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Owner</th>
+              <th scope="col">Status</th>
+              <th scope="col">Songs</th>
+              <th scope="col">Version</th>
+              <th scope="col">Last modified</th>
+              <th scope="col">Collaborators</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="playlist : ${playlists}">
+              <td>
+                <a th:href="@{|/admin/playlists/${playlist.id}|}" th:text="${playlist.name}">Name</a>
+              </td>
+              <td th:text="${playlist.ownerName}">Owner</td>
+              <td>
+                <span th:replace="~{fragments/components :: statusBadge(${playlist.status.name()})}"></span>
+              </td>
+              <td class="table__numeric" th:text="${playlist.songCount}">0</td>
+              <td class="table__numeric font-monospace small text-secondary"
+                  th:text="${playlist.version}">1</td>
+              <td class="small text-secondary">
+                <div class="d-flex flex-column">
+                  <span th:text="${playlist.lastModifiedByName}">Someone</span>
+                  <span class="table__numeric"
+                        th:text="${#temporals.format(playlist.lastModifiedAt, 'dd MMM yyyy HH:mm')}">01 Jan 2026 09:00</span>
+                </div>
+              </td>
+              <td class="table__numeric" th:text="${playlist.collaboratorCount}">0</td>
+            </tr>
+            <tr th:if="${playlists == null or playlists.isEmpty()}">
+              <td colspan="7">
+                <div th:replace="~{fragments/components :: emptyState('list-music', 'No playlists',
+                        'Nothing matches these filters.')}"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Zone D: pagination (20 / page). Own links rather than the shared pager,
+         which does not carry ownerId. -->
+    <nav th:if="${playlists != null and playlists.totalPages > 1}"
+         class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3"
+         aria-label="Pagination">
+      <p class="small text-secondary mb-0">
+        Page <span class="table__numeric" th:text="${playlists.number + 1}">1</span>
+        of <span class="table__numeric" th:text="${playlists.totalPages}">1</span>
+        · <span class="table__numeric" th:text="${playlists.totalElements}">0</span> total
+      </p>
+      <ul class="pagination mb-0">
+        <li class="page-item" th:classappend="${playlists.first} ? 'disabled'">
+          <a class="page-link"
+             th:href="@{/admin/playlists(page=${playlists.number - 1}, ownerId=${filterOwnerId}, status=${filterStatus}, q=${filterQuery})}"
+             th:attr="aria-disabled=${playlists.first} ? 'true' : null"
+             th:tabindex="${playlists.first} ? -1 : null">Previous</a>
+        </li>
+        <li class="page-item" th:classappend="${playlists.last} ? 'disabled'">
+          <a class="page-link"
+             th:href="@{/admin/playlists(page=${playlists.number + 1}, ownerId=${filterOwnerId}, status=${filterStatus}, q=${filterQuery})}"
+             th:attr="aria-disabled=${playlists.last} ? 'true' : null"
+             th:tabindex="${playlists.last} ? -1 : null">Next</a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+
+</div>
+</body>
+</html>

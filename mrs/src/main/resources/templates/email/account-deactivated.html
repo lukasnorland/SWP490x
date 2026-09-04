@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{email/layout :: message(~{::content})}">
+<!--/* Spec 4.9 — tells the holder that ADMIN deactivated the account (P-06a). */-->
+<body>
+<div th:fragment="content">
+
+  <p style="margin:0 0 16px; font-size:20px; font-weight:600;">
+    Your MRS account has been deactivated
+  </p>
+
+  <p style="margin:0 0 24px;">
+    Hello <span th:text="${name}">Name</span>, an administrator has deactivated
+    your account on the Music Recommendation System. You can no longer sign in
+    with <span style="font-family:Consolas,Menlo,monospace;" th:text="${email}">name@mrs.local</span>,
+    and any session that was still open has been closed.
+  </p>
+
+  <p th:if="${transferredPlaylists > 0}" style="margin:0 0 24px;">
+    The <span th:text="${transferredPlaylists}">2</span>
+    <span th:text="${transferredPlaylists == 1 ? 'playlist' : 'playlists'}">playlists</span>
+    you owned now belong to an administrator. Anything already published stays
+    available in the Shared Workspace.
+  </p>
+
+  <p style="margin:0; color:#475569;">
+    Nothing you created has been removed. If you believe this was a mistake, or
+    you need access again, please contact your administrator, who can reactivate
+    the account.
+  </p>
+
+</div>
+</body>
+</html>
