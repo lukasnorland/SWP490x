@@ -138,6 +138,22 @@ public class SearchService {
                 StringUtils.hasText(query) ? query.trim() : null, topN);
     }
 
+    /**
+     * Every song id the current filters match, across all pages, so "Create
+     * playlist from results" lands the same set the curator is looking at.
+     */
+    @Transactional(readOnly = true)
+    public List<Long> resultSongIds(List<Long> genreIds, List<Long> moodIds,
+            List<Long> artistIds, List<Long> tagIds, String query, Integer topN) {
+
+        if (empty(genreIds) && empty(moodIds) && empty(artistIds) && empty(tagIds)
+                && !StringUtils.hasText(query)) {
+            return List.of();
+        }
+        return catalogService.recommendedIds(genreIds, moodIds, artistIds, tagIds,
+                StringUtils.hasText(query) ? query.trim() : null, topN);
+    }
+
     private String detailsJson(InterpretedFilters interpreted, MappedFilters mapped,
             boolean fallback) {
         Map<String, Object> body = new LinkedHashMap<>();

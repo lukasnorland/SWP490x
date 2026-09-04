@@ -173,6 +173,19 @@ public class SongCatalogService {
                 .toList();
     }
 
+    /**
+     * Ids of every song the Search filters match, in recommendation order and
+     * already cut to Top-N — the whole result set, not one page of it.
+     */
+    @Transactional(readOnly = true)
+    public List<Long> recommendedIds(List<Long> genreIds, List<Long> moodIds,
+            List<Long> artistIds, List<Long> tagIds, String query, Integer topN) {
+
+        return rankedSongs(genreIds, moodIds, artistIds, tagIds, query, topN).stream()
+                .map(Song::getId)
+                .toList();
+    }
+
     private List<Song> rankedSongs(List<Long> genreIds, List<Long> moodIds,
             List<Long> artistIds, List<Long> tagIds, String query, Integer topN) {
 

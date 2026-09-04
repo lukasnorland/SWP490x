@@ -15,6 +15,23 @@
     </a>
   </div>
 
+  <!--/* Whole-result-set shortcut: one Draft with every match, all pages,
+         in ranked order. Opens the shared dialog in its "from results" mode. */-->
+  <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3"
+       th:if="${currentUser != null and currentUser.curator and songs != null and !songs.isEmpty()}">
+    <p class="small text-secondary mb-0">
+      <span class="table__numeric" th:text="${songs.totalElements}">0</span>
+      <span th:text="${songs.totalElements == 1} ? 'match' : 'matches'">matches</span>
+      in ranked order
+    </p>
+    <button type="button" class="btn btn-ghost"
+            data-create-from-results
+            th:data-result-count="${songs.totalElements}">
+      <svg th:replace="~{fragments/icons :: icon('plus', 'icon--sm')}"></svg>
+      Create playlist from results
+    </button>
+  </div>
+
   <section class="card">
     <div class="catalog-table-wrap">
       <table class="table catalog-table align-middle mb-0">

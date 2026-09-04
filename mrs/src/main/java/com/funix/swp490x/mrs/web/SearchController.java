@@ -1,7 +1,9 @@
 package com.funix.swp490x.mrs.web;
 
+import com.funix.swp490x.mrs.domain.Playlist;
 import com.funix.swp490x.mrs.domain.Song;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
+import com.funix.swp490x.mrs.service.InvalidPlaylistStateException;
 import com.funix.swp490x.mrs.service.InvalidSearchQueryException;
 import com.funix.swp490x.mrs.service.PlaylistService;
 import com.funix.swp490x.mrs.service.SearchService;
@@ -71,6 +73,45 @@ public class SearchController {
         }
     }
 
+    /**
+     * "Create playlist from results": a new Draft holding every song the
+     * current filters match, across all pages, in recommendation order. The
+     * filters travel with the form (not the page's song ids) so the server
+     * re-runs the same search and Top-N the curator is looking at.
+     */
+    @PostMapping(Routes.SEARCH_CREATE_PLAYLIST)
+    public String createPlaylistFromResults(@AuthenticationPrincipal MrsUserDetails user,
+            @RequestParam String name,
+            @RequestParam(required = false) List<Long> genreId,
+            @RequestParam(required = false) List<Long> moodId,
+            @RequestParam(required = false) List<Long> artistId,
+            @RequestParam(required = false) List<Long> tagId,
+            @RequestParam(required = false) String q,
+            @RequestParam(required = false) Integer topN,
+            @RequestParam(required = false) String returnTo,
+            RedirectAttributes redirectAttributes) {
+
+        String back = returnTo == null || returnTo.isBlank() || returnTo.contains("//")
+                || !(returnTo.equals(Routes.SEARCH) || returnTo.startsWith(Routes.SEARCH + "?"))
+                ? Routes.SEARCH
+                : returnTo;
+
+        List<Long> songIds = searchService.resultSongIds(genreId, moodId, artistId, tagId, q,
+                topN);
+        if (songIds.isEmpty()) {
+            flash(redirectAttributes, "warning", Messages.SEARCH_NO_RESULTS_TO_ADD);
+            return "redirect:" + back;
+        }
+        try {
+            Playlist created = playlistService.createWithSongs(userId(user), name, songIds);
+            flash(redirectAttributes, "success", Messages.PLAYLIST_CREATED_FROM_RESULTS);
+            return "redirect:" + Routes.PLAYLISTS + "/" + created.getId();
+        } catch (InvalidPlaylistStateException e) {
+            flash(redirectAttributes, "warning", Messages.PLAYLIST_NAME_REQUIRED);
+            return "redirect:" + back;
+        }
+    }
+
     @GetMapping(path = Routes.SEARCH_PLAY_QUEUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Map<String, List<PreviewTrack>> playQueue(
@@ -132,5 +173,10 @@ public class SearchController {
 
     private static Long userId(MrsUserDetails user) {
         return user == null ? null : user.getId();
+    }
+
+    private static void flash(RedirectAttributes attributes, String variant, String message) {
+        attributes.addFlashAttribute("flash", message);
+        attributes.addFlashAttribute("flashVariant", variant);
     }
 }

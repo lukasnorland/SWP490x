@@ -18,7 +18,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="d-flex flex-column gap-1">
-          <h2 class="modal-title h4" id="addToPlaylistTitle">Add to playlist</h2>
+          <h2 class="modal-title h4" id="addToPlaylistTitle" data-add-title>Add to playlist</h2>
           <p class="small text-secondary mb-0" data-add-song-label>Choose a playlist.</p>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -30,7 +30,7 @@
                are never offered here. */-->
         <form th:action="@{/playlists/0/songs}" method="post"
               class="d-flex flex-column gap-2 mb-0"
-              data-add-existing-form
+              data-add-existing-form data-add-song-mode
               th:if="${myPlaylists != null and !myPlaylists.isEmpty()}">
           <input type="hidden" name="returnTo" data-add-return-to value="">
           <div data-add-song-ids>
@@ -49,16 +49,16 @@
           </div>
         </form>
 
-        <p class="small text-secondary mb-0"
+        <p class="small text-secondary mb-0" data-add-song-mode
            th:if="${myPlaylists == null or myPlaylists.isEmpty()}">
           You have no draft playlists yet. Name one below and the song goes straight into it.
         </p>
 
-        <hr class="my-0" th:if="${myPlaylists != null and !myPlaylists.isEmpty()}">
+        <hr class="my-0" data-add-song-mode th:if="${myPlaylists != null and !myPlaylists.isEmpty()}">
 
         <!--/* Create-and-add, so the whole loop is one action (NFR-U01). */-->
         <form th:action="@{/playlists}" method="post"
-              class="d-flex flex-column gap-2 mb-0" data-add-create-form>
+              class="d-flex flex-column gap-2 mb-0" data-add-create-form data-add-song-mode>
           <input type="hidden" name="returnTo" data-add-return-to value="">
           <div data-add-song-ids>
             <input type="hidden" name="songId" data-add-song-id value="">
@@ -69,6 +69,22 @@
             <input class="form-control" type="text" id="addToPlaylistName" name="name"
                    maxlength="200" required placeholder="Playlist name">
             <button type="submit" class="btn btn-ghost flex-shrink-0">Create and add</button>
+          </div>
+        </form>
+
+        <!--/* "Create playlist from results": the current Search filters ride
+               along as hidden fields (filled from the page URL at open time), so
+               the server re-runs the search and adds every match, all pages. */-->
+        <form th:action="@{/search/create-playlist}" method="post"
+              class="d-flex flex-column gap-2 mb-0" data-create-from-results-form hidden>
+          <input type="hidden" name="returnTo" data-add-return-to value="">
+          <div data-create-from-results-criteria></div>
+
+          <label class="form-label" for="createFromResultsName">New playlist</label>
+          <div class="d-flex gap-2">
+            <input class="form-control" type="text" id="createFromResultsName" name="name"
+                   maxlength="200" placeholder="Playlist name">
+            <button type="submit" class="btn btn-primary flex-shrink-0">Create</button>
           </div>
         </form>
       </div>

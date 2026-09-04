@@ -23,6 +23,8 @@ public final class Routes {
     public static final String SEARCH_INTERPRET = "/search/interpret";
     /** Preview-bar queue for the current Search filters, in relevance order. */
     public static final String SEARCH_PLAY_QUEUE = "/search/play-queue";
+    /** FT-06 — new Draft holding every song the current Search filters match. */
+    public static final String SEARCH_CREATE_PLAYLIST = "/search/create-playlist";
     /** Authenticated song browse (listen / preview); reuses the catalog list. */
     public static final String SONGS = "/songs";
     /** Preview-bar queue: every playable row matching the current Songs filters. */
