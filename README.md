@@ -19,11 +19,11 @@ The company licenses ~5,000 Epidemic Sound tracks for music-game campaigns and s
 
 | Gap | Problem |
 |-----|---------|
-| **GAP-01** | No objective fitness signal (e.g. Spotify popularity) when choosing tracks |
+| **GAP-01** | No objective fitness signal when choosing tracks |
 | **GAP-02** | Playlists live in personal files/sheets — no shared store or reuse |
 | **GAP-03** | Spreadsheet search cannot combine metadata and context efficiently |
 
-MRS closes those gaps with centralized catalog + playlist management, metadata/LLM-assisted search, and popularity-aware ranking.
+MRS closes those gaps with centralized catalog + playlist management, metadata/LLM-assisted search, and metadata-match ranking.
 
 ---
 
@@ -35,7 +35,7 @@ MRS closes those gaps with centralized catalog + playlist management, metadata/L
 | FE-02 | Profile management & personal playlist history |
 | FE-03 | Multi-criteria metadata search (Genre, Mood, Artist, Tags) |
 | FE-04 | LLM-assisted contextual search (with fallback to plain filters) |
-| FE-05 | Recommendation & ranking using metadata match + Spotify popularity snapshot |
+| FE-05 | Recommendation & ranking using metadata match |
 | FE-06 | Playlist create / edit / save (Draft), concurrency via optimistic locking |
 | FE-07 | Publish to shared workspace; view and duplicate published playlists |
 | FE-08 | CSV export of playlists |
@@ -64,7 +64,6 @@ MRS closes those gaps with centralized catalog + playlist management, metadata/L
 | Database | MySQL 8.x |
 | Object storage | Amazon S3 (audio/asset keys; pre-signed URLs for export) |
 | LLM | External API (e.g. Gemini) for query interpretation only |
-| Popularity | Batch/reference Spotify popularity snapshots (not live sync) |
 | CI | GitHub Actions (`./mvnw verify` + JaCoCo) |
 | Deployment target | AWS |
 
@@ -79,7 +78,7 @@ SWP490x/
 │   ├── src/main/java/…   # Application code
 │   ├── src/main/resources/
 │   │   ├── application.properties
-│   │   ├── db/migration/ # Schema + seed SQL (V1, V2)
+│   │   ├── db/migration/ # V1 schema, V2 initial admin account
 │   │   ├── static/       # Design tokens, theme, CSS, JS, vendored Bootstrap
 │   │   └── templates/    # Thymeleaf layouts, fragments, screens
 │   └── pom.xml
@@ -121,7 +120,7 @@ need catalog columns on `song` (`audio_url`, `cover_url`, `bpm`, `is_explicit`,
 CREATE DATABASE mrs CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 ```
 
-Flyway applies the migrations under `mrs/src/main/resources/db/migration/` (V1 schema, V2 seed) on every startup — create the empty database and run the app.
+Flyway applies the migrations under `mrs/src/main/resources/db/migration/` (V1 schema, V2 initial admin account) on every startup — create the empty database and run the app.
 
 If you applied an older schema by hand before Flyway was wired in, no action is needed: the app baselines an existing schema at V2 (`spring.flyway.baseline-version`) so migrations are not replayed over your tables.
 
@@ -392,17 +391,15 @@ cd mrs
 
 CI runs the same verify step against MySQL 8 on every push/PR to `main`.
 
-### Demo seed accounts (dev only)
+### Initial admin account (dev only)
 
-Seeded in `V2__seed_sample_data.sql` (change immediately outside local demos):
+Seeded in `V2__seed_admin_account.sql` (change immediately outside local demos):
 
 | Email | Role |
 |-------|------|
 | `admin@mrs.local` | ADMIN |
-| `cd@mrs.local` | CONTENT_DESIGNER |
-| `customer@mrs.local` | CUSTOMER |
 
-Password for all three: `Admin@2026` (forced change on first login is intended by FT-09 / BR-12).
+Password: `Admin@2026` (forced change on first login is intended by FT-09 / BR-12). Create Content Designer and Customer accounts from the admin screens.
 
 ---
 

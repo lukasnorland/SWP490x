@@ -50,10 +50,6 @@ public class Song {
     @Column(name = "external_source_id", length = 100)
     private String externalSourceId;
 
-    /** 0-100 snapshot; null means never synced (BR-08). */
-    @Column(name = "spotify_popularity")
-    private Byte spotifyPopularity;
-
     /** Public HTTPS mp3: a vendor CDN, or a copy we host ourselves. */
     @Column(name = "audio_url", length = 500)
     private String audioUrl;
@@ -163,14 +159,6 @@ public class Song {
 
     public void setExternalSourceId(String externalSourceId) {
         this.externalSourceId = externalSourceId;
-    }
-
-    public Byte getSpotifyPopularity() {
-        return spotifyPopularity;
-    }
-
-    public void setSpotifyPopularity(Byte spotifyPopularity) {
-        this.spotifyPopularity = spotifyPopularity;
     }
 
     public String getAudioUrl() {

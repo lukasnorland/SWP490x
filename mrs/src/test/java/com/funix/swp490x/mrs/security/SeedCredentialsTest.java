@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  */
 class SeedCredentialsTest {
 
-    /** The hash all three demo accounts share in V2__seed_sample_data.sql. */
+    /** The admin hash in V2__seed_admin_account.sql. */
     private static final String SEEDED_HASH =
             "$2a$10$S6Ja2VOI/uaySJ3zx834I.H4/f7hK/KGUZu/FzRatTKxAki9FLhQO";
 

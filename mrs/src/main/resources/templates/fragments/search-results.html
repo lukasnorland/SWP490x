@@ -27,7 +27,6 @@
             <th scope="col">Artist</th>
             <th scope="col">Duration</th>
             <th scope="col">Matched tags</th>
-            <th scope="col">Popularity</th>
             <th scope="col" th:if="${currentUser != null and currentUser.curator}">Add</th>
           </tr>
         </thead>
@@ -80,8 +79,6 @@
                       th:text="${tag.name}">tag</span>
               </div>
             </td>
-            <td class="table__numeric"
-                th:text="${song.spotifyPopularity != null} ? ${song.spotifyPopularity} : '—'">—</td>
             <td th:if="${currentUser != null and currentUser.curator}">
               <button type="button" class="btn btn-icon"
                       title="Add to playlist"
@@ -95,7 +92,7 @@
             </td>
           </tr>
           <tr th:if="${songs == null or songs.isEmpty()}">
-            <td th:attr="colspan=${currentUser != null and currentUser.curator} ? 7 : 6">
+            <td th:attr="colspan=${currentUser != null and currentUser.curator} ? 6 : 5">
               <div th:replace="~{fragments/components :: emptyState('search',
                       ${hasSearchCriteria} ? 'No songs match' : 'Describe a playlist need',
                       ${hasSearchCriteria}
