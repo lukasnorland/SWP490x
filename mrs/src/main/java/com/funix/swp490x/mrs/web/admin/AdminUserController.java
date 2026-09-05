@@ -12,17 +12,23 @@ import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.service.DuplicateEmailException;
 import com.funix.swp490x.mrs.service.EmailPolicy;
 import com.funix.swp490x.mrs.service.InvalidEmailException;
+import com.funix.swp490x.mrs.service.InvalidSuccessorException;
 import com.funix.swp490x.mrs.service.InvalidRoleAssignmentException;
+import com.funix.swp490x.mrs.service.PlaylistSuccessorChoice;
+import com.funix.swp490x.mrs.service.PlaylistSuccessorRequiredException;
 import com.funix.swp490x.mrs.service.SelfModificationException;
 import com.funix.swp490x.mrs.service.UserAccountService;
 import com.funix.swp490x.mrs.service.UserAccountService.Deactivation;
 import com.funix.swp490x.mrs.service.UserAccountService.InitialCredentials;
 import com.funix.swp490x.mrs.service.UserAccountService.RoleChange;
+import com.funix.swp490x.mrs.service.UserNotFoundException;
 import com.funix.swp490x.mrs.service.UserView;
 import com.funix.swp490x.mrs.service.WeakPasswordException;
 import com.funix.swp490x.mrs.web.Messages;
 import com.funix.swp490x.mrs.web.Routes;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -207,24 +213,69 @@ public class AdminUserController {
         } catch (SelfModificationException e) {
             flash(redirectAttributes, "danger", Messages.SELF_MODIFICATION_FORBIDDEN);
             return "redirect:" + Routes.ADMIN_USERS;
+        } catch (PlaylistSuccessorRequiredException e) {
+            return "redirect:" + Routes.ADMIN_USERS + "/" + id + "/reassign?intent=deactivate";
         }
 
-        if (!outcome.changed()) {
-            flash(redirectAttributes, "success", Messages.USER_DEACTIVATED);
+        return finishDeactivation(outcome, redirectAttributes);
+    }
+
+    @GetMapping(Routes.ADMIN_USER_REASSIGN)
+    public String reassignForm(@PathVariable Long id,
+            @RequestParam String intent,
+            @AuthenticationPrincipal MrsUserDetails actor,
+            Model model,
+            RedirectAttributes redirectAttributes) {
+        if (!"deactivate".equals(intent) && !"demote".equals(intent)) {
             return "redirect:" + Routes.ADMIN_USERS;
         }
-        UserView account = outcome.user();
-        String transferNote = outcome.transferredPlaylists() == 0
-                ? ""
-                : " " + Messages.playlistsTransferred(outcome.transferredPlaylists());
+        UserView account;
         try {
-            notificationService.sendAccountDeactivated(account.username(), account.email(),
-                    outcome.transferredPlaylists());
-            flash(redirectAttributes, "success", Messages.USER_DEACTIVATED + transferNote);
-        } catch (MailDeliveryException e) {
-            reportUndelivered("Deactivation", account.email(), e);
-            flash(redirectAttributes, "warning",
-                    Messages.USER_DEACTIVATED_EMAIL_FAILED + transferNote);
+            account = userAccountService.get(id);
+        } catch (UserNotFoundException e) {
+            return "redirect:" + Routes.ADMIN_USERS;
+        }
+        List<PlaylistSuccessorChoice> choices = userAccountService.successorChoices(id);
+        if (choices.isEmpty()) {
+            return "redirect:" + Routes.ADMIN_USERS;
+        }
+        model.addAttribute("pageTitle", "Reassign playlists");
+        model.addAttribute("activeNav", "admin-users");
+        model.addAttribute("breadcrumbParent", "User Management");
+        model.addAttribute("breadcrumbParentUrl", Routes.ADMIN_USERS);
+        model.addAttribute("account", account);
+        model.addAttribute("intent", intent);
+        model.addAttribute("choices", choices);
+        model.addAttribute("adminId", actor.getId());
+        model.addAttribute("adminName", actor.getDisplayName());
+        return "admin/reassign";
+    }
+
+    @PostMapping(Routes.ADMIN_USER_REASSIGN)
+    public String reassign(@PathVariable Long id,
+            @RequestParam String intent,
+            @RequestParam Map<String, String> params,
+            @AuthenticationPrincipal MrsUserDetails actor,
+            RedirectAttributes redirectAttributes) {
+        Map<Long, Long> successors = parseSuccessors(params);
+        try {
+            if ("deactivate".equals(intent)) {
+                return finishDeactivation(
+                        userAccountService.deactivate(id, actor.getId(), successors),
+                        redirectAttributes);
+            }
+            if ("demote".equals(intent)) {
+                return finishRoleChange(
+                        userAccountService.changeRole(id, Role.CUSTOMER, actor.getId(), successors),
+                        redirectAttributes);
+            }
+        } catch (SelfModificationException e) {
+            flash(redirectAttributes, "danger", Messages.SELF_MODIFICATION_FORBIDDEN);
+        } catch (PlaylistSuccessorRequiredException | InvalidSuccessorException e) {
+            flash(redirectAttributes, "warning", Messages.SUCCESSOR_REQUIRED);
+            return "redirect:" + Routes.ADMIN_USERS + "/" + id + "/reassign?intent=" + intent;
+        } catch (InvalidRoleAssignmentException e) {
+            flash(redirectAttributes, "danger", e.getMessage());
         }
         return "redirect:" + Routes.ADMIN_USERS;
     }
@@ -252,6 +303,8 @@ public class AdminUserController {
         } catch (SelfModificationException e) {
             flash(redirectAttributes, "danger", Messages.SELF_MODIFICATION_FORBIDDEN);
             return "redirect:" + Routes.ADMIN_USERS;
+        } catch (PlaylistSuccessorRequiredException e) {
+            return "redirect:" + Routes.ADMIN_USERS + "/" + id + "/reassign?intent=demote";
         } catch (InvalidRoleAssignmentException e) {
             flash(redirectAttributes, "danger", e.getMessage());
             return "redirect:" + Routes.ADMIN_USERS;
@@ -261,6 +314,31 @@ public class AdminUserController {
             flash(redirectAttributes, "success", Messages.USER_ROLE_CHANGED);
             return "redirect:" + Routes.ADMIN_USERS;
         }
+        return finishRoleChange(outcome, redirectAttributes);
+    }
+
+    private String finishDeactivation(Deactivation outcome, RedirectAttributes redirectAttributes) {
+        if (!outcome.changed()) {
+            flash(redirectAttributes, "success", Messages.USER_DEACTIVATED);
+            return "redirect:" + Routes.ADMIN_USERS;
+        }
+        UserView account = outcome.user();
+        String transferNote = outcome.transferredPlaylists() == 0
+                ? ""
+                : " " + Messages.playlistsTransferred(outcome.transferredPlaylists());
+        try {
+            notificationService.sendAccountDeactivated(account.username(), account.email(),
+                    outcome.transferredPlaylists());
+            flash(redirectAttributes, "success", Messages.USER_DEACTIVATED + transferNote);
+        } catch (MailDeliveryException e) {
+            reportUndelivered("Deactivation", account.email(), e);
+            flash(redirectAttributes, "warning",
+                    Messages.USER_DEACTIVATED_EMAIL_FAILED + transferNote);
+        }
+        return "redirect:" + Routes.ADMIN_USERS;
+    }
+
+    private String finishRoleChange(RoleChange outcome, RedirectAttributes redirectAttributes) {
         UserView account = outcome.user();
         String transferNote = outcome.transferredPlaylists() == 0
                 ? ""
@@ -276,6 +354,23 @@ public class AdminUserController {
                     Messages.USER_ROLE_CHANGED_EMAIL_FAILED + transferNote);
         }
         return "redirect:" + Routes.ADMIN_USERS;
+    }
+
+    private static Map<Long, Long> parseSuccessors(Map<String, String> params) {
+        Map<Long, Long> successors = new LinkedHashMap<>();
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            String key = entry.getKey();
+            if (key == null || !key.startsWith("successor[") || !key.endsWith("]")) {
+                continue;
+            }
+            try {
+                Long playlistId = Long.valueOf(key.substring("successor[".length(), key.length() - 1));
+                successors.put(playlistId, Long.valueOf(entry.getValue()));
+            } catch (NumberFormatException ignored) {
+                // Skip a crafted field rather than failing the whole form.
+            }
+        }
+        return successors;
     }
 
     private String renderScreen(Model model, Role roleFilter, UserStatus statusFilter,

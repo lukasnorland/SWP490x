@@ -33,6 +33,16 @@
     </div>
 
     <div class="d-flex flex-wrap align-items-center gap-2" th:if="${inspecting != true}">
+      <button type="button" class="btn btn-ghost"
+              th:if="${currentUser != null and currentUser.curator}"
+              title="Duplicate playlist"
+              data-duplicate-playlist
+              th:data-playlist-id="${playlist.id}"
+              th:data-playlist-name="${playlist.name}">
+        <svg th:replace="~{fragments/icons :: icon('copy', 'icon--sm')}"></svg>
+        <span>Duplicate</span>
+      </button>
+
       <a class="btn btn-ghost" th:href="@{|/playlists/${playlist.id}/export.csv|}" download>
         <svg th:replace="~{fragments/icons :: icon('download', 'icon--sm')}"></svg>
         <span>Export CSV</span>
@@ -60,7 +70,7 @@
         </button>
       </form>
 
-      <form th:if="${canEdit}" th:action="@{|/playlists/${playlist.id}/delete|}" method="post"
+      <form th:if="${canDelete}" th:action="@{|/playlists/${playlist.id}/delete|}" method="post"
             class="mb-0">
         <button type="submit" class="btn btn-ghost"
                 onclick="return confirm('Delete this playlist? The songs stay in the catalog.');">
@@ -197,6 +207,55 @@
       </div>
     </section>
 
+    <!-- BR-03: Content Designer collaborators. Owner and ADMIN can grant. -->
+    <section class="card">
+      <div class="card-body d-flex flex-column gap-3">
+        <h2 class="h4 mb-0">Collaborators</h2>
+        <p class="small text-secondary mb-0">
+          Content Designers you share this playlist with can edit a Draft and unpublish a
+          Published copy. They cannot delete it or invite others.
+        </p>
+
+        <ul class="list-unstyled mb-0 d-flex flex-column gap-2"
+            th:if="${collaborators != null and !collaborators.isEmpty()}">
+          <li th:each="person : ${collaborators}"
+              class="d-flex align-items-center justify-content-between gap-2">
+            <span th:text="${person.name()}">Dana Designer</span>
+            <form th:if="${canManageCollaborators}"
+                  th:action="@{|/playlists/${playlist.id}/collaborators/${person.id()}/remove|}"
+                  method="post" class="mb-0">
+              <input type="hidden" name="returnTo" th:value="${collaboratorReturnTo}">
+              <button type="submit" class="btn btn-ghost btn-sm">Remove</button>
+            </form>
+          </li>
+        </ul>
+        <p class="small text-secondary mb-0"
+           th:if="${collaborators == null or collaborators.isEmpty()}">
+          No collaborators yet.
+        </p>
+
+        <form th:if="${canManageCollaborators}"
+              th:action="@{|/playlists/${playlist.id}/collaborators|}" method="post"
+              class="d-flex flex-wrap align-items-end gap-2 mb-0">
+          <input type="hidden" name="returnTo" th:value="${collaboratorReturnTo}">
+          <div class="flex-grow-1">
+            <label class="form-label" for="collaboratorUserId">Add a Content Designer</label>
+            <select class="form-select" id="collaboratorUserId" name="userId" required
+                    th:disabled="${inviteCandidates == null or inviteCandidates.isEmpty()}">
+              <option value="" disabled selected>Choose someone</option>
+              <option th:each="person : ${inviteCandidates}"
+                      th:value="${person.id()}"
+                      th:text="${person.name()}">Dana Designer</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary"
+                  th:disabled="${inviteCandidates == null or inviteCandidates.isEmpty()}">
+            Share
+          </button>
+        </form>
+      </div>
+    </section>
+
     <!-- Zone D: footer -->
     <section class="d-flex flex-wrap gap-4 small text-secondary">
       <span>
@@ -217,6 +276,9 @@
   <!-- th:block, because th:replace outranks th:if on the same element. -->
   <th:block th:if="${canEdit}">
     <div th:replace="~{fragments/rename-playlist :: dialog}"></div>
+  </th:block>
+  <th:block th:if="${inspecting != true and currentUser != null and currentUser.curator}">
+    <div th:replace="~{fragments/duplicate-playlist :: dialog}"></div>
   </th:block>
 
 </div>

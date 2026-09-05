@@ -4,7 +4,10 @@ import com.funix.swp490x.mrs.domain.Playlist;
 import com.funix.swp490x.mrs.domain.PlaylistSong;
 import com.funix.swp490x.mrs.domain.PlaylistStatus;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
+import com.funix.swp490x.mrs.service.DuplicateCollaboratorException;
+import com.funix.swp490x.mrs.service.DuplicatePlaylistNameException;
 import com.funix.swp490x.mrs.service.DuplicatePlaylistSongException;
+import com.funix.swp490x.mrs.service.InvalidCollaboratorException;
 import com.funix.swp490x.mrs.service.InvalidPlaylistStateException;
 import com.funix.swp490x.mrs.service.PlaylistLockedException;
 import com.funix.swp490x.mrs.service.PlaylistNotFoundException;
@@ -47,7 +50,7 @@ public class PlaylistController {
      */
     private static final List<String> RETURN_ALLOWLIST =
             List.of(Routes.SONGS, Routes.ADMIN_CATALOG, Routes.SEARCH, Routes.PLAYLISTS,
-                    Routes.WORKSPACE);
+                    Routes.WORKSPACE, Routes.ADMIN_PLAYLISTS);
 
     private final PlaylistService playlistService;
 
@@ -88,8 +91,16 @@ public class PlaylistController {
         model.addAttribute("playlist", playlist);
         model.addAttribute("entries", entries);
         model.addAttribute("totalDuration", playlistService.totalDuration(id));
+        boolean owner = user != null && playlist.getOwnerId().equals(user.getId());
+        boolean admin = user != null && user.isAdmin();
         model.addAttribute("canEdit", !playlist.isPublished()
                 && user != null && user.isCurator());
+        model.addAttribute("canDelete", !playlist.isPublished() && owner);
+        model.addAttribute("canManageCollaborators", owner || admin);
+        model.addAttribute("collaborators", playlistService.collaborators(id));
+        model.addAttribute("inviteCandidates",
+                owner || admin ? playlistService.inviteCandidates(id) : List.of());
+        model.addAttribute("collaboratorReturnTo", Routes.PLAYLISTS + "/" + id);
         return "playlist/detail";
     }
 
@@ -119,6 +130,8 @@ public class PlaylistController {
             }
         } catch (InvalidPlaylistStateException e) {
             flash(redirectAttributes, "warning", Messages.PLAYLIST_NAME_REQUIRED);
+        } catch (DuplicatePlaylistNameException e) {
+            flash(redirectAttributes, "warning", Messages.PLAYLIST_NAME_TAKEN);
         } catch (SongNotFoundException e) {
             flash(redirectAttributes, "danger", Messages.SONG_NOT_FOUND);
         }
@@ -137,8 +150,34 @@ public class PlaylistController {
             flash(redirectAttributes, "success", Messages.PLAYLIST_RENAMED);
         } catch (InvalidPlaylistStateException e) {
             flash(redirectAttributes, "warning", Messages.PLAYLIST_NAME_REQUIRED);
+        } catch (DuplicatePlaylistNameException e) {
+            flash(redirectAttributes, "warning", Messages.PLAYLIST_NAME_TAKEN);
         } catch (PlaylistLockedException e) {
             flash(redirectAttributes, "warning", Messages.PLAYLIST_LOCKED);
+        } catch (PlaylistNotFoundException e) {
+            flash(redirectAttributes, "danger", Messages.PLAYLIST_NOT_FOUND);
+            return "redirect:" + Routes.PLAYLISTS;
+        }
+        return "redirect:" + (returnTo == null || returnTo.isBlank()
+                ? Routes.PLAYLISTS + "/" + id
+                : safeReturn(returnTo));
+    }
+
+    @PostMapping(Routes.PLAYLIST_DUPLICATE)
+    public String duplicate(@PathVariable Long id,
+            @AuthenticationPrincipal MrsUserDetails user,
+            @RequestParam String name,
+            @RequestParam(required = false) String returnTo,
+            RedirectAttributes redirectAttributes) {
+
+        try {
+            Playlist created = playlistService.duplicate(id, name, userId(user));
+            flash(redirectAttributes, "success", Messages.PLAYLIST_DUPLICATED);
+            return "redirect:" + Routes.PLAYLISTS + "/" + created.getId();
+        } catch (InvalidPlaylistStateException e) {
+            flash(redirectAttributes, "warning", Messages.PLAYLIST_NAME_REQUIRED);
+        } catch (DuplicatePlaylistNameException e) {
+            flash(redirectAttributes, "warning", Messages.PLAYLIST_NAME_TAKEN);
         } catch (PlaylistNotFoundException e) {
             flash(redirectAttributes, "danger", Messages.PLAYLIST_NOT_FOUND);
             return "redirect:" + Routes.PLAYLISTS;
@@ -236,6 +275,9 @@ public class PlaylistController {
         try {
             playlistService.delete(id, userId(user));
             flash(redirectAttributes, "success", Messages.PLAYLIST_DELETED);
+        } catch (InvalidCollaboratorException e) {
+            flash(redirectAttributes, "warning", Messages.PLAYLIST_DELETE_NOT_OWNER);
+            return "redirect:" + Routes.PLAYLISTS + "/" + id;
         } catch (InvalidPlaylistStateException e) {
             flash(redirectAttributes, "warning", Messages.PLAYLIST_DELETE_PUBLISHED);
         } catch (PlaylistNotFoundException e) {
@@ -280,6 +322,56 @@ public class PlaylistController {
             return "redirect:" + safeReturn(returnTo);
         }
         return "redirect:" + Routes.PLAYLISTS + "/" + id;
+    }
+
+    @PostMapping(Routes.PLAYLIST_COLLABORATORS)
+    public String grant(@PathVariable Long id,
+            @AuthenticationPrincipal MrsUserDetails user,
+            @RequestParam Long userId,
+            @RequestParam(required = false) String returnTo,
+            RedirectAttributes redirectAttributes) {
+
+        try {
+            playlistService.grant(id, userId, userId(user));
+            flash(redirectAttributes, "success", Messages.COLLABORATOR_ADDED);
+        } catch (DuplicateCollaboratorException e) {
+            flash(redirectAttributes, "warning", Messages.COLLABORATOR_ALREADY);
+        } catch (InvalidCollaboratorException e) {
+            flash(redirectAttributes, "warning",
+                    e.getMessage() != null && e.getMessage().contains("Only the owner")
+                            ? Messages.COLLABORATOR_MANAGE_OWNER_ONLY
+                            : Messages.COLLABORATOR_INVALID);
+        } catch (PlaylistNotFoundException e) {
+            flash(redirectAttributes, "danger", Messages.PLAYLIST_NOT_FOUND);
+            return "redirect:" + Routes.PLAYLISTS;
+        }
+        return "redirect:" + (returnTo == null || returnTo.isBlank()
+                ? Routes.PLAYLISTS + "/" + id
+                : safeReturn(returnTo));
+    }
+
+    @PostMapping(Routes.PLAYLIST_COLLABORATOR_REMOVE)
+    public String revoke(@PathVariable Long id,
+            @PathVariable Long userId,
+            @AuthenticationPrincipal MrsUserDetails user,
+            @RequestParam(required = false) String returnTo,
+            RedirectAttributes redirectAttributes) {
+
+        try {
+            playlistService.revoke(id, userId, userId(user));
+            flash(redirectAttributes, "success", Messages.COLLABORATOR_REMOVED);
+        } catch (InvalidCollaboratorException e) {
+            flash(redirectAttributes, "warning",
+                    e.getMessage() != null && e.getMessage().contains("Only the owner")
+                            ? Messages.COLLABORATOR_MANAGE_OWNER_ONLY
+                            : Messages.COLLABORATOR_INVALID);
+        } catch (PlaylistNotFoundException e) {
+            flash(redirectAttributes, "danger", Messages.PLAYLIST_NOT_FOUND);
+            return "redirect:" + Routes.PLAYLISTS;
+        }
+        return "redirect:" + (returnTo == null || returnTo.isBlank()
+                ? Routes.PLAYLISTS + "/" + id
+                : safeReturn(returnTo));
     }
 
     @GetMapping(Routes.PLAYLIST_EXPORT)

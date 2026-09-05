@@ -58,7 +58,7 @@ Local secrets (not in git): `%USERPROFILE%\.mrs-aws\`
 | EC2 | `i-0d7e63cb4552af32d` (`t3.small`, Amazon Linux 2023, 30 GB encrypted gp3) |
 | S3 bucket | `mrs-133857166188-assets` (prefix `song-data/`) |
 | CloudFront | stack `mrs-audio-cdn` → `d34ixswlpjs53y.cloudfront.net` (`song-data/audio/`, `song-data/artwork/`) |
-| DB on EC2 | MariaDB **10.11**, database `mrs`, user `mrsapp`@`localhost`, bound to `127.0.0.1:3306` |
+| DB on EC2 | MariaDB **10.11**, database `mrs`, user `mrsapp`@`localhost`, bound to `127.0.0.1:3306`. Wire-compatible with the MySQL 8 the app and CI target — same JDBC driver, same Flyway migrations |
 | Budget | `mrs-monthly-5usd` ($5 / month COST) |
 | Billing alarm | `mrs-estimated-charges-5usd` (CloudWatch, `us-east-1`, threshold $5) |
 
@@ -92,8 +92,8 @@ prefix), plus `s3:GetObject`, `s3:PutObject` and `s3:DeleteObject` on
 `arn:aws:s3:::mrs-133857166188-assets/song-data/*`. `ListBucket` is a
 bucket-level action and is what returns the ETags the import diffs against, so
 `GetObject` alone is not enough — without it every run reports the prefix as
-empty. `PutObject` is what P-06c's upload button uses; without it the form can
-validate files but cannot stage them. `DeleteObject` is what P-06b uses to
+empty. `PutObject` is what the Add Song modal on P-06b uses; without it the form
+can validate files but cannot stage them. `DeleteObject` is what P-06b uses to
 remove a song's JSON and hosted audio/cover; without it the catalog row would
 stay because a failed store delete never reaches MySQL. A direct `aws s3 cp`
 remains a valid way to stage JSON as well.
@@ -133,11 +133,12 @@ aws cloudformation deploy --profile mrs-admin --region ap-southeast-1 \
 After a template change, run catalog import so MySQL picks up any URL
 rewrites in the staged JSON.
 
-Catalog settings, on the instance:
+Catalog and search settings, on the instance:
 
 ```text
 mrs.catalog.aws-profile=
 mrs.catalog.sync.enabled=true
+mrs.llm.api-key=<gemini key>
 ```
 
 Clearing `mrs.catalog.aws-profile` makes the S3 client fall back to the instance
@@ -147,6 +148,13 @@ not exist there. `mrs.catalog.sync.enabled=true` registers the poller, which is
 what makes uploading a JSON file to `song-data/` all you have to do to add a
 song. Full list of `mrs.catalog.*` settings in the README's *Song catalog*
 section.
+
+`mrs.llm.api-key` is what makes FT-04 do real interpretation on P-02. It is not
+an AWS credential and does not come from the instance role — it is a Gemini key,
+and it belongs in the instance's property file, never in git. Leave it out and
+contextual search silently falls back to vocabulary matching: the screen still
+works and returns results, which is exactly why the omission survives a demo
+unnoticed. See the README's *Contextual search* section.
 
 SES: EC2 role inline policy `mrs-ses-send` allows send (`ses:SendEmail` /
 `ses:SendRawEmail`), identity read, and identity manage

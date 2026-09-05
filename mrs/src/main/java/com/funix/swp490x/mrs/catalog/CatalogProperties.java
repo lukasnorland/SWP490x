@@ -205,7 +205,7 @@ public class CatalogProperties {
     }
 
     /**
-     * Company-hosted audio and cover art uploaded from P-06c. JSON staging
+     * Company-hosted audio and cover art uploaded from Add Song on P-06b. JSON staging
      * still lives on {@link #prefix}; this block is only the binaries and the
      * public URL the staged JSON points at.
      */

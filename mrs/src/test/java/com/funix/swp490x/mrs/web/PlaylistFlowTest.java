@@ -31,7 +31,10 @@ import com.funix.swp490x.mrs.security.LoginFailureHandler;
 import com.funix.swp490x.mrs.security.LoginSuccessHandler;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.security.MrsUserDetailsService;
+import com.funix.swp490x.mrs.service.DuplicateCollaboratorException;
+import com.funix.swp490x.mrs.service.DuplicatePlaylistNameException;
 import com.funix.swp490x.mrs.service.DuplicatePlaylistSongException;
+import com.funix.swp490x.mrs.service.InvalidCollaboratorException;
 import com.funix.swp490x.mrs.service.PlaylistLockedException;
 import com.funix.swp490x.mrs.service.PlaylistNotFoundException;
 import com.funix.swp490x.mrs.service.PlaylistService;
@@ -89,8 +92,9 @@ class PlaylistFlowTest {
                 nullable(String.class), anyInt()))
                 .willReturn(new PageImpl<>(List.of(
                         summary(7L, "Morning coffee", PlaylistStatus.DRAFT, false),
-                        summary(8L, "Launch party", PlaylistStatus.PUBLISHED, true)),
-                        PageRequest.of(0, 20), 2));
+                        summary(8L, "Launch party", PlaylistStatus.PUBLISHED, true),
+                        summary(9L, "Shared draft", PlaylistStatus.DRAFT, true)),
+                        PageRequest.of(0, 20), 3));
 
         mockMvc.perform(get(Routes.PLAYLISTS).with(user(principal(Role.CONTENT_DESIGNER))))
                 .andExpect(status().isOk())
@@ -100,6 +104,11 @@ class PlaylistFlowTest {
                 .andExpect(content().string(containsString("New playlist")))
                 .andExpect(content().string(containsString("data-rename-playlist")))
                 .andExpect(content().string(containsString("id=\"renamePlaylist\"")))
+                .andExpect(content().string(containsString("data-duplicate-playlist")))
+                .andExpect(content().string(containsString("id=\"duplicatePlaylist\"")))
+                .andExpect(content().string(containsString("/playlists/7/delete")))
+                .andExpect(content().string(org.hamcrest.Matchers.not(
+                        containsString("/playlists/9/delete"))))
                 .andExpect(content().string(org.hamcrest.Matchers.not(
                         containsString("Open playlist"))));
     }
@@ -174,6 +183,51 @@ class PlaylistFlowTest {
                 .andExpect(flash().attribute("flash", Messages.PLAYLIST_RENAMED));
 
         then(playlistService).should().rename(7L, "Evening tea", 1L);
+    }
+
+    @Test
+    void duplicatingAPlaylistOpensTheCopy() throws Exception {
+        Playlist copy = draft("Morning coffee (copy)");
+        ReflectionTestUtils.setField(copy, "id", 11L);
+        given(playlistService.duplicate(7L, "Morning coffee (copy)", 1L)).willReturn(copy);
+
+        mockMvc.perform(post("/playlists/7/duplicate")
+                        .param("name", "Morning coffee (copy)")
+                        .param("returnTo", "/workspace/7")
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(redirectedUrl("/playlists/11"))
+                .andExpect(flash().attribute("flash", Messages.PLAYLIST_DUPLICATED));
+
+        then(playlistService).should().duplicate(7L, "Morning coffee (copy)", 1L);
+    }
+
+    @Test
+    void aTakenNameOnDuplicateStaysOnTheScreenItCameFrom() throws Exception {
+        willThrow(new DuplicatePlaylistNameException("Morning coffee (copy)"))
+                .given(playlistService).duplicate(7L, "Morning coffee (copy)", 1L);
+
+        mockMvc.perform(post("/playlists/7/duplicate")
+                        .param("name", "Morning coffee (copy)")
+                        .param("returnTo", "/workspace/7")
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(redirectedUrl("/workspace/7"))
+                .andExpect(flash().attribute("flash", Messages.PLAYLIST_NAME_TAKEN));
+    }
+
+    @Test
+    void aTakenNameOnCreateIsReported() throws Exception {
+        willThrow(new DuplicatePlaylistNameException("Morning coffee"))
+                .given(playlistService).create(1L, "Morning coffee");
+
+        mockMvc.perform(post(Routes.PLAYLISTS)
+                        .param("name", "Morning coffee")
+                        .param("returnTo", "/playlists")
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(redirectedUrl(Routes.PLAYLISTS))
+                .andExpect(flash().attribute("flash", Messages.PLAYLIST_NAME_TAKEN));
     }
 
     @Test
@@ -260,7 +314,71 @@ class PlaylistFlowTest {
                 .andExpect(content().string(containsString("Publish")))
                 .andExpect(content().string(containsString(
                         "Publish this playlist? It will appear in the Shared Workspace")))
-                .andExpect(content().string(containsString("data-rename-playlist")));
+                .andExpect(content().string(containsString("data-rename-playlist")))
+                .andExpect(content().string(containsString("data-duplicate-playlist")));
+    }
+
+    @Test
+    void aCollaboratorDoesNotSeeDeleteOrShareControls() throws Exception {
+        Playlist shared = new Playlist("Morning coffee", 9L);
+        ReflectionTestUtils.setField(shared, "id", 5L);
+        given(playlistService.view(5L, 1L)).willReturn(shared);
+
+        mockMvc.perform(get("/playlists/5").with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Collaborators")))
+                .andExpect(content().string(org.hamcrest.Matchers.not(
+                        containsString("/playlists/5/delete"))))
+                .andExpect(content().string(org.hamcrest.Matchers.not(
+                        containsString("Add a Content Designer"))));
+    }
+
+    @Test
+    void theOwnerCanGrantACollaborator() throws Exception {
+        mockMvc.perform(post("/playlists/5/collaborators")
+                        .param("userId", "15")
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(redirectedUrl("/playlists/5"))
+                .andExpect(flash().attribute("flash", Messages.COLLABORATOR_ADDED));
+
+        then(playlistService).should().grant(5L, 15L, 1L);
+    }
+
+    @Test
+    void aDuplicateGrantIsRejected() throws Exception {
+        willThrow(new DuplicateCollaboratorException(5L, 15L))
+                .given(playlistService).grant(5L, 15L, 1L);
+
+        mockMvc.perform(post("/playlists/5/collaborators")
+                        .param("userId", "15")
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(flash().attribute("flash", Messages.COLLABORATOR_ALREADY));
+    }
+
+    @Test
+    void aCollaboratorCannotGrantAnother() throws Exception {
+        willThrow(new InvalidCollaboratorException("Only the owner can share this playlist"))
+                .given(playlistService).grant(5L, 15L, 1L);
+
+        mockMvc.perform(post("/playlists/5/collaborators")
+                        .param("userId", "15")
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(flash().attribute("flash", Messages.COLLABORATOR_MANAGE_OWNER_ONLY));
+    }
+
+    @Test
+    void aCollaboratorCannotDelete() throws Exception {
+        willThrow(new InvalidCollaboratorException("Only the owner can delete this playlist"))
+                .given(playlistService).delete(5L, 1L);
+
+        mockMvc.perform(post("/playlists/5/delete")
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(redirectedUrl("/playlists/5"))
+                .andExpect(flash().attribute("flash", Messages.PLAYLIST_DELETE_NOT_OWNER));
     }
 
     /** DC-08: a Published playlist shows the reason, and none of the controls. */
@@ -278,6 +396,7 @@ class PlaylistFlowTest {
                 .andExpect(content().string(containsString("Unpublish")))
                 .andExpect(content().string(containsString(
                         "Unpublish this playlist? It will leave the Shared Workspace")))
+                .andExpect(content().string(containsString("data-duplicate-playlist")))
                 .andExpect(content().string(org.hamcrest.Matchers.not(
                         containsString("/playlists/5/songs/42/remove"))));
     }

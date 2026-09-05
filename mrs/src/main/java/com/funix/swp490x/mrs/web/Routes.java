@@ -41,6 +41,13 @@ public final class Routes {
     public static final String PLAYLIST_SONG_MOVE = "/playlists/{id}/songs/{songId}/move";
     /** FT-06 — rename a Draft playlist (DC-08). */
     public static final String PLAYLIST_RENAME = "/playlists/{id}/rename";
+    /** Duplicate into a new Draft owned by the caller. */
+    public static final String PLAYLIST_DUPLICATE = "/playlists/{id}/duplicate";
+    /** BR-03 — grant a Content Designer edit rights. */
+    public static final String PLAYLIST_COLLABORATORS = "/playlists/{id}/collaborators";
+    /** BR-03 — drop a collaborator grant. */
+    public static final String PLAYLIST_COLLABORATOR_REMOVE =
+            "/playlists/{id}/collaborators/{userId}/remove";
     /** FT-06 — delete a Draft playlist (DC-05). */
     public static final String PLAYLIST_DELETE = "/playlists/{id}/delete";
     /** FT-07 — publish to the Shared Workspace; needs at least one song (BR-05). */
@@ -64,6 +71,8 @@ public final class Routes {
     public static final String ADMIN_USER_DEACTIVATE = "/admin/users/{id}/deactivate";
     /** P-06a — restore a deactivated account. */
     public static final String ADMIN_USER_REACTIVATE = "/admin/users/{id}/reactivate";
+    /** P-06a — pick a successor for each playlist before deactivate or demote. */
+    public static final String ADMIN_USER_REASSIGN = "/admin/users/{id}/reassign";
     /** P-06a — change role (UC-06); ADMIN is not assignable. */
     public static final String ADMIN_USER_ROLE = "/admin/users/{id}/role";
     /**

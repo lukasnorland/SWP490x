@@ -17,7 +17,7 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 /**
  * Credential refresh fails with {@link IllegalStateException}, not an SDK
- * exception. The store must wrap that so P-06c can render instead of 500.
+ * exception. The store must wrap that so P-06b can render instead of 500.
  */
 class S3CatalogObjectStoreTest {
 

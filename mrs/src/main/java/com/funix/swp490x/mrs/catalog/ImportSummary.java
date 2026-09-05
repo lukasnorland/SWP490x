@@ -3,7 +3,7 @@ package com.funix.swp490x.mrs.catalog;
 import java.util.List;
 
 /**
- * What one import did, as reported on P-06c (FT-09 NAC-03).
+ * What one import did, as reported on P-06b (FT-09 NAC-03).
  *
  * @param listed objects found under the prefix
  * @param read objects whose body was actually downloaded — the rest matched

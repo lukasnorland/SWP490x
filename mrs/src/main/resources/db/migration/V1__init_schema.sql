@@ -92,16 +92,14 @@ CREATE TABLE playlist (
     last_modified_at   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
     last_modified_by   BIGINT       NOT NULL,
     published_at       DATETIME     NULL,                      -- set on publish, >= 1 song (BR-05)
-    source_playlist_id BIGINT       NULL,                      -- clone lineage only (DC-07)
     version            INT          NOT NULL DEFAULT 1,        -- optimistic locking (DC-02, BR-06)
     PRIMARY KEY (id),
+    UNIQUE KEY uq_playlist_name (name),                        -- copies are independent; names distinguish them
     KEY ix_playlist_owner  (owner_id),
     KEY ix_playlist_status (status),                           -- shared-workspace listing (FT-07)
     CONSTRAINT fk_playlist_owner      FOREIGN KEY (owner_id)           REFERENCES users (id),
     CONSTRAINT fk_playlist_createdby  FOREIGN KEY (created_by)         REFERENCES users (id),
     CONSTRAINT fk_playlist_modifiedby FOREIGN KEY (last_modified_by)   REFERENCES users (id),
-    CONSTRAINT fk_playlist_source     FOREIGN KEY (source_playlist_id) REFERENCES playlist (id)
-                                      ON DELETE SET NULL,      -- deleted source: lineage cleared, clone kept
     CONSTRAINT ck_playlist_status CHECK (status IN ('DRAFT','PUBLISHED'))
 ) ENGINE=InnoDB;
 

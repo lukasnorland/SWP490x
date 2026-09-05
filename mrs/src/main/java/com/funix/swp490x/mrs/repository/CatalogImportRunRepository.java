@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CatalogImportRunRepository extends JpaRepository<CatalogImportRun, Long> {
 
-    /** The "last run" panel on P-06c. */
+    /** The last-sync line on P-06b. */
     Optional<CatalogImportRun> findFirstByOrderByStartedAtDesc();
 }

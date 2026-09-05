@@ -21,7 +21,7 @@ import org.hibernate.type.SqlTypes;
 @Table(name = "audit_log")
 public class AuditLog {
 
-    /** ADMIN ran the catalog import from P-06c. */
+    /** ADMIN ran the catalog import from P-06b. */
     public static final String ACTION_CATALOG_IMPORT = "CATALOG_IMPORT";
 
     public static final String ENTITY_CATALOG_IMPORT_RUN = "CATALOG_IMPORT_RUN";
@@ -42,6 +42,10 @@ public class AuditLog {
     public static final String ACTION_PLAYLIST_UNPUBLISH = "PLAYLIST_UNPUBLISH";
     /** Ownership moved to another account, e.g. when the owner lost the curator role. */
     public static final String ACTION_PLAYLIST_TRANSFER = "PLAYLIST_TRANSFER";
+
+    public static final String ACTION_PLAYLIST_COLLABORATOR_ADD = "PLAYLIST_COLLABORATOR_ADD";
+
+    public static final String ACTION_PLAYLIST_COLLABORATOR_REMOVE = "PLAYLIST_COLLABORATOR_REMOVE";
 
     public static final String ENTITY_PLAYLIST = "PLAYLIST";
 

@@ -125,6 +125,8 @@ class WorkspaceFlowTest {
                 .andExpect(content().string(containsString("Morning coffee")))
                 .andExpect(content().string(containsString("Ice Cream")))
                 .andExpect(content().string(containsString("Export CSV")))
+                .andExpect(content().string(containsString("Duplicate")))
+                .andExpect(content().string(containsString("data-duplicate-playlist")))
                 .andExpect(content().string(containsString(
                         "Unpublish this playlist? It will leave the Shared Workspace")))
                 .andExpect(content().string(not(containsString("/playlists/7/songs/42/remove"))));
@@ -139,6 +141,7 @@ class WorkspaceFlowTest {
         mockMvc.perform(get("/workspace/7").with(user(principal(Role.CUSTOMER))))
                 .andExpect(status().isOk())
                 .andExpect(content().string(not(containsString("Export CSV"))))
+                .andExpect(content().string(not(containsString("Duplicate"))))
                 .andExpect(content().string(not(containsString("Unpublish"))));
     }
 

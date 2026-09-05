@@ -110,14 +110,25 @@
                     <svg th:replace="~{fragments/icons :: icon('pencil', 'icon--sm')}"></svg>
                     <span class="visually-hidden">Rename (unpublish first)</span>
                   </button>
+                  <button type="button" class="btn btn-icon"
+                          th:if="${currentUser != null and currentUser.curator}"
+                          title="Duplicate playlist"
+                          data-duplicate-playlist
+                          th:data-playlist-id="${playlist.id}"
+                          th:data-playlist-name="${playlist.name}"
+                          th:aria-label="|Duplicate ${playlist.name}|">
+                    <svg th:replace="~{fragments/icons :: icon('copy', 'icon--sm')}"></svg>
+                    <span class="visually-hidden">Duplicate</span>
+                  </button>
                   <a class="btn btn-icon" th:href="@{|/playlists/${playlist.id}/export.csv|}"
                      title="Export CSV" download>
                     <svg th:replace="~{fragments/icons :: icon('download', 'icon--sm')}"></svg>
                     <span class="visually-hidden">Export CSV</span>
                   </a>
 
-                  <!-- DC-05: delete is Draft-only; a Published row says why instead. -->
-                  <form th:if="${playlist.draft and currentUser != null and currentUser.curator}"
+                  <!-- DC-05: delete is Draft-only and owner-only; a collaborator cannot drop it. -->
+                  <form th:if="${playlist.draft and !playlist.sharedWithMe
+                                and currentUser != null and currentUser.curator}"
                         th:action="@{|/playlists/${playlist.id}/delete|}" method="post">
                     <button type="submit" class="btn btn-icon" title="Delete playlist"
                             onclick="return confirm('Delete this playlist? The songs stay in the catalog.');">
@@ -126,7 +137,8 @@
                     </button>
                   </form>
                   <button type="button" class="btn btn-icon" disabled
-                          th:if="${!playlist.draft and currentUser != null and currentUser.curator}"
+                          th:if="${!playlist.draft and !playlist.sharedWithMe
+                                  and currentUser != null and currentUser.curator}"
                           title="Unpublish first">
                     <svg th:replace="~{fragments/icons :: icon('trash-2', 'icon--sm')}"></svg>
                     <span class="visually-hidden">Delete (unpublish first)</span>
@@ -181,6 +193,7 @@
 
   <th:block th:if="${currentUser != null and currentUser.curator}">
     <div th:replace="~{fragments/rename-playlist :: dialog}"></div>
+    <div th:replace="~{fragments/duplicate-playlist :: dialog}"></div>
   </th:block>
 
 </div>

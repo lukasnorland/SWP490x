@@ -3,6 +3,7 @@ package com.funix.swp490x.mrs.web;
 import com.funix.swp490x.mrs.domain.Playlist;
 import com.funix.swp490x.mrs.domain.Song;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
+import com.funix.swp490x.mrs.service.DuplicatePlaylistNameException;
 import com.funix.swp490x.mrs.service.InvalidPlaylistStateException;
 import com.funix.swp490x.mrs.service.InvalidSearchQueryException;
 import com.funix.swp490x.mrs.service.PlaylistService;
@@ -108,6 +109,9 @@ public class SearchController {
             return "redirect:" + Routes.PLAYLISTS + "/" + created.getId();
         } catch (InvalidPlaylistStateException e) {
             flash(redirectAttributes, "warning", Messages.PLAYLIST_NAME_REQUIRED);
+            return "redirect:" + back;
+        } catch (DuplicatePlaylistNameException e) {
+            flash(redirectAttributes, "warning", Messages.PLAYLIST_NAME_TAKEN);
             return "redirect:" + back;
         }
     }

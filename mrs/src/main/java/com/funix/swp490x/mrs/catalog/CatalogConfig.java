@@ -31,7 +31,7 @@ public class CatalogConfig {
 
     /**
      * Lazy so a run that never imports anything (every screen other than
-     * P-06b/P-06c) does not pay for credential resolution, which shells out to
+     * P-06b) does not pay for credential resolution, which shells out to
      * the AWS CLI when a named profile is configured.
      */
     @Bean(destroyMethod = "close")

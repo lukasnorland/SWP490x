@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/*
+  Duplicate-playlist dialog. Opened by a [data-duplicate-playlist] control; JS
+  fills a suggested "{name} (copy)" and points the form at
+  /playlists/{id}/duplicate.
+*/-->
+<body>
+
+<div th:fragment="dialog" class="modal fade" id="duplicatePlaylist" tabindex="-1"
+     aria-labelledby="duplicatePlaylistTitle" aria-hidden="true"
+     data-duplicate-playlist-dialog>
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content" th:action="@{/playlists/0/duplicate}" method="post"
+          data-duplicate-form>
+      <input type="hidden" name="returnTo" data-duplicate-return-to value="">
+      <div class="modal-header">
+        <h2 class="modal-title h4" id="duplicatePlaylistTitle">Duplicate playlist</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex flex-column gap-2">
+        <label class="form-label" for="duplicatePlaylistName">Name</label>
+        <input class="form-control" type="text" id="duplicatePlaylistName" name="name"
+               data-duplicate-name maxlength="200" required>
+        <p class="small text-secondary mb-0">
+          The copy starts as a Draft you own. Pick a name that is not already in use.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Duplicate</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

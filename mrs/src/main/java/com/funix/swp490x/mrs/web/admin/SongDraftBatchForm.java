@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Multipart wrapper so Spring can bind {@code drafts[0].title},
- * {@code drafts[0].audio}, … from the P-06c audio tab.
+ * {@code drafts[0].audio}, … from the P-06b Add Song modal.
  */
 public class SongDraftBatchForm {
 

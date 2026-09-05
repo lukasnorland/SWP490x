@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
+<!--/* P-06a — pick a successor for each playlist before deactivate or demote. */-->
+<body>
+<div th:fragment="content">
+
+  <header class="d-flex flex-column gap-1 mb-xl">
+    <h1>Reassign playlists</h1>
+    <p class="small text-secondary">
+      <span th:text="${account.username()}">Nina Designer</span>
+      owns these playlists.
+      <span th:if="${intent == 'deactivate'}">Choose who should own each one before the account is deactivated.</span>
+      <span th:if="${intent == 'demote'}">Choose who should own each one before the role becomes Customer.</span>
+    </p>
+  </header>
+
+  <div class="d-flex flex-column gap-4">
+
+    <th:block th:if="${flash != null}">
+      <div th:replace="~{fragments/components :: notice(${flashVariant},
+          ${flashVariant == 'success'} ? 'circle-check' : 'alert-triangle', ${flash})}"></div>
+    </th:block>
+
+    <form class="card" th:action="@{|/admin/users/${account.id()}/reassign|}" method="post">
+      <input type="hidden" name="intent" th:value="${intent}">
+      <div class="card-body d-flex flex-column gap-4">
+        <div th:each="choice : ${choices}" class="d-flex flex-column gap-2">
+          <label class="form-label"
+                 th:for="|successor-${choice.playlistId()}|">
+            <span th:text="${choice.name()}">Morning coffee</span>
+            <span class="small text-secondary"
+                  th:text="${choice.status().name()}">DRAFT</span>
+          </label>
+          <select class="form-select"
+                  th:id="|successor-${choice.playlistId()}|"
+                  th:name="|successor[${choice.playlistId()}]|"
+                  required>
+            <option th:if="${!choice.collaborators().isEmpty()}"
+                    th:each="person, iter : ${choice.collaborators()}"
+                    th:value="${person.id()}"
+                    th:text="${person.name()}"
+                    th:selected="${iter.first}">Dana Designer</option>
+            <option th:value="${adminId}"
+                    th:text="|${adminName} (ADMIN)|"
+                    th:selected="${choice.collaborators().isEmpty()}">You (ADMIN)</option>
+          </select>
+        </div>
+      </div>
+      <div class="card-footer d-flex flex-wrap gap-2 justify-content-end">
+        <a class="btn btn-ghost" th:href="@{/admin/users}">Cancel</a>
+        <button type="submit" class="btn btn-primary"
+                th:text="${intent == 'deactivate'} ? 'Deactivate' : 'Change role'">
+          Deactivate
+        </button>
+      </div>
+    </form>
+
+  </div>
+
+</div>
+</body>
+</html>

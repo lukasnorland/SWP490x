@@ -9,6 +9,7 @@ import com.funix.swp490x.mrs.security.PasswordPolicy;
 import com.funix.swp490x.mrs.security.SessionInvalidationService;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -104,24 +105,29 @@ public class UserAccountService {
 
     /**
      * Soft-delete (spec 4.9): accounts are never hard-deleted. Marks the row
-     * DEACTIVATED and expires every open session (FT-01 AC-03). Any playlist
-     * the account owns goes to the acting ADMIN, for the same reason as a
-     * demotion: nobody else could edit or unpublish it afterwards.
+     * DEACTIVATED and expires every open session (FT-01 AC-03). Playlists the
+     * account owns go to the successor named for each one (a collaborator, or
+     * the acting ADMIN).
      *
      * @throws SelfModificationException when {@code actorUserId} is the target
+     * @throws PlaylistSuccessorRequiredException when they own playlists and
+     *     {@code successors} does not cover every one
      */
     @Transactional
     public Deactivation deactivate(Long userId, Long actorUserId) {
+        return deactivate(userId, actorUserId, Map.of());
+    }
+
+    @Transactional
+    public Deactivation deactivate(Long userId, Long actorUserId, Map<Long, Long> successors) {
         User user = requireUser(userId);
         rejectSelf(user, actorUserId);
         if (user.getStatus() == UserStatus.DEACTIVATED) {
             return new Deactivation(UserView.of(user), false, 0);
         }
+        int transferred = reassignOwnedPlaylists(user.getId(), actorUserId, successors);
         user.setStatus(UserStatus.DEACTIVATED);
         User saved = userRepository.save(user);
-        int transferred = actorUserId == null
-                ? 0
-                : playlistService.transferOwnership(saved.getId(), actorUserId, actorUserId);
         sessionInvalidationService.invalidateSessionsForEmail(saved.getEmail());
         return new Deactivation(UserView.of(saved), true, transferred);
     }
@@ -141,15 +147,23 @@ public class UserAccountService {
      * UC-06 role change. Only Content Designer and Customer are assignable;
      * ADMIN rows keep their role (they are not created from this screen either).
      *
-     * <p>Demoting a Content Designer to Customer hands every playlist they own
-     * to the acting ADMIN, since a Customer can neither edit nor unpublish, and
-     * the playlist service checks ownership rather than role.
+     * <p>Demoting a Content Designer to Customer reassigns every playlist they
+     * own to the successor named for each one, since a Customer can neither
+     * edit nor unpublish.
      *
      * @throws SelfModificationException when {@code actorUserId} is the target
      * @throws InvalidRoleAssignmentException when the new role is not allowed
+     * @throws PlaylistSuccessorRequiredException when they own playlists and
+     *     {@code successors} does not cover every one
      */
     @Transactional
     public RoleChange changeRole(Long userId, Role newRole, Long actorUserId) {
+        return changeRole(userId, newRole, actorUserId, Map.of());
+    }
+
+    @Transactional
+    public RoleChange changeRole(Long userId, Role newRole, Long actorUserId,
+            Map<Long, Long> successors) {
         requireAssignable(newRole);
         User user = requireUser(userId);
         rejectSelf(user, actorUserId);
@@ -161,16 +175,42 @@ public class UserAccountService {
         if (previousRole == newRole) {
             return new RoleChange(UserView.of(user), previousRole, 0);
         }
-        user.setRole(newRole);
-        User saved = userRepository.save(user);
         int transferred = 0;
         if (previousRole == Role.CONTENT_DESIGNER && newRole == Role.CUSTOMER
                 && actorUserId != null) {
-            transferred = playlistService.transferOwnership(saved.getId(), actorUserId, actorUserId);
+            transferred = reassignOwnedPlaylists(user.getId(), actorUserId, successors);
         }
+        user.setRole(newRole);
+        User saved = userRepository.save(user);
         // Authorities live on the session principal — force a fresh login.
         sessionInvalidationService.invalidateSessionsForEmail(saved.getEmail());
         return new RoleChange(UserView.of(saved), previousRole, transferred);
+    }
+
+    public boolean ownsPlaylists(Long userId) {
+        return playlistService.ownsPlaylists(userId);
+    }
+
+    public List<PlaylistSuccessorChoice> successorChoices(Long userId) {
+        return playlistService.successorChoices(userId);
+    }
+
+    /**
+     * Reassigns owned playlists, or only drops the leaving user's collaborator
+     * grants when they owned none. Throws before the account changes so ADMIN
+     * can pick successors.
+     */
+    private int reassignOwnedPlaylists(Long fromUserId, Long actorUserId,
+            Map<Long, Long> successors) {
+        if (actorUserId == null) {
+            return 0;
+        }
+        return playlistService.transferOwnedPlaylists(fromUserId, successors, actorUserId);
+    }
+
+    @Transactional(readOnly = true)
+    public UserView get(Long userId) {
+        return UserView.of(requireUser(userId));
     }
 
     /**
@@ -218,15 +258,15 @@ public class UserAccountService {
     /**
      * Outcome of {@link #deactivate}. {@code changed} is false when the account
      * was already deactivated, so callers can skip notifying the holder twice;
-     * {@code transferredPlaylists} is how many playlists moved to the acting ADMIN.
+     * {@code transferredPlaylists} is how many playlists were reassigned.
      */
     public record Deactivation(UserView user, boolean changed, int transferredPlaylists) {
     }
 
     /**
      * Outcome of {@link #changeRole}: the account as it now stands, the role it
-     * held before, and how many playlists moved to the acting ADMIN (non-zero
-     * only for a Content Designer demoted to Customer).
+     * held before, and how many playlists were reassigned (non-zero only for a
+     * Content Designer demoted to Customer).
      */
     public record RoleChange(UserView user, Role previousRole, int transferredPlaylists) {
         public boolean changed() {
