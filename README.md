@@ -36,21 +36,20 @@ MRS closes those gaps with centralized catalog + playlist management, metadata/L
 | FE-03 | Multi-criteria metadata search (Genre, Mood, Artist, Tags) |
 | FE-04 | LLM-assisted contextual search (with fallback to plain filters) |
 | FE-05 | Recommendation & ranking using metadata match (chip count, then title; optional Top-N) |
-| FE-06 | Playlist create / edit / save (Draft) |
-| FE-07 | Publish to shared workspace; every internal user can view published playlists; Content Designers can duplicate one into their own Draft |
+| FE-06 | Playlist create / edit / save (Draft); owner can share edit rights with other Content Designers |
+| FE-07 | Publish to shared workspace; every internal user can view published playlists; Content Designers and ADMIN can duplicate one into their own Draft |
 | FE-08 | CSV export of playlists |
 | FE-09 | Admin: users, songs, metadata, catalog import, playlist oversight |
 | FE-10 | In-app audio playback while curating, continuing across navigation |
 
 **Out of scope (v1):** native mobile apps, public streaming, large-scale ML recommenders, commercial production infra, third-party chart or popularity APIs.
 
-**Specified but not yet built.** Three items from the reports have no code behind
+**Specified but not yet built.** Two items from the reports have no code behind
 them yet, and the sections below say so where they come up rather than implying
 otherwise:
 
 | Gap | Specified in | Status |
 |-----|--------------|--------|
-| Playlist duplication into a Draft (FE-07) | Report 1 §4.1, SRS 3.7 | Done for Content Designers and ADMIN: a copy is a new Draft with a unique name, no origin column. Customers only view and play. |
 | Shared Workspace scoping (BR-04) | Report 3.1 | Every published playlist is visible to every role |
 | Audit & recommendation log viewer (P-06e) | Report 3.2 §4.13 | Both tables are written; no screen reads them, and user administration is not audited yet |
 
@@ -61,7 +60,7 @@ otherwise:
 | Role | Purpose |
 |------|---------|
 | **ADMIN** | Users, catalog/metadata, import, system settings, audit; full playlist oversight |
-| **Content Designer** | Primary operators — search, recommend, curate, publish, export |
+| **Content Designer** | Primary operators — search, recommend, curate, share Drafts with other Designers, publish, duplicate, export |
 | **Customer** | Stakeholders — read published playlists in the Shared Workspace; no export, no playlist of their own |
 
 ---
@@ -139,9 +138,9 @@ direction and behind it in the other:
   `catalog_import_run` table. All of them are in `V1__init_schema.sql`.
 - The status column in Report 3.2 §2.2 predates this build: P-02, P-03a, P-03b,
   P-04a, P-04b and P-06b are shipped rather than *In Development*.
-- `/admin/playlists` — read-only ADMIN oversight of every playlist — has no page
-  ID in Report 3.2. It is referred to as P-06f in the code until the spec
-  catches up.
+- `/admin/playlists` (P-06f) is ADMIN oversight of every playlist. The list and
+  song editor stay read-only; collaborator grants from that inspect view use the
+  shared playlist routes. Report 3.2 has no page ID for it yet.
 
 ---
 
@@ -593,16 +592,16 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 | P-00 Login | Implemented — all five screen states, lockout after 5 failures in 15 min, plus the account-request modal |
 | P-01 Password Reset | Implemented — both steps, live BR-12 checklist, link emailed |
 | P-02 Search & Recommendation | Implemented — free-text prompt interpreted by Gemini (vocabulary matching when no key is set), removable filter chips, metadata-match ranking with an optional Top-N, multi-select add-to-playlist, and a "create playlist from every result" action that re-runs the search server-side rather than using the current page. Each interpret writes a `recommendation_log` row |
-| P-03a My Playlists | Implemented — status and text filters, pagination, create, rename, delete, publish, CSV export |
-| P-03b Playlist Detail | Implemented — ordered song table with preview playback, add / remove / reorder while Draft, publish, unpublish, export. Publishing locks the playlist for editing until it is unpublished |
+| P-03a My Playlists | Implemented — playlists you own plus those shared with you; status and text filters, pagination, create, rename, duplicate, delete, publish, CSV export |
+| P-03b Playlist Detail | Implemented — ordered song table with preview playback, add / remove / reorder while Draft, collaborator list (owner and ADMIN grant/revoke Content Designers; collaborators can edit a Draft and unpublish, but cannot delete or invite), publish, unpublish, duplicate, export. Publishing locks song edits until unpublished. Duplicate creates an independent Draft with a unique name and no lineage back to the source |
 | P-04a Shared Workspace | Implemented — card grid of published playlists with owner and text filters, open to all three roles. BR-04 scoping is outstanding, so every published playlist is listed |
-| P-04b Published Playlist View | Implemented — read-only; export is curator-only and unpublish is owner/ADMIN only. A Draft id returns 403 rather than 404 |
+| P-04b Published Playlist View | Implemented — read-only song list; Duplicate and Export CSV are curator-only; unpublish is owner/ADMIN. A Draft id returns 403 rather than 404 |
 | P-05 My Profile | Partially implemented — the account card reads real data; the editable display name / change-password zone and the playlist-history zone are still placeholders |
-| P-06a User Management | Implemented — Thymeleaf MVC CRUD: create + credentials email, filters, pagination, deactivate/reactivate with session invalidation, role change, resend |
+| P-06a User Management | Implemented — Thymeleaf MVC CRUD: create + credentials email, filters, pagination, deactivate/reactivate with session invalidation, role change, resend. Deactivating a Designer or demoting them to Customer opens a successor picker per owned playlist (acting ADMIN or an existing collaborator) |
 | P-06b Song Catalog | Implemented as CRUD — Songs table with provider/tag/text filters, pagination (partial fetch so the shell player stays mounted), a per-row untagged warning for DC-03 and a catalog-wide untagged count, CDN playback via clicking the song title, per-row edit modal (optimistic lock, HTTP 409 refresh-only, BR-06/DC-02; classification is written to MySQL and the staged song-data JSON), and delete (hosted audio/cover first, then staged JSON, then the MySQL row so the next import cannot recreate the song). Create is the Add Song modal (audio + artwork; the server writes media and generated song-data JSON, then auto-syncs into MySQL). Sync Catalog converts JSON already under the prefix, with per-row skip reasons, a last-sync line, and a scheduled poller. Authenticated shell soft-navigates sidebar/content links so the player survives leaving Catalog for Users, Audit Log, etc. The Tags dictionary tab and the provider CSV/XLSX of UC-28 are still outstanding |
 | P-06d System Settings | Scaffolded — every zone from the spec is marked outstanding; nothing on the screen is configurable yet |
 | P-06e Audit & Recommendation Log | Scaffolded — `audit_log` and `recommendation_log` are written, but no screen reads them. Audit coverage today is playlist actions and manual catalog imports; user administration and song edits are not audited |
-| P-06f All Playlists | Implemented — read-only ADMIN oversight of every playlist, Draft or Published, reusing the P-03b template with every action hidden. No page ID in Report 3.2 yet |
+| P-06f All Playlists | Implemented — ADMIN list of every playlist, Draft or Published; inspect reuses P-03b with song edits and export hidden. Collaborator share/remove still works from that view |
 | P-07 First-Login Password Change | Implemented — enforced by an interceptor, not only by the post-login redirect |
 | P-08 Song Browse | Implemented — the Content Designer's read-only view of the catalog: the same table as P-06b with AND filters and no edit or delete. ADMIN opening `/songs` is redirected to P-06b |
 | P-09 System Message Pages | Implemented — 403 and 404 |
