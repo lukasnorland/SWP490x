@@ -3,6 +3,7 @@ package com.funix.swp490x.mrs.repository;
 import com.funix.swp490x.mrs.domain.Role;
 import com.funix.swp490x.mrs.domain.User;
 import com.funix.swp490x.mrs.domain.UserStatus;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,4 +37,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
             @Param("status") UserStatus status,
             @Param("q") String q,
             Pageable pageable);
+
+    List<User> findByRoleAndStatusOrderByUsernameAsc(Role role, UserStatus status);
 }

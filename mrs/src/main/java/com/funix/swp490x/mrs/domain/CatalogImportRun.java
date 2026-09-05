@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 
 /**
- * One execution of the catalog import, kept so P-06c can report what the last
+ * One execution of the catalog import, kept so P-06b can report what the last
  * run did and BR-10 has a trail for unattended runs.
  *
  * <p>Separate from {@code audit_log}, which requires an actor: a scheduled sync

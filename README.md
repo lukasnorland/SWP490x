@@ -35,13 +35,24 @@ MRS closes those gaps with centralized catalog + playlist management, metadata/L
 | FE-02 | Profile management & personal playlist history |
 | FE-03 | Multi-criteria metadata search (Genre, Mood, Artist, Tags) |
 | FE-04 | LLM-assisted contextual search (with fallback to plain filters) |
-| FE-05 | Recommendation & ranking using metadata match |
-| FE-06 | Playlist create / edit / save (Draft), concurrency via optimistic locking |
-| FE-07 | Publish to shared workspace; view and duplicate published playlists |
+| FE-05 | Recommendation & ranking using metadata match (chip count, then title; optional Top-N) |
+| FE-06 | Playlist create / edit / save (Draft) |
+| FE-07 | Publish to shared workspace; every internal user can view published playlists; Content Designers can duplicate one into their own Draft |
 | FE-08 | CSV export of playlists |
-| FE-09 | Admin: users, songs, metadata, catalog import, audit log |
+| FE-09 | Admin: users, songs, metadata, catalog import, playlist oversight |
+| FE-10 | In-app audio playback while curating, continuing across navigation |
 
-**Out of scope (v1):** native mobile apps, public streaming, large-scale ML recommenders, commercial production infra, fully real-time Spotify sync.
+**Out of scope (v1):** native mobile apps, public streaming, large-scale ML recommenders, commercial production infra, third-party chart or popularity APIs.
+
+**Specified but not yet built.** Three items from the reports have no code behind
+them yet, and the sections below say so where they come up rather than implying
+otherwise:
+
+| Gap | Specified in | Status |
+|-----|--------------|--------|
+| Playlist duplication into a Draft (FE-07) | Report 1 §4.1, SRS 3.7 | Done for Content Designers and ADMIN: a copy is a new Draft with a unique name, no origin column. Customers only view and play. |
+| Shared Workspace scoping (BR-04) | Report 3.1 | Every published playlist is visible to every role |
+| Audit & recommendation log viewer (P-06e) | Report 3.2 §4.13 | Both tables are written; no screen reads them, and user administration is not audited yet |
 
 ---
 
@@ -51,7 +62,7 @@ MRS closes those gaps with centralized catalog + playlist management, metadata/L
 |------|---------|
 | **ADMIN** | Users, catalog/metadata, import, system settings, audit; full playlist oversight |
 | **Content Designer** | Primary operators — search, recommend, curate, publish, export |
-| **Customer** | Stakeholders — view scoped published playlists; duplicate into own Draft; no export |
+| **Customer** | Stakeholders — read published playlists in the Shared Workspace; no export, no playlist of their own |
 
 ---
 
@@ -59,13 +70,14 @@ MRS closes those gaps with centralized catalog + playlist management, metadata/L
 
 | Layer | Choice |
 |-------|--------|
-| Backend | Java 25, Spring Boot 4.x, Spring Security, Spring Data JPA |
-| Frontend | Thymeleaf (server-side rendered), Bootstrap 5.3 (self-hosted) |
-| Database | MySQL 8.x |
-| Object storage | Amazon S3 (audio/asset keys; pre-signed URLs for export) |
-| LLM | External API (e.g. Gemini) for query interpretation only |
-| CI | GitHub Actions (`./mvnw verify` + JaCoCo) |
-| Deployment target | AWS |
+| Backend | Java 25, Spring Boot 4.1, Spring Security, Spring Data JPA, Flyway |
+| Frontend | Thymeleaf (server-side rendered), Bootstrap 5.3.8 and Tom Select (both self-hosted) |
+| Database | MySQL 8.x (MariaDB 10.11 on the demo host — wire-compatible, same driver and migrations) |
+| Object storage | Amazon S3 — staged catalog JSON plus company-hosted audio and artwork |
+| CDN | CloudFront in front of the media prefixes; the player and the shell wash read through it |
+| LLM | Gemini through the Google GenAI SDK, for query interpretation only; optional |
+| CI | GitHub Actions (`./mvnw verify` + JaCoCo) against MySQL 8 |
+| Deployment target | AWS — one EC2 instance running the app and the database |
 
 ---
 
@@ -73,13 +85,19 @@ MRS closes those gaps with centralized catalog + playlist management, metadata/L
 
 ```
 SWP490x/
-├── docs/                 # Vision & Scope, Project Plan, SRS, RTW, screen design, diagrams
+├── docs/                 # Vision & Scope, Project Plan, SRS, RTW, screen design, figures
+│   ├── md/               # Reports converted to markdown for reading and diffing
+│   ├── srs_fig/          # Context, use case, ERD, flows, playlist state machine
+│   ├── tds_fig/          # Component, package, deployment, physical ERD, auth flow
+│   └── design/           # Figma export — one folder per screen
+├── infra/                # CloudFront stack and the S3 / IAM policy documents
 ├── mrs/                  # Spring Boot application
 │   ├── src/main/java/…   # Application code
 │   ├── src/main/resources/
 │   │   ├── application.properties
+│   │   ├── catalog/      # Cached MusicBrainz genre list for the tag allowlist
 │   │   ├── db/migration/ # V1 schema, V2 initial admin account
-│   │   ├── static/       # Design tokens, theme, CSS, JS, vendored Bootstrap
+│   │   ├── static/       # Design tokens, theme, CSS, JS, vendored Bootstrap + Tom Select
 │   │   └── templates/    # Thymeleaf layouts, fragments, screens
 │   └── pom.xml
 ├── .github/workflows/    # CI
@@ -90,19 +108,40 @@ Detailed requirements and design live under [`docs/`](docs/):
 
 | Document | Description |
 |----------|-------------|
-| Report 1 — Vision & Scope | Problem, gaps, features, limitations |
+| Report 1 — Vision & Scope | Problem, gaps, features FE-01–FE-10, limitations LI-01–LI-05 |
 | Report 2 — Project Plan | WBS, risks, process, tools |
-| Report 3.0 — SRS | Scenarios SC-01–SC-06, features FT-01–FT-09, NFRs |
-| Report 3.1 — MRS RTW | Traceability, permission matrix, data dictionary, business rules |
-| Report 3.2 — Screen Design Spec | IA, flows F-01–F-06, screen specs |
+| Report 3.0 — SRS | Scenarios SC-01–SC-06, features FT-01–FT-10, NFRs |
+| Report 3.1 — MRS RTW | Traceability, permission matrix, data dictionary, business rules (workbook) |
+| Report 3.2 — Screen Design Spec | IA, flows F-01–F-06, screen specs P-00–P-09 |
 | Report 4 — TDS | Architecture, interfaces, data model, security |
-| TDS addendum — audio upload | P-06b `POST /admin/catalog/songs` against TDS §2.3, §5.4, §9.5 |
-| `docs/diagrams/` | Context, use case, ERD, flows, sequence, playlist state machine |
 
-**Outstanding documentation update:** the ERD and the RTW data dictionary still
-need catalog columns on `song` (`audio_url`, `cover_url`, `bpm`, `is_explicit`,
-`isrc`, `source_etag`, `ambience_a`, `ambience_b`, `ambience_source_url`) and the
-`catalog_import_run` table.
+The reports themselves are Word and Excel files kept out of git (`.gitignore`
+excludes `docs/*` apart from [`docs/aws-setup.md`](docs/aws-setup.md)). Catalog
+behaviour, Add Song validation, and the P-06b routes live in this README. To
+read or diff a report against the code, convert the whole set:
+
+```powershell
+cd docs
+pandoc "Report 4_TDS_luannnfx05543.docx" -f docx -t gfm --wrap=none `
+  --extract-media=.\md\media -o .\md\report-4-tds.md
+python .\md\_xlsx_to_md.py ".\Report 3.1_MRS_RTW_luannnfx05543.xlsx" .\md\report-3.1-rtw.md
+```
+
+`docs/md/` is gitignored along with the sources; it is a local reading aid, not
+a second copy of the deliverable.
+
+**Outstanding documentation update.** The reports are ahead of the code in one
+direction and behind it in the other:
+
+- The ERD and the RTW data dictionary still need the catalog columns on `song`
+  (`audio_url`, `cover_url`, `bpm`, `is_explicit`, `isrc`, `source_etag`,
+  `ambience_a`, `ambience_b`, `ambience_source_url`) and the
+  `catalog_import_run` table. All of them are in `V1__init_schema.sql`.
+- The status column in Report 3.2 §2.2 predates this build: P-02, P-03a, P-03b,
+  P-04a, P-04b and P-06b are shipped rather than *In Development*.
+- `/admin/playlists` — read-only ADMIN oversight of every playlist — has no page
+  ID in Report 3.2. It is referred to as P-06f in the code until the spec
+  catches up.
 
 ---
 
@@ -147,8 +186,11 @@ so real credentials never reach the repository.
 
 ### Email
 
-The app sends two messages: the password-reset link (UC-02) and the login email
-and initial password for an account an ADMIN has just created (BR-15).
+The app sends five messages: the password-reset link (UC-02); the login email
+and initial password for an account an ADMIN has just created (BR-15); a
+deactivation notice; a role-change notice; and the account request raised from
+the login page, which goes to `mrs.mail.from` rather than to the person who
+asked for it.
 
 **Without configuration it sends neither.** When `spring.mail.host` is unset, a
 logging transport takes over and writes each message to the application log
@@ -244,6 +286,15 @@ AWS account from the machine default credentials. That profile is resolved via
 the Java profile provider cannot read. On the demo EC2 host set
 `mrs.mail.aws-profile=` (empty) so the instance role is used instead.
 
+#### Account requests from the login page
+
+There is no self-registration (FE-01). The login screen carries a *Request an
+account* modal instead: `POST /register-request` is anonymous, validates the
+address, and **creates no user row**. All it does is mail `mrs.mail.from` so an
+ADMIN can decide and then create the account on P-06a in the usual way. With no
+mail configured the request lands in the application log like every other
+message, which is enough to demonstrate the flow offline.
+
 ### Song catalog
 
 S3 is the source of truth for catalog songs; MySQL is the read model the UI
@@ -255,10 +306,9 @@ moved to a later put. Wash colours (`ambience_*`) are derived at import from
 `s3://mrs-133857166188-assets/song-data/<externalSourceId>.json`, and an import
 upserts those objects into `song` / `tag` / `song_tag`. Ways to stage a song:
 
-- **Add Song** on P-06b (ADMIN drops one or more audio files, fills
-  metadata and optional cover art per song; the server writes media under
-  `song-data/audio/<vendor>/` and `song-data/artwork/<vendor>/`, generates the
-  song JSON, then auto-imports)
+- **Add Song** on P-06b (ADMIN drops one or more audio files, fills metadata and
+  cover art per song; the server writes media under `song-data/audio/<vendor>/`
+  and `song-data/artwork/<vendor>/`, generates the song JSON, then auto-imports)
 - A direct `aws s3 cp` / console put of `<externalSourceId>.json`
 - Pointing `mrs.catalog.local-dir` at a directory of `*.json` for offline/dev
 
@@ -268,8 +318,9 @@ mint a UUID for that id. Required fields are
 of `EpidemicSound`, `NCS`, or `OneOff` (SC-05). Unknown fields are ignored so
 provider dumps can carry extra keys without failing the import. Optional fields
 that are blank, zero, or negative are stored as null rather than rejecting the
-row. Wash colours (`ambience_a` / `ambience_b`) are sampled at import from
-`coverUrl` and are not part of the staged JSON.
+row. Genre and mood names that the taxonomy does not recognise are kept as Tags
+rather than dropped. Wash colours (`ambience_a` / `ambience_b`) are sampled at
+import from `coverUrl` and are not part of the staged JSON.
 
 ```json
 {
@@ -305,6 +356,33 @@ row. Wash colours (`ambience_a` / `ambience_b`) are sampled at import from
 | `moods` | string[] | Become MOOD tags |
 | `tags` | string[] | Become TAGS tags |
 
+#### Add Song is stricter than the JSON contract
+
+The table above is what **import** enforces, and it is deliberately permissive
+so a provider dump lands rather than bouncing. The Add Song form on P-06b is the
+curated path, so it refuses a row unless it also carries:
+
+| Requirement | Detail |
+|-------------|--------|
+| Artist | Non-blank |
+| ISRC | Non-blank, and not already held by another song — duplicates are rejected before anything is written |
+| Genres | At least one, and every name must be a known MusicBrainz genre |
+| Moods | At least one, and every name must be on the mood list |
+| Audio | **Required** — `mp3`, `wav`, `flac`, `m4a`, `mp4`, `ogg`, `aac`, at most 100 MB |
+| Cover art | **Required** — `jpg`/`jpeg`, `png`, `webp`, at most 5 MB |
+| Batch size | At most 10 songs per upload |
+
+Content type is checked against an allowlist as well as the extension; a browser
+that sends nothing, or `application/octet-stream` for a dragged file, falls back
+to the type the extension implies. The whole batch is validated before the first
+object is written, so a rejected row never leaves a half-staged song behind —
+though a failure partway through the writes themselves is reported rather than
+rolled back.
+
+Genres and moods are closed lists here and freeform on import. That asymmetry is
+intentional: a vendor dump should not be lost because it used a genre name we do
+not know, but an ADMIN typing into the form should not quietly invent a new one.
+
 Epidemic and OneOff catalog entries that arrived as provider dumps keep
 `audioUrl` / `coverUrl` on the vendor CDN; only the JSON object is in our
 bucket. NCS audio and covers were rehosted under `song-data/audio/ncs/` and
@@ -320,8 +398,9 @@ song-data/<uuid>.json
 Vendor slugs: `EpidemicSound` → `epidemic`, `NCS` → `ncs`, `OneOff` → `one-off`.
 The staged JSON `audioUrl` / `coverUrl` values point at CloudFront
 (`d34ixswlpjs53y.cloudfront.net`). The import copies those URLs into MySQL as
-usual. Audio is required; cover art is optional. Duration is read in the
-browser from the file and can be edited before upload.
+usual. Duration is read in the browser from the file and can be edited before
+upload. The app streams multipart parts through the IAM S3 client; there are
+no pre-signed browser PUTs and no browser JSON-file upload.
 
 An import compares each object's ETag against the `song.source_etag` of the row
 it produced, so it only downloads objects that are new or whose content changed.
@@ -336,6 +415,19 @@ the same service:
 | **Sync Catalog** on P-06b | Immediately, attributed to the ADMIN who pressed it — converts staged song-data JSON into MySQL |
 | `CatalogSyncJob` | Every `mrs.catalog.sync.interval`, when `mrs.catalog.sync.enabled=true` |
 
+P-06b write routes (ADMIN + CSRF). `GET /admin/catalog` also returns a fragment
+when the request carries `X-MRS-Partial: results`, so the preview player stays
+mounted across paging and filtering.
+
+| Path | Method | What it does |
+|------|--------|--------------|
+| `/admin/catalog/songs` | POST | Add Song — stage media + JSON, then queue sync |
+| `/admin/catalog/sync` | POST | Sync Catalog now |
+| `/admin/catalog/sync/status` | GET | JSON progress for the import modal |
+| `/admin/catalog/tags/suggest` | GET | Typeahead for genre / mood / tag fields |
+| `/admin/catalog/{id}` | POST | Save classification (409 on stale version) |
+| `/admin/catalog/{id}/delete` | POST | Delete hosted media, staged JSON, then the row |
+
 | Property | Default | Meaning |
 |----------|---------|---------|
 | `mrs.catalog.bucket` | `mrs-133857166188-assets` | Bucket holding the staged JSON |
@@ -349,9 +441,20 @@ the same service:
 | `mrs.catalog.sync.interval` | `15m` | Delay between the end of one sync and the start of the next |
 | `mrs.catalog.cover-art.*` | *(on)* | Sample cover colours during import for the shell wash |
 | `mrs.catalog.media.public-base-url` | CloudFront origin | Prefix for generated `audioUrl` / `coverUrl` |
-| `mrs.catalog.media.max-audio-bytes` | 50 MB | Per-file cap for the audio upload |
+| `mrs.catalog.media.audio-prefix` | `song-data/audio/` | Key prefix for company-hosted audio |
+| `mrs.catalog.media.artwork-prefix` | `song-data/artwork/` | Key prefix for company-hosted cover art |
+| `mrs.catalog.media.max-audio-bytes` | 100 MB | Per-file cap for the audio upload |
 | `mrs.catalog.media.max-cover-bytes` | 5 MB | Per-file cap for cover art |
+| `mrs.catalog.media.audio-types` | five `audio/*` types | Content-type allowlist for the upload |
+| `mrs.catalog.media.cover-types` | `image/jpeg,image/png,image/webp` | Content-type allowlist for the upload |
 | `mrs.catalog.media.vendor-slugs.*` | epidemic / ncs / one-off | Folder name under `audio/` and `artwork/` |
+
+The servlet is sized to match: `spring.servlet.multipart.max-file-size=100MB`
+and `max-request-size=1100MB`, with a 256 KB threshold so large parts spill to
+disk rather than the t3.small heap. Several Tomcat defaults are raised alongside
+them (`max-swallow-size`, `max-part-count`, `max-part-header-size`,
+`max-http-form-post-size`) because otherwise an oversized upload surfaces as a
+dropped connection instead of a validation message.
 
 Setting `mrs.catalog.local-dir` to a directory of `*.json` reads the staged files
 straight off disk, so a fresh checkout can populate the catalog with no AWS
@@ -372,6 +475,40 @@ mrs.catalog.local-dir=./catalog-staging
 Audio, artwork, and generated JSON then land under that folder. Run
 `aws login --profile mrs-admin` (and restart the app) when you want the real
 bucket again.
+
+### Contextual search
+
+FT-04 turns a free-text prompt on P-02 into catalog filters. With
+`mrs.llm.api-key` set, `POST /search/interpret` calls Gemini through the Google
+GenAI SDK; without it the app matches the prompt against the tag vocabulary
+instead, and falls back again to a plain title/artist search when nothing maps.
+All three paths render the same screen, so a missing key is easy to overlook —
+the giveaway is that only literal tag names come back as chips.
+
+The key is a credential, so it belongs in `mrs/local.properties` beside the
+database account:
+
+```properties
+mrs.llm.api-key=your_gemini_key
+```
+
+| Property | Default | Meaning |
+|----------|---------|---------|
+| `mrs.llm.api-key` | *(empty)* | Blank keeps the app on vocabulary matching, with no network call |
+| `mrs.llm.model` | `gemini-3.8-flash` | Model used for interpretation |
+| `mrs.llm.timeout` | `30s` | Per-call budget |
+| `mrs.llm.min-query-chars` | `10` | Shorter prompts skip interpretation |
+| `mrs.llm.max-query-chars` | `200` | Longer prompts are refused |
+| `mrs.llm.provider` | `gemini` | Reserved for a second provider; nothing reads it today |
+
+Ranking is the metadata match of FE-05: a song enters the result set if it hits
+**any** chip or the keyword, and the set is then ordered by how many chips each
+song matched, then by title. An optional Top-N caps the ranked list before
+paging.
+
+Every interpret writes one `recommendation_log` row — the query, the resolved
+filters, whether the LLM ran and whether it succeeded, and the result count.
+Paging and chip removal do not, since they re-run the same interpretation.
 
 ### Run
 
@@ -411,6 +548,10 @@ Three two-week iterations after design:
 2. **Iteration 2** — Search/filter, recommendation & ranking, playlists, concurrency  
 3. **Iteration 3** — Web UI, LLM-assisted search, shared workspace, CSV export  
 
+All three slices have landed. What is left is listed under *Specified but not yet
+built* above and in the screen table below — chiefly the two admin screens that
+read back what the system records.
+
 ### UI implementation status
 
 The UI follows **Report 3.2 — Screen Design Spec**. Its foundation is in place: the design tokens of Part 1, the authenticated shell of section 4.0 with role-aware navigation (2.1), and the responsive rules of Part 5.
@@ -419,7 +560,9 @@ The UI follows **Report 3.2 — Screen Design Spec**. Its foundation is in place
 
 Bootstrap 5.3 supplies the component layer — buttons, forms, cards, tables, modals, dropdowns, tabs, pagination, toasts — and its JavaScript bundle supplies their behaviour. Report 3.2 does not name a CSS framework, so this is an implementation decision, made on three grounds: Bootstrap needs no Node toolchain, so the build stays `./mvnw` alone; it covers the accessible interactive components the spec calls for without hand-rolling them; and 5.3's dark mode plus CSS-variable theming let the spec's own palette drive it rather than the reverse.
 
-Both Bootstrap files are vendored under `static/vendor/bootstrap/` rather than loaded from a CDN, so the app renders correctly with no internet access and carries no third-party runtime dependency — the same reasoning already applied to the self-hosted Inter font.
+One thing Bootstrap has no component for is the genre / mood / tag fields on P-06b, which need a searchable multi-select fed from the server: chips with remove buttons, typeahead over the MusicBrainz genre list, and freeform entry for Tags but not for Genre or Mood. Bootstrap offers dropdowns, not comboboxes, and dropped its typeahead back in v3. **Tom Select** fills exactly that gap and nothing else — it is bound to the genre, mood and tag fields of the Edit Song modal and of each song section in Add Song, and nowhere else. The underlying control stays a plain comma-separated text input, so the form still submits correctly with JavaScript off. Where a closed, short list is enough, the catalog filters stay ordinary Bootstrap dropdowns with checkboxes.
+
+Bootstrap and Tom Select are both vendored under `static/vendor/` rather than loaded from a CDN, so the app renders correctly with no internet access and carries no third-party runtime dependency — the same reasoning already applied to the self-hosted Inter font.
 
 The stylesheets load in this order, and the order matters:
 
@@ -428,6 +571,7 @@ The stylesheets load in this order, and the order matters:
 | `vendor/bootstrap/bootstrap.min.css` | Bootstrap 5.3.8, unmodified |
 | `css/tokens.css` | Every value from Part 1, and the only place a spec value is written down |
 | `css/theme.css` | Re-points Bootstrap's `--bs-*` variables at those tokens under `data-bs-theme="dark"` |
+| `vendor/tom-select/tom-select.bootstrap5.min.css` | Tom Select in its Bootstrap 5 skin, so it inherits the `--bs-*` variables rebound above rather than carrying a second palette |
 | `css/mrs.css` | Only what Bootstrap cannot express — see below |
 | `css/shell.css` | The application shell of 4.0 — sidebar, glass top bar, preview bar — and the responsive rules of Part 5 |
 
@@ -446,15 +590,24 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 
 | Screen | State |
 |--------|-------|
-| P-00 Login | Implemented — all five screen states, lockout after 5 failures in 15 min |
+| P-00 Login | Implemented — all five screen states, lockout after 5 failures in 15 min, plus the account-request modal |
 | P-01 Password Reset | Implemented — both steps, live BR-12 checklist, link emailed |
-| Forced password change (FT-09) | Implemented |
+| P-02 Search & Recommendation | Implemented — free-text prompt interpreted by Gemini (vocabulary matching when no key is set), removable filter chips, metadata-match ranking with an optional Top-N, multi-select add-to-playlist, and a "create playlist from every result" action that re-runs the search server-side rather than using the current page. Each interpret writes a `recommendation_log` row |
+| P-03a My Playlists | Implemented — status and text filters, pagination, create, rename, delete, publish, CSV export |
+| P-03b Playlist Detail | Implemented — ordered song table with preview playback, add / remove / reorder while Draft, publish, unpublish, export. Publishing locks the playlist for editing until it is unpublished |
+| P-04a Shared Workspace | Implemented — card grid of published playlists with owner and text filters, open to all three roles. BR-04 scoping is outstanding, so every published playlist is listed |
+| P-04b Published Playlist View | Implemented — read-only; export is curator-only and unpublish is owner/ADMIN only. A Draft id returns 403 rather than 404 |
+| P-05 My Profile | Partially implemented — the account card reads real data; the editable display name / change-password zone and the playlist-history zone are still placeholders |
 | P-06a User Management | Implemented — Thymeleaf MVC CRUD: create + credentials email, filters, pagination, deactivate/reactivate with session invalidation, role change, resend |
-| P-06b Song Catalog | Implemented as CRUD — Songs table with provider/tag/text filters, untagged and no-preview filters, pagination (partial fetch so the shell player stays mounted), CDN playback via clicking the song title, per-row edit modal (optimistic lock, HTTP 409 refresh-only, BR-06/DC-02; classification is written to MySQL and the staged song-data JSON), and delete (hosted audio/cover first, then staged JSON, then the MySQL row so the next import cannot recreate the song). Create is the Add Song modal, and Sync Catalog converts JSON already under the prefix. Authenticated shell soft-navigates sidebar/content links so the player survives leaving Catalog for Users, Audit Log, etc. The Tags dictionary tab is still outstanding |
-| Catalog import (was P-06c) | Implemented, folded into P-06b — ADMIN audio + artwork upload (server writes media + generated song-data JSON, then auto-syncs into MySQL), Sync Catalog to convert JSON already under the prefix, per-row skip reasons, a last-sync line, and a scheduled poller. The separate Catalog Import screen was retired; browser JSON file upload was removed, though JSON remains the staged object format. The provider CSV/XLSX of UC-28 is outstanding |
-| P-02, P-03 – P-06e | Scaffolded — real headings and navigation, with each specified zone marked as outstanding |
+| P-06b Song Catalog | Implemented as CRUD — Songs table with provider/tag/text filters, pagination (partial fetch so the shell player stays mounted), a per-row untagged warning for DC-03 and a catalog-wide untagged count, CDN playback via clicking the song title, per-row edit modal (optimistic lock, HTTP 409 refresh-only, BR-06/DC-02; classification is written to MySQL and the staged song-data JSON), and delete (hosted audio/cover first, then staged JSON, then the MySQL row so the next import cannot recreate the song). Create is the Add Song modal (audio + artwork; the server writes media and generated song-data JSON, then auto-syncs into MySQL). Sync Catalog converts JSON already under the prefix, with per-row skip reasons, a last-sync line, and a scheduled poller. Authenticated shell soft-navigates sidebar/content links so the player survives leaving Catalog for Users, Audit Log, etc. The Tags dictionary tab and the provider CSV/XLSX of UC-28 are still outstanding |
+| P-06d System Settings | Scaffolded — every zone from the spec is marked outstanding; nothing on the screen is configurable yet |
+| P-06e Audit & Recommendation Log | Scaffolded — `audit_log` and `recommendation_log` are written, but no screen reads them. Audit coverage today is playlist actions and manual catalog imports; user administration and song edits are not audited |
+| P-06f All Playlists | Implemented — read-only ADMIN oversight of every playlist, Draft or Published, reusing the P-03b template with every action hidden. No page ID in Report 3.2 yet |
+| P-07 First-Login Password Change | Implemented — enforced by an interceptor, not only by the post-login redirect |
+| P-08 Song Browse | Implemented — the Content Designer's read-only view of the catalog: the same table as P-06b with AND filters and no edit or delete. ADMIN opening `/songs` is redirected to P-06b |
+| P-09 System Message Pages | Implemented — 403 and 404 |
 
-Each scaffolded screen renders its zones from the spec as dashed placeholders, so what remains on that screen is visible in the running app. Data-backed zones arrive with their feature slice.
+The two scaffolded screens render their zones from the spec as dashed placeholders, so what remains is visible in the running app. Data-backed zones arrive with their feature slice.
 
 ---
 

@@ -19,7 +19,7 @@ MySQL `song` / `song_tag` is the read model. They must not drift.
 - **Import** is S3 → MySQL only. Do not apply a fetched object when the row's
   `source_etag` has already moved to a different write (concurrent admin edit).
 - **MySQL-only columns** are derived, not catalog identity: `version`,
-  `ambience_*`, `spotify_popularity`, playlist membership.
+  `ambience_*`, playlist membership.
 
 ```java
 // BAD — MySQL changes that the next import will overwrite or that S3 never sees

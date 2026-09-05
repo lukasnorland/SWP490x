@@ -56,10 +56,10 @@ public final class Messages {
     public static final String USER_ROLE_CHANGED_EMAIL_FAILED = "Role updated, but the "
             + "notification email could not be sent. The user has not been told.";
 
-    /** Appended to the role-change or deactivation flash when playlists moved to the acting ADMIN. */
+    /** Appended to the role-change or deactivation flash when owned playlists were reassigned. */
     public static String playlistsTransferred(int count) {
         return count + (count == 1 ? " playlist" : " playlists")
-                + " the user owned now belong to you.";
+                + " the user owned were reassigned.";
     }
 
     public static final String SELF_MODIFICATION_FORBIDDEN =
@@ -97,7 +97,7 @@ public final class Messages {
             "Your request could not be sent right now. Please try again.";
 
     /**
-     * Outcomes of the P-06c catalog import (UC-28). The catalogue has no codes
+     * Outcomes of the P-06b catalog import (UC-28). The catalogue has no codes
      * for the S3 path, which reports counts rather than a fixed sentence, so
      * these cover only the cases with nothing to count.
      */
@@ -115,7 +115,7 @@ public final class Messages {
                     + "then try again — anything already applied is kept.";
 
     public static final String UPLOAD_SYNC_SKIPPED =
-            "The files were staged, but an import is already running. Press Run import when it finishes.";
+            "The files were staged, but an import is already running. Press Sync Catalog when it finishes.";
 
     public static final String MEDIA_UPLOAD_EMPTY =
             "Drop one or more audio files, fill in each song, then upload.";
@@ -166,7 +166,13 @@ public final class Messages {
 
     public static final String PLAYLIST_RENAMED = "Playlist renamed.";
 
+    public static final String PLAYLIST_DUPLICATED =
+            "Playlist duplicated. This copy is a Draft you can edit.";
+
     public static final String PLAYLIST_NAME_REQUIRED = "Give the playlist a name.";
+
+    public static final String PLAYLIST_NAME_TAKEN =
+            "A playlist with that name already exists. Choose another.";
 
     public static final String PLAYLIST_NOT_FOUND =
             "That playlist no longer exists, or it is not shared with you.";
@@ -194,6 +200,26 @@ public final class Messages {
 
     public static final String PLAYLIST_DELETE_PUBLISHED =
             "A published playlist cannot be deleted. Unpublish it first.";
+
+    public static final String PLAYLIST_DELETE_NOT_OWNER =
+            "Only the owner can delete this playlist.";
+
+    public static final String COLLABORATOR_ADDED =
+            "That Content Designer can now edit this playlist.";
+
+    public static final String COLLABORATOR_ALREADY =
+            "That Content Designer is already a collaborator.";
+
+    public static final String COLLABORATOR_REMOVED = "Collaborator removed.";
+
+    public static final String COLLABORATOR_INVALID =
+            "Share edit rights with an active Content Designer who is not already on this playlist.";
+
+    public static final String COLLABORATOR_MANAGE_OWNER_ONLY =
+            "Only the owner can share this playlist.";
+
+    public static final String SUCCESSOR_REQUIRED =
+            "Choose who should own each playlist before continuing.";
 
     public static final String PLAYLIST_PICK_ONE =
             "Choose a playlist, or create a new one.";

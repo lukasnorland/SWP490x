@@ -1,7 +1,6 @@
-﻿# Project docs (local only — not committed)
+# Project docs (local only — not committed)
 docs/*
 !docs/aws-setup.md
-!docs/tds-addendum-audio-upload.md
 
 # Compiled class file
 *.class

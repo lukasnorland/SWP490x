@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * The ADMIN area, P-06d – P-06e. P-06a, P-06b and P-06c have their own
+ * The ADMIN area, P-06d – P-06e. P-06a, P-06b and P-06f have their own
  * controllers now that they do more than render.
  *
  * <p>Access is granted by SecurityConfig on {@code /admin/**}, so a non-ADMIN

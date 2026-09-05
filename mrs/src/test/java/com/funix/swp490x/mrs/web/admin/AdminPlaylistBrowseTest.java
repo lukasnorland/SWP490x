@@ -118,7 +118,8 @@ class AdminPlaylistBrowseTest {
                 .andExpect(content().string(not(containsString("/playlists/7/publish"))))
                 .andExpect(content().string(not(containsString("/playlists/7/delete"))))
                 .andExpect(content().string(not(containsString("/playlists/7/export.csv"))))
-                .andExpect(content().string(not(containsString("Rename playlist"))));
+                .andExpect(content().string(not(containsString("Rename playlist"))))
+                .andExpect(content().string(containsString("/playlists/7/collaborators")));
     }
 
     @Test

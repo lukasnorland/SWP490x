@@ -85,6 +85,21 @@ export function initPlaylistAdd() {
       window.bootstrap.Modal.getOrCreateInstance(dialog).show();
     }
   });
+
+  document.addEventListener("click", function (event) {
+    var trigger = event.target.closest("[data-duplicate-playlist]");
+    if (!trigger) {
+      return;
+    }
+    var dialog = document.getElementById("duplicatePlaylist");
+    if (!dialog) {
+      return;
+    }
+    fillDuplicateDialog(dialog, trigger);
+    if (window.bootstrap && window.bootstrap.Modal) {
+      window.bootstrap.Modal.getOrCreateInstance(dialog).show();
+    }
+  });
 }
 
 var SEARCH_CRITERIA = ["genreId", "moodId", "artistId", "tagId", "q", "topN"];
@@ -240,4 +255,30 @@ function fillRenameDialog(dialog, trigger) {
   if (returnTo) {
     returnTo.value = window.location.pathname + window.location.search;
   }
+}
+
+function fillDuplicateDialog(dialog, trigger) {
+  var id = trigger.getAttribute("data-playlist-id") || "";
+  var name = trigger.getAttribute("data-playlist-name") || "";
+  var form = dialog.querySelector("[data-duplicate-form]");
+  if (form && id) {
+    form.setAttribute("action", "/playlists/" + encodeURIComponent(id) + "/duplicate");
+  }
+  var input = dialog.querySelector("[data-duplicate-name]");
+  if (input) {
+    input.value = copyName(name);
+  }
+  var returnTo = dialog.querySelector("[data-duplicate-return-to]");
+  if (returnTo) {
+    returnTo.value = window.location.pathname + window.location.search;
+  }
+}
+
+function copyName(name) {
+  var suffix = " (copy)";
+  var base = name || "Playlist";
+  if (base.length + suffix.length <= 200) {
+    return base + suffix;
+  }
+  return base.substring(0, Math.max(0, 200 - suffix.length)) + suffix;
 }

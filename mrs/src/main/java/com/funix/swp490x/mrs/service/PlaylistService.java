@@ -4,8 +4,10 @@ import com.funix.swp490x.mrs.domain.AuditLog;
 import com.funix.swp490x.mrs.domain.Playlist;
 import com.funix.swp490x.mrs.domain.PlaylistSong;
 import com.funix.swp490x.mrs.domain.PlaylistStatus;
+import com.funix.swp490x.mrs.domain.Role;
 import com.funix.swp490x.mrs.domain.Song;
 import com.funix.swp490x.mrs.domain.User;
+import com.funix.swp490x.mrs.domain.UserStatus;
 import com.funix.swp490x.mrs.repository.AuditLogRepository;
 import com.funix.swp490x.mrs.repository.PlaylistRepository;
 import com.funix.swp490x.mrs.repository.PlaylistRepository.CoverTile;
@@ -17,6 +19,7 @@ import com.funix.swp490x.mrs.repository.PlaylistSongRepository;
 import com.funix.swp490x.mrs.repository.SongRepository;
 import com.funix.swp490x.mrs.repository.UserRepository;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -276,7 +279,7 @@ public class PlaylistService {
 
     @Transactional
     public Playlist create(Long userId, String name) {
-        String clean = requireName(name);
+        String clean = requireAvailableName(name, null);
         Playlist playlist = playlistRepository.save(new Playlist(clean, userId));
         audit(userId, AuditLog.ACTION_PLAYLIST_CREATE, playlist.getId(),
                 "{\"name\":\"" + escape(clean) + "\"}");
@@ -287,7 +290,7 @@ public class PlaylistService {
     @Transactional
     public void rename(Long playlistId, String name, Long userId) {
         Playlist playlist = editable(playlistId, userId);
-        String clean = requireName(name);
+        String clean = requireAvailableName(name, playlistId);
         playlist.setName(clean);
         playlist.touch(userId);
         playlistRepository.save(playlist);
@@ -303,6 +306,21 @@ public class PlaylistService {
     @Transactional
     public Playlist createWithSong(Long userId, String name, Long songId) {
         return createWithSongs(userId, name, List.of(songId));
+    }
+
+    /**
+     * A new independent Draft owned by {@code userId}, with the source's songs
+     * in the same order. Published sources are copyable by any curator; Drafts
+     * still have to be visible. The copy is distinguished only by its unique
+     * name; there is no lineage back to the source.
+     */
+    @Transactional
+    public Playlist duplicate(Long sourceId, String name, Long userId) {
+        Playlist source = duplicatable(sourceId, userId);
+        List<Long> songIds = playlistSongRepository.findOrdered(source.getId()).stream()
+                .map(entry -> entry.getSong().getId())
+                .toList();
+        return createWithSongs(userId, name, songIds);
     }
 
     /**
@@ -397,12 +415,15 @@ public class PlaylistService {
         playlistRepository.save(playlist);
     }
 
-    /** Draft only — a Published playlist has to be unpublished first (DC-05). */
+    /** Draft only, and only the owner — a collaborator cannot throw it away. */
     @Transactional
     public void delete(Long playlistId, Long userId) {
         Playlist playlist = visible(playlistId, userId);
         if (playlist.isPublished()) {
             throw new InvalidPlaylistStateException("Playlist " + playlistId + " is published");
+        }
+        if (!Objects.equals(playlist.getOwnerId(), userId)) {
+            throw new InvalidCollaboratorException("Only the owner can delete this playlist");
         }
         playlistSongRepository.deleteAllOf(playlistId);
         playlistRepository.delete(playlist);
@@ -434,29 +455,135 @@ public class PlaylistService {
     }
 
     /**
-     * Moves every playlist {@code fromUserId} owns to {@code toUserId}, and
-     * drops the collaborator grants {@code fromUserId} held on other people's
-     * drafts. Called when an account leaves the Content Designer role, so its
-     * playlists do not end up with an owner who can no longer touch them.
-     * Status is untouched: a Published playlist stays in the Shared Workspace,
-     * now under the new owner's name.
+     * Moves each playlist {@code fromUserId} owns to the successor named for
+     * that id. A successor is the acting ADMIN, or a current collaborator who
+     * is still an ACTIVE Content Designer. The leaving user's grants on other
+     * people's drafts are dropped either way.
      *
-     * @return how many playlists changed owner
+     * @throws PlaylistSuccessorRequiredException when they own playlists and
+     *     the map does not name every one
+     * @throws InvalidSuccessorException when a chosen user may not take that
+     *     playlist
+     */
+    @Transactional
+    public int transferOwnedPlaylists(Long fromUserId, Map<Long, Long> successorByPlaylistId,
+            Long actorId) {
+        List<Playlist> owned = playlistRepository.findByOwnerId(fromUserId);
+        if (owned.isEmpty()) {
+            playlistRepository.deleteCollaboratorGrantsOf(fromUserId);
+            return 0;
+        }
+        if (successorByPlaylistId == null
+                || !coversEveryOwnedPlaylist(owned, successorByPlaylistId)) {
+            throw new PlaylistSuccessorRequiredException();
+        }
+
+        for (Playlist playlist : owned) {
+            Long successorId = successorByPlaylistId.get(playlist.getId());
+            requireAllowedSuccessor(playlist.getId(), successorId, actorId);
+            playlist.setOwnerId(successorId);
+            playlist.touch(actorId);
+            audit(actorId, AuditLog.ACTION_PLAYLIST_TRANSFER, playlist.getId(),
+                    "{\"from\":" + fromUserId + ",\"to\":" + successorId + "}");
+            playlistRepository.deleteCollaboratorGrant(playlist.getId(), successorId);
+        }
+        playlistRepository.saveAll(owned);
+        playlistRepository.deleteCollaboratorGrantsOf(fromUserId);
+        return owned.size();
+    }
+
+    /**
+     * @deprecated use {@link #transferOwnedPlaylists} so each playlist can go
+     *     to a collaborator. Kept for the all-to-one-admin path in tests.
      */
     @Transactional
     public int transferOwnership(Long fromUserId, Long toUserId, Long actorId) {
         List<Playlist> owned = playlistRepository.findByOwnerId(fromUserId);
+        Map<Long, Long> successors = new LinkedHashMap<>();
         for (Playlist playlist : owned) {
-            playlist.setOwnerId(toUserId);
-            playlist.touch(actorId);
-            audit(actorId, AuditLog.ACTION_PLAYLIST_TRANSFER, playlist.getId(),
-                    "{\"from\":" + fromUserId + ",\"to\":" + toUserId + "}");
+            successors.put(playlist.getId(), toUserId);
         }
-        if (!owned.isEmpty()) {
-            playlistRepository.saveAll(owned);
+        return transferOwnedPlaylists(fromUserId, successors, actorId);
+    }
+
+    @Transactional(readOnly = true)
+    public boolean ownsPlaylists(Long userId) {
+        return !playlistRepository.findByOwnerId(userId).isEmpty();
+    }
+
+    @Transactional(readOnly = true)
+    public List<PlaylistSuccessorChoice> successorChoices(Long ownerId) {
+        List<PlaylistSuccessorChoice> choices = new java.util.ArrayList<>();
+        for (Playlist playlist : playlistRepository.findByOwnerId(ownerId)) {
+            choices.add(new PlaylistSuccessorChoice(
+                    playlist.getId(),
+                    playlist.getName(),
+                    playlist.getStatus(),
+                    collaborators(playlist.getId())));
         }
-        playlistRepository.deleteCollaboratorGrantsOf(fromUserId);
-        return owned.size();
+        return choices;
+    }
+
+    @Transactional(readOnly = true)
+    public List<PlaylistOwner> collaborators(Long playlistId) {
+        inspect(playlistId);
+        List<PlaylistOwner> people = new java.util.ArrayList<>();
+        for (OwnerOption row : playlistRepository.findCollaborators(playlistId)) {
+            people.add(new PlaylistOwner(row.getId(), row.getName()));
+        }
+        return people;
+    }
+
+    @Transactional(readOnly = true)
+    public List<PlaylistOwner> inviteCandidates(Long playlistId) {
+        Playlist playlist = inspect(playlistId);
+        HashSet<Long> taken = new HashSet<>();
+        taken.add(playlist.getOwnerId());
+        for (OwnerOption row : playlistRepository.findCollaborators(playlistId)) {
+            taken.add(row.getId());
+        }
+        List<PlaylistOwner> candidates = new java.util.ArrayList<>();
+        for (User user : userRepository.findByRoleAndStatusOrderByUsernameAsc(
+                Role.CONTENT_DESIGNER, UserStatus.ACTIVE)) {
+            if (!taken.contains(user.getId())) {
+                candidates.add(new PlaylistOwner(user.getId(), user.getUsername()));
+            }
+        }
+        return candidates;
+    }
+
+    @Transactional
+    public void grant(Long playlistId, Long userId, Long actorId) {
+        Playlist playlist = managed(playlistId, actorId);
+        if (Objects.equals(playlist.getOwnerId(), userId)) {
+            throw new InvalidCollaboratorException("The owner is already on this playlist");
+        }
+        User invitee = userRepository.findById(userId)
+                .orElseThrow(() -> new InvalidCollaboratorException("That account was not found"));
+        if (invitee.getRole() != Role.CONTENT_DESIGNER
+                || invitee.getStatus() != UserStatus.ACTIVE) {
+            throw new InvalidCollaboratorException(
+                    "Share edit rights with an active Content Designer only");
+        }
+        if (playlistRepository.countCollaboratorGrant(playlistId, userId) > 0) {
+            throw new DuplicateCollaboratorException(playlistId, userId);
+        }
+        playlistRepository.insertCollaboratorGrant(playlistId, userId, actorId);
+        playlist.touch(actorId);
+        playlistRepository.save(playlist);
+        audit(actorId, AuditLog.ACTION_PLAYLIST_COLLABORATOR_ADD, playlistId,
+                "{\"userId\":" + userId + "}");
+    }
+
+    @Transactional
+    public void revoke(Long playlistId, Long userId, Long actorId) {
+        managed(playlistId, actorId);
+        if (playlistRepository.countCollaboratorGrant(playlistId, userId) == 0) {
+            throw new InvalidCollaboratorException("That person is not a collaborator");
+        }
+        playlistRepository.deleteCollaboratorGrant(playlistId, userId);
+        audit(actorId, AuditLog.ACTION_PLAYLIST_COLLABORATOR_REMOVE, playlistId,
+                "{\"userId\":" + userId + "}");
     }
 
     /** RFC 4180 CSV of the playlist contents, in playing order. */
@@ -521,6 +648,68 @@ public class PlaylistService {
         return byId;
     }
 
+    /**
+     * Published playlists live in the Shared Workspace, so any curator may copy
+     * one. A Draft still has to be owned or shared with the caller.
+     */
+    private Playlist duplicatable(Long playlistId, Long userId) {
+        Playlist playlist = playlistRepository.findById(playlistId)
+                .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
+        if (playlist.isPublished()) {
+            return playlist;
+        }
+        return visible(playlistId, userId);
+    }
+
+    /**
+     * Owner or ADMIN may change grants. A stranger still reads as not found.
+     */
+    private Playlist managed(Long playlistId, Long actorId) {
+        Playlist playlist = playlistRepository.findById(playlistId)
+                .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
+        if (Objects.equals(playlist.getOwnerId(), actorId)) {
+            return playlist;
+        }
+        User actor = userRepository.findById(actorId)
+                .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
+        if (actor.getRole() == Role.ADMIN) {
+            return playlist;
+        }
+        if (playlistRepository.countVisibleTo(playlistId, actorId) == 0) {
+            throw new PlaylistNotFoundException(playlistId);
+        }
+        throw new InvalidCollaboratorException("Only the owner can share this playlist");
+    }
+
+    private static boolean coversEveryOwnedPlaylist(List<Playlist> owned,
+            Map<Long, Long> successors) {
+        for (Playlist playlist : owned) {
+            if (playlist.getId() == null || !successors.containsKey(playlist.getId())
+                    || successors.get(playlist.getId()) == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void requireAllowedSuccessor(Long playlistId, Long successorId, Long actorId) {
+        if (Objects.equals(successorId, actorId)) {
+            return;
+        }
+        if (playlistRepository.countCollaboratorGrant(playlistId, successorId) == 0) {
+            throw new InvalidSuccessorException(
+                    "Pick a collaborator on that playlist, or keep it yourself");
+        }
+        User successor = userRepository.findById(successorId)
+                .orElseThrow(() -> new InvalidSuccessorException(
+                        "Pick a collaborator on that playlist, or keep it yourself"));
+        if (successor.getRole() != Role.CONTENT_DESIGNER
+                || successor.getStatus() != UserStatus.ACTIVE) {
+            throw new InvalidSuccessorException(
+                    "Pick a collaborator on that playlist, or keep it yourself");
+        }
+    }
+
     private Playlist visible(Long playlistId, Long userId) {
         Playlist playlist = playlistRepository.findById(playlistId)
                 .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
@@ -546,6 +735,17 @@ public class PlaylistService {
             throw new InvalidPlaylistStateException("A playlist needs a name");
         }
         return clean.length() > 200 ? clean.substring(0, 200) : clean;
+    }
+
+    private String requireAvailableName(String name, Long excludeId) {
+        String clean = requireName(name);
+        boolean taken = excludeId == null
+                ? playlistRepository.existsByName(clean)
+                : playlistRepository.existsByNameAndIdNot(clean, excludeId);
+        if (taken) {
+            throw new DuplicatePlaylistNameException(clean);
+        }
+        return clean;
     }
 
     private void audit(Long actorId, String action, Long playlistId, String details) {

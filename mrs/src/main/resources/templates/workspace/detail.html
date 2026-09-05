@@ -21,6 +21,15 @@
 
     <div class="d-flex flex-wrap align-items-center gap-2">
       <!-- BR-09: Customers never export. -->
+      <button type="button" class="btn btn-ghost" th:if="${canExport}"
+              title="Duplicate to a Draft of your own"
+              data-duplicate-playlist
+              th:data-playlist-id="${playlist.id}"
+              th:data-playlist-name="${playlist.name}">
+        <svg th:replace="~{fragments/icons :: icon('copy', 'icon--sm')}"></svg>
+        <span>Duplicate</span>
+      </button>
+
       <a class="btn btn-ghost" th:if="${canExport}"
          th:href="@{|/playlists/${playlist.id}/export.csv|}" download>
         <svg th:replace="~{fragments/icons :: icon('download', 'icon--sm')}"></svg>
@@ -129,6 +138,10 @@
     </section>
 
   </div>
+
+  <th:block th:if="${canExport}">
+    <div th:replace="~{fragments/duplicate-playlist :: dialog}"></div>
+  </th:block>
 
 </div>
 </body>

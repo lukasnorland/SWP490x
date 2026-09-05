@@ -280,7 +280,7 @@ class CatalogImportServiceTest {
         assertThat(summary.skippedRows()).hasSize(1);
     }
 
-    /** A run is recorded either way, so P-06c can always show a timestamp. */
+    /** A run is recorded either way, so P-06b can always show a timestamp. */
     @Test
     void recordsEveryRunWithItsCounts() {
         sync();

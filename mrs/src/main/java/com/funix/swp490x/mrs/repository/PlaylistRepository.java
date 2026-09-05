@@ -16,6 +16,12 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
     /** Every playlist an account owns, Draft or Published. */
     List<Playlist> findByOwnerId(Long ownerId);
 
+    /** True when any playlist already uses this name (uq_playlist_name). */
+    boolean existsByName(String name);
+
+    /** True when a different playlist already uses this name. */
+    boolean existsByNameAndIdNot(String name, Long id);
+
     /**
      * Drops every collaborator grant held by one account. Used when the
      * account leaves the Content Designer role, since grants go to Content
@@ -25,14 +31,44 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
     @Query(value = "DELETE FROM playlist_collaborator WHERE user_id = :userId", nativeQuery = true)
     int deleteCollaboratorGrantsOf(@Param("userId") Long userId);
 
+    @Modifying(flushAutomatically = true)
+    @Query(value = """
+            DELETE FROM playlist_collaborator
+            WHERE playlist_id = :playlistId AND user_id = :userId
+            """, nativeQuery = true)
+    int deleteCollaboratorGrant(@Param("playlistId") Long playlistId, @Param("userId") Long userId);
+
+    @Modifying(flushAutomatically = true)
+    @Query(value = """
+            INSERT INTO playlist_collaborator (playlist_id, user_id, granted_by, granted_at)
+            VALUES (:playlistId, :userId, :grantedBy, CURRENT_TIMESTAMP)
+            """, nativeQuery = true)
+    int insertCollaboratorGrant(@Param("playlistId") Long playlistId,
+            @Param("userId") Long userId,
+            @Param("grantedBy") Long grantedBy);
+
+    @Query(value = """
+            SELECT u.id AS id, u.username AS name
+            FROM playlist_collaborator c
+            JOIN users u ON u.id = c.user_id
+            WHERE c.playlist_id = :playlistId
+            ORDER BY c.granted_at ASC, u.username ASC
+            """, nativeQuery = true)
+    List<OwnerOption> findCollaborators(@Param("playlistId") Long playlistId);
+
+    @Query(value = """
+            SELECT COUNT(*) FROM playlist_collaborator
+            WHERE playlist_id = :playlistId AND user_id = :userId
+            """, nativeQuery = true)
+    long countCollaboratorGrant(@Param("playlistId") Long playlistId, @Param("userId") Long userId);
+
     /**
      * Ids of the playlists on one page of P-03a: owned, or shared as a
      * collaborator (BR-03).
      *
      * <p>Ids rather than entities for the same reason as
      * {@link SongRepository#searchIds}, and native because
-     * {@code playlist_collaborator} is a grant table with no entity of its own
-     * — collaborator management (FT-06 NAC-08/09) is not built yet.
+     * {@code playlist_collaborator} is a grant table with no entity of its own.
      *
      * <p>{@code status} and {@code q} are empty strings rather than nulls when
      * unset. A null bound into a native comparison leaves Hibernate without a

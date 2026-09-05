@@ -7,7 +7,7 @@ public enum ImportTrigger {
     STARTUP("Startup"),
     /** The periodic poller that picks up objects uploaded straight to S3. */
     SCHEDULED("Scheduled"),
-    /** ADMIN pressed Sync on P-06c. */
+    /** ADMIN pressed Sync Catalog on P-06b. */
     MANUAL("Manual");
 
     private final String displayName;

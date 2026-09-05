@@ -1,6 +1,5 @@
 package com.funix.swp490x.mrs.web.admin;
 
-import com.funix.swp490x.mrs.service.PlaylistService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
@@ -25,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.funix.swp490x.mrs.config.SecurityConfig;
 import com.funix.swp490x.mrs.config.WebConfig;
+import com.funix.swp490x.mrs.domain.PlaylistStatus;
 import com.funix.swp490x.mrs.domain.Role;
 import com.funix.swp490x.mrs.domain.User;
 import com.funix.swp490x.mrs.domain.UserStatus;
@@ -42,12 +42,17 @@ import com.funix.swp490x.mrs.security.LoginSuccessHandler;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.security.MrsUserDetailsService;
 import com.funix.swp490x.mrs.security.SessionInvalidationService;
+import com.funix.swp490x.mrs.service.PlaylistOwner;
+import com.funix.swp490x.mrs.service.PlaylistService;
+import com.funix.swp490x.mrs.service.PlaylistSuccessorChoice;
+import com.funix.swp490x.mrs.service.PlaylistSuccessorRequiredException;
 import com.funix.swp490x.mrs.service.UserAccountService;
 import com.funix.swp490x.mrs.web.Messages;
 import com.funix.swp490x.mrs.web.Routes;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -96,7 +101,7 @@ class AdminUserManagementTest {
     @MockitoBean
     private SessionInvalidationService sessionInvalidationService;
 
-    /** Demotion hands playlists to the acting ADMIN through this. */
+    /** Deactivation and demotion reassign owned playlists through this. */
     @MockitoBean
     private PlaylistService playlistService;
 
@@ -405,24 +410,73 @@ class AdminUserManagementTest {
     }
 
     @Test
-    void deactivatingADesignerHandsTheirPlaylistsToTheActingAdmin() throws Exception {
+    void deactivatingADesignerAsksForASuccessorPerPlaylist() throws Exception {
         User existing = activeDesigner(42L);
         given(userRepository.findById(42L)).willReturn(Optional.of(existing));
-        given(playlistService.transferOwnership(42L, 1L, 1L)).willReturn(3);
+        givenOwnedPlaylistsNeedSuccessors();
 
         mockMvc.perform(post("/admin/users/42/deactivate")
                         .with(user(admin()))
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/admin/users/42/reassign?intent=deactivate"));
+
+        assertThat(existing.getStatus()).isEqualTo(UserStatus.ACTIVE);
+        then(mailTransport).should(never()).send(anyString(), anyString(), anyString());
+
+        mockMvc.perform(get("/admin/users/42/reassign")
+                        .param("intent", "deactivate")
+                        .with(user(admin())))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Morning coffee")))
+                .andExpect(content().string(containsString("Dana Designer")))
+                .andExpect(content().string(containsString("Evening mix")))
+                .andExpect(content().string(containsString("System Admin (ADMIN)")));
+    }
+
+    @Test
+    void deactivatingADesignerTransfersEachPlaylistToTheChosenSuccessor() throws Exception {
+        User existing = activeDesigner(42L);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+        given(playlistService.transferOwnedPlaylists(eq(42L), eq(Map.of(11L, 15L, 12L, 1L)), eq(1L)))
+                .willReturn(2);
+
+        mockMvc.perform(post("/admin/users/42/reassign")
+                        .param("intent", "deactivate")
+                        .param("successor[11]", "15")
+                        .param("successor[12]", "1")
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
                 .andExpect(flash().attribute("flash",
-                        Messages.USER_DEACTIVATED + " " + Messages.playlistsTransferred(3)));
+                        Messages.USER_DEACTIVATED + " " + Messages.playlistsTransferred(2)));
 
         assertThat(existing.getStatus()).isEqualTo(UserStatus.DEACTIVATED);
-        then(playlistService).should().transferOwnership(42L, 1L, 1L);
+        then(playlistService).should().transferOwnedPlaylists(eq(42L),
+                eq(Map.of(11L, 15L, 12L, 1L)), eq(1L));
 
         ArgumentCaptor<String> body = ArgumentCaptor.forClass(String.class);
         then(mailTransport).should().send(eq("nina@mrs.local"), anyString(), body.capture());
-        assertThat(body.getValue()).contains("3").contains("playlists").contains("administrator");
+        assertThat(body.getValue()).contains("2").contains("playlists").contains("reassigned")
+                .doesNotContain("belong to an administrator");
+    }
+
+    @Test
+    void deactivatingADesignerRejectsAMissingSuccessorMap() throws Exception {
+        User existing = activeDesigner(42L);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+        givenOwnedPlaylistsNeedSuccessors();
+
+        mockMvc.perform(post("/admin/users/42/reassign")
+                        .param("intent", "deactivate")
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/admin/users/42/reassign?intent=deactivate"))
+                .andExpect(flash().attribute("flash", Messages.SUCCESSOR_REQUIRED));
+
+        assertThat(existing.getStatus()).isEqualTo(UserStatus.ACTIVE);
+        then(mailTransport).should(never()).send(anyString(), anyString(), anyString());
     }
 
     @Test
@@ -438,7 +492,7 @@ class AdminUserManagementTest {
                 .andExpect(flash().attribute("flash", Messages.USER_DEACTIVATED));
 
         then(mailTransport).should(never()).send(anyString(), anyString(), anyString());
-        then(playlistService).should(never()).transferOwnership(any(), any(), any());
+        then(playlistService).should(never()).transferOwnedPlaylists(any(), any(), any());
     }
 
     /** As with Create (E3): the change stands, ADMIN is warned. */
@@ -529,24 +583,47 @@ class AdminUserManagementTest {
     }
 
     @Test
-    void demotingADesignerHandsTheirPlaylistsToTheActingAdmin() throws Exception {
+    void demotingADesignerAsksForASuccessorPerPlaylist() throws Exception {
         User existing = activeDesigner(42L);
         given(userRepository.findById(42L)).willReturn(Optional.of(existing));
-        given(playlistService.transferOwnership(42L, 1L, 1L)).willReturn(2);
+        givenOwnedPlaylistsNeedSuccessors();
 
         mockMvc.perform(post("/admin/users/42/role")
                         .param("role", Role.CUSTOMER.name())
                         .with(user(admin()))
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/admin/users/42/reassign?intent=demote"));
+
+        assertThat(existing.getRole()).isEqualTo(Role.CONTENT_DESIGNER);
+        then(mailTransport).should(never()).send(anyString(), anyString(), anyString());
+    }
+
+    @Test
+    void demotingADesignerTransfersEachPlaylistToTheChosenSuccessor() throws Exception {
+        User existing = activeDesigner(42L);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+        given(playlistService.transferOwnedPlaylists(eq(42L), eq(Map.of(11L, 15L, 12L, 1L)), eq(1L)))
+                .willReturn(2);
+
+        mockMvc.perform(post("/admin/users/42/reassign")
+                        .param("intent", "demote")
+                        .param("successor[11]", "15")
+                        .param("successor[12]", "1")
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
                 .andExpect(flash().attribute("flash",
                         Messages.USER_ROLE_CHANGED + " " + Messages.playlistsTransferred(2)));
 
-        then(playlistService).should().transferOwnership(42L, 1L, 1L);
+        assertThat(existing.getRole()).isEqualTo(Role.CUSTOMER);
+        then(playlistService).should().transferOwnedPlaylists(eq(42L),
+                eq(Map.of(11L, 15L, 12L, 1L)), eq(1L));
 
         ArgumentCaptor<String> body = ArgumentCaptor.forClass(String.class);
         then(mailTransport).should().send(eq("nina@mrs.local"), anyString(), body.capture());
-        assertThat(body.getValue()).contains("2").contains("playlists").contains("administrator");
+        assertThat(body.getValue()).contains("2").contains("playlists").contains("reassigned")
+                .doesNotContain("belong to an administrator");
     }
 
     @Test
@@ -563,7 +640,7 @@ class AdminUserManagementTest {
                 .andExpect(flash().attribute("flash", Messages.USER_ROLE_CHANGED));
 
         assertThat(existing.getRole()).isEqualTo(Role.CONTENT_DESIGNER);
-        then(playlistService).should(never()).transferOwnership(any(), any(), any());
+        then(playlistService).should(never()).transferOwnedPlaylists(any(), any(), any());
     }
 
     @Test
@@ -580,6 +657,17 @@ class AdminUserManagementTest {
 
         then(sessionInvalidationService).should(never()).invalidateSessionsForEmail(anyString());
         then(mailTransport).should(never()).send(anyString(), anyString(), anyString());
+    }
+
+    @Test
+    void theSuccessorPageIsSkippedWhenTheDesignerOwnsNothing() throws Exception {
+        given(userRepository.findById(42L)).willReturn(Optional.of(activeDesigner(42L)));
+        given(playlistService.successorChoices(42L)).willReturn(List.of());
+
+        mockMvc.perform(get("/admin/users/42/reassign")
+                        .param("intent", "deactivate")
+                        .with(user(admin())))
+                .andExpect(redirectedUrl(Routes.ADMIN_USERS));
     }
 
     @Test
@@ -610,5 +698,16 @@ class AdminUserManagementTest {
         existing.setStatus(UserStatus.ACTIVE);
         existing.setMustChangePassword(false);
         return existing;
+    }
+
+    private void givenOwnedPlaylistsNeedSuccessors() {
+        willThrow(new PlaylistSuccessorRequiredException())
+                .given(playlistService)
+                .transferOwnedPlaylists(eq(42L), eq(Map.of()), eq(1L));
+        given(playlistService.successorChoices(42L)).willReturn(List.of(
+                new PlaylistSuccessorChoice(11L, "Morning coffee", PlaylistStatus.DRAFT,
+                        List.of(new PlaylistOwner(15L, "Dana Designer"))),
+                new PlaylistSuccessorChoice(12L, "Evening mix", PlaylistStatus.PUBLISHED,
+                        List.of())));
     }
 }

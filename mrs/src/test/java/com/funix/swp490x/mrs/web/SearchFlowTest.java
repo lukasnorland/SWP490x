@@ -31,6 +31,7 @@ import com.funix.swp490x.mrs.security.LoginFailureHandler;
 import com.funix.swp490x.mrs.security.LoginSuccessHandler;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.security.MrsUserDetailsService;
+import com.funix.swp490x.mrs.service.DuplicatePlaylistNameException;
 import com.funix.swp490x.mrs.service.InvalidSearchQueryException;
 import com.funix.swp490x.mrs.service.PlaylistService;
 import com.funix.swp490x.mrs.service.SearchService;
@@ -222,6 +223,24 @@ class SearchFlowTest {
                 .andExpect(flash().attribute("flash", Messages.PLAYLIST_CREATED_FROM_RESULTS));
 
         then(playlistService).should().createWithSongs(1L, "Summer beach", List.of(7L, 3L, 9L));
+    }
+
+    @Test
+    void createPlaylistFromResultsWarnsWhenTheNameIsTaken() throws Exception {
+        given(searchService.resultSongIds(nullable(List.class), nullable(List.class),
+                nullable(List.class), nullable(List.class), nullable(String.class),
+                nullable(Integer.class)))
+                .willReturn(List.of(7L));
+        willThrow(new DuplicatePlaylistNameException("Summer beach"))
+                .given(playlistService).createWithSongs(eq(1L), eq("Summer beach"), anyList());
+
+        mockMvc.perform(post(Routes.SEARCH_CREATE_PLAYLIST).with(csrf())
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .param("name", "Summer beach")
+                        .param("returnTo", "/search?q=beach"))
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("/search?q=beach"))
+                .andExpect(flash().attribute("flash", Messages.PLAYLIST_NAME_TAKEN));
     }
 
     @Test

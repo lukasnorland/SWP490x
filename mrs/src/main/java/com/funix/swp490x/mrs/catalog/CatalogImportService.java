@@ -37,8 +37,8 @@ import org.springframework.stereotype.Service;
  * songs S3 no longer stages. A sync over an untouched prefix therefore costs
  * one listing and no reads, which is what makes it safe to run on a schedule.
  *
- * <p>Startup and the scheduled poller call {@link #sync} and wait. The P-06c
- * button calls {@link #startAsync} so the page can poll {@link #progress}
+ * <p>Startup and the scheduled poller call {@link #sync} and wait. Sync Catalog
+ * on P-06b calls {@link #startAsync} so the page can poll {@link #progress}
  * instead of sitting on a frozen POST. Only one may run at a time; a second
  * caller is told the catalog is already syncing rather than racing the first.
  */
@@ -111,7 +111,7 @@ public class CatalogImportService {
     }
 
     /**
-     * Starts a sync on a background thread so P-06c can return immediately and
+     * Starts a sync on a background thread so P-06b can return immediately and
      * poll {@link #progress()}.
      *
      * @return false when another import already holds the lock
@@ -197,16 +197,16 @@ public class CatalogImportService {
     }
 
     /**
-     * Where the staged catalog lives, for the P-06c copy. This is a configured
-     * string — it does not list the prefix or touch AWS.
+     * Where the staged catalog lives, for the last-sync line on P-06b. This is a
+     * configured string — it does not list the prefix or touch AWS.
      */
     public String sourceDescription() {
         return store.describe();
     }
 
     /**
-     * What a sync would do right now, without changing anything. P-06c no longer
-     * calls this on GET; listing happens when the ADMIN presses Run import.
+     * What a sync would do right now, without changing anything. P-06b does not
+     * call this on GET; listing happens when the ADMIN presses Sync Catalog.
      */
     public PendingChanges pendingChanges() {
         List<CatalogObject> listed;
@@ -469,7 +469,7 @@ public class CatalogImportService {
     }
 
     /**
-     * Live status for the P-06c progress panel. {@code running} is the signal
+     * Live status for the P-06b progress modal. {@code running} is the signal
      * to keep polling; the counts are whatever the current (or last) run has
      * applied so far.
      */
@@ -490,7 +490,7 @@ public class CatalogImportService {
         }
     }
 
-    /** What a sync would do, for the P-06c panel. */
+    /** What a sync would do, for a dry-run of the prefix. */
     public record PendingChanges(int listed, int newObjects, int changed, String source) {
 
         public int total() {

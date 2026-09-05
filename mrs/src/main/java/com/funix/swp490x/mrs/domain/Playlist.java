@@ -58,10 +58,6 @@ public class Playlist {
     @Column(name = "published_at")
     private LocalDateTime publishedAt;
 
-    /** Clone lineage only (DC-07). */
-    @Column(name = "source_playlist_id")
-    private Long sourcePlaylistId;
-
     /** Optimistic locking (DC-02, BR-06). */
     @Version
     @Column(nullable = false)
@@ -153,14 +149,6 @@ public class Playlist {
 
     public void setPublishedAt(LocalDateTime publishedAt) {
         this.publishedAt = publishedAt;
-    }
-
-    public Long getSourcePlaylistId() {
-        return sourcePlaylistId;
-    }
-
-    public void setSourcePlaylistId(Long sourcePlaylistId) {
-        this.sourcePlaylistId = sourcePlaylistId;
     }
 
     public int getVersion() {

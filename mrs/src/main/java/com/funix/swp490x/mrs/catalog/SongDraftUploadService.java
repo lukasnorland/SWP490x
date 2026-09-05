@@ -22,14 +22,15 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * Stages audio, cover art and a generated song-data JSON from P-06c, then
- * queues the ETag sync so the songs land in MySQL the same way a CLI dump of
- * JSON would. The object store is written first; MySQL is never inserted
- * here — import is the only path that creates catalog rows.
+ * Stages audio, cover art and a generated song-data JSON from the P-06b Add
+ * Song form, then queues the ETag sync so the songs land in MySQL the same
+ * way a CLI dump of JSON would. The object store is written first; MySQL is
+ * never inserted here — import is the only path that creates catalog rows.
  *
- * <p>The whole batch is validated before anything is written. The IAM role
- * that talks to the bucket cannot delete objects, so a half-written batch
- * would leave orphans with no way to clean them up from here.
+ * <p>The whole batch is validated before anything is written, so a rejected
+ * row never leaves a half-staged song. A failure partway through the writes
+ * themselves is reported rather than rolled back; {@code DeleteObject} is
+ * available, but this path does not attempt a compensating delete.
  */
 @Service
 public class SongDraftUploadService {

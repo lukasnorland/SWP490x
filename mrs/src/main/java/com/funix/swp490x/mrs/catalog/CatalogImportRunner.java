@@ -34,7 +34,7 @@ public class CatalogImportRunner implements ApplicationRunner {
 
         if (summary.isFailed()) {
             // Deliberately not fatal: the app is still usable with whatever
-            // catalog is already in the database, and P-06c can retry.
+            // catalog is already in the database, and P-06b can retry.
             log.error("Startup catalog import failed: {}", summary.error());
             return;
         }
