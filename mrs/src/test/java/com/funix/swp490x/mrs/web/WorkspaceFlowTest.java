@@ -159,6 +159,19 @@ class WorkspaceFlowTest {
     }
 
     @Test
+    void anAdminCanUnpublishAnotherOwnersPlaylistFromTheWorkspace() throws Exception {
+        Playlist shared = published("Morning coffee");
+        shared.setOwnerId(9L);
+        given(playlistService.viewPublished(7L)).willReturn(shared);
+        given(playlistService.publishedSongs(7L)).willReturn(List.of());
+        given(playlistService.ownerName(9L)).willReturn("Dana Designer");
+
+        mockMvc.perform(get("/workspace/7").with(user(principal(Role.ADMIN))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Unpublish")));
+    }
+
+    @Test
     void aDraftIsNotAvailableInTheWorkspace() throws Exception {
         given(playlistService.viewPublished(9L)).willThrow(new PlaylistNotFoundException(9L));
 
@@ -172,6 +185,17 @@ class WorkspaceFlowTest {
         mockMvc.perform(post("/playlists/7/unpublish")
                         .param("returnTo", "/workspace")
                         .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(redirectedUrl(Routes.WORKSPACE));
+
+        then(playlistService).should().unpublish(7L, 1L);
+    }
+
+    @Test
+    void anAdminUnpublishFromTheWorkspaceReturnsToTheList() throws Exception {
+        mockMvc.perform(post("/playlists/7/unpublish")
+                        .param("returnTo", "/workspace")
+                        .with(user(principal(Role.ADMIN)))
                         .with(csrf()))
                 .andExpect(redirectedUrl(Routes.WORKSPACE));
 

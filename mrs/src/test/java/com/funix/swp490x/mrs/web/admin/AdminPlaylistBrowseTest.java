@@ -44,7 +44,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
-/** P-06f All Playlists: ADMIN sees everything, read-only; nobody else gets in. */
+/** P-06f All Playlists: ADMIN sees everything; song edits stay off the list. */
 @WebMvcTest(controllers = AdminPlaylistController.class)
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
         LoginFailureHandler.class, LoginAttemptService.class, MrsUserDetailsService.class})
@@ -103,7 +103,7 @@ class AdminPlaylistBrowseTest {
     }
 
     @Test
-    void theDetailIsRenderedWithoutAnyEditorOrExportControl() throws Exception {
+    void theDetailLetsAdminPublishADraftWithoutSongEditors() throws Exception {
         Playlist draft = new Playlist("Morning coffee", 2L);
         ReflectionTestUtils.setField(draft, "id", 7L);
         given(playlistService.inspect(7L)).willReturn(draft);
@@ -115,11 +115,27 @@ class AdminPlaylistBrowseTest {
                 .andExpect(content().string(containsString("Morning coffee")))
                 .andExpect(content().string(containsString("Dana Designer")))
                 .andExpect(content().string(containsString("Viewing as administrator")))
-                .andExpect(content().string(not(containsString("/playlists/7/publish"))))
+                .andExpect(content().string(containsString("/playlists/7/publish")))
                 .andExpect(content().string(not(containsString("/playlists/7/delete"))))
                 .andExpect(content().string(not(containsString("/playlists/7/export.csv"))))
                 .andExpect(content().string(not(containsString("Rename playlist"))))
                 .andExpect(content().string(containsString("/playlists/7/collaborators")));
+    }
+
+    @Test
+    void theDetailLetsAdminUnpublishAPublishedPlaylist() throws Exception {
+        Playlist published = new Playlist("Launch party", 2L);
+        published.setStatus(PlaylistStatus.PUBLISHED);
+        ReflectionTestUtils.setField(published, "id", 7L);
+        given(playlistService.inspect(7L)).willReturn(published);
+        given(playlistService.inspectSongs(7L)).willReturn(List.of());
+        given(playlistService.ownerName(2L)).willReturn("Dana Designer");
+
+        mockMvc.perform(get("/admin/playlists/7").with(user(principal(Role.ADMIN))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("/playlists/7/unpublish")))
+                .andExpect(content().string(not(containsString("/playlists/7/publish"))))
+                .andExpect(content().string(not(containsString("/playlists/7/delete"))));
     }
 
     @Test

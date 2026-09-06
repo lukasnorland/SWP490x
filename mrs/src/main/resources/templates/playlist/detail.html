@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
 <!--/* P-03b Playlist Detail / Editor — spec 4.5 (FT-06, FT-07, FT-08).
-     With inspecting=true (P-06f, ADMIN All Playlists) every action is hidden
-     and the owner is named: the same page, read-only. */-->
+     With inspecting=true (P-06f, ADMIN All Playlists) song edits, rename,
+     delete and export are hidden. ADMIN can still publish or unpublish. */-->
 <body>
 <div th:fragment="content">
 
@@ -32,9 +32,10 @@
       </p>
     </div>
 
-    <div class="d-flex flex-wrap align-items-center gap-2" th:if="${inspecting != true}">
+    <div class="d-flex flex-wrap align-items-center gap-2"
+         th:if="${inspecting != true or canPublish or canUnpublish}">
       <button type="button" class="btn btn-ghost"
-              th:if="${currentUser != null and currentUser.curator}"
+              th:if="${inspecting != true and currentUser != null and currentUser.curator}"
               title="Duplicate playlist"
               data-duplicate-playlist
               th:data-playlist-id="${playlist.id}"
@@ -43,19 +44,22 @@
         <span>Duplicate</span>
       </button>
 
-      <a class="btn btn-ghost" th:href="@{|/playlists/${playlist.id}/export.csv|}" download>
+      <a class="btn btn-ghost" th:if="${inspecting != true}"
+         th:href="@{|/playlists/${playlist.id}/export.csv|}" download>
         <svg th:replace="~{fragments/icons :: icon('download', 'icon--sm')}"></svg>
         <span>Export CSV</span>
       </a>
 
-      <!-- BR-05: publishing needs at least one song. Owner only. -->
+      <!-- BR-05: publishing needs at least one song. Owner or ADMIN. -->
       <form th:if="${canPublish}" th:action="@{|/playlists/${playlist.id}/publish|}" method="post"
             class="mb-0">
+        <input type="hidden" name="returnTo" th:if="${collaboratorReturnTo != null}"
+               th:value="${collaboratorReturnTo}">
         <button type="submit" class="btn btn-primary" th:disabled="${entries.isEmpty()}"
                 th:title="${entries.isEmpty()}
                           ? 'Add at least one song before publishing'
                           : 'Publish to the Shared Workspace'"
-                onclick="return confirm('Publish this playlist? It will appear in the Shared Workspace and become read-only until you unpublish it.');">
+                onclick="return confirm('Publish this playlist? It will appear in the Shared Workspace and become read-only until unpublished.');">
           <svg th:replace="~{fragments/icons :: icon('lock', 'icon--sm')}"></svg>
           <span>Publish</span>
         </button>
@@ -63,6 +67,8 @@
 
       <form th:if="${canUnpublish}"
             th:action="@{|/playlists/${playlist.id}/unpublish|}" method="post" class="mb-0">
+        <input type="hidden" name="returnTo" th:if="${collaboratorReturnTo != null}"
+               th:value="${collaboratorReturnTo}">
         <button type="submit" class="btn btn-primary"
                 onclick="return confirm('Unpublish this playlist? It will leave the Shared Workspace and become editable again.');">
           <svg th:replace="~{fragments/icons :: icon('unlock', 'icon--sm')}"></svg>
@@ -70,7 +76,7 @@
         </button>
       </form>
 
-      <form th:if="${canDelete}" th:action="@{|/playlists/${playlist.id}/delete|}" method="post"
+      <form th:if="${inspecting != true and canDelete}" th:action="@{|/playlists/${playlist.id}/delete|}" method="post"
             class="mb-0">
         <button type="submit" class="btn btn-ghost"
                 onclick="return confirm('Delete this playlist? The songs stay in the catalog.');">
@@ -91,7 +97,7 @@
 
     <th:block th:if="${inspecting == true}">
       <div th:replace="~{fragments/components :: notice('info', 'eye',
-          'Viewing as administrator. Only the owner and their collaborators can change this playlist.')}"></div>
+          'Viewing as administrator. You can publish or unpublish; song edits stay with the owner and collaborators.')}"></div>
     </th:block>
 
     <!-- Locked state: every mutating control above and below is already gone;
