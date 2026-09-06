@@ -401,11 +401,35 @@ class PlaylistFlowTest {
     }
 
     @Test
+    void theOwnerCanStillPublish() throws Exception {
+        mockMvc.perform(post("/playlists/5/publish")
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(redirectedUrl("/playlists/5"))
+                .andExpect(flash().attribute("flash", Messages.PLAYLIST_PUBLISHED));
+
+        then(playlistService).should().publish(5L, 1L);
+    }
+
+    @Test
+    void anAdminPublishReturnsToInspect() throws Exception {
+        mockMvc.perform(post("/playlists/5/publish")
+                        .param("returnTo", "/admin/playlists/5")
+                        .with(user(principal(Role.ADMIN)))
+                        .with(csrf()))
+                .andExpect(redirectedUrl("/admin/playlists/5"))
+                .andExpect(flash().attribute("flash", Messages.PLAYLIST_PUBLISHED));
+
+        then(playlistService).should().publish(5L, 1L);
+    }
+
+    @Test
     void aCollaboratorCannotPublish() throws Exception {
         willThrow(new InvalidCollaboratorException("Only the owner can publish this playlist"))
                 .given(playlistService).publish(5L, 1L);
 
         mockMvc.perform(post("/playlists/5/publish")
+                        .param("returnTo", "/admin/playlists/5")
                         .with(user(principal(Role.CONTENT_DESIGNER)))
                         .with(csrf()))
                 .andExpect(redirectedUrl("/playlists/5"))

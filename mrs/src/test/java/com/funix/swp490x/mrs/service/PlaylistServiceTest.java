@@ -184,7 +184,8 @@ class PlaylistServiceTest {
     /** BR-05: an empty playlist has nothing to publish. */
     @Test
     void publishNeedsAtLeastOneSong() {
-        visible(playlist(7L, PlaylistStatus.DRAFT));
+        given(playlistRepository.findById(7L))
+                .willReturn(Optional.of(playlist(7L, PlaylistStatus.DRAFT)));
         given(playlistSongRepository.countByIdPlaylistId(7L)).willReturn(0L);
 
         assertThatThrownBy(() -> service.publish(7L, 1L))
@@ -570,6 +571,31 @@ class PlaylistServiceTest {
     }
 
     @Test
+    void anAdminCanPublishAnotherOwnersDraft() {
+        Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
+        given(userRepository.findById(99L)).willReturn(Optional.of(admin(99L)));
+        given(playlistSongRepository.countByIdPlaylistId(7L)).willReturn(1L);
+
+        service.publish(7L, 99L);
+
+        assertThat(playlist.getStatus()).isEqualTo(PlaylistStatus.PUBLISHED);
+        then(playlistRepository).should().save(playlist);
+    }
+
+    @Test
+    void anAdminCanUnpublishAnotherOwnersPlaylist() {
+        Playlist playlist = playlist(7L, PlaylistStatus.PUBLISHED);
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
+        given(userRepository.findById(99L)).willReturn(Optional.of(admin(99L)));
+
+        service.unpublish(7L, 99L);
+
+        assertThat(playlist.getStatus()).isEqualTo(PlaylistStatus.DRAFT);
+        then(playlistRepository).should().save(playlist);
+    }
+
+    @Test
     void transferOwnedPlaylistsSendsOneToACollaboratorAndOneToAdmin() {
         Playlist withCollab = new Playlist("Morning", 7L);
         Playlist alone = new Playlist("Evening", 7L);
@@ -622,6 +648,16 @@ class PlaylistServiceTest {
         user.setUsername("Dana Designer");
         user.setEmail("dana@mrs.local");
         user.setRole(Role.CONTENT_DESIGNER);
+        user.setStatus(UserStatus.ACTIVE);
+        return user;
+    }
+
+    private static User admin(Long id) {
+        User user = new User();
+        user.setId(id);
+        user.setUsername("System Admin");
+        user.setEmail("admin@mrs.local");
+        user.setRole(Role.ADMIN);
         user.setStatus(UserStatus.ACTIVE);
         return user;
     }

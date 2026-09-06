@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
  * P-06f — All Playlists. Read-only oversight of every playlist in the system,
  * Draft or Published, whoever owns it.
  *
- * <p>Access is granted by SecurityConfig on {@code /admin/**}. List and inspect
- * do not mutate here; ADMIN grants collaborators from inspect through the
- * shared playlist routes.
+ * <p>Access is granted by SecurityConfig on {@code /admin/**}. Song edits stay
+ * with the owner and collaborators. ADMIN can publish or unpublish from inspect
+ * through the shared playlist routes, and can grant collaborators there too.
  */
 @Controller
 public class AdminPlaylistController {
@@ -67,8 +67,8 @@ public class AdminPlaylistController {
         model.addAttribute("totalDuration", playlistService.totalDuration(id));
         model.addAttribute("ownerName", playlistService.ownerName(playlist.getOwnerId()));
         model.addAttribute("canEdit", false);
-        model.addAttribute("canPublish", false);
-        model.addAttribute("canUnpublish", false);
+        model.addAttribute("canPublish", !playlist.isPublished());
+        model.addAttribute("canUnpublish", playlist.isPublished());
         model.addAttribute("canDelete", false);
         model.addAttribute("canManageCollaborators", true);
         model.addAttribute("collaborators", playlistService.collaborators(id));

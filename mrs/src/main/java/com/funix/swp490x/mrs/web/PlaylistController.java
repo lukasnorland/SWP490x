@@ -95,8 +95,8 @@ public class PlaylistController {
         boolean admin = user != null && user.isAdmin();
         model.addAttribute("canEdit", !playlist.isPublished()
                 && user != null && user.isCurator());
-        model.addAttribute("canPublish", !playlist.isPublished() && owner);
-        model.addAttribute("canUnpublish", playlist.isPublished() && owner);
+        model.addAttribute("canPublish", !playlist.isPublished() && (owner || admin));
+        model.addAttribute("canUnpublish", playlist.isPublished() && (owner || admin));
         model.addAttribute("canDelete", !playlist.isPublished() && owner);
         model.addAttribute("canManageCollaborators", owner || admin);
         model.addAttribute("collaborators", playlistService.collaborators(id));
@@ -291,6 +291,7 @@ public class PlaylistController {
     @PostMapping(Routes.PLAYLIST_PUBLISH)
     public String publish(@PathVariable Long id,
             @AuthenticationPrincipal MrsUserDetails user,
+            @RequestParam(required = false) String returnTo,
             RedirectAttributes redirectAttributes) {
 
         try {
@@ -298,6 +299,7 @@ public class PlaylistController {
             flash(redirectAttributes, "success", Messages.PLAYLIST_PUBLISHED);
         } catch (InvalidCollaboratorException e) {
             flash(redirectAttributes, "warning", Messages.PLAYLIST_PUBLISH_NOT_OWNER);
+            return "redirect:" + Routes.PLAYLISTS + "/" + id;
         } catch (InvalidPlaylistStateException e) {
             flash(redirectAttributes, "warning", Messages.PLAYLIST_PUBLISH_EMPTY);
         } catch (PlaylistLockedException e) {
@@ -306,7 +308,9 @@ public class PlaylistController {
             flash(redirectAttributes, "danger", Messages.PLAYLIST_NOT_FOUND);
             return "redirect:" + Routes.PLAYLISTS;
         }
-        return "redirect:" + Routes.PLAYLISTS + "/" + id;
+        return "redirect:" + (returnTo == null || returnTo.isBlank()
+                ? Routes.PLAYLISTS + "/" + id
+                : safeReturn(returnTo));
     }
 
     @PostMapping(Routes.PLAYLIST_UNPUBLISH)

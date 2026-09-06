@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
-<!--/* P-06f All Playlists — ADMIN oversight of every playlist, read-only. */-->
+<!--/* P-06f All Playlists — ADMIN oversight of every playlist. */-->
 <body>
 <div th:fragment="content">
 
   <header class="d-flex flex-column gap-1 mb-xl">
     <h1>All Playlists</h1>
     <p class="small text-secondary">
-      Every playlist in the system, Draft or Published, whoever owns it. View only:
-      editing stays with the owner and their collaborators.
+      Every playlist in the system, Draft or Published, whoever owns it.
+      Song edits stay with the owner and their collaborators; open a playlist
+      to publish or unpublish it, or to manage collaborators.
     </p>
   </header>
 

@@ -70,7 +70,7 @@ public class WorkspaceController {
         model.addAttribute("totalDuration", playlistService.totalDuration(id));
         model.addAttribute("canExport", user != null && user.isCurator());
         model.addAttribute("canUnpublish", user != null && user.isCurator()
-                && playlist.getOwnerId().equals(user.getId()));
+                && (user.isAdmin() || playlist.getOwnerId().equals(user.getId())));
         return "workspace/detail";
     }
 

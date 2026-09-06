@@ -38,8 +38,8 @@ import org.springframework.util.StringUtils;
  *
  * <p>Song edits go through {@link #editable}: the caller must own the playlist
  * or hold a collaborator grant (BR-03), and a Published playlist is read-only
- * until the owner unpublishes it (DC-08). Publish, unpublish, and delete are
- * owner-only.
+ * until the owner or an administrator unpublishes it (DC-08). Publish and
+ * unpublish are owner or ADMIN; delete is owner-only.
  */
 @Service
 public class PlaylistService {
@@ -428,11 +428,13 @@ public class PlaylistService {
         audit(userId, AuditLog.ACTION_PLAYLIST_DELETE, playlistId, null);
     }
 
-    /** Needs at least one song (BR-05). Collaborators cannot publish. */
+    /** Needs at least one song (BR-05). Collaborators cannot publish; ADMIN can. */
     @Transactional
     public void publish(Long playlistId, Long userId) {
-        Playlist playlist = editable(playlistId, userId);
-        requireOwner(playlist, userId, "Only the owner can publish this playlist");
+        Playlist playlist = forLifecycle(playlistId, userId);
+        if (playlist.isPublished()) {
+            throw new PlaylistLockedException(playlistId);
+        }
         if (playlistSongRepository.countByIdPlaylistId(playlistId) == 0) {
             throw new InvalidPlaylistStateException("Playlist " + playlistId + " has no songs");
         }
@@ -445,8 +447,7 @@ public class PlaylistService {
 
     @Transactional
     public void unpublish(Long playlistId, Long userId) {
-        Playlist playlist = visible(playlistId, userId);
-        requireOwner(playlist, userId, "Only the owner can unpublish this playlist");
+        Playlist playlist = forLifecycle(playlistId, userId);
         playlist.setStatus(PlaylistStatus.DRAFT);
         playlist.setPublishedAt(null);
         playlist.touch(userId);
@@ -708,6 +709,29 @@ public class PlaylistService {
             throw new InvalidSuccessorException(
                     "Pick a collaborator on that playlist, or keep it yourself");
         }
+    }
+
+    /**
+     * Publish and unpublish: owner or ADMIN. A collaborator still reads as
+     * visible so the refusal is not a 404; a stranger still reads as missing.
+     */
+    private Playlist forLifecycle(Long playlistId, Long userId) {
+        Playlist playlist = playlistRepository.findById(playlistId)
+                .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
+        if (Objects.equals(playlist.getOwnerId(), userId) || isAdmin(userId)) {
+            return playlist;
+        }
+        if (playlistRepository.countVisibleTo(playlistId, userId) == 0) {
+            throw new PlaylistNotFoundException(playlistId);
+        }
+        throw new InvalidCollaboratorException(
+                "Only the owner or an administrator can publish or unpublish this playlist");
+    }
+
+    private boolean isAdmin(Long userId) {
+        return userRepository.findById(userId)
+                .filter(user -> user.getRole() == Role.ADMIN)
+                .isPresent();
     }
 
     private static void requireOwner(Playlist playlist, Long userId, String message) {
