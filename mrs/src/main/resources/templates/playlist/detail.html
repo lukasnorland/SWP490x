@@ -48,8 +48,8 @@
         <span>Export CSV</span>
       </a>
 
-      <!-- BR-05: publishing needs at least one song. -->
-      <form th:if="${canEdit}" th:action="@{|/playlists/${playlist.id}/publish|}" method="post"
+      <!-- BR-05: publishing needs at least one song. Owner only. -->
+      <form th:if="${canPublish}" th:action="@{|/playlists/${playlist.id}/publish|}" method="post"
             class="mb-0">
         <button type="submit" class="btn btn-primary" th:disabled="${entries.isEmpty()}"
                 th:title="${entries.isEmpty()}
@@ -61,7 +61,7 @@
         </button>
       </form>
 
-      <form th:if="${playlist.published and currentUser != null and currentUser.curator}"
+      <form th:if="${canUnpublish}"
             th:action="@{|/playlists/${playlist.id}/unpublish|}" method="post" class="mb-0">
         <button type="submit" class="btn btn-primary"
                 onclick="return confirm('Unpublish this playlist? It will leave the Shared Workspace and become editable again.');">
@@ -212,8 +212,8 @@
       <div class="card-body d-flex flex-column gap-3">
         <h2 class="h4 mb-0">Collaborators</h2>
         <p class="small text-secondary mb-0">
-          Content Designers you share this playlist with can edit a Draft and unpublish a
-          Published copy. They cannot delete it or invite others.
+          Content Designers you share this playlist with can add, remove, and reorder songs
+          in a Draft. They cannot publish, unpublish, delete it, or invite others.
         </p>
 
         <ul class="list-unstyled mb-0 d-flex flex-column gap-2"

@@ -67,6 +67,8 @@ public class AdminPlaylistController {
         model.addAttribute("totalDuration", playlistService.totalDuration(id));
         model.addAttribute("ownerName", playlistService.ownerName(playlist.getOwnerId()));
         model.addAttribute("canEdit", false);
+        model.addAttribute("canPublish", false);
+        model.addAttribute("canUnpublish", false);
         model.addAttribute("canDelete", false);
         model.addAttribute("canManageCollaborators", true);
         model.addAttribute("collaborators", playlistService.collaborators(id));

@@ -546,6 +546,30 @@ class PlaylistServiceTest {
     }
 
     @Test
+    void publishIsOwnerOnly() {
+        Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
+        given(playlistRepository.countVisibleTo(7L, 15L)).willReturn(1L);
+
+        assertThatThrownBy(() -> service.publish(7L, 15L))
+                .isInstanceOf(InvalidCollaboratorException.class);
+
+        then(playlistRepository).should(never()).save(any());
+    }
+
+    @Test
+    void unpublishIsOwnerOnly() {
+        Playlist playlist = playlist(7L, PlaylistStatus.PUBLISHED);
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
+        given(playlistRepository.countVisibleTo(7L, 15L)).willReturn(1L);
+
+        assertThatThrownBy(() -> service.unpublish(7L, 15L))
+                .isInstanceOf(InvalidCollaboratorException.class);
+
+        then(playlistRepository).should(never()).save(any());
+    }
+
+    @Test
     void transferOwnedPlaylistsSendsOneToACollaboratorAndOneToAdmin() {
         Playlist withCollab = new Playlist("Morning", 7L);
         Playlist alone = new Playlist("Evening", 7L);
