@@ -204,6 +204,12 @@ public final class Messages {
     public static final String PLAYLIST_DELETE_NOT_OWNER =
             "Only the owner can delete this playlist.";
 
+    public static final String PLAYLIST_PUBLISH_NOT_OWNER =
+            "Only the owner can publish this playlist.";
+
+    public static final String PLAYLIST_UNPUBLISH_NOT_OWNER =
+            "Only the owner can unpublish this playlist.";
+
     public static final String COLLABORATOR_ADDED =
             "That Content Designer can now edit this playlist.";
 

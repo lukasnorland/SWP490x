@@ -319,18 +319,37 @@ class PlaylistFlowTest {
     }
 
     @Test
-    void aCollaboratorDoesNotSeeDeleteOrShareControls() throws Exception {
+    void aCollaboratorDoesNotSeeDeleteShareOrPublishControls() throws Exception {
         Playlist shared = new Playlist("Morning coffee", 9L);
+        ReflectionTestUtils.setField(shared, "id", 5L);
+        given(playlistService.view(5L, 1L)).willReturn(shared);
+        given(playlistService.songs(5L, 1L)).willReturn(List.of(
+                new PlaylistSong(5L, song(42L, "Ice Cream", 213), 1)));
+
+        mockMvc.perform(get("/playlists/5").with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Collaborators")))
+                .andExpect(content().string(containsString("/playlists/5/songs/42/remove")))
+                .andExpect(content().string(org.hamcrest.Matchers.not(
+                        containsString("/playlists/5/delete"))))
+                .andExpect(content().string(org.hamcrest.Matchers.not(
+                        containsString("/playlists/5/publish"))))
+                .andExpect(content().string(org.hamcrest.Matchers.not(
+                        containsString("Add a Content Designer"))));
+    }
+
+    @Test
+    void aCollaboratorDoesNotSeeUnpublishOnAPublishedPlaylist() throws Exception {
+        Playlist shared = new Playlist("Launch party", 9L);
+        shared.setStatus(PlaylistStatus.PUBLISHED);
         ReflectionTestUtils.setField(shared, "id", 5L);
         given(playlistService.view(5L, 1L)).willReturn(shared);
 
         mockMvc.perform(get("/playlists/5").with(user(principal(Role.CONTENT_DESIGNER))))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Collaborators")))
+                .andExpect(content().string(containsString("Published playlists are locked")))
                 .andExpect(content().string(org.hamcrest.Matchers.not(
-                        containsString("/playlists/5/delete"))))
-                .andExpect(content().string(org.hamcrest.Matchers.not(
-                        containsString("Add a Content Designer"))));
+                        containsString("/playlists/5/unpublish"))));
     }
 
     @Test
@@ -379,6 +398,30 @@ class PlaylistFlowTest {
                         .with(csrf()))
                 .andExpect(redirectedUrl("/playlists/5"))
                 .andExpect(flash().attribute("flash", Messages.PLAYLIST_DELETE_NOT_OWNER));
+    }
+
+    @Test
+    void aCollaboratorCannotPublish() throws Exception {
+        willThrow(new InvalidCollaboratorException("Only the owner can publish this playlist"))
+                .given(playlistService).publish(5L, 1L);
+
+        mockMvc.perform(post("/playlists/5/publish")
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(redirectedUrl("/playlists/5"))
+                .andExpect(flash().attribute("flash", Messages.PLAYLIST_PUBLISH_NOT_OWNER));
+    }
+
+    @Test
+    void aCollaboratorCannotUnpublish() throws Exception {
+        willThrow(new InvalidCollaboratorException("Only the owner can unpublish this playlist"))
+                .given(playlistService).unpublish(5L, 1L);
+
+        mockMvc.perform(post("/playlists/5/unpublish")
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(redirectedUrl("/playlists/5"))
+                .andExpect(flash().attribute("flash", Messages.PLAYLIST_UNPUBLISH_NOT_OWNER));
     }
 
     /** DC-08: a Published playlist shows the reason, and none of the controls. */

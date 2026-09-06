@@ -146,6 +146,19 @@ class WorkspaceFlowTest {
     }
 
     @Test
+    void aCollaboratorCannotUnpublishFromTheWorkspace() throws Exception {
+        Playlist shared = published("Morning coffee");
+        shared.setOwnerId(9L);
+        given(playlistService.viewPublished(7L)).willReturn(shared);
+        given(playlistService.publishedSongs(7L)).willReturn(List.of());
+        given(playlistService.ownerName(9L)).willReturn("Dana Designer");
+
+        mockMvc.perform(get("/workspace/7").with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(not(containsString("Unpublish"))));
+    }
+
+    @Test
     void aDraftIsNotAvailableInTheWorkspace() throws Exception {
         given(playlistService.viewPublished(9L)).willThrow(new PlaylistNotFoundException(9L));
 

@@ -36,10 +36,10 @@ import org.springframework.util.StringUtils;
  * P-03a / P-03b playlists (FT-06). Owns the ordered contents of a playlist and
  * the state machine around Draft and Published.
  *
- * <p>Every mutation goes through {@link #editable}, which enforces both halves
- * of the rule the UI only hints at: the caller must own the playlist or hold a
- * collaborator grant (BR-03), and a Published playlist is read-only until it is
- * unpublished (DC-08).
+ * <p>Song edits go through {@link #editable}: the caller must own the playlist
+ * or hold a collaborator grant (BR-03), and a Published playlist is read-only
+ * until the owner unpublishes it (DC-08). Publish, unpublish, and delete are
+ * owner-only.
  */
 @Service
 public class PlaylistService {
@@ -422,18 +422,17 @@ public class PlaylistService {
         if (playlist.isPublished()) {
             throw new InvalidPlaylistStateException("Playlist " + playlistId + " is published");
         }
-        if (!Objects.equals(playlist.getOwnerId(), userId)) {
-            throw new InvalidCollaboratorException("Only the owner can delete this playlist");
-        }
+        requireOwner(playlist, userId, "Only the owner can delete this playlist");
         playlistSongRepository.deleteAllOf(playlistId);
         playlistRepository.delete(playlist);
         audit(userId, AuditLog.ACTION_PLAYLIST_DELETE, playlistId, null);
     }
 
-    /** Needs at least one song (BR-05). */
+    /** Needs at least one song (BR-05). Collaborators cannot publish. */
     @Transactional
     public void publish(Long playlistId, Long userId) {
         Playlist playlist = editable(playlistId, userId);
+        requireOwner(playlist, userId, "Only the owner can publish this playlist");
         if (playlistSongRepository.countByIdPlaylistId(playlistId) == 0) {
             throw new InvalidPlaylistStateException("Playlist " + playlistId + " has no songs");
         }
@@ -447,6 +446,7 @@ public class PlaylistService {
     @Transactional
     public void unpublish(Long playlistId, Long userId) {
         Playlist playlist = visible(playlistId, userId);
+        requireOwner(playlist, userId, "Only the owner can unpublish this playlist");
         playlist.setStatus(PlaylistStatus.DRAFT);
         playlist.setPublishedAt(null);
         playlist.touch(userId);
@@ -707,6 +707,12 @@ public class PlaylistService {
                 || successor.getStatus() != UserStatus.ACTIVE) {
             throw new InvalidSuccessorException(
                     "Pick a collaborator on that playlist, or keep it yourself");
+        }
+    }
+
+    private static void requireOwner(Playlist playlist, Long userId, String message) {
+        if (!Objects.equals(playlist.getOwnerId(), userId)) {
+            throw new InvalidCollaboratorException(message);
         }
     }
 

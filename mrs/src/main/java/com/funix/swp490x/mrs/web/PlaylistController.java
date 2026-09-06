@@ -95,6 +95,8 @@ public class PlaylistController {
         boolean admin = user != null && user.isAdmin();
         model.addAttribute("canEdit", !playlist.isPublished()
                 && user != null && user.isCurator());
+        model.addAttribute("canPublish", !playlist.isPublished() && owner);
+        model.addAttribute("canUnpublish", playlist.isPublished() && owner);
         model.addAttribute("canDelete", !playlist.isPublished() && owner);
         model.addAttribute("canManageCollaborators", owner || admin);
         model.addAttribute("collaborators", playlistService.collaborators(id));
@@ -294,6 +296,8 @@ public class PlaylistController {
         try {
             playlistService.publish(id, userId(user));
             flash(redirectAttributes, "success", Messages.PLAYLIST_PUBLISHED);
+        } catch (InvalidCollaboratorException e) {
+            flash(redirectAttributes, "warning", Messages.PLAYLIST_PUBLISH_NOT_OWNER);
         } catch (InvalidPlaylistStateException e) {
             flash(redirectAttributes, "warning", Messages.PLAYLIST_PUBLISH_EMPTY);
         } catch (PlaylistLockedException e) {
@@ -314,6 +318,9 @@ public class PlaylistController {
         try {
             playlistService.unpublish(id, userId(user));
             flash(redirectAttributes, "success", Messages.PLAYLIST_UNPUBLISHED);
+        } catch (InvalidCollaboratorException e) {
+            flash(redirectAttributes, "warning", Messages.PLAYLIST_UNPUBLISH_NOT_OWNER);
+            return "redirect:" + Routes.PLAYLISTS + "/" + id;
         } catch (PlaylistNotFoundException e) {
             flash(redirectAttributes, "danger", Messages.PLAYLIST_NOT_FOUND);
             return "redirect:" + Routes.PLAYLISTS;

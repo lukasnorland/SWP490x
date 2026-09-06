@@ -50,7 +50,8 @@ otherwise:
 
 | Gap | Specified in | Status |
 |-----|--------------|--------|
-| Shared Workspace scoping (BR-04) | Report 3.1 | Every published playlist is visible to every role |
+| Profile history & editable name (P-05) | Report 3.2 §4.8 | Account card reads real data; history and name/password zones are placeholders |
+| System Settings persistence (P-06d) | Report 3.2 §4.12 | Screen is scaffolded; values still live in `application.properties` |
 | Audit & recommendation log viewer (P-06e) | Report 3.2 §4.13 | Both tables are written; no screen reads them, and user administration is not audited yet |
 
 ---
@@ -129,18 +130,19 @@ python .\md\_xlsx_to_md.py ".\Report 3.1_MRS_RTW_luannnfx05543.xlsx" .\md\report
 `docs/md/` is gitignored along with the sources; it is a local reading aid, not
 a second copy of the deliverable.
 
-**Outstanding documentation update.** The reports are ahead of the code in one
-direction and behind it in the other:
+The local Word/Excel reports were aligned to the as-built on 05/09/2026
+(Spotify/popularity removed, duplicate is unique-name with no lineage, P-06c
+folded into P-06b, figures regenerated). A few leftovers still need a pass
+inside Word:
 
-- The ERD and the RTW data dictionary still need the catalog columns on `song`
-  (`audio_url`, `cover_url`, `bpm`, `is_explicit`, `isrc`, `source_etag`,
-  `ambience_a`, `ambience_b`, `ambience_source_url`) and the
-  `catalog_import_run` table. All of them are in `V1__init_schema.sql`.
-- The status column in Report 3.2 §2.2 predates this build: P-02, P-03a, P-03b,
-  P-04a, P-04b and P-06b are shipped rather than *In Development*.
-- `/admin/playlists` (P-06f) is ADMIN oversight of every playlist. The list and
-  song editor stay read-only; collaborator grants from that inspect view use the
-  shared playlist routes. Report 3.2 has no page ID for it yet.
+- Report 3.0 Figure 3 (SC-02) still draws playlist HTTP 409 / clone; v1 playlist
+  saves are last-writer-wins. Song catalog edits on P-06b do use HTTP 409.
+- Report 3.2 §2.2 status column and some P-02/P-04b wireframe “Popularity”
+  columns may still read as the old sort.
+- Report 4 Part 4.3 may still contain a Spotify token/quota subsection around
+  the replaced Figure T-06.
+- P-06f (`/admin/playlists`) is in the SRS ADMIN use case and Figure 12; Report
+  3.2 still has no page-ID section for it.
 
 ---
 
@@ -548,8 +550,8 @@ Three two-week iterations after design:
 3. **Iteration 3** — Web UI, LLM-assisted search, shared workspace, CSV export  
 
 All three slices have landed. What is left is listed under *Specified but not yet
-built* above and in the screen table below — chiefly the two admin screens that
-read back what the system records.
+built* above and in the screen table below — chiefly P-05 history, P-06d
+settings persistence, and the P-06e log viewer.
 
 ### UI implementation status
 
@@ -593,9 +595,9 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 | P-01 Password Reset | Implemented — both steps, live BR-12 checklist, link emailed |
 | P-02 Search & Recommendation | Implemented — free-text prompt interpreted by Gemini (vocabulary matching when no key is set), removable filter chips, metadata-match ranking with an optional Top-N, multi-select add-to-playlist, and a "create playlist from every result" action that re-runs the search server-side rather than using the current page. Each interpret writes a `recommendation_log` row |
 | P-03a My Playlists | Implemented — playlists you own plus those shared with you; status and text filters, pagination, create, rename, duplicate, delete, publish, CSV export |
-| P-03b Playlist Detail | Implemented — ordered song table with preview playback, add / remove / reorder while Draft, collaborator list (owner and ADMIN grant/revoke Content Designers; collaborators can edit a Draft and unpublish, but cannot delete or invite), publish, unpublish, duplicate, export. Publishing locks song edits until unpublished. Duplicate creates an independent Draft with a unique name and no lineage back to the source |
+| P-03b Playlist Detail | Implemented — ordered song table with preview playback, add / remove / reorder while Draft, collaborator list (owner and ADMIN grant/revoke Content Designers; collaborators can edit songs in a Draft, but cannot publish, unpublish, delete, or invite), publish, unpublish, duplicate, export. Publishing locks song edits until unpublished. Duplicate creates an independent Draft with a unique name and no lineage back to the source |
 | P-04a Shared Workspace | Implemented — card grid of published playlists with owner and text filters, open to all three roles. BR-04 scoping is outstanding, so every published playlist is listed |
-| P-04b Published Playlist View | Implemented — read-only song list; Duplicate and Export CSV are curator-only; unpublish is owner/ADMIN. A Draft id returns 403 rather than 404 |
+| P-04b Published Playlist View | Implemented — read-only song list; Duplicate and Export CSV are curator-only; unpublish is owner-only. A Draft id returns 403 rather than 404 |
 | P-05 My Profile | Partially implemented — the account card reads real data; the editable display name / change-password zone and the playlist-history zone are still placeholders |
 | P-06a User Management | Implemented — Thymeleaf MVC CRUD: create + credentials email, filters, pagination, deactivate/reactivate with session invalidation, role change, resend. Deactivating a Designer or demoting them to Customer opens a successor picker per owned playlist (acting ADMIN or an existing collaborator) |
 | P-06b Song Catalog | Implemented as CRUD — Songs table with provider/tag/text filters, pagination (partial fetch so the shell player stays mounted), a per-row untagged warning for DC-03 and a catalog-wide untagged count, CDN playback via clicking the song title, per-row edit modal (optimistic lock, HTTP 409 refresh-only, BR-06/DC-02; classification is written to MySQL and the staged song-data JSON), and delete (hosted audio/cover first, then staged JSON, then the MySQL row so the next import cannot recreate the song). Create is the Add Song modal (audio + artwork; the server writes media and generated song-data JSON, then auto-syncs into MySQL). Sync Catalog converts JSON already under the prefix, with per-row skip reasons, a last-sync line, and a scheduled poller. Authenticated shell soft-navigates sidebar/content links so the player survives leaving Catalog for Users, Audit Log, etc. The Tags dictionary tab and the provider CSV/XLSX of UC-28 are still outstanding |
