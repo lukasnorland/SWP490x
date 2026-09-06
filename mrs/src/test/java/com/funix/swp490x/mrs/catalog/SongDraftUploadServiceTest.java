@@ -194,6 +194,23 @@ class SongDraftUploadServiceTest {
     }
 
     @Test
+    void upload_whenBatchIsExactlyTen_shouldAccept() {
+        List<SongDraftForm> drafts = new ArrayList<>();
+        for (int i = 0; i < SongDraftUploadService.MAX_DRAFTS; i++) {
+            SongDraftForm form = draft("NCS", "T" + i, "a" + i + ".mp3");
+            form.setIsrc("USRC1760783" + i);
+            drafts.add(form);
+        }
+
+        SongDraftUploadService.MediaUploadResult result =
+                uploadService.upload(List.copyOf(drafts), 1L);
+
+        assertThat(result.uploaded()).isEqualTo(SongDraftUploadService.MAX_DRAFTS);
+        assertThat(result.rejected()).isEmpty();
+        then(importService).should().startAsync(ImportTrigger.MANUAL, 1L, false);
+    }
+
+    @Test
     void rejectsMissingCoverBeforeAnyWrite() {
         SongDraftForm draft = draft("NCS", "Bare", "a.mp3", null);
 

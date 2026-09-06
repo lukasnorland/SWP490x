@@ -114,6 +114,65 @@ class SearchServiceTest {
     }
 
     @Test
+    void interpretRedirect_whenQueryIsTenChars_shouldAccept() {
+        String query = "a".repeat(10);
+        given(interpreter.interpret(eq(query), any())).willReturn(Optional.empty());
+        given(catalogService.searchRecommended(any(), any(), any(), any(), eq(query), isNull(),
+                eq(0))).willReturn(Page.empty());
+
+        assertThat(service.interpretRedirect(1L, query, null)).startsWith("/search?");
+    }
+
+    @Test
+    void interpretRedirect_whenQueryIsTwoHundredChars_shouldAccept() {
+        String query = "a".repeat(200);
+        given(interpreter.interpret(eq(query), any())).willReturn(Optional.empty());
+        given(catalogService.searchRecommended(any(), any(), any(), any(), eq(query), isNull(),
+                eq(0))).willReturn(Page.empty());
+
+        assertThat(service.interpretRedirect(1L, query, null)).startsWith("/search?");
+    }
+
+    @Test
+    void interpretRedirect_whenQueryIsTwoHundredAndOne_shouldReject() {
+        assertThatThrownBy(() -> service.interpretRedirect(1L, "a".repeat(201), null))
+                .isInstanceOf(InvalidSearchQueryException.class);
+        then(recommendationLogRepository).should(never()).save(any());
+    }
+
+    @Test
+    void interpretRedirect_whenInterpreterThrows_shouldFallBackToKeyword() {
+        String query = "upbeat summer campaign for a beach game";
+        given(interpreter.interpret(eq(query), any())).willThrow(new RuntimeException("timeout"));
+        given(catalogService.searchRecommended(eq(List.of()), eq(List.of()), eq(List.of()),
+                eq(List.of()), eq(query), isNull(), eq(0)))
+                .willReturn(new PageImpl<>(List.of(new Song())));
+
+        String path = service.interpretRedirect(7L, query, null);
+
+        assertThat(path).contains("q=");
+        ArgumentCaptor<RecommendationLog> captor = ArgumentCaptor.forClass(RecommendationLog.class);
+        then(recommendationLogRepository).should().save(captor.capture());
+        assertThat(captor.getValue().getLlmSucceeded()).isFalse();
+    }
+
+    @Test
+    void search_whenCriteriaGiven_shouldDelegateToSearchRecommended() {
+        given(catalogService.searchRecommended(eq(List.of(2L)), eq(List.of(1L)), eq(List.of()),
+                eq(List.of()), isNull(), isNull(), eq(0))).willReturn(Page.empty());
+
+        service.search(List.of(2L), List.of(1L), List.of(), List.of(), "  ", null, 0);
+
+        then(catalogService).should().searchRecommended(eq(List.of(2L)), eq(List.of(1L)),
+                eq(List.of()), eq(List.of()), isNull(), isNull(), eq(0));
+    }
+
+    @Test
+    void chips_whenNoFilters_shouldBeEmpty() {
+        assertThat(service.chips(null, null, null, null, null, null, null)).isEmpty();
+    }
+
+    @Test
     void chipsOmitRemovedIdFromUrl() {
         Tag mood = new Tag(TagType.MOOD, "Energetic");
         ReflectionTestUtils.setField(mood, "id", 1L);
