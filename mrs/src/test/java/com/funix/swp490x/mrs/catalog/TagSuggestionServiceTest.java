@@ -31,4 +31,29 @@ class TagSuggestionServiceTest {
         assertThat(service.suggest(TagType.TAGS, "voc", 8))
                 .containsExactly("Female Vocals", "Lead Vocals");
     }
+
+    @Test
+    void suggest_whenQueryBlank_shouldReturnAllUpToLimit() {
+        TagSuggestionService service = new TagSuggestionService(tagRepository);
+
+        assertThat(service.suggest(TagType.GENRE, "  ", 8)).isNotEmpty().hasSize(8);
+    }
+
+    @Test
+    void suggest_whenLimitZero_shouldClampToOne() {
+        TagSuggestionService service = new TagSuggestionService(tagRepository);
+
+        assertThat(service.suggest(TagType.MOOD, "calm", 0)).hasSize(1);
+    }
+
+    @Test
+    void suggest_whenTypeNull_shouldUseTags() {
+        given(tagRepository.findByTypeOrderByName(TagType.TAGS))
+                .willReturn(List.of(new Tag(TagType.TAGS, "Female Vocals"),
+                        new Tag(TagType.TAGS, "Lead Vocals")));
+        TagSuggestionService service = new TagSuggestionService(tagRepository);
+
+        assertThat(service.suggest(null, "voc", 8))
+                .containsExactly("Female Vocals", "Lead Vocals");
+    }
 }

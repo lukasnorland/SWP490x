@@ -46,4 +46,13 @@ class EmailPolicyTest {
         assertThat(tooLong).hasSizeGreaterThan(EmailPolicy.MAX_LENGTH);
         assertThat(EmailPolicy.isWellFormed(tooLong)).isFalse();
     }
+
+    @Test
+    void isWellFormed_whenLengthIsExactlyTheColumnLimit_shouldAccept() {
+        String domain = "@mrs.local";
+        String exact = "n".repeat(EmailPolicy.MAX_LENGTH - domain.length()) + domain;
+
+        assertThat(exact).hasSize(EmailPolicy.MAX_LENGTH);
+        assertThat(EmailPolicy.isWellFormed(exact)).isTrue();
+    }
 }

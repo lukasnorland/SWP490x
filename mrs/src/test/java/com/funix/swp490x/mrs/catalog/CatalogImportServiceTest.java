@@ -30,6 +30,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -437,6 +438,95 @@ class CatalogImportServiceTest {
         assertThat(songs).hasSize(3);
         assertThat(service.progress().phase()).isEqualTo("done");
         assertThat(service.progress().added()).isEqualTo(3);
+    }
+
+    @Test
+    void sync_whenEntryLacksTitle_shouldSkipOnlyThatEntry() throws IOException {
+        write("no-title.json", """
+                {"externalSourceId":"no-title","sourceProvider":"NCS"}
+                """);
+
+        ImportSummary summary = sync();
+
+        assertThat(summary.added()).isEqualTo(3);
+        assertThat(summary.skippedRows()).anySatisfy(row -> {
+            assertThat(row.key()).contains("no-title");
+            assertThat(row.reason()).contains("title");
+        });
+        assertThat(songs).hasSize(3);
+    }
+
+    @Test
+    void startAsync_whenRunInProgress_shouldRefuse() throws Exception {
+        CountDownLatch listed = new CountDownLatch(1);
+        CountDownLatch release = new CountDownLatch(1);
+        CatalogObjectStore blocking = mock(CatalogObjectStore.class);
+        given(blocking.list()).willAnswer(invocation -> {
+            listed.countDown();
+            release.await(5, TimeUnit.SECONDS);
+            return List.of();
+        });
+        given(blocking.describe()).willReturn("blocked");
+        SongRepository songRepository = mock(SongRepository.class);
+        given(songRepository.findExternalIdAndEtagPairs()).willReturn(List.of());
+        CatalogImportRunRepository runRepository = mock(CatalogImportRunRepository.class);
+        given(runRepository.save(any(CatalogImportRun.class)))
+                .willAnswer(invocation -> invocation.getArgument(0));
+
+        CatalogImportService blocked = new CatalogImportService(blocking, songRepository,
+                runRepository, mock(AuditLogRepository.class), mock(SongUpserter.class),
+                mock(CoverAmbienceService.class));
+
+        assertThat(blocked.startAsync(ImportTrigger.MANUAL, 1L, false)).isTrue();
+        assertThat(listed.await(5, TimeUnit.SECONDS)).isTrue();
+        assertThat(blocked.startAsync(ImportTrigger.MANUAL, 1L, false)).isFalse();
+        release.countDown();
+        waitUntilIdle(blocked);
+    }
+
+    @Test
+    void startAsync_whenRunFails_shouldRecordFailure() throws Exception {
+        CatalogObjectStore broken = mock(CatalogObjectStore.class);
+        given(broken.list()).willThrow(new CatalogStoreException("bucket is gone"));
+        given(broken.describe()).willReturn("s3://gone");
+        List<CatalogImportRun> recorded = new ArrayList<>();
+        CatalogImportRunRepository runRepository = mock(CatalogImportRunRepository.class);
+        given(runRepository.save(any(CatalogImportRun.class))).willAnswer(invocation -> {
+            CatalogImportRun run = invocation.getArgument(0);
+            recorded.add(run);
+            return run;
+        });
+        given(runRepository.findFirstByOrderByStartedAtDesc()).willAnswer(invocation ->
+                recorded.isEmpty() ? Optional.empty() : Optional.of(recorded.getLast()));
+
+        CatalogImportService failing = new CatalogImportService(broken, mock(SongRepository.class),
+                runRepository, mock(AuditLogRepository.class), mock(SongUpserter.class),
+                mock(CoverAmbienceService.class));
+
+        assertThat(failing.startAsync(ImportTrigger.MANUAL, 1L, false)).isTrue();
+        waitUntilIdle(failing);
+
+        assertThat(failing.progress().phase()).isEqualTo("failed");
+        assertThat(failing.lastRun()).isPresent();
+        assertThat(failing.lastRun().get().isFailed()).isTrue();
+    }
+
+    @Test
+    void pendingChanges_whenStoreEmpty_shouldReportNothing() {
+        CatalogObjectStore empty = mock(CatalogObjectStore.class);
+        given(empty.list()).willReturn(List.of());
+        given(empty.describe()).willReturn("empty");
+        SongRepository songRepository = mock(SongRepository.class);
+        given(songRepository.findExternalIdAndEtagPairs()).willReturn(List.of());
+
+        CatalogImportService.PendingChanges pending = new CatalogImportService(empty,
+                songRepository, mock(CatalogImportRunRepository.class),
+                mock(AuditLogRepository.class), mock(SongUpserter.class),
+                mock(CoverAmbienceService.class)).pendingChanges();
+
+        assertThat(pending.listed()).isZero();
+        assertThat(pending.newObjects()).isZero();
+        assertThat(pending.changed()).isZero();
     }
 
     private ImportSummary sync() {

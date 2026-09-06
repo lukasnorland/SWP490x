@@ -385,6 +385,124 @@ class SongCatalogServiceTest {
                 .isInstanceOf(SongNotFoundException.class);
     }
 
+    @Test
+    void search_whenTagFilterGiven_shouldBindTagIdsToRepository() {
+        given(songRepository.searchIds(eq(true), eq(List.of("")), eq(true), eq(List.of(-1L)),
+                eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(false), eq(List.of(4L)),
+                eq(null), any()))
+                .willReturn(Page.empty());
+
+        service.search(null, null, null, List.of(4L), null, 0);
+
+        then(songRepository).should().searchIds(eq(true), eq(List.of("")), eq(true),
+                eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
+                eq(false), eq(List.of(4L)), eq(null), any());
+    }
+
+    @Test
+    void search_whenFreeText_shouldMatchTitleOrArtist() {
+        given(songRepository.searchIds(eq(true), eq(List.of("")), eq(true), eq(List.of(-1L)),
+                eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
+                eq("ice cream"), any()))
+                .willReturn(Page.empty());
+
+        service.search(null, null, null, null, "  ice cream  ", 0);
+
+        then(songRepository).should().searchIds(eq(true), eq(List.of("")), eq(true),
+                eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
+                eq(true), eq(List.of(-1L)), eq("ice cream"), any());
+    }
+
+    @Test
+    void playQueue_whenNoSongHasAudio_shouldBeEmpty() {
+        given(songRepository.searchIds(eq(true), eq(List.of("")), eq(true), eq(List.of(-1L)),
+                eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
+                eq(null), any()))
+                .willReturn(new PageImpl<>(List.of(1L, 2L)));
+        Song silent = existing(1L, 0);
+        silent.setTitle("Muted");
+        Song alsoSilent = existing(2L, 0);
+        alsoSilent.setTitle("Still");
+        given(songRepository.findAllById(List.of(1L, 2L))).willReturn(List.of(silent, alsoSilent));
+
+        assertThat(service.playQueue(null, null, null, null, null)).isEmpty();
+    }
+
+    @Test
+    void searchRecommended_whenChipCountTies_shouldOrderByTitle() {
+        given(songRepository.searchIdsMatchingAny(eq(true), eq(List.of("")), eq(false),
+                eq(List.of(1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
+                eq(true), eq(List.of(-1L)), eq(null), any()))
+                .willReturn(new PageImpl<>(List.of(11L, 10L)));
+        Song zulu = tagged(11L, "Zulu", 1L);
+        Song alpha = tagged(10L, "Alpha", 1L);
+        given(songRepository.findAllWithTags(List.of(11L, 10L))).willReturn(List.of(zulu, alpha));
+
+        Page<Song> page = service.searchRecommended(List.of(1L), null, null, null, null, null, 0);
+
+        assertThat(page.getContent()).extracting(Song::getTitle).containsExactly("Alpha", "Zulu");
+        assertThat(page.getContent()).extracting(Song::getId).containsExactly(10L, 11L);
+    }
+
+    @Test
+    void searchRecommended_whenTopNIsZero_shouldNotCap() {
+        given(songRepository.searchIdsMatchingAny(eq(true), eq(List.of("")), eq(false),
+                eq(List.of(1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
+                eq(true), eq(List.of(-1L)), eq(null), any()))
+                .willReturn(new PageImpl<>(List.of(10L, 11L, 12L)));
+        given(songRepository.findAllWithTags(List.of(10L, 11L, 12L))).willReturn(List.of(
+                tagged(10L, "Alpha", 1L), tagged(11L, "Beta", 1L), tagged(12L, "Zulu", 1L)));
+
+        Page<Song> page = service.searchRecommended(List.of(1L), null, null, null, null, 0, 0);
+
+        assertThat(page.getContent()).hasSize(3);
+        assertThat(page.getTotalElements()).isEqualTo(3);
+    }
+
+    @Test
+    void update_whenVersionMatches_shouldSaveTagsAndStagedJson() {
+        Song song = existing(12L, 3);
+        song.setExternalSourceId("abc-123");
+        given(songRepository.findByIdWithTags(12L)).willReturn(Optional.of(song));
+        given(tagRepository.findByTypeAndName(any(), any())).willReturn(Optional.empty());
+        given(tagRepository.save(any(Tag.class))).willAnswer(invocation -> invocation.getArgument(0));
+        given(songRepository.save(song)).willReturn(song);
+        given(catalogStore.stagingKey("abc-123")).willReturn("abc-123.json");
+        given(catalogStore.findJson("abc-123.json")).willReturn(Optional.empty());
+        given(catalogStore.putJson(eq("abc-123.json"), anyString())).willReturn("etag-1");
+
+        service.update(12L, 3, new SongEdit(false, "Pop", "Dreamy", null));
+
+        then(catalogStore).should().putJson(eq("abc-123.json"), anyString());
+        then(songRepository).should().save(song);
+        assertThat(song.getTags()).extracting(Tag::getName).contains("Pop", "Dreamy");
+    }
+
+    @Test
+    void update_whenSongUnknown_shouldThrowNotFound() {
+        given(songRepository.findByIdWithTags(99L)).willReturn(Optional.empty());
+
+        assertThatThrownBy(() -> service.update(99L, 1, new SongEdit(false, null, null, null)))
+                .isInstanceOf(SongNotFoundException.class);
+
+        then(songRepository).should(never()).save(any());
+        then(catalogStore).shouldHaveNoInteractions();
+    }
+
+    @Test
+    void untaggedCount_shouldCountSongsWithoutTags() {
+        given(songRepository.countUntagged()).willReturn(2L);
+
+        assertThat(service.untaggedCount()).isEqualTo(2);
+    }
+
+    @Test
+    void untaggedCount_whenAllTagged_shouldBeZero() {
+        given(songRepository.countUntagged()).willReturn(0L);
+
+        assertThat(service.untaggedCount()).isZero();
+    }
+
     private static Song playable(Long id, String title, String audioUrl) {
         Song song = existing(id, 0);
         song.setTitle(title);

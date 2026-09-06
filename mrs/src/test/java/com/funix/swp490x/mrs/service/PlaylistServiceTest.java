@@ -23,8 +23,10 @@ import com.funix.swp490x.mrs.repository.PlaylistRepository;
 import com.funix.swp490x.mrs.repository.PlaylistSongRepository;
 import com.funix.swp490x.mrs.repository.SongRepository;
 import com.funix.swp490x.mrs.repository.UserRepository;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.data.domain.PageImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -640,6 +642,524 @@ class PlaylistServiceTest {
                 .isInstanceOf(InvalidSuccessorException.class);
 
         then(playlistRepository).should(never()).saveAll(any());
+    }
+
+    @Test
+    void search_whenOwner_shouldBindUserIdToVisibilityQuery() {
+        PlaylistRepository.SummaryRow row = summary(7L, "Morning coffee", "DRAFT", 1L);
+        given(playlistRepository.searchVisibleIds(eq(1L), eq(""), eq(""), any()))
+                .willReturn(new PageImpl<>(List.of(7L)));
+        given(playlistRepository.findSummaries(List.of(7L))).willReturn(List.of(row));
+
+        var page = service.search(1L, null, null, 0);
+
+        then(playlistRepository).should().searchVisibleIds(eq(1L), eq(""), eq(""), any());
+        assertThat(page.getContent()).extracting(PlaylistSummary::id).containsExactly(7L);
+        assertThat(page.getContent().get(0).sharedWithMe()).isFalse();
+    }
+
+    @Test
+    void search_whenRepositoryReturnsSharedDraft_shouldMapIt() {
+        PlaylistRepository.SummaryRow row = summary(7L, "Shared draft", "DRAFT", 5L);
+        given(playlistRepository.searchVisibleIds(eq(1L), eq(""), eq(""), any()))
+                .willReturn(new PageImpl<>(List.of(7L)));
+        given(playlistRepository.findSummaries(List.of(7L))).willReturn(List.of(row));
+
+        var page = service.search(1L, null, null, 0);
+
+        assertThat(page.getContent()).hasSize(1);
+        assertThat(page.getContent().get(0).sharedWithMe()).isTrue();
+        assertThat(page.getContent().get(0).status()).isEqualTo(PlaylistStatus.DRAFT);
+    }
+
+    @Test
+    void search_whenStatusFilterDraft_shouldExcludePublished() {
+        PlaylistRepository.SummaryRow row = summary(7L, "Morning coffee", "DRAFT", 1L);
+        given(playlistRepository.searchVisibleIds(eq(1L), eq("DRAFT"), eq(""), any()))
+                .willReturn(new PageImpl<>(List.of(7L)));
+        given(playlistRepository.findSummaries(List.of(7L))).willReturn(List.of(row));
+
+        var page = service.search(1L, PlaylistStatus.DRAFT, null, 0);
+
+        then(playlistRepository).should().searchVisibleIds(eq(1L), eq("DRAFT"), eq(""), any());
+        assertThat(page.getContent()).extracting(PlaylistSummary::status)
+                .containsOnly(PlaylistStatus.DRAFT);
+    }
+
+    @Test
+    void searchPublished_shouldListEveryPublishedPlaylist() {
+        PlaylistRepository.PublishedCardRow row = publishedCard(7L, "Launch");
+        given(playlistRepository.searchPublishedIds(eq(0L), eq(""), any()))
+                .willReturn(new PageImpl<>(List.of(7L)));
+        given(playlistRepository.findPublishedCards(List.of(7L))).willReturn(List.of(row));
+
+        var page = service.searchPublished(null, null, 0);
+
+        assertThat(page.getContent()).extracting(PublishedPlaylistCard::id).containsExactly(7L);
+        assertThat(page.getContent().get(0).name()).isEqualTo("Launch");
+    }
+
+    @Test
+    void searchPublished_shouldExcludeDrafts() {
+        given(playlistRepository.searchPublishedIds(eq(0L), eq(""), any()))
+                .willReturn(new PageImpl<>(List.of()));
+
+        var page = service.searchPublished(null, null, 0);
+
+        then(playlistRepository).should().searchPublishedIds(eq(0L), eq(""), any());
+        assertThat(page.getContent()).isEmpty();
+        then(playlistRepository).should(never()).findPublishedCards(any());
+    }
+
+    @Test
+    void view_whenOwner_shouldReturnPlaylist() {
+        Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
+        visible(playlist);
+
+        assertThat(service.view(7L, 1L)).isSameAs(playlist);
+    }
+
+    @Test
+    void view_whenCollaborator_shouldReturnPlaylist() {
+        Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
+        given(playlistRepository.countVisibleTo(7L, 15L)).willReturn(1L);
+
+        assertThat(service.view(7L, 15L)).isSameAs(playlist);
+    }
+
+    @Test
+    void view_whenNotVisibleToCaller_shouldThrowNotFound() {
+        given(playlistRepository.findById(7L))
+                .willReturn(Optional.of(playlist(7L, PlaylistStatus.DRAFT)));
+        given(playlistRepository.countVisibleTo(7L, 99L)).willReturn(0L);
+
+        assertThatThrownBy(() -> service.view(7L, 99L))
+                .isInstanceOf(PlaylistNotFoundException.class);
+    }
+
+    @Test
+    void create_whenNameIsOneHundredChars_shouldAccept() {
+        String name = "a".repeat(100);
+        given(playlistRepository.save(any(Playlist.class)))
+                .willAnswer(invocation -> invocation.getArgument(0));
+
+        Playlist created = service.create(1L, name);
+
+        assertThat(created.getName()).isEqualTo(name);
+        assertThat(created.getName()).hasSize(100);
+    }
+
+    @Test
+    void create_whenNameExceedsTwoHundred_shouldTruncate() {
+        given(playlistRepository.save(any(Playlist.class)))
+                .willAnswer(invocation -> invocation.getArgument(0));
+
+        Playlist created = service.create(1L, "a".repeat(201));
+
+        assertThat(created.getName()).hasSize(200);
+    }
+
+    @Test
+    void create_shouldStartAsDraft() {
+        given(playlistRepository.save(any(Playlist.class)))
+                .willAnswer(invocation -> invocation.getArgument(0));
+
+        Playlist created = service.create(1L, "Morning coffee");
+
+        assertThat(created.getStatus()).isEqualTo(PlaylistStatus.DRAFT);
+        assertThat(created.getPublishedAt()).isNull();
+    }
+
+    @Test
+    void createWithSongs_shouldNumberPositionsContiguously() {
+        stubNewDraft(20L, 1L);
+        given(playlistSongRepository.existsByIdPlaylistIdAndIdSongId(eq(20L), any()))
+                .willReturn(false);
+        given(songRepository.findById(1L)).willReturn(Optional.of(song(1L)));
+        given(songRepository.findById(2L)).willReturn(Optional.of(song(2L)));
+        given(songRepository.findById(3L)).willReturn(Optional.of(song(3L)));
+        given(playlistSongRepository.findMaxPosition(20L)).willReturn(0, 1, 2);
+
+        service.createWithSongs(1L, "Morning coffee", List.of(1L, 2L, 3L));
+
+        ArgumentCaptor<PlaylistSong> saved = ArgumentCaptor.forClass(PlaylistSong.class);
+        then(playlistSongRepository).should(org.mockito.Mockito.times(3)).save(saved.capture());
+        assertThat(saved.getAllValues()).extracting(PlaylistSong::getPosition)
+                .containsExactly(1, 2, 3);
+    }
+
+    @Test
+    void createWithSongs_whenListIsEmpty_shouldCreateEmptyDraft() {
+        given(playlistRepository.save(any(Playlist.class))).willAnswer(invocation -> {
+            Playlist saved = invocation.getArgument(0);
+            ReflectionTestUtils.setField(saved, "id", 20L);
+            return saved;
+        });
+
+        Playlist created = service.createWithSongs(1L, "Empty", List.of());
+
+        assertThat(created.getStatus()).isEqualTo(PlaylistStatus.DRAFT);
+        then(playlistSongRepository).should(never()).save(any());
+    }
+
+    @Test
+    void createWithSongs_whenListHasDuplicate_shouldKeepFirstOccurrence() {
+        stubNewDraft(20L, 1L);
+        given(playlistSongRepository.existsByIdPlaylistIdAndIdSongId(20L, 42L))
+                .willReturn(false, true);
+        given(songRepository.findById(42L)).willReturn(Optional.of(song(42L)));
+        given(playlistSongRepository.findMaxPosition(20L)).willReturn(0);
+
+        service.createWithSongs(1L, "Morning coffee", List.of(42L, 42L));
+
+        then(playlistSongRepository).should().save(any(PlaylistSong.class));
+    }
+
+    @Test
+    void rename_whenNameIsOneHundredCharsAfterTrim_shouldAccept() {
+        Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
+        visible(playlist);
+        String name = "a".repeat(100);
+
+        service.rename(7L, "  " + name + "  ", 1L);
+
+        assertThat(playlist.getName()).isEqualTo(name);
+    }
+
+    @Test
+    void rename_whenCollaborator_shouldSucceed() {
+        Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
+        given(playlistRepository.countVisibleTo(7L, 15L)).willReturn(1L);
+
+        service.rename(7L, "Evening tea", 15L);
+
+        assertThat(playlist.getName()).isEqualTo("Evening tea");
+        then(playlistRepository).should().save(playlist);
+    }
+
+    @Test
+    void removeSong_whenLastSong_shouldLeaveEmptyDraft() {
+        Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
+        visible(playlist);
+        given(playlistSongRepository.findByIdPlaylistIdAndIdSongId(7L, 42L))
+                .willReturn(Optional.of(new PlaylistSong(7L, song(42L), 1)));
+
+        service.removeSong(7L, 42L, 1L);
+
+        then(playlistSongRepository).should().deleteSong(7L, 42L);
+        assertThat(playlist.getStatus()).isEqualTo(PlaylistStatus.DRAFT);
+    }
+
+    @Test
+    void removeSong_whenSongNotMember_shouldThrow() {
+        visible(playlist(7L, PlaylistStatus.DRAFT));
+        given(playlistSongRepository.findByIdPlaylistIdAndIdSongId(7L, 42L))
+                .willReturn(Optional.empty());
+
+        assertThatThrownBy(() -> service.removeSong(7L, 42L, 1L))
+                .isInstanceOf(SongNotFoundException.class);
+    }
+
+    @Test
+    void removeSong_whenPublished_shouldThrowLocked() {
+        visible(playlist(7L, PlaylistStatus.PUBLISHED));
+
+        assertThatThrownBy(() -> service.removeSong(7L, 42L, 1L))
+                .isInstanceOf(PlaylistLockedException.class);
+    }
+
+    @Test
+    void move_whenCollaborator_shouldSwapPositions() {
+        Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
+        given(playlistRepository.countVisibleTo(7L, 15L)).willReturn(1L);
+        given(playlistSongRepository.findByIdPlaylistIdAndIdSongId(7L, 42L))
+                .willReturn(Optional.of(new PlaylistSong(7L, song(42L), 1)));
+        given(playlistSongRepository.findMaxPosition(7L)).willReturn(2);
+
+        service.move(7L, 42L, false, 15L);
+
+        then(playlistSongRepository).should().moveOne(7L, 1, PARK);
+        then(playlistSongRepository).should().moveOne(7L, 2, 1);
+        then(playlistSongRepository).should().moveOne(7L, PARK, 2);
+    }
+
+    @Test
+    void move_whenPublished_shouldThrowLocked() {
+        visible(playlist(7L, PlaylistStatus.PUBLISHED));
+
+        assertThatThrownBy(() -> service.move(7L, 42L, false, 1L))
+                .isInstanceOf(PlaylistLockedException.class);
+    }
+
+    @Test
+    void delete_whenOwnerAndDraft_shouldRemovePlaylist() {
+        Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
+        visible(playlist);
+
+        service.delete(7L, 1L);
+
+        then(playlistSongRepository).should().deleteAllOf(7L);
+        then(playlistRepository).should().delete(playlist);
+    }
+
+    @Test
+    void publish_whenDraftHasSongs_shouldSetPublishedAt() {
+        Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
+        given(playlistSongRepository.countByIdPlaylistId(7L)).willReturn(2L);
+
+        service.publish(7L, 1L);
+
+        assertThat(playlist.getStatus()).isEqualTo(PlaylistStatus.PUBLISHED);
+        assertThat(playlist.getPublishedAt()).isNotNull();
+        then(playlistRepository).should().save(playlist);
+        then(auditLogRepository).should().save(any(AuditLog.class));
+    }
+
+    @Test
+    void publish_whenAlreadyPublished_shouldThrowLocked() {
+        given(playlistRepository.findById(7L))
+                .willReturn(Optional.of(playlist(7L, PlaylistStatus.PUBLISHED)));
+
+        assertThatThrownBy(() -> service.publish(7L, 1L))
+                .isInstanceOf(PlaylistLockedException.class);
+
+        then(playlistRepository).should(never()).save(any());
+    }
+
+    @Test
+    void unpublish_whenAlreadyDraft_shouldBeIdempotent() {
+        Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
+
+        service.unpublish(7L, 1L);
+
+        assertThat(playlist.getStatus()).isEqualTo(PlaylistStatus.DRAFT);
+        then(playlistRepository).should().save(playlist);
+    }
+
+    @Test
+    void unpublish_shouldReopenContentEditing() {
+        Playlist playlist = playlist(7L, PlaylistStatus.PUBLISHED);
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
+        given(playlistRepository.countVisibleTo(7L, 1L)).willReturn(1L);
+        given(playlistSongRepository.existsByIdPlaylistIdAndIdSongId(7L, 42L)).willReturn(false);
+        given(songRepository.findById(42L)).willReturn(Optional.of(song(42L)));
+        given(playlistSongRepository.findMaxPosition(7L)).willReturn(0);
+
+        service.unpublish(7L, 1L);
+        service.addSong(7L, 42L, 1L);
+
+        assertThat(playlist.getStatus()).isEqualTo(PlaylistStatus.DRAFT);
+        then(playlistSongRepository).should().save(any(PlaylistSong.class));
+    }
+
+    @Test
+    void transferOwnedPlaylists_whenSuccessorIsActingAdmin_shouldTransfer() {
+        Playlist owned = new Playlist("Morning", 7L);
+        ReflectionTestUtils.setField(owned, "id", 11L);
+        given(playlistRepository.findByOwnerId(7L)).willReturn(List.of(owned));
+
+        int moved = service.transferOwnedPlaylists(7L, Map.of(11L, 1L), 1L);
+
+        assertThat(moved).isEqualTo(1);
+        assertThat(owned.getOwnerId()).isEqualTo(1L);
+        then(playlistRepository).should().deleteCollaboratorGrant(11L, 1L);
+        then(playlistRepository).should().deleteCollaboratorGrantsOf(7L);
+    }
+
+    @Test
+    void transferOwnedPlaylists_whenSuccessorIsDeactivated_shouldThrow() {
+        Playlist owned = new Playlist("Morning", 7L);
+        ReflectionTestUtils.setField(owned, "id", 11L);
+        given(playlistRepository.findByOwnerId(7L)).willReturn(List.of(owned));
+        given(playlistRepository.countCollaboratorGrant(11L, 15L)).willReturn(1L);
+        User deactivated = designer(15L);
+        deactivated.setStatus(UserStatus.DEACTIVATED);
+        given(userRepository.findById(15L)).willReturn(Optional.of(deactivated));
+
+        assertThatThrownBy(() -> service.transferOwnedPlaylists(7L, Map.of(11L, 15L), 1L))
+                .isInstanceOf(InvalidSuccessorException.class);
+
+        then(playlistRepository).should(never()).saveAll(any());
+    }
+
+    @Test
+    void transferOwnedPlaylists_shouldDropTheSuccessorsRedundantGrant() {
+        Playlist owned = new Playlist("Morning", 7L);
+        ReflectionTestUtils.setField(owned, "id", 11L);
+        given(playlistRepository.findByOwnerId(7L)).willReturn(List.of(owned));
+        given(playlistRepository.countCollaboratorGrant(11L, 15L)).willReturn(1L);
+        given(userRepository.findById(15L)).willReturn(Optional.of(designer(15L)));
+
+        service.transferOwnedPlaylists(7L, Map.of(11L, 15L), 1L);
+
+        then(playlistRepository).should().deleteCollaboratorGrant(11L, 15L);
+    }
+
+    @Test
+    void successorChoices_shouldListActiveCollaborators() {
+        Playlist owned = playlist(7L, PlaylistStatus.DRAFT);
+        given(playlistRepository.findByOwnerId(1L)).willReturn(List.of(owned));
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(owned));
+        PlaylistRepository.OwnerOption collab = org.mockito.Mockito.mock(
+                PlaylistRepository.OwnerOption.class);
+        given(collab.getId()).willReturn(15L);
+        given(collab.getName()).willReturn("Dana Designer");
+        given(playlistRepository.findCollaborators(7L)).willReturn(List.of(collab));
+
+        List<PlaylistSuccessorChoice> choices = service.successorChoices(1L);
+
+        assertThat(choices).hasSize(1);
+        assertThat(choices.get(0).collaborators()).extracting(PlaylistOwner::id)
+                .containsExactly(15L);
+    }
+
+    @Test
+    void successorChoices_shouldExcludeCustomers() {
+        Playlist owned = playlist(7L, PlaylistStatus.DRAFT);
+        given(playlistRepository.findByOwnerId(1L)).willReturn(List.of(owned));
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(owned));
+        PlaylistRepository.OwnerOption collab = org.mockito.Mockito.mock(
+                PlaylistRepository.OwnerOption.class);
+        given(collab.getId()).willReturn(15L);
+        given(collab.getName()).willReturn("Dana Designer");
+        given(playlistRepository.findCollaborators(7L)).willReturn(List.of(collab));
+
+        List<PlaylistSuccessorChoice> choices = service.successorChoices(1L);
+
+        assertThat(choices.get(0).collaborators()).extracting(PlaylistOwner::id)
+                .doesNotContain(20L);
+    }
+
+    @Test
+    void grant_whenGranteeIsDeactivated_shouldReject() {
+        given(playlistRepository.findById(7L))
+                .willReturn(Optional.of(playlist(7L, PlaylistStatus.DRAFT)));
+        User deactivated = designer(15L);
+        deactivated.setStatus(UserStatus.DEACTIVATED);
+        given(userRepository.findById(15L)).willReturn(Optional.of(deactivated));
+
+        assertThatThrownBy(() -> service.grant(7L, 15L, 1L))
+                .isInstanceOf(InvalidCollaboratorException.class);
+
+        then(playlistRepository).should(never()).insertCollaboratorGrant(any(), any(), any());
+    }
+
+    @Test
+    void grant_whenActorIsAdmin_shouldSucceed() {
+        Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
+        given(userRepository.findById(99L)).willReturn(Optional.of(admin(99L)));
+        given(userRepository.findById(15L)).willReturn(Optional.of(designer(15L)));
+        given(playlistRepository.countCollaboratorGrant(7L, 15L)).willReturn(0L);
+
+        service.grant(7L, 15L, 99L);
+
+        then(playlistRepository).should().insertCollaboratorGrant(7L, 15L, 99L);
+    }
+
+    @Test
+    void revoke_whenOwner_shouldRemoveGrant() {
+        given(playlistRepository.findById(7L))
+                .willReturn(Optional.of(playlist(7L, PlaylistStatus.DRAFT)));
+        given(playlistRepository.countCollaboratorGrant(7L, 15L)).willReturn(1L);
+
+        service.revoke(7L, 15L, 1L);
+
+        then(playlistRepository).should().deleteCollaboratorGrant(7L, 15L);
+    }
+
+    @Test
+    void revoke_whenActorIsCollaborator_shouldReject() {
+        given(playlistRepository.findById(7L))
+                .willReturn(Optional.of(playlist(7L, PlaylistStatus.DRAFT)));
+        given(userRepository.findById(15L)).willReturn(Optional.of(designer(15L)));
+        given(playlistRepository.countVisibleTo(7L, 15L)).willReturn(1L);
+
+        assertThatThrownBy(() -> service.revoke(7L, 20L, 15L))
+                .isInstanceOf(InvalidCollaboratorException.class);
+
+        then(playlistRepository).should(never()).deleteCollaboratorGrant(any(), any());
+    }
+
+    @Test
+    void revoke_whenGrantMissing_shouldThrow() {
+        given(playlistRepository.findById(7L))
+                .willReturn(Optional.of(playlist(7L, PlaylistStatus.DRAFT)));
+        given(playlistRepository.countCollaboratorGrant(7L, 15L)).willReturn(0L);
+
+        assertThatThrownBy(() -> service.revoke(7L, 15L, 1L))
+                .isInstanceOf(InvalidCollaboratorException.class);
+    }
+
+    @Test
+    void exportCsv_shouldStartWithHeaderRow() {
+        visible(playlist(7L, PlaylistStatus.DRAFT));
+        given(playlistSongRepository.findOrdered(7L)).willReturn(List.of());
+
+        String csv = service.exportCsv(7L, 1L);
+
+        assertThat(csv).startsWith("position,title,artist,duration_seconds,provider\r\n");
+    }
+
+    @Test
+    void exportCsv_whenCallerCannotView_shouldThrow() {
+        given(playlistRepository.findById(7L))
+                .willReturn(Optional.of(playlist(7L, PlaylistStatus.DRAFT)));
+        given(playlistRepository.countVisibleTo(7L, 99L)).willReturn(0L);
+
+        assertThatThrownBy(() -> service.exportCsv(7L, 99L))
+                .isInstanceOf(PlaylistNotFoundException.class);
+    }
+
+    @Test
+    void exportCsv_whenDurationIsNull_shouldLeaveDurationBlank() {
+        visible(playlist(7L, PlaylistStatus.DRAFT));
+        Song song = song(42L);
+        song.setDuration(null);
+        given(playlistSongRepository.findOrdered(7L))
+                .willReturn(List.of(new PlaylistSong(7L, song, 1)));
+
+        String csv = service.exportCsv(7L, 1L);
+
+        assertThat(csv).contains("1,\"Ice Cream\",\"Sugar Blizz\",,\"EpidemicSound\"");
+    }
+
+    @Test
+    void exportCsv_whenPlaylistEmpty_shouldReturnHeaderOnly() {
+        visible(playlist(7L, PlaylistStatus.DRAFT));
+        given(playlistSongRepository.findOrdered(7L)).willReturn(List.of());
+
+        assertThat(service.exportCsv(7L, 1L))
+                .isEqualTo("position,title,artist,duration_seconds,provider\r\n");
+    }
+
+    private static PlaylistRepository.SummaryRow summary(Long id, String name, String status,
+            Long ownerId) {
+        PlaylistRepository.SummaryRow row = org.mockito.Mockito.mock(
+                PlaylistRepository.SummaryRow.class);
+        given(row.getId()).willReturn(id);
+        given(row.getName()).willReturn(name);
+        given(row.getStatus()).willReturn(status);
+        given(row.getVersion()).willReturn(1);
+        given(row.getOwnerId()).willReturn(ownerId);
+        given(row.getOwnerName()).willReturn("Dana Designer");
+        return row;
+    }
+
+    private static PlaylistRepository.PublishedCardRow publishedCard(Long id, String name) {
+        PlaylistRepository.PublishedCardRow row = org.mockito.Mockito.mock(
+                PlaylistRepository.PublishedCardRow.class);
+        given(row.getId()).willReturn(id);
+        given(row.getName()).willReturn(name);
+        given(row.getOwnerName()).willReturn("Dana Designer");
+        given(row.getPublishedAt()).willReturn(LocalDateTime.of(2026, 9, 1, 10, 0));
+        given(row.getSongCount()).willReturn(3L);
+        return row;
     }
 
     private static User designer(Long id) {
