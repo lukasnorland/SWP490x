@@ -58,6 +58,15 @@ public class MrsUserDetails implements UserDetails {
                 accountNonLocked);
     }
 
+    /**
+     * Copy of this principal after UC-05 updated the display name, so the shell
+     * top bar reflects it without a re-login (FT-02 AC-01).
+     */
+    public MrsUserDetails withDisplayName(String displayName) {
+        return new MrsUserDetails(id, email, displayName, passwordHash, role, active,
+                mustChangePassword, accountNonLocked);
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.getAuthority()));

@@ -17,14 +17,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Authentication use cases that sit outside Spring Security's form-login chain:
- * the public account request (UC-38), password reset (UC-02 / UC-03), and the
- * forced first-login change (UC-34).
+ * the public account request (UC-38), password reset (UC-02 / UC-03), the
+ * forced first-login change (UC-34), and profile self-service (UC-05).
  *
  * <p>The web layer must not call {@link UserRepository} for these flows (TDS
  * Part 1.3); this service owns the transaction and the mail side-effects.
  */
 @Service
 public class AuthService {
+
+    /** {@code users.username} is VARCHAR(100); the profile form matches that. */
+    public static final int DISPLAY_NAME_MAX_LENGTH = 100;
 
     private static final Logger log = LoggerFactory.getLogger(AuthService.class);
 
@@ -128,6 +131,23 @@ public class AuthService {
         return PasswordChangeResult.ok(user.getRole().getLandingPath());
     }
 
+    /**
+     * UC-05: replace the signed-in account's display name. Role and email are
+     * not accepted here — only ADMIN changes those (BR-01, NAC-01).
+     */
+    @Transactional
+    public DisplayNameResult updateDisplayName(String email, String displayName) {
+        String name = displayName == null ? "" : displayName.trim();
+        List<String> violations = displayNameViolations(name);
+        if (!violations.isEmpty()) {
+            return DisplayNameResult.rejected(violations);
+        }
+        User user = userRepository.findByEmail(email).orElseThrow();
+        user.setUsername(name);
+        userRepository.save(user);
+        return DisplayNameResult.ok(name);
+    }
+
     private void sendResetLink(User user) {
         String token = tokenService.issue(user.getEmail());
         try {
@@ -147,6 +167,16 @@ public class AuthService {
         List<String> violations = new ArrayList<>(PasswordPolicy.violations(password));
         if (!password.equals(confirmPassword)) {
             violations.add("Both entries must match");
+        }
+        return violations;
+    }
+
+    private static List<String> displayNameViolations(String name) {
+        List<String> violations = new ArrayList<>();
+        if (name.isEmpty()) {
+            violations.add("Enter a display name");
+        } else if (name.length() > DISPLAY_NAME_MAX_LENGTH) {
+            violations.add("Use at most %d characters".formatted(DISPLAY_NAME_MAX_LENGTH));
         }
         return violations;
     }
@@ -199,6 +229,21 @@ public class AuthService {
 
         static PasswordChangeResult ok(String landingPath) {
             return new PasswordChangeResult(List.of(), landingPath);
+        }
+
+        public boolean succeeded() {
+            return violations.isEmpty();
+        }
+    }
+
+    public record DisplayNameResult(String displayName, List<String> violations) {
+
+        static DisplayNameResult rejected(List<String> violations) {
+            return new DisplayNameResult(null, List.copyOf(violations));
+        }
+
+        static DisplayNameResult ok(String displayName) {
+            return new DisplayNameResult(displayName, List.of());
         }
 
         public boolean succeeded() {
