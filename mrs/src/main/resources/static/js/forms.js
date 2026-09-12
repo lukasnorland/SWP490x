@@ -228,11 +228,11 @@ function showSesStatus(element, variant, message) {
 /* --- Submitting state (P-00 "loading": spinner, inputs disabled) ------- */
 export function initSubmitStates(root) {
   root.querySelectorAll("form[data-busy-label]").forEach(function (form) {
-    form.addEventListener("submit", function () {
+    form.addEventListener("submit", function (event) {
       if (form.getAttribute("data-busy") === "true") {
         return;
       }
-      var button = form.querySelector("[type='submit']");
+      var button = event.submitter || form.querySelector("[type='submit']");
       if (!button || button.disabled) {
         return;
       }
@@ -246,7 +246,8 @@ export function initSubmitStates(root) {
       spinner.className = "spinner-border spinner-border-sm me-2";
       spinner.setAttribute("aria-hidden", "true");
       var label = document.createElement("span");
-      label.textContent = form.getAttribute("data-busy-label");
+      label.textContent = button.getAttribute("data-busy-label")
+          || form.getAttribute("data-busy-label");
       button.append(spinner, label);
 
       // The browser builds the POST body right after this handler returns,

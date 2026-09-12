@@ -112,6 +112,25 @@ public class S3CatalogObjectStore implements CatalogObjectStore {
         deleteObject(key);
     }
 
+    @Override
+    public List<String> listKeys(String keyPrefix) {
+        List<String> keys = new ArrayList<>();
+        try {
+            ListObjectsV2Request request = ListObjectsV2Request.builder()
+                    .bucket(bucket)
+                    .prefix(keyPrefix)
+                    .build();
+            for (ListObjectsV2Response page : s3.listObjectsV2Paginator(request)) {
+                page.contents().stream()
+                        .filter(o -> o.size() != null && o.size() > 0)
+                        .forEach(o -> keys.add(o.key()));
+            }
+        } catch (RuntimeException e) {
+            throw CatalogStoreException.of("Could not list s3://" + bucket + "/" + keyPrefix, e);
+        }
+        return keys;
+    }
+
     private void deleteObject(String key) {
         try {
             DeleteObjectRequest request = DeleteObjectRequest.builder()

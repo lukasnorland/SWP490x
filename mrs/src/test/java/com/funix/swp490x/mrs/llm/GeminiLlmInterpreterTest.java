@@ -112,10 +112,6 @@ class GeminiLlmInterpreterTest {
 
     @Test
     void createClientUsesConfiguredTimeout() {
-        LlmProperties properties = new LlmProperties();
-        properties.setApiKey("test-key");
-        properties.setTimeout(Duration.ofSeconds(5));
-
-        assertThat(GeminiLlmInterpreter.createClient(properties)).isNotNull();
+        assertThat(GeminiLlmInterpreter.createClient("test-key", Duration.ofSeconds(5))).isNotNull();
     }
 }

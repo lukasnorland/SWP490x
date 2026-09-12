@@ -1,28 +1,36 @@
 package com.funix.swp490x.mrs.security;
 
+import com.funix.swp490x.mrs.service.SettingsService;
+import com.funix.swp490x.mrs.settings.SettingKey;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Service;
 
 /**
- * Brute-force lockout for the login screen: five failed attempts inside a
- * fifteen-minute window lock the account for the rest of that window
- * (FT-01 NAC-01, rendered as the P-00 "locked" state).
+ * Brute-force lockout for the login screen. Threshold and window come from
+ * System Settings (P-06d / UC-31); the defaults match BV-06 (5 / 15 min).
  *
  * <p>State is in-memory, so it is per instance. That is adequate for the
  * single-instance deployment target; a shared store would be needed before
- * running more than one node. The thresholds will move to System Settings
- * (P-06d) once that screen is backed by persistence.
+ * running more than one node.
  */
 @Service
 public class LoginAttemptService {
 
-    static final int MAX_ATTEMPTS = 5;
-    static final Duration WINDOW = Duration.ofMinutes(15);
-
+    private final SettingsService settings;
     private final Map<String, Attempts> attemptsByEmail = new ConcurrentHashMap<>();
+
+    public LoginAttemptService(ObjectProvider<SettingsService> settings) {
+        this.settings = settings.getIfAvailable();
+    }
+
+    /** Tests that do not exercise P-06d use the BV-06 defaults. */
+    LoginAttemptService() {
+        this.settings = null;
+    }
 
     public boolean isLocked(String email) {
         return lockRemaining(email) != null;
@@ -58,14 +66,15 @@ public class LoginAttemptService {
         Attempts attempts = attemptsByEmail.computeIfAbsent(key(email), ignored -> new Attempts());
         synchronized (attempts) {
             Instant now = Instant.now();
-            if (attempts.windowStart == null || now.isAfter(attempts.windowStart.plus(WINDOW))) {
+            Duration window = lockoutWindow();
+            if (attempts.windowStart == null || now.isAfter(attempts.windowStart.plus(window))) {
                 attempts.windowStart = now;
                 attempts.count = 0;
                 attempts.lockedUntil = null;
             }
             attempts.count++;
-            if (attempts.count >= MAX_ATTEMPTS) {
-                attempts.lockedUntil = now.plus(WINDOW);
+            if (attempts.count >= lockoutThreshold()) {
+                attempts.lockedUntil = now.plus(window);
                 return true;
             }
             return false;
@@ -77,6 +86,18 @@ public class LoginAttemptService {
         if (email != null) {
             attemptsByEmail.remove(key(email));
         }
+    }
+
+    private int lockoutThreshold() {
+        return settings != null
+                ? settings.lockoutThreshold()
+                : SettingKey.LOCKOUT_THRESHOLD.defaultInt();
+    }
+
+    private Duration lockoutWindow() {
+        return settings != null
+                ? settings.lockoutWindow()
+                : Duration.ofMinutes(SettingKey.LOCKOUT_WINDOW_MINUTES.defaultInt());
     }
 
     private String key(String email) {

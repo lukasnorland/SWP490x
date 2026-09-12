@@ -49,7 +49,7 @@ class SongDraftUploadServiceTest {
         ids = new AtomicInteger();
         Supplier<UUID> nextId = () -> new UUID(0L, ids.incrementAndGet());
         uploadService = new SongDraftUploadService(store, new SongJsonMapper(),
-                new CatalogProperties(), importService, songRepository, nextId);
+                new CatalogProperties(), TestCatalogProviders.stub(), importService, songRepository, nextId);
     }
 
     @Test

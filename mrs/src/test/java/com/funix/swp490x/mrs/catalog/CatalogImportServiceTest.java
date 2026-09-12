@@ -120,9 +120,8 @@ class CatalogImportServiceTest {
             return run;
         });
 
-        CatalogProperties properties = new CatalogProperties();
         SongUpserter upserter = new SongUpserter(songRepository, tagRepository,
-                new SongJsonMapper(), properties);
+                new SongJsonMapper(), TestCatalogProviders.stub());
         service = new CatalogImportService(store, songRepository, runRepository,
                 mock(AuditLogRepository.class), upserter, mock(CoverAmbienceService.class));
     }
@@ -314,7 +313,7 @@ class CatalogImportServiceTest {
         given(tags.save(any(Tag.class))).willAnswer(invocation -> invocation.getArgument(0));
         given(tags.deleteUnused()).willReturn(0);
         SongUpserter upserter = new SongUpserter(songRepository, tags,
-                new SongJsonMapper(), new CatalogProperties());
+                new SongJsonMapper(), TestCatalogProviders.stub());
         CatalogImportRunRepository runRepository = mock(CatalogImportRunRepository.class);
         given(runRepository.save(any(CatalogImportRun.class)))
                 .willAnswer(invocation -> invocation.getArgument(0));
@@ -604,6 +603,11 @@ class CatalogImportServiceTest {
         @Override
         public void deleteBinary(String key) {
             delegate.deleteBinary(key);
+        }
+
+        @Override
+        public List<String> listKeys(String keyPrefix) {
+            return delegate.listKeys(keyPrefix);
         }
 
         @Override

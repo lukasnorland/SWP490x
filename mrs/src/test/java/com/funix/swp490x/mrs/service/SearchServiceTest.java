@@ -17,7 +17,6 @@ import com.funix.swp490x.mrs.domain.TagType;
 import com.funix.swp490x.mrs.llm.FilterMapper;
 import com.funix.swp490x.mrs.llm.InterpretedFilters;
 import com.funix.swp490x.mrs.llm.LlmInterpreter;
-import com.funix.swp490x.mrs.llm.LlmProperties;
 import com.funix.swp490x.mrs.repository.RecommendationLogRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import java.util.List;
@@ -45,12 +44,16 @@ class SearchServiceTest {
     private SongCatalogService catalogService;
     @Mock
     private RecommendationLogRepository recommendationLogRepository;
+    @Mock
+    private SettingsService settings;
 
     private SearchService service;
 
     @BeforeEach
     void setUp() {
-        service = new SearchService(interpreter, new LlmProperties(), filterMapper, tagRepository,
+        lenient().when(settings.llmMinQueryChars()).thenReturn(10);
+        lenient().when(settings.llmMaxQueryChars()).thenReturn(200);
+        service = new SearchService(interpreter, settings, filterMapper, tagRepository,
                 catalogService, recommendationLogRepository);
         lenient().when(tagRepository.findAllUsedOrderByTypeAscNameAsc()).thenReturn(List.of());
     }

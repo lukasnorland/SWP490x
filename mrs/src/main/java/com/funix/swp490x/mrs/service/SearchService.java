@@ -9,7 +9,6 @@ import com.funix.swp490x.mrs.llm.FilterVocabulary;
 import com.funix.swp490x.mrs.llm.InterpretedFilters;
 import com.funix.swp490x.mrs.llm.GeminiLlmInterpreter;
 import com.funix.swp490x.mrs.llm.LlmInterpreter;
-import com.funix.swp490x.mrs.llm.LlmProperties;
 import com.funix.swp490x.mrs.repository.RecommendationLogRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import com.funix.swp490x.mrs.web.Routes;
@@ -40,7 +39,7 @@ public class SearchService {
     private static final Logger log = LoggerFactory.getLogger(SearchService.class);
 
     private final LlmInterpreter interpreter;
-    private final LlmProperties properties;
+    private final SettingsService settings;
     private final FilterMapper filterMapper;
     private final TagRepository tagRepository;
     private final CatalogTaxonomy taxonomy = new CatalogTaxonomy();
@@ -48,12 +47,12 @@ public class SearchService {
     private final RecommendationLogRepository recommendationLogRepository;
     private final JsonMapper jsonMapper = JsonMapper.builder().build();
 
-    public SearchService(LlmInterpreter interpreter, LlmProperties properties,
+    public SearchService(LlmInterpreter interpreter, SettingsService settings,
             FilterMapper filterMapper, TagRepository tagRepository,
             SongCatalogService catalogService,
             RecommendationLogRepository recommendationLogRepository) {
         this.interpreter = interpreter;
-        this.properties = properties;
+        this.settings = settings;
         this.filterMapper = filterMapper;
         this.tagRepository = tagRepository;
         this.catalogService = catalogService;
@@ -67,8 +66,8 @@ public class SearchService {
     @Transactional
     public String interpretRedirect(Long userId, String rawQuery, Integer topN) {
         String query = rawQuery == null ? "" : rawQuery.trim();
-        int min = properties.getMinQueryChars();
-        int max = properties.getMaxQueryChars();
+        int min = settings.llmMinQueryChars();
+        int max = settings.llmMaxQueryChars();
         if (query.length() < min || query.length() > max) {
             throw new InvalidSearchQueryException(
                     "Describe the playlist in " + min + "–" + max + " characters.");

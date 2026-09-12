@@ -21,7 +21,10 @@ public class LlmProperties {
     /** Empty until Gemini is enabled. Never commit a real value. */
     private String apiKey = "";
 
-    /** FT-04 interpretation budget. */
+    /**
+     * Default and ceiling for {@link com.funix.swp490x.mrs.settings.SettingKey#LLM_TIMEOUT_SECONDS}.
+     * Live Search calls use the System Settings value when that bean is wired.
+     */
     private Duration timeout = Duration.ofSeconds(30);
 
     private int minQueryChars = 10;

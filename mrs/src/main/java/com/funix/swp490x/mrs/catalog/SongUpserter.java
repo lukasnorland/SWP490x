@@ -8,6 +8,7 @@ import com.funix.swp490x.mrs.domain.Song;
 import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.repository.SongRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
+import com.funix.swp490x.mrs.service.CatalogProviderService;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -44,16 +45,16 @@ public class SongUpserter {
     private final SongRepository songRepository;
     private final TagRepository tagRepository;
     private final SongJsonMapper mapper;
-    private final CatalogProperties properties;
+    private final CatalogProviderService providers;
 
     public SongUpserter(SongRepository songRepository,
             TagRepository tagRepository,
             SongJsonMapper mapper,
-            CatalogProperties properties) {
+            CatalogProviderService providers) {
         this.songRepository = songRepository;
         this.tagRepository = tagRepository;
         this.mapper = mapper;
-        this.properties = properties;
+        this.providers = providers;
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -64,7 +65,7 @@ public class SongUpserter {
         int updated = 0;
 
         for (Fetched item : chunk) {
-            SongJsonMapper.Result mapped = mapper.map(item.json(), properties.getProviders());
+            SongJsonMapper.Result mapped = mapper.map(item.json(), providers.registeredNames());
             if (mapped.isRejected()) {
                 skipped.add(new SkippedRow(item.key(), mapped.rejection()));
                 continue;

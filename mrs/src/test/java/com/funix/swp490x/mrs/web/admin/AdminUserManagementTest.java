@@ -41,6 +41,7 @@ import com.funix.swp490x.mrs.security.LoginFailureHandler;
 import com.funix.swp490x.mrs.security.LoginSuccessHandler;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.security.MrsUserDetailsService;
+import com.funix.swp490x.mrs.security.PasswordResetTokenService;
 import com.funix.swp490x.mrs.security.SessionInvalidationService;
 import com.funix.swp490x.mrs.service.PlaylistOwner;
 import com.funix.swp490x.mrs.service.PlaylistService;
@@ -78,6 +79,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 @WebMvcTest(controllers = AdminUserController.class)
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
         LoginFailureHandler.class, LoginAttemptService.class, MrsUserDetailsService.class,
+        PasswordResetTokenService.class,
         MailConfig.class, NotificationService.class, UserAccountService.class})
 class AdminUserManagementTest {
 

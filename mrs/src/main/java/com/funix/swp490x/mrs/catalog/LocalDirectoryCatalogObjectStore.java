@@ -95,6 +95,23 @@ public class LocalDirectoryCatalogObjectStore implements CatalogObjectStore {
         deleteObject(key);
     }
 
+    @Override
+    public List<String> listKeys(String keyPrefix) {
+        Path start = resolve(keyPrefix);
+        if (!Files.exists(start)) {
+            return List.of();
+        }
+        try (Stream<Path> files = Files.walk(start)) {
+            return files
+                    .filter(Files::isRegularFile)
+                    .map(p -> root.relativize(p).toString().replace('\\', '/'))
+                    .sorted()
+                    .toList();
+        } catch (IOException e) {
+            throw new CatalogStoreException("Could not list " + keyPrefix + " under " + describe(), e);
+        }
+    }
+
     private void deleteObject(String key) {
         try {
             Files.deleteIfExists(resolve(key));

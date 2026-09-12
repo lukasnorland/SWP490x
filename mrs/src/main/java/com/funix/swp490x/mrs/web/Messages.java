@@ -245,6 +245,33 @@ public final class Messages {
     public static final String PROFILE_PASSWORD_SAVED =
             "Password updated. Use it the next time you sign in.";
 
+    /** MSG_025. */
+    public static final String SETTINGS_SAVED = "Settings saved.";
+
+    public static final String SETTINGS_UNCHANGED = "No changes to save.";
+
+    public static final String SETTINGS_RESET = "Settings restored to defaults.";
+
+    public static final String SETTINGS_ALREADY_DEFAULT = "Settings are already at their defaults.";
+
+    public static final String SETTINGS_NOT_SAVED =
+            "Fix the highlighted fields. Nothing was saved.";
+
+    public static final String PROVIDER_CREATED = "Provider registered. It is now available on Add Song.";
+
+    public static String providerDeleted(String name, long songs) {
+        if (songs <= 0) {
+            return "Provider \"" + name + "\" removed.";
+        }
+        return "Provider \"" + name + "\" removed, along with " + songs
+                + (songs == 1 ? " song." : " songs.");
+    }
+
+    public static final String PROVIDER_DELETE_CONFIRM =
+            "Type the provider name to confirm deletion.";
+
+    public static final String PROVIDER_NOT_FOUND = "That provider is no longer registered.";
+
     private Messages() {
     }
 }

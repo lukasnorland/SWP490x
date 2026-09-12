@@ -190,3 +190,37 @@ CREATE TABLE catalog_import_run (
     CONSTRAINT ck_importrun_trigger CHECK (trigger_type IN ('STARTUP','SCHEDULED','MANUAL')),
     CONSTRAINT fk_importrun_actor FOREIGN KEY (actor_id) REFERENCES users (id)
 ) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- 11. system_setting  (UC-31 / P-06d). Surrogate id so audit_log.entity_id
+--     (BIGINT) can point at a changed row. setting_key is the natural id.
+-- ---------------------------------------------------------------------
+CREATE TABLE system_setting (
+    id             BIGINT       NOT NULL AUTO_INCREMENT,
+    setting_key    VARCHAR(100) NOT NULL,
+    setting_value  VARCHAR(255) NOT NULL,
+    updated_at     DATETIME     NULL,
+    updated_by     BIGINT       NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY uq_system_setting_key (setting_key),
+    CONSTRAINT fk_system_setting_user FOREIGN KEY (updated_by) REFERENCES users (id)
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- 12. catalog_provider  (UC-31). Name is what Add Song and song.source_provider
+--     use; slug is the S3 folder under song-data/audio|artwork/.
+-- ---------------------------------------------------------------------
+CREATE TABLE catalog_provider (
+    id         BIGINT      NOT NULL AUTO_INCREMENT,
+    name       VARCHAR(100) NOT NULL,
+    slug       VARCHAR(40)  NOT NULL,
+    created_at DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    UNIQUE KEY uq_catalog_provider_name (name),
+    UNIQUE KEY uq_catalog_provider_slug (slug)
+) ENGINE=InnoDB;
+
+INSERT INTO catalog_provider (name, slug) VALUES
+    ('EpidemicSound', 'epidemic'),
+    ('NCS', 'ncs'),
+    ('OneOff', 'one-off');

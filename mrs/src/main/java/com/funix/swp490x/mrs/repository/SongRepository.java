@@ -147,6 +147,10 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     @Query("SELECT DISTINCT s.sourceProvider FROM Song s ORDER BY s.sourceProvider")
     List<String> findDistinctProviders();
 
+    List<Song> findBySourceProviderIgnoreCase(String sourceProvider);
+
+    long countBySourceProviderIgnoreCase(String sourceProvider);
+
     /** Songs no filtered search can reach until they are tagged (DC-03). */
     @Query("SELECT COUNT(s) FROM Song s WHERE s.tags IS EMPTY")
     long countUntagged();
