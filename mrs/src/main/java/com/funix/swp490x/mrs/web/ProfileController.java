@@ -22,8 +22,8 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * P-05 My Profile (FT-02). UC-04 still owns the playlist-history zone; this
- * controller covers UC-05 — display name and password, never role (BR-01).
+ * P-05 My Profile (FT-02). UC-04 is view-own-account; UC-05 is display name
+ * and password. Never writes role (BR-01). Resume playlist work on P-03a.
  */
 @Controller
 public class ProfileController {

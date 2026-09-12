@@ -65,7 +65,7 @@ class ProfileFlowTest {
                 .andExpect(content().string(containsString("Nina Designer")))
                 .andExpect(content().string(containsString("Change password")))
                 .andExpect(content().string(containsString("data-password-policy")))
-                .andExpect(content().string(containsString("Playlist history card")))
+                .andExpect(content().string(not(containsString("Playlist history"))))
                 .andExpect(content().string(not(containsString("Editable display name"))));
     }
 

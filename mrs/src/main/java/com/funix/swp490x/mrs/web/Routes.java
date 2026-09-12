@@ -60,7 +60,7 @@ public final class Routes {
     public static final String WORKSPACE = "/workspace";
     /** P-04b Published Playlist View. */
     public static final String WORKSPACE_PLAYLIST = "/workspace/{id}";
-    /** P-05 My Profile & Playlist History. */
+    /** P-05 My Profile. */
     public static final String PROFILE = "/profile";
     /** P-05 / UC-05 — save a new display name without re-login. */
     public static final String PROFILE_NAME = "/profile/name";

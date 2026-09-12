@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
-<!--/* P-05 My Profile & Playlist History — spec 4.8 (FT-02). UC-05 is Zone A. */-->
+<!--/* P-05 My Profile — spec 4.8 (FT-02). UC-04 is view; UC-05 is name/password. */-->
 <body>
 <div th:fragment="content">
 
   <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
     <div class="d-flex flex-column gap-1">
       <h1>My Profile</h1>
-      <p class="small text-secondary">Your account details and playlist history.</p>
+      <p class="small text-secondary">Your account details.</p>
     </div>
   </header>
 
@@ -122,10 +122,6 @@
 
       </div>
     </section>
-
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
-        'Playlist history card',
-        'Every playlist the user owns or has edited, sorted by last updated descending (FT-02 AC-02): name, status badge, last updated, and own-role tag (Owner / Collaborator). Rows open P-03b or P-04b depending on status and role.')}"></section>
   </div>
 
 </div>
