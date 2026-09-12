@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
-<!--/* P-06e Admin — Audit & Recommendation Log — spec 4.13 (FT-09, FT-04). */-->
+<!--/* P-06e Admin — Audit & Recommendation Log — spec 4.13 (UC-32, FT-09, FT-04). */-->
 <body>
 <div th:fragment="content">
 
@@ -14,21 +14,217 @@
   </header>
 
   <div class="d-flex flex-column gap-4">
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
-        'Tabs and filters',
-        'Underline tabs Audit and Recommendation. Filters: date range, actor, and either action type (Audit) or LLM outcome success/fallback (Recommendation).')}"></section>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C — Audit',
-        'Audit table',
-        'Timestamp, actor, action, target, and an expandable before/after diff. Covers user administration, song and metadata edits, configuration changes and playlist status changes (BR-10, NFR-SEC04).')}"></section>
+    <ul class="nav nav-underline" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link"
+           th:classappend="${tab == 'audit'} ? ' active'"
+           th:href="@{/admin/logs(tab='audit', from=${filterFrom}, to=${filterTo}, actorId=${filterActorId}, action=${filterAction})}"
+           th:attr="aria-current=${tab == 'audit'} ? 'page' : null">Audit</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+           th:classappend="${tab == 'recommendation'} ? ' active'"
+           th:href="@{/admin/logs(tab='recommendation', from=${filterFrom}, to=${filterTo}, userId=${filterUserId}, llm=${filterLlm})}"
+           th:attr="aria-current=${tab == 'recommendation'} ? 'page' : null">Recommendation</a>
+      </li>
+    </ul>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C — Recommendation',
-        'Recommendation table',
-        'Timestamp, user, raw query, interpreted filters, and whether the LLM was used or the keyword fallback fired. Filtering on fallback supports LLM quality review (FT-04, BR-07).')}"></section>
+    <section class="card">
+      <div class="card-body">
+        <form class="row g-3 align-items-end" method="get" th:action="@{/admin/logs}">
+          <input type="hidden" name="tab" th:value="${tab}">
+          <div class="col-12 col-md-3">
+            <label class="form-label" for="filterFrom">From</label>
+            <input class="form-control" type="date" id="filterFrom" name="from"
+                   th:value="${filterFrom}">
+          </div>
+          <div class="col-12 col-md-3">
+            <label class="form-label" for="filterTo">To</label>
+            <input class="form-control" type="date" id="filterTo" name="to"
+                   th:value="${filterTo}">
+          </div>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone D',
-        'Pagination',
-        'Newest entries first.')}"></section>
+          <th:block th:if="${tab == 'audit'}">
+            <div class="col-12 col-md-3">
+              <label class="form-label" for="filterActor">Actor</label>
+              <select class="form-select" id="filterActor" name="actorId">
+                <option value="">All</option>
+                <option th:each="person : ${actors}"
+                        th:value="${person.id()}"
+                        th:text="${person.label()}"
+                        th:selected="${person.id() == filterActorId}">Actor</option>
+              </select>
+            </div>
+            <div class="col-12 col-md-3">
+              <label class="form-label" for="filterAction">Action</label>
+              <select class="form-select" id="filterAction" name="action">
+                <option value="">All</option>
+                <option th:each="item : ${actions}"
+                        th:value="${item}"
+                        th:text="${item}"
+                        th:selected="${item == filterAction}">Action</option>
+              </select>
+            </div>
+          </th:block>
+
+          <th:block th:if="${tab == 'recommendation'}">
+            <div class="col-12 col-md-3">
+              <label class="form-label" for="filterUser">User</label>
+              <select class="form-select" id="filterUser" name="userId">
+                <option value="">All</option>
+                <option th:each="person : ${searchUsers}"
+                        th:value="${person.id()}"
+                        th:text="${person.label()}"
+                        th:selected="${person.id() == filterUserId}">User</option>
+              </select>
+            </div>
+            <div class="col-12 col-md-3">
+              <label class="form-label" for="filterLlm">LLM outcome</label>
+              <select class="form-select" id="filterLlm" name="llm">
+                <option value="">All</option>
+                <option value="success" th:selected="${filterLlm == 'success'}">Used</option>
+                <option value="fallback" th:selected="${filterLlm == 'fallback'}">Fallback</option>
+              </select>
+            </div>
+          </th:block>
+
+          <div class="col-12 col-md-2 d-flex gap-2">
+            <button type="submit" class="btn btn-primary flex-grow-1">Filter</button>
+            <a class="btn btn-ghost" th:href="@{/admin/logs(tab=${tab})}" title="Clear filters">Clear</a>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="card" th:if="${tab == 'audit'}">
+      <div class="table-responsive">
+        <table class="table align-middle mb-0">
+          <thead>
+            <tr>
+              <th scope="col">Timestamp</th>
+              <th scope="col">Actor</th>
+              <th scope="col">Action</th>
+              <th scope="col">Target</th>
+              <th scope="col">Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="entry : ${auditEntries}">
+              <td class="table__numeric small text-secondary"
+                  th:text="${#temporals.format(entry.timestamp(), 'dd MMM yyyy HH:mm')}">01 Jan 2026 09:00</td>
+              <td th:text="${entry.actorLabel()}">Admin (admin@mrs.local)</td>
+              <td><code th:text="${entry.action()}">USER_CREATE</code></td>
+              <td class="font-monospace small" th:text="${entry.target()}">USER #12</td>
+              <td>
+                <details th:if="${entry.details() != null and !entry.details().isEmpty()}">
+                  <summary class="small">Before / after</summary>
+                  <pre class="small mb-0 mt-2" th:text="${entry.details()}">{}</pre>
+                </details>
+                <span th:if="${entry.details() == null or entry.details().isEmpty()}"
+                      class="small text-secondary">—</span>
+              </td>
+            </tr>
+            <tr th:if="${auditEntries == null or auditEntries.isEmpty()}">
+              <td colspan="5">
+                <div th:replace="~{fragments/components :: emptyState('scroll-text', 'No audit entries',
+                    'Administrative actions will appear here as they happen.')}"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" th:if="${tab == 'recommendation'}">
+      <div class="table-responsive">
+        <table class="table align-middle mb-0">
+          <thead>
+            <tr>
+              <th scope="col">Timestamp</th>
+              <th scope="col">User</th>
+              <th scope="col">Query</th>
+              <th scope="col">Filters</th>
+              <th scope="col">LLM</th>
+              <th scope="col" class="text-end">Results</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="entry : ${recommendations}">
+              <td class="table__numeric small text-secondary"
+                  th:text="${#temporals.format(entry.createdAt(), 'dd MMM yyyy HH:mm')}">01 Jan 2026 09:00</td>
+              <td th:text="${entry.userLabel()}">Dana (dana@mrs.local)</td>
+              <td th:text="${entry.queryText()}">cheerful new year</td>
+              <td>
+                <details th:if="${entry.filters() != null and !entry.filters().isEmpty()}">
+                  <summary class="small">Interpreted filters</summary>
+                  <pre class="small mb-0 mt-2" th:text="${entry.filters()}">{}</pre>
+                </details>
+                <span th:if="${entry.filters() == null or entry.filters().isEmpty()}"
+                      class="small text-secondary">—</span>
+              </td>
+              <td th:text="${entry.llmOutcome()}">Used</td>
+              <td class="table__numeric text-end" th:text="${entry.resultCount()}">12</td>
+            </tr>
+            <tr th:if="${recommendations == null or recommendations.isEmpty()}">
+              <td colspan="6">
+                <div th:replace="~{fragments/components :: emptyState('search', 'No recommendation entries',
+                    'Contextual searches on P-02 are logged here for LLM review.')}"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <nav th:if="${tab == 'audit' and auditEntries != null and auditEntries.totalPages > 1}"
+         class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3"
+         aria-label="Pagination">
+      <p class="small text-secondary mb-0">
+        Page <span class="table__numeric" th:text="${auditEntries.number + 1}">1</span>
+        of <span class="table__numeric" th:text="${auditEntries.totalPages}">1</span>
+        · <span class="table__numeric" th:text="${auditEntries.totalElements}">0</span> total
+      </p>
+      <ul class="pagination mb-0">
+        <li class="page-item" th:classappend="${auditEntries.first} ? 'disabled'">
+          <a class="page-link"
+             th:href="@{/admin/logs(tab='audit', page=${auditEntries.number - 1}, from=${filterFrom}, to=${filterTo}, actorId=${filterActorId}, action=${filterAction})}"
+             th:attr="aria-disabled=${auditEntries.first} ? 'true' : null"
+             th:tabindex="${auditEntries.first} ? -1 : null">Previous</a>
+        </li>
+        <li class="page-item" th:classappend="${auditEntries.last} ? 'disabled'">
+          <a class="page-link"
+             th:href="@{/admin/logs(tab='audit', page=${auditEntries.number + 1}, from=${filterFrom}, to=${filterTo}, actorId=${filterActorId}, action=${filterAction})}"
+             th:attr="aria-disabled=${auditEntries.last} ? 'true' : null"
+             th:tabindex="${auditEntries.last} ? -1 : null">Next</a>
+        </li>
+      </ul>
+    </nav>
+
+    <nav th:if="${tab == 'recommendation' and recommendations != null and recommendations.totalPages > 1}"
+         class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3"
+         aria-label="Pagination">
+      <p class="small text-secondary mb-0">
+        Page <span class="table__numeric" th:text="${recommendations.number + 1}">1</span>
+        of <span class="table__numeric" th:text="${recommendations.totalPages}">1</span>
+        · <span class="table__numeric" th:text="${recommendations.totalElements}">0</span> total
+      </p>
+      <ul class="pagination mb-0">
+        <li class="page-item" th:classappend="${recommendations.first} ? 'disabled'">
+          <a class="page-link"
+             th:href="@{/admin/logs(tab='recommendation', page=${recommendations.number - 1}, from=${filterFrom}, to=${filterTo}, userId=${filterUserId}, llm=${filterLlm})}"
+             th:attr="aria-disabled=${recommendations.first} ? 'true' : null"
+             th:tabindex="${recommendations.first} ? -1 : null">Previous</a>
+        </li>
+        <li class="page-item" th:classappend="${recommendations.last} ? 'disabled'">
+          <a class="page-link"
+             th:href="@{/admin/logs(tab='recommendation', page=${recommendations.number + 1}, from=${filterFrom}, to=${filterTo}, userId=${filterUserId}, llm=${filterLlm})}"
+             th:attr="aria-disabled=${recommendations.last} ? 'true' : null"
+             th:tabindex="${recommendations.last} ? -1 : null">Next</a>
+        </li>
+      </ul>
+    </nav>
+
   </div>
 
 </div>

@@ -16,9 +16,11 @@ import com.funix.swp490x.mrs.catalog.CatalogProperties;
 import com.funix.swp490x.mrs.catalog.CatalogStoreException;
 import com.funix.swp490x.mrs.catalog.InvalidClassificationException;
 import com.funix.swp490x.mrs.catalog.SongJsonMapper;
+import com.funix.swp490x.mrs.domain.AuditLog;
 import com.funix.swp490x.mrs.domain.Song;
 import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.domain.TagType;
+import com.funix.swp490x.mrs.repository.AuditLogRepository;
 import com.funix.swp490x.mrs.repository.SongRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import com.funix.swp490x.mrs.service.SongCatalogService.SongEdit;
@@ -46,13 +48,15 @@ class SongCatalogServiceTest {
     private TagRepository tagRepository;
     @Mock
     private CatalogObjectStore catalogStore;
+    @Mock
+    private AuditLogRepository auditLogRepository;
 
     private SongCatalogService service;
 
     @BeforeEach
     void setUp() {
         service = new SongCatalogService(songRepository, tagRepository, catalogStore,
-                new CatalogProperties(), new SongJsonMapper());
+                new CatalogProperties(), new SongJsonMapper(), auditLogRepository);
     }
 
     @Test
@@ -206,7 +210,7 @@ class SongCatalogServiceTest {
                 """));
         given(catalogStore.putJson(eq("abc-123.json"), anyString())).willReturn("new-etag");
 
-        service.update(12L, 3, new SongEdit(true, "Pop", "Dreamy", "smooth"));
+        service.update(12L, 3, new SongEdit(true, "Pop", "Dreamy", "smooth"), 1L);
 
         assertThat(song.getTitle()).isEqualTo("Ice Cream");
         assertThat(song.getArtist()).isEqualTo("Sugar Blizz");
@@ -245,7 +249,7 @@ class SongCatalogServiceTest {
         given(catalogStore.findJson("abc-123.json")).willReturn(Optional.empty());
         given(catalogStore.putJson(eq("abc-123.json"), anyString())).willReturn("etag-1");
 
-        service.update(12L, 3, new SongEdit(false, "Pop", null, null));
+        service.update(12L, 3, new SongEdit(false, "Pop", null, null), 1L);
 
         ArgumentCaptor<String> body = ArgumentCaptor.forClass(String.class);
         then(catalogStore).should().putJson(eq("abc-123.json"), body.capture());
@@ -260,7 +264,7 @@ class SongCatalogServiceTest {
         Song song = existing(12L, 3);
         given(songRepository.findByIdWithTags(12L)).willReturn(Optional.of(song));
 
-        assertThatThrownBy(() -> service.update(12L, 3, new SongEdit(false, null, null, null)))
+        assertThatThrownBy(() -> service.update(12L, 3, new SongEdit(false, null, null, null), 1L))
                 .isInstanceOf(CatalogStoreException.class)
                 .hasMessageContaining("externalSourceId");
 
@@ -278,7 +282,7 @@ class SongCatalogServiceTest {
         given(catalogStore.putJson(eq("abc-123.json"), anyString()))
                 .willThrow(new CatalogStoreException("denied"));
 
-        assertThatThrownBy(() -> service.update(12L, 3, new SongEdit(false, "Pop", null, null)))
+        assertThatThrownBy(() -> service.update(12L, 3, new SongEdit(false, "Pop", null, null), 1L))
                 .isInstanceOf(CatalogStoreException.class);
 
         then(songRepository).should(never()).save(any());
@@ -289,7 +293,7 @@ class SongCatalogServiceTest {
         Song song = existing(12L, 4);
         given(songRepository.findByIdWithTags(12L)).willReturn(Optional.of(song));
 
-        assertThatThrownBy(() -> service.update(12L, 3, new SongEdit(false, null, null, null)))
+        assertThatThrownBy(() -> service.update(12L, 3, new SongEdit(false, null, null, null), 1L))
                 .isInstanceOf(StaleSongException.class);
 
         then(songRepository).should(never()).save(any());
@@ -302,7 +306,7 @@ class SongCatalogServiceTest {
         song.setExternalSourceId("abc-123");
         given(songRepository.findByIdWithTags(12L)).willReturn(Optional.of(song));
 
-        assertThatThrownBy(() -> service.update(12L, 3, new SongEdit(false, "Cinematic", null, null)))
+        assertThatThrownBy(() -> service.update(12L, 3, new SongEdit(false, "Cinematic", null, null), 1L))
                 .isInstanceOf(InvalidClassificationException.class)
                 .hasMessageContaining("Cinematic");
 
@@ -320,7 +324,7 @@ class SongCatalogServiceTest {
         given(catalogStore.stagingKey("abc-123")).willReturn("abc-123.json");
         given(catalogStore.findJson("abc-123.json")).willReturn(Optional.empty());
 
-        service.delete(12L);
+        service.delete(12L, 1L);
 
         InOrder order = inOrder(catalogStore, songRepository);
         order.verify(catalogStore).deleteBinary("song-data/audio/ncs/abc-123.mp3");
@@ -328,6 +332,10 @@ class SongCatalogServiceTest {
         order.verify(songRepository).detachFromPlaylists(List.of(12L));
         order.verify(songRepository).delete(song);
         then(catalogStore).should(never()).deleteBinary(eq("song-data/artwork/ncs/abc-123.jpg"));
+        ArgumentCaptor<AuditLog> audit = ArgumentCaptor.forClass(AuditLog.class);
+        then(auditLogRepository).should().save(audit.capture());
+        assertThat(audit.getValue().getAction()).isEqualTo(AuditLog.ACTION_SONG_DELETE);
+        assertThat(audit.getValue().getDetails()).contains("Was");
     }
 
     @Test
@@ -342,7 +350,7 @@ class SongCatalogServiceTest {
                  "coverUrl":"https://d34ixswlpjs53y.cloudfront.net/song-data/artwork/ncs/abc-123.jpg"}
                 """));
 
-        service.delete(12L);
+        service.delete(12L, 1L);
 
         then(catalogStore).should().deleteBinary("song-data/audio/ncs/abc-123.mp3");
         then(catalogStore).should().deleteBinary("song-data/artwork/ncs/abc-123.jpg");
@@ -358,7 +366,7 @@ class SongCatalogServiceTest {
         given(catalogStore.findJson("abc-123.json")).willReturn(Optional.empty());
         willThrow(new CatalogStoreException("denied")).given(catalogStore).deleteJson("abc-123.json");
 
-        assertThatThrownBy(() -> service.delete(12L))
+        assertThatThrownBy(() -> service.delete(12L, 1L))
                 .isInstanceOf(CatalogStoreException.class);
 
         then(songRepository).should(never()).detachFromPlaylists(any());
@@ -370,7 +378,7 @@ class SongCatalogServiceTest {
         Song song = existing(12L, 0);
         given(songRepository.findById(12L)).willReturn(Optional.of(song));
 
-        service.delete(12L);
+        service.delete(12L, 1L);
 
         then(catalogStore).shouldHaveNoInteractions();
         then(songRepository).should().detachFromPlaylists(List.of(12L));
@@ -381,7 +389,7 @@ class SongCatalogServiceTest {
     void deleteRejectsAnUnknownId() {
         given(songRepository.findById(12L)).willReturn(Optional.empty());
 
-        assertThatThrownBy(() -> service.delete(12L))
+        assertThatThrownBy(() -> service.delete(12L, 1L))
                 .isInstanceOf(SongNotFoundException.class);
     }
 
@@ -471,22 +479,28 @@ class SongCatalogServiceTest {
         given(catalogStore.findJson("abc-123.json")).willReturn(Optional.empty());
         given(catalogStore.putJson(eq("abc-123.json"), anyString())).willReturn("etag-1");
 
-        service.update(12L, 3, new SongEdit(false, "Pop", "Dreamy", null));
+        service.update(12L, 3, new SongEdit(false, "Pop", "Dreamy", null), 1L);
 
         then(catalogStore).should().putJson(eq("abc-123.json"), anyString());
         then(songRepository).should().save(song);
         assertThat(song.getTags()).extracting(Tag::getName).contains("Pop", "Dreamy");
+        ArgumentCaptor<AuditLog> audit = ArgumentCaptor.forClass(AuditLog.class);
+        then(auditLogRepository).should().save(audit.capture());
+        assertThat(audit.getValue().getAction()).isEqualTo(AuditLog.ACTION_SONG_EDIT);
+        assertThat(audit.getValue().getEntityId()).isEqualTo(12L);
+        assertThat(audit.getValue().getDetails()).contains("Was");
     }
 
     @Test
     void update_whenSongUnknown_shouldThrowNotFound() {
         given(songRepository.findByIdWithTags(99L)).willReturn(Optional.empty());
 
-        assertThatThrownBy(() -> service.update(99L, 1, new SongEdit(false, null, null, null)))
+        assertThatThrownBy(() -> service.update(99L, 1, new SongEdit(false, null, null, null), 1L))
                 .isInstanceOf(SongNotFoundException.class);
 
         then(songRepository).should(never()).save(any());
         then(catalogStore).shouldHaveNoInteractions();
+        then(auditLogRepository).shouldHaveNoInteractions();
     }
 
     @Test

@@ -1,8 +1,10 @@
 package com.funix.swp490x.mrs.service;
 
+import com.funix.swp490x.mrs.domain.AuditLog;
 import com.funix.swp490x.mrs.domain.Role;
 import com.funix.swp490x.mrs.domain.User;
 import com.funix.swp490x.mrs.domain.UserStatus;
+import com.funix.swp490x.mrs.repository.AuditLogRepository;
 import com.funix.swp490x.mrs.repository.UserRepository;
 import com.funix.swp490x.mrs.security.InitialPasswordGenerator;
 import com.funix.swp490x.mrs.security.PasswordPolicy;
@@ -41,15 +43,18 @@ public class UserAccountService {
     private final PasswordEncoder passwordEncoder;
     private final SessionInvalidationService sessionInvalidationService;
     private final PlaylistService playlistService;
+    private final AuditLogRepository auditLogRepository;
 
     public UserAccountService(UserRepository userRepository,
             PasswordEncoder passwordEncoder,
             SessionInvalidationService sessionInvalidationService,
-            PlaylistService playlistService) {
+            PlaylistService playlistService,
+            AuditLogRepository auditLogRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.sessionInvalidationService = sessionInvalidationService;
         this.playlistService = playlistService;
+        this.auditLogRepository = auditLogRepository;
     }
 
     /**
@@ -77,7 +82,7 @@ public class UserAccountService {
      * @throws InvalidRoleAssignmentException when the role is not assignable
      */
     @Transactional
-    public UserView create(String name, String email, Role role, String password) {
+    public UserView create(String name, String email, Role role, String password, Long actorId) {
         requireAssignable(role);
 
         String address = email == null ? "" : email.trim();
@@ -100,7 +105,10 @@ public class UserAccountService {
         user.setRole(role);
         user.setStatus(UserStatus.ACTIVE);
         user.setMustChangePassword(true);
-        return UserView.of(userRepository.save(user));
+        User saved = userRepository.save(user);
+        audit(actorId, AuditLog.ACTION_USER_CREATE, saved.getId(),
+                userDetails(saved, "\"role\":%s".formatted(jsonString(saved.getRole().name()))));
+        return UserView.of(saved);
     }
 
     /**
@@ -129,18 +137,27 @@ public class UserAccountService {
         user.setStatus(UserStatus.DEACTIVATED);
         User saved = userRepository.save(user);
         sessionInvalidationService.invalidateSessionsForEmail(saved.getEmail());
+        audit(actorUserId, AuditLog.ACTION_USER_DEACTIVATE, saved.getId(),
+                userDetails(saved, "\"before\":%s,\"after\":%s,\"transferredPlaylists\":%d"
+                        .formatted(jsonString(UserStatus.ACTIVE.name()),
+                                jsonString(UserStatus.DEACTIVATED.name()), transferred)));
         return new Deactivation(UserView.of(saved), true, transferred);
     }
 
     /** Restores a deactivated account so it can authenticate again. */
     @Transactional
-    public UserView reactivate(Long userId) {
+    public UserView reactivate(Long userId, Long actorUserId) {
         User user = requireUser(userId);
         if (user.getStatus() == UserStatus.ACTIVE) {
             return UserView.of(user);
         }
         user.setStatus(UserStatus.ACTIVE);
-        return UserView.of(userRepository.save(user));
+        User saved = userRepository.save(user);
+        audit(actorUserId, AuditLog.ACTION_USER_REACTIVATE, saved.getId(),
+                userDetails(saved, "\"before\":%s,\"after\":%s"
+                        .formatted(jsonString(UserStatus.DEACTIVATED.name()),
+                                jsonString(UserStatus.ACTIVE.name()))));
+        return UserView.of(saved);
     }
 
     /**
@@ -184,6 +201,10 @@ public class UserAccountService {
         User saved = userRepository.save(user);
         // Authorities live on the session principal — force a fresh login.
         sessionInvalidationService.invalidateSessionsForEmail(saved.getEmail());
+        audit(actorUserId, AuditLog.ACTION_USER_ROLE_CHANGE, saved.getId(),
+                userDetails(saved, "\"before\":%s,\"after\":%s,\"transferredPlaylists\":%d"
+                        .formatted(jsonString(previousRole.name()), jsonString(newRole.name()),
+                                transferred)));
         return new RoleChange(UserView.of(saved), previousRole, transferred);
     }
 
@@ -230,7 +251,10 @@ public class UserAccountService {
         String password = InitialPasswordGenerator.generate();
         user.setPasswordHash(passwordEncoder.encode(password));
         user.setMustChangePassword(true);
-        return new InitialCredentials(UserView.of(userRepository.save(user)), password);
+        User saved = userRepository.save(user);
+        audit(actorUserId, AuditLog.ACTION_USER_CREDENTIALS_RESEND, saved.getId(),
+                userDetails(saved, null));
+        return new InitialCredentials(UserView.of(saved), password);
     }
 
     private User requireUser(Long userId) {
@@ -249,6 +273,29 @@ public class UserAccountService {
         if (actorUserId != null && actorUserId.equals(user.getId())) {
             throw new SelfModificationException();
         }
+    }
+
+    private void audit(Long actorId, String action, Long entityId, String details) {
+        if (actorId == null || entityId == null) {
+            return;
+        }
+        auditLogRepository.save(new AuditLog(actorId, action, AuditLog.ENTITY_USER, entityId, details));
+    }
+
+    private static String userDetails(User user, String extra) {
+        String base = "\"email\":%s,\"name\":%s".formatted(
+                jsonString(user.getEmail()), jsonString(user.getUsername()));
+        if (extra == null || extra.isBlank()) {
+            return "{" + base + "}";
+        }
+        return "{" + base + "," + extra + "}";
+    }
+
+    private static String jsonString(String value) {
+        if (value == null) {
+            return "null";
+        }
+        return "\"" + value.replace("\\", "\\\\").replace("\"", "\\\"") + "\"";
     }
 
     /** An account together with the plain-text password to send it. */

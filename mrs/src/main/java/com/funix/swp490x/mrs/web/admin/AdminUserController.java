@@ -90,6 +90,7 @@ public class AdminUserController {
             @RequestParam String email,
             @RequestParam Role role,
             @RequestParam String password,
+            @AuthenticationPrincipal MrsUserDetails actor,
             Model model,
             HttpServletResponse response,
             RedirectAttributes redirectAttributes) {
@@ -113,7 +114,7 @@ public class AdminUserController {
 
         UserView created;
         try {
-            created = userAccountService.create(name, email, role, password);
+            created = userAccountService.create(name, email, role, password, actor.getId());
         } catch (InvalidRoleAssignmentException e) {
             return reject(model, response, HttpStatus.UNPROCESSABLE_ENTITY, e.getMessage());
         } catch (InvalidEmailException e) {
@@ -281,8 +282,10 @@ public class AdminUserController {
     }
 
     @PostMapping(Routes.ADMIN_USER_REACTIVATE)
-    public String reactivate(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        userAccountService.reactivate(id);
+    public String reactivate(@PathVariable Long id,
+            @AuthenticationPrincipal MrsUserDetails actor,
+            RedirectAttributes redirectAttributes) {
+        userAccountService.reactivate(id, actor.getId());
         flash(redirectAttributes, "success", Messages.USER_REACTIVATED);
         return "redirect:" + Routes.ADMIN_USERS;
     }
@@ -413,8 +416,8 @@ public class AdminUserController {
     }
 
     /**
-     * BR-10 puts this in the audit log. Nothing writes that table yet, so the
-     * application log carries it while ADMIN is told on screen.
+     * Delivery failures stay on the application log; the account change itself
+     * is already in {@code audit_log} (BR-10).
      */
     private void reportUndelivered(String kind, String email, MailDeliveryException cause) {
         log.error("{} message to {} was not delivered", kind, email, cause);

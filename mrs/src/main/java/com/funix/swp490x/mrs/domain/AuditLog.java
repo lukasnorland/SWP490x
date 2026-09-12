@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.List;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -59,6 +60,52 @@ public class AuditLog {
     public static final String ENTITY_SYSTEM_SETTING = "SYSTEM_SETTING";
 
     public static final String ENTITY_CATALOG_PROVIDER = "CATALOG_PROVIDER";
+
+    /** P-06a / UC-07–UC-09, UC-35. */
+    public static final String ACTION_USER_CREATE = "USER_CREATE";
+
+    public static final String ACTION_USER_DEACTIVATE = "USER_DEACTIVATE";
+
+    public static final String ACTION_USER_REACTIVATE = "USER_REACTIVATE";
+
+    public static final String ACTION_USER_ROLE_CHANGE = "USER_ROLE_CHANGE";
+
+    public static final String ACTION_USER_CREDENTIALS_RESEND = "USER_CREDENTIALS_RESEND";
+
+    public static final String ENTITY_USER = "USER";
+
+    /** P-06b / UC-29. */
+    public static final String ACTION_SONG_EDIT = "SONG_EDIT";
+
+    public static final String ACTION_SONG_DELETE = "SONG_DELETE";
+
+    public static final String ENTITY_SONG = "SONG";
+
+    /** Filter dropdown on P-06e; extras from the table are merged at read time. */
+    public static List<String> knownActions() {
+        return List.of(
+                ACTION_USER_CREATE,
+                ACTION_USER_DEACTIVATE,
+                ACTION_USER_REACTIVATE,
+                ACTION_USER_ROLE_CHANGE,
+                ACTION_USER_CREDENTIALS_RESEND,
+                ACTION_SONG_EDIT,
+                ACTION_SONG_DELETE,
+                ACTION_CATALOG_IMPORT,
+                ACTION_PLAYLIST_CREATE,
+                ACTION_PLAYLIST_RENAME,
+                ACTION_PLAYLIST_DELETE,
+                ACTION_PLAYLIST_SONG_ADD,
+                ACTION_PLAYLIST_SONG_REMOVE,
+                ACTION_PLAYLIST_PUBLISH,
+                ACTION_PLAYLIST_UNPUBLISH,
+                ACTION_PLAYLIST_TRANSFER,
+                ACTION_PLAYLIST_COLLABORATOR_ADD,
+                ACTION_PLAYLIST_COLLABORATOR_REMOVE,
+                ACTION_SETTINGS_UPDATE,
+                ACTION_PROVIDER_CREATE,
+                ACTION_PROVIDER_DELETE);
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

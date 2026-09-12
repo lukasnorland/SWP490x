@@ -88,7 +88,7 @@ class CatalogProviderServiceTest {
         assertThatThrownBy(() -> service.delete(3L, "ncs", 1L))
                 .isInstanceOf(ProviderDeleteNotConfirmedException.class);
 
-        verify(songCatalogService, never()).delete(any());
+        verify(songCatalogService, never()).delete(any(), any());
         verify(providerRepository, never()).delete(any());
         verify(auditLogRepository, never()).save(any());
     }
@@ -112,7 +112,7 @@ class CatalogProviderServiceTest {
 
         assertThat(impact.songCount()).isEqualTo(1L);
         assertThat(impact.playlistCount()).isEqualTo(2L);
-        verify(songCatalogService).delete(11L);
+        verify(songCatalogService).delete(11L, 1L);
         verify(store).deleteBinary("song-data/audio/ncs/orphan.mp3");
         verify(providerRepository).delete(ncs);
         ArgumentCaptor<AuditLog> audit = ArgumentCaptor.forClass(AuditLog.class);

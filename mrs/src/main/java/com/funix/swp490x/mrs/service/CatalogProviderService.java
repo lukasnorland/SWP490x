@@ -134,7 +134,7 @@ public class CatalogProviderService {
         ProviderImpact before = impact(provider);
         List<Song> songs = songRepository.findBySourceProviderIgnoreCase(provider.getName());
         for (Song song : songs) {
-            songCatalogService.delete(song.getId());
+            songCatalogService.delete(song.getId(), actorId);
         }
         deleteOrphanMedia(provider.getSlug());
         providerRepository.delete(provider);
