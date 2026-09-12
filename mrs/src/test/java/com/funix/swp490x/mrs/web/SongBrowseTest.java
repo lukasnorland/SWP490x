@@ -137,7 +137,7 @@ class SongBrowseTest {
     void browseOffersTheAddToPlaylistColumn() throws Exception {
         showing(song("Ice Cream", "Sugar Blizz"));
         given(playlistService.editableDrafts(1L))
-                .willReturn(List.of(new PlaylistOption(7L, "Morning coffee", 3)));
+                .willReturn(List.of(new PlaylistOption(7L, "Morning coffee", 3, 4)));
 
         mockMvc.perform(get(Routes.SONGS).with(user(principal(Role.CONTENT_DESIGNER))))
                 .andExpect(content().string(containsString(">Add</th>")))

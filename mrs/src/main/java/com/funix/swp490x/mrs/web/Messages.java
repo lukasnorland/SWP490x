@@ -187,6 +187,17 @@ public final class Messages {
     public static final String PLAYLIST_LOCKED =
             "Published playlists are locked — unpublish it first, then edit.";
 
+    /**
+     * MSG_014. Where a stale song save offers refresh alone, a playlist also
+     * offers a clone, so in-progress work survives the conflict (BR-11).
+     */
+    public static final String PLAYLIST_STALE =
+            "This playlist was updated by someone else. Refresh to see the latest "
+                    + "version, or clone your changes into a new playlist.";
+
+    public static final String PLAYLIST_CLONED_FROM_CONFLICT =
+            "Your change is in this new Draft. The playlist you were editing was left as it is.";
+
     public static final String PLAYLIST_PUBLISH_EMPTY =
             "Add at least one song before publishing.";
 

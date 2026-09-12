@@ -38,6 +38,7 @@
 
       <form th:if="${canUnpublish}" th:action="@{|/playlists/${playlist.id}/unpublish|}"
             method="post" class="mb-0">
+        <input type="hidden" name="expectedVersion" th:value="${playlist.version}">
         <input type="hidden" name="returnTo" value="/workspace">
         <button type="submit" class="btn btn-primary"
                 onclick="return confirm('Unpublish this playlist? It will leave the Shared Workspace and become editable again.');">

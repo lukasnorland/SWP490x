@@ -39,6 +39,12 @@
               data-add-existing-form
               th:if="${myPlaylists != null and !myPlaylists.isEmpty()}">
           <input type="hidden" name="returnTo" data-add-return-to value="">
+          <!--/* BR-06: the version of whichever Draft is picked. The dialog
+                 sits outside #catalog-results so it survives filter and pager
+                 steps, which also means this value is as old as the page: a
+                 playlist edited elsewhere meanwhile lands on the conflict
+                 screen rather than being overwritten. */-->
+          <input type="hidden" name="expectedVersion" data-add-playlist-version value="0">
           <div data-add-song-ids>
             <input type="hidden" name="songId" data-add-song-id value="">
           </div>
@@ -49,6 +55,7 @@
                     data-add-playlist-select>
               <option th:each="option : ${myPlaylists}"
                       th:value="${option.id}"
+                      th:data-version="${option.version}"
                       th:text="|${option.name} (${option.songCount} songs)|">Playlist</option>
             </select>
             <button type="submit" class="btn btn-primary flex-shrink-0">Add</button>

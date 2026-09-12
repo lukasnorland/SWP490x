@@ -238,6 +238,13 @@ function pointAtSelectedPlaylist(select) {
     return;
   }
   form.setAttribute("action", "/playlists/" + encodeURIComponent(select.value) + "/songs");
+
+  // Each option carries the version it was rendered at (BR-06).
+  var version = form.querySelector("[data-add-playlist-version]");
+  var picked = select.options[select.selectedIndex];
+  if (version && picked) {
+    version.value = picked.getAttribute("data-version") || "0";
+  }
 }
 
 function fillRenameDialog(dialog, trigger) {
@@ -250,6 +257,10 @@ function fillRenameDialog(dialog, trigger) {
   var input = dialog.querySelector("[data-rename-name]");
   if (input) {
     input.value = name;
+  }
+  var version = dialog.querySelector("[data-rename-version]");
+  if (version) {
+    version.value = trigger.getAttribute("data-playlist-version") || "0";
   }
   var returnTo = dialog.querySelector("[data-rename-return-to]");
   if (returnTo) {

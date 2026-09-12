@@ -43,6 +43,8 @@ public final class Routes {
     public static final String PLAYLIST_RENAME = "/playlists/{id}/rename";
     /** Duplicate into a new Draft owned by the caller. */
     public static final String PLAYLIST_DUPLICATE = "/playlists/{id}/duplicate";
+    /** BR-11 — carry a change rejected as stale into a new Draft (UC-19 A2). */
+    public static final String PLAYLIST_CONFLICT_CLONE = "/playlists/{id}/clone-on-conflict";
     /** BR-03 — grant a Content Designer edit rights. */
     public static final String PLAYLIST_COLLABORATORS = "/playlists/{id}/collaborators";
     /** BR-03 — drop a collaborator grant. */

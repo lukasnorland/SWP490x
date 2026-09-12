@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!--/*
   Rename-playlist dialog. Opened by a [data-rename-playlist] pencil; JS fills
-  the current name and points the form at /playlists/{id}/rename.
+  the current name and version and points the form at /playlists/{id}/rename.
 */-->
 <body>
 
@@ -13,6 +13,9 @@
     <form class="modal-content" th:action="@{/playlists/0/rename}" method="post"
           data-rename-form>
       <input type="hidden" name="returnTo" data-rename-return-to value="">
+      <!-- BR-06: the version the row was rendered at, so a rename cannot
+           quietly land on top of someone else's save. -->
+      <input type="hidden" name="expectedVersion" data-rename-version value="0">
       <div class="modal-header">
         <h2 class="modal-title h4" id="renamePlaylistTitle">Rename playlist</h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

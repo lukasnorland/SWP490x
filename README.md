@@ -36,7 +36,7 @@ MRS closes those gaps with centralized catalog + playlist management, metadata/L
 | FE-03 | Multi-criteria metadata search (Genre, Mood, Artist, Tags) |
 | FE-04 | LLM-assisted contextual search (with fallback to plain filters) |
 | FE-05 | Recommendation & ranking using metadata match (chip count, then title; optional Top-N) |
-| FE-06 | Playlist create / edit / save (Draft); owner can share edit rights with other Content Designers |
+| FE-06 | Playlist create / edit / save (Draft); owner can share edit rights with other Content Designers; concurrent saves are optimistically locked (UC-19) |
 | FE-07 | Publish to shared workspace; every internal user can view published playlists; Content Designers and ADMIN can duplicate one into their own Draft |
 | FE-08 | CSV export of playlists |
 | FE-09 | Admin: users, songs, metadata, catalog import, playlist oversight |
@@ -130,8 +130,6 @@ The local Word/Excel reports were aligned to the as-built on 05/09/2026
 folded into P-06b, figures regenerated). A few leftovers still need a pass
 inside Word:
 
-- Report 3.0 Figure 3 (SC-02) still draws playlist HTTP 409 / clone; v1 playlist
-  saves are last-writer-wins. Song catalog edits on P-06b do use HTTP 409.
 - Report 3.2 §2.2 status column and some P-02/P-04b wireframe “Popularity”
   columns may still read as the old sort.
 - Report 4 Part 4.3 may still contain a Spotify token/quota subsection around
@@ -474,6 +472,51 @@ Audio, artwork, and generated JSON then land under that folder. Run
 `aws login --profile mrs-admin` (and restart the app) when you want the real
 bucket again.
 
+### Concurrent playlist edits
+
+Two Content Designers on the same shared Draft is the normal case, not the edge
+case, so every playlist write is optimistically locked (UC-19, BR-06). Each
+screen renders the version it read, each mutation submits it back as
+`expectedVersion`, and the service refuses a write whose version has already
+moved on. Nothing is merged and nothing is overwritten: the second writer is
+told what happened and chooses (BR-11, NFR-A02).
+
+A rejected save renders the conflict screen with **HTTP 409** rather than
+redirecting, because a redirect would drop both the status and the change that
+was refused:
+
+| Path | Method | What it does |
+|------|--------|--------------|
+| `/playlists/{id}/clone-on-conflict` | POST | Copy the playlist as it stands now with the rejected change applied, into a new Draft owned by the requester |
+
+The screen offers up to three ways out:
+
+- **Refresh & Reapply** — reopen the playlist at its current version and redo
+  the edit on top of what the other person saved.
+- **Clone as New Playlist** — only for a content edit (add, remove, reorder,
+  rename). Publishing, deleting, or resharing a playlist someone else has
+  already changed has nothing to carry into a copy, so those offer refresh
+  alone.
+- **Discard** — walk away. The in-progress edit is gone and has to be retyped;
+  the app never merges it in behind anyone's back.
+
+The copy starts from the source as it stands now and takes the pending change on
+top. There is no version history to rebuild the snapshot the requester was
+looking at, and copying stale content would be exactly the silent data loss this
+is here to prevent. No lineage is recorded either way — the unique name is what
+tells the copies apart.
+
+A playlist is created at **v1** and each accepted change adds exactly one
+(DC-11), because this number is shown to whoever lost the race and a brand-new
+playlist reading `v0` invites the wrong question. A song starts at **v0**
+instead: its version is a hidden form token nobody reads, and it also moves when
+an import rewrites the row, so it is not a count of anybody's edits.
+
+Song catalog edits on P-06b use the same 409, but refresh only: a song is
+licensed identity, so there is nothing to clone (BR-06, DC-02). An import
+touching a row while an admin has the edit modal open is a conflict like any
+other (UC-29 E2).
+
 ### Contextual search
 
 FT-04 turns a free-text prompt on P-02 into catalog filters. With
@@ -591,7 +634,7 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 | P-01 Password Reset | Implemented — both steps, live BR-12 checklist, link emailed |
 | P-02 Search & Recommendation | Implemented — free-text prompt interpreted by Gemini (vocabulary matching when no key is set), removable filter chips, metadata-match ranking with an optional Top-N, multi-select add-to-playlist, and a "create playlist from every result" action that re-runs the search server-side rather than using the current page. Each interpret writes a `recommendation_log` row |
 | P-03a My Playlists | Implemented — playlists you own plus those shared with you; status and text filters, pagination, create, rename, duplicate, delete, publish, CSV export |
-| P-03b Playlist Detail | Implemented — ordered song table with preview playback, add / remove / reorder while Draft, collaborator list (owner and ADMIN grant/revoke Content Designers; collaborators can edit songs in a Draft, but cannot publish, unpublish, delete, or invite). Publish and unpublish are owner or ADMIN. Duplicate creates an independent Draft with a unique name and no lineage back to the source |
+| P-03b Playlist Detail | Implemented — ordered song table with preview playback, add / remove / reorder while Draft, collaborator list (owner and ADMIN grant/revoke Content Designers; collaborators can edit songs in a Draft, but cannot publish, unpublish, delete, or invite). Publish and unpublish are owner or ADMIN. Duplicate creates an independent Draft with a unique name and no lineage back to the source. Every mutation is optimistically locked (UC-19, BR-06): a save at a version someone else has already moved past returns HTTP 409 and the conflict screen |
 | P-04a Shared Workspace | Implemented — card grid of published playlists with owner and text filters, open to all three roles. BR-04 scoping is outstanding, so every published playlist is listed |
 | P-04b Published Playlist View | Implemented — read-only song list; Duplicate and Export CSV are curator-only; unpublish is owner or ADMIN. A Draft id returns 403 rather than 404 |
 | P-05 My Profile | Implemented — view account (UC-04), edit display name and password (UC-05). Playlist history was dropped; curators resume work from My Playlists |

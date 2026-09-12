@@ -101,6 +101,7 @@
                           data-rename-playlist
                           th:data-playlist-id="${playlist.id}"
                           th:data-playlist-name="${playlist.name}"
+                          th:data-playlist-version="${playlist.version}"
                           th:aria-label="|Rename ${playlist.name}|">
                     <svg th:replace="~{fragments/icons :: icon('pencil', 'icon--sm')}"></svg>
                   </button>
@@ -130,6 +131,7 @@
                   <form th:if="${playlist.draft and !playlist.sharedWithMe
                                 and currentUser != null and currentUser.curator}"
                         th:action="@{|/playlists/${playlist.id}/delete|}" method="post">
+                    <input type="hidden" name="expectedVersion" th:value="${playlist.version}">
                     <button type="submit" class="btn btn-icon" title="Delete playlist"
                             onclick="return confirm('Delete this playlist? The songs stay in the catalog.');">
                       <svg th:replace="~{fragments/icons :: icon('trash-2', 'icon--sm')}"></svg>

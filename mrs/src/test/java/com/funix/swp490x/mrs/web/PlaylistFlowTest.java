@@ -39,6 +39,8 @@ import com.funix.swp490x.mrs.service.PlaylistLockedException;
 import com.funix.swp490x.mrs.service.PlaylistNotFoundException;
 import com.funix.swp490x.mrs.service.PlaylistService;
 import com.funix.swp490x.mrs.service.PlaylistSummary;
+import com.funix.swp490x.mrs.service.SongNotFoundException;
+import com.funix.swp490x.mrs.service.StalePlaylistException;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -134,7 +136,10 @@ class PlaylistFlowTest {
 
     @Test
     void addingASongReturnsToTheScreenItWasStartedFrom() throws Exception {
+        given(playlistService.addSongs(7L, 1, List.of(42L), 1L)).willReturn(1);
+
         mockMvc.perform(post("/playlists/7/songs")
+                        .param("expectedVersion", "1")
                         .param("songId", "42")
                         .param("returnTo", "/songs?q=ice")
                         .with(user(principal(Role.CONTENT_DESIGNER)))
@@ -142,7 +147,7 @@ class PlaylistFlowTest {
                 .andExpect(redirectedUrl("/songs?q=ice"))
                 .andExpect(flash().attribute("flash", Messages.SONG_ADDED_TO_PLAYLIST));
 
-        then(playlistService).should().addSong(7L, 42L, 1L);
+        then(playlistService).should().addSongs(7L, 1, List.of(42L), 1L);
     }
 
     @Test
@@ -175,6 +180,7 @@ class PlaylistFlowTest {
     @Test
     void renamingAPlaylistFromTheListStaysOnTheList() throws Exception {
         mockMvc.perform(post("/playlists/7/rename")
+                        .param("expectedVersion", "1")
                         .param("name", "Evening tea")
                         .param("returnTo", "/playlists")
                         .with(user(principal(Role.CONTENT_DESIGNER)))
@@ -182,7 +188,7 @@ class PlaylistFlowTest {
                 .andExpect(redirectedUrl(Routes.PLAYLISTS))
                 .andExpect(flash().attribute("flash", Messages.PLAYLIST_RENAMED));
 
-        then(playlistService).should().rename(7L, "Evening tea", 1L);
+        then(playlistService).should().rename(7L, 1, "Evening tea", 1L);
     }
 
     @Test
@@ -233,9 +239,10 @@ class PlaylistFlowTest {
     @Test
     void renamingAPublishedPlaylistIsRefused() throws Exception {
         willThrow(new PlaylistLockedException(7L))
-                .given(playlistService).rename(7L, "Evening tea", 1L);
+                .given(playlistService).rename(7L, 1, "Evening tea", 1L);
 
         mockMvc.perform(post("/playlists/7/rename")
+                        .param("expectedVersion", "1")
                         .param("name", "Evening tea")
                         .param("returnTo", "/playlists")
                         .with(user(principal(Role.CONTENT_DESIGNER)))
@@ -243,12 +250,13 @@ class PlaylistFlowTest {
                 .andExpect(flash().attribute("flash", Messages.PLAYLIST_LOCKED));
     }
 
+    /** The service swallows the duplicate and reports nothing was appended. */
     @Test
     void aSongAlreadyInThePlaylistIsReportedRatherThanDuplicated() throws Exception {
-        willThrow(new DuplicatePlaylistSongException(7L, 42L))
-                .given(playlistService).addSong(7L, 42L, 1L);
+        given(playlistService.addSongs(7L, 1, List.of(42L), 1L)).willReturn(0);
 
         mockMvc.perform(post("/playlists/7/songs")
+                        .param("expectedVersion", "1")
                         .param("songId", "42")
                         .param("returnTo", "/songs")
                         .with(user(principal(Role.CONTENT_DESIGNER)))
@@ -260,9 +268,11 @@ class PlaylistFlowTest {
     /** DC-08: a Published playlist takes no new songs until it is unpublished. */
     @Test
     void aPublishedPlaylistRefusesTheAdd() throws Exception {
-        willThrow(new PlaylistLockedException(7L)).given(playlistService).addSong(7L, 42L, 1L);
+        willThrow(new PlaylistLockedException(7L))
+                .given(playlistService).addSongs(7L, 1, List.of(42L), 1L);
 
         mockMvc.perform(post("/playlists/7/songs")
+                        .param("expectedVersion", "1")
                         .param("songId", "42")
                         .param("returnTo", "/songs")
                         .with(user(principal(Role.CONTENT_DESIGNER)))
@@ -278,6 +288,7 @@ class PlaylistFlowTest {
     @ValueSource(strings = {"https://evil.example/steal", "//evil.example", "/etc/passwd", ""})
     void anUnknownReturnTargetFallsBackToMyPlaylists(String returnTo) throws Exception {
         mockMvc.perform(post("/playlists/7/songs")
+                        .param("expectedVersion", "1")
                         .param("songId", "42")
                         .param("returnTo", returnTo)
                         .with(user(principal(Role.CONTENT_DESIGNER)))
@@ -355,21 +366,23 @@ class PlaylistFlowTest {
     @Test
     void theOwnerCanGrantACollaborator() throws Exception {
         mockMvc.perform(post("/playlists/5/collaborators")
+                        .param("expectedVersion", "1")
                         .param("userId", "15")
                         .with(user(principal(Role.CONTENT_DESIGNER)))
                         .with(csrf()))
                 .andExpect(redirectedUrl("/playlists/5"))
                 .andExpect(flash().attribute("flash", Messages.COLLABORATOR_ADDED));
 
-        then(playlistService).should().grant(5L, 15L, 1L);
+        then(playlistService).should().grant(5L, 1, 15L, 1L);
     }
 
     @Test
     void aDuplicateGrantIsRejected() throws Exception {
         willThrow(new DuplicateCollaboratorException(5L, 15L))
-                .given(playlistService).grant(5L, 15L, 1L);
+                .given(playlistService).grant(5L, 1, 15L, 1L);
 
         mockMvc.perform(post("/playlists/5/collaborators")
+                        .param("expectedVersion", "1")
                         .param("userId", "15")
                         .with(user(principal(Role.CONTENT_DESIGNER)))
                         .with(csrf()))
@@ -379,9 +392,10 @@ class PlaylistFlowTest {
     @Test
     void aCollaboratorCannotGrantAnother() throws Exception {
         willThrow(new InvalidCollaboratorException("Only the owner can share this playlist"))
-                .given(playlistService).grant(5L, 15L, 1L);
+                .given(playlistService).grant(5L, 1, 15L, 1L);
 
         mockMvc.perform(post("/playlists/5/collaborators")
+                        .param("expectedVersion", "1")
                         .param("userId", "15")
                         .with(user(principal(Role.CONTENT_DESIGNER)))
                         .with(csrf()))
@@ -391,9 +405,10 @@ class PlaylistFlowTest {
     @Test
     void aCollaboratorCannotDelete() throws Exception {
         willThrow(new InvalidCollaboratorException("Only the owner can delete this playlist"))
-                .given(playlistService).delete(5L, 1L);
+                .given(playlistService).delete(5L, 1, 1L);
 
         mockMvc.perform(post("/playlists/5/delete")
+                        .param("expectedVersion", "1")
                         .with(user(principal(Role.CONTENT_DESIGNER)))
                         .with(csrf()))
                 .andExpect(redirectedUrl("/playlists/5"))
@@ -403,32 +418,35 @@ class PlaylistFlowTest {
     @Test
     void theOwnerCanStillPublish() throws Exception {
         mockMvc.perform(post("/playlists/5/publish")
+                        .param("expectedVersion", "1")
                         .with(user(principal(Role.CONTENT_DESIGNER)))
                         .with(csrf()))
                 .andExpect(redirectedUrl("/playlists/5"))
                 .andExpect(flash().attribute("flash", Messages.PLAYLIST_PUBLISHED));
 
-        then(playlistService).should().publish(5L, 1L);
+        then(playlistService).should().publish(5L, 1, 1L);
     }
 
     @Test
     void anAdminPublishReturnsToInspect() throws Exception {
         mockMvc.perform(post("/playlists/5/publish")
+                        .param("expectedVersion", "1")
                         .param("returnTo", "/admin/playlists/5")
                         .with(user(principal(Role.ADMIN)))
                         .with(csrf()))
                 .andExpect(redirectedUrl("/admin/playlists/5"))
                 .andExpect(flash().attribute("flash", Messages.PLAYLIST_PUBLISHED));
 
-        then(playlistService).should().publish(5L, 1L);
+        then(playlistService).should().publish(5L, 1, 1L);
     }
 
     @Test
     void aCollaboratorCannotPublish() throws Exception {
         willThrow(new InvalidCollaboratorException("Only the owner can publish this playlist"))
-                .given(playlistService).publish(5L, 1L);
+                .given(playlistService).publish(5L, 1, 1L);
 
         mockMvc.perform(post("/playlists/5/publish")
+                        .param("expectedVersion", "1")
                         .param("returnTo", "/admin/playlists/5")
                         .with(user(principal(Role.CONTENT_DESIGNER)))
                         .with(csrf()))
@@ -439,9 +457,10 @@ class PlaylistFlowTest {
     @Test
     void aCollaboratorCannotUnpublish() throws Exception {
         willThrow(new InvalidCollaboratorException("Only the owner can unpublish this playlist"))
-                .given(playlistService).unpublish(5L, 1L);
+                .given(playlistService).unpublish(5L, 1, 1L);
 
         mockMvc.perform(post("/playlists/5/unpublish")
+                        .param("expectedVersion", "1")
                         .with(user(principal(Role.CONTENT_DESIGNER)))
                         .with(csrf()))
                 .andExpect(redirectedUrl("/playlists/5"))
@@ -489,6 +508,159 @@ class PlaylistFlowTest {
                 .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers
                         .header().string("Content-Disposition",
                                 containsString("Morning-coffee.csv")));
+    }
+
+    /**
+     * UC-19 normal flow: HTTP 409, MSG_014 and the current version, rendered in
+     * place rather than redirected, so the rejected change is still there to
+     * clone.
+     */
+    @Test
+    void aStaleSaveReturns409WithTheConflictScreen() throws Exception {
+        willThrow(new StalePlaylistException(5L, 3, 7))
+                .given(playlistService).rename(5L, 3, "Evening tea", 1L);
+        given(playlistService.inspect(5L)).willReturn(draft("Morning coffee"));
+
+        mockMvc.perform(post("/playlists/5/rename")
+                        .param("expectedVersion", "3")
+                        .param("name", "Evening tea")
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(status().isConflict())
+                .andExpect(content().string(containsString(Messages.PLAYLIST_STALE)))
+                .andExpect(content().string(containsString("Refresh &amp; Reapply")))
+                .andExpect(content().string(containsString("Clone as New Playlist")))
+                // The name the rename was reaching for becomes the copy's name.
+                .andExpect(content().string(containsString("Evening tea")));
+    }
+
+    /** BR-11 is about the requester's own edits; publishing has none to carry. */
+    @Test
+    void aStalePublishOffersRefreshButNotClone() throws Exception {
+        willThrow(new StalePlaylistException(5L, 3, 7))
+                .given(playlistService).publish(5L, 3, 1L);
+        given(playlistService.inspect(5L)).willReturn(draft("Morning coffee"));
+
+        mockMvc.perform(post("/playlists/5/publish")
+                        .param("expectedVersion", "3")
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(status().isConflict())
+                .andExpect(content().string(containsString("Refresh &amp; Reapply")))
+                .andExpect(content().string(org.hamcrest.Matchers.not(
+                        containsString("Clone as New Playlist"))));
+    }
+
+    @Test
+    void aStaleSongRemovalOffersACloneThatKeepsTheSongId() throws Exception {
+        willThrow(new StalePlaylistException(5L, 3, 7))
+                .given(playlistService).removeSong(5L, 3, 42L, 1L);
+        given(playlistService.inspect(5L)).willReturn(draft("Morning coffee"));
+
+        mockMvc.perform(post("/playlists/5/songs/42/remove")
+                        .param("expectedVersion", "3")
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(status().isConflict())
+                .andExpect(content().string(containsString("/playlists/5/clone-on-conflict")))
+                .andExpect(content().string(containsString("name=\"songId\"")))
+                .andExpect(content().string(containsString("REMOVE_SONG")));
+    }
+
+    @Test
+    void cloningOnConflictOpensTheNewDraft() throws Exception {
+        Playlist copy = draft("Morning coffee (copy)");
+        ReflectionTestUtils.setField(copy, "id", 11L);
+        given(playlistService.cloneOnConflict(eq(5L), eq("Morning coffee (copy)"), eq(1L),
+                org.mockito.ArgumentMatchers.any())).willReturn(copy);
+
+        mockMvc.perform(post("/playlists/5/clone-on-conflict")
+                        .param("name", "Morning coffee (copy)")
+                        .param("kind", "REMOVE_SONG")
+                        .param("songId", "42")
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(redirectedUrl("/playlists/11"))
+                .andExpect(flash().attribute("flash", Messages.PLAYLIST_CLONED_FROM_CONFLICT));
+
+        then(playlistService).should().cloneOnConflict(eq(5L), eq("Morning coffee (copy)"), eq(1L),
+                org.mockito.ArgumentMatchers.any());
+    }
+
+    /** UC-19 E2: cloning from a source that has since gone reads as missing. */
+    @Test
+    void cloningFromADeletedSourceIsNotFound() throws Exception {
+        given(playlistService.cloneOnConflict(eq(5L), eq("Morning coffee (copy)"), eq(1L),
+                org.mockito.ArgumentMatchers.any()))
+                .willThrow(new PlaylistNotFoundException(5L));
+
+        mockMvc.perform(post("/playlists/5/clone-on-conflict")
+                        .param("name", "Morning coffee (copy)")
+                        .param("kind", "MOVE_SONG")
+                        .param("songId", "42")
+                        .param("up", "true")
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(status().isNotFound());
+    }
+
+    /** The copy needs a free name; a taken one comes back to the same screen. */
+    @Test
+    void aTakenNameOnACloneStaysOnTheConflictScreen() throws Exception {
+        given(playlistService.inspect(5L)).willReturn(draft("Morning coffee"));
+        given(playlistService.cloneOnConflict(eq(5L), eq("Launch party"), eq(1L),
+                org.mockito.ArgumentMatchers.any()))
+                .willThrow(new DuplicatePlaylistNameException("Launch party"));
+
+        mockMvc.perform(post("/playlists/5/clone-on-conflict")
+                        .param("name", "Launch party")
+                        .param("kind", "REMOVE_SONG")
+                        .param("songId", "42")
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(status().isConflict())
+                .andExpect(content().string(containsString(Messages.PLAYLIST_NAME_TAKEN)));
+    }
+
+    /** The song left the catalog between the conflict and the clone. */
+    @Test
+    void aCloneOfASongThatHasSinceGoneStaysOnTheConflictScreen() throws Exception {
+        given(playlistService.inspect(5L)).willReturn(draft("Morning coffee"));
+        given(playlistService.cloneOnConflict(eq(5L), eq("Morning coffee (copy)"), eq(1L),
+                org.mockito.ArgumentMatchers.any()))
+                .willThrow(new SongNotFoundException(42L));
+
+        mockMvc.perform(post("/playlists/5/clone-on-conflict")
+                        .param("name", "Morning coffee (copy)")
+                        .param("kind", "ADD_SONG")
+                        .param("songId", "42")
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(status().isConflict())
+                .andExpect(content().string(containsString(Messages.SONG_NOT_FOUND)));
+    }
+
+    /** A hand built clone of a lifecycle action has nothing to carry over. */
+    @Test
+    void cloningANonContentEditIsRefused() throws Exception {
+        mockMvc.perform(post("/playlists/5/clone-on-conflict")
+                        .param("name", "Morning coffee (copy)")
+                        .param("kind", "PUBLISH")
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .with(csrf()))
+                .andExpect(status().isNotFound());
+    }
+
+    /** The forms have to submit the version, or nothing above can fire. */
+    @Test
+    void theDetailFormsCarryTheVersionTheyWereRenderedAt() throws Exception {
+        given(playlistService.songs(5L, 1L)).willReturn(List.of(
+                new PlaylistSong(5L, song(42L, "Ice Cream", 213), 1)));
+
+        mockMvc.perform(get("/playlists/5").with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("name=\"expectedVersion\"")))
+                .andExpect(content().string(containsString("data-playlist-version")));
     }
 
     private static PlaylistSummary summary(Long id, String name, PlaylistStatus status,

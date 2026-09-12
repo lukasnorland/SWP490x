@@ -1,6 +1,7 @@
 package com.funix.swp490x.mrs.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.funix.swp490x.mrs.domain.Playlist;
 import com.funix.swp490x.mrs.domain.PlaylistSong;
@@ -53,33 +54,105 @@ class PlaylistOrderingTest {
     void songsAppendInOrderAndSurviveMovesAndRemovals() {
         Playlist playlist = playlistService.create(ownerId, "Ordering check");
         Long id = playlist.getId();
-        songIds.forEach(songId -> playlistService.addSong(id, songId, ownerId));
+        songIds.forEach(songId -> playlistService.addSong(id, version(id), songId, ownerId));
 
         assertThat(positions(id)).containsExactly(1, 2, 3, 4);
         assertThat(titles(id)).containsExactly("First", "Second", "Third", "Fourth");
 
-        playlistService.move(id, songIds.get(2), true, ownerId);
+        playlistService.move(id, version(id), songIds.get(2), true, ownerId);
         assertThat(positions(id)).containsExactly(1, 2, 3, 4);
         assertThat(titles(id)).containsExactly("First", "Third", "Second", "Fourth");
 
-        playlistService.move(id, songIds.get(0), false, ownerId);
+        playlistService.move(id, version(id), songIds.get(0), false, ownerId);
         assertThat(titles(id)).containsExactly("Third", "First", "Second", "Fourth");
 
         // The gap has to close, or the next append reuses a taken position.
-        playlistService.removeSong(id, songIds.get(0), ownerId);
+        playlistService.removeSong(id, version(id), songIds.get(0), ownerId);
         assertThat(positions(id)).containsExactly(1, 2, 3);
         assertThat(titles(id)).containsExactly("Third", "Second", "Fourth");
 
-        playlistService.addSong(id, songIds.get(0), ownerId);
+        playlistService.addSong(id, version(id), songIds.get(0), ownerId);
         assertThat(positions(id)).containsExactly(1, 2, 3, 4);
         assertThat(titles(id)).containsExactly("Third", "Second", "Fourth", "First");
+    }
+
+    /**
+     * DC-11: a new playlist is v1, and each accepted change adds exactly one.
+     * Hibernate would otherwise seed a primitive at 0, and the number is what
+     * the conflict screen shows the person who lost the race.
+     */
+    @Test
+    void aNewPlaylistStartsAtVersionOneAndCountsUpByOne() {
+        Playlist playlist = playlistService.create(ownerId, "Ordering check");
+        Long id = playlist.getId();
+
+        assertThat(version(id)).isEqualTo(1);
+
+        playlistService.addSong(id, 1, songIds.get(0), ownerId);
+        assertThat(version(id)).isEqualTo(2);
+
+        playlistService.rename(id, 2, "Ordering check renamed", ownerId);
+        assertThat(version(id)).isEqualTo(3);
+    }
+
+    /**
+     * BR-06 against a real database: the version has to actually move on every
+     * accepted write, or the check would pass forever and the second writer
+     * would silently win.
+     */
+    @Test
+    void everyAcceptedChangeMovesTheVersionAndAStaleOneIsRefused() {
+        Playlist playlist = playlistService.create(ownerId, "Ordering check");
+        Long id = playlist.getId();
+
+        int afterCreate = version(id);
+        playlistService.addSong(id, afterCreate, songIds.get(0), ownerId);
+        int afterAdd = version(id);
+        assertThat(afterAdd).isGreaterThan(afterCreate);
+
+        playlistService.rename(id, afterAdd, "Ordering check renamed", ownerId);
+        int afterRename = version(id);
+        assertThat(afterRename).isGreaterThan(afterAdd);
+
+        // Someone else already saved at afterRename, so this one is the loser.
+        assertThatThrownBy(() ->
+                playlistService.rename(id, afterAdd, "Too late", ownerId))
+                .isInstanceOf(StalePlaylistException.class);
+        assertThat(playlistService.view(id, ownerId).getName()).isEqualTo("Ordering check renamed");
+    }
+
+    /**
+     * UC-19 A2: the rejected change lands on a copy the requester owns and the
+     * playlist they collided with is untouched (POST-1, AC-04).
+     */
+    @Test
+    void aCloneOnConflictCarriesTheChangeAndLeavesTheSourceAlone() {
+        Playlist playlist = playlistService.create(ownerId, "Ordering check");
+        Long id = playlist.getId();
+        playlistService.addSong(id, version(id), songIds.get(0), ownerId);
+        playlistService.addSong(id, version(id), songIds.get(1), ownerId);
+
+        Playlist copy = playlistService.cloneOnConflict(id, "Ordering check copy", ownerId,
+                PendingEdit.addSongs(List.of(songIds.get(2))));
+
+        assertThat(titles(copy.getId())).containsExactly("First", "Second", "Third");
+        assertThat(titles(id)).containsExactly("First", "Second");
+        assertThat(copy.getOwnerId()).isEqualTo(ownerId);
+        assertThat(copy.getStatus()).isEqualTo(PlaylistStatus.DRAFT);
+    }
+
+    private int version(Long playlistId) {
+        entityManager.flush();
+        entityManager.clear();
+        return playlistService.view(playlistId, ownerId).getVersion();
     }
 
     /** The list and dialog queries are native, so nothing parses them at boot. */
     @Test
     void theNativeVisibilityQueriesReturnTheOwnersPlaylists() {
         Playlist playlist = playlistService.create(ownerId, "Ordering check");
-        playlistService.addSong(playlist.getId(), songIds.get(0), ownerId);
+        playlistService.addSong(playlist.getId(), version(playlist.getId()), songIds.get(0),
+                ownerId);
         entityManager.flush();
 
         assertThat(playlistService.search(ownerId, null, null, 0).getContent())
@@ -105,16 +178,17 @@ class PlaylistOrderingTest {
     @Test
     void publishThenUnpublishFlipsTheLock() {
         Playlist playlist = playlistService.create(ownerId, "Ordering check");
-        playlistService.addSong(playlist.getId(), songIds.get(0), ownerId);
+        Long id = playlist.getId();
+        playlistService.addSong(id, version(id), songIds.get(0), ownerId);
 
-        playlistService.publish(playlist.getId(), ownerId);
+        playlistService.publish(id, version(id), ownerId);
         assertThat(playlistService.view(playlist.getId(), ownerId).isPublished()).isTrue();
         entityManager.flush();
         assertThat(playlistService.searchPublished(null, null, 0).getContent())
                 .extracting(PublishedPlaylistCard::name)
                 .contains("Ordering check");
 
-        playlistService.unpublish(playlist.getId(), ownerId);
+        playlistService.unpublish(id, version(id), ownerId);
         assertThat(playlistService.view(playlist.getId(), ownerId).isPublished()).isFalse();
         entityManager.flush();
         assertThat(playlistService.searchPublished(null, null, 0).getContent())

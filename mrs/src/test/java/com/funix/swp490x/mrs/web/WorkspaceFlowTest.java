@@ -183,23 +183,25 @@ class WorkspaceFlowTest {
     @Test
     void unpublishFromTheWorkspaceReturnsToTheList() throws Exception {
         mockMvc.perform(post("/playlists/7/unpublish")
+                        .param("expectedVersion", "1")
                         .param("returnTo", "/workspace")
                         .with(user(principal(Role.CONTENT_DESIGNER)))
                         .with(csrf()))
                 .andExpect(redirectedUrl(Routes.WORKSPACE));
 
-        then(playlistService).should().unpublish(7L, 1L);
+        then(playlistService).should().unpublish(7L, 1, 1L);
     }
 
     @Test
     void anAdminUnpublishFromTheWorkspaceReturnsToTheList() throws Exception {
         mockMvc.perform(post("/playlists/7/unpublish")
+                        .param("expectedVersion", "1")
                         .param("returnTo", "/workspace")
                         .with(user(principal(Role.ADMIN)))
                         .with(csrf()))
                 .andExpect(redirectedUrl(Routes.WORKSPACE));
 
-        then(playlistService).should().unpublish(7L, 1L);
+        then(playlistService).should().unpublish(7L, 1, 1L);
     }
 
     private static PublishedPlaylistCard card(String name) {

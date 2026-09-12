@@ -18,6 +18,7 @@
                 data-rename-playlist
                 th:data-playlist-id="${playlist.id}"
                 th:data-playlist-name="${playlist.name}"
+                th:data-playlist-version="${playlist.version}"
                 th:aria-label="|Rename ${playlist.name}|">
           <svg th:replace="~{fragments/icons :: icon('pencil', 'icon--sm')}"></svg>
         </button>
@@ -53,6 +54,7 @@
       <!-- BR-05: publishing needs at least one song. Owner or ADMIN. -->
       <form th:if="${canPublish}" th:action="@{|/playlists/${playlist.id}/publish|}" method="post"
             class="mb-0">
+        <input type="hidden" name="expectedVersion" th:value="${playlist.version}">
         <input type="hidden" name="returnTo" th:if="${collaboratorReturnTo != null}"
                th:value="${collaboratorReturnTo}">
         <button type="submit" class="btn btn-primary" th:disabled="${entries.isEmpty()}"
@@ -67,6 +69,7 @@
 
       <form th:if="${canUnpublish}"
             th:action="@{|/playlists/${playlist.id}/unpublish|}" method="post" class="mb-0">
+        <input type="hidden" name="expectedVersion" th:value="${playlist.version}">
         <input type="hidden" name="returnTo" th:if="${collaboratorReturnTo != null}"
                th:value="${collaboratorReturnTo}">
         <button type="submit" class="btn btn-primary"
@@ -78,6 +81,7 @@
 
       <form th:if="${inspecting != true and canDelete}" th:action="@{|/playlists/${playlist.id}/delete|}" method="post"
             class="mb-0">
+        <input type="hidden" name="expectedVersion" th:value="${playlist.version}">
         <button type="submit" class="btn btn-ghost"
                 onclick="return confirm('Delete this playlist? The songs stay in the catalog.');">
           <svg th:replace="~{fragments/icons :: icon('trash-2', 'icon--sm')}"></svg>
@@ -176,6 +180,7 @@
                   <!-- Reordering renumbers 1..N atomically (FT-06 AC-03, DC-04). -->
                   <form th:action="@{|/playlists/${playlist.id}/songs/${entry.song.id}/move|}"
                         method="post">
+                    <input type="hidden" name="expectedVersion" th:value="${playlist.version}">
                     <input type="hidden" name="direction" value="up">
                     <button type="submit" class="btn btn-icon" title="Move up"
                             th:disabled="${entry.position == 1}">
@@ -185,6 +190,7 @@
                   </form>
                   <form th:action="@{|/playlists/${playlist.id}/songs/${entry.song.id}/move|}"
                         method="post">
+                    <input type="hidden" name="expectedVersion" th:value="${playlist.version}">
                     <input type="hidden" name="direction" value="down">
                     <button type="submit" class="btn btn-icon" title="Move down"
                             th:disabled="${entry.position == entries.size()}">
@@ -194,6 +200,7 @@
                   </form>
                   <form th:action="@{|/playlists/${playlist.id}/songs/${entry.song.id}/remove|}"
                         method="post">
+                    <input type="hidden" name="expectedVersion" th:value="${playlist.version}">
                     <button type="submit" class="btn btn-icon" title="Remove from playlist">
                       <svg th:replace="~{fragments/icons :: icon('circle-minus', 'icon--sm')}"></svg>
                       <span class="visually-hidden">Remove</span>
@@ -230,6 +237,7 @@
             <form th:if="${canManageCollaborators}"
                   th:action="@{|/playlists/${playlist.id}/collaborators/${person.id()}/remove|}"
                   method="post" class="mb-0">
+              <input type="hidden" name="expectedVersion" th:value="${playlist.version}">
               <input type="hidden" name="returnTo" th:value="${collaboratorReturnTo}">
               <button type="submit" class="btn btn-ghost btn-sm">Remove</button>
             </form>
@@ -243,6 +251,7 @@
         <form th:if="${canManageCollaborators}"
               th:action="@{|/playlists/${playlist.id}/collaborators|}" method="post"
               class="d-flex flex-wrap align-items-end gap-2 mb-0">
+          <input type="hidden" name="expectedVersion" th:value="${playlist.version}">
           <input type="hidden" name="returnTo" th:value="${collaboratorReturnTo}">
           <div class="flex-grow-1">
             <label class="form-label" for="collaboratorUserId">Add a Content Designer</label>

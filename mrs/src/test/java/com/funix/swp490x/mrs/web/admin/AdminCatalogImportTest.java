@@ -379,7 +379,7 @@ class AdminCatalogImportTest {
     void catalogOffersTheAddToPlaylistColumn() throws Exception {
         showing(song("Ice Cream", "Sugar Blizz"));
         given(playlistService.editableDrafts(7L))
-                .willReturn(List.of(new PlaylistOption(3L, "Morning coffee", 2)));
+                .willReturn(List.of(new PlaylistOption(3L, "Morning coffee", 2, 5)));
 
         mockMvc.perform(get(Routes.ADMIN_CATALOG).with(user(admin())))
                 .andExpect(status().isOk())

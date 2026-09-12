@@ -5,6 +5,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.inOrder;
@@ -67,7 +68,7 @@ class PlaylistServiceTest {
         given(songRepository.findById(42L)).willReturn(Optional.of(song(42L)));
         given(playlistSongRepository.findMaxPosition(7L)).willReturn(3);
 
-        service.addSong(7L, 42L, 1L);
+        service.addSong(7L, 1, 42L, 1L);
 
         ArgumentCaptor<PlaylistSong> saved = ArgumentCaptor.forClass(PlaylistSong.class);
         then(playlistSongRepository).should().save(saved.capture());
@@ -84,7 +85,7 @@ class PlaylistServiceTest {
         given(songRepository.findById(42L)).willReturn(Optional.of(song(42L)));
         given(playlistSongRepository.findMaxPosition(7L)).willReturn(0);
 
-        service.addSong(7L, 42L, 1L);
+        service.addSong(7L, 1, 42L, 1L);
 
         ArgumentCaptor<PlaylistSong> saved = ArgumentCaptor.forClass(PlaylistSong.class);
         then(playlistSongRepository).should().save(saved.capture());
@@ -96,7 +97,7 @@ class PlaylistServiceTest {
         visible(playlist(7L, PlaylistStatus.DRAFT));
         given(playlistSongRepository.existsByIdPlaylistIdAndIdSongId(7L, 42L)).willReturn(true);
 
-        assertThatThrownBy(() -> service.addSong(7L, 42L, 1L))
+        assertThatThrownBy(() -> service.addSong(7L, 1, 42L, 1L))
                 .isInstanceOf(DuplicatePlaylistSongException.class);
 
         then(playlistSongRepository).should(never()).save(any());
@@ -107,7 +108,7 @@ class PlaylistServiceTest {
     void addSongRefusesAPublishedPlaylist() {
         visible(playlist(7L, PlaylistStatus.PUBLISHED));
 
-        assertThatThrownBy(() -> service.addSong(7L, 42L, 1L))
+        assertThatThrownBy(() -> service.addSong(7L, 1, 42L, 1L))
                 .isInstanceOf(PlaylistLockedException.class);
 
         then(playlistSongRepository).should(never()).save(any());
@@ -119,7 +120,7 @@ class PlaylistServiceTest {
                 .willReturn(Optional.of(playlist(7L, PlaylistStatus.DRAFT)));
         given(playlistRepository.countVisibleTo(7L, 99L)).willReturn(0L);
 
-        assertThatThrownBy(() -> service.addSong(7L, 42L, 99L))
+        assertThatThrownBy(() -> service.addSong(7L, 1, 42L, 99L))
                 .isInstanceOf(PlaylistNotFoundException.class);
     }
 
@@ -134,7 +135,7 @@ class PlaylistServiceTest {
         given(playlistSongRepository.findByIdPlaylistIdAndIdSongId(7L, 42L))
                 .willReturn(Optional.of(new PlaylistSong(7L, song(42L), 2)));
 
-        service.removeSong(7L, 42L, 1L);
+        service.removeSong(7L, 1, 42L, 1L);
 
         InOrder order = inOrder(playlistSongRepository);
         order.verify(playlistSongRepository).deleteSong(7L, 42L);
@@ -149,7 +150,7 @@ class PlaylistServiceTest {
                 .willReturn(Optional.of(new PlaylistSong(7L, song(42L), 3)));
         given(playlistSongRepository.findMaxPosition(7L)).willReturn(4);
 
-        service.move(7L, 42L, true, 1L);
+        service.move(7L, 1, 42L, true, 1L);
 
         InOrder order = inOrder(playlistSongRepository);
         order.verify(playlistSongRepository).moveOne(7L, 3, PARK);
@@ -164,7 +165,7 @@ class PlaylistServiceTest {
         given(playlistSongRepository.findByIdPlaylistIdAndIdSongId(7L, 42L))
                 .willReturn(Optional.of(new PlaylistSong(7L, song(42L), 1)));
 
-        service.move(7L, 42L, true, 1L);
+        service.move(7L, 1, 42L, true, 1L);
 
         then(playlistSongRepository).should(never()).moveOne(any(), any(Integer.class),
                 any(Integer.class));
@@ -177,7 +178,7 @@ class PlaylistServiceTest {
                 .willReturn(Optional.of(new PlaylistSong(7L, song(42L), 4)));
         given(playlistSongRepository.findMaxPosition(7L)).willReturn(4);
 
-        service.move(7L, 42L, false, 1L);
+        service.move(7L, 1, 42L, false, 1L);
 
         then(playlistSongRepository).should(never()).moveOne(any(), any(Integer.class),
                 any(Integer.class));
@@ -190,7 +191,7 @@ class PlaylistServiceTest {
                 .willReturn(Optional.of(playlist(7L, PlaylistStatus.DRAFT)));
         given(playlistSongRepository.countByIdPlaylistId(7L)).willReturn(0L);
 
-        assertThatThrownBy(() -> service.publish(7L, 1L))
+        assertThatThrownBy(() -> service.publish(7L, 1, 1L))
                 .isInstanceOf(InvalidPlaylistStateException.class);
     }
 
@@ -199,7 +200,7 @@ class PlaylistServiceTest {
     void deleteRefusesAPublishedPlaylist() {
         visible(playlist(7L, PlaylistStatus.PUBLISHED));
 
-        assertThatThrownBy(() -> service.delete(7L, 1L))
+        assertThatThrownBy(() -> service.delete(7L, 1, 1L))
                 .isInstanceOf(InvalidPlaylistStateException.class);
 
         then(playlistRepository).should(never()).delete(any());
@@ -234,7 +235,7 @@ class PlaylistServiceTest {
         Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
         visible(playlist);
 
-        service.rename(7L, "  Evening tea  ", 1L);
+        service.rename(7L, 1, "  Evening tea  ", 1L);
 
         assertThat(playlist.getName()).isEqualTo("Evening tea");
         then(playlistRepository).should().save(playlist);
@@ -244,7 +245,7 @@ class PlaylistServiceTest {
     void renameRefusesAPublishedPlaylist() {
         visible(playlist(7L, PlaylistStatus.PUBLISHED));
 
-        assertThatThrownBy(() -> service.rename(7L, "Evening tea", 1L))
+        assertThatThrownBy(() -> service.rename(7L, 1, "Evening tea", 1L))
                 .isInstanceOf(PlaylistLockedException.class);
     }
 
@@ -252,7 +253,7 @@ class PlaylistServiceTest {
     void renameRefusesABlankName() {
         visible(playlist(7L, PlaylistStatus.DRAFT));
 
-        assertThatThrownBy(() -> service.rename(7L, "   ", 1L))
+        assertThatThrownBy(() -> service.rename(7L, 1, "   ", 1L))
                 .isInstanceOf(InvalidPlaylistStateException.class);
     }
 
@@ -271,7 +272,7 @@ class PlaylistServiceTest {
         visible(playlist(7L, PlaylistStatus.DRAFT));
         given(playlistRepository.existsByNameAndIdNot("Launch party", 7L)).willReturn(true);
 
-        assertThatThrownBy(() -> service.rename(7L, "Launch party", 1L))
+        assertThatThrownBy(() -> service.rename(7L, 1, "Launch party", 1L))
                 .isInstanceOf(DuplicatePlaylistNameException.class);
     }
 
@@ -284,7 +285,7 @@ class PlaylistServiceTest {
         given(playlistSongRepository.findOrdered(7L)).willReturn(List.of(
                 new PlaylistSong(7L, first, 1),
                 new PlaylistSong(7L, second, 2)));
-        stubNewDraft(11L, 3L);
+        stubNewDraft(11L);
         given(playlistSongRepository.existsByIdPlaylistIdAndIdSongId(eq(11L), any()))
                 .willReturn(false);
         given(songRepository.findById(42L)).willReturn(Optional.of(first));
@@ -363,8 +364,12 @@ class PlaylistServiceTest {
         given(playlistRepository.countVisibleTo(playlist.getId(), 1L)).willReturn(1L);
     }
 
-    /** The copy {@link PlaylistService#create} persists, then {@code addSong} reloads. */
-    private void stubNewDraft(Long copyId, Long ownerId) {
+    /**
+     * The copy {@link PlaylistService#create} persists. Filling it needs no
+     * further read: the songs go onto the entity already in hand, which is also
+     * why a brand-new playlist has no version to check.
+     */
+    private void stubNewDraft(Long copyId) {
         given(playlistRepository.save(any(Playlist.class))).willAnswer(invocation -> {
             Playlist saved = invocation.getArgument(0);
             if (saved.getId() == null) {
@@ -372,12 +377,6 @@ class PlaylistServiceTest {
             }
             return saved;
         });
-        given(playlistRepository.findById(copyId)).willAnswer(invocation -> {
-            Playlist copy = new Playlist("Morning coffee (copy)", ownerId);
-            ReflectionTestUtils.setField(copy, "id", copyId);
-            return Optional.of(copy);
-        });
-        given(playlistRepository.countVisibleTo(copyId, ownerId)).willReturn(1L);
     }
 
     private static Playlist playlist(Long id, PlaylistStatus status) {
@@ -385,6 +384,13 @@ class PlaylistServiceTest {
         playlist.setStatus(status);
         playlist.touch(1L);
         ReflectionTestUtils.setField(playlist, "id", id);
+        return playlist;
+    }
+
+    /** A Draft that has already been saved a few times, for the BR-06 checks. */
+    private static Playlist atVersion(int version) {
+        Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
+        ReflectionTestUtils.setField(playlist, "version", version);
         return playlist;
     }
 
@@ -473,7 +479,7 @@ class PlaylistServiceTest {
         given(userRepository.findById(15L)).willReturn(Optional.of(designer(15L)));
         given(playlistRepository.countCollaboratorGrant(7L, 15L)).willReturn(0L);
 
-        service.grant(7L, 15L, 1L);
+        service.grant(7L, 1, 15L, 1L);
 
         then(playlistRepository).should().insertCollaboratorGrant(7L, 15L, 1L);
         ArgumentCaptor<AuditLog> audit = ArgumentCaptor.forClass(AuditLog.class);
@@ -488,7 +494,7 @@ class PlaylistServiceTest {
         given(userRepository.findById(15L)).willReturn(Optional.of(designer(15L)));
         given(playlistRepository.countVisibleTo(7L, 15L)).willReturn(1L);
 
-        assertThatThrownBy(() -> service.grant(7L, 99L, 15L))
+        assertThatThrownBy(() -> service.grant(7L, 1, 99L, 15L))
                 .isInstanceOf(InvalidCollaboratorException.class);
 
         then(playlistRepository).should(never()).insertCollaboratorGrant(any(), any(), any());
@@ -502,7 +508,7 @@ class PlaylistServiceTest {
         customer.setRole(Role.CUSTOMER);
         given(userRepository.findById(15L)).willReturn(Optional.of(customer));
 
-        assertThatThrownBy(() -> service.grant(7L, 15L, 1L))
+        assertThatThrownBy(() -> service.grant(7L, 1, 15L, 1L))
                 .isInstanceOf(InvalidCollaboratorException.class);
 
         then(playlistRepository).should(never()).insertCollaboratorGrant(any(), any(), any());
@@ -515,7 +521,7 @@ class PlaylistServiceTest {
         given(userRepository.findById(15L)).willReturn(Optional.of(designer(15L)));
         given(playlistRepository.countCollaboratorGrant(7L, 15L)).willReturn(1L);
 
-        assertThatThrownBy(() -> service.grant(7L, 15L, 1L))
+        assertThatThrownBy(() -> service.grant(7L, 1, 15L, 1L))
                 .isInstanceOf(DuplicateCollaboratorException.class);
 
         then(playlistRepository).should(never()).insertCollaboratorGrant(any(), any(), any());
@@ -531,7 +537,7 @@ class PlaylistServiceTest {
         given(playlistSongRepository.findMaxPosition(7L)).willReturn(0);
 
         assertThat(service.view(7L, 15L)).isSameAs(playlist);
-        service.addSong(7L, 42L, 15L);
+        service.addSong(7L, 1, 42L, 15L);
 
         then(playlistSongRepository).should().save(any(PlaylistSong.class));
     }
@@ -542,7 +548,7 @@ class PlaylistServiceTest {
         given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
         given(playlistRepository.countVisibleTo(7L, 15L)).willReturn(1L);
 
-        assertThatThrownBy(() -> service.delete(7L, 15L))
+        assertThatThrownBy(() -> service.delete(7L, 1, 15L))
                 .isInstanceOf(InvalidCollaboratorException.class);
 
         then(playlistRepository).should(never()).delete(any());
@@ -554,7 +560,7 @@ class PlaylistServiceTest {
         given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
         given(playlistRepository.countVisibleTo(7L, 15L)).willReturn(1L);
 
-        assertThatThrownBy(() -> service.publish(7L, 15L))
+        assertThatThrownBy(() -> service.publish(7L, 1, 15L))
                 .isInstanceOf(InvalidCollaboratorException.class);
 
         then(playlistRepository).should(never()).save(any());
@@ -566,7 +572,7 @@ class PlaylistServiceTest {
         given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
         given(playlistRepository.countVisibleTo(7L, 15L)).willReturn(1L);
 
-        assertThatThrownBy(() -> service.unpublish(7L, 15L))
+        assertThatThrownBy(() -> service.unpublish(7L, 1, 15L))
                 .isInstanceOf(InvalidCollaboratorException.class);
 
         then(playlistRepository).should(never()).save(any());
@@ -579,7 +585,7 @@ class PlaylistServiceTest {
         given(userRepository.findById(99L)).willReturn(Optional.of(admin(99L)));
         given(playlistSongRepository.countByIdPlaylistId(7L)).willReturn(1L);
 
-        service.publish(7L, 99L);
+        service.publish(7L, 1, 99L);
 
         assertThat(playlist.getStatus()).isEqualTo(PlaylistStatus.PUBLISHED);
         then(playlistRepository).should().save(playlist);
@@ -591,7 +597,7 @@ class PlaylistServiceTest {
         given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
         given(userRepository.findById(99L)).willReturn(Optional.of(admin(99L)));
 
-        service.unpublish(7L, 99L);
+        service.unpublish(7L, 1, 99L);
 
         assertThat(playlist.getStatus()).isEqualTo(PlaylistStatus.DRAFT);
         then(playlistRepository).should().save(playlist);
@@ -773,7 +779,7 @@ class PlaylistServiceTest {
 
     @Test
     void createWithSongs_shouldNumberPositionsContiguously() {
-        stubNewDraft(20L, 1L);
+        stubNewDraft(20L);
         given(playlistSongRepository.existsByIdPlaylistIdAndIdSongId(eq(20L), any()))
                 .willReturn(false);
         given(songRepository.findById(1L)).willReturn(Optional.of(song(1L)));
@@ -805,7 +811,7 @@ class PlaylistServiceTest {
 
     @Test
     void createWithSongs_whenListHasDuplicate_shouldKeepFirstOccurrence() {
-        stubNewDraft(20L, 1L);
+        stubNewDraft(20L);
         given(playlistSongRepository.existsByIdPlaylistIdAndIdSongId(20L, 42L))
                 .willReturn(false, true);
         given(songRepository.findById(42L)).willReturn(Optional.of(song(42L)));
@@ -822,7 +828,7 @@ class PlaylistServiceTest {
         visible(playlist);
         String name = "a".repeat(100);
 
-        service.rename(7L, "  " + name + "  ", 1L);
+        service.rename(7L, 1, "  " + name + "  ", 1L);
 
         assertThat(playlist.getName()).isEqualTo(name);
     }
@@ -833,7 +839,7 @@ class PlaylistServiceTest {
         given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
         given(playlistRepository.countVisibleTo(7L, 15L)).willReturn(1L);
 
-        service.rename(7L, "Evening tea", 15L);
+        service.rename(7L, 1, "Evening tea", 15L);
 
         assertThat(playlist.getName()).isEqualTo("Evening tea");
         then(playlistRepository).should().save(playlist);
@@ -846,7 +852,7 @@ class PlaylistServiceTest {
         given(playlistSongRepository.findByIdPlaylistIdAndIdSongId(7L, 42L))
                 .willReturn(Optional.of(new PlaylistSong(7L, song(42L), 1)));
 
-        service.removeSong(7L, 42L, 1L);
+        service.removeSong(7L, 1, 42L, 1L);
 
         then(playlistSongRepository).should().deleteSong(7L, 42L);
         assertThat(playlist.getStatus()).isEqualTo(PlaylistStatus.DRAFT);
@@ -858,7 +864,7 @@ class PlaylistServiceTest {
         given(playlistSongRepository.findByIdPlaylistIdAndIdSongId(7L, 42L))
                 .willReturn(Optional.empty());
 
-        assertThatThrownBy(() -> service.removeSong(7L, 42L, 1L))
+        assertThatThrownBy(() -> service.removeSong(7L, 1, 42L, 1L))
                 .isInstanceOf(SongNotFoundException.class);
     }
 
@@ -866,7 +872,7 @@ class PlaylistServiceTest {
     void removeSong_whenPublished_shouldThrowLocked() {
         visible(playlist(7L, PlaylistStatus.PUBLISHED));
 
-        assertThatThrownBy(() -> service.removeSong(7L, 42L, 1L))
+        assertThatThrownBy(() -> service.removeSong(7L, 1, 42L, 1L))
                 .isInstanceOf(PlaylistLockedException.class);
     }
 
@@ -879,7 +885,7 @@ class PlaylistServiceTest {
                 .willReturn(Optional.of(new PlaylistSong(7L, song(42L), 1)));
         given(playlistSongRepository.findMaxPosition(7L)).willReturn(2);
 
-        service.move(7L, 42L, false, 15L);
+        service.move(7L, 1, 42L, false, 15L);
 
         then(playlistSongRepository).should().moveOne(7L, 1, PARK);
         then(playlistSongRepository).should().moveOne(7L, 2, 1);
@@ -890,7 +896,7 @@ class PlaylistServiceTest {
     void move_whenPublished_shouldThrowLocked() {
         visible(playlist(7L, PlaylistStatus.PUBLISHED));
 
-        assertThatThrownBy(() -> service.move(7L, 42L, false, 1L))
+        assertThatThrownBy(() -> service.move(7L, 1, 42L, false, 1L))
                 .isInstanceOf(PlaylistLockedException.class);
     }
 
@@ -899,7 +905,7 @@ class PlaylistServiceTest {
         Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
         visible(playlist);
 
-        service.delete(7L, 1L);
+        service.delete(7L, 1, 1L);
 
         then(playlistSongRepository).should().deleteAllOf(7L);
         then(playlistRepository).should().delete(playlist);
@@ -911,7 +917,7 @@ class PlaylistServiceTest {
         given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
         given(playlistSongRepository.countByIdPlaylistId(7L)).willReturn(2L);
 
-        service.publish(7L, 1L);
+        service.publish(7L, 1, 1L);
 
         assertThat(playlist.getStatus()).isEqualTo(PlaylistStatus.PUBLISHED);
         assertThat(playlist.getPublishedAt()).isNotNull();
@@ -924,7 +930,7 @@ class PlaylistServiceTest {
         given(playlistRepository.findById(7L))
                 .willReturn(Optional.of(playlist(7L, PlaylistStatus.PUBLISHED)));
 
-        assertThatThrownBy(() -> service.publish(7L, 1L))
+        assertThatThrownBy(() -> service.publish(7L, 1, 1L))
                 .isInstanceOf(PlaylistLockedException.class);
 
         then(playlistRepository).should(never()).save(any());
@@ -935,7 +941,7 @@ class PlaylistServiceTest {
         Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
         given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
 
-        service.unpublish(7L, 1L);
+        service.unpublish(7L, 1, 1L);
 
         assertThat(playlist.getStatus()).isEqualTo(PlaylistStatus.DRAFT);
         then(playlistRepository).should().save(playlist);
@@ -950,8 +956,8 @@ class PlaylistServiceTest {
         given(songRepository.findById(42L)).willReturn(Optional.of(song(42L)));
         given(playlistSongRepository.findMaxPosition(7L)).willReturn(0);
 
-        service.unpublish(7L, 1L);
-        service.addSong(7L, 42L, 1L);
+        service.unpublish(7L, 1, 1L);
+        service.addSong(7L, 1, 42L, 1L);
 
         assertThat(playlist.getStatus()).isEqualTo(PlaylistStatus.DRAFT);
         then(playlistSongRepository).should().save(any(PlaylistSong.class));
@@ -1043,7 +1049,7 @@ class PlaylistServiceTest {
         deactivated.setStatus(UserStatus.DEACTIVATED);
         given(userRepository.findById(15L)).willReturn(Optional.of(deactivated));
 
-        assertThatThrownBy(() -> service.grant(7L, 15L, 1L))
+        assertThatThrownBy(() -> service.grant(7L, 1, 15L, 1L))
                 .isInstanceOf(InvalidCollaboratorException.class);
 
         then(playlistRepository).should(never()).insertCollaboratorGrant(any(), any(), any());
@@ -1057,7 +1063,7 @@ class PlaylistServiceTest {
         given(userRepository.findById(15L)).willReturn(Optional.of(designer(15L)));
         given(playlistRepository.countCollaboratorGrant(7L, 15L)).willReturn(0L);
 
-        service.grant(7L, 15L, 99L);
+        service.grant(7L, 1, 15L, 99L);
 
         then(playlistRepository).should().insertCollaboratorGrant(7L, 15L, 99L);
     }
@@ -1068,7 +1074,7 @@ class PlaylistServiceTest {
                 .willReturn(Optional.of(playlist(7L, PlaylistStatus.DRAFT)));
         given(playlistRepository.countCollaboratorGrant(7L, 15L)).willReturn(1L);
 
-        service.revoke(7L, 15L, 1L);
+        service.revoke(7L, 1, 15L, 1L);
 
         then(playlistRepository).should().deleteCollaboratorGrant(7L, 15L);
     }
@@ -1080,7 +1086,7 @@ class PlaylistServiceTest {
         given(userRepository.findById(15L)).willReturn(Optional.of(designer(15L)));
         given(playlistRepository.countVisibleTo(7L, 15L)).willReturn(1L);
 
-        assertThatThrownBy(() -> service.revoke(7L, 20L, 15L))
+        assertThatThrownBy(() -> service.revoke(7L, 1, 20L, 15L))
                 .isInstanceOf(InvalidCollaboratorException.class);
 
         then(playlistRepository).should(never()).deleteCollaboratorGrant(any(), any());
@@ -1092,8 +1098,152 @@ class PlaylistServiceTest {
                 .willReturn(Optional.of(playlist(7L, PlaylistStatus.DRAFT)));
         given(playlistRepository.countCollaboratorGrant(7L, 15L)).willReturn(0L);
 
-        assertThatThrownBy(() -> service.revoke(7L, 15L, 1L))
+        assertThatThrownBy(() -> service.revoke(7L, 1, 15L, 1L))
                 .isInstanceOf(InvalidCollaboratorException.class);
+    }
+
+    /**
+     * BR-06 across the whole mutation surface: whoever submits the older
+     * version is refused, and refused before anything is written, so the save
+     * that got there first stands untouched.
+     */
+    @Test
+    void rename_whenVersionStale_shouldThrowWithoutWriting() {
+        visible(atVersion(4));
+
+        assertThatThrownBy(() -> service.rename(7L, 3, "Evening tea", 1L))
+                .isInstanceOf(StalePlaylistException.class);
+
+        then(playlistRepository).should(never()).save(any());
+    }
+
+    @Test
+    void addSongs_whenVersionStale_shouldThrowWithoutWriting() {
+        visible(atVersion(4));
+
+        assertThatThrownBy(() -> service.addSongs(7L, 3, List.of(42L), 1L))
+                .isInstanceOf(StalePlaylistException.class);
+
+        then(playlistSongRepository).should(never()).save(any());
+        then(playlistRepository).should(never()).save(any());
+    }
+
+    @Test
+    void removeSong_whenVersionStale_shouldThrowWithoutWriting() {
+        visible(atVersion(4));
+
+        assertThatThrownBy(() -> service.removeSong(7L, 3, 42L, 1L))
+                .isInstanceOf(StalePlaylistException.class);
+
+        then(playlistSongRepository).should(never()).deleteSong(any(), any());
+    }
+
+    @Test
+    void move_whenVersionStale_shouldThrowWithoutWriting() {
+        visible(atVersion(4));
+
+        assertThatThrownBy(() -> service.move(7L, 3, 42L, true, 1L))
+                .isInstanceOf(StalePlaylistException.class);
+
+        then(playlistSongRepository).should(never()).moveOne(any(), anyInt(), anyInt());
+    }
+
+    @Test
+    void delete_whenVersionStale_shouldThrowWithoutWriting() {
+        visible(atVersion(4));
+
+        assertThatThrownBy(() -> service.delete(7L, 3, 1L))
+                .isInstanceOf(StalePlaylistException.class);
+
+        then(playlistSongRepository).should(never()).deleteAllOf(any());
+        then(playlistRepository).should(never()).delete(any());
+    }
+
+    @Test
+    void publish_whenVersionStale_shouldThrowWithoutWriting() {
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(atVersion(4)));
+
+        assertThatThrownBy(() -> service.publish(7L, 3, 1L))
+                .isInstanceOf(StalePlaylistException.class);
+
+        then(playlistRepository).should(never()).save(any());
+    }
+
+    @Test
+    void unpublish_whenVersionStale_shouldThrowWithoutWriting() {
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(atVersion(4)));
+
+        assertThatThrownBy(() -> service.unpublish(7L, 3, 1L))
+                .isInstanceOf(StalePlaylistException.class);
+
+        then(playlistRepository).should(never()).save(any());
+    }
+
+    @Test
+    void grant_whenVersionStale_shouldThrowWithoutWriting() {
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(atVersion(4)));
+
+        assertThatThrownBy(() -> service.grant(7L, 3, 15L, 1L))
+                .isInstanceOf(StalePlaylistException.class);
+
+        then(playlistRepository).should(never()).insertCollaboratorGrant(any(), any(), any());
+    }
+
+    @Test
+    void revoke_whenVersionStale_shouldThrowWithoutWriting() {
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(atVersion(4)));
+
+        assertThatThrownBy(() -> service.revoke(7L, 3, 15L, 1L))
+                .isInstanceOf(StalePlaylistException.class);
+
+        then(playlistRepository).should(never()).deleteCollaboratorGrant(any(), any());
+    }
+
+    /** The exception carries both versions so the screen can report them (NAC-02). */
+    @Test
+    void aStaleSave_shouldReportBothVersions() {
+        visible(atVersion(4));
+
+        assertThatThrownBy(() -> service.rename(7L, 3, "Evening tea", 1L))
+                .isInstanceOfSatisfying(StalePlaylistException.class, e -> {
+                    assertThat(e.getPlaylistId()).isEqualTo(7L);
+                    assertThat(e.getExpectedVersion()).isEqualTo(3);
+                    assertThat(e.getCurrentVersion()).isEqualTo(4);
+                });
+    }
+
+    /**
+     * A collaborator grant is not part of the content, but it decides who may
+     * change the content, so revoking one has to move the version too.
+     */
+    @Test
+    void revoke_shouldTouchThePlaylistSoTheVersionMoves() {
+        Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
+        given(playlistRepository.countCollaboratorGrant(7L, 15L)).willReturn(1L);
+
+        service.revoke(7L, 1, 15L, 1L);
+
+        then(playlistRepository).should().save(playlist);
+    }
+
+    /** UC-19 A2: the copy carries the change and the source is only read. */
+    @Test
+    void cloneOnConflict_whenRemoveWasRejected_shouldLeaveTheSongOutOfTheCopy() {
+        Playlist source = playlist(7L, PlaylistStatus.DRAFT);
+        visible(source);
+        given(playlistSongRepository.findOrdered(7L)).willReturn(List.of(
+                new PlaylistSong(7L, song(42L), 1),
+                new PlaylistSong(7L, song(43L), 2)));
+        given(playlistRepository.save(any(Playlist.class)))
+                .willAnswer(call -> call.getArgument(0));
+        given(songRepository.findById(43L)).willReturn(Optional.of(song(43L)));
+
+        service.cloneOnConflict(7L, "Morning coffee (copy)", 1L, PendingEdit.removeSong(42L));
+
+        // Only the song that survives the pending removal is copied across.
+        then(songRepository).should(never()).findById(42L);
+        then(songRepository).should().findById(43L);
     }
 
     @Test

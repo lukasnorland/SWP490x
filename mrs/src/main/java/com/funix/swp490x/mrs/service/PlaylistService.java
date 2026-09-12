@@ -24,6 +24,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -40,6 +41,11 @@ import org.springframework.util.StringUtils;
  * or hold a collaborator grant (BR-03), and a Published playlist is read-only
  * until the owner or an administrator unpublishes it (DC-08). Publish and
  * unpublish are owner or ADMIN; delete is owner-only.
+ *
+ * <p>Every mutation takes the version the caller last saw and is refused with
+ * {@link StalePlaylistException} if the stored one has moved on (UC-19,
+ * BR-06). Nothing is merged: the second writer picks refresh or clone on the
+ * conflict screen (BR-11), so neither person's work disappears (NFR-A02).
  */
 @Service
 public class PlaylistService {
@@ -175,8 +181,8 @@ public class PlaylistService {
         }
         Map<Long, PlaylistOption> byId = new LinkedHashMap<>();
         for (SummaryRow row : playlistRepository.findSummaries(ids)) {
-            byId.put(row.getId(),
-                    new PlaylistOption(row.getId(), row.getName(), count(row.getSongCount())));
+            byId.put(row.getId(), new PlaylistOption(row.getId(), row.getName(),
+                    count(row.getSongCount()), row.getVersion() == null ? 0 : row.getVersion()));
         }
         return ids.stream().map(byId::get).filter(Objects::nonNull).toList();
     }
@@ -288,12 +294,13 @@ public class PlaylistService {
 
     /** Draft only — a Published playlist is locked until unpublished (DC-08). */
     @Transactional
-    public void rename(Long playlistId, String name, Long userId) {
+    public void rename(Long playlistId, int expectedVersion, String name, Long userId) {
         Playlist playlist = editable(playlistId, userId);
+        requireVersion(playlist, expectedVersion);
         String clean = requireAvailableName(name, playlistId);
         playlist.setName(clean);
         playlist.touch(userId);
-        playlistRepository.save(playlist);
+        saveChecked(playlist, expectedVersion);
         audit(userId, AuditLog.ACTION_PLAYLIST_RENAME, playlistId,
                 "{\"name\":\"" + escape(clean) + "\"}");
     }
@@ -330,19 +337,57 @@ public class PlaylistService {
     @Transactional
     public Playlist createWithSongs(Long userId, String name, List<Long> songIds) {
         Playlist playlist = create(userId, name);
-        if (songIds != null) {
-            for (Long songId : songIds) {
-                if (songId == null) {
-                    continue;
+        fill(playlist, songIds, userId);
+        return playlist;
+    }
+
+    /**
+     * The clone half of UC-19: the requester's rejected change lands in a new
+     * Draft of their own instead of being thrown away (BR-11, NFR-A02). The
+     * source is read, never written (POST-1, AC-04).
+     *
+     * <p>The copy starts from the source as it stands now and then takes the
+     * pending change on top. There is no version history to rebuild the
+     * snapshot the requester was looking at, and a copy of stale content would
+     * be the silent data loss BR-11 exists to prevent. No lineage is recorded
+     * either way (UC-19 A2) — the unique name is what tells the copies apart.
+     *
+     * @throws PlaylistNotFoundException when the source has since been deleted,
+     *     rather than leaving an orphaned copy behind (UC-19 E2, NAC-05)
+     */
+    @Transactional
+    public Playlist cloneOnConflict(Long sourceId, String name, Long userId, PendingEdit edit) {
+        Playlist source = duplicatable(sourceId, userId);
+        List<Long> songIds = new java.util.ArrayList<>(
+                playlistSongRepository.findOrdered(source.getId()).stream()
+                        .map(entry -> entry.getSong().getId())
+                        .toList());
+        if (edit != null && edit.kind() == PendingEdit.Kind.REMOVE_SONG) {
+            songIds.remove(edit.songId());
+        }
+
+        Playlist copy = create(userId, name);
+        fill(copy, songIds, userId);
+
+        if (edit != null) {
+            switch (edit.kind()) {
+                case ADD_SONG -> fill(copy, edit.songIds(), userId);
+                case MOVE_SONG -> {
+                    // The song may have been the very thing the other person
+                    // removed; a copy without it is still worth having.
+                    boolean present = playlistSongRepository
+                            .existsByIdPlaylistIdAndIdSongId(copy.getId(), edit.songId());
+                    if (present && swapWithNeighbour(copy, edit.songId(), edit.up())) {
+                        copy.touch(userId);
+                    }
                 }
-                try {
-                    addSong(playlist.getId(), songId, userId);
-                } catch (DuplicatePlaylistSongException ignored) {
-                    // Same song twice in the selection — the first insert stands.
+                default -> {
+                    // REMOVE_SONG was applied by leaving the song out above, and
+                    // RENAME is already the name this copy was created under.
                 }
             }
         }
-        return playlist;
+        return copy;
     }
 
     /**
@@ -353,39 +398,50 @@ public class PlaylistService {
      *     has nowhere to go
      */
     @Transactional
-    public void addSong(Long playlistId, Long songId, Long userId) {
+    public void addSong(Long playlistId, int expectedVersion, Long songId, Long userId) {
         Playlist playlist = editable(playlistId, userId);
-        if (playlistSongRepository.existsByIdPlaylistIdAndIdSongId(playlistId, songId)) {
-            throw new DuplicatePlaylistSongException(playlistId, songId);
+        requireVersion(playlist, expectedVersion);
+        appendSong(playlist, songId, userId);
+        saveChecked(playlist, expectedVersion);
+    }
+
+    /**
+     * A multi-select from Search, appended in one go. One version check for the
+     * whole batch: adding them one call at a time would move the version past
+     * the one the dialog submitted and make the second song conflict with the
+     * first.
+     *
+     * @return how many were appended — the rest were already in the playlist
+     */
+    @Transactional
+    public int addSongs(Long playlistId, int expectedVersion, List<Long> songIds, Long userId) {
+        Playlist playlist = editable(playlistId, userId);
+        requireVersion(playlist, expectedVersion);
+        int added = 0;
+        for (Long songId : songIds == null ? List.<Long>of() : songIds) {
+            if (songId == null) {
+                continue;
+            }
+            try {
+                appendSong(playlist, songId, userId);
+                added++;
+            } catch (DuplicatePlaylistSongException ignored) {
+                // Already in the playlist — the flash counts what changed.
+            }
         }
-        Song song = songRepository.findById(songId)
-                .orElseThrow(() -> new SongNotFoundException(songId));
-
-        int position = playlistSongRepository.findMaxPosition(playlistId) + 1;
-        playlistSongRepository.save(new PlaylistSong(playlistId, song, position));
-
-        playlist.touch(userId);
-        playlistRepository.save(playlist);
-        audit(userId, AuditLog.ACTION_PLAYLIST_SONG_ADD, playlistId,
-                "{\"songId\":" + songId + ",\"position\":" + position + "}");
+        if (added > 0) {
+            saveChecked(playlist, expectedVersion);
+        }
+        return added;
     }
 
     /** Removes a song and closes the gap so positions stay contiguous 1..N. */
     @Transactional
-    public void removeSong(Long playlistId, Long songId, Long userId) {
+    public void removeSong(Long playlistId, int expectedVersion, Long songId, Long userId) {
         Playlist playlist = editable(playlistId, userId);
-        PlaylistSong entry = playlistSongRepository
-                .findByIdPlaylistIdAndIdSongId(playlistId, songId)
-                .orElseThrow(() -> new SongNotFoundException(songId));
-        int removed = entry.getPosition();
-
-        playlistSongRepository.deleteSong(playlistId, songId);
-        closeGapAfter(playlistId, removed);
-
-        playlist.touch(userId);
-        playlistRepository.save(playlist);
-        audit(userId, AuditLog.ACTION_PLAYLIST_SONG_REMOVE, playlistId,
-                "{\"songId\":" + songId + "}");
+        requireVersion(playlist, expectedVersion);
+        dropSong(playlist, songId, userId);
+        saveChecked(playlist, expectedVersion);
     }
 
     /**
@@ -393,65 +449,61 @@ public class PlaylistService {
      * a double-click on the first row is not an error.
      */
     @Transactional
-    public void move(Long playlistId, Long songId, boolean up, Long userId) {
+    public void move(Long playlistId, int expectedVersion, Long songId, boolean up, Long userId) {
         Playlist playlist = editable(playlistId, userId);
-        PlaylistSong entry = playlistSongRepository
-                .findByIdPlaylistIdAndIdSongId(playlistId, songId)
-                .orElseThrow(() -> new SongNotFoundException(songId));
-
-        int from = entry.getPosition();
-        int to = up ? from - 1 : from + 1;
-        if (to < 1 || to > playlistSongRepository.findMaxPosition(playlistId)) {
+        requireVersion(playlist, expectedVersion);
+        if (!swapWithNeighbour(playlist, songId, up)) {
             return;
         }
-
-        // Park, then swap, then bring back — a direct swap would collide on
-        // uq_playlistsong_position halfway through (see PARK_OFFSET).
-        playlistSongRepository.moveOne(playlistId, from, PlaylistSongRepository.PARK_OFFSET);
-        playlistSongRepository.moveOne(playlistId, to, from);
-        playlistSongRepository.moveOne(playlistId, PlaylistSongRepository.PARK_OFFSET, to);
-
         playlist.touch(userId);
-        playlistRepository.save(playlist);
+        saveChecked(playlist, expectedVersion);
     }
 
     /** Draft only, and only the owner — a collaborator cannot throw it away. */
     @Transactional
-    public void delete(Long playlistId, Long userId) {
+    public void delete(Long playlistId, int expectedVersion, Long userId) {
         Playlist playlist = visible(playlistId, userId);
         if (playlist.isPublished()) {
             throw new InvalidPlaylistStateException("Playlist " + playlistId + " is published");
         }
         requireOwner(playlist, userId, "Only the owner can delete this playlist");
+        requireVersion(playlist, expectedVersion);
         playlistSongRepository.deleteAllOf(playlistId);
-        playlistRepository.delete(playlist);
+        try {
+            playlistRepository.delete(playlist);
+            playlistRepository.flush();
+        } catch (OptimisticLockingFailureException e) {
+            throw new StalePlaylistException(playlistId, expectedVersion, playlist.getVersion());
+        }
         audit(userId, AuditLog.ACTION_PLAYLIST_DELETE, playlistId, null);
     }
 
     /** Needs at least one song (BR-05). Collaborators cannot publish; ADMIN can. */
     @Transactional
-    public void publish(Long playlistId, Long userId) {
+    public void publish(Long playlistId, int expectedVersion, Long userId) {
         Playlist playlist = forLifecycle(playlistId, userId);
         if (playlist.isPublished()) {
             throw new PlaylistLockedException(playlistId);
         }
+        requireVersion(playlist, expectedVersion);
         if (playlistSongRepository.countByIdPlaylistId(playlistId) == 0) {
             throw new InvalidPlaylistStateException("Playlist " + playlistId + " has no songs");
         }
         playlist.setStatus(PlaylistStatus.PUBLISHED);
         playlist.setPublishedAt(LocalDateTime.now());
         playlist.touch(userId);
-        playlistRepository.save(playlist);
+        saveChecked(playlist, expectedVersion);
         audit(userId, AuditLog.ACTION_PLAYLIST_PUBLISH, playlistId, null);
     }
 
     @Transactional
-    public void unpublish(Long playlistId, Long userId) {
+    public void unpublish(Long playlistId, int expectedVersion, Long userId) {
         Playlist playlist = forLifecycle(playlistId, userId);
+        requireVersion(playlist, expectedVersion);
         playlist.setStatus(PlaylistStatus.DRAFT);
         playlist.setPublishedAt(null);
         playlist.touch(userId);
-        playlistRepository.save(playlist);
+        saveChecked(playlist, expectedVersion);
         audit(userId, AuditLog.ACTION_PLAYLIST_UNPUBLISH, playlistId, null);
     }
 
@@ -554,8 +606,9 @@ public class PlaylistService {
     }
 
     @Transactional
-    public void grant(Long playlistId, Long userId, Long actorId) {
+    public void grant(Long playlistId, int expectedVersion, Long userId, Long actorId) {
         Playlist playlist = managed(playlistId, actorId);
+        requireVersion(playlist, expectedVersion);
         if (Objects.equals(playlist.getOwnerId(), userId)) {
             throw new InvalidCollaboratorException("The owner is already on this playlist");
         }
@@ -571,18 +624,23 @@ public class PlaylistService {
         }
         playlistRepository.insertCollaboratorGrant(playlistId, userId, actorId);
         playlist.touch(actorId);
-        playlistRepository.save(playlist);
+        saveChecked(playlist, expectedVersion);
         audit(actorId, AuditLog.ACTION_PLAYLIST_COLLABORATOR_ADD, playlistId,
                 "{\"userId\":" + userId + "}");
     }
 
     @Transactional
-    public void revoke(Long playlistId, Long userId, Long actorId) {
-        managed(playlistId, actorId);
+    public void revoke(Long playlistId, int expectedVersion, Long userId, Long actorId) {
+        Playlist playlist = managed(playlistId, actorId);
+        requireVersion(playlist, expectedVersion);
         if (playlistRepository.countCollaboratorGrant(playlistId, userId) == 0) {
             throw new InvalidCollaboratorException("That person is not a collaborator");
         }
         playlistRepository.deleteCollaboratorGrant(playlistId, userId);
+        // Touched like grant: dropping a collaborator changes who may edit, so
+        // it has to move the version other editors are checking against (BR-06).
+        playlist.touch(actorId);
+        saveChecked(playlist, expectedVersion);
         audit(actorId, AuditLog.ACTION_PLAYLIST_COLLABORATOR_REMOVE, playlistId,
                 "{\"userId\":" + userId + "}");
     }
@@ -605,6 +663,107 @@ public class PlaylistService {
                     .append(csvField(song.getSourceProvider())).append("\r\n");
         }
         return csv.toString();
+    }
+
+    /**
+     * Refuses the change when someone else has saved since the caller loaded
+     * the screen (BR-06). Checked before any write so the rejection costs
+     * nothing, and re-checked at flush time by {@link #saveChecked}.
+     */
+    private static void requireVersion(Playlist playlist, int expectedVersion) {
+        if (playlist.getVersion() != expectedVersion) {
+            throw new StalePlaylistException(
+                    playlist.getId(), expectedVersion, playlist.getVersion());
+        }
+    }
+
+    /**
+     * Flushes inside the method so a lost race surfaces here, while the
+     * controller can still offer refresh or clone. Left to the commit it would
+     * escape as a raw {@code OptimisticLockingFailureException} after the
+     * response was already on its way.
+     */
+    private void saveChecked(Playlist playlist, int expectedVersion) {
+        try {
+            playlistRepository.save(playlist);
+            playlistRepository.flush();
+        } catch (OptimisticLockingFailureException e) {
+            throw new StalePlaylistException(
+                    playlist.getId(), expectedVersion, playlist.getVersion());
+        }
+    }
+
+    /** Appends each song, skipping ones already present. */
+    private void fill(Playlist playlist, List<Long> songIds, Long userId) {
+        if (songIds == null) {
+            return;
+        }
+        for (Long songId : songIds) {
+            if (songId == null) {
+                continue;
+            }
+            try {
+                appendSong(playlist, songId, userId);
+            } catch (DuplicatePlaylistSongException ignored) {
+                // Same song twice in the selection — the first insert stands.
+            }
+        }
+    }
+
+    /**
+     * The insert behind {@link #addSong}, without the version check: callers
+     * that have just created the playlist have nobody to race with.
+     */
+    private void appendSong(Playlist playlist, Long songId, Long userId) {
+        Long playlistId = playlist.getId();
+        if (playlistSongRepository.existsByIdPlaylistIdAndIdSongId(playlistId, songId)) {
+            throw new DuplicatePlaylistSongException(playlistId, songId);
+        }
+        Song song = songRepository.findById(songId)
+                .orElseThrow(() -> new SongNotFoundException(songId));
+
+        int position = playlistSongRepository.findMaxPosition(playlistId) + 1;
+        playlistSongRepository.save(new PlaylistSong(playlistId, song, position));
+
+        playlist.touch(userId);
+        audit(userId, AuditLog.ACTION_PLAYLIST_SONG_ADD, playlistId,
+                "{\"songId\":" + songId + ",\"position\":" + position + "}");
+    }
+
+    private void dropSong(Playlist playlist, Long songId, Long userId) {
+        Long playlistId = playlist.getId();
+        PlaylistSong entry = playlistSongRepository
+                .findByIdPlaylistIdAndIdSongId(playlistId, songId)
+                .orElseThrow(() -> new SongNotFoundException(songId));
+        int removed = entry.getPosition();
+
+        playlistSongRepository.deleteSong(playlistId, songId);
+        closeGapAfter(playlistId, removed);
+
+        playlist.touch(userId);
+        audit(userId, AuditLog.ACTION_PLAYLIST_SONG_REMOVE, playlistId,
+                "{\"songId\":" + songId + "}");
+    }
+
+    /** @return false at either end of the list, where there is nothing to swap with */
+    private boolean swapWithNeighbour(Playlist playlist, Long songId, boolean up) {
+        Long playlistId = playlist.getId();
+        PlaylistSong entry = playlistSongRepository
+                .findByIdPlaylistIdAndIdSongId(playlistId, songId)
+                .orElseThrow(() -> new SongNotFoundException(songId));
+
+        int from = entry.getPosition();
+        int to = up ? from - 1 : from + 1;
+        if (to < 1 || to > playlistSongRepository.findMaxPosition(playlistId)) {
+            return false;
+        }
+
+        // Park, then swap, then bring back — a direct swap would collide on
+        // uq_playlistsong_position halfway through (see PARK_OFFSET).
+        playlistSongRepository.moveOne(playlistId, from, PlaylistSongRepository.PARK_OFFSET);
+        playlistSongRepository.moveOne(playlistId, to, from);
+        playlistSongRepository.moveOne(playlistId, PlaylistSongRepository.PARK_OFFSET, to);
+        return true;
     }
 
     /**
