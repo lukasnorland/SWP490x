@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
+<!--/* Version Conflict Dialog (UC-19, BR-11). Rendered with HTTP 409 in place
+     of the usual redirect, because the change that was just refused is still
+     in hand here and a redirect would throw it away.
+
+     Model:
+       playlist        — the playlist as it stands now, at the winning version
+       expectedVersion — the version the requester submitted
+       pending         — PendingEdit; only a content edit offers a clone
+       suggestedName   — starting name for the copy
+       returnTo        — where Discard goes */-->
+<body>
+<div th:fragment="content">
+
+  <header class="d-flex flex-column gap-2 mb-xl">
+    <h1 class="mb-0">This playlist changed</h1>
+    <p class="small text-secondary mb-0">
+      <span class="text-body" th:text="${playlist.name}">Playlist</span> ·
+      you were editing
+      <span class="font-monospace">v<span th:text="${expectedVersion}">1</span></span>,
+      it is now
+      <span class="font-monospace">v<span th:text="${playlist.version}">2</span></span>
+      · last changed
+      <span th:text="${#temporals.format(playlist.lastModifiedAt, 'dd MMM yyyy HH:mm')}">01 Jan 2026 09:00</span>
+    </p>
+  </header>
+
+  <div class="d-flex flex-column gap-4">
+
+    <!-- MSG_014. Nothing was merged and nothing was overwritten (BR-06). -->
+    <div th:replace="~{fragments/components :: notice(${flashVariant}, 'alert-triangle', ${flash})}"></div>
+
+    <section class="card">
+      <div class="card-body d-flex flex-column gap-3">
+        <h2 class="h4 mb-0">Your change was not applied</h2>
+        <p class="mb-0" th:switch="${pending.kind.name()}">
+          <span th:case="'ADD_SONG'">Adding
+            <span th:text="${pending.songIds.size()}">1</span>
+            song(s) to this playlist.</span>
+          <span th:case="'REMOVE_SONG'">Removing a song from this playlist.</span>
+          <span th:case="'MOVE_SONG'">Moving a song
+            <span th:text="${pending.up} ? 'up' : 'down'">up</span> the running order.</span>
+          <span th:case="'RENAME'">Renaming it to
+            &ldquo;<span th:text="${pending.name}">New name</span>&rdquo;.</span>
+          <span th:case="'PUBLISH'">Publishing it to the Shared Workspace.</span>
+          <span th:case="'UNPUBLISH'">Returning it to Draft.</span>
+          <span th:case="'DELETE'">Deleting it.</span>
+          <span th:case="'GRANT'">Sharing edit rights.</span>
+          <span th:case="'REVOKE'">Removing a collaborator.</span>
+        </p>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-body d-flex flex-column gap-3">
+        <h2 class="h4 mb-0">Refresh &amp; Reapply</h2>
+        <p class="small text-secondary mb-0">
+          Open the playlist at its current version, see what changed, and make
+          your edit again on top of it.
+        </p>
+        <div>
+          <a class="btn btn-primary" th:href="@{|/playlists/${playlist.id}|}">
+            <svg th:replace="~{fragments/icons :: icon('refresh', 'icon--sm')}"></svg>
+            <span>Refresh &amp; Reapply</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!--/* Clone is for the requester's own in-progress content edit. Publish,
+           delete and the collaborator grants have nothing to carry into a
+           copy, so they get refresh alone. */-->
+    <section class="card" th:if="${pending.cloneable}">
+      <form class="card-body d-flex flex-column gap-3"
+            th:action="@{|/playlists/${playlist.id}/clone-on-conflict|}" method="post">
+        <input type="hidden" name="kind" th:value="${pending.kind.name()}">
+        <input type="hidden" name="up" th:value="${pending.up}">
+        <input type="hidden" name="returnTo" th:value="${returnTo}">
+        <input type="hidden" name="songId" th:each="one : ${pending.songIds}" th:value="${one}">
+
+        <h2 class="h4 mb-0">Clone as New Playlist</h2>
+        <p class="small text-secondary mb-0">
+          Take a copy of the playlist as it stands now, with your change applied
+          on top. The copy is a Draft you own; this playlist is left as it is.
+        </p>
+        <label class="form-label" for="conflictCloneName">Name</label>
+        <input class="form-control" type="text" id="conflictCloneName" name="name"
+               th:value="${suggestedName}" maxlength="200" required>
+        <p class="small text-secondary mb-0">Pick a name that is not already in use.</p>
+        <div>
+          <button type="submit" class="btn btn-primary">
+            <svg th:replace="~{fragments/icons :: icon('copy', 'icon--sm')}"></svg>
+            <span>Clone as New Playlist</span>
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <p class="small mb-0">
+      <!-- UC-19 E1: leaving discards the edit. Nothing is merged behind anyone's back. -->
+      <a th:href="${returnTo}">Discard my change and go back</a>
+    </p>
+
+  </div>
+
+</div>
+</body>
+</html>

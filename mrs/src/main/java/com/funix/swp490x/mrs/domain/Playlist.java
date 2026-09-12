@@ -58,10 +58,16 @@ public class Playlist {
     @Column(name = "published_at")
     private LocalDateTime publishedAt;
 
-    /** Optimistic locking (DC-02, BR-06). */
+    /**
+     * Optimistic locking (DC-02, BR-06). Seeded at 1 rather than the 0 a
+     * primitive would default to, because DC-11 counts playlist versions from
+     * 1 and the conflict screen shows this number to the person who lost the
+     * race. Hibernate keeps a non-negative value it finds here instead of
+     * reseeding, so the field initializer is all it takes.
+     */
     @Version
     @Column(nullable = false)
-    private int version;
+    private int version = 1;
 
     protected Playlist() {
     }
