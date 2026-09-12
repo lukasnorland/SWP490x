@@ -62,6 +62,10 @@ public final class Routes {
     public static final String WORKSPACE_PLAYLIST = "/workspace/{id}";
     /** P-05 My Profile & Playlist History. */
     public static final String PROFILE = "/profile";
+    /** P-05 / UC-05 — save a new display name without re-login. */
+    public static final String PROFILE_NAME = "/profile/name";
+    /** P-05 / UC-05 — change password from the profile (BR-12). */
+    public static final String PROFILE_PASSWORD = "/profile/password";
 
     /** P-06a Admin — User Management. */
     public static final String ADMIN_USERS = "/admin/users";

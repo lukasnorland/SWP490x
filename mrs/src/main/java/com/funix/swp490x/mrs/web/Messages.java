@@ -236,6 +236,15 @@ public final class Messages {
 
     public static final String SONGS_ADDED_TO_PLAYLIST = "Songs added to the playlist.";
 
+    /**
+     * Outcomes of P-05 / UC-05. The catalogue has no dedicated codes for the
+     * profile save, so these say what happened in the same voice.
+     */
+    public static final String PROFILE_NAME_SAVED = "Display name updated.";
+
+    public static final String PROFILE_PASSWORD_SAVED =
+            "Password updated. Use it the next time you sign in.";
+
     private Messages() {
     }
 }

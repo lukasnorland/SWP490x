@@ -16,6 +16,7 @@ import com.funix.swp490x.mrs.mail.NotificationService;
 import com.funix.swp490x.mrs.repository.UserRepository;
 import com.funix.swp490x.mrs.security.PasswordResetTokenService;
 import com.funix.swp490x.mrs.service.AuthService.AccountRequestStatus;
+import com.funix.swp490x.mrs.service.AuthService.DisplayNameResult;
 import com.funix.swp490x.mrs.service.AuthService.PasswordChangeResult;
 import com.funix.swp490x.mrs.service.AuthService.PasswordResetResult;
 import java.util.Optional;
@@ -320,6 +321,52 @@ class AuthServiceTest {
         assertThat(result.landingPath()).isEqualTo(Role.CONTENT_DESIGNER.getLandingPath());
         assertThat(user.isMustChangePassword()).isFalse();
         assertThat(user.getPasswordHash()).isEqualTo("{bcrypt}new");
+    }
+
+    @Test
+    void updateDisplayName_whenBlank_shouldRejectWithoutWriting() {
+        DisplayNameResult result = authService.updateDisplayName(EMAIL, "   ");
+
+        assertThat(result.succeeded()).isFalse();
+        assertThat(result.violations()).contains("Enter a display name");
+        then(userRepository).should(never()).save(any());
+    }
+
+    @Test
+    void updateDisplayName_whenLongerThanOneHundred_shouldReject() {
+        DisplayNameResult result = authService.updateDisplayName(EMAIL, "A".repeat(101));
+
+        assertThat(result.succeeded()).isFalse();
+        assertThat(result.violations()).anyMatch(v -> v.contains("at most"));
+        then(userRepository).should(never()).save(any());
+    }
+
+    @Test
+    void updateDisplayName_whenOneHundredCharacters_shouldAccept() {
+        User user = designer();
+        String name = "A".repeat(100);
+        given(userRepository.findByEmail(EMAIL)).willReturn(Optional.of(user));
+        given(userRepository.save(user)).willReturn(user);
+
+        DisplayNameResult result = authService.updateDisplayName(EMAIL, name);
+
+        assertThat(result.succeeded()).isTrue();
+        assertThat(user.getUsername()).isEqualTo(name);
+        assertThat(user.getRole()).isEqualTo(Role.CONTENT_DESIGNER);
+        assertThat(user.getEmail()).isEqualTo(EMAIL);
+    }
+
+    @Test
+    void updateDisplayName_whenPadded_shouldTrimAndSave() {
+        User user = designer();
+        given(userRepository.findByEmail(EMAIL)).willReturn(Optional.of(user));
+        given(userRepository.save(user)).willReturn(user);
+
+        DisplayNameResult result = authService.updateDisplayName(EMAIL, "  Nina Updated  ");
+
+        assertThat(result.succeeded()).isTrue();
+        assertThat(result.displayName()).isEqualTo("Nina Updated");
+        assertThat(user.getUsername()).isEqualTo("Nina Updated");
     }
 
     private static String pwd(int len) {

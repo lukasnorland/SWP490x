@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
-<!--/* P-05 My Profile & Playlist History — spec 4.8 (FT-02). */-->
+<!--/* P-05 My Profile & Playlist History — spec 4.8 (FT-02). UC-05 is Zone A. */-->
 <body>
 <div th:fragment="content">
 
@@ -13,17 +13,40 @@
 
   <div class="d-flex flex-column gap-4">
 
-    <!-- The identity half of Zone A is already backed by the authenticated
-         principal, so it renders for real. -->
+    <th:block th:if="${flash != null}">
+      <div th:replace="~{fragments/components :: notice(${flashVariant},
+          ${flashVariant == 'success'} ? 'circle-check' : 'alert-triangle', ${flash})}"></div>
+    </th:block>
+
     <section class="card card-narrow" th:if="${currentUser != null}">
       <div class="card-header">
         <h2 class="h3">Account</h2>
       </div>
       <div class="card-body d-flex flex-column gap-4">
-        <div class="d-flex flex-column gap-1">
-          <p class="label text-secondary">Display name</p>
-          <p th:text="${currentUser.displayName}">Name</p>
-        </div>
+
+        <th:block th:if="${nameViolations}">
+          <div class="alert alert-danger" role="alert">
+            <svg th:replace="~{fragments/icons :: icon('alert-triangle', 'icon--sm')}"></svg>
+            <div class="d-flex flex-column gap-2">
+              <p class="alert-heading">This name was not accepted</p>
+              <ul class="mb-0">
+                <li th:each="violation : ${nameViolations}" th:text="${violation}">Rule</li>
+              </ul>
+            </div>
+          </div>
+        </th:block>
+
+        <form th:action="@{/profile/name}" method="post" class="d-flex flex-column gap-3"
+              data-busy-label="Saving…">
+          <div>
+            <label class="form-label" for="displayName">Display name</label>
+            <input class="form-control" type="text" id="displayName" name="displayName"
+                   maxlength="100" required autocomplete="name"
+                   th:value="${submittedDisplayName != null ? submittedDisplayName : currentUser.displayName}">
+          </div>
+          <button type="submit" class="btn btn-primary align-self-start">Save name</button>
+        </form>
+
         <div class="d-flex flex-column gap-1">
           <p class="label text-secondary">Email</p>
           <p class="font-monospace" th:text="${currentUser.email}">email</p>
@@ -34,15 +57,71 @@
             <span class="badge badge-role" th:text="${currentUser.role.displayName}">ROLE</span>
           </p>
         </div>
+        <div class="d-flex flex-column gap-1">
+          <p class="label text-secondary">Account status</p>
+          <p>
+            <span class="badge"
+                  th:classappend="${currentUser.enabled} ? 'badge-active' : 'badge-deactivated'"
+                  th:text="${currentUser.enabled} ? 'ACTIVE' : 'DEACTIVATED'">ACTIVE</span>
+          </p>
+        </div>
         <p class="small text-secondary">
           Role and email are never self-editable — only an ADMIN can change them (BR-01).
         </p>
+
+        <hr class="my-0">
+
+        <div class="d-flex flex-column gap-2">
+          <h3 class="h4 mb-0">Change password</h3>
+          <p class="small text-secondary mb-0">
+            The new password must meet the same rules as a reset or first-login change (BR-12).
+          </p>
+        </div>
+
+        <th:block th:if="${violations}">
+          <div th:replace="~{fragments/components :: violations(${violations})}"></div>
+        </th:block>
+
+        <form th:action="@{/profile/password}" method="post" class="d-flex flex-column gap-4"
+              data-busy-label="Saving…">
+
+          <div>
+            <label class="form-label" for="currentPassword">Current password</label>
+            <input class="form-control" type="password" id="currentPassword" name="currentPassword"
+                   autocomplete="current-password" required>
+          </div>
+
+          <div>
+            <label class="form-label" for="password">New password</label>
+            <div class="input-group">
+              <input class="form-control" type="password" id="password" name="password"
+                     autocomplete="new-password" required>
+              <button type="button" class="btn btn-outline-secondary" data-password-toggle="password"
+                      aria-pressed="false" title="Show password">
+                <span class="visually-hidden">Show password</span>
+                <span data-when="hidden">
+                  <svg th:replace="~{fragments/icons :: icon('eye', 'icon--sm')}"></svg>
+                </span>
+                <span data-when="visible" hidden>
+                  <svg th:replace="~{fragments/icons :: icon('eye-off', 'icon--sm')}"></svg>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label class="form-label" for="confirmPassword">Confirm new password</label>
+            <input class="form-control" type="password" id="confirmPassword" name="confirmPassword"
+                   autocomplete="new-password" required>
+          </div>
+
+          <div th:replace="~{fragments/components :: passwordChecklist('password')}"></div>
+
+          <button type="submit" class="btn btn-primary align-self-start">Save password</button>
+        </form>
+
       </div>
     </section>
-
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A',
-        'Editable display name and change password',
-        'Display name becomes an editable input that reflects across the UI within 2 s without re-login (FT-02 AC-01). The change-password sub-form takes current, new and confirm with the same live BR-12 checklist as P-01.')}"></section>
 
     <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
         'Playlist history card',
