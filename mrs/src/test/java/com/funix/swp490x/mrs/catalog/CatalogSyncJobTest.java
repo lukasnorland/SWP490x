@@ -44,16 +44,13 @@ class CatalogSyncJobTest {
                 .run(context -> assertThat(context).hasSingleBean(CatalogSyncJob.class));
     }
 
-    /** Scheduling stays off unless the poller is wanted, so no scheduler runs. */
+    /**
+     * Scheduling stays on so the 12-month log purge can run. The poller is still
+     * gated by {@code mrs.catalog.sync.enabled} on {@link CatalogSyncJob}.
+     */
     @Test
-    void schedulingIsOnlyEnabledAlongsideTheJob() {
+    void schedulingIsEnabledEvenWhenThePollerIsOff() {
         contextRunner
-                .withUserConfiguration(SchedulingConfig.class)
-                .run(context -> assertThat(context)
-                        .doesNotHaveBean(ScheduledAnnotationBeanPostProcessor.class));
-
-        contextRunner
-                .withPropertyValues("mrs.catalog.sync.enabled=true")
                 .withUserConfiguration(SchedulingConfig.class)
                 .run(context -> assertThat(context)
                         .hasSingleBean(ScheduledAnnotationBeanPostProcessor.class));
