@@ -1,34 +1,241 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
-<!--/* P-06d Admin — System Settings — spec 4.12 (FT-09). */-->
+<!--/* P-06d Admin — System Settings — spec 4.12 (FT-09, UC-31). */-->
 <body>
 <div th:fragment="content">
 
   <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
-    <div class="d-flex flex-column gap-1">
-      <h1>System Settings</h1>
-      <p class="small text-secondary">
-        Every change is audited with actor, timestamp and before/after values (BR-10).
-      </p>
-    </div>
+    <h1>System Settings</h1>
   </header>
 
-  <div class="d-flex flex-column gap-4">
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone A',
-        'Search &amp; LLM',
-        'LLM API endpoint and key (masked), interpretation timeout (default 5 s, FT-04), default page size (20).')}"></section>
+  <th:block th:if="${flash != null and flashPlacement != 'actions'}">
+    <div th:replace="~{fragments/components :: notice(${flashVariant},
+        ${flashVariant == 'success'} ? 'circle-check' : (${flashVariant == 'info'} ? 'info' : 'alert-triangle'), ${flash})}"></div>
+  </th:block>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone B',
-        'Security',
-        'Session inactivity window (default 8 h), lockout threshold and window (5 attempts / 15 min), reset-link validity (30 min, BV-01). These currently live in application.properties and PasswordPolicy; this screen takes them over.')}"></section>
+  <form th:action="@{/admin/settings}" method="post" class="d-flex flex-column gap-4"
+        data-busy-label="Saving…">
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone C',
-        'Export',
-        'Pre-signed URL expiry (default 24 h, NFR-SEC06).')}"></section>
+    <section class="card">
+      <div class="card-body d-flex flex-column gap-3">
+        <div>
+          <h2 class="h5 mb-1">General configuration</h2>
+          <p class="small text-secondary mb-0">Session, lockout and password-reset windows.</p>
+        </div>
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="sessionInactivityHours">Session inactivity (hours)</label>
+            <input class="form-control" type="number" id="sessionInactivityHours"
+                   name="session.inactivity.hours" min="1" max="8" required
+                   th:classappend="${settingErrors.containsKey('session.inactivity.hours')} ? ' is-invalid'"
+                   th:value="${setting['session.inactivity.hours']}">
+            <div class="invalid-feedback"
+                 th:if="${settingErrors.containsKey('session.inactivity.hours')}"
+                 th:text="${settingErrors['session.inactivity.hours']}">Range</div>
+            <p class="form-text">1–8 hours. Cannot exceed the committed 8-hour window (BV-07).</p>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="lockoutThreshold">Login lockout threshold</label>
+            <input class="form-control" type="number" id="lockoutThreshold"
+                   name="login.lockout.threshold" min="1" max="20" required
+                   th:classappend="${settingErrors.containsKey('login.lockout.threshold')} ? ' is-invalid'"
+                   th:value="${setting['login.lockout.threshold']}">
+            <div class="invalid-feedback"
+                 th:if="${settingErrors.containsKey('login.lockout.threshold')}"
+                 th:text="${settingErrors['login.lockout.threshold']}">Range</div>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="lockoutWindowMinutes">Login lockout window (minutes)</label>
+            <input class="form-control" type="number" id="lockoutWindowMinutes"
+                   name="login.lockout.window.minutes" min="1" max="60" required
+                   th:classappend="${settingErrors.containsKey('login.lockout.window.minutes')} ? ' is-invalid'"
+                   th:value="${setting['login.lockout.window.minutes']}">
+            <div class="invalid-feedback"
+                 th:if="${settingErrors.containsKey('login.lockout.window.minutes')}"
+                 th:text="${settingErrors['login.lockout.window.minutes']}">Range</div>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="resetLinkMinutes">Password-reset link validity (minutes)</label>
+            <input class="form-control" type="number" id="resetLinkMinutes"
+                   name="password.reset.validity.minutes" min="5" max="120" required
+                   th:classappend="${settingErrors.containsKey('password.reset.validity.minutes')} ? ' is-invalid'"
+                   th:value="${setting['password.reset.validity.minutes']}">
+            <div class="invalid-feedback"
+                 th:if="${settingErrors.containsKey('password.reset.validity.minutes')}"
+                 th:text="${settingErrors['password.reset.validity.minutes']}">Range</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <section th:replace="~{fragments/components :: zonePlaceholder('Zone D',
-        'Save bar',
-        'Validates, applies and audits in one action.')}"></section>
+    <section class="card">
+      <div class="card-body d-flex flex-column gap-3">
+        <div>
+          <h2 class="h5 mb-1">LLM configuration</h2>
+        </div>
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label" for="llmModel">LLM model</label>
+            <select class="form-select" id="llmModel" name="llm.model" required
+                    th:classappend="${settingErrors.containsKey('llm.model')} ? ' is-invalid'">
+              <option th:each="model : ${llmModels}"
+                      th:value="${model.id}"
+                      th:text="${model.label}"
+                      th:selected="${model.id == setting['llm.model']}">Gemini 3.8 Flash</option>
+            </select>
+            <div class="invalid-feedback"
+                 th:if="${settingErrors.containsKey('llm.model')}"
+                 th:text="${settingErrors['llm.model']}">Required</div>
+          </div>
+          <div class="col-12 col-md-4">
+            <label class="form-label" for="llmTimeoutSeconds">Interpretation timeout (seconds)</label>
+            <input class="form-control" type="number" id="llmTimeoutSeconds"
+                   name="llm.timeout.seconds" min="1" max="30" required
+                   th:classappend="${settingErrors.containsKey('llm.timeout.seconds')} ? ' is-invalid'"
+                   th:value="${setting['llm.timeout.seconds']}">
+            <div class="invalid-feedback"
+                 th:if="${settingErrors.containsKey('llm.timeout.seconds')}"
+                 th:text="${settingErrors['llm.timeout.seconds']}">Range</div>
+          </div>
+          <div class="col-12 col-md-4">
+            <label class="form-label" for="llmMinQueryChars">Minimum query characters</label>
+            <input class="form-control" type="number" id="llmMinQueryChars"
+                   name="llm.min.query.chars" min="1" max="50" required
+                   th:classappend="${settingErrors.containsKey('llm.min.query.chars')} ? ' is-invalid'"
+                   th:value="${setting['llm.min.query.chars']}">
+            <div class="invalid-feedback"
+                 th:if="${settingErrors.containsKey('llm.min.query.chars')}"
+                 th:text="${settingErrors['llm.min.query.chars']}">Range</div>
+          </div>
+          <div class="col-12 col-md-4">
+            <label class="form-label" for="llmMaxQueryChars">Maximum query characters</label>
+            <input class="form-control" type="number" id="llmMaxQueryChars"
+                   name="llm.max.query.chars" min="50" max="500" required
+                   th:classappend="${settingErrors.containsKey('llm.max.query.chars')} ? ' is-invalid'"
+                   th:value="${setting['llm.max.query.chars']}">
+            <div class="invalid-feedback"
+                 th:if="${settingErrors.containsKey('llm.max.query.chars')}"
+                 th:text="${settingErrors['llm.max.query.chars']}">Range</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="settings-actions" class="d-flex flex-column gap-3">
+      <th:block th:if="${flash != null and flashPlacement == 'actions'}">
+        <div th:replace="~{fragments/components :: notice(${flashVariant},
+            ${flashVariant == 'success'} ? 'circle-check' : (${flashVariant == 'info'} ? 'info' : 'alert-triangle'), ${flash})}"></div>
+      </th:block>
+      <div class="d-flex justify-content-end gap-2">
+        <button type="submit" class="btn btn-outline-secondary"
+                th:formaction="@{/admin/settings/reset}" formnovalidate
+                data-busy-label="Resetting…">Reset</button>
+        <button type="submit" class="btn btn-primary" data-busy-label="Saving…">Save</button>
+      </div>
+    </div>
+  </form>
+
+  <section class="card mt-4">
+    <div class="card-body d-flex flex-column gap-3">
+      <div>
+        <h2 class="h5 mb-1">Catalog configuration</h2>
+        <p class="small text-secondary mb-0">
+          Providers appear in the Add Song dropdown. Media lands under
+          <code>song-data/audio/&lt;slug&gt;/</code> in the existing assets bucket —
+          a new provider does not create a new bucket.
+        </p>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Slug</th>
+              <th class="text-end">Songs</th>
+              <th class="text-end">Playlists</th>
+              <th class="text-end"> </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:if="${#lists.isEmpty(providers)}">
+              <td colspan="5" class="text-secondary">No providers registered yet.</td>
+            </tr>
+            <tr th:each="row : ${providers}">
+              <td th:text="${row.provider.name}">NCS</td>
+              <td><code th:text="${row.provider.slug}">ncs</code></td>
+              <td class="text-end" th:text="${row.songCount}">0</td>
+              <td class="text-end" th:text="${row.playlistCount}">0</td>
+              <td class="text-end">
+                <button type="button" class="btn btn-sm btn-outline-danger"
+                        data-bs-toggle="modal"
+                        th:attr="data-bs-target='#deleteProvider' + ${row.provider.id}">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <form th:action="@{/admin/settings/providers}" method="post"
+            class="row g-3 align-items-end" data-busy-label="Adding…">
+        <div class="col-12 col-md-5">
+          <label class="form-label" for="providerName">Provider name</label>
+          <input class="form-control" type="text" id="providerName" name="name" required maxlength="100"
+                 th:value="${submittedProviderName}">
+        </div>
+        <div class="col-12 col-md-5">
+          <label class="form-label" for="providerSlug">
+            S3 folder slug
+            <span class="fw-normal">(Lowercase letters, digits and hyphens. 2–40 characters.)</span>
+          </label>
+          <input class="form-control" type="text" id="providerSlug" name="slug" required
+                 maxlength="40" pattern="[a-z0-9-]{2,40}"
+                 placeholder="ncs"
+                 th:value="${submittedProviderSlug}">
+        </div>
+        <div class="col-12 col-md-2">
+          <button type="submit" class="btn btn-secondary w-100">Add provider</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <div th:each="row : ${providers}" class="modal fade"
+       th:id="'deleteProvider' + ${row.provider.id}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form th:action="@{/admin/settings/providers/{id}/delete(id=${row.provider.id})}" method="post">
+          <div class="modal-header">
+            <h2 class="modal-title h5">Delete <span th:text="${row.provider.name}">NCS</span></h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body d-flex flex-column gap-3">
+            <p class="mb-0">
+              This removes the provider, every song it owns (hosted audio, artwork and staged JSON),
+              leftover files under its slug, and detaches those songs from playlists.
+            </p>
+            <p class="mb-0">
+              <strong th:text="${row.songCount}">0</strong> songs in
+              <strong th:text="${row.playlistCount}">0</strong> playlists will be affected.
+            </p>
+            <div>
+              <label class="form-label" th:for="'confirm' + ${row.provider.id}">
+                Type <strong th:text="${row.provider.name}">NCS</strong> to confirm
+              </label>
+              <input class="form-control" type="text" name="confirmName" required
+                     th:id="'confirm' + ${row.provider.id}"
+                     autocomplete="off">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-danger">Delete provider</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 
 </div>

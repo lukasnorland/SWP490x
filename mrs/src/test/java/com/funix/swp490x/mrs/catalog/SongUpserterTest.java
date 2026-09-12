@@ -56,7 +56,7 @@ class SongUpserterTest {
         });
 
         upserter = new SongUpserter(songRepository, tagRepository, new SongJsonMapper(),
-                new CatalogProperties());
+                TestCatalogProviders.stub());
     }
 
     @Test

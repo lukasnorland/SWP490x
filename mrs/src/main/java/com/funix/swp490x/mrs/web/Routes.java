@@ -104,6 +104,14 @@ public final class Routes {
     public static final String ADMIN_CATALOG_TAG_SUGGEST = "/admin/catalog/tags/suggest";
     /** P-06d Admin — System Settings. */
     public static final String ADMIN_SETTINGS = "/admin/settings";
+    /** P-06d — persist General and LLM settings. */
+    public static final String ADMIN_SETTINGS_SAVE = "/admin/settings";
+    /** P-06d — restore General and LLM settings to their defaults. */
+    public static final String ADMIN_SETTINGS_RESET = "/admin/settings/reset";
+    /** P-06d — register a catalog provider. */
+    public static final String ADMIN_SETTINGS_PROVIDERS = "/admin/settings/providers";
+    /** P-06d — cascade-delete a catalog provider. */
+    public static final String ADMIN_SETTINGS_PROVIDER_DELETE = "/admin/settings/providers/{id}/delete";
     /** P-06e Admin — Audit & Recommendation Log. */
     public static final String ADMIN_LOGS = "/admin/logs";
 

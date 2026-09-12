@@ -53,10 +53,12 @@
             <div th:replace="~{fragments/components :: notice('danger', 'alert-triangle', 'Email or password is incorrect')}"></div>
           </th:block>
           <th:block th:if="${param.locked != null}">
-            <div th:replace="~{fragments/components :: notice('danger', 'lock', 'Too many attempts — try again in 15 minutes')}"></div>
+            <div th:replace="~{fragments/components :: notice('danger', 'lock',
+                |Too many attempts — try again in ${lockoutWindowMinutes} minutes|)}"></div>
           </th:block>
           <th:block th:if="${param.expired != null}">
-            <div th:replace="~{fragments/components :: notice('info', 'info', 'Your session expired after 8 hours of inactivity. Sign in again to continue.')}"></div>
+            <div th:replace="~{fragments/components :: notice('info', 'info',
+                |Your session expired after ${sessionInactivityHours} hours of inactivity. Sign in again to continue.|)}"></div>
           </th:block>
           <th:block th:if="${param.logout != null}">
             <div th:replace="~{fragments/components :: notice('info', 'info', 'You have been signed out.')}"></div>

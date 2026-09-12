@@ -112,6 +112,20 @@ class LocalDirectoryCatalogObjectStoreTest {
     }
 
     @Test
+    void listKeysReturnsEveryObjectUnderAPrefix() throws Exception {
+        store.putBinary("song-data/audio/ncs/id-1.mp3", "audio/mpeg",
+                new java.io.ByteArrayInputStream(new byte[] {1}), 1);
+        store.putBinary("song-data/audio/ncs/id-2.mp3", "audio/mpeg",
+                new java.io.ByteArrayInputStream(new byte[] {2}), 1);
+        store.putBinary("song-data/audio/epidemic/other.mp3", "audio/mpeg",
+                new java.io.ByteArrayInputStream(new byte[] {3}), 1);
+
+        assertThat(store.listKeys("song-data/audio/ncs/"))
+                .containsExactly("song-data/audio/ncs/id-1.mp3", "song-data/audio/ncs/id-2.mp3");
+        assertThat(store.listKeys("song-data/audio/missing/")).isEmpty();
+    }
+
+    @Test
     void listOfAMissingDirectoryIsEmptyRatherThanAnError() {
         LocalDirectoryCatalogObjectStore missing =
                 new LocalDirectoryCatalogObjectStore(root.resolve("does-not-exist"));

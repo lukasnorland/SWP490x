@@ -49,6 +49,17 @@ public class AuditLog {
 
     public static final String ENTITY_PLAYLIST = "PLAYLIST";
 
+    /** P-06d / UC-31 — operational parameters and the registered provider list. */
+    public static final String ACTION_SETTINGS_UPDATE = "SETTINGS_UPDATE";
+
+    public static final String ACTION_PROVIDER_CREATE = "PROVIDER_CREATE";
+
+    public static final String ACTION_PROVIDER_DELETE = "PROVIDER_DELETE";
+
+    public static final String ENTITY_SYSTEM_SETTING = "SYSTEM_SETTING";
+
+    public static final String ENTITY_CATALOG_PROVIDER = "CATALOG_PROVIDER";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -3,6 +3,7 @@ package com.funix.swp490x.mrs.catalog;
 import com.funix.swp490x.mrs.catalog.ImportSummary.SkippedRow;
 import com.funix.swp490x.mrs.domain.ImportTrigger;
 import com.funix.swp490x.mrs.repository.SongRepository;
+import com.funix.swp490x.mrs.service.CatalogProviderService;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -70,6 +71,7 @@ public class SongDraftUploadService {
     private final CatalogObjectStore store;
     private final SongJsonMapper mapper;
     private final CatalogProperties properties;
+    private final CatalogProviderService providers;
     private final CatalogImportService importService;
     private final SongRepository songRepository;
     private final Supplier<UUID> ids;
@@ -78,27 +80,30 @@ public class SongDraftUploadService {
     public SongDraftUploadService(CatalogObjectStore store,
             SongJsonMapper mapper,
             CatalogProperties properties,
+            CatalogProviderService providers,
             CatalogImportService importService,
             SongRepository songRepository) {
-        this(store, mapper, properties, importService, songRepository, UUID::randomUUID);
+        this(store, mapper, properties, providers, importService, songRepository, UUID::randomUUID);
     }
 
     SongDraftUploadService(CatalogObjectStore store,
             SongJsonMapper mapper,
             CatalogProperties properties,
+            CatalogProviderService providers,
             CatalogImportService importService,
             SongRepository songRepository,
             Supplier<UUID> ids) {
         this.store = store;
         this.mapper = mapper;
         this.properties = properties;
+        this.providers = providers;
         this.importService = importService;
         this.songRepository = songRepository;
         this.ids = ids;
     }
 
     public List<String> registeredProviders() {
-        return properties.getProviders();
+        return providers.registeredNames();
     }
 
     /**
@@ -170,7 +175,7 @@ public class SongDraftUploadService {
     private void stage(SongDraftForm draft) throws IOException {
         String id = ids.get().toString();
         String provider = draft.getSourceProvider().trim();
-        String slug = properties.getMedia().slugFor(provider);
+        String slug = providers.slugFor(provider);
 
         MultipartFile audio = draft.getAudio();
         String audioExt = extensionOf(audio.getOriginalFilename());
@@ -219,12 +224,10 @@ public class SongDraftUploadService {
             return "missing sourceProvider";
         }
         String provider = draft.getSourceProvider().trim();
-        boolean registered = properties.getProviders().stream()
-                .anyMatch(p -> p.equalsIgnoreCase(provider));
-        if (!registered) {
+        if (!providers.isRegistered(provider)) {
             return "unregistered provider '" + provider + "'";
         }
-        if (properties.getMedia().slugFor(provider) == null) {
+        if (providers.slugFor(provider) == null) {
             return "no folder mapping for provider '" + provider + "'";
         }
         if (!StringUtils.hasText(draft.getArtist())) {

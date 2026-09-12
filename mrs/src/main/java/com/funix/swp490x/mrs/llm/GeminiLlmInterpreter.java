@@ -1,11 +1,13 @@
 package com.funix.swp490x.mrs.llm;
 
+import com.funix.swp490x.mrs.service.SettingsService;
 import com.google.genai.Client;
 import com.google.genai.types.GenerateContentConfig;
 import com.google.genai.types.GenerateContentResponse;
 import com.google.genai.types.HttpOptions;
 import com.google.genai.types.Schema;
 import com.google.genai.types.Type;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -44,19 +46,34 @@ public class GeminiLlmInterpreter implements LlmInterpreter, DisposableBean {
             .properties(Map.of("moods", stringArraySchema()))
             .build();
 
-    private final Client client;
+    private volatile Client client;
     private final LlmProperties properties;
+    private final SettingsService settings;
     private final LlmInterpreter fallback;
     private final JsonMapper jsonMapper = JsonMapper.builder().build();
+    private volatile Duration builtTimeout;
 
     public GeminiLlmInterpreter(LlmProperties properties, LlmInterpreter fallback) {
-        this(properties, fallback, createClient(properties));
+        this(properties, fallback, null, createClient(properties.getApiKey(), properties.getTimeout()));
+    }
+
+    public GeminiLlmInterpreter(LlmProperties properties, LlmInterpreter fallback,
+            SettingsService settings) {
+        this(properties, fallback, settings, createClient(properties.getApiKey(),
+                settings != null ? settings.llmTimeout() : properties.getTimeout()));
     }
 
     GeminiLlmInterpreter(LlmProperties properties, LlmInterpreter fallback, Client client) {
+        this(properties, fallback, null, client);
+    }
+
+    private GeminiLlmInterpreter(LlmProperties properties, LlmInterpreter fallback,
+            SettingsService settings, Client client) {
         this.properties = properties;
         this.fallback = fallback;
+        this.settings = settings;
         this.client = client;
+        this.builtTimeout = settings != null ? settings.llmTimeout() : properties.getTimeout();
     }
 
     @Override
@@ -126,16 +143,43 @@ public class GeminiLlmInterpreter implements LlmInterpreter, DisposableBean {
 
     @Override
     public void destroy() {
-        client.close();
+        Client current = client;
+        if (current != null) {
+            current.close();
+        }
     }
 
-    static Client createClient(LlmProperties properties) {
+    static Client createClient(String apiKey, Duration timeout) {
+        Duration budget = timeout == null ? Duration.ofSeconds(30) : timeout;
         return Client.builder()
-                .apiKey(properties.getApiKey())
+                .apiKey(apiKey)
                 .httpOptions(HttpOptions.builder()
-                        .timeout((int) properties.getTimeout().toMillis())
+                        .timeout((int) budget.toMillis())
                         .build())
                 .build();
+    }
+
+    private Client currentClient() {
+        if (settings == null) {
+            return client;
+        }
+        Duration timeout = settings.llmTimeout();
+        if (timeout.equals(builtTimeout)) {
+            return client;
+        }
+        synchronized (this) {
+            if (timeout.equals(builtTimeout)) {
+                return client;
+            }
+            Client previous = client;
+            Client next = createClient(properties.getApiKey(), timeout);
+            client = next;
+            builtTimeout = timeout;
+            if (previous != null) {
+                previous.close();
+            }
+            return next;
+        }
     }
 
     static String buildPrompt(String query, FilterVocabulary vocabulary) {
@@ -233,8 +277,8 @@ public class GeminiLlmInterpreter implements LlmInterpreter, DisposableBean {
     }
 
     private String generateJson(String prompt, Schema schema) {
-        GenerateContentResponse response = client.models.generateContent(
-                properties.getModel(),
+        GenerateContentResponse response = currentClient().models.generateContent(
+                settings != null ? settings.llmModel() : properties.getModel(),
                 prompt,
                 GenerateContentConfig.builder()
                         .responseMimeType("application/json")

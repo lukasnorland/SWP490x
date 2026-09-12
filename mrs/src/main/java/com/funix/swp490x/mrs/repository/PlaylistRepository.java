@@ -19,6 +19,13 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
     /** True when any playlist already uses this name (uq_playlist_name). */
     boolean existsByName(String name);
 
+    /** Playlists that would lose a song if this catalog provider were removed. */
+    @Query("""
+            SELECT COUNT(DISTINCT ps.id.playlistId) FROM PlaylistSong ps
+            WHERE LOWER(ps.song.sourceProvider) = LOWER(:provider)
+            """)
+    long countPlaylistsContainingProvider(@Param("provider") String provider);
+
     /** True when a different playlist already uses this name. */
     boolean existsByNameAndIdNot(String name, Long id);
 

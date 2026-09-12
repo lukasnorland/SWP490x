@@ -34,9 +34,14 @@ import com.funix.swp490x.mrs.service.UserAccountService;
 import com.funix.swp490x.mrs.web.admin.AdminCatalogController;
 import com.funix.swp490x.mrs.web.admin.AdminController;
 import com.funix.swp490x.mrs.web.admin.AdminPlaylistController;
+import com.funix.swp490x.mrs.web.admin.AdminSettingsController;
 import com.funix.swp490x.mrs.web.admin.AdminUserController;
+import com.funix.swp490x.mrs.settings.SettingKey;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
+import java.time.Duration;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -62,8 +67,9 @@ import static org.mockito.BDDMockito.given;
  */
 @WebMvcTest(controllers = {AuthController.class, HomeController.class, SearchController.class,
         SongBrowseController.class, PlaylistController.class, WorkspaceController.class,
-        ProfileController.class, AdminController.class, AdminUserController.class,
+        ProfileController.class,         AdminController.class, AdminUserController.class,
         AdminPlaylistController.class, AdminCatalogController.class,
+        AdminSettingsController.class,
         AccountPasswordController.class})
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
         LoginFailureHandler.class, LoginAttemptService.class, MrsUserDetailsService.class,
@@ -109,6 +115,12 @@ class ScreenRenderingTest {
     @MockitoBean
     private com.funix.swp490x.mrs.service.SearchService searchService;
 
+    @MockitoBean
+    private com.funix.swp490x.mrs.service.SettingsService settingsService;
+
+    @MockitoBean
+    private com.funix.swp490x.mrs.service.CatalogProviderService catalogProviderService;
+
     @BeforeEach
     void listsAreEmptyByDefault() {
         given(userAccountService.search(nullable(Role.class), nullable(UserStatus.class),
@@ -142,6 +154,19 @@ class ScreenRenderingTest {
                 nullable(List.class), nullable(List.class), nullable(String.class),
                 nullable(String.class), nullable(Integer.class)))
                 .willReturn(List.of());
+        given(settingsService.currentValues()).willReturn(defaultSettingValues());
+        given(settingsService.sessionInactivityHours()).willReturn(8);
+        given(settingsService.lockoutWindow()).willReturn(Duration.ofMinutes(15));
+        given(settingsService.resetLinkValidity()).willReturn(Duration.ofMinutes(30));
+        given(catalogProviderService.listWithImpact()).willReturn(List.of());
+    }
+
+    private static Map<SettingKey, String> defaultSettingValues() {
+        Map<SettingKey, String> values = new EnumMap<>(SettingKey.class);
+        for (SettingKey key : SettingKey.values()) {
+            values.put(key, key.defaultValue());
+        }
+        return values;
     }
 
     /**
@@ -243,8 +268,21 @@ class ScreenRenderingTest {
     }
 
     @Test
+    void systemSettingsRendersTheThreeLiveSections() throws Exception {
+        mockMvc.perform(get(Routes.ADMIN_SETTINGS).with(user(principal(Role.ADMIN))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("General configuration")))
+                .andExpect(content().string(containsString("LLM configuration")))
+                .andExpect(content().string(containsString("Catalog configuration")))
+                .andExpect(content().string(containsString("name=\"session.inactivity.hours\"")))
+                .andExpect(content().string(not(containsString("zone-placeholder"))));
+    }
+
+    @Test
     void adminAreaIsClosedToContentDesigners() throws Exception {
         mockMvc.perform(get(Routes.ADMIN_USERS).with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isForbidden());
+        mockMvc.perform(get(Routes.ADMIN_SETTINGS).with(user(principal(Role.CONTENT_DESIGNER))))
                 .andExpect(status().isForbidden());
     }
 

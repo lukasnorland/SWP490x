@@ -20,19 +20,21 @@ public class NotificationService {
     private final MailTransport transport;
     private final TemplateEngine templateEngine;
     private final MailProperties properties;
+    private final PasswordResetTokenService tokens;
 
     public NotificationService(MailTransport transport, TemplateEngine templateEngine,
-            MailProperties properties) {
+            MailProperties properties, PasswordResetTokenService tokens) {
         this.transport = transport;
         this.templateEngine = templateEngine;
         this.properties = properties;
+        this.tokens = tokens;
     }
 
     /** UC-02: the time-limited link behind P-01. */
     public void sendPasswordResetLink(String email, String token) {
         Context context = new Context(Locale.ENGLISH);
         context.setVariable("resetUrl", absolute(Routes.PASSWORD_RESET_SET + "?token=" + token));
-        context.setVariable("validityMinutes", PasswordResetTokenService.VALIDITY.toMinutes());
+        context.setVariable("validityMinutes", tokens.validity().toMinutes());
 
         transport.send(email, "Reset your MRS password",
                 templateEngine.process("email/password-reset", context));

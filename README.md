@@ -51,7 +51,6 @@ otherwise:
 | Gap | Specified in | Status |
 |-----|--------------|--------|
 | Profile history & editable name (P-05) | Report 3.2 §4.8 | Account card reads real data; history and name/password zones are placeholders |
-| System Settings persistence (P-06d) | Report 3.2 §4.12 | Screen is scaffolded; values still live in `application.properties` |
 | Audit & recommendation log viewer (P-06e) | Report 3.2 §4.13 | Both tables are written; no screen reads them, and user administration is not audited yet |
 
 ---
@@ -497,7 +496,7 @@ mrs.llm.api-key=your_gemini_key
 |----------|---------|---------|
 | `mrs.llm.api-key` | *(empty)* | Blank keeps the app on vocabulary matching, with no network call |
 | `mrs.llm.model` | `gemini-3.8-flash` | Model used for interpretation |
-| `mrs.llm.timeout` | `30s` | Per-call budget |
+| `mrs.llm.timeout` | `30s` | Per-call budget. P-06d can set 1–30 seconds; default matches this value |
 | `mrs.llm.min-query-chars` | `10` | Shorter prompts skip interpretation |
 | `mrs.llm.max-query-chars` | `200` | Longer prompts are refused |
 | `mrs.llm.provider` | `gemini` | Reserved for a second provider; nothing reads it today |
@@ -550,8 +549,8 @@ Three two-week iterations after design:
 3. **Iteration 3** — Web UI, LLM-assisted search, shared workspace, CSV export  
 
 All three slices have landed. What is left is listed under *Specified but not yet
-built* above and in the screen table below — chiefly P-05 history, P-06d
-settings persistence, and the P-06e log viewer.
+built* above and in the screen table below — chiefly P-05 history and the
+P-06e log viewer.
 
 ### UI implementation status
 
@@ -601,14 +600,14 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 | P-05 My Profile | Partially implemented — the account card reads real data; the editable display name / change-password zone and the playlist-history zone are still placeholders |
 | P-06a User Management | Implemented — Thymeleaf MVC CRUD: create + credentials email, filters, pagination, deactivate/reactivate with session invalidation, role change, resend. Deactivating a Designer or demoting them to Customer opens a successor picker per owned playlist (acting ADMIN or an existing collaborator) |
 | P-06b Song Catalog | Implemented as CRUD — Songs table with provider/tag/text filters, pagination (partial fetch so the shell player stays mounted), a per-row untagged warning for DC-03 and a catalog-wide untagged count, CDN playback via clicking the song title, per-row edit modal (optimistic lock, HTTP 409 refresh-only, BR-06/DC-02; classification is written to MySQL and the staged song-data JSON), and delete (hosted audio/cover first, then staged JSON, then the MySQL row so the next import cannot recreate the song). Create is the Add Song modal (audio + artwork; the server writes media and generated song-data JSON, then auto-syncs into MySQL). Sync Catalog converts JSON already under the prefix, with per-row skip reasons, a last-sync line, and a scheduled poller. Authenticated shell soft-navigates sidebar/content links so the player survives leaving Catalog for Users, Audit Log, etc. The Tags dictionary tab and the provider CSV/XLSX of UC-28 are still outstanding |
-| P-06d System Settings | Scaffolded — every zone from the spec is marked outstanding; nothing on the screen is configurable yet |
+| P-06d System Settings | Implemented — three live sections: General (session inactivity, lockout threshold/window, reset-link validity), Catalog (provider name plus S3 folder slug: lowercase letters, digits and hyphens, 2–40 characters; delete cascades hosted media, staged JSON and MySQL after a typed-name confirm), and LLM (Gemini model dropdown, 1–30s timeout defaulting to `mrs.llm.timeout` 30s, min/max query chars). Save writes General and LLM together; Reset restores those defaults (providers stay). Values persist in `system_setting` / `catalog_provider`, are audited with before/after JSON (BR-10), and take effect without a restart. The Gemini API key stays in `local.properties` and is never shown |
 | P-06e Audit & Recommendation Log | Scaffolded — `audit_log` and `recommendation_log` are written, but no screen reads them. Audit coverage today is playlist actions and manual catalog imports; user administration and song edits are not audited |
 | P-06f All Playlists | Implemented — ADMIN list of every playlist, Draft or Published; inspect reuses P-03b with song edits and export hidden. ADMIN can publish or unpublish from that view, and collaborator share/remove still works there |
 | P-07 First-Login Password Change | Implemented — enforced by an interceptor, not only by the post-login redirect |
 | P-08 Song Browse | Implemented — the Content Designer's read-only view of the catalog: the same table as P-06b with AND filters and no edit or delete. ADMIN opening `/songs` is redirected to P-06b |
 | P-09 System Message Pages | Implemented — 403 and 404 |
 
-The two scaffolded screens render their zones from the spec as dashed placeholders, so what remains is visible in the running app. Data-backed zones arrive with their feature slice.
+The remaining scaffolded screen (P-06e) still renders its zones from the spec as dashed placeholders, so what remains is visible in the running app.
 
 ---
 

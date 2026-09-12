@@ -82,6 +82,15 @@ public interface CatalogObjectStore {
     void deleteBinary(String key);
 
     /**
+     * Every object key under {@code keyPrefix}, recursively. Used when a
+     * provider is removed so leftover media under its slug is not orphaned
+     * after the catalog rows are gone.
+     *
+     * @throws CatalogStoreException when the listing could not be completed
+     */
+    List<String> listKeys(String keyPrefix);
+
+    /**
      * Canonical key for company-hosted media, matching the CloudFront prefixes
      * in {@code infra/cloudfront-audio.yaml}:
      * {@code song-data/{audio|artwork}/<slug>/<id>.<ext>}.

@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * The ADMIN area, P-06d – P-06e. P-06a, P-06b and P-06f have their own
+ * The ADMIN area, P-06e. P-06a, P-06b, P-06d and P-06f have their own
  * controllers now that they do more than render.
  *
  * <p>Access is granted by SecurityConfig on {@code /admin/**}, so a non-ADMIN
@@ -14,14 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class AdminController {
-
-    /** P-06d — System Settings. */
-    @GetMapping(Routes.ADMIN_SETTINGS)
-    public String settings(Model model) {
-        model.addAttribute("pageTitle", "System Settings");
-        model.addAttribute("activeNav", "admin-settings");
-        return "admin/settings";
-    }
 
     /** P-06e — Audit & Recommendation Log (tabs: Audit · Recommendation). */
     @GetMapping(Routes.ADMIN_LOGS)
