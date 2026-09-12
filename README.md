@@ -138,6 +138,10 @@ inside Word:
   3.2 still has no page-ID section for it.
 - Report 3.0 UC-04 and Report 3.2 §4.8 still specify playlist history on P-05;
   v1 dropped that zone. Resume unfinished playlists from My Playlists (P-03a).
+- Report 3.0 UC-10 / BR-08 and RTW FT-03 still describe AND-across categories
+  on Search. v1 P-02 keeps any-chip inclusion so a Pop + Happy query still
+  returns Pop-only and Happy-only tracks (ranked lower), which avoids empty
+  playlist candidate sets. P-06b / P-08 stay AND-across for catalog browse.
 
 ---
 
@@ -542,10 +546,13 @@ mrs.llm.api-key=your_gemini_key
 | `mrs.llm.max-query-chars` | `200` | Longer prompts are refused |
 | `mrs.llm.provider` | `gemini` | Reserved for a second provider; nothing reads it today |
 
-Ranking is the metadata match of FE-05: a song enters the result set if it hits
-**any** chip or the keyword, and the set is then ordered by how many chips each
-song matched, then by title. An optional Top-N caps the ranked list before
-paging.
+Ranking is the metadata match of FE-05. A song enters the P-02 result set if it
+hits **any** selected chip or the keyword — Pop + Happy still includes Pop-only
+and Happy-only tracks — then the set is ordered by how many chips each song
+matched, then by title. Partial matches sit lower; they are not dropped, so a
+curator assembling a playlist is not left with an empty candidate set. An
+optional Top-N caps the ranked list before paging. Catalog browse (P-06b /
+P-08) stays AND-across categories.
 
 Every interpret writes one `recommendation_log` row — the query, the resolved
 filters, whether the LLM ran and whether it succeeded, and the result count.
@@ -632,7 +639,7 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 |--------|-------|
 | P-00 Login | Implemented — all five screen states, lockout after 5 failures in 15 min, plus the account-request modal |
 | P-01 Password Reset | Implemented — both steps, live BR-12 checklist, link emailed |
-| P-02 Search & Recommendation | Implemented — free-text prompt interpreted by Gemini (vocabulary matching when no key is set), removable filter chips, metadata-match ranking with an optional Top-N, multi-select add-to-playlist, and a "create playlist from every result" action that re-runs the search server-side rather than using the current page. Each interpret writes a `recommendation_log` row |
+| P-02 Search & Recommendation | Implemented — free-text prompt interpreted by Gemini (vocabulary matching when no key is set), removable filter chips, any-chip inclusion then metadata-match ranking (partial matches stay, ranked lower) with an optional Top-N, multi-select add-to-playlist, and a "create playlist from every result" action that re-runs the search server-side rather than using the current page. Each interpret writes a `recommendation_log` row |
 | P-03a My Playlists | Implemented — playlists you own plus those shared with you; status and text filters, pagination, create, rename, duplicate, delete, publish, CSV export |
 | P-03b Playlist Detail | Implemented — ordered song table with preview playback, add / remove / reorder while Draft, collaborator list (owner and ADMIN grant/revoke Content Designers; collaborators can edit songs in a Draft, but cannot publish, unpublish, delete, or invite). Publish and unpublish are owner or ADMIN. Duplicate creates an independent Draft with a unique name and no lineage back to the source. Every mutation is optimistically locked (UC-19, BR-06): a save at a version someone else has already moved past returns HTTP 409 and the conflict screen |
 | P-04a Shared Workspace | Implemented — card grid of published playlists with owner and text filters, open to all three roles. BR-04 scoping is outstanding, so every published playlist is listed |
