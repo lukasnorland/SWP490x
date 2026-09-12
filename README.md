@@ -32,7 +32,7 @@ MRS closes those gaps with centralized catalog + playlist management, metadata/L
 | ID | Feature |
 |----|---------|
 | FE-01 | Authentication & role-based access (ADMIN, Content Designer, Customer) |
-| FE-02 | Profile management & personal playlist history |
+| FE-02 | Profile management (view account, display name, password) |
 | FE-03 | Multi-criteria metadata search (Genre, Mood, Artist, Tags) |
 | FE-04 | LLM-assisted contextual search (with fallback to plain filters) |
 | FE-05 | Recommendation & ranking using metadata match (chip count, then title; optional Top-N) |
@@ -44,13 +44,10 @@ MRS closes those gaps with centralized catalog + playlist management, metadata/L
 
 **Out of scope (v1):** native mobile apps, public streaming, large-scale ML recommenders, commercial production infra, third-party chart or popularity APIs.
 
-**Specified but not yet built.** One item from the reports has no code behind
-it yet, and the sections below say so where they come up rather than implying
-otherwise:
-
-| Gap | Specified in | Status |
-|-----|--------------|--------|
-| Profile history & editable name (P-05) | Report 3.2 §4.8 | Account card reads real data; history and name/password zones are placeholders |
+**Dropped from v1.** Playlist history on P-05 (UC-04 Zone B) is not built:
+resume unfinished playlists from My Playlists (P-03a). Remaining leftovers
+(Tags dictionary tab, provider CSV/XLSX on P-06b) are called out in the
+screen table below.
 
 ---
 
@@ -141,6 +138,8 @@ inside Word:
   the replaced Figure T-06.
 - P-06f (`/admin/playlists`) is in the SRS ADMIN use case and Figure 12; Report
   3.2 still has no page-ID section for it.
+- Report 3.0 UC-04 and Report 3.2 §4.8 still specify playlist history on P-05;
+  v1 dropped that zone. Resume unfinished playlists from My Playlists (P-03a).
 
 ---
 
@@ -547,8 +546,8 @@ Three two-week iterations after design:
 2. **Iteration 2** — Search/filter, recommendation & ranking, playlists, concurrency  
 3. **Iteration 3** — Web UI, LLM-assisted search, shared workspace, CSV export  
 
-All three slices have landed. What is left is listed under *Specified but not yet
-built* above and in the screen table below — chiefly P-05 profile history.
+All three slices have landed. Playlist history on P-05 was dropped from v1;
+leftovers on P-06b are listed in the screen table below.
 
 ### UI implementation status
 
@@ -595,7 +594,7 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 | P-03b Playlist Detail | Implemented — ordered song table with preview playback, add / remove / reorder while Draft, collaborator list (owner and ADMIN grant/revoke Content Designers; collaborators can edit songs in a Draft, but cannot publish, unpublish, delete, or invite). Publish and unpublish are owner or ADMIN. Duplicate creates an independent Draft with a unique name and no lineage back to the source |
 | P-04a Shared Workspace | Implemented — card grid of published playlists with owner and text filters, open to all three roles. BR-04 scoping is outstanding, so every published playlist is listed |
 | P-04b Published Playlist View | Implemented — read-only song list; Duplicate and Export CSV are curator-only; unpublish is owner or ADMIN. A Draft id returns 403 rather than 404 |
-| P-05 My Profile | Partially implemented — the account card reads real data; the editable display name / change-password zone and the playlist-history zone are still placeholders |
+| P-05 My Profile | Implemented — view account (UC-04), edit display name and password (UC-05). Playlist history was dropped; curators resume work from My Playlists |
 | P-06a User Management | Implemented — Thymeleaf MVC CRUD: create + credentials email, filters, pagination, deactivate/reactivate with session invalidation, role change, resend. Deactivating a Designer or demoting them to Customer opens a successor picker per owned playlist (acting ADMIN or an existing collaborator) |
 | P-06b Song Catalog | Implemented as CRUD — Songs table with provider/tag/text filters, pagination (partial fetch so the shell player stays mounted), a per-row untagged warning for DC-03 and a catalog-wide untagged count, CDN playback via clicking the song title, per-row edit modal (optimistic lock, HTTP 409 refresh-only, BR-06/DC-02; classification is written to MySQL and the staged song-data JSON), and delete (hosted audio/cover first, then staged JSON, then the MySQL row so the next import cannot recreate the song). Create is the Add Song modal (audio + artwork; the server writes media and generated song-data JSON, then auto-syncs into MySQL). Sync Catalog converts JSON already under the prefix, with per-row skip reasons, a last-sync line, and a scheduled poller. Authenticated shell soft-navigates sidebar/content links so the player survives leaving Catalog for Users, Audit Log, etc. The Tags dictionary tab and the provider CSV/XLSX of UC-28 are still outstanding |
 | P-06d System Settings | Implemented — three live sections: General (session inactivity, lockout threshold/window, reset-link validity), Catalog (provider name plus S3 folder slug: lowercase letters, digits and hyphens, 2–40 characters; delete cascades hosted media, staged JSON and MySQL after a typed-name confirm), and LLM (Gemini model dropdown, 1–30s timeout defaulting to `mrs.llm.timeout` 30s, min/max query chars). Save writes General and LLM together; Reset restores those defaults (providers stay). Values persist in `system_setting` / `catalog_provider`, are audited with before/after JSON (BR-10), and take effect without a restart. The Gemini API key stays in `local.properties` and is never shown |
@@ -604,8 +603,6 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 | P-07 First-Login Password Change | Implemented — enforced by an interceptor, not only by the post-login redirect |
 | P-08 Song Browse | Implemented — the Content Designer's read-only view of the catalog: the same table as P-06b with AND filters and no edit or delete. ADMIN opening `/songs` is redirected to P-06b |
 | P-09 System Message Pages | Implemented — 403 and 404 |
-
-The remaining scaffolded screen (P-05) still renders its history and name/password zones from the spec as dashed placeholders, so what remains is visible in the running app.
 
 ---
 
