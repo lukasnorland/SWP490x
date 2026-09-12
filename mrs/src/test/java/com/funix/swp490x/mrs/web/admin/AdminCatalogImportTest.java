@@ -586,8 +586,8 @@ class AdminCatalogImportTest {
 
         then(importService).should(never()).sync(any(), any(), anyBoolean());
         then(importService).should(never()).startAsync(any(), any(), anyBoolean());
-        then(songCatalogService).should(never()).update(any(), anyInt(), any());
-        then(songCatalogService).should(never()).delete(any());
+        then(songCatalogService).should(never()).update(any(), anyInt(), any(), any());
+        then(songCatalogService).should(never()).delete(any(), any());
     }
 
     @Test
@@ -628,7 +628,7 @@ class AdminCatalogImportTest {
     @Test
     void catalogSaveReportsAStagingFailure() throws Exception {
         willThrow(new CatalogStoreException("denied")).given(songCatalogService)
-                .update(eq(12L), eq(3), any(SongEdit.class));
+                .update(eq(12L), eq(3), any(SongEdit.class), any());
 
         mockMvc.perform(post("/admin/catalog/12")
                         .param("explicit", "true")
@@ -652,13 +652,13 @@ class AdminCatalogImportTest {
                 .andExpect(redirectedUrl(Routes.ADMIN_CATALOG))
                 .andExpect(flash().attribute("flash", Messages.SONG_SAVED));
 
-        then(songCatalogService).should().update(eq(12L), eq(3), any(SongEdit.class));
+        then(songCatalogService).should().update(eq(12L), eq(3), any(SongEdit.class), eq(7L));
     }
 
     @Test
     void catalogSaveReopensTheModalWhenAGenreIsUnknown() throws Exception {
         willThrow(new InvalidClassificationException(List.of("Cinematic"), List.of()))
-                .given(songCatalogService).update(eq(12L), eq(3), any(SongEdit.class));
+                .given(songCatalogService).update(eq(12L), eq(3), any(SongEdit.class), any());
 
         mockMvc.perform(post("/admin/catalog/12")
                         .param("genres", "Cinematic")
@@ -683,7 +683,7 @@ class AdminCatalogImportTest {
     @Test
     void catalogSaveReturns409WhenTheVersionIsStale() throws Exception {
         willThrow(new StaleSongException(12L)).given(songCatalogService)
-                .update(eq(12L), eq(0), any(SongEdit.class));
+                .update(eq(12L), eq(0), any(SongEdit.class), any());
 
         mockMvc.perform(post("/admin/catalog/12")
                         .param("title", "Ice Cream")
@@ -698,7 +698,7 @@ class AdminCatalogImportTest {
     @Test
     void catalogSaveReturns404WhenTheSongIsGone() throws Exception {
         willThrow(new SongNotFoundException(12L)).given(songCatalogService)
-                .update(eq(12L), eq(0), any(SongEdit.class));
+                .update(eq(12L), eq(0), any(SongEdit.class), any());
 
         mockMvc.perform(post("/admin/catalog/12")
                         .param("title", "Ice Cream")
@@ -718,12 +718,12 @@ class AdminCatalogImportTest {
                 .andExpect(redirectedUrl(Routes.ADMIN_CATALOG))
                 .andExpect(flash().attribute("flash", Messages.SONG_DELETED));
 
-        then(songCatalogService).should().delete(12L);
+        then(songCatalogService).should().delete(12L, 7L);
     }
 
     @Test
     void catalogDeleteReportsAStagingFailure() throws Exception {
-        willThrow(new CatalogStoreException("denied")).given(songCatalogService).delete(12L);
+        willThrow(new CatalogStoreException("denied")).given(songCatalogService).delete(12L, 7L);
 
         mockMvc.perform(post("/admin/catalog/12/delete")
                         .with(csrf())
@@ -742,8 +742,8 @@ class AdminCatalogImportTest {
         mockMvc.perform(post("/admin/catalog/12/delete").with(user(admin())))
                 .andExpect(status().is3xxRedirection());
 
-        then(songCatalogService).should(never()).update(any(), anyInt(), any());
-        then(songCatalogService).should(never()).delete(any());
+        then(songCatalogService).should(never()).update(any(), anyInt(), any(), any());
+        then(songCatalogService).should(never()).delete(any(), any());
     }
 
     private static MrsUserDetails designer() {

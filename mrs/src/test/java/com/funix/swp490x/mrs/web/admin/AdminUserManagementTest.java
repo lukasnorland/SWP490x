@@ -24,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.funix.swp490x.mrs.config.SecurityConfig;
 import com.funix.swp490x.mrs.config.WebConfig;
+import com.funix.swp490x.mrs.domain.AuditLog;
 import com.funix.swp490x.mrs.domain.PlaylistStatus;
 import com.funix.swp490x.mrs.domain.Role;
 import com.funix.swp490x.mrs.domain.User;
@@ -35,6 +36,7 @@ import com.funix.swp490x.mrs.mail.NotificationService;
 import com.funix.swp490x.mrs.mail.SesIdentityException;
 import com.funix.swp490x.mrs.mail.SesIdentityService;
 import com.funix.swp490x.mrs.mail.SesIdentityService.Outcome;
+import com.funix.swp490x.mrs.repository.AuditLogRepository;
 import com.funix.swp490x.mrs.repository.UserRepository;
 import com.funix.swp490x.mrs.security.LoginAttemptService;
 import com.funix.swp490x.mrs.security.LoginFailureHandler;
@@ -107,6 +109,9 @@ class AdminUserManagementTest {
     @MockitoBean
     private PlaylistService playlistService;
 
+    @MockitoBean
+    private AuditLogRepository auditLogRepository;
+
     private static MrsUserDetails admin() {
         User user = new User();
         user.setId(1L);
@@ -161,6 +166,12 @@ class AdminUserManagementTest {
                 .contains(STRONG_PASSWORD)
                 .contains("nina@mrs.local")
                 .contains("Content Designer");
+
+        ArgumentCaptor<AuditLog> audit = ArgumentCaptor.forClass(AuditLog.class);
+        then(auditLogRepository).should().save(audit.capture());
+        assertThat(audit.getValue().getAction()).isEqualTo(AuditLog.ACTION_USER_CREATE);
+        assertThat(audit.getValue().getActorId()).isEqualTo(1L);
+        assertThat(audit.getValue().getDetails()).doesNotContain(STRONG_PASSWORD);
     }
 
     /** FT-09 AC-01: the account arrives owing a password change. */

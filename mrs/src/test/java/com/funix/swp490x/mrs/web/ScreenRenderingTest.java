@@ -32,7 +32,7 @@ import com.funix.swp490x.mrs.service.AuthService;
 import com.funix.swp490x.mrs.service.PlaylistService;
 import com.funix.swp490x.mrs.service.UserAccountService;
 import com.funix.swp490x.mrs.web.admin.AdminCatalogController;
-import com.funix.swp490x.mrs.web.admin.AdminController;
+import com.funix.swp490x.mrs.web.admin.AdminLogsController;
 import com.funix.swp490x.mrs.web.admin.AdminPlaylistController;
 import com.funix.swp490x.mrs.web.admin.AdminSettingsController;
 import com.funix.swp490x.mrs.web.admin.AdminUserController;
@@ -67,7 +67,7 @@ import static org.mockito.BDDMockito.given;
  */
 @WebMvcTest(controllers = {AuthController.class, HomeController.class, SearchController.class,
         SongBrowseController.class, PlaylistController.class, WorkspaceController.class,
-        ProfileController.class,         AdminController.class, AdminUserController.class,
+        ProfileController.class, AdminLogsController.class, AdminUserController.class,
         AdminPlaylistController.class, AdminCatalogController.class,
         AdminSettingsController.class,
         AccountPasswordController.class})
@@ -121,6 +121,9 @@ class ScreenRenderingTest {
     @MockitoBean
     private com.funix.swp490x.mrs.service.CatalogProviderService catalogProviderService;
 
+    @MockitoBean
+    private com.funix.swp490x.mrs.service.AdminLogService adminLogService;
+
     @BeforeEach
     void listsAreEmptyByDefault() {
         given(userAccountService.search(nullable(Role.class), nullable(UserStatus.class),
@@ -159,6 +162,15 @@ class ScreenRenderingTest {
         given(settingsService.lockoutWindow()).willReturn(Duration.ofMinutes(15));
         given(settingsService.resetLinkValidity()).willReturn(Duration.ofMinutes(30));
         given(catalogProviderService.listWithImpact()).willReturn(List.of());
+        given(adminLogService.searchAudit(nullable(Long.class), nullable(String.class),
+                nullable(java.time.LocalDate.class), nullable(java.time.LocalDate.class), anyInt()))
+                .willReturn(Page.empty());
+        given(adminLogService.searchRecommendations(nullable(Long.class), nullable(String.class),
+                nullable(java.time.LocalDate.class), nullable(java.time.LocalDate.class), anyInt()))
+                .willReturn(Page.empty());
+        given(adminLogService.actors()).willReturn(List.of());
+        given(adminLogService.searchUsers()).willReturn(List.of());
+        given(adminLogService.actions()).willReturn(List.of());
     }
 
     private static Map<SettingKey, String> defaultSettingValues() {
@@ -279,10 +291,22 @@ class ScreenRenderingTest {
     }
 
     @Test
+    void auditLogRendersLiveTables() throws Exception {
+        mockMvc.perform(get(Routes.ADMIN_LOGS).with(user(principal(Role.ADMIN))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Audit")))
+                .andExpect(content().string(containsString("Recommendation")))
+                .andExpect(content().string(containsString("No audit entries")))
+                .andExpect(content().string(not(containsString("zone-placeholder"))));
+    }
+
+    @Test
     void adminAreaIsClosedToContentDesigners() throws Exception {
         mockMvc.perform(get(Routes.ADMIN_USERS).with(user(principal(Role.CONTENT_DESIGNER))))
                 .andExpect(status().isForbidden());
         mockMvc.perform(get(Routes.ADMIN_SETTINGS).with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isForbidden());
+        mockMvc.perform(get(Routes.ADMIN_LOGS).with(user(principal(Role.CONTENT_DESIGNER))))
                 .andExpect(status().isForbidden());
     }
 

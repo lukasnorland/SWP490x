@@ -6,8 +6,11 @@ import com.funix.swp490x.mrs.catalog.CatalogStoreException;
 import com.funix.swp490x.mrs.catalog.SongJsonMapper;
 import com.funix.swp490x.mrs.catalog.SongJsonMapper.TagRef;
 import com.funix.swp490x.mrs.catalog.StagedSong;
+import com.funix.swp490x.mrs.domain.AuditLog;
 import com.funix.swp490x.mrs.domain.Song;
 import com.funix.swp490x.mrs.domain.Tag;
+import com.funix.swp490x.mrs.domain.TagType;
+import com.funix.swp490x.mrs.repository.AuditLogRepository;
 import com.funix.swp490x.mrs.repository.SongRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import java.util.Arrays;
@@ -49,17 +52,20 @@ public class SongCatalogService {
     private final CatalogObjectStore catalogStore;
     private final CatalogProperties catalogProperties;
     private final SongJsonMapper mapper;
+    private final AuditLogRepository auditLogRepository;
 
     public SongCatalogService(SongRepository songRepository,
             TagRepository tagRepository,
             CatalogObjectStore catalogStore,
             CatalogProperties catalogProperties,
-            SongJsonMapper mapper) {
+            SongJsonMapper mapper,
+            AuditLogRepository auditLogRepository) {
         this.songRepository = songRepository;
         this.tagRepository = tagRepository;
         this.catalogStore = catalogStore;
         this.catalogProperties = catalogProperties;
         this.mapper = mapper;
+        this.auditLogRepository = auditLogRepository;
     }
 
     /**
@@ -335,7 +341,7 @@ public class SongCatalogService {
      * @throws CatalogStoreException when the staged object could not be written
      */
     @Transactional
-    public void update(Long id, int expectedVersion, SongEdit edit) {
+    public void update(Long id, int expectedVersion, SongEdit edit, Long actorId) {
         Song song = songRepository.findByIdWithTags(id)
                 .orElseThrow(() -> new SongNotFoundException(id));
         if (song.getVersion() != expectedVersion) {
@@ -348,6 +354,8 @@ public class SongCatalogService {
         List<String> tags = splitCsv(edit.tags());
         mapper.requireAllowlisted(genres, moods);
 
+        String before = classificationJson(song);
+
         writeStagedClassification(song, explicit, genres, moods, tags);
 
         song.setExplicit(explicit);
@@ -358,6 +366,9 @@ public class SongCatalogService {
         } catch (OptimisticLockingFailureException e) {
             throw new StaleSongException(id);
         }
+        audit(actorId, AuditLog.ACTION_SONG_EDIT, song.getId(),
+                "{\"title\":%s,\"before\":%s,\"after\":%s}".formatted(
+                        jsonString(song.getTitle()), before, classificationJson(song)));
     }
 
     /**
@@ -414,15 +425,18 @@ public class SongCatalogService {
      * @throws CatalogStoreException when a hosted object could not be removed
      */
     @Transactional
-    public void delete(Long id) {
+    public void delete(Long id, Long actorId) {
         Song song = songRepository.findById(id)
                 .orElseThrow(() -> new SongNotFoundException(id));
+        String details = "{\"title\":%s,\"artist\":%s}".formatted(
+                jsonString(song.getTitle()), jsonString(song.getArtist()));
         deleteHostedMedia(song);
         if (StringUtils.hasText(song.getExternalSourceId())) {
             catalogStore.deleteJson(catalogStore.stagingKey(song.getExternalSourceId()));
         }
         songRepository.detachFromPlaylists(List.of(id));
         songRepository.delete(song);
+        audit(actorId, AuditLog.ACTION_SONG_DELETE, id, details);
     }
 
     /**
@@ -495,6 +509,42 @@ public class SongCatalogService {
                 .map(String::trim)
                 .filter(s -> !s.isEmpty())
                 .toList();
+    }
+
+    private void audit(Long actorId, String action, Long entityId, String details) {
+        if (actorId == null || entityId == null) {
+            return;
+        }
+        auditLogRepository.save(new AuditLog(actorId, action, AuditLog.ENTITY_SONG, entityId, details));
+    }
+
+    private static String classificationJson(Song song) {
+        return "{\"explicit\":%s,\"genres\":%s,\"moods\":%s,\"tags\":%s}".formatted(
+                Boolean.TRUE.equals(song.getExplicit()),
+                jsonArray(names(song, TagType.GENRE)),
+                jsonArray(names(song, TagType.MOOD)),
+                jsonArray(names(song, TagType.TAGS)));
+    }
+
+    private static List<String> names(Song song, TagType type) {
+        return song.getTags().stream()
+                .filter(tag -> tag.getType() == type)
+                .map(Tag::getName)
+                .sorted()
+                .toList();
+    }
+
+    private static String jsonArray(List<String> values) {
+        return values.stream()
+                .map(SongCatalogService::jsonString)
+                .collect(java.util.stream.Collectors.joining(",", "[", "]"));
+    }
+
+    private static String jsonString(String value) {
+        if (value == null) {
+            return "null";
+        }
+        return "\"" + value.replace("\\", "\\\\").replace("\"", "\\\"") + "\"";
     }
 
     /** Classification the P-06b edit modal may change. Licensed identity is not here. */

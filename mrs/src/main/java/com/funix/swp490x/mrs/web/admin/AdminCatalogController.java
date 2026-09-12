@@ -115,7 +115,7 @@ public class AdminCatalogController {
             RedirectAttributes redirectAttributes) {
 
         try {
-            catalogService.update(id, form.getVersion(), toEdit(form));
+            catalogService.update(id, form.getVersion(), toEdit(form), actor.getId());
         } catch (StaleSongException e) {
             return reject(model, response, HttpStatus.CONFLICT, Messages.SONG_STALE, false, form, id,
                     actor);
@@ -136,9 +136,11 @@ public class AdminCatalogController {
     }
 
     @PostMapping(Routes.ADMIN_CATALOG_SONG_DELETE)
-    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable Long id,
+            @AuthenticationPrincipal MrsUserDetails actor,
+            RedirectAttributes redirectAttributes) {
         try {
-            catalogService.delete(id);
+            catalogService.delete(id, actor.getId());
             flash(redirectAttributes, "success", Messages.SONG_DELETED);
         } catch (SongNotFoundException e) {
             flash(redirectAttributes, "danger", Messages.SONG_NOT_FOUND);

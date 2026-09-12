@@ -10,10 +10,12 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.never;
 
+import com.funix.swp490x.mrs.domain.AuditLog;
 import com.funix.swp490x.mrs.domain.PlaylistStatus;
 import com.funix.swp490x.mrs.domain.Role;
 import com.funix.swp490x.mrs.domain.User;
 import com.funix.swp490x.mrs.domain.UserStatus;
+import com.funix.swp490x.mrs.repository.AuditLogRepository;
 import com.funix.swp490x.mrs.repository.UserRepository;
 import com.funix.swp490x.mrs.security.PasswordPolicy;
 import com.funix.swp490x.mrs.security.SessionInvalidationService;
@@ -47,15 +49,23 @@ class UserAccountServiceTest {
     private SessionInvalidationService sessionInvalidationService;
     @Mock
     private PlaylistService playlistService;
+    @Mock
+    private AuditLogRepository auditLogRepository;
 
     private UserAccountService service;
 
     @BeforeEach
     void setUp() {
         service = new UserAccountService(userRepository, passwordEncoder,
-                sessionInvalidationService, playlistService);
+                sessionInvalidationService, playlistService, auditLogRepository);
         org.mockito.Mockito.lenient().when(userRepository.save(any(User.class)))
-                .thenAnswer(invocation -> invocation.getArgument(0));
+                .thenAnswer(invocation -> {
+                    User saved = invocation.getArgument(0);
+                    if (saved.getId() == null) {
+                        saved.setId(42L);
+                    }
+                    return saved;
+                });
     }
 
     @Test
@@ -84,7 +94,7 @@ class UserAccountServiceTest {
         given(userRepository.findByEmail(EMAIL)).willReturn(Optional.empty());
         given(passwordEncoder.encode(STRONG)).willReturn("{bcrypt}hash");
 
-        UserView saved = service.create("Nina Designer", EMAIL, Role.CONTENT_DESIGNER, STRONG);
+        UserView saved = service.create("Nina Designer", EMAIL, Role.CONTENT_DESIGNER, STRONG, 1L);
 
         assertThat(saved.email()).isEqualTo(EMAIL);
         assertThat(saved.status()).isEqualTo(UserStatus.ACTIVE);
@@ -93,11 +103,12 @@ class UserAccountServiceTest {
         then(userRepository).should().save(captor.capture());
         assertThat(captor.getValue().getPasswordHash()).isEqualTo("{bcrypt}hash");
         assertThat(captor.getValue().getPasswordHash()).isNotEqualTo(STRONG);
+        then(auditLogRepository).should().save(any(AuditLog.class));
     }
 
     @Test
     void create_whenEmailIsMalformed_shouldThrowInvalidEmail() {
-        assertThatThrownBy(() -> service.create("Nina", "not-an-email", Role.CUSTOMER, STRONG))
+        assertThatThrownBy(() -> service.create("Nina", "not-an-email", Role.CUSTOMER, STRONG, 1L))
                 .isInstanceOf(InvalidEmailException.class);
 
         then(userRepository).should(never()).save(any());
@@ -108,7 +119,7 @@ class UserAccountServiceTest {
         given(userRepository.findByEmail(EMAIL)).willReturn(Optional.of(account(7L,
                 Role.CONTENT_DESIGNER, UserStatus.ACTIVE)));
 
-        assertThatThrownBy(() -> service.create("Other", "  " + EMAIL + "  ", Role.CUSTOMER, STRONG))
+        assertThatThrownBy(() -> service.create("Other", "  " + EMAIL + "  ", Role.CUSTOMER, STRONG, 1L))
                 .isInstanceOf(DuplicateEmailException.class);
 
         then(userRepository).should(never()).save(any());
@@ -118,7 +129,7 @@ class UserAccountServiceTest {
     void create_whenPasswordIsWeak_shouldThrowWeakPassword() {
         given(userRepository.findByEmail(EMAIL)).willReturn(Optional.empty());
 
-        assertThatThrownBy(() -> service.create("Nina", EMAIL, Role.CUSTOMER, "Ab1!xyZ"))
+        assertThatThrownBy(() -> service.create("Nina", EMAIL, Role.CUSTOMER, "Ab1!xyZ", 1L))
                 .isInstanceOf(WeakPasswordException.class);
 
         then(userRepository).should(never()).save(any());
@@ -126,7 +137,7 @@ class UserAccountServiceTest {
 
     @Test
     void create_whenRoleIsAdmin_shouldThrowInvalidRoleAssignment() {
-        assertThatThrownBy(() -> service.create("Root", EMAIL, Role.ADMIN, STRONG))
+        assertThatThrownBy(() -> service.create("Root", EMAIL, Role.ADMIN, STRONG, 1L))
                 .isInstanceOf(InvalidRoleAssignmentException.class);
 
         then(userRepository).should(never()).save(any());
@@ -137,7 +148,7 @@ class UserAccountServiceTest {
         given(userRepository.findByEmail(EMAIL)).willReturn(Optional.empty());
         given(passwordEncoder.encode(STRONG)).willReturn("{bcrypt}hash");
 
-        UserView saved = service.create("Nina", "  " + EMAIL + "  ", Role.CUSTOMER, STRONG);
+        UserView saved = service.create("Nina", "  " + EMAIL + "  ", Role.CUSTOMER, STRONG, 1L);
 
         assertThat(saved.email()).isEqualTo(EMAIL);
         then(userRepository).should().findByEmail(EMAIL);
@@ -155,6 +166,11 @@ class UserAccountServiceTest {
         assertThat(result.transferredPlaylists()).isZero();
         assertThat(result.user().status()).isEqualTo(UserStatus.DEACTIVATED);
         then(sessionInvalidationService).should().invalidateSessionsForEmail(EMAIL);
+        ArgumentCaptor<AuditLog> audit = ArgumentCaptor.forClass(AuditLog.class);
+        then(auditLogRepository).should().save(audit.capture());
+        assertThat(audit.getValue().getAction()).isEqualTo(AuditLog.ACTION_USER_DEACTIVATE);
+        assertThat(audit.getValue().getDetails()).contains(UserStatus.ACTIVE.name())
+                .contains(UserStatus.DEACTIVATED.name());
     }
 
     @Test
@@ -233,10 +249,13 @@ class UserAccountServiceTest {
         User user = account(7L, Role.CUSTOMER, UserStatus.DEACTIVATED);
         given(userRepository.findById(7L)).willReturn(Optional.of(user));
 
-        UserView view = service.reactivate(7L);
+        UserView view = service.reactivate(7L, 1L);
 
         assertThat(view.status()).isEqualTo(UserStatus.ACTIVE);
         then(userRepository).should().save(user);
+        ArgumentCaptor<AuditLog> audit = ArgumentCaptor.forClass(AuditLog.class);
+        then(auditLogRepository).should().save(audit.capture());
+        assertThat(audit.getValue().getAction()).isEqualTo(AuditLog.ACTION_USER_REACTIVATE);
     }
 
     @Test
@@ -244,17 +263,18 @@ class UserAccountServiceTest {
         User user = account(7L, Role.CUSTOMER, UserStatus.ACTIVE);
         given(userRepository.findById(7L)).willReturn(Optional.of(user));
 
-        UserView view = service.reactivate(7L);
+        UserView view = service.reactivate(7L, 1L);
 
         assertThat(view.status()).isEqualTo(UserStatus.ACTIVE);
         then(userRepository).should(never()).save(any());
+        then(auditLogRepository).shouldHaveNoInteractions();
     }
 
     @Test
     void reactivate_whenUserUnknown_shouldThrowNotFound() {
         given(userRepository.findById(99L)).willReturn(Optional.empty());
 
-        assertThatThrownBy(() -> service.reactivate(99L))
+        assertThatThrownBy(() -> service.reactivate(99L, 1L))
                 .isInstanceOf(UserNotFoundException.class);
     }
 
@@ -269,6 +289,11 @@ class UserAccountServiceTest {
         assertThat(result.user().role()).isEqualTo(Role.CONTENT_DESIGNER);
         assertThat(result.changed()).isTrue();
         then(sessionInvalidationService).should().invalidateSessionsForEmail(EMAIL);
+        ArgumentCaptor<AuditLog> audit = ArgumentCaptor.forClass(AuditLog.class);
+        then(auditLogRepository).should().save(audit.capture());
+        assertThat(audit.getValue().getAction()).isEqualTo(AuditLog.ACTION_USER_ROLE_CHANGE);
+        assertThat(audit.getValue().getDetails()).contains(Role.CUSTOMER.name())
+                .contains(Role.CONTENT_DESIGNER.name());
     }
 
     @Test
@@ -282,6 +307,10 @@ class UserAccountServiceTest {
 
         assertThat(result.transferredPlaylists()).isEqualTo(1);
         assertThat(result.user().role()).isEqualTo(Role.CUSTOMER);
+        ArgumentCaptor<AuditLog> audit = ArgumentCaptor.forClass(AuditLog.class);
+        then(auditLogRepository).should().save(audit.capture());
+        assertThat(audit.getValue().getAction()).isEqualTo(AuditLog.ACTION_USER_ROLE_CHANGE);
+        assertThat(audit.getValue().getDetails()).contains("\"transferredPlaylists\":1");
     }
 
     @Test
@@ -393,6 +422,55 @@ class UserAccountServiceTest {
 
         assertThat(service.successorChoices(7L)).isEqualTo(choices);
         then(playlistService).should().successorChoices(7L);
+    }
+
+    @Test
+    void create_shouldWriteUserCreateAuditWithoutThePassword() {
+        given(userRepository.findByEmail(EMAIL)).willReturn(Optional.empty());
+        given(passwordEncoder.encode(STRONG)).willReturn("{bcrypt}hash");
+
+        service.create("Nina Designer", EMAIL, Role.CONTENT_DESIGNER, STRONG, 1L);
+
+        ArgumentCaptor<AuditLog> audit = ArgumentCaptor.forClass(AuditLog.class);
+        then(auditLogRepository).should().save(audit.capture());
+        assertThat(audit.getValue().getAction()).isEqualTo(AuditLog.ACTION_USER_CREATE);
+        assertThat(audit.getValue().getEntityType()).isEqualTo(AuditLog.ENTITY_USER);
+        assertThat(audit.getValue().getActorId()).isEqualTo(1L);
+        assertThat(audit.getValue().getDetails()).contains(EMAIL).doesNotContain(STRONG);
+    }
+
+    @Test
+    void deactivate_whenAlreadyDeactivated_shouldNotAudit() {
+        User user = account(7L, Role.CUSTOMER, UserStatus.DEACTIVATED);
+        given(userRepository.findById(7L)).willReturn(Optional.of(user));
+
+        service.deactivate(7L, 1L);
+
+        then(auditLogRepository).shouldHaveNoInteractions();
+    }
+
+    @Test
+    void changeRole_whenUnchanged_shouldNotAudit() {
+        User user = account(7L, Role.CUSTOMER, UserStatus.ACTIVE);
+        given(userRepository.findById(7L)).willReturn(Optional.of(user));
+
+        service.changeRole(7L, Role.CUSTOMER, 1L);
+
+        then(auditLogRepository).shouldHaveNoInteractions();
+    }
+
+    @Test
+    void reissueInitialPassword_shouldAuditWithoutTheNewPassword() {
+        User user = account(7L, Role.CUSTOMER, UserStatus.ACTIVE);
+        given(userRepository.findById(7L)).willReturn(Optional.of(user));
+        given(passwordEncoder.encode(any())).willReturn("{bcrypt}new");
+
+        InitialCredentials result = service.reissueInitialPassword(7L, 1L);
+
+        ArgumentCaptor<AuditLog> audit = ArgumentCaptor.forClass(AuditLog.class);
+        then(auditLogRepository).should().save(audit.capture());
+        assertThat(audit.getValue().getAction()).isEqualTo(AuditLog.ACTION_USER_CREDENTIALS_RESEND);
+        assertThat(audit.getValue().getDetails()).doesNotContain(result.password());
     }
 
     @Test

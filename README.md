@@ -44,14 +44,13 @@ MRS closes those gaps with centralized catalog + playlist management, metadata/L
 
 **Out of scope (v1):** native mobile apps, public streaming, large-scale ML recommenders, commercial production infra, third-party chart or popularity APIs.
 
-**Specified but not yet built.** Two items from the reports have no code behind
-them yet, and the sections below say so where they come up rather than implying
+**Specified but not yet built.** One item from the reports has no code behind
+it yet, and the sections below say so where they come up rather than implying
 otherwise:
 
 | Gap | Specified in | Status |
 |-----|--------------|--------|
 | Profile history & editable name (P-05) | Report 3.2 §4.8 | Account card reads real data; history and name/password zones are placeholders |
-| Audit & recommendation log viewer (P-06e) | Report 3.2 §4.13 | Both tables are written; no screen reads them, and user administration is not audited yet |
 
 ---
 
@@ -549,8 +548,7 @@ Three two-week iterations after design:
 3. **Iteration 3** — Web UI, LLM-assisted search, shared workspace, CSV export  
 
 All three slices have landed. What is left is listed under *Specified but not yet
-built* above and in the screen table below — chiefly P-05 history and the
-P-06e log viewer.
+built* above and in the screen table below — chiefly P-05 profile history.
 
 ### UI implementation status
 
@@ -601,13 +599,13 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 | P-06a User Management | Implemented — Thymeleaf MVC CRUD: create + credentials email, filters, pagination, deactivate/reactivate with session invalidation, role change, resend. Deactivating a Designer or demoting them to Customer opens a successor picker per owned playlist (acting ADMIN or an existing collaborator) |
 | P-06b Song Catalog | Implemented as CRUD — Songs table with provider/tag/text filters, pagination (partial fetch so the shell player stays mounted), a per-row untagged warning for DC-03 and a catalog-wide untagged count, CDN playback via clicking the song title, per-row edit modal (optimistic lock, HTTP 409 refresh-only, BR-06/DC-02; classification is written to MySQL and the staged song-data JSON), and delete (hosted audio/cover first, then staged JSON, then the MySQL row so the next import cannot recreate the song). Create is the Add Song modal (audio + artwork; the server writes media and generated song-data JSON, then auto-syncs into MySQL). Sync Catalog converts JSON already under the prefix, with per-row skip reasons, a last-sync line, and a scheduled poller. Authenticated shell soft-navigates sidebar/content links so the player survives leaving Catalog for Users, Audit Log, etc. The Tags dictionary tab and the provider CSV/XLSX of UC-28 are still outstanding |
 | P-06d System Settings | Implemented — three live sections: General (session inactivity, lockout threshold/window, reset-link validity), Catalog (provider name plus S3 folder slug: lowercase letters, digits and hyphens, 2–40 characters; delete cascades hosted media, staged JSON and MySQL after a typed-name confirm), and LLM (Gemini model dropdown, 1–30s timeout defaulting to `mrs.llm.timeout` 30s, min/max query chars). Save writes General and LLM together; Reset restores those defaults (providers stay). Values persist in `system_setting` / `catalog_provider`, are audited with before/after JSON (BR-10), and take effect without a restart. The Gemini API key stays in `local.properties` and is never shown |
-| P-06e Audit & Recommendation Log | Scaffolded — `audit_log` and `recommendation_log` are written, but no screen reads them. Audit coverage today is playlist actions and manual catalog imports; user administration and song edits are not audited |
+| P-06e Audit & Recommendation Log | Implemented — ADMIN browses `audit_log` and `recommendation_log` (underline tabs, date / actor / action or user / LLM filters, newest-first pages of 20, expandable JSON). User administration and song edit/delete write audit rows (BR-10). Rows older than 12 months are purged daily; there is no manual delete |
 | P-06f All Playlists | Implemented — ADMIN list of every playlist, Draft or Published; inspect reuses P-03b with song edits and export hidden. ADMIN can publish or unpublish from that view, and collaborator share/remove still works there |
 | P-07 First-Login Password Change | Implemented — enforced by an interceptor, not only by the post-login redirect |
 | P-08 Song Browse | Implemented — the Content Designer's read-only view of the catalog: the same table as P-06b with AND filters and no edit or delete. ADMIN opening `/songs` is redirected to P-06b |
 | P-09 System Message Pages | Implemented — 403 and 404 |
 
-The remaining scaffolded screen (P-06e) still renders its zones from the spec as dashed placeholders, so what remains is visible in the running app.
+The remaining scaffolded screen (P-05) still renders its history and name/password zones from the spec as dashed placeholders, so what remains is visible in the running app.
 
 ---
 
