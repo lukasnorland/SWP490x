@@ -12,7 +12,6 @@ import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.domain.TagType;
 import com.funix.swp490x.mrs.repository.AuditLogRepository;
 import com.funix.swp490x.mrs.repository.PlaylistSongRepository;
-import com.funix.swp490x.mrs.repository.PlaylistSongRepository.PlaylistSlot;
 import com.funix.swp490x.mrs.repository.SongRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import java.util.Arrays;
@@ -466,11 +465,8 @@ public class SongCatalogService {
     public void deleteCatalogRow(Long id, Long actorId, String title, String artist) {
         Song song = songRepository.findById(id)
                 .orElseThrow(() -> new SongNotFoundException(id));
-        List<PlaylistSlot> slots = playlistSongRepository.findSlotsBySongId(id);
-        LinkedHashSet<Long> playlistIds = new LinkedHashSet<>();
-        for (PlaylistSlot slot : slots) {
-            playlistIds.add(slot.getPlaylistId());
-        }
+        LinkedHashSet<Long> playlistIds = new LinkedHashSet<>(
+                playlistSongRepository.findPlaylistIdsBySongId(id));
         songRepository.detachFromPlaylists(List.of(id));
         for (Long playlistId : playlistIds) {
             playlistService.compactAfterRemoval(playlistId, actorId);

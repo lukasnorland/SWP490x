@@ -785,17 +785,14 @@ public class PlaylistService {
     }
 
     /**
-     * Parks every remaining row, then writes 1..N in current order. One
-     * playlist may have several holes after an import prune, so closing a
-     * single gap is not enough.
+     * Parks every remaining row, then writes 1..N in current order. Parking
+     * first keeps {@code uq_playlistsong_position} happy: assigning dense
+     * numbers in one statement would collide if a later row still held 3
+     * while an earlier row moved onto 3.
      */
     private void renumber(Long playlistId) {
         playlistSongRepository.shiftAfter(playlistId, 0, PlaylistSongRepository.PARK_OFFSET);
-        List<Integer> parked = playlistSongRepository.findPositionsOrdered(playlistId);
-        int next = 1;
-        for (int from : parked) {
-            playlistSongRepository.moveOne(playlistId, from, next++);
-        }
+        playlistSongRepository.assignDensePositions(playlistId);
     }
 
     private Map<Long, PublishedPlaylistCard> toCards(List<Long> ids) {

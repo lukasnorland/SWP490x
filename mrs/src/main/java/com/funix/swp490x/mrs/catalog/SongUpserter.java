@@ -7,7 +7,6 @@ import com.funix.swp490x.mrs.catalog.SongJsonMapper.TagRef;
 import com.funix.swp490x.mrs.domain.Song;
 import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.repository.PlaylistSongRepository;
-import com.funix.swp490x.mrs.repository.PlaylistSongRepository.PlaylistSlot;
 import com.funix.swp490x.mrs.repository.SongRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import com.funix.swp490x.mrs.service.CatalogProviderService;
@@ -123,10 +122,8 @@ public class SongUpserter {
         }
         List<Long> ids = songRepository.findIdsByExternalSourceIdIn(externalSourceIds);
         if (!ids.isEmpty()) {
-            LinkedHashSet<Long> playlistIds = new LinkedHashSet<>();
-            for (PlaylistSlot slot : playlistSongRepository.findSlotsBySongIdIn(ids)) {
-                playlistIds.add(slot.getPlaylistId());
-            }
+            LinkedHashSet<Long> playlistIds = new LinkedHashSet<>(
+                    playlistSongRepository.findPlaylistIdsBySongIdIn(ids));
             songRepository.detachFromPlaylists(ids);
             for (Long playlistId : playlistIds) {
                 playlistService.compactAfterRemoval(playlistId, actorId);

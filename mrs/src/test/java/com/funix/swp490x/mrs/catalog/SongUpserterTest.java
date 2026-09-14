@@ -16,7 +16,6 @@ import com.funix.swp490x.mrs.domain.Song;
 import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.domain.TagType;
 import com.funix.swp490x.mrs.repository.PlaylistSongRepository;
-import com.funix.swp490x.mrs.repository.PlaylistSongRepository.PlaylistSlot;
 import com.funix.swp490x.mrs.repository.SongRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import com.funix.swp490x.mrs.service.PlaylistService;
@@ -247,14 +246,14 @@ class SongUpserterTest {
     void removeMissingCompactsEachAffectedPlaylistOnce() {
         given(songRepository.findIdsByExternalSourceIdIn(List.of("gone-a", "gone-b")))
                 .willReturn(List.of(10L, 11L));
-        given(playlistSongRepository.findSlotsBySongIdIn(List.of(10L, 11L)))
-                .willReturn(List.of(slot(7L, 2), slot(7L, 4), slot(9L, 1)));
+        given(playlistSongRepository.findPlaylistIdsBySongIdIn(List.of(10L, 11L)))
+                .willReturn(List.of(7L, 9L));
         given(songRepository.deleteByExternalSourceIdIn(List.of("gone-a", "gone-b"))).willReturn(2);
 
         assertThat(upserter.removeMissing(List.of("gone-a", "gone-b"), null)).isEqualTo(2);
 
         InOrder order = inOrder(playlistSongRepository, songRepository, playlistService);
-        order.verify(playlistSongRepository).findSlotsBySongIdIn(List.of(10L, 11L));
+        order.verify(playlistSongRepository).findPlaylistIdsBySongIdIn(List.of(10L, 11L));
         order.verify(songRepository).detachFromPlaylists(List.of(10L, 11L));
         order.verify(playlistService).compactAfterRemoval(7L, null);
         order.verify(playlistService).compactAfterRemoval(9L, null);
@@ -269,7 +268,7 @@ class SongUpserterTest {
 
         assertThat(upserter.removeMissing(List.of("gone"), 1L)).isZero();
 
-        verify(playlistSongRepository, never()).findSlotsBySongIdIn(any());
+        verify(playlistSongRepository, never()).findPlaylistIdsBySongIdIn(any());
         verify(playlistService, never()).compactAfterRemoval(any(), any());
     }
 
@@ -298,19 +297,5 @@ class SongUpserterTest {
                 {"externalSourceId":"%s","sourceProvider":"NCS","title":"T",
                  "genres":["%s"]}
                 """.formatted(id, genre);
-    }
-
-    private static PlaylistSlot slot(long playlistId, int position) {
-        return new PlaylistSlot() {
-            @Override
-            public Long getPlaylistId() {
-                return playlistId;
-            }
-
-            @Override
-            public int getPosition() {
-                return position;
-            }
-        };
     }
 }

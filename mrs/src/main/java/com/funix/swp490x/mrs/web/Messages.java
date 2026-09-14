@@ -147,7 +147,7 @@ public final class Messages {
     public static final String SONG_NOT_FOUND = "That song is no longer in the catalog.";
 
     public static final String SONG_DELETE_FAILED =
-            "The song could not be removed from staging. It is still in the catalog — try again.";
+            "The song could not be removed because a playlist changed at the same time. Try again, or the next Sync Catalog will remove it.";
 
     /**
      * Outcomes of P-03a / P-03b (FT-06 – FT-08). The catalogue has no codes for
