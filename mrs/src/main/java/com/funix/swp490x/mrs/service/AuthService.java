@@ -122,6 +122,8 @@ public class AuthService {
         List<String> violations = new ArrayList<>();
         if (!passwordEncoder.matches(currentPassword, user.getPasswordHash())) {
             violations.add("Your current password is incorrect");
+        } else if (passwordEncoder.matches(password, user.getPasswordHash())) {
+            violations.add("Choose a password you have not used before");
         }
         violations.addAll(passwordViolations(password, confirmPassword));
         if (!violations.isEmpty()) {

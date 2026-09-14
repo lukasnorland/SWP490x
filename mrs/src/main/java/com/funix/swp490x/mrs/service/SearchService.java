@@ -61,10 +61,14 @@ public class SearchService {
 
     /**
      * Interpret once, log, return a GET {@code /search?...} so paging does not
-     * call the interpreter again.
+     * call the interpreter again. {@code fallback} is true when Gemini failed
+     * or mapped to no catalog chips, so P-02 can tell the curator.
      */
+    public record InterpretRedirect(String path, boolean fallback) {
+    }
+
     @Transactional
-    public String interpretRedirect(Long userId, String rawQuery, Integer topN) {
+    public InterpretRedirect interpretRedirect(Long userId, String rawQuery, Integer topN) {
         String query = rawQuery == null ? "" : rawQuery.trim();
         int min = settings.llmMinQueryChars();
         int max = settings.llmMaxQueryChars();
@@ -108,7 +112,7 @@ public class SearchService {
                 llmSucceeded,
                 (int) results.getTotalElements()));
 
-        return redirectPath(mapped, keyword, topN, query);
+        return new InterpretRedirect(redirectPath(mapped, keyword, topN, query), fallback);
     }
 
     @Transactional(readOnly = true)

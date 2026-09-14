@@ -40,14 +40,13 @@ MRS closes those gaps with centralized catalog + playlist management, metadata/L
 | FE-07 | Publish to shared workspace; every internal user can view published playlists; Content Designers and ADMIN can duplicate one into their own Draft |
 | FE-08 | CSV export of playlists |
 | FE-09 | Admin: users, songs, metadata, catalog import, playlist oversight |
-| FE-10 | In-app audio playback while curating, continuing across navigation |
+| FE-10 | In-app audio playback while curating, continuing across navigation; the preview bar walks up to 100 tracks of the current filter or ranked result |
 
 **Out of scope (v1):** native mobile apps, public streaming, large-scale ML recommenders, commercial production infra, third-party chart or popularity APIs.
 
 **Dropped from v1.** Playlist history on P-05 (UC-04 Zone B) is not built:
-resume unfinished playlists from My Playlists (P-03a). Remaining leftovers
-(Tags dictionary tab, provider CSV/XLSX on P-06b) are called out in the
-screen table below.
+resume unfinished playlists from My Playlists (P-03a). The one remaining
+leftover (provider CSV/XLSX on P-06b) is called out in the screen table below.
 
 ---
 
@@ -92,8 +91,9 @@ SWP490x/
 │   │   ├── application.properties
 │   │   ├── catalog/      # Cached MusicBrainz genre list for the tag allowlist
 │   │   ├── db/migration/ # V1 schema, V2 initial admin account
-│   │   ├── static/       # Design tokens, theme, CSS, JS, vendored Bootstrap + Tom Select
+│   │   ├── static/       # Design tokens, theme, CSS, JS, self-hosted Inter, vendored Bootstrap + Tom Select
 │   │   └── templates/    # Thymeleaf layouts, fragments, screens
+│   ├── Dockerfile        # Two-stage build: ./mvnw package, then a JRE image
 │   └── pom.xml
 ├── .github/workflows/    # CI
 └── README.md
@@ -425,8 +425,18 @@ mounted across paging and filtering.
 | `/admin/catalog/sync` | POST | Sync Catalog now |
 | `/admin/catalog/sync/status` | GET | JSON progress for the import modal |
 | `/admin/catalog/tags/suggest` | GET | Typeahead for genre / mood / tag fields |
+| `/admin/catalog/tags` | GET | Tags tab — the dictionary with a per-name song count |
+| `/admin/catalog/tags` | POST | Add a name to a vocabulary (Genre and Mood must be on the allowlist) |
+| `/admin/catalog/tags/{id}/rename` | POST | Rename an unused name |
+| `/admin/catalog/tags/{id}/delete` | POST | Remove an unused name |
 | `/admin/catalog/{id}` | POST | Save classification (409 on stale version) |
 | `/admin/catalog/{id}/delete` | POST | Delete hosted media, staged JSON, then the row |
+
+The Tags tab writes MySQL only, and refuses to touch a name that is on at least
+one song: renaming or deleting it would change `song_tag` without patching the
+staged JSON that owns that classification. Change those from the song instead.
+Unused rows are dictionary entries for typeahead and the next song edit, so
+retiring them is safe — and an import already drops unused names afterwards.
 
 | Property | Default | Meaning |
 |----------|---------|---------|
@@ -527,8 +537,11 @@ FT-04 turns a free-text prompt on P-02 into catalog filters. With
 `mrs.llm.api-key` set, `POST /search/interpret` calls Gemini through the Google
 GenAI SDK; without it the app matches the prompt against the tag vocabulary
 instead, and falls back again to a plain title/artist search when nothing maps.
-All three paths render the same screen, so a missing key is easy to overlook —
-the giveaway is that only literal tag names come back as chips.
+All three paths render the same screen, but the keyword fallback announces
+itself: whenever Gemini failed or mapped to no catalog chips, P-02 flashes
+*Could not interpret that as catalog filters. Showing keyword matches instead.*
+A missing key therefore reads as that warning plus chips that are only ever
+literal tag names.
 
 The key is a credential, so it belongs in `mrs/local.properties` beside the
 database account:
@@ -567,6 +580,18 @@ cd mrs
 
 On Windows: `.\mvnw.cmd spring-boot:run`
 
+A two-stage `mrs/Dockerfile` packages the same app, so the demo host does not
+need a JDK or Maven of its own. It builds with the wrapper inside the image and
+ships only a JRE layer, and it carries no configuration: pass the database and
+any credentials the way `application.properties` expects them.
+
+```bash
+cd mrs
+docker build -t mrs .
+docker run --rm -p 8080:8080 -e DB_URL=jdbc:mysql://host.docker.internal:3306/mrs \
+  -e DB_USERNAME=root -e DB_PASSWORD=secret mrs
+```
+
 ### Test
 
 ```bash
@@ -574,7 +599,25 @@ cd mrs
 ./mvnw -B verify
 ```
 
-CI runs the same verify step against MySQL 8 on every push/PR to `main`.
+CI runs the same verify step against MySQL 8 on every push/PR to `main`. The
+suite includes ArchUnit rules (`ArchitectureTest`) so a controller cannot drift
+out of `web`, and the repository layer cannot start depending on it. One test
+class is skipped unless you configure it: `GeminiApiSmokeTest` needs a real
+`mrs.llm.api-key` and talks to Google.
+
+### Security and operations
+
+Defaults that matter once the app is not on localhost, none of which need
+configuration:
+
+| Concern | Behaviour |
+|---------|-----------|
+| Content Security Policy | `default-src 'self'` with `frame-ancestors 'none'`; scripts and fonts are same-origin only, which the vendored Bootstrap / Tom Select / Inter already satisfy. Images and audio may also come from HTTPS (CloudFront). No template carries an inline `<script>` or an `onclick`, so no `unsafe-inline` is needed for scripts |
+| Request correlation | `CorrelationIdFilter` stamps every response with `X-Request-Id` (echoing an incoming one, e.g. from a load balancer) and puts the same value on the MDC, so `logging.pattern.console` prints it and one call's log lines can be grepped together |
+| Health check | `/actuator/health` is anonymous for a load balancer; every other Actuator endpoint is ADMIN-only, and only `health` is exposed at all |
+| Password hashing | BCrypt at cost 12 |
+| Password change | The new password is refused if it matches the current hash, on top of the BR-12 checklist |
+| Failed sign-in and 403 | Audited — see P-06e in the screen table |
 
 ### Initial admin account (dev only)
 
@@ -596,8 +639,8 @@ Three two-week iterations after design:
 2. **Iteration 2** — Search/filter, recommendation & ranking, playlists, concurrency  
 3. **Iteration 3** — Web UI, LLM-assisted search, shared workspace, CSV export  
 
-All three slices have landed. Playlist history on P-05 was dropped from v1;
-leftovers on P-06b are listed in the screen table below.
+All three slices have landed. Playlist history on P-05 was dropped from v1; the
+provider CSV/XLSX leftover on P-06b is listed in the screen table below.
 
 ### UI implementation status
 
@@ -646,13 +689,13 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 | P-04b Published Playlist View | Implemented — read-only song list; Duplicate and Export CSV are curator-only; unpublish is owner or ADMIN. A Draft id returns 403 rather than 404 |
 | P-05 My Profile | Implemented — view account (UC-04), edit display name and password (UC-05). Playlist history was dropped; curators resume work from My Playlists |
 | P-06a User Management | Implemented — Thymeleaf MVC CRUD: create + credentials email, filters, pagination, deactivate/reactivate with session invalidation, role change, resend. Deactivating a Designer or demoting them to Customer opens a successor picker per owned playlist (acting ADMIN or an existing collaborator) |
-| P-06b Song Catalog | Implemented as CRUD — Songs table with provider/tag/text filters, pagination (partial fetch so the shell player stays mounted), a per-row untagged warning for DC-03 and a catalog-wide untagged count, CDN playback via clicking the song title, per-row edit modal (optimistic lock, HTTP 409 refresh-only, BR-06/DC-02; classification is written to MySQL and the staged song-data JSON), and delete (hosted audio/cover first, then staged JSON, then the MySQL row so the next import cannot recreate the song). Create is the Add Song modal (audio + artwork; the server writes media and generated song-data JSON, then auto-syncs into MySQL). Sync Catalog converts JSON already under the prefix, with per-row skip reasons, a last-sync line, and a scheduled poller. Authenticated shell soft-navigates sidebar/content links so the player survives leaving Catalog for Users, Audit Log, etc. The Tags dictionary tab and the provider CSV/XLSX of UC-28 are still outstanding |
+| P-06b Song Catalog | Implemented as CRUD — Songs and Tags tabs. Songs is a table with provider / genre / mood / artist / tag / text filters and an *Untagged only* switch (ADMIN only; the designer browse of P-08 has no use for it), pagination (partial fetch so the shell player stays mounted), a per-row untagged warning for DC-03 and a catalog-wide untagged count, CDN playback via clicking the song title, per-row edit modal (optimistic lock, HTTP 409 refresh-only, BR-06/DC-02; classification is written to MySQL and the staged song-data JSON), and delete (hosted audio/cover first, then staged JSON, then the MySQL row so the next import cannot recreate the song). Create is the Add Song modal (audio + artwork; the server writes media and generated song-data JSON, then auto-syncs into MySQL). Sync Catalog converts JSON already under the prefix, with per-row skip reasons, a last-sync line, and a scheduled poller. Authenticated shell soft-navigates sidebar/content links so the player survives leaving Catalog for Users, Audit Log, etc. The Tags tab is the vocabulary dictionary: every name with the number of songs carrying it, add for any vocabulary, and rename/delete for unused names only. The provider CSV/XLSX of UC-28 is still outstanding |
 | P-06d System Settings | Implemented — three live sections: General (session inactivity, lockout threshold/window, reset-link validity), Catalog (provider name plus S3 folder slug: lowercase letters, digits and hyphens, 2–40 characters; delete cascades hosted media, staged JSON and MySQL after a typed-name confirm), and LLM (Gemini model dropdown, 1–30s timeout defaulting to `mrs.llm.timeout` 30s, min/max query chars). Save writes General and LLM together; Reset restores those defaults (providers stay). Values persist in `system_setting` / `catalog_provider`, are audited with before/after JSON (BR-10), and take effect without a restart. The Gemini API key stays in `local.properties` and is never shown |
-| P-06e Audit & Recommendation Log | Implemented — ADMIN browses `audit_log` and `recommendation_log` (underline tabs, date / actor / action or user / LLM filters, newest-first pages of 20, expandable JSON). User administration and song edit/delete write audit rows (BR-10). Rows older than 12 months are purged daily; there is no manual delete |
+| P-06e Audit & Recommendation Log | Implemented — ADMIN browses `audit_log` and `recommendation_log` (underline tabs, date / actor / action or user / LLM filters, newest-first pages of 20, expandable JSON). User administration, song edit/delete, a failed sign-in against a registered address (`LOGIN_FAILED`) and an authenticated caller hitting a URL their role cannot use (`ACCESS_DENIED`) all write audit rows (BR-10). Rows older than 12 months are purged daily; there is no manual delete |
 | P-06f All Playlists | Implemented — ADMIN list of every playlist, Draft or Published; inspect reuses P-03b with song edits and export hidden. ADMIN can publish or unpublish from that view, and collaborator share/remove still works there |
 | P-07 First-Login Password Change | Implemented — enforced by an interceptor, not only by the post-login redirect |
-| P-08 Song Browse | Implemented — the Content Designer's read-only view of the catalog: the same table as P-06b with AND filters and no edit or delete. ADMIN opening `/songs` is redirected to P-06b |
-| P-09 System Message Pages | Implemented — 403 and 404 |
+| P-08 Song Browse | Implemented — the Content Designer's read-only view of the catalog: the same table and the same provider / genre / mood / artist / tag / text filters as P-06b, AND across vocabularies, with no *Untagged only* switch and no edit or delete. ADMIN opening `/songs` is redirected to P-06b |
+| P-09 System Message Pages | Implemented — 403, 404 and 500 |
 
 ---
 

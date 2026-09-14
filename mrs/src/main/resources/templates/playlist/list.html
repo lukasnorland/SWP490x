@@ -137,7 +137,7 @@
                         th:action="@{|/playlists/${playlist.id}/delete|}" method="post">
                     <input type="hidden" name="expectedVersion" th:value="${playlist.version}">
                     <button type="submit" class="btn btn-icon" title="Delete playlist"
-                            onclick="return confirm('Delete this playlist? The songs stay in the catalog.');">
+                            data-confirm="Delete this playlist? The songs stay in the catalog.">
                       <svg th:replace="~{fragments/icons :: icon('trash-2', 'icon--sm')}"></svg>
                       <span class="visually-hidden">Delete</span>
                     </button>

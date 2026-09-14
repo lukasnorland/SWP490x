@@ -9,6 +9,20 @@
 */-->
 <body>
 
+<!-- P-06b Songs | Tags. Hidden on designer browse (that page does not include this). -->
+<ul th:fragment="catalogTabs" class="nav nav-underline gap-3">
+  <li class="nav-item">
+    <a class="nav-link px-0"
+       th:classappend="${catalogTab == null or catalogTab == 'songs'} ? ' active'"
+       th:href="@{/admin/catalog}">Songs</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link px-0"
+       th:classappend="${catalogTab == 'tags'} ? ' active'"
+       th:href="@{/admin/catalog/tags}">Tags</a>
+  </li>
+</ul>
+
 <!-- Zone B: filters — partial fetch keeps the shell player mounted. -->
 <section th:fragment="filters" class="card">
   <div class="card-body">
@@ -68,6 +82,24 @@
         </div>
       </div>
       <div class="col-12 col-md-3">
+        <label class="form-label" for="filterArtist">Artist</label>
+        <div class="dropdown catalog-filter-dropdown" data-catalog-filter>
+          <button class="form-select catalog-filter-toggle" type="button" id="filterArtist"
+                  data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+            <span th:replace="~{fragments/song-catalog :: filterSummary(${filterArtistIds})}">All</span>
+          </button>
+          <div class="dropdown-menu catalog-filter-menu" aria-labelledby="filterArtist">
+            <label class="dropdown-item catalog-filter-option" th:each="tag : ${tags}"
+                   th:if="${tag.type.name() == 'ARTIST'}">
+              <input class="form-check-input" type="checkbox" name="artistId"
+                     th:value="${tag.id}"
+                     th:checked="${tag.id != null and #lists.contains(filterArtistIds, tag.id)}">
+              <span th:text="${tag.name}">Artist</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
         <label class="form-label" for="filterTag">Tags</label>
         <div class="dropdown catalog-filter-dropdown" data-catalog-filter>
           <button class="form-select catalog-filter-toggle" type="button" id="filterTag"
@@ -90,6 +122,13 @@
         <input class="form-control" type="search" id="filterQuery" name="q"
                placeholder="Title or artist"
                th:value="${filterQuery}">
+      </div>
+      <div class="col-12 col-md-3" th:if="${!browseMode}">
+        <div class="form-check mt-md-4">
+          <input class="form-check-input" type="checkbox" id="filterUntagged" name="untagged"
+                 value="true" th:checked="${filterUntagged}">
+          <label class="form-check-label" for="filterUntagged">Untagged only</label>
+        </div>
       </div>
       <div class="col-12 col-md-3 d-flex gap-2">
         <button type="submit" class="btn btn-primary flex-grow-1">Filter</button>
@@ -199,7 +238,7 @@
                   <form th:action="@{|/admin/catalog/${song.id}/delete|}" method="post">
                     <button type="submit" class="btn btn-icon"
                             title="Delete song"
-                            onclick="return confirm('Remove this song from the catalog? Playlists that include it will lose the track.');">
+                            data-confirm="Remove this song from the catalog? Playlists that include it will lose the track.">
                       <svg th:replace="~{fragments/icons :: icon('trash-2', 'icon--sm')}"></svg>
                       <span class="visually-hidden">Delete</span>
                     </button>

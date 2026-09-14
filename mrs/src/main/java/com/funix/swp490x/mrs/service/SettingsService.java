@@ -45,10 +45,6 @@ public class SettingsService {
         return intValue(SettingKey.SESSION_INACTIVITY_HOURS);
     }
 
-    public Duration sessionInactivity() {
-        return Duration.ofHours(sessionInactivityHours());
-    }
-
     public int lockoutThreshold() {
         return intValue(SettingKey.LOCKOUT_THRESHOLD);
     }

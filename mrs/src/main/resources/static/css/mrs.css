@@ -38,6 +38,18 @@
   height: var(--icon-lg);
 }
 
+.icon-sprite {
+  display: none;
+}
+
+.search-topn {
+  width: 7rem;
+}
+
+.progress-bar--seed {
+  width: 4%;
+}
+
 /* --- 1.3 type styles with no Bootstrap equivalent ----------------------- */
 
 /* Eyebrow text: step counters, zone markers, read-only field captions. */

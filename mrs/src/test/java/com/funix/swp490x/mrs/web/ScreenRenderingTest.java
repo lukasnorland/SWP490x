@@ -36,6 +36,7 @@ import com.funix.swp490x.mrs.web.admin.AdminCatalogController;
 import com.funix.swp490x.mrs.web.admin.AdminLogsController;
 import com.funix.swp490x.mrs.web.admin.AdminPlaylistController;
 import com.funix.swp490x.mrs.web.admin.AdminSettingsController;
+import com.funix.swp490x.mrs.web.admin.AdminTagController;
 import com.funix.swp490x.mrs.web.admin.AdminUserController;
 import com.funix.swp490x.mrs.settings.SettingKey;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
@@ -56,6 +57,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.BDDMockito.given;
@@ -69,7 +71,7 @@ import static org.mockito.BDDMockito.given;
 @WebMvcTest(controllers = {AuthController.class, HomeController.class, SearchController.class,
         SongBrowseController.class, PlaylistController.class, WorkspaceController.class,
         ProfileController.class, AdminLogsController.class, AdminUserController.class,
-        AdminPlaylistController.class, AdminCatalogController.class,
+        AdminPlaylistController.class, AdminCatalogController.class, AdminTagController.class,
         AdminSettingsController.class,
         AccountPasswordController.class})
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
@@ -125,6 +127,9 @@ class ScreenRenderingTest {
     @MockitoBean
     private com.funix.swp490x.mrs.service.AdminLogService adminLogService;
 
+    @MockitoBean
+    private com.funix.swp490x.mrs.service.TagVocabularyService tagVocabularyService;
+
     @BeforeEach
     void listsAreEmptyByDefault() {
         given(userAccountService.search(nullable(Role.class), nullable(UserStatus.class),
@@ -143,9 +148,11 @@ class ScreenRenderingTest {
         given(playlistService.publishedSongs(nullable(Long.class))).willReturn(List.of());
         given(playlistService.ownerName(nullable(Long.class))).willReturn("Dana Designer");
         given(songCatalogService.search(nullable(List.class), nullable(List.class),
-                nullable(List.class), nullable(List.class), nullable(String.class), anyInt()))
+                nullable(List.class), nullable(List.class), nullable(List.class),
+                nullable(String.class), anyBoolean(), anyInt()))
                 .willReturn(Page.empty());
         given(tagRepository.findAllUsedOrderByTypeAscNameAsc()).willReturn(List.of());
+        given(tagVocabularyService.list()).willReturn(List.of());
         given(catalogImportService.lastRun()).willReturn(Optional.empty());
         given(catalogImportService.sourceDescription()).willReturn("s3://bucket/song-data/");
         given(songDraftUploadService.registeredProviders())
@@ -273,8 +280,8 @@ class ScreenRenderingTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {Routes.ADMIN_USERS, Routes.ADMIN_CATALOG, Routes.ADMIN_PLAYLISTS,
-            Routes.ADMIN_SETTINGS, Routes.ADMIN_LOGS})
+    @ValueSource(strings = {Routes.ADMIN_USERS, Routes.ADMIN_CATALOG, Routes.ADMIN_CATALOG_TAGS,
+            Routes.ADMIN_PLAYLISTS, Routes.ADMIN_SETTINGS, Routes.ADMIN_LOGS})
     void adminScreensRenderForAdmin(String path) throws Exception {
         mockMvc.perform(get(path).with(user(principal(Role.ADMIN))))
                 .andExpect(status().isOk());

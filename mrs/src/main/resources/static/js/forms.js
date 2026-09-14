@@ -274,6 +274,31 @@ export function initSubmitStates(root) {
   });
 }
 
+var confirmListenerBound = false;
+
+export function initConfirmSubmits() {
+  if (confirmListenerBound) {
+    return;
+  }
+  confirmListenerBound = true;
+  document.addEventListener("submit", function (event) {
+    var form = event.target;
+    if (!form || form.tagName !== "FORM") {
+      return;
+    }
+    var submitter = event.submitter;
+    var message = (submitter && submitter.getAttribute("data-confirm"))
+        || form.getAttribute("data-confirm");
+    if (!message) {
+      return;
+    }
+    if (!window.confirm(message)) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+  }, true);
+}
+
 /* Re-run every form enhancement over a scope. Soft-nav calls this on the
    swapped-in content, so anything added here is picked up there too. */
 export function enhanceForms(scope) {
@@ -282,5 +307,6 @@ export function enhanceForms(scope) {
   initPasswordGenerators(scope);
   initAutoShownModals(scope);
   initSesRecipientPreparation(scope);
+  initConfirmSubmits();
   initSubmitStates(scope);
 }

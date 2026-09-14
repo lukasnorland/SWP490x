@@ -41,7 +41,7 @@
         <input type="hidden" name="expectedVersion" th:value="${playlist.version}">
         <input type="hidden" name="returnTo" value="/workspace">
         <button type="submit" class="btn btn-primary"
-                onclick="return confirm('Unpublish this playlist? It will leave the Shared Workspace and become editable again.');">
+                data-confirm="Unpublish this playlist? It will leave the Shared Workspace and become editable again.">
           <svg th:replace="~{fragments/icons :: icon('unlock', 'icon--sm')}"></svg>
           <span>Unpublish</span>
         </button>

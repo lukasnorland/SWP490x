@@ -5,8 +5,9 @@
 <div th:fragment="content">
 
   <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-xl">
-    <div class="d-flex flex-column gap-1">
+    <div class="d-flex flex-column gap-2">
       <h1>Song Catalog</h1>
+      <div th:replace="~{fragments/song-catalog :: catalogTabs}"></div>
     </div>
     <!-- Zone A: Add Song stages new songs, Sync Catalog pulls in JSON that is
          already under the prefix. Both are refused while a run holds the lock. -->
@@ -41,11 +42,12 @@
         <span class="table__numeric fw-semibold text-body" th:text="${totalSongs}">0</span>
         songs
       </span>
-      <span th:if="${untaggedCount > 0}" class="text-warning-emphasis">
+      <a class="text-warning-emphasis text-decoration-none" th:if="${untaggedCount > 0}"
+         th:href="@{/admin/catalog(untagged=true)}">
         <svg th:replace="~{fragments/icons :: icon('alert-triangle', 'icon--sm')}"></svg>
         <span class="table__numeric fw-semibold" th:text="${untaggedCount}">0</span>
         untagged, so not reachable by a filtered search (DC-03)
-      </span>
+      </a>
       <span th:if="${lastRun != null}">
         Last sync
         <span th:text="${lastRun.triggerType.displayName}">Manual</span>
@@ -211,7 +213,7 @@
           <div class="d-none" data-upload-progress>
             <p class="small mb-1" data-upload-progress-label>Uploading…</p>
             <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-              <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 4%"></div>
+              <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar--seed"></div>
             </div>
           </div>
 
@@ -340,7 +342,7 @@
           <p class="small mb-0" data-import-detail>Starting import…</p>
           <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"
                aria-valuenow="0" aria-labelledby="importProgressTitle">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 4%"></div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar--seed"></div>
           </div>
           <div class="row g-3">
             <div class="col-6 col-md-3">

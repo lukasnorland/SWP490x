@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -19,11 +20,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.funix.swp490x.mrs.config.SecurityConfig;
 import com.funix.swp490x.mrs.config.WebConfig;
+import com.funix.swp490x.mrs.domain.AuditLog;
 import com.funix.swp490x.mrs.domain.Role;
 import com.funix.swp490x.mrs.domain.User;
 import com.funix.swp490x.mrs.domain.UserStatus;
 import com.funix.swp490x.mrs.mail.NotificationService;
+import com.funix.swp490x.mrs.repository.AuditLogRepository;
 import com.funix.swp490x.mrs.repository.UserRepository;
+import com.funix.swp490x.mrs.security.CorrelationIdFilter;
 import com.funix.swp490x.mrs.security.LoginAttemptService;
 import com.funix.swp490x.mrs.security.LoginFailureHandler;
 import com.funix.swp490x.mrs.security.LoginSuccessHandler;
@@ -67,6 +71,9 @@ class LoginFlowTest {
     private UserRepository userRepository;
 
     @MockitoBean
+    private AuditLogRepository auditLogRepository;
+
+    @MockitoBean
     private NotificationService notificationService;
 
     /** A Content Designer lands on My Playlists, so P-03a has to render. */
@@ -96,7 +103,9 @@ class LoginFlowTest {
     @Test
     void loginFormCarriesACsrfToken() throws Exception {
         mockMvc.perform(get(Routes.LOGIN))
-                .andExpect(content().string(containsString("_csrf")));
+                .andExpect(content().string(containsString("_csrf")))
+                .andExpect(header().string("Content-Security-Policy", containsString("script-src 'self'")))
+                .andExpect(header().exists(CorrelationIdFilter.HEADER));
     }
 
     @Test
@@ -271,6 +280,10 @@ class LoginFlowTest {
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(Routes.LOGIN + "?error"));
+
+        then(auditLogRepository).should().save(org.mockito.ArgumentMatchers.argThat(log ->
+                AuditLog.ACTION_LOGIN_FAILED.equals(log.getAction())
+                        && log.getActorId().equals(1L)));
     }
 
     @Test
@@ -283,5 +296,7 @@ class LoginFlowTest {
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(Routes.LOGIN + "?error"));
+
+        then(auditLogRepository).should(never()).save(org.mockito.ArgumentMatchers.any());
     }
 }

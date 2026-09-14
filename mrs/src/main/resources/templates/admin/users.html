@@ -129,7 +129,7 @@
                         th:action="@{|/admin/users/${account.id}/deactivate|}" method="post">
                     <button type="submit" class="btn btn-icon"
                             title="Deactivate account"
-                            onclick="return confirm('Deactivate this account? Open sessions will end on the next request.');">
+                            data-confirm="Deactivate this account? Open sessions will end on the next request.">
                       <svg th:replace="~{fragments/icons :: icon('circle-minus', 'icon--sm')}"></svg>
                       <span class="visually-hidden">Deactivate</span>
                     </button>

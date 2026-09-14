@@ -1,0 +1,6 @@
+Inter font (https://rsms.me/inter/)
+
+Copyright (c) 2016-2024 The Inter Project Authors.
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+See https://openfontlicense.org/media/SIL_Open_Font_License_1.1.txt

@@ -3,6 +3,7 @@ package com.funix.swp490x.mrs.web;
 import com.funix.swp490x.mrs.web.Messages;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.BDDMockito.given;
@@ -78,7 +79,8 @@ class SongBrowseTest {
     @BeforeEach
     void defaults() {
         given(songCatalogService.search(nullable(List.class), nullable(List.class),
-                nullable(List.class), nullable(List.class), nullable(String.class), anyInt()))
+                nullable(List.class), nullable(List.class), nullable(List.class),
+                nullable(String.class), anyBoolean(), anyInt()))
                 .willReturn(Page.empty());
         given(songCatalogService.providers()).willReturn(List.of("EpidemicSound"));
         given(songCatalogService.total()).willReturn(0L);
@@ -202,7 +204,8 @@ class SongBrowseTest {
                 .andExpect(status().isOk());
 
         then(songCatalogService).should()
-                .search(List.of("EpidemicSound"), List.of(3L), List.of(4L), List.of(5L), "ice", 1);
+                .search(List.of("EpidemicSound"), List.of(3L), List.of(4L), null, List.of(5L),
+                        "ice", false, 1);
     }
 
     @Test
@@ -216,13 +219,25 @@ class SongBrowseTest {
                 .andExpect(status().isOk());
 
         then(songCatalogService).should()
-                .search(null, List.of(3L, 7L), List.of(4L, 8L), null, null, 0);
+                .search(null, List.of(3L, 7L), List.of(4L, 8L), null, null, null, false, 0);
+    }
+
+    @Test
+    void songsPassesArtistFilterThrough() throws Exception {
+        mockMvc.perform(get(Routes.SONGS)
+                        .param("artistId", "9")
+                        .with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk());
+
+        then(songCatalogService).should()
+                .search(null, null, null, List.of(9L), null, null, false, 0);
     }
 
     @Test
     void playQueueReturnsJsonForContentDesigner() throws Exception {
         given(songCatalogService.playQueue(nullable(List.class), nullable(List.class),
-                nullable(List.class), nullable(List.class), nullable(String.class)))
+                nullable(List.class), nullable(List.class), nullable(List.class),
+                nullable(String.class), anyBoolean()))
                 .willReturn(List.of(new PreviewTrack(12L, "https://cdn.example/a.mp3", "Alpha",
                         "Sugar Blizz", "https://cdn.example/cover.jpg",
                         "rgba(1, 2, 3, 0.4)", "rgba(4, 5, 6, 0.4)", 180)));
@@ -247,7 +262,8 @@ class SongBrowseTest {
     @Test
     void playQueueIsOpenToAdminWithoutRedirecting() throws Exception {
         given(songCatalogService.playQueue(nullable(List.class), nullable(List.class),
-                nullable(List.class), nullable(List.class), nullable(String.class)))
+                nullable(List.class), nullable(List.class), nullable(List.class),
+                nullable(String.class), anyBoolean()))
                 .willReturn(List.of());
 
         mockMvc.perform(get(Routes.SONGS_PLAY_QUEUE).with(user(principal(Role.ADMIN))))
@@ -258,7 +274,8 @@ class SongBrowseTest {
     @Test
     void playQueuePassesBrowseFiltersThrough() throws Exception {
         given(songCatalogService.playQueue(nullable(List.class), nullable(List.class),
-                nullable(List.class), nullable(List.class), nullable(String.class)))
+                nullable(List.class), nullable(List.class), nullable(List.class),
+                nullable(String.class), anyBoolean()))
                 .willReturn(List.of());
 
         mockMvc.perform(get(Routes.SONGS_PLAY_QUEUE)
@@ -271,7 +288,8 @@ class SongBrowseTest {
                 .andExpect(status().isOk());
 
         then(songCatalogService).should()
-                .playQueue(List.of("EpidemicSound"), List.of(3L), List.of(4L), List.of(5L), "ice");
+                .playQueue(List.of("EpidemicSound"), List.of(3L), List.of(4L), null, List.of(5L),
+                        "ice", false);
     }
 
     @Test
@@ -284,7 +302,8 @@ class SongBrowseTest {
 
     private void showing(Song... songs) {
         given(songCatalogService.search(nullable(List.class), nullable(List.class),
-                nullable(List.class), nullable(List.class), nullable(String.class), anyInt()))
+                nullable(List.class), nullable(List.class), nullable(List.class),
+                nullable(String.class), anyBoolean(), anyInt()))
                 .willReturn(new PageImpl<>(List.of(songs), PageRequest.of(0, 20), songs.length));
         given(songCatalogService.total()).willReturn((long) songs.length);
     }

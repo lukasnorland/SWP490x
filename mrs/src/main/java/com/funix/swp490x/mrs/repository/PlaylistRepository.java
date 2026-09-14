@@ -189,10 +189,6 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
             """, nativeQuery = true)
     long countVisibleTo(@Param("playlistId") Long playlistId, @Param("userId") Long userId);
 
-    @Query(value = "SELECT COUNT(*) FROM playlist_collaborator c WHERE c.playlist_id = :playlistId",
-            nativeQuery = true)
-    long countCollaborators(@Param("playlistId") Long playlistId);
-
     /**
      * P-04a: published playlists, newest publish first. {@code ownerId} is 0
      * when the owner filter is off — same empty-sentinel trick as
