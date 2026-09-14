@@ -65,7 +65,12 @@ public class SearchController {
             @RequestParam(required = false) Integer topN,
             RedirectAttributes redirectAttributes) {
         try {
-            return "redirect:" + searchService.interpretRedirect(userId(user), q, topN);
+            SearchService.InterpretRedirect result =
+                    searchService.interpretRedirect(userId(user), q, topN);
+            if (result.fallback()) {
+                flash(redirectAttributes, "warning", Messages.SEARCH_INTERPRET_FALLBACK);
+            }
+            return "redirect:" + result.path();
         } catch (InvalidSearchQueryException e) {
             redirectAttributes.addFlashAttribute("flash", Messages.SEARCH_QUERY_LENGTH);
             redirectAttributes.addFlashAttribute("flashVariant", "warning");

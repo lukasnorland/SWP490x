@@ -105,18 +105,11 @@ public final class Messages {
      * for the S3 path, which reports counts rather than a fixed sentence, so
      * these cover only the cases with nothing to count.
      */
-    public static final String IMPORT_NO_CHANGE =
-            "Nothing to import — every staged song is already in the catalog.";
-
     public static final String IMPORT_STARTED =
             "Import started. Keep this page open to watch progress; the summary appears when it finishes.";
 
     public static final String IMPORT_ALREADY_RUNNING =
             "An import is already running. Wait for it to finish, then check the summary.";
-
-    public static final String IMPORT_FAILED =
-            "The import could not be completed. Check that the staged catalog is reachable, "
-                    + "then try again — anything already applied is kept.";
 
     public static final String UPLOAD_SYNC_SKIPPED =
             "The files were staged, but an import is already running. Press Sync Catalog when it finishes.";
@@ -137,8 +130,8 @@ public final class Messages {
      */
     public static final String SONG_SAVED = "Song updated.";
 
-    public static final String SONG_UNKNOWN_CLASSIFICATION =
-            "Pick a listed MusicBrainz genre or mood. Unknown names cannot be saved as Genre or Mood.";
+    // An unknown genre or mood is reported by InvalidClassificationException,
+    // which names the offending values, so there is no fixed sentence for it.
 
     public static final String SONG_SAVE_FAILED =
             "The staged catalog object could not be updated. The song was not changed — try again.";
@@ -242,12 +235,16 @@ public final class Messages {
     public static final String SUCCESSOR_REQUIRED =
             "Choose who should own each playlist before continuing.";
 
-    public static final String PLAYLIST_PICK_ONE =
-            "Choose a playlist, or create a new one.";
-
     /** P-02 FT-04: contextual query length. */
     public static final String SEARCH_QUERY_LENGTH =
             "Describe the playlist in 10–200 characters.";
+
+    /**
+     * P-02: Gemini failed or returned nothing the catalog can chip. Keyword
+     * search still runs so the curator is not left on an empty prompt.
+     */
+    public static final String SEARCH_INTERPRET_FALLBACK =
+            "Could not interpret that as catalog filters. Showing keyword matches instead.";
 
     public static final String SONGS_ADDED_TO_PLAYLIST = "Songs added to the playlist.";
 
@@ -286,6 +283,12 @@ public final class Messages {
             "Type the provider name to confirm deletion.";
 
     public static final String PROVIDER_NOT_FOUND = "That provider is no longer registered.";
+
+    public static final String TAG_CREATED = "Tag added to the dictionary.";
+
+    public static final String TAG_RENAMED = "Tag renamed.";
+
+    public static final String TAG_DELETED = "Unused tag removed.";
 
     private Messages() {
     }

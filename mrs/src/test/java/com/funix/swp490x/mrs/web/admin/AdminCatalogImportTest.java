@@ -112,7 +112,8 @@ class AdminCatalogImportTest {
     @BeforeEach
     void defaults() {
         given(songCatalogService.search(nullable(List.class), nullable(List.class),
-                nullable(List.class), nullable(List.class), nullable(String.class), anyInt()))
+                nullable(List.class), nullable(List.class), nullable(List.class),
+                nullable(String.class), anyBoolean(), anyInt()))
                 .willReturn(Page.empty());
         given(songCatalogService.providers()).willReturn(List.of("EpidemicSound"));
         given(tagRepository.findAllUsedOrderByTypeAscNameAsc()).willReturn(List.of());
@@ -193,7 +194,8 @@ class AdminCatalogImportTest {
 
     private void showing(Song... songs) {
         given(songCatalogService.search(nullable(List.class), nullable(List.class),
-                nullable(List.class), nullable(List.class), nullable(String.class), anyInt()))
+                nullable(List.class), nullable(List.class), nullable(List.class),
+                nullable(String.class), anyBoolean(), anyInt()))
                 .willReturn(new PageImpl<>(List.of(songs), PageRequest.of(0, 20), songs.length));
     }
 
@@ -203,6 +205,7 @@ class AdminCatalogImportTest {
                         .param("provider", "EpidemicSound")
                         .param("genreId", "3")
                         .param("moodId", "4")
+                        .param("artistId", "9")
                         .param("tagId", "5")
                         .param("q", "ice")
                         .param("page", "2")
@@ -210,7 +213,8 @@ class AdminCatalogImportTest {
                 .andExpect(status().isOk());
 
         then(songCatalogService).should()
-                .search(List.of("EpidemicSound"), List.of(3L), List.of(4L), List.of(5L), "ice", 2);
+                .search(List.of("EpidemicSound"), List.of(3L), List.of(4L), List.of(9L), List.of(5L),
+                        "ice", false, 2);
     }
 
     @Test
@@ -228,13 +232,25 @@ class AdminCatalogImportTest {
 
         then(songCatalogService).should()
                 .search(List.of("EpidemicSound", "NCS"), List.of(3L, 7L), List.of(4L),
-                        List.of(5L, 9L), null, 0);
+                        null, List.of(5L, 9L), null, false, 0);
+    }
+
+    @Test
+    void catalogPassesUntaggedFilterThrough() throws Exception {
+        mockMvc.perform(get(Routes.ADMIN_CATALOG)
+                        .param("untagged", "true")
+                        .with(user(admin())))
+                .andExpect(status().isOk());
+
+        then(songCatalogService).should()
+                .search(null, null, null, null, null, null, true, 0);
     }
 
     @Test
     void catalogPagerRepeatsMultiValueFilters() throws Exception {
         given(songCatalogService.search(nullable(List.class), nullable(List.class),
-                nullable(List.class), nullable(List.class), nullable(String.class), anyInt()))
+                nullable(List.class), nullable(List.class), nullable(List.class),
+                nullable(String.class), anyBoolean(), anyInt()))
                 .willReturn(new PageImpl<>(List.of(song("Ice Cream", "Sugar Blizz")),
                         PageRequest.of(0, 20), 40));
 
@@ -256,24 +272,27 @@ class AdminCatalogImportTest {
                 new Tag(TagType.GENRE, "Dubstep"),
                 new Tag(TagType.MOOD, "Dreamy"),
                 new Tag(TagType.MOOD, "Aggressive"),
+                new Tag(TagType.ARTIST, "Sugar Blizz"),
                 new Tag(TagType.TAGS, "Female Vocals")));
 
         mockMvc.perform(get(Routes.ADMIN_CATALOG).with(user(admin())))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("id=\"filterGenre\"")))
                 .andExpect(content().string(containsString("id=\"filterMood\"")))
+                .andExpect(content().string(containsString("id=\"filterArtist\"")))
                 .andExpect(content().string(containsString("id=\"filterTag\"")))
                 .andExpect(content().string(containsString("name=\"genreId\"")))
                 .andExpect(content().string(containsString("name=\"moodId\"")))
+                .andExpect(content().string(containsString("name=\"artistId\"")))
                 .andExpect(content().string(containsString("type=\"checkbox\"")))
                 .andExpect(content().string(containsString(">Pop</span>")))
                 .andExpect(content().string(containsString(">Dubstep</span>")))
                 .andExpect(content().string(containsString(">Aggressive</span>")))
+                .andExpect(content().string(containsString(">Sugar Blizz</span>")))
                 .andExpect(content().string(containsString(">Female Vocals</span>")))
                 .andExpect(content().string(not(containsString(">2010s</option>"))))
-                .andExpect(content().string(not(containsString("Untagged only"))))
-                .andExpect(content().string(not(containsString("No preview audio"))))
-                .andExpect(content().string(not(containsString("Tag dictionary"))));
+                .andExpect(content().string(containsString("Untagged only")))
+                .andExpect(content().string(not(containsString("No preview audio"))));
 
         then(tagRepository).should().findAllUsedOrderByTypeAscNameAsc();
     }

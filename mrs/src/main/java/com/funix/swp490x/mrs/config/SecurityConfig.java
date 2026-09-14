@@ -1,19 +1,27 @@
 package com.funix.swp490x.mrs.config;
 
+import com.funix.swp490x.mrs.domain.AuditLog;
+import com.funix.swp490x.mrs.repository.AuditLogRepository;
+import com.funix.swp490x.mrs.security.CorrelationIdFilter;
 import com.funix.swp490x.mrs.security.EagerCsrfTokenFilter;
 import com.funix.swp490x.mrs.security.LoginFailureHandler;
 import com.funix.swp490x.mrs.security.LoginSuccessHandler;
+import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.web.Routes;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
@@ -28,10 +36,28 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    /** BCrypt only (NFR-SEC02); matches the {@code $2a$} hashes seeded by V2. */
+    /**
+     * Bootstrap's JS sets inline widths on progress bars and modals, so
+     * {@code style-src} keeps {@code 'unsafe-inline'}. Scripts and fonts are
+     * self-hosted.
+     */
+    static final String CONTENT_SECURITY_POLICY = String.join("; ",
+            "default-src 'self'",
+            "script-src 'self'",
+            "style-src 'self' 'unsafe-inline'",
+            "img-src 'self' data: https:",
+            "media-src 'self' https: blob:",
+            "font-src 'self'",
+            "connect-src 'self'",
+            "frame-ancestors 'none'",
+            "base-uri 'self'",
+            "form-action 'self'");
+
+    /** BCrypt only (NFR-SEC02); cost 12. Seeded V2 hashes are {@code $2a$10$}
+     *  and still verify via {@code matches}. */
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(12);
     }
 
     /**
@@ -53,21 +79,44 @@ public class SecurityConfig {
     }
 
     @Bean
+    public AccessDeniedHandler accessDeniedHandler(ObjectProvider<AuditLogRepository> auditLogs) {
+        return (request, response, accessDeniedException) -> {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            AuditLogRepository logs = auditLogs.getIfAvailable();
+            if (logs != null && auth != null && auth.getPrincipal() instanceof MrsUserDetails user) {
+                String path = request.getRequestURI() == null ? "" : request.getRequestURI();
+                String safe = path.replace("\\", "\\\\").replace("\"", "\\\"");
+                logs.save(new AuditLog(user.getId(), AuditLog.ACTION_ACCESS_DENIED,
+                        AuditLog.ENTITY_REQUEST, 0L, "{\"path\":\"" + safe + "\"}"));
+            }
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+        };
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http,
             LoginSuccessHandler successHandler, LoginFailureHandler failureHandler,
-            SessionRegistry sessionRegistry) throws Exception {
+            SessionRegistry sessionRegistry, AccessDeniedHandler accessDeniedHandler)
+            throws Exception {
 
         http
+                .addFilterBefore(new CorrelationIdFilter(), CsrfFilter.class)
                 // CsrfFilter publishes the deferred token; this reads it while the
                 // response is still uncommitted, so no template can trigger session
                 // creation mid-render.
                 .addFilterAfter(new EagerCsrfTokenFilter(), CsrfFilter.class)
+                .headers(headers -> headers
+                        .contentSecurityPolicy(csp -> csp.policyDirectives(CONTENT_SECURITY_POLICY)))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(Routes.STATIC_ASSETS)
                         .permitAll()
                         .requestMatchers(Routes.LOGIN, Routes.REGISTER_REQUEST,
                                 Routes.PASSWORD_RESET, Routes.PASSWORD_RESET + "/**")
                         .permitAll()
+                        .requestMatchers("/actuator/health", "/actuator/health/**")
+                        .permitAll()
+                        .requestMatchers("/actuator/**")
+                        .hasRole("ADMIN")
                         // P-06a–e: ADMIN area (BR-01, BR-02, FT-09 NAC-02).
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         // P-02 / song browse: curation surfaces, not offered to Customers (spec 2.1).
@@ -80,6 +129,7 @@ public class SecurityConfig {
                         .requestMatchers(Routes.PLAYLISTS, Routes.PLAYLISTS + "/**")
                         .hasAnyRole("ADMIN", "CONTENT_DESIGNER")
                         .anyRequest().authenticated())
+                .exceptionHandling(ex -> ex.accessDeniedHandler(accessDeniedHandler))
                 .formLogin(form -> form
                         .loginPage(Routes.LOGIN)
                         .loginProcessingUrl(Routes.LOGIN)

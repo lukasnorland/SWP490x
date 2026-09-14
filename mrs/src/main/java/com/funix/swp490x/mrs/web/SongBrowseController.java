@@ -50,6 +50,7 @@ public class SongBrowseController {
             @RequestParam(required = false) List<String> provider,
             @RequestParam(required = false) List<Long> genreId,
             @RequestParam(required = false) List<Long> moodId,
+            @RequestParam(required = false) List<Long> artistId,
             @RequestParam(required = false) List<Long> tagId,
             @RequestParam(required = false) String q,
             @RequestParam(defaultValue = "0") int page,
@@ -58,7 +59,7 @@ public class SongBrowseController {
         if (user != null && user.isAdmin()) {
             return "redirect:" + Routes.ADMIN_CATALOG;
         }
-        populateResults(model, provider, genreId, moodId, tagId, q, page);
+        populateResults(model, provider, genreId, moodId, artistId, tagId, q, page);
         if (PARTIAL_RESULTS_VALUE.equals(partial)) {
             return "fragments/song-catalog :: results";
         }
@@ -77,23 +78,27 @@ public class SongBrowseController {
             @RequestParam(required = false) List<String> provider,
             @RequestParam(required = false) List<Long> genreId,
             @RequestParam(required = false) List<Long> moodId,
+            @RequestParam(required = false) List<Long> artistId,
             @RequestParam(required = false) List<Long> tagId,
-            @RequestParam(required = false) String q) {
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "false") boolean untagged) {
         return Map.of("tracks",
-                catalogService.playQueue(provider, genreId, moodId, tagId, q));
+                catalogService.playQueue(provider, genreId, moodId, artistId, tagId, q, untagged));
     }
 
     private void populateResults(Model model, List<String> providers, List<Long> genreIds,
-            List<Long> moodIds, List<Long> tagIds, String q, int page) {
-        Page<Song> songs = catalogService.search(providers, genreIds, moodIds, tagIds, q, page);
+            List<Long> moodIds, List<Long> artistIds, List<Long> tagIds, String q, int page) {
+        Page<Song> songs = catalogService.search(providers, genreIds, moodIds, artistIds, tagIds,
+                q, false, page);
         model.addAttribute("songs", songs);
         model.addAttribute("catalogBasePath", Routes.SONGS);
         model.addAttribute("browseMode", true);
         model.addAttribute("filterProviders", orEmpty(providers));
         model.addAttribute("filterGenreIds", orEmpty(genreIds));
         model.addAttribute("filterMoodIds", orEmpty(moodIds));
+        model.addAttribute("filterArtistIds", orEmpty(artistIds));
         model.addAttribute("filterTagIds", orEmpty(tagIds));
-        model.addAttribute("filterArtistIds", List.of());
+        model.addAttribute("filterUntagged", false);
         model.addAttribute("filterQuery", q == null ? "" : q);
         model.addAttribute("filterTopN", "");
     }

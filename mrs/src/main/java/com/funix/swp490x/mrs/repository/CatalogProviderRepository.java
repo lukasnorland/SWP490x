@@ -11,8 +11,6 @@ public interface CatalogProviderRepository extends JpaRepository<CatalogProvider
 
     Optional<CatalogProvider> findByNameIgnoreCase(String name);
 
-    Optional<CatalogProvider> findBySlugIgnoreCase(String slug);
-
     boolean existsByNameIgnoreCase(String name);
 
     boolean existsBySlugIgnoreCase(String slug);

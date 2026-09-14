@@ -62,7 +62,7 @@
                 th:title="${entries.isEmpty()}
                           ? 'Add at least one song before publishing'
                           : 'Publish to the Shared Workspace'"
-                onclick="return confirm('Publish this playlist? It will appear in the Shared Workspace and become read-only until unpublished.');">
+                data-confirm="Publish this playlist? It will appear in the Shared Workspace and become read-only until unpublished.">
           <svg th:replace="~{fragments/icons :: icon('lock', 'icon--sm')}"></svg>
           <span>Publish</span>
         </button>
@@ -74,7 +74,7 @@
         <input type="hidden" name="returnTo" th:if="${collaboratorReturnTo != null}"
                th:value="${collaboratorReturnTo}">
         <button type="submit" class="btn btn-primary"
-                onclick="return confirm('Unpublish this playlist? It will leave the Shared Workspace and become editable again.');">
+                data-confirm="Unpublish this playlist? It will leave the Shared Workspace and become editable again.">
           <svg th:replace="~{fragments/icons :: icon('unlock', 'icon--sm')}"></svg>
           <span>Unpublish</span>
         </button>
@@ -84,7 +84,7 @@
             class="mb-0">
         <input type="hidden" name="expectedVersion" th:value="${playlist.version}">
         <button type="submit" class="btn btn-ghost"
-                onclick="return confirm('Delete this playlist? The songs stay in the catalog.');">
+                data-confirm="Delete this playlist? The songs stay in the catalog.">
           <svg th:replace="~{fragments/icons :: icon('trash-2', 'icon--sm')}"></svg>
           <span>Delete</span>
         </button>

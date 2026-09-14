@@ -94,12 +94,14 @@ public class AdminCatalogController {
             @RequestParam(required = false) List<String> provider,
             @RequestParam(required = false) List<Long> genreId,
             @RequestParam(required = false) List<Long> moodId,
+            @RequestParam(required = false) List<Long> artistId,
             @RequestParam(required = false) List<Long> tagId,
             @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "false") boolean untagged,
             @RequestParam(defaultValue = "0") int page,
             @RequestHeader(value = PARTIAL_RESULTS_HEADER, required = false) String partial,
             Model model) {
-        populateResults(model, provider, genreId, moodId, tagId, q, page);
+        populateResults(model, provider, genreId, moodId, artistId, tagId, q, untagged, page);
         if (PARTIAL_RESULTS_VALUE.equals(partial)) {
             return "fragments/song-catalog :: results";
         }
@@ -258,8 +260,10 @@ public class AdminCatalogController {
     }
 
     private void populateResults(Model model, List<String> providers, List<Long> genreIds,
-            List<Long> moodIds, List<Long> tagIds, String q, int page) {
-        Page<Song> songs = catalogService.search(providers, genreIds, moodIds, tagIds, q, page);
+            List<Long> moodIds, List<Long> artistIds, List<Long> tagIds, String q,
+            boolean untaggedOnly, int page) {
+        Page<Song> songs = catalogService.search(providers, genreIds, moodIds, artistIds, tagIds,
+                q, untaggedOnly, page);
         model.addAttribute("songs", songs);
         model.addAttribute("catalogBasePath", Routes.ADMIN_CATALOG);
         model.addAttribute("browseMode", false);
@@ -267,8 +271,9 @@ public class AdminCatalogController {
         model.addAttribute("filterProviders", orEmpty(providers));
         model.addAttribute("filterGenreIds", orEmpty(genreIds));
         model.addAttribute("filterMoodIds", orEmpty(moodIds));
+        model.addAttribute("filterArtistIds", orEmpty(artistIds));
         model.addAttribute("filterTagIds", orEmpty(tagIds));
-        model.addAttribute("filterArtistIds", List.of());
+        model.addAttribute("filterUntagged", untaggedOnly);
         model.addAttribute("filterQuery", q == null ? "" : q);
         model.addAttribute("filterTopN", "");
     }
@@ -289,6 +294,7 @@ public class AdminCatalogController {
                 : playlistService.editableDrafts(actor.getId()));
         model.addAttribute("pageTitle", "Song Catalog");
         model.addAttribute("activeNav", "admin-catalog");
+        model.addAttribute("catalogTab", "songs");
         model.addAttribute("totalSongs", catalogService.total());
         model.addAttribute("untaggedCount", catalogService.untaggedCount());
         // Filters list names currently on a song, not leftover dictionary rows.
@@ -314,7 +320,7 @@ public class AdminCatalogController {
         model.addAttribute("reopenEditForm", reopenModal);
         model.addAttribute("editSongId", id);
         model.addAttribute("songEdit", form);
-        populateResults(model, null, null, null, null, null, 0);
+        populateResults(model, null, null, null, null, null, null, false, 0);
         populateShell(model, actor);
         return "admin/catalog";
     }

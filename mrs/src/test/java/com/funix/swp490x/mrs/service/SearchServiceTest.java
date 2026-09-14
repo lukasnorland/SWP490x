@@ -73,10 +73,12 @@ class SearchServiceTest {
                 eq(List.of()), eq("upbeat summer campaign for a beach game"), isNull(), eq(0)))
                 .willReturn(new PageImpl<>(List.of(new Song())));
 
-        String path = service.interpretRedirect(7L, "upbeat summer campaign for a beach game", null);
+        SearchService.InterpretRedirect result =
+                service.interpretRedirect(7L, "upbeat summer campaign for a beach game", null);
 
-        assertThat(path).startsWith("/search?");
-        assertThat(path).contains("q=");
+        assertThat(result.fallback()).isTrue();
+        assertThat(result.path()).startsWith("/search?");
+        assertThat(result.path()).contains("q=");
         ArgumentCaptor<RecommendationLog> captor = ArgumentCaptor.forClass(RecommendationLog.class);
         then(recommendationLogRepository).should().save(captor.capture());
         assertThat(captor.getValue().isLlmUsed()).isFalse();
@@ -97,13 +99,15 @@ class SearchServiceTest {
                 eq(List.of()), isNull(), eq(10), eq(0)))
                 .willReturn(Page.empty());
 
-        String path = service.interpretRedirect(1L, "energetic pop playlist now", 10);
+        SearchService.InterpretRedirect result =
+                service.interpretRedirect(1L, "energetic pop playlist now", 10);
 
-        assertThat(path).contains("genreId=2");
-        assertThat(path).contains("moodId=1");
-        assertThat(path).contains("topN=10");
-        assertThat(path).contains("prompt=");
-        assertThat(path).doesNotContain("q=");
+        assertThat(result.fallback()).isFalse();
+        assertThat(result.path()).contains("genreId=2");
+        assertThat(result.path()).contains("moodId=1");
+        assertThat(result.path()).contains("topN=10");
+        assertThat(result.path()).contains("prompt=");
+        assertThat(result.path()).doesNotContain("q=");
         ArgumentCaptor<RecommendationLog> captor = ArgumentCaptor.forClass(RecommendationLog.class);
         then(recommendationLogRepository).should().save(captor.capture());
         assertThat(captor.getValue().getLlmSucceeded()).isNull();
@@ -123,7 +127,7 @@ class SearchServiceTest {
         given(catalogService.searchRecommended(any(), any(), any(), any(), eq(query), isNull(),
                 eq(0))).willReturn(Page.empty());
 
-        assertThat(service.interpretRedirect(1L, query, null)).startsWith("/search?");
+        assertThat(service.interpretRedirect(1L, query, null).path()).startsWith("/search?");
     }
 
     @Test
@@ -133,7 +137,7 @@ class SearchServiceTest {
         given(catalogService.searchRecommended(any(), any(), any(), any(), eq(query), isNull(),
                 eq(0))).willReturn(Page.empty());
 
-        assertThat(service.interpretRedirect(1L, query, null)).startsWith("/search?");
+        assertThat(service.interpretRedirect(1L, query, null).path()).startsWith("/search?");
     }
 
     @Test
@@ -151,9 +155,10 @@ class SearchServiceTest {
                 eq(List.of()), eq(query), isNull(), eq(0)))
                 .willReturn(new PageImpl<>(List.of(new Song())));
 
-        String path = service.interpretRedirect(7L, query, null);
+        SearchService.InterpretRedirect result = service.interpretRedirect(7L, query, null);
 
-        assertThat(path).contains("q=");
+        assertThat(result.fallback()).isTrue();
+        assertThat(result.path()).contains("q=");
         ArgumentCaptor<RecommendationLog> captor = ArgumentCaptor.forClass(RecommendationLog.class);
         then(recommendationLogRepository).should().save(captor.capture());
         assertThat(captor.getValue().getLlmSucceeded()).isFalse();

@@ -122,7 +122,7 @@ class SearchFlowTest {
     void interpretRedirectsToFilterQuery() throws Exception {
         given(searchService.interpretRedirect(eq(1L), eq("energetic pop playlist now"),
                 nullable(Integer.class)))
-                .willReturn("/search?genreId=2&moodId=1");
+                .willReturn(new SearchService.InterpretRedirect("/search?genreId=2&moodId=1", false));
 
         mockMvc.perform(post(Routes.SEARCH_INTERPRET).with(csrf())
                         .with(user(principal(Role.CONTENT_DESIGNER)))
@@ -142,6 +142,22 @@ class SearchFlowTest {
                 .andExpect(status().isFound())
                 .andExpect(redirectedUrl(Routes.SEARCH))
                 .andExpect(flash().attribute("flash", Messages.SEARCH_QUERY_LENGTH));
+    }
+
+    @Test
+    void interpretFlashesWhenTheInterpreterFallsBackToKeywords() throws Exception {
+        given(searchService.interpretRedirect(eq(1L), eq("upbeat summer campaign for a beach game"),
+                nullable(Integer.class)))
+                .willReturn(new SearchService.InterpretRedirect(
+                        "/search?q=upbeat+summer+campaign+for+a+beach+game", true));
+
+        mockMvc.perform(post(Routes.SEARCH_INTERPRET).with(csrf())
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .param("q", "upbeat summer campaign for a beach game"))
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("/search?q=upbeat+summer+campaign+for+a+beach+game"))
+                .andExpect(flash().attribute("flash", Messages.SEARCH_INTERPRET_FALLBACK))
+                .andExpect(flash().attribute("flashVariant", "warning"));
     }
 
     @Test

@@ -37,6 +37,7 @@ epidemic-pages/
 song-data/
 
 # Editor / agent local — share Cursor rules with the repo
+.claude/
 .cursor/*
 !.cursor/rules/
 !.cursor/rules/**

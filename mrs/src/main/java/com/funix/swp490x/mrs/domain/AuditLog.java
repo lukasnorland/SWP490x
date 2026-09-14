@@ -81,6 +81,14 @@ public class AuditLog {
 
     public static final String ENTITY_SONG = "SONG";
 
+    /** Failed sign-in against a registered address (actor is that account). */
+    public static final String ACTION_LOGIN_FAILED = "LOGIN_FAILED";
+
+    /** Authenticated caller hit a URL their role cannot use. */
+    public static final String ACTION_ACCESS_DENIED = "ACCESS_DENIED";
+
+    public static final String ENTITY_REQUEST = "REQUEST";
+
     /** Filter dropdown on P-06e; extras from the table are merged at read time. */
     public static List<String> knownActions() {
         return List.of(
@@ -104,7 +112,9 @@ public class AuditLog {
                 ACTION_PLAYLIST_COLLABORATOR_REMOVE,
                 ACTION_SETTINGS_UPDATE,
                 ACTION_PROVIDER_CREATE,
-                ACTION_PROVIDER_DELETE);
+                ACTION_PROVIDER_DELETE,
+                ACTION_LOGIN_FAILED,
+                ACTION_ACCESS_DENIED);
     }
 
     @Id

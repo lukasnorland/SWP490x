@@ -3,6 +3,7 @@ package com.funix.swp490x.mrs.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
@@ -28,6 +29,7 @@ import com.funix.swp490x.mrs.repository.TagRepository;
 import com.funix.swp490x.mrs.service.SongCatalogService.SongEdit;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.LongStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -74,7 +76,7 @@ class SongCatalogServiceTest {
                 eq(null), any()))
                 .willReturn(Page.empty());
 
-        Page<Song> result = service.search(null, List.of(3L, 7L), null, null, "  ", 0);
+        Page<Song> result = service.search(null, List.of(3L, 7L), null, null, null, "  ", false, 0);
 
         assertThat(result.isEmpty()).isTrue();
         then(songRepository).should().searchIds(eq(true), eq(List.of("")), eq(false),
@@ -89,7 +91,8 @@ class SongCatalogServiceTest {
                 eq(true), eq(List.of(-1L)), eq("ice"), any()))
                 .willReturn(Page.empty());
 
-        service.search(List.of("EpidemicSound", "NCS"), null, List.of(), null, "ice", 0);
+        service.search(List.of("EpidemicSound", "NCS"), null, List.of(), null, null, "ice",
+                false, 0);
 
         then(songRepository).should().searchIds(eq(false), eq(List.of("EpidemicSound", "NCS")),
                 eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
@@ -110,7 +113,7 @@ class SongCatalogServiceTest {
                 .willReturn(List.of(silent, second, first));
 
         List<SongCatalogService.PreviewTrack> tracks =
-                service.playQueue(null, List.of(3L, 7L), null, null, "  ");
+                service.playQueue(null, List.of(3L, 7L), null, null, null, "  ", false);
 
         assertThat(tracks).extracting(SongCatalogService.PreviewTrack::id)
                 .containsExactly(3L, 2L);
@@ -141,7 +144,7 @@ class SongCatalogServiceTest {
                 eq(null), any()))
                 .willReturn(Page.empty());
 
-        assertThat(service.playQueue(null, null, null, null, null)).isEmpty();
+        assertThat(service.playQueue(null, null, null, null, null, null, false)).isEmpty();
         then(songRepository).should(never()).findAllById(any());
     }
 
@@ -152,7 +155,7 @@ class SongCatalogServiceTest {
                 eq(null), any()))
                 .willReturn(Page.empty());
 
-        service.search(null, null, null, List.of(9L), null, null, 0);
+        service.search(null, null, null, List.of(9L), null, null, false, 0);
 
         then(songRepository).should().searchIds(eq(true), eq(List.of("")), eq(true),
                 eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(false), eq(List.of(9L)),
@@ -449,7 +452,7 @@ class SongCatalogServiceTest {
                 eq(null), any()))
                 .willReturn(Page.empty());
 
-        service.search(null, null, null, List.of(4L), null, 0);
+        service.search(null, null, null, null, List.of(4L), null, false, 0);
 
         then(songRepository).should().searchIds(eq(true), eq(List.of("")), eq(true),
                 eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
@@ -463,7 +466,7 @@ class SongCatalogServiceTest {
                 eq("ice cream"), any()))
                 .willReturn(Page.empty());
 
-        service.search(null, null, null, null, "  ice cream  ", 0);
+        service.search(null, null, null, null, null, "  ice cream  ", false, 0);
 
         then(songRepository).should().searchIds(eq(true), eq(List.of("")), eq(true),
                 eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
@@ -482,7 +485,7 @@ class SongCatalogServiceTest {
         alsoSilent.setTitle("Still");
         given(songRepository.findAllById(List.of(1L, 2L))).willReturn(List.of(silent, alsoSilent));
 
-        assertThat(service.playQueue(null, null, null, null, null)).isEmpty();
+        assertThat(service.playQueue(null, null, null, null, null, null, false)).isEmpty();
     }
 
     @Test
@@ -564,6 +567,35 @@ class SongCatalogServiceTest {
         given(songRepository.countUntagged()).willReturn(0L);
 
         assertThat(service.untaggedCount()).isZero();
+    }
+
+    @Test
+    void search_whenUntaggedOnly_shouldUseTheUntaggedQuery() {
+        given(songRepository.searchUntaggedIds(eq(true), eq(List.of("")), eq(null), any()))
+                .willReturn(Page.empty());
+
+        service.search(null, List.of(3L), null, null, null, null, true, 0);
+
+        then(songRepository).should().searchUntaggedIds(eq(true), eq(List.of("")), eq(null), any());
+        then(songRepository).should(never()).searchIds(anyBoolean(), any(), anyBoolean(), any(),
+                anyBoolean(), any(), anyBoolean(), any(), anyBoolean(), any(), any(), any());
+    }
+
+    @Test
+    void playQueueCapsAtOneHundredPlayableTracks() {
+        List<Long> ids = LongStream.rangeClosed(1, 120).boxed().toList();
+        given(songRepository.searchIds(eq(true), eq(List.of("")), eq(true), eq(List.of(-1L)),
+                eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),
+                eq(null), any()))
+                .willReturn(new PageImpl<>(ids));
+        given(songRepository.findAllById(ids)).willReturn(ids.stream()
+                .map(id -> playable(id, "Track " + id, "https://cdn.example/" + id + ".mp3"))
+                .toList());
+
+        assertThat(service.playQueue(null, null, null, null, null, null, false))
+                .hasSize(SongCatalogService.PLAY_QUEUE_CAP)
+                .extracting(SongCatalogService.PreviewTrack::id)
+                .containsExactlyElementsOf(LongStream.rangeClosed(1, 100).boxed().toList());
     }
 
     private static Song playable(Long id, String title, String audioUrl) {

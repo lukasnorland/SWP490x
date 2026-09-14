@@ -20,6 +20,6 @@ class SeedCredentialsTest {
 
     @Test
     void seededHashMatchesTheDocumentedDemoPassword() {
-        assertThat(new BCryptPasswordEncoder().matches(DOCUMENTED_PASSWORD, SEEDED_HASH)).isTrue();
+        assertThat(new BCryptPasswordEncoder(12).matches(DOCUMENTED_PASSWORD, SEEDED_HASH)).isTrue();
     }
 }

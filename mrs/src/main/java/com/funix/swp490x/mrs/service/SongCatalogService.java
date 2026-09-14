@@ -42,6 +42,9 @@ public class SongCatalogService {
     /** Spec 4.10 Zone D. */
     public static final int PAGE_SIZE = 20;
 
+    /** Hard cap on the preview-bar JSON so a catalog-wide play cannot ship every row. */
+    public static final int PLAY_QUEUE_CAP = 100;
+
     private static final Sort TITLE_THEN_ID =
             Sort.by(Sort.Order.asc("title"), Sort.Order.asc("id"));
 
@@ -95,22 +98,12 @@ public class SongCatalogService {
      */
     @Transactional(readOnly = true)
     public Page<Song> search(List<String> providers, List<Long> genreIds, List<Long> moodIds,
-            List<Long> tagIds, String query, int page) {
-        return search(providers, genreIds, moodIds, null, tagIds, query, page);
-    }
-
-    /**
-     * Same filter as {@link #search} with an Artist vocabulary (P-02). Songs
-     * and admin catalog keep calling the shorter overload so their sort and
-     * columns do not change.
-     */
-    @Transactional(readOnly = true)
-    public Page<Song> search(List<String> providers, List<Long> genreIds, List<Long> moodIds,
-            List<Long> artistIds, List<Long> tagIds, String query, int page) {
+            List<Long> artistIds, List<Long> tagIds, String query, boolean untaggedOnly,
+            int page) {
 
         Pageable pageable = PageRequest.of(Math.max(page, 0), PAGE_SIZE, TITLE_THEN_ID);
         Page<Long> ids = matchingIds(providers, genreIds, moodIds, artistIds, tagIds, query,
-                pageable);
+                pageable, false, untaggedOnly);
 
         if (ids.isEmpty()) {
             return new PageImpl<>(List.of(), pageable, ids.getTotalElements());
@@ -136,14 +129,16 @@ public class SongCatalogService {
      * walk the full result, not just the current page of 20.
      *
      * <p>Rows with no {@code audioUrl} are dropped — the table already hides a
-     * play control for those. Tags are not loaded.
+     * play control for those. Tags are not loaded, and the JSON is capped at
+     * {@link #PLAY_QUEUE_CAP} so a catalog-wide play cannot ship every row.
      */
     @Transactional(readOnly = true)
     public List<PreviewTrack> playQueue(List<String> providers, List<Long> genreIds,
-            List<Long> moodIds, List<Long> tagIds, String query) {
+            List<Long> moodIds, List<Long> artistIds, List<Long> tagIds, String query,
+            boolean untaggedOnly) {
 
-        Page<Long> ids = matchingIds(providers, genreIds, moodIds, null, tagIds, query,
-                Pageable.unpaged(TITLE_THEN_ID));
+        Page<Long> ids = matchingIds(providers, genreIds, moodIds, artistIds, tagIds, query,
+                Pageable.unpaged(TITLE_THEN_ID), false, untaggedOnly);
         if (ids.isEmpty()) {
             return List.of();
         }
@@ -157,6 +152,7 @@ public class SongCatalogService {
                 .filter(Objects::nonNull)
                 .filter(song -> StringUtils.hasText(song.getAudioUrl()))
                 .map(PreviewTrack::from)
+                .limit(PLAY_QUEUE_CAP)
                 .toList();
     }
 
@@ -187,6 +183,7 @@ public class SongCatalogService {
         return rankedSongs(genreIds, moodIds, artistIds, tagIds, query, topN).stream()
                 .filter(song -> StringUtils.hasText(song.getAudioUrl()))
                 .map(PreviewTrack::from)
+                .limit(PLAY_QUEUE_CAP)
                 .toList();
     }
 
@@ -207,7 +204,7 @@ public class SongCatalogService {
             List<Long> artistIds, List<Long> tagIds, String query, Integer topN) {
 
         Page<Long> ids = matchingIds(null, genreIds, moodIds, artistIds, tagIds, query,
-                Pageable.unpaged(TITLE_THEN_ID), true);
+                Pageable.unpaged(TITLE_THEN_ID), true, false);
         if (ids.isEmpty()) {
             return List.of();
         }
@@ -227,27 +224,23 @@ public class SongCatalogService {
 
     private Page<Long> matchingIds(List<String> providers, List<Long> genreIds,
             List<Long> moodIds, List<Long> artistIds, List<Long> tagIds, String query,
-            Pageable pageable) {
-        return matchingIds(providers, genreIds, moodIds, artistIds, tagIds, query, pageable,
-                false);
-    }
-
-    private Page<Long> matchingIds(List<String> providers, List<Long> genreIds,
-            List<Long> moodIds, List<Long> artistIds, List<Long> tagIds, String query,
-            Pageable pageable, boolean matchAny) {
+            Pageable pageable, boolean matchAny, boolean untaggedOnly) {
 
         List<String> providerValues = nonBlank(providers);
         boolean providerEmpty = providerValues.isEmpty();
+        List<String> providersBound = providerEmpty ? UNUSED_PROVIDERS : providerValues;
+        String q = StringUtils.hasText(query) ? query.trim() : null;
+        if (untaggedOnly) {
+            return songRepository.searchUntaggedIds(providerEmpty, providersBound, q, pageable);
+        }
         boolean genreEmpty = empty(genreIds);
         boolean moodEmpty = empty(moodIds);
         boolean artistEmpty = empty(artistIds);
         boolean tagEmpty = empty(tagIds);
-        List<String> providersBound = providerEmpty ? UNUSED_PROVIDERS : providerValues;
         List<Long> genreBound = genreEmpty ? UNUSED_IDS : genreIds;
         List<Long> moodBound = moodEmpty ? UNUSED_IDS : moodIds;
         List<Long> artistBound = artistEmpty ? UNUSED_IDS : artistIds;
         List<Long> tagBound = tagEmpty ? UNUSED_IDS : tagIds;
-        String q = StringUtils.hasText(query) ? query.trim() : null;
 
         if (matchAny) {
             return songRepository.searchIdsMatchingAny(

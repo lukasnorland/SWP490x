@@ -104,6 +104,12 @@ public final class Routes {
     public static final String ADMIN_CATALOG_SYNC_STATUS = "/admin/catalog/sync/status";
     /** P-06b — typeahead for genre / mood / tag fields. */
     public static final String ADMIN_CATALOG_TAG_SUGGEST = "/admin/catalog/tags/suggest";
+    /** P-06b — Tag dictionary (list / create / rename unused / delete unused). */
+    public static final String ADMIN_CATALOG_TAGS = "/admin/catalog/tags";
+    /** P-06b — rename an unused dictionary row. */
+    public static final String ADMIN_CATALOG_TAG_RENAME = "/admin/catalog/tags/{id}/rename";
+    /** P-06b — delete an unused dictionary row. */
+    public static final String ADMIN_CATALOG_TAG_DELETE = "/admin/catalog/tags/{id}/delete";
     /** P-06d Admin — System Settings. */
     public static final String ADMIN_SETTINGS = "/admin/settings";
     /** P-06d — persist General and LLM settings. */

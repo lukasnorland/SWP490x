@@ -156,6 +156,23 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     long countUntagged();
 
     /**
+     * P-06b "Untagged only": songs with an empty tag set, still honouring
+     * provider and title/artist text. Other vocabularies are skipped because
+     * they cannot match a song that has no tags.
+     */
+    @Query("""
+            SELECT s.id FROM Song s
+            WHERE s.tags IS EMPTY
+              AND (:providerEmpty = true OR s.sourceProvider IN :providers)
+              AND (:q IS NULL OR LOWER(s.title) LIKE LOWER(CONCAT('%', :q, '%'))
+                               OR LOWER(s.artist) LIKE LOWER(CONCAT('%', :q, '%')))
+            """)
+    Page<Long> searchUntaggedIds(@Param("providerEmpty") boolean providerEmpty,
+            @Param("providers") Collection<String> providers,
+            @Param("q") String q,
+            Pageable pageable);
+
+    /**
      * Songs whose cover has never been sampled for the shell's wash, or whose
      * cover has changed since it was.
      *

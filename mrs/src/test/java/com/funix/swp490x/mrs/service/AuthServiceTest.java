@@ -324,6 +324,20 @@ class AuthServiceTest {
     }
 
     @Test
+    void changePassword_whenNewPasswordMatchesTheCurrentHash_shouldReject() {
+        User user = designer();
+        given(userRepository.findByEmail(EMAIL)).willReturn(Optional.of(user));
+        given(passwordEncoder.matches("Admin@2026", user.getPasswordHash())).willReturn(true);
+
+        PasswordChangeResult result = authService.changePassword(EMAIL, "Admin@2026",
+                "Admin@2026", "Admin@2026");
+
+        assertThat(result.succeeded()).isFalse();
+        assertThat(result.violations()).contains("Choose a password you have not used before");
+        then(userRepository).should(never()).save(any());
+    }
+
+    @Test
     void updateDisplayName_whenBlank_shouldRejectWithoutWriting() {
         DisplayNameResult result = authService.updateDisplayName(EMAIL, "   ");
 

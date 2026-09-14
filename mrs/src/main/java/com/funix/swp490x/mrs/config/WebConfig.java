@@ -25,7 +25,8 @@ public class WebConfig implements WebMvcConfigurer {
                         Routes.PASSWORD_RESET,
                         Routes.PASSWORD_RESET + "/**",
                         "/logout",
-                        "/error")
+                        "/error",
+                        "/actuator/**")
                 .excludePathPatterns(Routes.STATIC_ASSETS);
     }
 }
