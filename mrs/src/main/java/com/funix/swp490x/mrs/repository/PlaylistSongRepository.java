@@ -33,34 +33,18 @@ public interface PlaylistSongRepository extends JpaRepository<PlaylistSong, Play
     Optional<PlaylistSong> findByIdPlaylistIdAndIdSongId(Long playlistId, Long songId);
 
     /**
-     * Playlist membership of one catalog song, before a detach, so the
-     * remaining rows can be compacted to 1..N (DC-04).
+     * Playlist ids that hold this catalog song, before a detach, so remaining
+     * rows can be compacted to 1..N (DC-04). Position is not needed: compact
+     * rewrites the whole sequence.
      */
-    @Query("SELECT ps.id.playlistId AS playlistId, ps.position AS position "
-            + "FROM PlaylistSong ps WHERE ps.id.songId = :songId")
-    List<PlaylistSlot> findSlotsBySongId(@Param("songId") Long songId);
+    @Query("SELECT DISTINCT ps.id.playlistId FROM PlaylistSong ps WHERE ps.id.songId = :songId")
+    List<Long> findPlaylistIdsBySongId(@Param("songId") Long songId);
 
-    /** Same projection for a prune that drops several songs at once. */
-    @Query("SELECT ps.id.playlistId AS playlistId, ps.position AS position "
-            + "FROM PlaylistSong ps WHERE ps.id.songId IN :songIds")
-    List<PlaylistSlot> findSlotsBySongIdIn(@Param("songIds") Collection<Long> songIds);
-
-    /**
-     * Positions only, in order. Used after parking so the compact can write
-     * 1..N without hydrating stale {@link PlaylistSong} entities.
-     */
-    @Query("SELECT ps.position FROM PlaylistSong ps WHERE ps.id.playlistId = :playlistId "
-            + "ORDER BY ps.position ASC")
-    List<Integer> findPositionsOrdered(@Param("playlistId") Long playlistId);
+    /** Same lookup for a prune that drops several songs at once. */
+    @Query("SELECT DISTINCT ps.id.playlistId FROM PlaylistSong ps WHERE ps.id.songId IN :songIds")
+    List<Long> findPlaylistIdsBySongIdIn(@Param("songIds") Collection<Long> songIds);
 
     boolean existsByIdPlaylistIdAndIdSongId(Long playlistId, Long songId);
-
-    /** One song at one position in one playlist. Aliases match the getters. */
-    interface PlaylistSlot {
-        Long getPlaylistId();
-
-        int getPosition();
-    }
 
     long countByIdPlaylistId(Long playlistId);
 
@@ -95,6 +79,26 @@ public interface PlaylistSongRepository extends JpaRepository<PlaylistSong, Play
     int moveOne(@Param("playlistId") Long playlistId,
             @Param("from") int from,
             @Param("to") int to);
+
+    /**
+     * Writes dense 1..N in current position order. Call after parking so the
+     * new values cannot collide with rows still sitting on 1..N.
+     *
+     * <p>Native because JPQL has no window functions, and a loop of
+     * {@link #moveOne} would be one statement per remaining song.
+     */
+    @Modifying(flushAutomatically = true)
+    @Query(value = """
+            UPDATE playlist_song ps
+            INNER JOIN (
+                SELECT song_id, ROW_NUMBER() OVER (ORDER BY position) AS n
+                FROM playlist_song
+                WHERE playlist_id = :playlistId
+            ) ranked ON ranked.song_id = ps.song_id
+            SET ps.position = ranked.n
+            WHERE ps.playlist_id = :playlistId
+            """, nativeQuery = true)
+    int assignDensePositions(@Param("playlistId") Long playlistId);
 
     @Modifying(flushAutomatically = true)
     @Query("DELETE FROM PlaylistSong ps WHERE ps.id.playlistId = :playlistId "

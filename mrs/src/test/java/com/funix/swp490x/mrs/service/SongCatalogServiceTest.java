@@ -23,7 +23,6 @@ import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.domain.TagType;
 import com.funix.swp490x.mrs.repository.AuditLogRepository;
 import com.funix.swp490x.mrs.repository.PlaylistSongRepository;
-import com.funix.swp490x.mrs.repository.PlaylistSongRepository.PlaylistSlot;
 import com.funix.swp490x.mrs.repository.SongRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import com.funix.swp490x.mrs.service.SongCatalogService.SongEdit;
@@ -402,13 +401,13 @@ class SongCatalogServiceTest {
     void deleteCompactsEachPlaylistBeforeDroppingTheRow() {
         Song song = existing(12L, 0);
         given(songRepository.findById(12L)).willReturn(Optional.of(song));
-        given(playlistSongRepository.findSlotsBySongId(12L))
-                .willReturn(List.of(slot(7L, 2), slot(9L, 1)));
+        given(playlistSongRepository.findPlaylistIdsBySongId(12L))
+                .willReturn(List.of(7L, 9L));
 
         service.delete(12L, 1L);
 
         InOrder order = inOrder(playlistSongRepository, songRepository, playlistService);
-        order.verify(playlistSongRepository).findSlotsBySongId(12L);
+        order.verify(playlistSongRepository).findPlaylistIdsBySongId(12L);
         order.verify(songRepository).detachFromPlaylists(List.of(12L));
         order.verify(playlistService).compactAfterRemoval(7L, 1L);
         order.verify(playlistService).compactAfterRemoval(9L, 1L);
@@ -422,8 +421,8 @@ class SongCatalogServiceTest {
     void deleteRetriesTheMysqlPhaseOnceOnAnOptimisticLock() {
         Song song = existing(12L, 0);
         given(songRepository.findById(12L)).willReturn(Optional.of(song));
-        given(playlistSongRepository.findSlotsBySongId(12L))
-                .willReturn(List.of(slot(7L, 2)));
+        given(playlistSongRepository.findPlaylistIdsBySongId(12L))
+                .willReturn(List.of(7L));
         willThrow(new OptimisticLockingFailureException("stale"))
                 .willDoNothing()
                 .given(playlistService).compactAfterRemoval(7L, 1L);
@@ -597,19 +596,5 @@ class SongCatalogServiceTest {
         song.setSourceProvider("NCS");
         ReflectionTestUtils.setField(song, "version", version);
         return song;
-    }
-
-    private static PlaylistSlot slot(long playlistId, int position) {
-        return new PlaylistSlot() {
-            @Override
-            public Long getPlaylistId() {
-                return playlistId;
-            }
-
-            @Override
-            public int getPosition() {
-                return position;
-            }
-        };
     }
 }

@@ -125,40 +125,33 @@ class PlaylistServiceTest {
     }
 
     /**
-     * The two shifts are what keep uq_playlistsong_position satisfied at every
-     * step: everything past the hole goes out to the parking range first, then
-     * comes back one place lower.
+     * Park first so uq_playlistsong_position never sees two rows on the same
+     * number, then one native rewrite to 1..N.
      */
     @Test
     void removingASongRenumbersTheRemainingRowsWithoutCollidingOnPosition() {
         visible(playlist(7L, PlaylistStatus.DRAFT));
         given(playlistSongRepository.findByIdPlaylistIdAndIdSongId(7L, 42L))
                 .willReturn(Optional.of(new PlaylistSong(7L, song(42L), 2)));
-        given(playlistSongRepository.findPositionsOrdered(7L))
-                .willReturn(List.of(PARK + 1, PARK + 3));
 
         service.removeSong(7L, 1, 42L, 1L);
 
         InOrder order = inOrder(playlistSongRepository);
         order.verify(playlistSongRepository).deleteSong(7L, 42L);
         order.verify(playlistSongRepository).shiftAfter(7L, 0, PARK);
-        order.verify(playlistSongRepository).moveOne(7L, PARK + 1, 1);
-        order.verify(playlistSongRepository).moveOne(7L, PARK + 3, 2);
+        order.verify(playlistSongRepository).assignDensePositions(7L);
     }
 
     @Test
     void compactAfterRemovalParksEveryRowThenWritesOneToN() {
         Playlist playlist = playlist(7L, PlaylistStatus.PUBLISHED);
         given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
-        given(playlistSongRepository.findPositionsOrdered(7L))
-                .willReturn(List.of(PARK + 1, PARK + 3));
 
         service.compactAfterRemoval(7L, 99L);
 
         InOrder order = inOrder(playlistSongRepository, playlistRepository);
         order.verify(playlistSongRepository).shiftAfter(7L, 0, PARK);
-        order.verify(playlistSongRepository).moveOne(7L, PARK + 1, 1);
-        order.verify(playlistSongRepository).moveOne(7L, PARK + 3, 2);
+        order.verify(playlistSongRepository).assignDensePositions(7L);
         order.verify(playlistRepository).saveAndFlush(playlist);
         assertThat(playlist.getLastModifiedBy()).isEqualTo(99L);
         then(playlistRepository).should(never()).countVisibleTo(any(), any());
@@ -168,7 +161,6 @@ class PlaylistServiceTest {
     void compactAfterRemovalWithNoActorLeavesLastModifiedBy() {
         Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
         given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));
-        given(playlistSongRepository.findPositionsOrdered(7L)).willReturn(List.of());
 
         service.compactAfterRemoval(7L, null);
 
