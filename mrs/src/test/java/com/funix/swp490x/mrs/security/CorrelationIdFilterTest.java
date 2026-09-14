@@ -30,6 +30,7 @@ class CorrelationIdFilterTest {
 
         String id = response.getHeader(CorrelationIdFilter.HEADER);
         assertThat(id).isNotBlank();
+        assertThat(request.getAttribute(CorrelationIdFilter.MDC_KEY)).isEqualTo(id);
         assertThat(MDC.get(CorrelationIdFilter.MDC_KEY)).isNull();
     }
 
@@ -46,5 +47,6 @@ class CorrelationIdFilterTest {
         filter.doFilter(request, response, chain);
 
         assertThat(response.getHeader(CorrelationIdFilter.HEADER)).isEqualTo("trace-from-lb");
+        assertThat(request.getAttribute(CorrelationIdFilter.MDC_KEY)).isEqualTo("trace-from-lb");
     }
 }

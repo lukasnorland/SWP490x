@@ -290,6 +290,10 @@ public final class Messages {
 
     public static final String TAG_DELETED = "Unused tag removed.";
 
+    /** SYS_001. P-09 500 card; the page also prints the request id as a reference. */
+    public static final String SERVER_ERROR =
+            "An unexpected error occurred. Please contact your administrator.";
+
     private Messages() {
     }
 }
