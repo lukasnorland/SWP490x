@@ -67,6 +67,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -729,6 +730,19 @@ class AdminCatalogImportTest {
                         .with(csrf())
                         .with(user(admin())))
                 .andExpect(status().is3xxRedirection())
+                .andExpect(flash().attribute("flash", Messages.SONG_DELETE_FAILED));
+    }
+
+    @Test
+    void catalogDeleteReportsAStalePlaylistLockAsDeleteFailed() throws Exception {
+        willThrow(new OptimisticLockingFailureException("stale"))
+                .given(songCatalogService).delete(12L, 7L);
+
+        mockMvc.perform(post("/admin/catalog/12/delete")
+                        .with(csrf())
+                        .with(user(admin())))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(Routes.ADMIN_CATALOG))
                 .andExpect(flash().attribute("flash", Messages.SONG_DELETE_FAILED));
     }
 

@@ -6,9 +6,12 @@ import com.funix.swp490x.mrs.catalog.SongJsonMapper.SongValues;
 import com.funix.swp490x.mrs.catalog.SongJsonMapper.TagRef;
 import com.funix.swp490x.mrs.domain.Song;
 import com.funix.swp490x.mrs.domain.Tag;
+import com.funix.swp490x.mrs.repository.PlaylistSongRepository;
+import com.funix.swp490x.mrs.repository.PlaylistSongRepository.PlaylistSlot;
 import com.funix.swp490x.mrs.repository.SongRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import com.funix.swp490x.mrs.service.CatalogProviderService;
+import com.funix.swp490x.mrs.service.PlaylistService;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -46,15 +49,21 @@ public class SongUpserter {
     private final TagRepository tagRepository;
     private final SongJsonMapper mapper;
     private final CatalogProviderService providers;
+    private final PlaylistSongRepository playlistSongRepository;
+    private final PlaylistService playlistService;
 
     public SongUpserter(SongRepository songRepository,
             TagRepository tagRepository,
             SongJsonMapper mapper,
-            CatalogProviderService providers) {
+            CatalogProviderService providers,
+            PlaylistSongRepository playlistSongRepository,
+            PlaylistService playlistService) {
         this.songRepository = songRepository;
         this.tagRepository = tagRepository;
         this.mapper = mapper;
         this.providers = providers;
+        this.playlistSongRepository = playlistSongRepository;
+        this.playlistService = playlistService;
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -104,16 +113,24 @@ public class SongUpserter {
 
     /**
      * Drops catalog rows whose staged object is gone. Playlist membership is
-     * cleared first because {@code playlist_song} does not cascade.
+     * cleared first because {@code playlist_song} does not cascade, then each
+     * affected playlist is compacted to contiguous 1..N (DC-04).
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public int removeMissing(Collection<String> externalSourceIds) {
+    public int removeMissing(Collection<String> externalSourceIds, Long actorId) {
         if (externalSourceIds.isEmpty()) {
             return 0;
         }
         List<Long> ids = songRepository.findIdsByExternalSourceIdIn(externalSourceIds);
         if (!ids.isEmpty()) {
+            LinkedHashSet<Long> playlistIds = new LinkedHashSet<>();
+            for (PlaylistSlot slot : playlistSongRepository.findSlotsBySongIdIn(ids)) {
+                playlistIds.add(slot.getPlaylistId());
+            }
             songRepository.detachFromPlaylists(ids);
+            for (Long playlistId : playlistIds) {
+                playlistService.compactAfterRemoval(playlistId, actorId);
+            }
         }
         return songRepository.deleteByExternalSourceIdIn(externalSourceIds);
     }

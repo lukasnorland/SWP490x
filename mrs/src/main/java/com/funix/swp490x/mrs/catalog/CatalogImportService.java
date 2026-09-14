@@ -25,6 +25,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -150,7 +151,7 @@ public class CatalogImportService {
         publish(true, "listing", "Listing staged songs…", 0, 0, 0, 0, 0, 0, 3);
         CatalogImportRun run = runRepository.save(new CatalogImportRun(trigger, actorId));
         try {
-            ImportSummary summary = doSync(force);
+            ImportSummary summary = doSync(force, actorId);
             record(run, summary);
             publishFinished(summary);
             return summary;
@@ -238,7 +239,7 @@ public class CatalogImportService {
         return running.get();
     }
 
-    private ImportSummary doSync(boolean force) {
+    private ImportSummary doSync(boolean force, Long actorId) {
         List<CatalogObject> listed = store.list();
         Map<String, String> known = force ? Map.of() : knownEtags();
 
@@ -291,7 +292,7 @@ public class CatalogImportService {
             sampleCovers(pool);
         }
 
-        int removed = pruneMissing(listed);
+        int removed = pruneMissing(listed, actorId);
         if (removed > 0) {
             log.info("Catalog sync: removed {} song(s) no longer staged", removed);
         }
@@ -310,7 +311,7 @@ public class CatalogImportService {
      * never deletes. An empty listing is treated as a failed or misconfigured
      * store rather than an instruction to wipe the catalog.
      */
-    private int pruneMissing(List<CatalogObject> listed) {
+    private int pruneMissing(List<CatalogObject> listed, Long actorId) {
         if (listed.isEmpty()) {
             log.warn("Catalog sync: listing was empty; not removing songs");
             return 0;
@@ -333,7 +334,11 @@ public class CatalogImportService {
         if (gone.isEmpty()) {
             return 0;
         }
-        return upserter.removeMissing(gone);
+        try {
+            return upserter.removeMissing(gone, actorId);
+        } catch (OptimisticLockingFailureException e) {
+            return upserter.removeMissing(gone, actorId);
+        }
     }
 
     /**

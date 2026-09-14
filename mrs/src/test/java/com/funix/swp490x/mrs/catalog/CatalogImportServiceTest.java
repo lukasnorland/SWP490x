@@ -16,8 +16,10 @@ import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.domain.TagType;
 import com.funix.swp490x.mrs.repository.AuditLogRepository;
 import com.funix.swp490x.mrs.repository.CatalogImportRunRepository;
+import com.funix.swp490x.mrs.repository.PlaylistSongRepository;
 import com.funix.swp490x.mrs.repository.SongRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
+import com.funix.swp490x.mrs.service.PlaylistService;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -121,7 +123,8 @@ class CatalogImportServiceTest {
         });
 
         SongUpserter upserter = new SongUpserter(songRepository, tagRepository,
-                new SongJsonMapper(), TestCatalogProviders.stub());
+                new SongJsonMapper(), TestCatalogProviders.stub(),
+                mock(PlaylistSongRepository.class), mock(PlaylistService.class));
         service = new CatalogImportService(store, songRepository, runRepository,
                 mock(AuditLogRepository.class), upserter, mock(CoverAmbienceService.class));
     }
@@ -313,7 +316,8 @@ class CatalogImportServiceTest {
         given(tags.save(any(Tag.class))).willAnswer(invocation -> invocation.getArgument(0));
         given(tags.deleteUnused()).willReturn(0);
         SongUpserter upserter = new SongUpserter(songRepository, tags,
-                new SongJsonMapper(), TestCatalogProviders.stub());
+                new SongJsonMapper(), TestCatalogProviders.stub(),
+                mock(PlaylistSongRepository.class), mock(PlaylistService.class));
         CatalogImportRunRepository runRepository = mock(CatalogImportRunRepository.class);
         given(runRepository.save(any(CatalogImportRun.class)))
                 .willAnswer(invocation -> invocation.getArgument(0));

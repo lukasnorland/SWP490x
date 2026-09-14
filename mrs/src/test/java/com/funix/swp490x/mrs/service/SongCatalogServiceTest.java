@@ -10,6 +10,7 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 
 import com.funix.swp490x.mrs.catalog.CatalogObjectStore;
 import com.funix.swp490x.mrs.catalog.CatalogProperties;
@@ -21,6 +22,8 @@ import com.funix.swp490x.mrs.domain.Song;
 import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.domain.TagType;
 import com.funix.swp490x.mrs.repository.AuditLogRepository;
+import com.funix.swp490x.mrs.repository.PlaylistSongRepository;
+import com.funix.swp490x.mrs.repository.PlaylistSongRepository.PlaylistSlot;
 import com.funix.swp490x.mrs.repository.SongRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import com.funix.swp490x.mrs.service.SongCatalogService.SongEdit;
@@ -33,6 +36,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -50,13 +54,18 @@ class SongCatalogServiceTest {
     private CatalogObjectStore catalogStore;
     @Mock
     private AuditLogRepository auditLogRepository;
+    @Mock
+    private PlaylistSongRepository playlistSongRepository;
+    @Mock
+    private PlaylistService playlistService;
 
     private SongCatalogService service;
 
     @BeforeEach
     void setUp() {
         service = new SongCatalogService(songRepository, tagRepository, catalogStore,
-                new CatalogProperties(), new SongJsonMapper(), auditLogRepository);
+                new CatalogProperties(), new SongJsonMapper(), auditLogRepository,
+                playlistSongRepository, playlistService, null);
     }
 
     @Test
@@ -336,6 +345,8 @@ class SongCatalogServiceTest {
         then(auditLogRepository).should().save(audit.capture());
         assertThat(audit.getValue().getAction()).isEqualTo(AuditLog.ACTION_SONG_DELETE);
         assertThat(audit.getValue().getDetails()).contains("Was");
+        assertThat(audit.getValue().getDetails()).contains("\"playlists\":[]");
+        then(playlistService).shouldHaveNoInteractions();
     }
 
     @Test
@@ -371,6 +382,8 @@ class SongCatalogServiceTest {
 
         then(songRepository).should(never()).detachFromPlaylists(any());
         then(songRepository).should(never()).delete(any(Song.class));
+        then(playlistService).shouldHaveNoInteractions();
+        then(auditLogRepository).shouldHaveNoInteractions();
     }
 
     @Test
@@ -383,6 +396,43 @@ class SongCatalogServiceTest {
         then(catalogStore).shouldHaveNoInteractions();
         then(songRepository).should().detachFromPlaylists(List.of(12L));
         then(songRepository).should().delete(song);
+    }
+
+    @Test
+    void deleteCompactsEachPlaylistBeforeDroppingTheRow() {
+        Song song = existing(12L, 0);
+        given(songRepository.findById(12L)).willReturn(Optional.of(song));
+        given(playlistSongRepository.findSlotsBySongId(12L))
+                .willReturn(List.of(slot(7L, 2), slot(9L, 1)));
+
+        service.delete(12L, 1L);
+
+        InOrder order = inOrder(playlistSongRepository, songRepository, playlistService);
+        order.verify(playlistSongRepository).findSlotsBySongId(12L);
+        order.verify(songRepository).detachFromPlaylists(List.of(12L));
+        order.verify(playlistService).compactAfterRemoval(7L, 1L);
+        order.verify(playlistService).compactAfterRemoval(9L, 1L);
+        order.verify(songRepository).delete(song);
+        ArgumentCaptor<AuditLog> audit = ArgumentCaptor.forClass(AuditLog.class);
+        then(auditLogRepository).should().save(audit.capture());
+        assertThat(audit.getValue().getDetails()).contains("\"playlists\":[7,9]");
+    }
+
+    @Test
+    void deleteRetriesTheMysqlPhaseOnceOnAnOptimisticLock() {
+        Song song = existing(12L, 0);
+        given(songRepository.findById(12L)).willReturn(Optional.of(song));
+        given(playlistSongRepository.findSlotsBySongId(12L))
+                .willReturn(List.of(slot(7L, 2)));
+        willThrow(new OptimisticLockingFailureException("stale"))
+                .willDoNothing()
+                .given(playlistService).compactAfterRemoval(7L, 1L);
+
+        service.delete(12L, 1L);
+
+        then(catalogStore).shouldHaveNoInteractions();
+        then(playlistService).should(times(2)).compactAfterRemoval(7L, 1L);
+        then(songRepository).should(times(1)).delete(song);
     }
 
     @Test
@@ -547,5 +597,19 @@ class SongCatalogServiceTest {
         song.setSourceProvider("NCS");
         ReflectionTestUtils.setField(song, "version", version);
         return song;
+    }
+
+    private static PlaylistSlot slot(long playlistId, int position) {
+        return new PlaylistSlot() {
+            @Override
+            public Long getPlaylistId() {
+                return playlistId;
+            }
+
+            @Override
+            public int getPosition() {
+                return position;
+            }
+        };
     }
 }

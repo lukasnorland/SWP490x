@@ -732,13 +732,12 @@ public class PlaylistService {
 
     private void dropSong(Playlist playlist, Long songId, Long userId) {
         Long playlistId = playlist.getId();
-        PlaylistSong entry = playlistSongRepository
+        playlistSongRepository
                 .findByIdPlaylistIdAndIdSongId(playlistId, songId)
                 .orElseThrow(() -> new SongNotFoundException(songId));
-        int removed = entry.getPosition();
 
         playlistSongRepository.deleteSong(playlistId, songId);
-        closeGapAfter(playlistId, removed);
+        renumber(playlistId);
 
         playlist.touch(userId);
         audit(userId, AuditLog.ACTION_PLAYLIST_SONG_REMOVE, playlistId,
@@ -767,14 +766,36 @@ public class PlaylistService {
     }
 
     /**
-     * Moves every row past {@code removed} out to the parking range, then back
-     * one place lower. Two collision-free statements rather than one that MySQL
-     * could evaluate in an order that trips the unique key.
+     * After a catalog song (or import prune) left a playlist, restore contiguous
+     * 1..N and record that the contents changed (DC-04, DC-11, BR-06). Runs on
+     * Published playlists too — the song no longer exists.
+     *
+     * <p>{@code saveAndFlush} so an optimistic lock fails here, not at commit
+     * after the HTTP response is already on its way. Not wrapped as
+     * {@link StalePlaylistException}: the catalog delete screen maps that to
+     * {@code SONG_DELETE_FAILED}.
      */
-    private void closeGapAfter(Long playlistId, int removed) {
-        playlistSongRepository.shiftAfter(playlistId, removed, PlaylistSongRepository.PARK_OFFSET);
-        playlistSongRepository.shiftAfter(playlistId, PlaylistSongRepository.PARK_OFFSET,
-                -(PlaylistSongRepository.PARK_OFFSET + 1));
+    @Transactional
+    public void compactAfterRemoval(Long playlistId, Long actorId) {
+        renumber(playlistId);
+        Playlist playlist = playlistRepository.findById(playlistId)
+                .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
+        playlist.touch(actorId);
+        playlistRepository.saveAndFlush(playlist);
+    }
+
+    /**
+     * Parks every remaining row, then writes 1..N in current order. One
+     * playlist may have several holes after an import prune, so closing a
+     * single gap is not enough.
+     */
+    private void renumber(Long playlistId) {
+        playlistSongRepository.shiftAfter(playlistId, 0, PlaylistSongRepository.PARK_OFFSET);
+        List<Integer> parked = playlistSongRepository.findPositionsOrdered(playlistId);
+        int next = 1;
+        for (int from : parked) {
+            playlistSongRepository.moveOne(playlistId, from, next++);
+        }
     }
 
     private Map<Long, PublishedPlaylistCard> toCards(List<Long> ids) {
