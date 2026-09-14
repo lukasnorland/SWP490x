@@ -18,6 +18,13 @@ public enum SettingKey {
     RESET_LINK_MINUTES(
             "password.reset.validity.minutes", Kind.INT, "30", 5, 120,
             "Password-reset link validity"),
+    /** BV-12 says the account-request cap is configurable, so it lives here. */
+    ACCOUNT_REQUEST_LIMIT(
+            "account.request.limit", Kind.INT, "3", 1, 20,
+            "Account request limit"),
+    ACCOUNT_REQUEST_WINDOW_MINUTES(
+            "account.request.window.minutes", Kind.INT, "60", 5, 1440,
+            "Account request window"),
     LLM_MODEL(
             "llm.model", Kind.STRING, "gemini-3.8-flash", null, null,
             "LLM model"),

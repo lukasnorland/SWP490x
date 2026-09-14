@@ -117,7 +117,9 @@ class AdminPlaylistBrowseTest {
                 .andExpect(content().string(containsString("Viewing as administrator")))
                 .andExpect(content().string(containsString("/playlists/7/publish")))
                 .andExpect(content().string(not(containsString("/playlists/7/delete"))))
-                .andExpect(content().string(not(containsString("/playlists/7/export.csv"))))
+                // BR-09: an ADMIN exports any playlist, including this Draft
+                // owned by someone else.
+                .andExpect(content().string(containsString("/playlists/7/export.csv")))
                 .andExpect(content().string(not(containsString("Rename playlist"))))
                 .andExpect(content().string(containsString("/playlists/7/collaborators")));
     }

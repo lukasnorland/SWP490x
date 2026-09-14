@@ -61,6 +61,14 @@ public class SettingsService {
         return Duration.ofMinutes(intValue(SettingKey.RESET_LINK_MINUTES));
     }
 
+    public int accountRequestLimit() {
+        return intValue(SettingKey.ACCOUNT_REQUEST_LIMIT);
+    }
+
+    public Duration accountRequestWindow() {
+        return Duration.ofMinutes(intValue(SettingKey.ACCOUNT_REQUEST_WINDOW_MINUTES));
+    }
+
     public String llmModel() {
         return value(SettingKey.LLM_MODEL);
     }

@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.inOrder;
@@ -17,6 +18,8 @@ import com.funix.swp490x.mrs.domain.PlaylistSong;
 import com.funix.swp490x.mrs.domain.PlaylistStatus;
 import com.funix.swp490x.mrs.domain.Role;
 import com.funix.swp490x.mrs.domain.Song;
+import com.funix.swp490x.mrs.domain.Tag;
+import com.funix.swp490x.mrs.domain.TagType;
 import com.funix.swp490x.mrs.domain.User;
 import com.funix.swp490x.mrs.domain.UserStatus;
 import com.funix.swp490x.mrs.repository.AuditLogRepository;
@@ -25,6 +28,7 @@ import com.funix.swp490x.mrs.repository.PlaylistSongRepository;
 import com.funix.swp490x.mrs.repository.SongRepository;
 import com.funix.swp490x.mrs.repository.UserRepository;
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Optional;
 import org.springframework.data.domain.PageImpl;
@@ -371,7 +375,7 @@ class PlaylistServiceTest {
 
     @Test
     void exportQuotesEveryFieldSoACommaInATitleCannotSplitTheRow() {
-        visible(playlist(7L, PlaylistStatus.DRAFT));
+        ownedByCaller(playlist(7L, PlaylistStatus.DRAFT));
         Song song = song(42L);
         song.setTitle("Ice Cream, Again");
         song.setArtist("Sugar \"Blizz\"");
@@ -381,12 +385,20 @@ class PlaylistServiceTest {
 
         String csv = service.exportCsv(7L, 1L);
 
-        assertThat(csv).contains("1,\"Ice Cream, Again\",\"Sugar \"\"Blizz\"\"\",213");
+        assertThat(csv).contains("1,\"Ice Cream, Again\",\"Sugar \"\"Blizz\"\"\",\"\",\"\",\"\",\"\",213");
     }
 
     private void visible(Playlist playlist) {
         given(playlistRepository.findById(playlist.getId())).willReturn(Optional.of(playlist));
         given(playlistRepository.countVisibleTo(playlist.getId(), 1L)).willReturn(1L);
+    }
+
+    /**
+     * Export checks ownership directly, so it never reaches
+     * {@code countVisibleTo} and stubbing it would be an unused stub.
+     */
+    private void ownedByCaller(Playlist playlist) {
+        given(playlistRepository.findById(playlist.getId())).willReturn(Optional.of(playlist));
     }
 
     /**
@@ -1273,27 +1285,85 @@ class PlaylistServiceTest {
 
     @Test
     void exportCsv_shouldStartWithHeaderRow() {
-        visible(playlist(7L, PlaylistStatus.DRAFT));
+        ownedByCaller(playlist(7L, PlaylistStatus.DRAFT));
         given(playlistSongRepository.findOrdered(7L)).willReturn(List.of());
 
         String csv = service.exportCsv(7L, 1L);
 
-        assertThat(csv).startsWith("position,title,artist,duration_seconds,provider\r\n");
+        assertThat(csv).startsWith("position,title,artist,genre,mood,artist_tags,tags,"
+                + "duration_seconds,provider,audio_url\r\n");
     }
 
     @Test
-    void exportCsv_whenCallerCannotView_shouldThrow() {
+    void exportCsv_whenCallerIsAStranger_shouldThrow() {
         given(playlistRepository.findById(7L))
                 .willReturn(Optional.of(playlist(7L, PlaylistStatus.DRAFT)));
-        given(playlistRepository.countVisibleTo(7L, 99L)).willReturn(0L);
+        given(userRepository.findById(99L)).willReturn(Optional.empty());
 
         assertThatThrownBy(() -> service.exportCsv(7L, 99L))
                 .isInstanceOf(PlaylistNotFoundException.class);
     }
 
+    /**
+     * BR-09: a collaborator grant carries edit rights, not the right to take a
+     * copy of the catalogue out of the system.
+     */
+    @Test
+    void exportCsv_whenCallerIsOnlyACollaborator_shouldThrow() {
+        given(playlistRepository.findById(7L))
+                .willReturn(Optional.of(playlist(7L, PlaylistStatus.DRAFT)));
+        given(userRepository.findById(2L)).willReturn(Optional.of(designer(2L)));
+
+        assertThatThrownBy(() -> service.exportCsv(7L, 2L))
+                .isInstanceOf(PlaylistNotFoundException.class);
+        // The collaborator grant is never consulted: ownership decides.
+        then(playlistRepository).should(never()).countVisibleTo(anyLong(), anyLong());
+    }
+
+    /** Published does not make a playlist exportable by another designer. */
+    @Test
+    void exportCsv_whenPublishedAndCallerIsAnotherDesigner_shouldThrow() {
+        given(playlistRepository.findById(7L))
+                .willReturn(Optional.of(playlist(7L, PlaylistStatus.PUBLISHED)));
+        given(userRepository.findById(2L)).willReturn(Optional.of(designer(2L)));
+
+        assertThatThrownBy(() -> service.exportCsv(7L, 2L))
+                .isInstanceOf(PlaylistNotFoundException.class);
+    }
+
+    /** An ADMIN exports any playlist, including another owner's Draft. */
+    @Test
+    void exportCsv_whenCallerIsAdmin_shouldExportAnotherOwnersDraft() {
+        given(playlistRepository.findById(7L))
+                .willReturn(Optional.of(playlist(7L, PlaylistStatus.DRAFT)));
+        given(userRepository.findById(9L)).willReturn(Optional.of(admin(9L)));
+        given(playlistSongRepository.findOrdered(7L)).willReturn(List.of());
+
+        assertThat(service.exportCsv(7L, 9L)).startsWith("position,title,artist");
+    }
+
+    /** The owner keeps the export once the playlist is Published. */
+    @Test
+    void exportCsv_whenOwnerAndPublished_shouldExport() {
+        ownedByCaller(playlist(7L, PlaylistStatus.PUBLISHED));
+        given(playlistSongRepository.findOrdered(7L)).willReturn(List.of());
+
+        assertThat(service.exportCsv(7L, 1L)).startsWith("position,title,artist");
+    }
+
+    @Test
+    void viewExportable_whenCallerIsOnlyACollaborator_shouldThrow() {
+        given(playlistRepository.findById(7L))
+                .willReturn(Optional.of(playlist(7L, PlaylistStatus.PUBLISHED)));
+        given(userRepository.findById(2L)).willReturn(Optional.of(designer(2L)));
+
+        assertThatThrownBy(() -> service.viewExportable(7L, 2L))
+                .isInstanceOf(PlaylistNotFoundException.class);
+    }
+
     @Test
     void exportCsv_whenDurationIsNull_shouldLeaveDurationBlank() {
-        visible(playlist(7L, PlaylistStatus.DRAFT));
+        ownedByCaller(playlist(7L, PlaylistStatus.DRAFT));
         Song song = song(42L);
         song.setDuration(null);
         given(playlistSongRepository.findOrdered(7L))
@@ -1301,16 +1371,96 @@ class PlaylistServiceTest {
 
         String csv = service.exportCsv(7L, 1L);
 
-        assertThat(csv).contains("1,\"Ice Cream\",\"Sugar Blizz\",,\"EpidemicSound\"");
+        assertThat(csv).contains(
+                "1,\"Ice Cream\",\"Sugar Blizz\",\"\",\"\",\"\",\"\",,\"EpidemicSound\"");
     }
 
     @Test
     void exportCsv_whenPlaylistEmpty_shouldReturnHeaderOnly() {
-        visible(playlist(7L, PlaylistStatus.DRAFT));
+        ownedByCaller(playlist(7L, PlaylistStatus.DRAFT));
         given(playlistSongRepository.findOrdered(7L)).willReturn(List.of());
 
         assertThat(service.exportCsv(7L, 1L))
-                .isEqualTo("position,title,artist,duration_seconds,provider\r\n");
+                .isEqualTo("position,title,artist,genre,mood,artist_tags,tags,"
+                        + "duration_seconds,provider,audio_url\r\n");
+    }
+
+    /** UC-26 step 3: the export carries the four vocabularies, not just the row. */
+    @Test
+    void exportCsv_shouldJoinEachVocabularyWithSemicolons() {
+        ownedByCaller(playlist(7L, PlaylistStatus.DRAFT));
+        Song song = song(42L);
+        song.setTags(new LinkedHashSet<>(List.of(
+                new Tag(TagType.GENRE, "Lo-fi"),
+                new Tag(TagType.GENRE, "Chillhop"),
+                new Tag(TagType.MOOD, "Calm"),
+                new Tag(TagType.ARTIST, "Nujabes"),
+                new Tag(TagType.TAGS, "study"))));
+        song.setDuration(213);
+        given(playlistSongRepository.findOrdered(7L))
+                .willReturn(List.of(new PlaylistSong(7L, song, 1)));
+
+        String csv = service.exportCsv(7L, 1L);
+
+        assertThat(csv).contains("\"Chillhop;Lo-fi\",\"Calm\",\"Nujabes\",\"study\",213");
+    }
+
+    /** A comma inside a tag name must not split the row (BR-13, RFC 4180). */
+    @Test
+    void exportCsv_whenTagNameHasAComma_shouldKeepTheRowIntact() {
+        ownedByCaller(playlist(7L, PlaylistStatus.DRAFT));
+        Song song = song(42L);
+        song.setTags(new LinkedHashSet<>(List.of(new Tag(TagType.TAGS, "coffee, rain"))));
+        given(playlistSongRepository.findOrdered(7L))
+                .willReturn(List.of(new PlaylistSong(7L, song, 1)));
+
+        String csv = service.exportCsv(7L, 1L);
+
+        assertThat(csv).contains("\"coffee, rain\"");
+        assertThat(csv.lines()).hasSize(2);
+    }
+
+    @Test
+    void exportCsv_whenSongHasNoTags_shouldLeaveFourEmptyTagCells() {
+        ownedByCaller(playlist(7L, PlaylistStatus.DRAFT));
+        Song song = song(42L);
+        song.setDuration(213);
+        given(playlistSongRepository.findOrdered(7L))
+                .willReturn(List.of(new PlaylistSong(7L, song, 1)));
+
+        String csv = service.exportCsv(7L, 1L);
+
+        assertThat(csv).contains("\"Sugar Blizz\",\"\",\"\",\"\",\"\",213");
+    }
+
+    /** The stored CloudFront URL is exported as-is; it does not expire. */
+    @Test
+    void exportCsv_shouldExportTheAudioUrlAsStored() {
+        ownedByCaller(playlist(7L, PlaylistStatus.DRAFT));
+        Song song = song(42L);
+        song.setAudioUrl("https://d34ixswlpjs53y.cloudfront.net/song-data/audio/ncs/abc-123.mp3");
+        given(playlistSongRepository.findOrdered(7L))
+                .willReturn(List.of(new PlaylistSong(7L, song, 1)));
+
+        String csv = service.exportCsv(7L, 1L);
+
+        assertThat(csv).endsWith(
+                "\"EpidemicSound\",\"https://d34ixswlpjs53y.cloudfront.net/"
+                        + "song-data/audio/ncs/abc-123.mp3\"\r\n");
+    }
+
+    /** NAC-02: a song with no preview audio exports an empty cell, not a broken link. */
+    @Test
+    void exportCsv_whenAudioUrlIsNull_shouldLeaveTheCellEmpty() {
+        ownedByCaller(playlist(7L, PlaylistStatus.DRAFT));
+        Song song = song(42L);
+        song.setAudioUrl(null);
+        given(playlistSongRepository.findOrdered(7L))
+                .willReturn(List.of(new PlaylistSong(7L, song, 1)));
+
+        String csv = service.exportCsv(7L, 1L);
+
+        assertThat(csv).endsWith("\"EpidemicSound\",\r\n");
     }
 
     private static PlaylistRepository.SummaryRow summary(Long id, String name, String status,

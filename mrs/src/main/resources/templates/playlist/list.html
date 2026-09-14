@@ -121,7 +121,11 @@
                     <svg th:replace="~{fragments/icons :: icon('copy', 'icon--sm')}"></svg>
                     <span class="visually-hidden">Duplicate</span>
                   </button>
-                  <a class="btn btn-icon" th:href="@{|/playlists/${playlist.id}/export.csv|}"
+                  <!-- BR-09: owner only. ADMIN cannot appear as a collaborator
+                       on this list, so sharedWithMe is enough. -->
+                  <a class="btn btn-icon"
+                     th:if="${!playlist.sharedWithMe}"
+                     th:href="@{|/playlists/${playlist.id}/export.csv|}"
                      title="Export CSV" download>
                     <svg th:replace="~{fragments/icons :: icon('download', 'icon--sm')}"></svg>
                     <span class="visually-hidden">Export CSV</span>

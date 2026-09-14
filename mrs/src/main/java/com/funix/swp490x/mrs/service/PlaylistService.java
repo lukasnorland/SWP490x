@@ -6,6 +6,7 @@ import com.funix.swp490x.mrs.domain.PlaylistSong;
 import com.funix.swp490x.mrs.domain.PlaylistStatus;
 import com.funix.swp490x.mrs.domain.Role;
 import com.funix.swp490x.mrs.domain.Song;
+import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.domain.User;
 import com.funix.swp490x.mrs.domain.UserStatus;
 import com.funix.swp490x.mrs.repository.AuditLogRepository;
@@ -24,6 +25,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -234,15 +236,27 @@ public class PlaylistService {
         return playlist;
     }
 
-    /** Published, or a Draft the caller already owns / collaborates on. */
+    /**
+     * Export: the owner in either status, or an ADMIN on any playlist.
+     *
+     * <p>Narrower than {@link #view}: a collaborator grant carries edit
+     * rights on the screen, not the right to take a copy of the catalogue out
+     * of the system, and a Published playlist is readable in the Shared
+     * Workspace by every curator without being theirs to export.
+     */
     @Transactional(readOnly = true)
     public Playlist viewExportable(Long playlistId, Long userId) {
         Playlist playlist = playlistRepository.findById(playlistId)
                 .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
-        if (playlist.isPublished()) {
+        if (userId == null) {
+            throw new PlaylistNotFoundException(playlistId);
+        }
+        if (Objects.equals(playlist.getOwnerId(), userId) || isAdmin(userId)) {
             return playlist;
         }
-        return visible(playlistId, userId);
+        // Not-found rather than forbidden, as everywhere else on this screen:
+        // whether a playlist exists is not a stranger's to learn.
+        throw new PlaylistNotFoundException(playlistId);
     }
 
     @Transactional(readOnly = true)
@@ -648,19 +662,24 @@ public class PlaylistService {
     /** RFC 4180 CSV of the playlist contents, in playing order. */
     @Transactional(readOnly = true)
     public String exportCsv(Long playlistId, Long userId) {
-        Playlist playlist = playlistRepository.findById(playlistId)
-                .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
-        if (!playlist.isPublished()) {
-            visible(playlistId, userId);
-        }
-        StringBuilder csv = new StringBuilder("position,title,artist,duration_seconds,provider\r\n");
+        viewExportable(playlistId, userId);
+        StringBuilder csv = new StringBuilder("position,title,artist,genre,mood,artist_tags,tags,"
+                + "duration_seconds,provider,audio_url\r\n");
         for (PlaylistSong entry : playlistSongRepository.findOrdered(playlistId)) {
             Song song = entry.getSong();
             csv.append(entry.getPosition()).append(',')
                     .append(csvField(song.getTitle())).append(',')
                     .append(csvField(song.getArtist())).append(',')
+                    .append(tagField(song.getGenreTags())).append(',')
+                    .append(tagField(song.getMoodTags())).append(',')
+                    .append(tagField(song.getArtistTags())).append(',')
+                    .append(tagField(song.getFreeformTags())).append(',')
                     .append(song.getDuration() == null ? "" : song.getDuration()).append(',')
-                    .append(csvField(song.getSourceProvider())).append("\r\n");
+                    .append(csvField(song.getSourceProvider())).append(',')
+                    // Company-hosted media is public-read behind CloudFront
+                    // (infra/assets-bucket-media-policy.json), so the stored
+                    // URL is exported as-is and never expires.
+                    .append(csvField(song.getAudioUrl())).append("\r\n");
         }
         return csv.toString();
     }
@@ -991,5 +1010,10 @@ public class PlaylistService {
             return "";
         }
         return "\"" + value.replace("\"", "\"\"") + "\"";
+    }
+
+    /** One vocabulary as a single field; {@code ;} separates so commas stay CSV. */
+    private static String tagField(List<Tag> tags) {
+        return csvField(tags.stream().map(Tag::getName).collect(Collectors.joining(";")));
     }
 }

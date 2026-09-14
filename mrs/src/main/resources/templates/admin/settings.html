@@ -20,7 +20,7 @@
       <div class="card-body d-flex flex-column gap-3">
         <div>
           <h2 class="h5 mb-1">General configuration</h2>
-          <p class="small text-secondary mb-0">Session, lockout and password-reset windows.</p>
+          <p class="small text-secondary mb-0">Session, lockout, password-reset and account-request windows.</p>
         </div>
         <div class="row g-3">
           <div class="col-12 col-md-6">
@@ -63,6 +63,27 @@
             <div class="invalid-feedback"
                  th:if="${settingErrors.containsKey('password.reset.validity.minutes')}"
                  th:text="${settingErrors['password.reset.validity.minutes']}">Range</div>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="accountRequestLimit">Account request limit</label>
+            <input class="form-control" type="number" id="accountRequestLimit"
+                   name="account.request.limit" min="1" max="20" required
+                   th:classappend="${settingErrors.containsKey('account.request.limit')} ? ' is-invalid'"
+                   th:value="${setting['account.request.limit']}">
+            <div class="invalid-feedback"
+                 th:if="${settingErrors.containsKey('account.request.limit')}"
+                 th:text="${settingErrors['account.request.limit']}">Range</div>
+            <p class="form-text">Account requests allowed from one origin per window (BV-12).</p>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="accountRequestWindowMinutes">Account request window (minutes)</label>
+            <input class="form-control" type="number" id="accountRequestWindowMinutes"
+                   name="account.request.window.minutes" min="5" max="1440" required
+                   th:classappend="${settingErrors.containsKey('account.request.window.minutes')} ? ' is-invalid'"
+                   th:value="${setting['account.request.window.minutes']}">
+            <div class="invalid-feedback"
+                 th:if="${settingErrors.containsKey('account.request.window.minutes')}"
+                 th:text="${settingErrors['account.request.window.minutes']}">Range</div>
           </div>
         </div>
       </div>

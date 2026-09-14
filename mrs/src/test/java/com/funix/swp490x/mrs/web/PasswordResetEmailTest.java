@@ -29,6 +29,7 @@ import com.funix.swp490x.mrs.security.LoginFailureHandler;
 import com.funix.swp490x.mrs.security.LoginSuccessHandler;
 import com.funix.swp490x.mrs.security.MrsUserDetailsService;
 import com.funix.swp490x.mrs.security.PasswordResetTokenService;
+import com.funix.swp490x.mrs.security.RequestRateLimiter;
 import com.funix.swp490x.mrs.service.AuthService;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
 import java.util.Optional;
@@ -52,7 +53,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
         LoginFailureHandler.class, LoginAttemptService.class, MrsUserDetailsService.class,
         PasswordResetTokenService.class, MailConfig.class, NotificationService.class,
-        AuthService.class})
+        AuthService.class, RequestRateLimiter.class})
 @TestPropertySource(properties = "mrs.mail.from=no-reply@mrs.local")
 class PasswordResetEmailTest {
 
