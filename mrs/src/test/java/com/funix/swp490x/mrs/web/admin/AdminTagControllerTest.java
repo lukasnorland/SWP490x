@@ -80,7 +80,8 @@ class AdminTagControllerTest {
 
     @Test
     void createAddsADictionaryRow() throws Exception {
-        given(tagVocabularyService.create(TagType.GENRE, "Pop")).willReturn(new Tag(TagType.GENRE, "Pop"));
+        given(tagVocabularyService.create(TagType.GENRE, "Pop", 7L))
+                .willReturn(new Tag(TagType.GENRE, "Pop"));
 
         mockMvc.perform(post(Routes.ADMIN_CATALOG_TAGS)
                         .param("type", "GENRE")
@@ -91,13 +92,14 @@ class AdminTagControllerTest {
                 .andExpect(redirectedUrl(Routes.ADMIN_CATALOG_TAGS))
                 .andExpect(flash().attribute("flash", Messages.TAG_CREATED));
 
-        then(tagVocabularyService).should().create(TagType.GENRE, "Pop");
+        // The signed-in ADMIN is the audit actor (BR-10).
+        then(tagVocabularyService).should().create(TagType.GENRE, "Pop", 7L);
     }
 
     @Test
     void createFlashesValidationFailures() throws Exception {
         willThrow(new TagVocabularyException("Pick a listed MusicBrainz genre."))
-                .given(tagVocabularyService).create(eq(TagType.GENRE), any());
+                .given(tagVocabularyService).create(eq(TagType.GENRE), any(), eq(7L));
 
         mockMvc.perform(post(Routes.ADMIN_CATALOG_TAGS)
                         .param("type", "GENRE")
