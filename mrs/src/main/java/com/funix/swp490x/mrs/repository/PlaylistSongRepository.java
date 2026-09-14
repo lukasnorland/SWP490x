@@ -2,6 +2,7 @@ package com.funix.swp490x.mrs.repository;
 
 import com.funix.swp490x.mrs.domain.PlaylistSong;
 import com.funix.swp490x.mrs.domain.PlaylistSongId;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -31,7 +32,35 @@ public interface PlaylistSongRepository extends JpaRepository<PlaylistSong, Play
 
     Optional<PlaylistSong> findByIdPlaylistIdAndIdSongId(Long playlistId, Long songId);
 
+    /**
+     * Playlist membership of one catalog song, before a detach, so the
+     * remaining rows can be compacted to 1..N (DC-04).
+     */
+    @Query("SELECT ps.id.playlistId AS playlistId, ps.position AS position "
+            + "FROM PlaylistSong ps WHERE ps.id.songId = :songId")
+    List<PlaylistSlot> findSlotsBySongId(@Param("songId") Long songId);
+
+    /** Same projection for a prune that drops several songs at once. */
+    @Query("SELECT ps.id.playlistId AS playlistId, ps.position AS position "
+            + "FROM PlaylistSong ps WHERE ps.id.songId IN :songIds")
+    List<PlaylistSlot> findSlotsBySongIdIn(@Param("songIds") Collection<Long> songIds);
+
+    /**
+     * Positions only, in order. Used after parking so the compact can write
+     * 1..N without hydrating stale {@link PlaylistSong} entities.
+     */
+    @Query("SELECT ps.position FROM PlaylistSong ps WHERE ps.id.playlistId = :playlistId "
+            + "ORDER BY ps.position ASC")
+    List<Integer> findPositionsOrdered(@Param("playlistId") Long playlistId);
+
     boolean existsByIdPlaylistIdAndIdSongId(Long playlistId, Long songId);
+
+    /** One song at one position in one playlist. Aliases match the getters. */
+    interface PlaylistSlot {
+        Long getPlaylistId();
+
+        int getPosition();
+    }
 
     long countByIdPlaylistId(Long playlistId);
 

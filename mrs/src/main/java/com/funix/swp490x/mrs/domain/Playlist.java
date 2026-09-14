@@ -95,9 +95,15 @@ public class Playlist {
         }
     }
 
-    /** Records who last changed the playlist or its contents (FT-06 AC-06). */
+    /**
+     * Records who last changed the playlist or its contents (FT-06 AC-06).
+     * A null actor (scheduled import prune) stamps the time only and leaves
+     * {@code lastModifiedBy} as the last human editor.
+     */
     public void touch(Long actorId) {
-        this.lastModifiedBy = actorId;
+        if (actorId != null) {
+            this.lastModifiedBy = actorId;
+        }
         this.lastModifiedAt = LocalDateTime.now();
     }
 

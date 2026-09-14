@@ -2,7 +2,10 @@ package com.funix.swp490x.mrs.catalog;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -12,8 +15,11 @@ import com.funix.swp490x.mrs.catalog.CatalogImportService.Fetched;
 import com.funix.swp490x.mrs.domain.Song;
 import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.domain.TagType;
+import com.funix.swp490x.mrs.repository.PlaylistSongRepository;
+import com.funix.swp490x.mrs.repository.PlaylistSongRepository.PlaylistSlot;
 import com.funix.swp490x.mrs.repository.SongRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
+import com.funix.swp490x.mrs.service.PlaylistService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +27,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.springframework.dao.OptimisticLockingFailureException;
 
 /** How one chunk decides between insert, update and refusal. */
@@ -29,6 +36,8 @@ class SongUpserterTest {
     private final Map<String, Tag> tags = new HashMap<>();
     private SongRepository songRepository;
     private TagRepository tagRepository;
+    private PlaylistSongRepository playlistSongRepository;
+    private PlaylistService playlistService;
     private SongUpserter upserter;
 
     @BeforeEach
@@ -55,8 +64,10 @@ class SongUpserterTest {
             return tag;
         });
 
+        playlistSongRepository = mock(PlaylistSongRepository.class);
+        playlistService = mock(PlaylistService.class);
         upserter = new SongUpserter(songRepository, tagRepository, new SongJsonMapper(),
-                TestCatalogProviders.stub());
+                TestCatalogProviders.stub(), playlistSongRepository, playlistService);
     }
 
     @Test
@@ -232,6 +243,36 @@ class SongUpserterTest {
         verify(tagRepository).deleteUnused();
     }
 
+    @Test
+    void removeMissingCompactsEachAffectedPlaylistOnce() {
+        given(songRepository.findIdsByExternalSourceIdIn(List.of("gone-a", "gone-b")))
+                .willReturn(List.of(10L, 11L));
+        given(playlistSongRepository.findSlotsBySongIdIn(List.of(10L, 11L)))
+                .willReturn(List.of(slot(7L, 2), slot(7L, 4), slot(9L, 1)));
+        given(songRepository.deleteByExternalSourceIdIn(List.of("gone-a", "gone-b"))).willReturn(2);
+
+        assertThat(upserter.removeMissing(List.of("gone-a", "gone-b"), null)).isEqualTo(2);
+
+        InOrder order = inOrder(playlistSongRepository, songRepository, playlistService);
+        order.verify(playlistSongRepository).findSlotsBySongIdIn(List.of(10L, 11L));
+        order.verify(songRepository).detachFromPlaylists(List.of(10L, 11L));
+        order.verify(playlistService).compactAfterRemoval(7L, null);
+        order.verify(playlistService).compactAfterRemoval(9L, null);
+        order.verify(songRepository).deleteByExternalSourceIdIn(List.of("gone-a", "gone-b"));
+        verify(playlistService, times(1)).compactAfterRemoval(eq(7L), isNull());
+    }
+
+    @Test
+    void removeMissingSkipsCompactWhenNoSongIdsMatch() {
+        given(songRepository.findIdsByExternalSourceIdIn(List.of("gone"))).willReturn(List.of());
+        given(songRepository.deleteByExternalSourceIdIn(List.of("gone"))).willReturn(0);
+
+        assertThat(upserter.removeMissing(List.of("gone"), 1L)).isZero();
+
+        verify(playlistSongRepository, never()).findSlotsBySongIdIn(any());
+        verify(playlistService, never()).compactAfterRemoval(any(), any());
+    }
+
     private Song savedSong() {
         ArgumentCaptor<Song> captor = ArgumentCaptor.forClass(Song.class);
         verify(songRepository).save(captor.capture());
@@ -257,5 +298,19 @@ class SongUpserterTest {
                 {"externalSourceId":"%s","sourceProvider":"NCS","title":"T",
                  "genres":["%s"]}
                 """.formatted(id, genre);
+    }
+
+    private static PlaylistSlot slot(long playlistId, int position) {
+        return new PlaylistSlot() {
+            @Override
+            public Long getPlaylistId() {
+                return playlistId;
+            }
+
+            @Override
+            public int getPosition() {
+                return position;
+            }
+        };
     }
 }

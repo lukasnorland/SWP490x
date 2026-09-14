@@ -40,6 +40,8 @@ class PlaylistOrderingTest {
     private UserRepository userRepository;
     @Autowired
     private EntityManager entityManager;
+    @Autowired
+    private SongCatalogService songCatalogService;
 
     private Long ownerId;
     private List<Long> songIds;
@@ -119,6 +121,66 @@ class PlaylistOrderingTest {
                 playlistService.rename(id, afterAdd, "Too late", ownerId))
                 .isInstanceOf(StalePlaylistException.class);
         assertThat(playlistService.view(id, ownerId).getName()).isEqualTo("Ordering check renamed");
+    }
+
+    /**
+     * Catalog delete must close DC-04 gaps on every playlist that held the
+     * song, including a Published one, and count the content change (DC-11).
+     */
+    @Test
+    void catalogDeleteClosesGapsAndBumpsVersion() {
+        Long gone = catalogOnlySong("Gone");
+        Long keepA = catalogOnlySong("Keep A");
+        Long keepB = catalogOnlySong("Keep B");
+
+        Playlist draft = playlistService.create(ownerId, "Catalog delete draft");
+        Playlist published = playlistService.create(ownerId, "Catalog delete published");
+        for (Long songId : List.of(keepA, gone, keepB)) {
+            playlistService.addSong(draft.getId(), version(draft.getId()), songId, ownerId);
+            playlistService.addSong(published.getId(), version(published.getId()), songId, ownerId);
+        }
+        playlistService.publish(published.getId(), version(published.getId()), ownerId);
+
+        int draftVersion = version(draft.getId());
+        int publishedVersion = version(published.getId());
+
+        songCatalogService.delete(gone, ownerId);
+        entityManager.flush();
+        entityManager.clear();
+
+        assertThat(positions(draft.getId())).containsExactly(1, 2);
+        assertThat(titles(draft.getId())).containsExactly("Keep A", "Keep B");
+        assertThat(positions(published.getId())).containsExactly(1, 2);
+        assertThat(titles(published.getId())).containsExactly("Keep A", "Keep B");
+        assertThat(version(draft.getId())).isEqualTo(draftVersion + 1);
+        assertThat(version(published.getId())).isEqualTo(publishedVersion + 1);
+        assertThat(playlistService.view(draft.getId(), ownerId).getLastModifiedBy())
+                .isEqualTo(ownerId);
+        assertThat(playlistService.view(published.getId(), ownerId).getLastModifiedBy())
+                .isEqualTo(ownerId);
+    }
+
+    /**
+     * Import prune can drop several songs from one playlist. One full
+     * {@code renumber} must close every hole, and a scheduled run must not
+     * claim the seed admin as the editor.
+     */
+    @Test
+    void pruningTwoHolesLeavesAContiguousSequenceAndKeepsLastModifiedBy() {
+        Playlist playlist = playlistService.create(ownerId, "Prune compact");
+        Long id = playlist.getId();
+        songIds.forEach(songId -> playlistService.addSong(id, version(id), songId, ownerId));
+        int before = version(id);
+        Long lastEditor = playlistService.view(id, ownerId).getLastModifiedBy();
+
+        playlistSongRepository.deleteSong(id, songIds.get(0));
+        playlistSongRepository.deleteSong(id, songIds.get(2));
+        playlistService.compactAfterRemoval(id, null);
+
+        assertThat(positions(id)).containsExactly(1, 2);
+        assertThat(titles(id)).containsExactly("Second", "Fourth");
+        assertThat(version(id)).isEqualTo(before + 1);
+        assertThat(playlistService.view(id, ownerId).getLastModifiedBy()).isEqualTo(lastEditor);
     }
 
     /**
@@ -222,6 +284,16 @@ class PlaylistOrderingTest {
         song.setArtist("Ordering Test");
         song.setSourceProvider("TestProvider");
         song.setExternalSourceId("ordering-it-" + title.toLowerCase());
+        song.setDuration(120);
+        return songRepository.save(song).getId();
+    }
+
+    /** No staged JSON, so catalog delete does not touch the object store. */
+    private Long catalogOnlySong(String title) {
+        Song song = new Song();
+        song.setTitle(title);
+        song.setArtist("Ordering Test");
+        song.setSourceProvider("TestProvider");
         song.setDuration(120);
         return songRepository.save(song).getId();
     }

@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -144,8 +145,8 @@ public class AdminCatalogController {
             flash(redirectAttributes, "success", Messages.SONG_DELETED);
         } catch (SongNotFoundException e) {
             flash(redirectAttributes, "danger", Messages.SONG_NOT_FOUND);
-        } catch (CatalogStoreException e) {
-            log.error("Could not delete staged JSON for song {}", id, e);
+        } catch (CatalogStoreException | OptimisticLockingFailureException e) {
+            log.error("Could not delete song {}", id, e);
             flash(redirectAttributes, "danger", Messages.SONG_DELETE_FAILED);
         }
         return "redirect:" + Routes.ADMIN_CATALOG;

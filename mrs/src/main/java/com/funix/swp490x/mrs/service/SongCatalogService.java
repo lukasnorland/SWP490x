@@ -11,6 +11,8 @@ import com.funix.swp490x.mrs.domain.Song;
 import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.domain.TagType;
 import com.funix.swp490x.mrs.repository.AuditLogRepository;
+import com.funix.swp490x.mrs.repository.PlaylistSongRepository;
+import com.funix.swp490x.mrs.repository.PlaylistSongRepository.PlaylistSlot;
 import com.funix.swp490x.mrs.repository.SongRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import java.util.Arrays;
@@ -23,6 +25,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -53,19 +56,28 @@ public class SongCatalogService {
     private final CatalogProperties catalogProperties;
     private final SongJsonMapper mapper;
     private final AuditLogRepository auditLogRepository;
+    private final PlaylistSongRepository playlistSongRepository;
+    private final PlaylistService playlistService;
+    private final SongCatalogService self;
 
     public SongCatalogService(SongRepository songRepository,
             TagRepository tagRepository,
             CatalogObjectStore catalogStore,
             CatalogProperties catalogProperties,
             SongJsonMapper mapper,
-            AuditLogRepository auditLogRepository) {
+            AuditLogRepository auditLogRepository,
+            PlaylistSongRepository playlistSongRepository,
+            PlaylistService playlistService,
+            @Lazy SongCatalogService self) {
         this.songRepository = songRepository;
         this.tagRepository = tagRepository;
         this.catalogStore = catalogStore;
         this.catalogProperties = catalogProperties;
         this.mapper = mapper;
         this.auditLogRepository = auditLogRepository;
+        this.playlistSongRepository = playlistSongRepository;
+        this.playlistService = playlistService;
+        this.self = self == null ? this : self;
     }
 
     /**
@@ -422,21 +434,51 @@ public class SongCatalogService {
      * nothing of the song remains in the object store or MySQL. Vendor CDN
      * URLs are left alone — those bytes are not ours.
      *
+     * <p>Object-store deletes run once, outside the MySQL transaction. The
+     * membership compact can lose an optimistic lock, which marks a transaction
+     * rollback-only, so the row delete lives in a nested transaction that is
+     * retried once.
+     *
      * @throws CatalogStoreException when a hosted object could not be removed
      */
-    @Transactional
     public void delete(Long id, Long actorId) {
         Song song = songRepository.findById(id)
                 .orElseThrow(() -> new SongNotFoundException(id));
-        String details = "{\"title\":%s,\"artist\":%s}".formatted(
-                jsonString(song.getTitle()), jsonString(song.getArtist()));
+        String title = song.getTitle();
+        String artist = song.getArtist();
         deleteHostedMedia(song);
         if (StringUtils.hasText(song.getExternalSourceId())) {
             catalogStore.deleteJson(catalogStore.stagingKey(song.getExternalSourceId()));
         }
+        try {
+            self.deleteCatalogRow(id, actorId, title, artist);
+        } catch (OptimisticLockingFailureException e) {
+            self.deleteCatalogRow(id, actorId, title, artist);
+        }
+    }
+
+    /**
+     * Detach, compact remaining playlist positions to 1..N, delete the row.
+     * A separate transaction from the S3 deletes so a lock failure can be
+     * retried; {@code REQUIRED} still joins a test transaction.
+     */
+    @Transactional
+    public void deleteCatalogRow(Long id, Long actorId, String title, String artist) {
+        Song song = songRepository.findById(id)
+                .orElseThrow(() -> new SongNotFoundException(id));
+        List<PlaylistSlot> slots = playlistSongRepository.findSlotsBySongId(id);
+        LinkedHashSet<Long> playlistIds = new LinkedHashSet<>();
+        for (PlaylistSlot slot : slots) {
+            playlistIds.add(slot.getPlaylistId());
+        }
         songRepository.detachFromPlaylists(List.of(id));
+        for (Long playlistId : playlistIds) {
+            playlistService.compactAfterRemoval(playlistId, actorId);
+        }
         songRepository.delete(song);
-        audit(actorId, AuditLog.ACTION_SONG_DELETE, id, details);
+        audit(actorId, AuditLog.ACTION_SONG_DELETE, id,
+                "{\"title\":%s,\"artist\":%s,\"playlists\":%s}".formatted(
+                        jsonString(title), jsonString(artist), jsonIds(playlistIds)));
     }
 
     /**
@@ -538,6 +580,19 @@ public class SongCatalogService {
         return values.stream()
                 .map(SongCatalogService::jsonString)
                 .collect(java.util.stream.Collectors.joining(",", "[", "]"));
+    }
+
+    private static String jsonIds(Iterable<Long> ids) {
+        StringBuilder json = new StringBuilder("[");
+        boolean first = true;
+        for (Long id : ids) {
+            if (!first) {
+                json.append(',');
+            }
+            json.append(id);
+            first = false;
+        }
+        return json.append(']').toString();
     }
 
     private static String jsonString(String value) {
