@@ -108,6 +108,18 @@ class LoginFlowTest {
                 .andExpect(header().exists(CorrelationIdFilter.HEADER));
     }
 
+    /** TDS 5.5. Strict-Transport-Security is left to the default writer, which
+     *  only emits on a secure request, so it is not asserted here. */
+    @Test
+    void securityHeadersFollowTheDesign() throws Exception {
+        mockMvc.perform(get(Routes.LOGIN))
+                .andExpect(header().string("Referrer-Policy", "strict-origin-when-cross-origin"))
+                .andExpect(header().string("Permissions-Policy",
+                        "camera=(), microphone=(), geolocation=()"))
+                .andExpect(header().string("X-Content-Type-Options", "nosniff"))
+                .andExpect(header().string("X-Frame-Options", "DENY"));
+    }
+
     @Test
     void aValidRegisterRequestIsForwardedToTheAdminMailbox() throws Exception {
         mockMvc.perform(registerRequest("new.user@example.com", "203.0.113.1"))

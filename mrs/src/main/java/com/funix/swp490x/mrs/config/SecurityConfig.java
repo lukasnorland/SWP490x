@@ -23,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 /**
@@ -52,6 +53,9 @@ public class SecurityConfig {
             "frame-ancestors 'none'",
             "base-uri 'self'",
             "form-action 'self'");
+
+    /** TDS 5.5 — the application uses none of these. */
+    static final String PERMISSIONS_POLICY = "camera=(), microphone=(), geolocation=()";
 
     /** BCrypt only (NFR-SEC02); cost 12. Seeded V2 hashes are {@code $2a$10$}
      *  and still verify via {@code matches}. */
@@ -105,8 +109,15 @@ public class SecurityConfig {
                 // response is still uncommitted, so no template can trigger session
                 // creation mid-render.
                 .addFilterAfter(new EagerCsrfTokenFilter(), CsrfFilter.class)
+                // nosniff, DENY and HSTS come from the Spring Security defaults;
+                // HSTS only goes out on a secure request, so it appears once TLS
+                // terminates at the application rather than at a plain-HTTP proxy.
                 .headers(headers -> headers
-                        .contentSecurityPolicy(csp -> csp.policyDirectives(CONTENT_SECURITY_POLICY)))
+                        .contentSecurityPolicy(csp -> csp.policyDirectives(CONTENT_SECURITY_POLICY))
+                        .referrerPolicy(referrer ->
+                                referrer.policy(ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN))
+                        .permissionsPolicyHeader(permissions ->
+                                permissions.policy(PERMISSIONS_POLICY)))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(Routes.STATIC_ASSETS)
                         .permitAll()

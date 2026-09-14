@@ -1,6 +1,7 @@
 package com.funix.swp490x.mrs.web.admin;
 
 import com.funix.swp490x.mrs.domain.TagType;
+import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.service.TagVocabularyException;
 import com.funix.swp490x.mrs.service.TagVocabularyService;
 import com.funix.swp490x.mrs.service.TagVocabularyService.TagRow;
@@ -8,6 +9,7 @@ import com.funix.swp490x.mrs.web.Messages;
 import com.funix.swp490x.mrs.web.Routes;
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,9 +41,10 @@ public class AdminTagController {
     @PostMapping(Routes.ADMIN_CATALOG_TAGS)
     public String create(@RequestParam TagType type,
             @RequestParam String name,
+            @AuthenticationPrincipal MrsUserDetails user,
             RedirectAttributes redirectAttributes) {
         try {
-            tagVocabularyService.create(type, name);
+            tagVocabularyService.create(type, name, user.getId());
             flash(redirectAttributes, "success", Messages.TAG_CREATED);
         } catch (TagVocabularyException e) {
             flash(redirectAttributes, "danger", e.getMessage());
@@ -52,9 +55,10 @@ public class AdminTagController {
     @PostMapping(Routes.ADMIN_CATALOG_TAG_RENAME)
     public String rename(@PathVariable Long id,
             @RequestParam String name,
+            @AuthenticationPrincipal MrsUserDetails user,
             RedirectAttributes redirectAttributes) {
         try {
-            tagVocabularyService.rename(id, name);
+            tagVocabularyService.rename(id, name, user.getId());
             flash(redirectAttributes, "success", Messages.TAG_RENAMED);
         } catch (TagVocabularyException e) {
             flash(redirectAttributes, "danger", e.getMessage());
@@ -63,9 +67,11 @@ public class AdminTagController {
     }
 
     @PostMapping(Routes.ADMIN_CATALOG_TAG_DELETE)
-    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable Long id,
+            @AuthenticationPrincipal MrsUserDetails user,
+            RedirectAttributes redirectAttributes) {
         try {
-            tagVocabularyService.delete(id);
+            tagVocabularyService.delete(id, user.getId());
             flash(redirectAttributes, "success", Messages.TAG_DELETED);
         } catch (TagVocabularyException e) {
             flash(redirectAttributes, "danger", e.getMessage());

@@ -1,8 +1,10 @@
 package com.funix.swp490x.mrs.service;
 
 import com.funix.swp490x.mrs.catalog.CatalogTaxonomy;
+import com.funix.swp490x.mrs.domain.AuditLog;
 import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.domain.TagType;
+import com.funix.swp490x.mrs.repository.AuditLogRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import java.util.HashMap;
 import java.util.List;
@@ -25,10 +27,13 @@ public class TagVocabularyService {
     public static final int NAME_MAX_LENGTH = 100;
 
     private final TagRepository tagRepository;
+    private final AuditLogRepository auditLogRepository;
     private final CatalogTaxonomy taxonomy = new CatalogTaxonomy();
 
-    public TagVocabularyService(TagRepository tagRepository) {
+    public TagVocabularyService(TagRepository tagRepository,
+            AuditLogRepository auditLogRepository) {
         this.tagRepository = tagRepository;
+        this.auditLogRepository = auditLogRepository;
     }
 
     @Transactional(readOnly = true)
@@ -45,7 +50,7 @@ public class TagVocabularyService {
     }
 
     @Transactional
-    public Tag create(TagType type, String rawName) {
+    public Tag create(TagType type, String rawName, Long actorId) {
         if (type == null) {
             throw new TagVocabularyException("Choose a vocabulary.");
         }
@@ -53,11 +58,14 @@ public class TagVocabularyService {
         if (tagRepository.findByTypeAndName(type, name).isPresent()) {
             throw new TagVocabularyException("That name is already in this vocabulary.");
         }
-        return tagRepository.save(new Tag(type, name));
+        Tag saved = tagRepository.save(new Tag(type, name));
+        audit(actorId, AuditLog.ACTION_TAG_CREATE, saved.getId(),
+                "{\"type\":%s,\"name\":%s}".formatted(jsonString(type.name()), jsonString(name)));
+        return saved;
     }
 
     @Transactional
-    public Tag rename(Long id, String rawName) {
+    public Tag rename(Long id, String rawName, Long actorId) {
         Tag tag = tagRepository.findById(id)
                 .orElseThrow(() -> new TagVocabularyException("That tag is no longer in the dictionary."));
         refuseIfInUse(tag);
@@ -68,16 +76,24 @@ public class TagVocabularyService {
         if (tagRepository.findByTypeAndName(tag.getType(), name).isPresent()) {
             throw new TagVocabularyException("That name is already in this vocabulary.");
         }
+        String before = tag.getName();
         tag.setName(name);
-        return tagRepository.save(tag);
+        Tag saved = tagRepository.save(tag);
+        audit(actorId, AuditLog.ACTION_TAG_RENAME, tag.getId(),
+                "{\"type\":%s,\"from\":%s,\"to\":%s}".formatted(
+                        jsonString(tag.getType().name()), jsonString(before), jsonString(name)));
+        return saved;
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void delete(Long id, Long actorId) {
         Tag tag = tagRepository.findById(id)
                 .orElseThrow(() -> new TagVocabularyException("That tag is no longer in the dictionary."));
         refuseIfInUse(tag);
         tagRepository.delete(tag);
+        audit(actorId, AuditLog.ACTION_TAG_DELETE, id,
+                "{\"type\":%s,\"name\":%s}".formatted(
+                        jsonString(tag.getType().name()), jsonString(tag.getName())));
     }
 
     private void refuseIfInUse(Tag tag) {
@@ -112,6 +128,20 @@ public class TagVocabularyService {
             throw new TagVocabularyException(message);
         }
         return resolved;
+    }
+
+    private void audit(Long actorId, String action, Long entityId, String details) {
+        if (actorId == null || entityId == null) {
+            return;
+        }
+        auditLogRepository.save(new AuditLog(actorId, action, AuditLog.ENTITY_TAG, entityId, details));
+    }
+
+    private static String jsonString(String value) {
+        if (value == null) {
+            return "null";
+        }
+        return "\"" + value.replace("\\", "\\\\").replace("\"", "\\\"") + "\"";
     }
 
     public record TagRow(Long id, TagType type, String name, long usageCount) {

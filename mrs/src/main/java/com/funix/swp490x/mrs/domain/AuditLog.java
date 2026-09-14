@@ -81,6 +81,15 @@ public class AuditLog {
 
     public static final String ENTITY_SONG = "SONG";
 
+    /** P-06b Tags tab — dictionary rows, not the song_tag links. */
+    public static final String ACTION_TAG_CREATE = "TAG_CREATE";
+
+    public static final String ACTION_TAG_RENAME = "TAG_RENAME";
+
+    public static final String ACTION_TAG_DELETE = "TAG_DELETE";
+
+    public static final String ENTITY_TAG = "TAG";
+
     /** Failed sign-in against a registered address (actor is that account). */
     public static final String ACTION_LOGIN_FAILED = "LOGIN_FAILED";
 
@@ -99,6 +108,9 @@ public class AuditLog {
                 ACTION_USER_CREDENTIALS_RESEND,
                 ACTION_SONG_EDIT,
                 ACTION_SONG_DELETE,
+                ACTION_TAG_CREATE,
+                ACTION_TAG_RENAME,
+                ACTION_TAG_DELETE,
                 ACTION_CATALOG_IMPORT,
                 ACTION_PLAYLIST_CREATE,
                 ACTION_PLAYLIST_RENAME,
