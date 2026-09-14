@@ -20,8 +20,8 @@
     </div>
 
     <div class="d-flex flex-wrap align-items-center gap-2">
-      <!-- BR-09: Customers never export. -->
-      <button type="button" class="btn btn-ghost" th:if="${canExport}"
+      <!-- Any curator may take a copy; only the owner or an ADMIN exports. -->
+      <button type="button" class="btn btn-ghost" th:if="${canDuplicate}"
               title="Duplicate to a Draft of your own"
               data-duplicate-playlist
               th:data-playlist-id="${playlist.id}"
@@ -140,7 +140,7 @@
 
   </div>
 
-  <th:block th:if="${canExport}">
+  <th:block th:if="${canDuplicate}">
     <div th:replace="~{fragments/duplicate-playlist :: dialog}"></div>
   </th:block>
 

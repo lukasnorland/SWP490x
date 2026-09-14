@@ -171,6 +171,40 @@ class WorkspaceFlowTest {
                 .andExpect(content().string(containsString("Unpublish")));
     }
 
+    /**
+     * BR-09: a non-owner curator reads the playlist but cannot export it.
+     * Duplicate is a separate right and must survive that restriction, or the
+     * Shared Workspace loses the reason it exists.
+     */
+    @Test
+    void aNonOwnerDesignerCanDuplicateButNotExportFromTheWorkspace() throws Exception {
+        Playlist shared = published("Morning coffee");
+        shared.setOwnerId(9L);
+        given(playlistService.viewPublished(7L)).willReturn(shared);
+        given(playlistService.publishedSongs(7L)).willReturn(List.of());
+        given(playlistService.ownerName(9L)).willReturn("Dana Designer");
+
+        mockMvc.perform(get("/workspace/7").with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Morning coffee")))
+                .andExpect(content().string(containsString("Duplicate")))
+                .andExpect(content().string(containsString("data-duplicate-playlist")))
+                .andExpect(content().string(not(containsString("Export CSV"))));
+    }
+
+    @Test
+    void anAdminCanExportAnotherOwnersPlaylistFromTheWorkspace() throws Exception {
+        Playlist shared = published("Morning coffee");
+        shared.setOwnerId(9L);
+        given(playlistService.viewPublished(7L)).willReturn(shared);
+        given(playlistService.publishedSongs(7L)).willReturn(List.of());
+        given(playlistService.ownerName(9L)).willReturn("Dana Designer");
+
+        mockMvc.perform(get("/workspace/7").with(user(principal(Role.ADMIN))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Export CSV")));
+    }
+
     @Test
     void aDraftIsNotAvailableInTheWorkspace() throws Exception {
         given(playlistService.viewPublished(9L)).willThrow(new PlaylistNotFoundException(9L));

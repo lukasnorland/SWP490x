@@ -96,6 +96,10 @@ public final class Messages {
     public static final String REGISTER_REQUEST_EMAIL_FAILED =
             "Your request could not be sent right now. Please try again.";
 
+    /** MSG_032. Deliberately says nothing about whether the address is known. */
+    public static final String REGISTER_REQUEST_RATE_LIMITED =
+            "Too many requests. Please try again later.";
+
     /**
      * Outcomes of the P-06b catalog import (UC-28). The catalogue has no codes
      * for the S3 path, which reports counts rather than a fixed sentence, so

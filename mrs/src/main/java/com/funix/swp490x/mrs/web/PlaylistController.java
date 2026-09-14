@@ -105,6 +105,8 @@ public class PlaylistController {
         model.addAttribute("canPublish", !playlist.isPublished() && (owner || admin));
         model.addAttribute("canUnpublish", playlist.isPublished() && (owner || admin));
         model.addAttribute("canDelete", !playlist.isPublished() && owner);
+        // BR-09: export is the owner's or an ADMIN's; a collaborator only edits.
+        model.addAttribute("canExport", owner || admin);
         model.addAttribute("canManageCollaborators", owner || admin);
         model.addAttribute("collaborators", playlistService.collaborators(id));
         model.addAttribute("inviteCandidates",

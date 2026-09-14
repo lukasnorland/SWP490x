@@ -28,6 +28,7 @@ import com.funix.swp490x.mrs.security.LoginSuccessHandler;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.security.MrsUserDetailsService;
 import com.funix.swp490x.mrs.security.PasswordResetTokenService;
+import com.funix.swp490x.mrs.security.RequestRateLimiter;
 import com.funix.swp490x.mrs.service.AuthService;
 import com.funix.swp490x.mrs.service.PlaylistService;
 import com.funix.swp490x.mrs.service.UserAccountService;
@@ -73,7 +74,7 @@ import static org.mockito.BDDMockito.given;
         AccountPasswordController.class})
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
         LoginFailureHandler.class, LoginAttemptService.class, MrsUserDetailsService.class,
-        PasswordResetTokenService.class})
+        PasswordResetTokenService.class, RequestRateLimiter.class})
 class ScreenRenderingTest {
 
     @Autowired

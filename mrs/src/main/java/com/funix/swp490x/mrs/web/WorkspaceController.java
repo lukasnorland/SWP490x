@@ -68,9 +68,14 @@ public class WorkspaceController {
         model.addAttribute("ownerName", playlistService.ownerName(playlist.getOwnerId()));
         model.addAttribute("entries", entries);
         model.addAttribute("totalDuration", playlistService.totalDuration(id));
-        model.addAttribute("canExport", user != null && user.isCurator());
-        model.addAttribute("canUnpublish", user != null && user.isCurator()
-                && (user.isAdmin() || playlist.getOwnerId().equals(user.getId())));
+        // Duplicating a published playlist into a Draft of one's own is what
+        // the Shared Workspace is for, so it stays open to every curator.
+        model.addAttribute("canDuplicate", user != null && user.isCurator());
+        // BR-09: export (and unpublish) is the owner's, or an ADMIN's.
+        boolean ownerOrAdmin = user != null && user.isCurator()
+                && (user.isAdmin() || playlist.getOwnerId().equals(user.getId()));
+        model.addAttribute("canExport", ownerOrAdmin);
+        model.addAttribute("canUnpublish", ownerOrAdmin);
         return "workspace/detail";
     }
 

@@ -20,8 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Draft or Published, whoever owns it.
  *
  * <p>Access is granted by SecurityConfig on {@code /admin/**}. Song edits stay
- * with the owner and collaborators. ADMIN can publish or unpublish from inspect
- * through the shared playlist routes, and can grant collaborators there too.
+ * with the owner and collaborators. ADMIN can publish, unpublish or export from
+ * inspect through the shared playlist routes, and can grant collaborators there
+ * too.
  */
 @Controller
 public class AdminPlaylistController {
@@ -52,7 +53,7 @@ public class AdminPlaylistController {
         return "admin/playlists";
     }
 
-    /** The P-03b detail rendered in inspection mode: no editor, no export, owner shown. */
+    /** The P-03b detail rendered in inspection mode: no editor, owner shown. */
     @GetMapping(Routes.ADMIN_PLAYLIST)
     public String detail(@PathVariable Long id, Model model) {
         Playlist playlist = playlistService.inspect(id);
@@ -70,6 +71,8 @@ public class AdminPlaylistController {
         model.addAttribute("canPublish", !playlist.isPublished());
         model.addAttribute("canUnpublish", playlist.isPublished());
         model.addAttribute("canDelete", false);
+        // ADMIN-only screen, and an ADMIN may export any playlist.
+        model.addAttribute("canExport", true);
         model.addAttribute("canManageCollaborators", true);
         model.addAttribute("collaborators", playlistService.collaborators(id));
         model.addAttribute("inviteCandidates", playlistService.inviteCandidates(id));

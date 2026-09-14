@@ -1,6 +1,7 @@
 package com.funix.swp490x.mrs.web;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.nullable;
@@ -109,8 +110,13 @@ class PlaylistFlowTest {
                 .andExpect(content().string(containsString("data-duplicate-playlist")))
                 .andExpect(content().string(containsString("id=\"duplicatePlaylist\"")))
                 .andExpect(content().string(containsString("/playlists/7/delete")))
+                .andExpect(content().string(containsString("/playlists/7/export.csv")))
                 .andExpect(content().string(org.hamcrest.Matchers.not(
                         containsString("/playlists/9/delete"))))
+                .andExpect(content().string(org.hamcrest.Matchers.not(
+                        containsString("/playlists/8/export.csv"))))
+                .andExpect(content().string(org.hamcrest.Matchers.not(
+                        containsString("/playlists/9/export.csv"))))
                 .andExpect(content().string(org.hamcrest.Matchers.not(
                         containsString("Open playlist"))));
     }
@@ -493,6 +499,33 @@ class PlaylistFlowTest {
 
         mockMvc.perform(get("/playlists/9").with(user(principal(Role.CONTENT_DESIGNER))))
                 .andExpect(status().isNotFound());
+    }
+
+    /**
+     * BR-09: a collaborator edits the playlist on P-03b but has no Export
+     * button; the grant is edit rights, not a licence to take the data out.
+     */
+    @Test
+    void theDetailScreenHidesExportFromACollaborator() throws Exception {
+        Playlist shared = draft("Morning coffee");
+        shared.setOwnerId(9L);
+        given(playlistService.view(5L, 1L)).willReturn(shared);
+        given(playlistService.songs(5L, 1L)).willReturn(List.of());
+
+        mockMvc.perform(get("/playlists/5").with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Morning coffee")))
+                .andExpect(content().string(not(containsString("Export CSV"))));
+    }
+
+    @Test
+    void theDetailScreenShowsExportToTheOwner() throws Exception {
+        given(playlistService.view(5L, 1L)).willReturn(draft("Morning coffee"));
+        given(playlistService.songs(5L, 1L)).willReturn(List.of());
+
+        mockMvc.perform(get("/playlists/5").with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Export CSV")));
     }
 
     @Test

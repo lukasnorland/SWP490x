@@ -5,14 +5,17 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import com.funix.swp490x.mrs.config.SecurityConfig;
 import com.funix.swp490x.mrs.config.WebConfig;
@@ -27,6 +30,7 @@ import com.funix.swp490x.mrs.security.LoginSuccessHandler;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.security.MrsUserDetailsService;
 import com.funix.swp490x.mrs.security.PasswordResetTokenService;
+import com.funix.swp490x.mrs.security.RequestRateLimiter;
 import com.funix.swp490x.mrs.service.AuthService;
 import com.funix.swp490x.mrs.service.PlaylistService;
 import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
@@ -40,6 +44,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 /**
  * Exercises the P-00 sign-in round trip through the real filter chain: the
@@ -50,7 +55,7 @@ import org.springframework.test.web.servlet.MockMvc;
         PlaylistController.class, AccountPasswordController.class})
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
         LoginFailureHandler.class, LoginAttemptService.class, MrsUserDetailsService.class,
-        PasswordResetTokenService.class, AuthService.class})
+        PasswordResetTokenService.class, AuthService.class, RequestRateLimiter.class})
 class LoginFlowTest {
 
     private static final String PASSWORD = "Admin@2026";
@@ -96,9 +101,7 @@ class LoginFlowTest {
 
     @Test
     void aValidRegisterRequestIsForwardedToTheAdminMailbox() throws Exception {
-        mockMvc.perform(post(Routes.REGISTER_REQUEST)
-                        .param("email", "new.user@example.com")
-                        .with(csrf()))
+        mockMvc.perform(registerRequest("new.user@example.com", "203.0.113.1"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(Routes.LOGIN))
                 .andExpect(flash().attribute("flashVariant", "success"))
@@ -109,15 +112,77 @@ class LoginFlowTest {
 
     @Test
     void anInvalidRegisterRequestDoesNotSendMailAndReopensThePanel() throws Exception {
-        mockMvc.perform(post(Routes.REGISTER_REQUEST)
-                        .param("email", "not-an-email")
-                        .with(csrf()))
+        mockMvc.perform(registerRequest("not-an-email", "203.0.113.2"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(Routes.LOGIN))
                 .andExpect(flash().attribute("registerEmailError", Messages.REGISTER_REQUEST_INVALID_EMAIL))
                 .andExpect(flash().attribute("reopenRegisterModal", true));
 
         then(notificationService).should(never()).sendRegistrationRequest(anyString());
+    }
+
+    /** BV-12: three per hour per origin, so the fourth is refused. */
+    @Test
+    void requestAccount_whenFourthWithinTheHour_shouldReturn429() throws Exception {
+        for (int i = 0; i < 3; i++) {
+            mockMvc.perform(registerRequest("new.user@example.com", "203.0.113.3"))
+                    .andExpect(status().is3xxRedirection());
+        }
+
+        mockMvc.perform(registerRequest("new.user@example.com", "203.0.113.3"))
+                .andExpect(status().isTooManyRequests())
+                .andExpect(view().name("auth/login"))
+                .andExpect(model().attribute("registerEmailError",
+                        Messages.REGISTER_REQUEST_RATE_LIMITED))
+                .andExpect(model().attribute("reopenRegisterModal", true));
+
+        // NFR-SEC07: the refused attempt must not reach the mailbox.
+        then(notificationService).should(times(3))
+                .sendRegistrationRequest("new.user@example.com");
+    }
+
+    /**
+     * A malformed address is counted too, or a caller could walk past the cap
+     * by looping on values that never reach {@code requestAccount}.
+     */
+    @Test
+    void requestAccount_whenAddressesAreMalformed_shouldStillCount() throws Exception {
+        for (int i = 0; i < 3; i++) {
+            mockMvc.perform(registerRequest("not-an-email", "203.0.113.4"))
+                    .andExpect(status().is3xxRedirection());
+        }
+
+        mockMvc.perform(registerRequest("still.valid@example.com", "203.0.113.4"))
+                .andExpect(status().isTooManyRequests());
+    }
+
+    /**
+     * Behind Nginx every request shares one {@code getRemoteAddr}, so the cap
+     * has to read the forwarded hop or one caller would lock out everybody.
+     */
+    @Test
+    void requestAccount_shouldCountAgainstTheForwardedHopNotTheProxy() throws Exception {
+        for (int i = 0; i < 3; i++) {
+            mockMvc.perform(registerRequest("new.user@example.com", "203.0.113.5, 10.0.0.1"))
+                    .andExpect(status().is3xxRedirection());
+        }
+
+        mockMvc.perform(registerRequest("new.user@example.com", "203.0.113.6, 10.0.0.1"))
+                .andExpect(status().is3xxRedirection());
+
+        mockMvc.perform(registerRequest("new.user@example.com", "203.0.113.5, 10.0.0.1"))
+                .andExpect(status().isTooManyRequests());
+    }
+
+    /**
+     * The limiter is a singleton for the whole slice, so each test names its
+     * own origin and stays independent of the order they run in.
+     */
+    private static MockHttpServletRequestBuilder registerRequest(String email, String origin) {
+        return post(Routes.REGISTER_REQUEST)
+                .header("X-Forwarded-For", origin)
+                .param("email", email)
+                .with(csrf());
     }
 
     @Test

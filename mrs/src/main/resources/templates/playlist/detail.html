@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/shell :: shell(~{::content})}">
 <!--/* P-03b Playlist Detail / Editor — spec 4.5 (FT-06, FT-07, FT-08).
-     With inspecting=true (P-06f, ADMIN All Playlists) song edits, rename,
-     delete and export are hidden. ADMIN can still publish or unpublish. */-->
+     With inspecting=true (P-06f, ADMIN All Playlists) song edits, rename and
+     delete are hidden. ADMIN can still publish, unpublish and export.
+     Export follows canExport: the owner, or an ADMIN on any playlist. */-->
 <body>
 <div th:fragment="content">
 
@@ -45,7 +46,7 @@
         <span>Duplicate</span>
       </button>
 
-      <a class="btn btn-ghost" th:if="${inspecting != true}"
+      <a class="btn btn-ghost" th:if="${canExport}"
          th:href="@{|/playlists/${playlist.id}/export.csv|}" download>
         <svg th:replace="~{fragments/icons :: icon('download', 'icon--sm')}"></svg>
         <span>Export CSV</span>
@@ -101,7 +102,7 @@
 
     <th:block th:if="${inspecting == true}">
       <div th:replace="~{fragments/components :: notice('info', 'eye',
-          'Viewing as administrator. You can publish or unpublish; song edits stay with the owner and collaborators.')}"></div>
+          'Viewing as administrator. You can publish, unpublish or export; song edits stay with the owner and collaborators.')}"></div>
     </th:block>
 
     <!-- Locked state: every mutating control above and below is already gone;

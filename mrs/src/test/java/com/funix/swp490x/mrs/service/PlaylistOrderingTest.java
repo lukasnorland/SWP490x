@@ -258,6 +258,27 @@ class PlaylistOrderingTest {
                 .doesNotContain("Ordering check");
     }
 
+    /** UC-26 step 2: the export follows playing order, not insertion or id order. */
+    @Test
+    void exportCsvEmitsRowsInPositionOrder() {
+        Playlist playlist = playlistService.create(ownerId, "Ordering check");
+        Long id = playlist.getId();
+        songIds.subList(0, 3).forEach(songId ->
+                playlistService.addSong(id, version(id), songId, ownerId));
+        playlistService.move(id, version(id), songIds.get(2), true, ownerId);
+        entityManager.flush();
+        entityManager.clear();
+
+        List<String> rows = playlistService.exportCsv(id, ownerId).lines().toList();
+
+        assertThat(rows.getFirst()).startsWith("position,title,artist,genre,mood");
+        assertThat(rows.subList(1, rows.size()))
+                .containsExactly(
+                        "1,\"First\",\"Ordering Test\",\"\",\"\",\"\",\"\",120,\"TestProvider\",",
+                        "2,\"Third\",\"Ordering Test\",\"\",\"\",\"\",\"\",120,\"TestProvider\",",
+                        "3,\"Second\",\"Ordering Test\",\"\",\"\",\"\",\"\",120,\"TestProvider\",");
+    }
+
     private List<Integer> positions(Long playlistId) {
         entityManager.flush();
         entityManager.clear();
