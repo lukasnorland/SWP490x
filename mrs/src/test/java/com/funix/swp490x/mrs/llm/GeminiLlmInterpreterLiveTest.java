@@ -13,11 +13,13 @@ import java.util.Properties;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIf;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import tools.jackson.databind.json.JsonMapper;
 
 /**
- * Manual live Gemini check. Run with:
- * {@code mvn -Dtest=GeminiLlmInterpreterLiveTest test}
+ * Optional live Gemini interpretation. The HTTP call is gated like AWS live
+ * tests: {@code MRS_LIVE_GEMINI=1} plus {@code mrs.llm.api-key}. Offline JSON
+ * parsing in this class still runs on {@code ./mvnw test}.
  */
 class GeminiLlmInterpreterLiveTest {
 
@@ -58,6 +60,7 @@ class GeminiLlmInterpreterLiveTest {
     }
 
     @Test
+    @EnabledIfEnvironmentVariable(named = "MRS_LIVE_GEMINI", matches = "1")
     @EnabledIf("apiKeyConfigured")
     void summerSeasonPromptShouldInferMoods() {
         FilterVocabulary vocab = FilterVocabulary.of(

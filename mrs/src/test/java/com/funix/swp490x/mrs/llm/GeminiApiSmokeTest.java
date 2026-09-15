@@ -16,13 +16,14 @@ import java.util.Properties;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIf;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 /**
- * Direct Gemini API smoke test. Run:
+ * Optional live ping of the Gemini HTTP API. Run with {@code MRS_LIVE_GEMINI=1}
+ * (and {@code mrs.llm.api-key} in {@code local.properties}):
  * {@code mvn -Dtest=GeminiApiSmokeTest test}
- *
- * <p>Set {@code mrs.llm.api-key} in {@code local.properties} first.
  */
+@EnabledIfEnvironmentVariable(named = "MRS_LIVE_GEMINI", matches = "1")
 class GeminiApiSmokeTest {
 
     private static String apiKey = "";

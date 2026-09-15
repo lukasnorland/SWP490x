@@ -601,9 +601,10 @@ cd mrs
 
 CI runs the same verify step against MySQL 8 on every push/PR to `main`. The
 suite includes ArchUnit rules (`ArchitectureTest`) so a controller cannot drift
-out of `web`, and the repository layer cannot start depending on it. One test
-class is skipped unless you configure it: `GeminiApiSmokeTest` needs a real
-`mrs.llm.api-key` and talks to Google.
+out of `web`, and the repository layer cannot start depending on it. Live Gemini
+classes that talk to Google (`GeminiApiSmokeTest` and the live method on
+`GeminiLlmInterpreterLiveTest`) are skipped unless `MRS_LIVE_GEMINI=1` is set
+and `mrs.llm.api-key` is present — the same opt-in as `MRS_LIVE_AWS=1` for S3.
 
 ### Security and operations
 
