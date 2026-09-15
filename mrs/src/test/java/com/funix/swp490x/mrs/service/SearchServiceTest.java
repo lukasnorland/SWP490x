@@ -3,6 +3,8 @@ package com.funix.swp490x.mrs.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.BDDMockito.given;
@@ -21,6 +23,7 @@ import com.funix.swp490x.mrs.repository.RecommendationLogRepository;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -176,6 +179,77 @@ class SearchServiceTest {
     }
 
     @Test
+    void playQueue_shouldDelegateWithTheSameFiltersAndKeepOrder() {
+        List<SongCatalogService.PreviewTrack> ranked = List.of(
+                preview(11L), preview(10L));
+        given(catalogService.playQueueRecommended(eq(List.of(2L)), eq(List.of(1L)), eq(List.of()),
+                eq(List.of()), isNull(), eq(10))).willReturn(ranked);
+
+        List<SongCatalogService.PreviewTrack> tracks =
+                service.playQueue(List.of(2L), List.of(1L), List.of(), List.of(), "  ", 10);
+
+        assertThat(tracks).extracting(SongCatalogService.PreviewTrack::id)
+                .containsExactly(11L, 10L);
+        assertThat(tracks).isEqualTo(ranked);
+        then(catalogService).should().playQueueRecommended(eq(List.of(2L)), eq(List.of(1L)),
+                eq(List.of()), eq(List.of()), isNull(), eq(10));
+        then(catalogService).should(never()).playQueue(any(), any(), any(), any(), any(), any(),
+                anyBoolean());
+    }
+
+    @Test
+    void playQueue_whenNoCriteria_shouldReturnEmpty() {
+        assertThat(service.playQueue(null, null, List.of(), null, "  ", null)).isEmpty();
+        then(catalogService).shouldHaveNoInteractions();
+    }
+
+    @Test
+    void resultSongIds_shouldCollectEveryPageInRankOrder() {
+        List<Long> ranked = IntStream.rangeClosed(1, 3 * SongCatalogService.PAGE_SIZE)
+                .mapToObj(i -> (long) i)
+                .toList();
+        given(catalogService.recommendedIds(eq(List.of(2L)), eq(List.of(1L)), eq(List.of()),
+                eq(List.of()), isNull(), isNull())).willReturn(ranked);
+
+        assertThat(service.resultSongIds(List.of(2L), List.of(1L), List.of(), List.of(), "  ",
+                null)).containsExactlyElementsOf(ranked);
+        then(catalogService).should().recommendedIds(eq(List.of(2L)), eq(List.of(1L)),
+                eq(List.of()), eq(List.of()), isNull(), isNull());
+        then(catalogService).should(never()).searchRecommended(any(), any(), any(), any(), any(),
+                any(), anyInt());
+    }
+
+    @Test
+    void resultSongIds_whenTopN_shouldStopAtN() {
+        List<Long> capped = List.of(11L, 10L, 9L, 8L, 7L);
+        given(catalogService.recommendedIds(eq(List.of(2L)), eq(List.of(1L)), eq(List.of()),
+                eq(List.of()), isNull(), eq(5))).willReturn(capped);
+
+        assertThat(service.resultSongIds(List.of(2L), List.of(1L), List.of(), List.of(), null, 5))
+                .containsExactlyElementsOf(capped)
+                .hasSize(5);
+        then(catalogService).should().recommendedIds(eq(List.of(2L)), eq(List.of(1L)),
+                eq(List.of()), eq(List.of()), isNull(), eq(5));
+    }
+
+    @Test
+    void resultSongIds_whenNoMatch_shouldReturnEmpty() {
+        given(catalogService.recommendedIds(eq(List.of(2L)), eq(List.of()), eq(List.of()),
+                eq(List.of()), isNull(), isNull())).willReturn(List.of());
+
+        assertThat(service.resultSongIds(List.of(2L), List.of(), List.of(), List.of(), null, null))
+                .isEmpty();
+        then(catalogService).should().recommendedIds(eq(List.of(2L)), eq(List.of()), eq(List.of()),
+                eq(List.of()), isNull(), isNull());
+    }
+
+    @Test
+    void resultSongIds_whenNoCriteria_shouldReturnEmpty() {
+        assertThat(service.resultSongIds(null, null, List.of(), null, "  ", null)).isEmpty();
+        then(catalogService).shouldHaveNoInteractions();
+    }
+
+    @Test
     void chips_whenNoFilters_shouldBeEmpty() {
         assertThat(service.chips(null, null, null, null, null, null, null)).isEmpty();
     }
@@ -191,5 +265,10 @@ class SearchServiceTest {
         assertThat(chips).hasSize(2);
         assertThat(chips.get(0).removeUrl()).contains("moodId=2");
         assertThat(chips.get(0).removeUrl()).doesNotContain("moodId=1");
+    }
+
+    private static SongCatalogService.PreviewTrack preview(Long id) {
+        return new SongCatalogService.PreviewTrack(id, "https://cdn.example/" + id + ".mp3",
+                "Track " + id, "Artist", "https://cdn.example/cover.jpg", null, null, 180);
     }
 }
