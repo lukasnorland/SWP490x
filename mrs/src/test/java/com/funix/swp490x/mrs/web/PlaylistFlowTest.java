@@ -335,6 +335,21 @@ class PlaylistFlowTest {
                 .andExpect(content().string(containsString("data-duplicate-playlist")));
     }
 
+    /** MSG_024 (UC-30 step 2): the dialog names the playlist and its songs. */
+    @Test
+    void theDeleteDialogNamesThePlaylistAndItsSongCount() throws Exception {
+        given(playlistService.songs(5L, 1L)).willReturn(List.of(
+                new PlaylistSong(5L, song(42L, "Ice Cream", 213), 1),
+                new PlaylistSong(5L, song(43L, "Sun Chaser", 65), 2),
+                new PlaylistSong(5L, song(44L, "Night Drive", 180), 3)));
+
+        mockMvc.perform(get("/playlists/5").with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(
+                        "Delete “Morning coffee” and its 3 songs? "
+                                + "This cannot be undone.")));
+    }
+
     @Test
     void aCollaboratorDoesNotSeeDeleteShareOrPublishControls() throws Exception {
         Playlist shared = new Playlist("Morning coffee", 9L);

@@ -9,9 +9,11 @@ import com.funix.swp490x.mrs.service.InvalidSearchQueryException;
 import com.funix.swp490x.mrs.service.PlaylistService;
 import com.funix.swp490x.mrs.service.SearchService;
 import com.funix.swp490x.mrs.service.SongCatalogService.PreviewTrack;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -49,8 +51,14 @@ public class SearchController {
             @RequestParam(required = false) Integer topN,
             @RequestParam(defaultValue = "0") int page,
             @RequestHeader(value = PARTIAL_RESULTS_HEADER, required = false) String partial,
+            HttpServletResponse response,
             Model model) {
 
+        // FT-05 NAC-03 (BV-05): a count of 0 or less is not "no limit", it is a
+        // rejected request, so the page reports it rather than listing matches.
+        if (invalidTopN(topN)) {
+            response.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
+        }
         populateResults(model, genreId, moodId, artistId, tagId, q, prompt, topN, page);
         if (PARTIAL_RESULTS_VALUE.equals(partial)) {
             return "fragments/search-results :: results";
@@ -138,8 +146,10 @@ public class SearchController {
             List<Long> artistIds, List<Long> tagIds, String q, String prompt, Integer topN,
             int page) {
 
-        Page<Song> songs = searchService.search(genreIds, moodIds, artistIds, tagIds, q, topN,
-                page);
+        Integer effectiveTopN = invalidTopN(topN) ? null : topN;
+        Page<Song> songs = invalidTopN(topN)
+                ? Page.empty()
+                : searchService.search(genreIds, moodIds, artistIds, tagIds, q, topN, page);
         String keyword = q == null ? "" : q.trim();
         String promptText = prompt == null ? "" : prompt.trim();
         if (promptText.isEmpty() && !keyword.isEmpty()) {
@@ -155,7 +165,9 @@ public class SearchController {
         model.addAttribute("filterTagIds", orEmpty(tagIds));
         model.addAttribute("filterQuery", keyword);
         model.addAttribute("filterPrompt", promptText);
-        model.addAttribute("filterTopN", topN == null || topN < 1 ? "" : String.valueOf(topN));
+        // Echoed even when invalid, so the rejected value stays next to its error.
+        model.addAttribute("filterTopN", topN == null ? "" : String.valueOf(topN));
+        model.addAttribute("filterError", invalidTopN(topN) ? Messages.SEARCH_TOP_N_POSITIVE : null);
         model.addAttribute("promptQuery", promptText);
         List<Long> active = new java.util.ArrayList<>();
         active.addAll(orEmpty(genreIds));
@@ -164,16 +176,42 @@ public class SearchController {
         active.addAll(orEmpty(tagIds));
         model.addAttribute("activeFilterIds", active);
         model.addAttribute("chips", searchService.chips(genreIds, moodIds, artistIds, tagIds,
-                keyword.isEmpty() ? null : keyword, promptText.isEmpty() ? null : promptText, topN));
-        model.addAttribute("hasSearchCriteria", !active.isEmpty() || !keyword.isEmpty());
+                keyword.isEmpty() ? null : keyword, promptText.isEmpty() ? null : promptText,
+                effectiveTopN));
+        boolean hasCriteria = !active.isEmpty() || !keyword.isEmpty();
+        model.addAttribute("hasSearchCriteria", hasCriteria);
+        if (invalidTopN(topN)) {
+            model.addAttribute("resultsEmptyTitle", "Search not run");
+            model.addAttribute("resultsEmptyMessage", Messages.SEARCH_TOP_N_POSITIVE);
+        } else if (hasCriteria) {
+            model.addAttribute("resultsEmptyTitle", Messages.SEARCH_NO_MATCHES);
+            model.addAttribute("resultsEmptyMessage",
+                    "Clear a filter above, or try a broader prompt.");
+        } else {
+            model.addAttribute("resultsEmptyTitle", "Describe a playlist need");
+            model.addAttribute("resultsEmptyMessage",
+                    "Type 10–200 characters above, then Interpret.");
+        }
     }
 
+    /**
+     * Zone B (the metadata filter panel) is shell-only: the partial response
+     * carries the results table alone, so the panel keeps its open dropdowns.
+     */
     private void populateShell(Model model, MrsUserDetails user) {
         model.addAttribute("pageTitle", "Search & Recommendation");
         model.addAttribute("activeNav", "search");
+        model.addAttribute("tags", searchService.filterTags());
+        model.addAttribute("topNFilter", true);
+        model.addAttribute("filterSubmitLabel", "Search");
         model.addAttribute("myPlaylists", user == null
                 ? List.of()
                 : playlistService.editableDrafts(user.getId()));
+    }
+
+    /** FT-05 NAC-03: N is a positive integer; absent means "every match". */
+    private static boolean invalidTopN(Integer topN) {
+        return topN != null && topN < 1;
     }
 
     private static <T> List<T> orEmpty(List<T> values) {

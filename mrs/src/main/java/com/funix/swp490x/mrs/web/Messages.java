@@ -9,6 +9,13 @@ package com.funix.swp490x.mrs.web;
  */
 public final class Messages {
 
+    /** MSG_009. The login screen carries the same sentence as a literal. */
+    public static final String LOGIN_INCORRECT = "Incorrect email or password.";
+
+    /** MSG_010. A link past its P-06d validity window (BV-01) answers HTTP 410. */
+    public static final String RESET_LINK_EXPIRED =
+            "This reset link has expired. Please request a new one.";
+
     /** MSG_012. */
     public static final String DUPLICATE_EMAIL =
             "This email is already registered to another account.";
@@ -234,6 +241,16 @@ public final class Messages {
 
     public static final String SUCCESSOR_REQUIRED =
             "Choose who should own each playlist before continuing.";
+
+    /** MSG_006. P-02 / no-results: nothing carries every category that is set. */
+    public static final String SEARCH_NO_MATCHES = "No songs match these filters.";
+
+    /**
+     * FT-05 NAC-03 (BV-05): a recommendation count is a positive integer, so
+     * 0 and negatives are rejected inline instead of being read as "no limit".
+     */
+    public static final String SEARCH_TOP_N_POSITIVE =
+            "Enter a recommendation count of 1 or more.";
 
     /** P-02 FT-04: contextual query length. */
     public static final String SEARCH_QUERY_LENGTH =

@@ -165,6 +165,7 @@ class ScreenRenderingTest {
                 nullable(List.class), nullable(List.class), nullable(String.class),
                 nullable(String.class), nullable(Integer.class)))
                 .willReturn(List.of());
+        given(searchService.filterTags()).willReturn(List.of());
         given(settingsService.currentValues()).willReturn(defaultSettingValues());
         given(settingsService.sessionInactivityHours()).willReturn(8);
         given(settingsService.lockoutWindow()).willReturn(Duration.ofMinutes(15));
@@ -260,9 +261,11 @@ class ScreenRenderingTest {
 
     @Test
     void unknownResetTokenRendersTheExpiredCard() throws Exception {
+        // BV-01: the link is gone, not missing, so the card arrives with 410.
         mockMvc.perform(get(Routes.PASSWORD_RESET_SET).param("token", "not-a-real-token"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("This link has expired")));
+                .andExpect(status().isGone())
+                .andExpect(content().string(containsString("This link has expired")))
+                .andExpect(content().string(containsString(Messages.RESET_LINK_EXPIRED)));
     }
 
     @ParameterizedTest
