@@ -48,7 +48,7 @@
 
       <a class="btn btn-ghost" th:if="${canExport}"
          th:href="@{|/playlists/${playlist.id}/export.csv|}" download data-export-playlist
-         th:data-export-success="${T(com.funix.swp490x.mrs.web.Messages).PLAYLIST_EXPORTED}">
+         th:data-export-success="${exportSuccessMessage}">
         <svg th:replace="~{fragments/icons :: icon('download', 'icon--sm')}"></svg>
         <span>Export CSV</span>
       </a>
