@@ -349,6 +349,22 @@ class AdminUserManagementTest {
     }
 
     @Test
+    void duplicateRecipientIsRejectedBeforeSesAndCreateRemainsGated() throws Exception {
+        given(userRepository.findByEmail("NGUYENNGOCLUAN.298@GMAIL.COM"))
+                .willReturn(Optional.of(new User()));
+        mockMvc.perform(post(Routes.ADMIN_USER_PREPARE_RECIPIENT)
+                        .param("email", "NGUYENNGOCLUAN.298@GMAIL.COM")
+                        .with(user(admin())).with(csrf()))
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.status").value("error"))
+                .andExpect(jsonPath("$.message").value(Messages.DUPLICATE_EMAIL));
+        then(sesIdentityService).shouldHaveNoInteractions();
+        then(userRepository).should(never()).save(any(User.class));
+        mockMvc.perform(get(Routes.ADMIN_USERS).with(user(admin())))
+                .andExpect(content().string(containsString("data-ses-gate-create=\"true\"")));
+    }
+
+    @Test
     void preparingAnAlreadyVerifiedRecipientIsReportedAsReady() throws Exception {
         given(sesIdentityService.prepareRecipient("nina@example.com"))
                 .willReturn(Outcome.ALREADY_VERIFIED);

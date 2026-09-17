@@ -13,7 +13,7 @@ public class LlmConfig {
 
     /**
      * Gemini when {@code mrs.llm.api-key} is set; vocabulary matching otherwise.
-     * Gemini failures still fall back inside {@link GeminiLlmInterpreter}.
+     * Gemini failures return no interpretation; SearchService performs keyword fallback.
      * Model and timeout after that come from System Settings (UC-31).
      */
     @Bean

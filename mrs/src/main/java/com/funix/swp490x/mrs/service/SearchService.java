@@ -78,7 +78,7 @@ public class SearchService {
         }
 
         FilterVocabulary vocabulary = FilterVocabulary.of(
-                tagRepository.findAllUsedOrderByTypeAscNameAsc(), taxonomy);
+                tagRepository.findAllByOrderByTypeAscNameAsc(), taxonomy);
         Optional<InterpretedFilters> interpreted = Optional.empty();
         try {
             interpreted = interpreter.interpret(query, vocabulary);
@@ -219,7 +219,7 @@ public class SearchService {
 
         List<SearchChip> chips = new ArrayList<>();
         Map<Long, String> names = new LinkedHashMap<>();
-        tagRepository.findAllUsedOrderByTypeAscNameAsc()
+        tagRepository.findAllByOrderByTypeAscNameAsc()
                 .forEach(tag -> names.put(tag.getId(), tag.getName()));
         addChips(chips, "Genre", genreIds, names, genreIds, moodIds, artistIds, tagIds, keyword,
                 prompt, topN);

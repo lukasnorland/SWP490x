@@ -58,7 +58,7 @@ class SearchServiceTest {
         lenient().when(settings.llmMaxQueryChars()).thenReturn(200);
         service = new SearchService(interpreter, settings, filterMapper, tagRepository,
                 catalogService, recommendationLogRepository);
-        lenient().when(tagRepository.findAllUsedOrderByTypeAscNameAsc()).thenReturn(List.of());
+        lenient().when(tagRepository.findAllByOrderByTypeAscNameAsc()).thenReturn(List.of());
     }
 
     @Test
@@ -258,13 +258,35 @@ class SearchServiceTest {
     void chipsOmitRemovedIdFromUrl() {
         Tag mood = new Tag(TagType.MOOD, "Energetic");
         ReflectionTestUtils.setField(mood, "id", 1L);
-        given(tagRepository.findAllUsedOrderByTypeAscNameAsc()).willReturn(List.of(mood));
+        given(tagRepository.findAllByOrderByTypeAscNameAsc()).willReturn(List.of(mood));
 
         var chips = service.chips(null, List.of(1L, 2L), null, null, null, "summer vibes", null);
 
         assertThat(chips).hasSize(2);
         assertThat(chips.get(0).removeUrl()).contains("moodId=2");
         assertThat(chips.get(0).removeUrl()).doesNotContain("moodId=1");
+    }
+
+    @Test
+    void unusedDictionaryTagRemainsAChipWithoutKeywordFallback() {
+        Tag unused = new Tag(TagType.TAGS, "R52Unused");
+        ReflectionTestUtils.setField(unused, "id", 99L);
+        given(tagRepository.findAllByOrderByTypeAscNameAsc()).willReturn(List.of(unused));
+        var offline = new com.funix.swp490x.mrs.llm.VocabularyMatchInterpreter(null);
+        var realMapper = new FilterMapper(tagRepository);
+        var realSearch = new SearchService(offline, settings, realMapper, tagRepository,
+                catalogService, recommendationLogRepository);
+        given(catalogService.searchRecommended(List.of(), List.of(), List.of(),
+                List.of(99L), null, null, 0)).willReturn(Page.empty());
+        var result = realSearch.interpretRedirect(7L, "R52Unused playlist", null);
+        assertThat(result.fallback()).isFalse();
+        assertThat(result.path()).contains("tagId=99").doesNotContain("?q=").doesNotContain("&q=");
+        assertThat(realSearch.chips(null, null, null, List.of(99L), null, null, null))
+                .hasSize(1);
+        ArgumentCaptor<RecommendationLog> log = ArgumentCaptor.forClass(RecommendationLog.class);
+        then(recommendationLogRepository).should().save(log.capture());
+        assertThat(log.getValue().getResultCount()).isZero();
+        assertThat(log.getValue().getLlmSucceeded()).isNull();
     }
 
     private static SongCatalogService.PreviewTrack preview(Long id) {

@@ -1,7 +1,7 @@
 /* ==========================================================================
-   Preview bar (4.0): play Song.audioUrl from any row button.
-   One global HTML5 audio element. Row controls carry CDN URL + metadata as
-   data-* attributes; no backend round-trip to start a track. Next/previous
+   Preview bar (4.0): resolve a checked play URL from any row button.
+   One global HTML5 audio element. Row controls carry a checked URL + metadata;
+   the server verifies access and redirects to the audio resource. Next/previous
    walk the list the title was clicked in (catalog JSON queue, or the playlist
    table). State survives a full navigation through sessionStorage.
    ========================================================================== */
@@ -11,7 +11,7 @@ import { extractCoverAmbience } from "./color.js";
 
 var IDLE_TITLE = "Nothing playing";
 var IDLE_SUBTITLE = "Click a song title to play";
-var PLAYER_STATE_KEY = "mrs.previewPlayer";
+var PLAYER_STATE_KEY = "mrs.previewPlayer.checked.v2";
 var PLAY_QUEUE_PATH = "/songs/play-queue";
 var REPEAT_OFF = "off";
 var REPEAT_ALL = "all";
