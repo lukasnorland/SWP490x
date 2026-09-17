@@ -132,8 +132,10 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         // P-02 / song browse: curation surfaces, not offered to Customers (spec 2.1).
                         .requestMatchers("/search", "/search/**", Routes.SONGS,
-                                Routes.SONGS_PLAY_QUEUE, Routes.SONG_PLAY)
+                                Routes.SONGS_PLAY_QUEUE)
                         .hasAnyRole("ADMIN", "CONTENT_DESIGNER")
+                        // The play controller checks playlist visibility for Customers.
+                        .requestMatchers(Routes.SONG_PLAY).authenticated()
                         // P-03 is a curation surface. A Customer reads shared work
                         // through the Shared Workspace only (FT-06 NAC-03), owns no
                         // playlists (demotion hands them to ADMIN) and never

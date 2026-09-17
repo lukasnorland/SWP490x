@@ -11,7 +11,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 /**
- * Resolves interpreted names to tag ids already on songs. Unknown names are
+ * Resolves interpreted names to existing dictionary ids, including unused tags. Unknown names are
  * dropped rather than created.
  */
 @Component
@@ -27,7 +27,7 @@ public class FilterMapper {
         if (interpreted == null || interpreted.isEmpty()) {
             return MappedFilters.empty();
         }
-        Map<String, Long> byTypeAndName = indexUsed();
+        Map<String, Long> byTypeAndName = indexDictionary();
         return new MappedFilters(
                 ids(interpreted.genres(), TagType.GENRE, byTypeAndName),
                 ids(interpreted.moods(), TagType.MOOD, byTypeAndName),
@@ -35,9 +35,9 @@ public class FilterMapper {
                 ids(interpreted.tags(), TagType.TAGS, byTypeAndName));
     }
 
-    private Map<String, Long> indexUsed() {
+    private Map<String, Long> indexDictionary() {
         Map<String, Long> index = new LinkedHashMap<>();
-        for (Tag tag : tagRepository.findAllUsedOrderByTypeAscNameAsc()) {
+        for (Tag tag : tagRepository.findAllByOrderByTypeAscNameAsc()) {
             if (tag.getId() == null || tag.getType() == null || tag.getName() == null) {
                 continue;
             }

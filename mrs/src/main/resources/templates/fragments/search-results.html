@@ -66,10 +66,10 @@
                 <div class="d-flex flex-column flex-grow-1 min-w-0">
                   <button type="button"
                           class="song-title-play"
-                          th:if="${song.audioUrl != null and !#strings.isEmpty(song.audioUrl)}"
+                          th:if="${song.audioUrl != null and !#strings.isEmpty(#strings.trim(song.audioUrl))}"
                           th:text="${song.title}"
                           th:data-preview-id="${song.id}"
-                          th:data-preview-url="${song.audioUrl}"
+                          th:data-preview-url="@{/songs/{id}/play(id=${song.id})}"
                           th:data-preview-title="${song.title}"
                           th:data-preview-artist="${song.artist}"
                           th:data-preview-cover="${song.coverUrl}"
@@ -77,8 +77,8 @@
                           th:data-preview-ambience-b="${song.ambienceB}"
                           th:data-preview-duration="${song.duration}"
                           th:aria-label="|Play ${song.title}|">Title</button>
-                  <span th:if="${song.audioUrl == null or #strings.isEmpty(song.audioUrl)}"
-                        th:text="${song.title}">Title</span>
+                  <span th:if="${song.audioUrl == null or #strings.isEmpty(#strings.trim(song.audioUrl))}"
+                        title="Audio is not available for this song."><button type="button" class="song-title-play" disabled title="Audio is not available for this song." aria-label="Audio is not available for this song." th:text="${song.title}">Title</button></span>
                 </div>
               </div>
             </td>

@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Structured interpretation of a playlist-need prompt (Gemini response schema).
  *
- * <p>Names, not ids: the mapper resolves them against tags already on songs and
+ * <p>Names, not ids: the mapper resolves them against existing dictionary tags and
  * drops anything unknown. Empty lists mean unconstrained.
  */
 public record InterpretedFilters(

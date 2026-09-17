@@ -333,6 +333,47 @@ class SongBrowseTest {
                 .andExpect(status().isForbidden());
     }
 
+    @Test
+    void customerCanPlayOnlyAMemberOfACurrentlyPublishedPlaylist() throws Exception {
+        Song track = song("Shared", "Artist");
+        track.setId(12L);
+        given(playlistService.publishedSongs(7L)).willReturn(List.of(
+                new com.funix.swp490x.mrs.domain.PlaylistSong(7L, track, 1)));
+        given(songCatalogService.preview(12L)).willReturn(java.util.Optional.of(
+                new PreviewTrack(12L, "https://cdn.example/shared.mp3", "Shared", "Artist", null, null, null, 180)));
+        mockMvc.perform(get(Routes.SONG_PLAY, 12L).param("playlistId", "7")
+                        .with(user(principal(Role.CUSTOMER))))
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("https://cdn.example/shared.mp3"));
+        mockMvc.perform(get(Routes.SONG_PLAY, 99L).param("playlistId", "7")
+                        .with(user(principal(Role.CUSTOMER))))
+                .andExpect(status().isNotFound());
+        then(songCatalogService).should(org.mockito.Mockito.never()).preview(99L);
+        given(playlistService.publishedSongs(7L))
+                .willThrow(new com.funix.swp490x.mrs.service.PlaylistNotFoundException(7L));
+        mockMvc.perform(get(Routes.SONG_PLAY, 12L).param("playlistId", "7")
+                        .with(user(principal(Role.CUSTOMER))))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void curatorPlaylistPlaybackChecksVisibilityAndMissingAudio() throws Exception {
+        given(playlistService.songs(8L, 1L))
+                .willThrow(new com.funix.swp490x.mrs.service.PlaylistNotFoundException(8L));
+        mockMvc.perform(get(Routes.SONG_PLAY, 12L).param("playlistId", "8")
+                        .with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isNotFound());
+        Song silent = song("Silent", "Artist");
+        silent.setId(42L);
+        silent.setAudioUrl(null);
+        given(playlistService.publishedSongs(7L)).willReturn(List.of(
+                new com.funix.swp490x.mrs.domain.PlaylistSong(7L, silent, 1)));
+        mockMvc.perform(get(Routes.SONG_PLAY, 42L).param("playlistId", "7")
+                        .with(user(principal(Role.CUSTOMER))))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").value(Messages.AUDIO_NOT_AVAILABLE));
+    }
+
     private static MrsUserDetails principal(Role role) {
         User user = new User();
         user.setId(1L);

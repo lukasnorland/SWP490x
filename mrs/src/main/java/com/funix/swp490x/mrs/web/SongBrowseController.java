@@ -5,6 +5,7 @@ import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.repository.TagRepository;
 import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.service.PlaylistService;
+import com.funix.swp490x.mrs.service.PlaylistNotFoundException;
 import com.funix.swp490x.mrs.service.SongCatalogService;
 import com.funix.swp490x.mrs.service.SongCatalogService.PreviewTrack;
 import java.util.List;
@@ -50,7 +51,24 @@ public class SongBrowseController {
     /** A checked play URL; successful requests continue to the stored audio resource. */
     @GetMapping(Routes.SONG_PLAY)
     @ResponseBody
-    public ResponseEntity<?> play(@PathVariable Long id) {
+    public ResponseEntity<?> play(@PathVariable Long id,
+            @RequestParam(required = false) Long playlistId,
+            @AuthenticationPrincipal MrsUserDetails user) {
+        if (playlistId == null && !user.isCurator()) {
+            return ResponseEntity.status(403).build();
+        }
+        if (playlistId != null) {
+            try {
+                var entries = user.isCurator()
+                        ? playlistService.songs(playlistId, user.getId())
+                        : playlistService.publishedSongs(playlistId);
+                if (entries.stream().noneMatch(entry -> id.equals(entry.getSong().getId()))) {
+                    return ResponseEntity.status(404).body(Map.of("message", Messages.AUDIO_NOT_AVAILABLE));
+                }
+            } catch (PlaylistNotFoundException e) {
+                return ResponseEntity.status(404).body(Map.of("message", Messages.AUDIO_NOT_AVAILABLE));
+            }
+        }
         var track = catalogService.preview(id);
         if (track.isEmpty()) {
             return ResponseEntity.status(404)

@@ -128,7 +128,7 @@ class SongCatalogServiceTest {
 
         assertThat(tracks).extracting(SongCatalogService.PreviewTrack::id)
                 .containsExactly(3L, 2L);
-        assertThat(tracks.get(0).url()).isEqualTo("https://cdn.example/a.mp3");
+        assertThat(tracks.get(0).url()).isEqualTo("/songs/3/play");
         assertThat(tracks.get(0).title()).isEqualTo("Alpha");
         assertThat(tracks.get(0).artist()).isEqualTo("Sugar Blizz");
         assertThat(tracks.get(0).cover()).isEqualTo("https://cdn.example/cover.jpg");

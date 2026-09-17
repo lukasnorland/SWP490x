@@ -16,6 +16,9 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
 
     List<Tag> findByTypeOrderByName(TagType type);
 
+    /** Interpretation accepts existing dictionary entries even before their first song. */
+    List<Tag> findAllByOrderByTypeAscNameAsc();
+
     /**
      * How many songs currently carry each dictionary row. Tags with no songs
      * still appear (count 0) so P-06b can retire unused names.

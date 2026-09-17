@@ -147,10 +147,10 @@
                        player bar handles playback without knowing this screen. -->
                   <button type="button"
                           class="song-title-play"
-                          th:if="${entry.song.audioUrl != null and !#strings.isEmpty(entry.song.audioUrl)}"
+                          th:if="${entry.song.audioUrl != null and !#strings.isEmpty(#strings.trim(entry.song.audioUrl))}"
                           th:text="${entry.song.title}"
                           th:data-preview-id="${entry.song.id}"
-                          th:data-preview-url="${entry.song.audioUrl}"
+                          th:data-preview-url="@{/songs/{id}/play(id=${entry.song.id},playlistId=${playlist.id})}"
                           th:data-preview-title="${entry.song.title}"
                           th:data-preview-artist="${entry.song.artist}"
                           th:data-preview-cover="${entry.song.coverUrl}"
@@ -158,8 +158,8 @@
                           th:data-preview-ambience-b="${entry.song.ambienceB}"
                           th:data-preview-duration="${entry.song.duration}"
                           th:aria-label="|Play ${entry.song.title}|">Title</button>
-                  <span th:if="${entry.song.audioUrl == null or #strings.isEmpty(entry.song.audioUrl)}"
-                        th:text="${entry.song.title}">Title</span>
+                  <span th:if="${entry.song.audioUrl == null or #strings.isEmpty(#strings.trim(entry.song.audioUrl))}"
+                        title="Audio is not available for this song."><button type="button" class="song-title-play" disabled title="Audio is not available for this song." aria-label="Audio is not available for this song." th:text="${entry.song.title}">Title</button></span>
                 </div>
               </td>
               <td th:text="${entry.song.artist != null} ? ${entry.song.artist} : '—'">Artist</td>

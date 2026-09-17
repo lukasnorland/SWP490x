@@ -158,8 +158,13 @@ public class AdminUserController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<Map<String, String>> prepareRecipient(@RequestParam String email) {
-        String address = email == null ? "" : email.trim();
-        if (!EmailPolicy.isWellFormed(address)) {
+        final String address;
+        try {
+            address = userAccountService.validateNewEmail(email);
+        } catch (DuplicateEmailException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of(
+                    "status", "error", "message", Messages.DUPLICATE_EMAIL));
+        } catch (InvalidEmailException e) {
             return ResponseEntity.unprocessableEntity().body(Map.of(
                     "status", "error",
                     "message", Messages.INVALID_EMAIL));

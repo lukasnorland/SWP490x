@@ -29,7 +29,7 @@ class FilterMapperTest {
 
     @Test
     void mapsKnownNamesAndDropsUnknowns() {
-        given(tagRepository.findAllUsedOrderByTypeAscNameAsc()).willReturn(List.of(
+        given(tagRepository.findAllByOrderByTypeAscNameAsc()).willReturn(List.of(
                 tag(1L, TagType.MOOD, "Energetic"),
                 tag(2L, TagType.GENRE, "Pop")));
 

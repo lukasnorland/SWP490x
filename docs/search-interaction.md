@@ -24,6 +24,25 @@ paging, chip removal, preview and create-from-results.
   an inline error, and does not run interpretation or a result query.
 - A first visit is empty. No matches shows MSG_006 and suggests removing a chip
   or broadening the prompt. The prompt remains available.
+- Existing dictionary tags remain valid interpretation targets even when unused.
+  Their chips stay visible with zero matches; only unknown names are dropped.
+  A provider failure falls back to keyword matching on title/artist, not tags.
+
+## Decisions confirmed on 18 September 2026
+
+Verify for SES rejects duplicate emails before making an SES request. Create
+stays disabled until recipient verification, and the create endpoint repeats
+both checks. Duplicate rejection must not send verification or credentials mail.
+
+Every play control and queue uses `/songs/{id}/play`. Playlist pages include
+`playlistId`; the server rechecks visibility and membership on each request.
+Customers can play only members of currently Published playlists. They still
+cannot browse Songs or use catalog/search queue endpoints. Missing context is
+403 for Customer; inaccessible playlists and non-member songs are 404.
+
+The test-only `Report52FixtureApplication` supplies deterministic interpretation
+for browser fixtures without replacing the real mapper, search engine or log.
+It is compiled only on the test classpath and is absent from the production jar.
 
 ## Integration test updates
 

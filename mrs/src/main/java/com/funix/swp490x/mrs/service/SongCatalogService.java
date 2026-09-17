@@ -151,7 +151,7 @@ public class SongCatalogService {
                 .map(byId::get)
                 .filter(Objects::nonNull)
                 .filter(song -> StringUtils.hasText(song.getAudioUrl()))
-                .map(PreviewTrack::from)
+                .map(PreviewTrack::checked)
                 .limit(PLAY_QUEUE_CAP)
                 .toList();
     }
@@ -190,7 +190,7 @@ public class SongCatalogService {
 
         return rankedSongs(genreIds, moodIds, artistIds, tagIds, query, topN).stream()
                 .filter(song -> StringUtils.hasText(song.getAudioUrl()))
-                .map(PreviewTrack::from)
+                .map(PreviewTrack::checked)
                 .limit(PLAY_QUEUE_CAP)
                 .toList();
     }
@@ -617,6 +617,12 @@ public class SongCatalogService {
             String ambienceA,
             String ambienceB,
             Integer duration) {
+
+        static PreviewTrack checked(Song song) {
+            return new PreviewTrack(song.getId(), "/songs/" + song.getId() + "/play",
+                    song.getTitle(), song.getArtist(), song.getCoverUrl(),
+                    song.getAmbienceA(), song.getAmbienceB(), song.getDuration());
+        }
 
         static PreviewTrack from(Song song) {
             return new PreviewTrack(
