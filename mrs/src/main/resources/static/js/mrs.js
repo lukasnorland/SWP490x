@@ -26,6 +26,7 @@ import { initShellSoftNav } from "./shell-nav.js";
 import { initImportProgress } from "./import-progress.js";
 import { initSongUpload } from "./song-upload.js";
 import { initPlaylistAdd } from "./playlist-add.js";
+import { initPlaylistExport } from "./playlist-export.js";
 import { initSearchPrompt, initSearchSelection } from "./search.js";
 
 function start() {
@@ -38,6 +39,7 @@ function start() {
   initImportProgress(document);
   initSongUpload(document);
   initPlaylistAdd();
+  initPlaylistExport();
   initSearchPrompt(document);
   initSearchSelection(document);
 }
