@@ -1,6 +1,7 @@
 package com.funix.swp490x.mrs.security;
 
 import com.funix.swp490x.mrs.repository.UserRepository;
+import com.funix.swp490x.mrs.web.Messages;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,6 +29,6 @@ public class MrsUserDetailsService implements UserDetailsService {
         boolean accountNonLocked = !loginAttemptService.isLocked(email);
         return userRepository.findByEmail(email)
                 .map(user -> new MrsUserDetails(user, accountNonLocked))
-                .orElseThrow(() -> new UsernameNotFoundException("Email or password is incorrect"));
+                .orElseThrow(() -> new UsernameNotFoundException(Messages.LOGIN_INCORRECT));
     }
 }

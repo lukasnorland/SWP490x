@@ -50,7 +50,7 @@
         <div class="modal-body d-flex flex-column gap-3">
           <!-- Wrong credentials never disclose whether the email exists. -->
           <th:block th:if="${param.error != null}">
-            <div th:replace="~{fragments/components :: notice('danger', 'alert-triangle', 'Email or password is incorrect')}"></div>
+            <div th:replace="~{fragments/components :: notice('danger', 'alert-triangle', 'Incorrect email or password.')}"></div>
           </th:block>
           <th:block th:if="${param.locked != null}">
             <div th:replace="~{fragments/components :: notice('danger', 'lock',

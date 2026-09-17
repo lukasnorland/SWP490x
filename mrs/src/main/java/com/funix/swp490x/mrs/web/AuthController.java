@@ -119,12 +119,22 @@ public class AuthController {
         return "auth/password-reset-request";
     }
 
-    /** P-01 step 2 — set a new password from an emailed link. */
+    /**
+     * P-01 step 2 — set a new password from an emailed link.
+     *
+     * <p>A link past its validity window is gone rather than missing, so the
+     * expired card is served with HTTP 410 (BV-01) instead of 200.
+     */
     @GetMapping(Routes.PASSWORD_RESET_SET)
-    public String resetSet(@RequestParam(required = false) String token, Model model) {
+    public String resetSet(@RequestParam(required = false) String token, Model model,
+            HttpServletResponse response) {
+        boolean expired = !authService.isResetTokenValid(token);
+        if (expired) {
+            response.setStatus(HttpStatus.GONE.value());
+        }
         model.addAttribute("pageTitle", "Reset your password");
         model.addAttribute("token", token);
-        model.addAttribute("expired", !authService.isResetTokenValid(token));
+        model.addAttribute("expired", expired);
         return "auth/password-reset-set";
     }
 
@@ -136,7 +146,8 @@ public class AuthController {
     public String resetSetSubmit(@RequestParam(required = false) String token,
             @RequestParam String password,
             @RequestParam String confirmPassword,
-            Model model) {
+            Model model,
+            HttpServletResponse response) {
 
         model.addAttribute("pageTitle", "Reset your password");
         model.addAttribute("token", token);
@@ -144,6 +155,9 @@ public class AuthController {
         PasswordResetResult result = authService.completePasswordReset(token, password, confirmPassword);
         if (result.succeeded()) {
             return "redirect:" + Routes.LOGIN + "?reset";
+        }
+        if (result.expired()) {
+            response.setStatus(HttpStatus.GONE.value());
         }
         model.addAttribute("expired", result.expired());
         if (!result.violations().isEmpty()) {

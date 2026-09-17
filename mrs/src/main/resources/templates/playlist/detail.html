@@ -83,8 +83,9 @@
       <form th:if="${inspecting != true and canDelete}" th:action="@{|/playlists/${playlist.id}/delete|}" method="post"
             class="mb-0">
         <input type="hidden" name="expectedVersion" th:value="${playlist.version}">
+        <!-- MSG_024 names the playlist and its song count (UC-30 step 2). -->
         <button type="submit" class="btn btn-ghost"
-                data-confirm="Delete this playlist? The songs stay in the catalog.">
+                th:data-confirm="|Delete “${playlist.name}” and its ${entries.size()} songs? This cannot be undone.|">
           <svg th:replace="~{fragments/icons :: icon('trash-2', 'icon--sm')}"></svg>
           <span>Delete</span>
         </button>

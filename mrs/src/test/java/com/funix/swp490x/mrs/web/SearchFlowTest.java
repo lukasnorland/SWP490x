@@ -39,6 +39,8 @@ import com.funix.swp490x.mrs.web.support.ShellModelAdvice;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
@@ -76,6 +78,7 @@ class SearchFlowTest {
                 nullable(List.class), nullable(List.class), nullable(String.class),
                 nullable(String.class), nullable(Integer.class)))
                 .willReturn(List.of());
+        given(searchService.filterTags()).willReturn(List.of());
         given(playlistService.editableDrafts(nullable(Long.class))).willReturn(List.of());
     }
 
@@ -101,15 +104,69 @@ class SearchFlowTest {
                 .andExpect(content().string(containsString("refine it first")));
     }
 
+    /**
+     * Zone A (the prompt) and Zone B (the metadata filter panel) both belong to
+     * P-02: UC-10 is filter-first, UC-11 only seeds the same filters.
+     */
     @Test
-    void searchRendersPromptForCurators() throws Exception {
+    void searchRendersThePromptAndTheFilterPanelForCurators() throws Exception {
         mockMvc.perform(get(Routes.SEARCH).with(user(principal(Role.CONTENT_DESIGNER))))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Playlist need")))
                 .andExpect(content().string(containsString("/search/interpret")))
                 .andExpect(content().string(containsString("id=\"searchTopN\"")))
-                .andExpect(content().string(not(containsString("data-catalog-filters"))))
-                .andExpect(content().string(not(containsString("id=\"filterGenre\""))));
+                .andExpect(content().string(containsString("data-catalog-filters")))
+                .andExpect(content().string(containsString("id=\"filterGenre\"")))
+                .andExpect(content().string(containsString("id=\"filterMood\"")))
+                .andExpect(content().string(containsString("id=\"filterArtist\"")))
+                .andExpect(content().string(containsString("id=\"filterTag\"")))
+                .andExpect(content().string(containsString("id=\"filterTopN\"")))
+                // Provider is ADMIN catalog work, and untagged-only is P-06b.
+                .andExpect(content().string(not(containsString("id=\"filterProvider\""))))
+                .andExpect(content().string(not(containsString("id=\"filterUntagged\""))));
+    }
+
+    /** MSG_006 rather than the first-visit copy, once filters are in play. */
+    @Test
+    void filtersThatMatchNothingReportMsg006() throws Exception {
+        mockMvc.perform(get(Routes.SEARCH).param("genreId", "2").param("moodId", "1")
+                        .with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(Messages.SEARCH_NO_MATCHES)));
+
+        mockMvc.perform(get(Routes.SEARCH).with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(not(containsString(Messages.SEARCH_NO_MATCHES))));
+    }
+
+    /**
+     * FT-05 NAC-03 / BV-05: 0 and negatives are a rejected request (HTTP 422),
+     * not a shorthand for "every match", so no results are listed.
+     */
+    @ParameterizedTest
+    @ValueSource(strings = {"0", "-1"})
+    void aTopNBelowOneIsRejectedInline(String topN) throws Exception {
+        mockMvc.perform(get(Routes.SEARCH).param("genreId", "2").param("topN", topN)
+                        .with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(containsString(Messages.SEARCH_TOP_N_POSITIVE)))
+                .andExpect(content().string(containsString("is-invalid")))
+                .andExpect(content().string(containsString("value=\"" + topN + "\"")));
+
+        then(searchService).should(org.mockito.Mockito.never())
+                .search(anyList(), anyList(), anyList(), anyList(), nullable(String.class),
+                        nullable(Integer.class), anyInt());
+    }
+
+    @Test
+    void aPositiveTopNReachesTheService() throws Exception {
+        mockMvc.perform(get(Routes.SEARCH).param("genreId", "2").param("topN", "1")
+                        .with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isOk())
+                .andExpect(content().string(not(containsString(Messages.SEARCH_TOP_N_POSITIVE))));
+
+        then(searchService).should().search(eq(List.of(2L)), nullable(List.class),
+                nullable(List.class), nullable(List.class), nullable(String.class), eq(1), eq(0));
     }
 
     @Test

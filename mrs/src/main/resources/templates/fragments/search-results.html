@@ -110,11 +110,10 @@
           </tr>
           <tr th:if="${songs == null or songs.isEmpty()}">
             <td th:attr="colspan=${currentUser != null and currentUser.curator} ? 6 : 5">
+              <!--/* Three states — rejected request, MSG_006, first visit —
+                     picked by the controller so this stays one fragment call. */-->
               <div th:replace="~{fragments/components :: emptyState('search',
-                      ${hasSearchCriteria} ? 'No songs match' : 'Describe a playlist need',
-                      ${hasSearchCriteria}
-                        ? 'Try a broader prompt, or open Songs to filter by metadata.'
-                        : 'Type 10–200 characters above, then Interpret.')}"></div>
+                      ${resultsEmptyTitle}, ${resultsEmptyMessage})}"></div>
             </td>
           </tr>
         </tbody>

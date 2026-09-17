@@ -4,8 +4,13 @@
   Shared song list UI for P-06b (/admin/catalog) and authenticated browse (/songs).
 
   Model:
-    catalogBasePath  — form / pager / clear target
-    browseMode       — true hides admin ops filters and upload-oriented empty copy
+    catalogBasePath   — form / pager / clear target
+    browseMode        — true hides admin ops filters and upload-oriented empty copy
+    providers         — empty (or absent) hides the Provider group, which is
+                        ADMIN catalog work and not part of P-02 Zone B
+    topNFilter        — true adds the Top-N recommendation input (P-02 FT-05)
+    filterSubmitLabel — submit label; "Filter" when absent
+    filterError       — inline error shown against Top-N (FT-05 NAC-03)
 */-->
 <body>
 
@@ -28,7 +33,7 @@
   <div class="card-body">
     <form class="row g-3 align-items-end" method="get" th:action="@{${catalogBasePath}}"
           data-catalog-filters>
-      <div class="col-12 col-md-3">
+      <div class="col-12 col-md-3" th:if="${providers != null and !providers.isEmpty()}">
         <label class="form-label" for="filterProvider">Provider</label>
         <div class="dropdown catalog-filter-dropdown" data-catalog-filter>
           <button class="form-select catalog-filter-toggle" type="button" id="filterProvider"
@@ -123,6 +128,21 @@
                placeholder="Title or artist"
                th:value="${filterQuery}">
       </div>
+      <!--/* P-02 Zone B: Top-N recommendation count. A positive integer only —
+             0 or a negative value is rejected inline (FT-05 NAC-03, BV-05). */-->
+      <div class="col-12 col-md-3" th:if="${topNFilter}">
+        <label class="form-label" for="filterTopN">Top-N</label>
+        <input class="form-control" type="number" id="filterTopN" name="topN"
+               min="1" step="1" inputmode="numeric" placeholder="All matches"
+               title="Keep only the N best-ranked matches"
+               th:classappend="${filterError != null} ? ' is-invalid'"
+               th:value="${filterTopN}">
+        <div class="invalid-feedback" th:text="${filterError}">Enter a positive count.</div>
+      </div>
+      <!-- Keeps the interpreted prompt with the query when filters are edited. -->
+      <input type="hidden" name="prompt"
+             th:if="${filterPrompt != null and !filterPrompt.isEmpty()}"
+             th:value="${filterPrompt}">
       <div class="col-12 col-md-3" th:if="${!browseMode}">
         <div class="form-check mt-md-4">
           <input class="form-check-input" type="checkbox" id="filterUntagged" name="untagged"
@@ -131,7 +151,8 @@
         </div>
       </div>
       <div class="col-12 col-md-3 d-flex gap-2">
-        <button type="submit" class="btn btn-primary flex-grow-1">Filter</button>
+        <button type="submit" class="btn btn-primary flex-grow-1"
+                th:text="${filterSubmitLabel != null} ? ${filterSubmitLabel} : 'Filter'">Filter</button>
         <a class="btn btn-ghost" th:href="@{${catalogBasePath}}" data-catalog-clear
            title="Clear filters">Clear</a>
       </div>

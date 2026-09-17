@@ -70,6 +70,10 @@
       </div>
     </section>
 
+    <!-- Zone B: the metadata filter panel (UC-10). Chips the interpreter
+         proposed arrive here as checked values, so they can be edited by hand. -->
+    <section th:replace="~{fragments/song-catalog :: filters}"></section>
+
     <div th:replace="~{fragments/search-results :: results}"></div>
 
   </div>
