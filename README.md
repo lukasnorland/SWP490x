@@ -109,9 +109,13 @@ Detailed requirements and design live under [`docs/`](docs/):
 | Report 3.1 — MRS RTW | Traceability, permission matrix, data dictionary, business rules (workbook) |
 | Report 3.2 — Screen Design Spec | IA, flows F-01–F-06, screen specs P-00–P-09 |
 | Report 4 — TDS | Architecture, interfaces, data model, security |
+| Report 5.1 — Unit Test Report | Service and component test cases and results |
+| Report 5.2 — Integration Test Report | End-to-end procedures, expected results and execution records |
+| [Search interaction and test cases](docs/search-interaction.md) | Tracked P-02 interaction decision and revised Search test procedures |
 
 The reports themselves are Word and Excel files kept out of git (`.gitignore`
-excludes `docs/*` apart from [`docs/aws-setup.md`](docs/aws-setup.md)). Catalog
+excludes `docs/*` apart from [`docs/aws-setup.md`](docs/aws-setup.md) and
+[`docs/search-interaction.md`](docs/search-interaction.md)). Catalog
 behaviour, Add Song validation, and the P-06b routes live in this README. To
 read or diff a report against the code, convert the whole set:
 
@@ -125,23 +129,25 @@ python .\md\_xlsx_to_md.py ".\Report 3.1_MRS_RTW_luannnfx05543.xlsx" .\md\report
 `docs/md/` is gitignored along with the sources; it is a local reading aid, not
 a second copy of the deliverable.
 
-The local Word/Excel reports were aligned to the as-built on 05/09/2026
-(Spotify/popularity removed, duplicate is unique-name with no lineage, P-06c
-folded into P-06b, figures regenerated). A few leftovers still need a pass
-inside Word:
+The local Word/Excel reports track the as-built. Every leftover recorded here
+in September 2026 has since been closed: the Popularity columns, the Spotify
+token subsection, the missing P-06f section and the P-05 playlist-history zone
+are gone from the current SRS, Report 3.2 and TDS.
 
-- Report 3.2 §2.2 status column and some P-02/P-04b wireframe “Popularity”
-  columns may still read as the old sort.
-- Report 4 Part 4.3 may still contain a Spotify token/quota subsection around
-  the replaced Figure T-06.
-- P-06f (`/admin/playlists`) is in the SRS ADMIN use case and Figure 12; Report
-  3.2 still has no page-ID section for it.
-- Report 3.0 UC-04 and Report 3.2 §4.8 still specify playlist history on P-05;
-  v1 dropped that zone. Resume unfinished playlists from My Playlists (P-03a).
-- Report 3.0 UC-10 / BR-08 and RTW FT-03 still describe AND-across categories
-  on Search. v1 P-02 keeps any-chip inclusion so a Pop + Happy query still
-  returns Pop-only and Happy-only tracks (ranked lower), which avoids empty
-  playlist candidate sets. P-06b / P-08 stay AND-across for catalog browse.
+The P-02 panel-removal update revised the local SRS UC-10/UC-11, RTW use-case
+and feature entries, Screen Design P-02 layout/interactions, and TDS search
+flow. These sections describe prompt → Interpret → chips and results, with
+any-chip inclusion on Search. Pop + Happy includes Pop-only and Happy-only
+tracks, ranked below songs matching both. Manual metadata filtering remains
+on P-06b / P-08, with AND across categories. Where the P-02 Figma frame still
+shows the metadata rail, the layout text in Report 3.2 is the specification.
+
+Report 5.2 procedures were revised for `SRC-IT-01`-`06` and `09`: prompt-based
+entry, any-chip matches, empty results, pagination, ranking, Top-N validation,
+immediate interpreted results, and chip/prompt refinement. Exact-count cases
+need an isolated fixture built on a single chip, since inclusion is any-chip.
+Report 5.1 service-level cases are unaffected. The reports themselves are not
+in Git; this README and the tracked Search note are.
 
 ---
 
@@ -229,6 +235,12 @@ A new SES account sits in the *sandbox*, and the restriction that catches people
 out is that it applies to the recipient, not only to the sender: SES refuses to
 deliver to any address it has not verified. Verification is per address and only
 needed once, but the owner of the mailbox has to follow the link themselves.
+
+The address is checked before any of this runs: a malformed address answers 422
+with the invalid-address message (the SRS catalogue has no code for it) and one
+already on an account answers 409 with MSG_012, so a
+duplicate never reaches the SES step and never depends on the sandbox to be
+caught (UC-06 E2, DC-06).
 
 **Preferred path for a live demo:** on P-06a, open *New user*, type the internal
 email, and click **Verify for SES**. That button calls
@@ -374,10 +386,15 @@ curated path, so it refuses a row unless it also carries:
 
 Content type is checked against an allowlist as well as the extension; a browser
 that sends nothing, or `application/octet-stream` for a dragged file, falls back
-to the type the extension implies. The whole batch is validated before the first
-object is written, so a rejected row never leaves a half-staged song behind —
-though a failure partway through the writes themselves is reported rather than
-rolled back.
+to the type the extension implies. Each entry is validated on its own, and a
+rejected one no longer holds the rest of the batch back: the valid entries are
+staged and imported, and every rejection travels with them into the same
+`CATALOG_IMPORT` run — the summary counts it among the skipped rows, and the
+audit `details` carry `skippedRows` with the key, the reason, and MSG_019 or
+MSG_020 where one applies. A duplicate ISRC inside the batch is caught on the
+server rather than in the browser, so the per-entry result is what reports it
+(UC-37 E3). A failure partway through the writes themselves is reported rather
+than rolled back.
 
 Genres and moods are closed lists here and freeform on import. That asymmetry is
 intentional: a vendor dump should not be lost because it used a genre name we do
@@ -541,7 +558,47 @@ All three paths render the same screen, but the keyword fallback announces
 itself: whenever Gemini failed or mapped to no catalog chips, P-02 flashes
 *Could not interpret that as catalog filters. Showing keyword matches instead.*
 A missing key therefore reads as that warning plus chips that are only ever
-literal tag names.
+literal tag names. A Gemini call that times out or errors returns no
+interpretation at all rather than guessing offline moods, so the request takes
+the keyword path and the `recommendation_log` row records the fallback
+(UC-11 E1, BR-07).
+
+P-02 is a prompt-and-results screen: enter a playlist need, optionally set
+Top-N beside **Interpret**, and submit to see chips and ranked results immediately.
+Remove a chip to refresh the results without interpreting again; edit the prompt
+and Interpret again to change or add criteria. Manual metadata dropdowns and
+the Filter/Clear form belong to Songs (P-08) and the admin catalog (P-06b).
+Do not add a metadata filter panel or a second Search step to P-02.
+Top-N is optional; 0 or a negative integer returns HTTP 422 with an error under
+the prompt's Top-N field, retaining the entered prompt and value. Invalid Top-N
+does not run interpretation or a result query, on both GET `/search` and
+POST `/search/interpret`.
+
+Every play control points at `GET /songs/{id}/play` rather than the raw media
+URL. The endpoint answers 302 to the audio recorded against the song, or HTTP
+404 with MSG_029 *Audio is not available for this song.* when the song carries
+none — so a row whose audio is missing renders as a disabled control with that
+tooltip, a hand-built request gets the same answer, and the preview queue skips
+the entry silently (UC-33 E1). It is a curation surface, so the route sits
+beside `/search` and `/songs` under the ADMIN / Content Designer rule.
+
+This restores the prompt-based interaction introduced in `6b1d4e5` and
+supersedes the panel added in `966e28d` to follow the older test design.
+The panel-only vocabulary lookup and shared-fragment options were removed;
+the filter parameters used by interpretation, paging, chip removal, preview
+and create-from-results remain in place. Songs/Catalog retain their filter UI.
+
+Search UI regression coverage lives in `SearchFlowTest`; ranking, chip removal,
+preview queues and create-from-results coverage remain in `SearchServiceTest`.
+The current interaction contract and manual test procedures are recorded in
+[Search interaction and test cases](docs/search-interaction.md).
+
+The suite ran green on 17 September 2026: **728 tests, 0 failures, 2 skipped**.
+The 14 errors in that run are all environmental, not product defects —
+`CoverAmbienceServiceTest` (7) and `LoginPageSmokeTest` (5) cannot open a
+loopback socket in the sandbox, and `GeminiApiSmokeTest` (2) calls the live
+API. The revised browser integration procedures have not been rerun; evidence
+from the earlier panel UI does not carry over to them.
 
 The key is a credential, so it belongs in `mrs/local.properties` beside the
 database account:
@@ -569,7 +626,8 @@ P-08) stays AND-across categories.
 
 Every interpret writes one `recommendation_log` row — the query, the resolved
 filters, whether the LLM ran and whether it succeeded, and the result count.
-Paging and chip removal do not, since they re-run the same interpretation.
+Paging and chip removal do not: they query the existing criteria without
+calling the interpreter again.
 
 ### Run
 
@@ -682,9 +740,9 @@ What remains in `mrs.css` needs a CSS property or selector Bootstrap has no util
 
 | Screen | State |
 |--------|-------|
-| P-00 Login | Implemented — all five screen states, lockout after 5 failures in 15 min, plus the account-request modal |
+| P-00 Login | Implemented — all five screen states, plus the account-request modal. A wrong password answers MSG_009; the 5th failure inside the window locks the account for the configured window and the banner carries MSG_008. The lock end time is fixed when the lock trips, the form stays usable, and each further attempt is refused until it passes |
 | P-01 Password Reset | Implemented — both steps, live BR-12 checklist, link emailed |
-| P-02 Search & Recommendation | Implemented — free-text prompt interpreted by Gemini (vocabulary matching when no key is set), removable filter chips, any-chip inclusion then metadata-match ranking (partial matches stay, ranked lower) with an optional Top-N, multi-select add-to-playlist, and a "create playlist from every result" action that re-runs the search server-side rather than using the current page. Each interpret writes a `recommendation_log` row |
+| P-02 Search & Recommendation | Implemented — prompt and optional Top-N beside Interpret; chips and ranked results appear immediately, with no metadata panel or separate Search action. Gemini interprets the prompt (vocabulary matching when no key is set); any-chip inclusion retains partial matches, ranked lower. Supports chip removal, multi-select add-to-playlist, and "create playlist from every result" across pages. Invalid Top-N returns 422 inline before interpretation. Valid interpretation writes a `recommendation_log` row; paging and chip removal reuse criteria without another interpretation/log |
 | P-03a My Playlists | Implemented — playlists you own plus those shared with you; status and text filters, pagination, create, rename, duplicate, delete, publish, CSV export |
 | P-03b Playlist Detail | Implemented — ordered song table with preview playback, add / remove / reorder while Draft, collaborator list (owner and ADMIN grant/revoke Content Designers; collaborators can edit songs in a Draft, but cannot publish, unpublish, delete, or invite). Publish and unpublish are owner or ADMIN. Duplicate creates an independent Draft with a unique name and no lineage back to the source. Every mutation is optimistically locked (UC-19, BR-06): a save at a version someone else has already moved past returns HTTP 409 and the conflict screen |
 | P-04a Shared Workspace | Implemented — card grid of published playlists with owner and text filters, open to all three roles. BR-04 scoping is outstanding, so every published playlist is listed |

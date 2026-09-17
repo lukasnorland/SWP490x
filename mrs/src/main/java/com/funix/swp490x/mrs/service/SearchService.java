@@ -3,7 +3,6 @@ package com.funix.swp490x.mrs.service;
 import com.funix.swp490x.mrs.catalog.CatalogTaxonomy;
 import com.funix.swp490x.mrs.domain.RecommendationLog;
 import com.funix.swp490x.mrs.domain.Song;
-import com.funix.swp490x.mrs.domain.Tag;
 import com.funix.swp490x.mrs.llm.FilterMapper;
 import com.funix.swp490x.mrs.llm.FilterMapper.MappedFilters;
 import com.funix.swp490x.mrs.llm.FilterVocabulary;
@@ -114,16 +113,6 @@ public class SearchService {
                 (int) results.getTotalElements()));
 
         return new InterpretRedirect(redirectPath(mapped, keyword, topN, query), fallback);
-    }
-
-    /**
-     * Genre / Mood / Artist / Tags values for the P-02 filter panel — the same
-     * vocabulary the interpreter maps into, so a chip can always be rebuilt by
-     * hand (FT-03, UC-10).
-     */
-    @Transactional(readOnly = true)
-    public List<Tag> filterTags() {
-        return tagRepository.findAllUsedOrderByTypeAscNameAsc();
     }
 
     @Transactional(readOnly = true)

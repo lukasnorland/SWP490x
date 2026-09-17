@@ -61,7 +61,11 @@
                 <label class="form-label mb-1" for="searchTopN">Top-N</label>
                 <input class="form-control search-topn" type="number" id="searchTopN" name="topN"
                        min="1" step="1" inputmode="numeric" placeholder="All matches"
+                       th:classappend="${filterError != null} ? ' is-invalid'"
+                       th:attr="aria-invalid=${filterError != null},aria-describedby=${filterError != null} ? 'searchTopNError' : null"
                        th:value="${filterTopN}" title="Keep only the N best-ranked matches">
+                <div th:if="${filterError != null}" class="invalid-feedback" id="searchTopNError"
+                     th:text="${filterError}"></div>
               </div>
               <button type="submit" class="btn btn-primary" data-search-submit>Interpret</button>
             </div>
@@ -69,10 +73,6 @@
         </form>
       </div>
     </section>
-
-    <!-- Zone B: the metadata filter panel (UC-10). Chips the interpreter
-         proposed arrive here as checked values, so they can be edited by hand. -->
-    <section th:replace="~{fragments/song-catalog :: filters}"></section>
 
     <div th:replace="~{fragments/search-results :: results}"></div>
 

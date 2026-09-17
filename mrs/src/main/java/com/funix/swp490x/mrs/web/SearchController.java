@@ -71,7 +71,15 @@ public class SearchController {
     public String interpret(@AuthenticationPrincipal MrsUserDetails user,
             @RequestParam String q,
             @RequestParam(required = false) Integer topN,
+            HttpServletResponse response,
+            Model model,
             RedirectAttributes redirectAttributes) {
+        if (invalidTopN(topN)) {
+            response.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
+            populateResults(model, null, null, null, null, null, q, topN, 0);
+            populateShell(model, user);
+            return "search/index";
+        }
         try {
             SearchService.InterpretRedirect result =
                     searchService.interpretRedirect(userId(user), q, topN);
@@ -186,7 +194,7 @@ public class SearchController {
         } else if (hasCriteria) {
             model.addAttribute("resultsEmptyTitle", Messages.SEARCH_NO_MATCHES);
             model.addAttribute("resultsEmptyMessage",
-                    "Clear a filter above, or try a broader prompt.");
+                    "Remove a chip above, or try a broader prompt.");
         } else {
             model.addAttribute("resultsEmptyTitle", "Describe a playlist need");
             model.addAttribute("resultsEmptyMessage",
@@ -194,16 +202,10 @@ public class SearchController {
         }
     }
 
-    /**
-     * Zone B (the metadata filter panel) is shell-only: the partial response
-     * carries the results table alone, so the panel keeps its open dropdowns.
-     */
+    /** The prompt and playlist dialog stay mounted during partial result updates. */
     private void populateShell(Model model, MrsUserDetails user) {
         model.addAttribute("pageTitle", "Search & Recommendation");
         model.addAttribute("activeNav", "search");
-        model.addAttribute("tags", searchService.filterTags());
-        model.addAttribute("topNFilter", true);
-        model.addAttribute("filterSubmitLabel", "Search");
         model.addAttribute("myPlaylists", user == null
                 ? List.of()
                 : playlistService.editableDrafts(user.getId()));

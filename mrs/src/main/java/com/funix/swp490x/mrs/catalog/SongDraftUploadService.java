@@ -28,8 +28,8 @@ import org.springframework.web.multipart.MultipartFile;
  * way a CLI dump of JSON would. The object store is written first; MySQL is
  * never inserted here — import is the only path that creates catalog rows.
  *
- * <p>The whole batch is validated before anything is written, so a rejected
- * row never leaves a half-staged song. A failure partway through the writes
+ * <p>Each entry is validated before its files are written. Rejected entries
+ * do not prevent valid entries from being staged. A failure partway through the writes
  * themselves is reported rather than rolled back; {@code DeleteObject} is
  * available, but this path does not attempt a compensating delete.
  */
@@ -128,6 +128,7 @@ public class SongDraftUploadService {
 
         List<SkippedRow> rejected = new ArrayList<>();
         Set<String> seenIsrcs = new HashSet<>();
+        int uploaded = 0;
         for (int i = 0; i < batch.size(); i++) {
             SongDraftForm draft = batch.get(i);
             String reason = validate(draft);
@@ -141,15 +142,8 @@ public class SongDraftUploadService {
             }
             if (reason != null) {
                 rejected.add(new SkippedRow(labelOf(draft, i), reason));
+                continue;
             }
-        }
-        if (!rejected.isEmpty()) {
-            return new MediaUploadResult(0, List.copyOf(rejected), null, false);
-        }
-
-        int uploaded = 0;
-        for (int i = 0; i < batch.size(); i++) {
-            SongDraftForm draft = batch.get(i);
             String label = labelOf(draft, i);
             try {
                 stage(draft);
@@ -165,7 +159,9 @@ public class SongDraftUploadService {
 
         ImportSummary sync = null;
         if (uploaded > 0) {
-            boolean started = importService.startAsync(ImportTrigger.MANUAL, actorId, false);
+            boolean started = rejected.isEmpty()
+                    ? importService.startAsync(ImportTrigger.MANUAL, actorId, false)
+                    : importService.startAsync(ImportTrigger.MANUAL, actorId, false, rejected);
             sync = started ? null : ImportSummary.refused();
         }
 

@@ -25,7 +25,7 @@ import org.junit.jupiter.api.io.TempDir;
 import org.springframework.mock.web.MockMultipartFile;
 
 /**
- * Draft upload validates the whole batch before any write, names media by
+ * Draft upload validates each entry before writing it, names media by
  * vendor slug, and emits JSON the existing mapper can read back.
  */
 class SongDraftUploadServiceTest {
@@ -45,6 +45,7 @@ class SongDraftUploadServiceTest {
         importService = mock(CatalogImportService.class);
         songRepository = mock(SongRepository.class);
         given(importService.startAsync(any(), any(), anyBoolean())).willReturn(true);
+        given(importService.startAsync(any(), any(), anyBoolean(), any())).willReturn(true);
         given(songRepository.existsByIsrcIgnoreCase(anyString())).willReturn(false);
         ids = new AtomicInteger();
         Supplier<UUID> nextId = () -> new UUID(0L, ids.incrementAndGet());
@@ -157,17 +158,18 @@ class SongDraftUploadServiceTest {
     }
 
     @Test
-    void aMixedBatchWritesNothingWhenOneSongIsInvalid() {
+    void aMixedBatchStagesTheValidSongAndReportsTheInvalidSong() {
         SongDraftForm good = draft("NCS", "Good", "a.mp3");
         SongDraftForm bad = draft("NCS", "", "b.mp3");
 
         SongDraftUploadService.MediaUploadResult result =
                 uploadService.upload(List.of(good, bad), 1L);
 
-        assertThat(result.uploaded()).isZero();
-        assertThat(result.rejected()).isNotEmpty();
-        assertThat(Files.exists(staged.resolve("song-data"))).isFalse();
-        then(importService).should(never()).startAsync(any(), any(), anyBoolean());
+        assertThat(result.uploaded()).isEqualTo(1);
+        assertThat(result.rejected()).hasSize(1);
+        assertThat(result.rejected().getFirst().reason()).isEqualTo("missing title");
+        assertThat(staged.resolve("song-data")).exists();
+        then(importService).should().startAsync(ImportTrigger.MANUAL, 1L, false, result.rejected());
     }
 
     @Test
@@ -291,7 +293,7 @@ class SongDraftUploadServiceTest {
     }
 
     @Test
-    void rejectsADuplicateIsrcInTheSameBatch() {
+    void rejectsOnlyTheDuplicateIsrcAndStagesTheOtherEntry() {
         SongDraftForm first = draft("NCS", "One", "a.mp3");
         first.setIsrc("se5q51900056");
         SongDraftForm second = draft("NCS", "Two", "b.mp3");
@@ -300,12 +302,27 @@ class SongDraftUploadServiceTest {
         SongDraftUploadService.MediaUploadResult result =
                 uploadService.upload(List.of(first, second), 1L);
 
-        assertThat(result.uploaded()).isZero();
+        assertThat(result.uploaded()).isEqualTo(1);
         assertThat(result.rejected()).hasSize(1);
         assertThat(result.rejected().getFirst().key()).isEqualTo("Two");
         assertThat(result.rejected().getFirst().reason()).isEqualTo("duplicate ISRC");
-        assertThat(Files.exists(staged.resolve("song-data"))).isFalse();
-        then(importService).should(never()).startAsync(any(), any(), anyBoolean());
+        assertThat(staged.resolve("song-data")).exists();
+        then(importService).should().startAsync(ImportTrigger.MANUAL, 1L, false, result.rejected());
+    }
+
+    @Test
+    void tenEntriesWithThirdDuplicateStageNineAndReportOneFailure() {
+        List<SongDraftForm> batch = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            SongDraftForm entry = draft("NCS", "Entry " + i, "song.mp3");
+            entry.setIsrc("TEST" + (i == 2 ? 0 : i));
+            batch.add(entry);
+        }
+        var result = uploadService.upload(batch, 1L);
+        assertThat(result.uploaded()).isEqualTo(9);
+        assertThat(result.rejected()).containsExactly(new ImportSummary.SkippedRow("Entry 2", "duplicate ISRC"));
+        assertThat(ids.get()).isEqualTo(9);
+        then(importService).should().startAsync(ImportTrigger.MANUAL, 1L, false, result.rejected());
     }
 
     @Test

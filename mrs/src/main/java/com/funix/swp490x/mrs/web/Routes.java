@@ -29,6 +29,7 @@ public final class Routes {
     public static final String SONGS = "/songs";
     /** Preview-bar queue: every playable row matching the current Songs filters. */
     public static final String SONGS_PLAY_QUEUE = "/songs/play-queue";
+    public static final String SONG_PLAY = "/songs/{id}/play";
     /** P-03a My Playlists. */
     public static final String PLAYLISTS = "/playlists";
     /** P-03b Playlist Detail / Editor. */

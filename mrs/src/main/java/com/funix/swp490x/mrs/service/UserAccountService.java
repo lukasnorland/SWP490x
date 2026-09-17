@@ -85,13 +85,7 @@ public class UserAccountService {
     public UserView create(String name, String email, Role role, String password, Long actorId) {
         requireAssignable(role);
 
-        String address = email == null ? "" : email.trim();
-        if (!EmailPolicy.isWellFormed(address)) {
-            throw new InvalidEmailException(address);
-        }
-        if (userRepository.findByEmail(address).isPresent()) {
-            throw new DuplicateEmailException(address);
-        }
+        String address = validateNewEmail(email);
 
         List<String> violations = PasswordPolicy.violations(password);
         if (!violations.isEmpty()) {
@@ -109,6 +103,19 @@ public class UserAccountService {
         audit(actorId, AuditLog.ACTION_USER_CREATE, saved.getId(),
                 userDetails(saved, "\"role\":%s".formatted(jsonString(saved.getRole().name()))));
         return UserView.of(saved);
+    }
+
+    /** Validate before recipient preparation; create repeats this check before writing. */
+    @Transactional(readOnly = true)
+    public String validateNewEmail(String email) {
+        String address = email == null ? "" : email.trim();
+        if (!EmailPolicy.isWellFormed(address)) {
+            throw new InvalidEmailException(address);
+        }
+        if (userRepository.findByEmail(address).isPresent()) {
+            throw new DuplicateEmailException(address);
+        }
+        return address;
     }
 
     /**

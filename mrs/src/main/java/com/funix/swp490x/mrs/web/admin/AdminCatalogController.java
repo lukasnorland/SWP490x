@@ -44,6 +44,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * P-06b — Song Catalog & Metadata (spec 4.10, UC-29, UC-28).
@@ -178,6 +181,8 @@ public class AdminCatalogController {
     public Object uploadSongs(@ModelAttribute SongDraftBatchForm form,
             @AuthenticationPrincipal MrsUserDetails actor,
             @RequestHeader(value = "X-Requested-With", required = false) String requestedWith,
+            HttpServletRequest request,
+            HttpServletResponse response,
             RedirectAttributes redirectAttributes) {
 
         MediaUploadResult result = draftUploadService.upload(form.getDrafts(),
@@ -219,9 +224,14 @@ public class AdminCatalogController {
         message = withRejections(message, result.rejected());
 
         if (ajax) {
+            var flashMap = RequestContextUtils.getOutputFlashMap(request);
+            flashMap.put("flashVariant", variant);
+            flashMap.put("flash", message);
+            RequestContextUtils.saveOutputFlashMap(Routes.ADMIN_CATALOG, request, response);
             return ResponseEntity.ok(Map.of(
                     "uploaded", result.uploaded(),
                     "message", message,
+                    "rejected", result.rejected(),
                     "redirect", Routes.ADMIN_CATALOG));
         }
 

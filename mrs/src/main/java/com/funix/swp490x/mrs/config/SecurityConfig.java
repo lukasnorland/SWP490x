@@ -131,7 +131,8 @@ public class SecurityConfig {
                         // P-06a–e: ADMIN area (BR-01, BR-02, FT-09 NAC-02).
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         // P-02 / song browse: curation surfaces, not offered to Customers (spec 2.1).
-                        .requestMatchers("/search", "/search/**", Routes.SONGS, Routes.SONGS_PLAY_QUEUE)
+                        .requestMatchers("/search", "/search/**", Routes.SONGS,
+                                Routes.SONGS_PLAY_QUEUE, Routes.SONG_PLAY)
                         .hasAnyRole("ADMIN", "CONTENT_DESIGNER")
                         // P-03 is a curation surface. A Customer reads shared work
                         // through the Shared Workspace only (FT-06 NAC-03), owns no

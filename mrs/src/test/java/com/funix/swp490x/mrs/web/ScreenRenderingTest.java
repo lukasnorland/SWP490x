@@ -165,7 +165,6 @@ class ScreenRenderingTest {
                 nullable(List.class), nullable(List.class), nullable(String.class),
                 nullable(String.class), nullable(Integer.class)))
                 .willReturn(List.of());
-        given(searchService.filterTags()).willReturn(List.of());
         given(settingsService.currentValues()).willReturn(defaultSettingValues());
         given(settingsService.sessionInactivityHours()).willReturn(8);
         given(settingsService.lockoutWindow()).willReturn(Duration.ofMinutes(15));
@@ -233,7 +232,8 @@ class ScreenRenderingTest {
     void loginScreenShowsLockoutBanner() throws Exception {
         mockMvc.perform(get(Routes.LOGIN).param("locked", ""))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Too many attempts")));
+                .andExpect(content().string(containsString("Too many failed attempts. Your account is locked for 15 minutes.")))
+                .andExpect(content().string(not(containsString("disabled"))));
     }
 
     /** A banner must never displace the credentials it sits above (spec 4.1). */
@@ -249,7 +249,7 @@ class ScreenRenderingTest {
     @Test
     void loginScreenHidesBannersWhenThereIsNothingToReport() throws Exception {
         mockMvc.perform(get(Routes.LOGIN))
-                .andExpect(content().string(not(containsString("Too many attempts"))));
+                .andExpect(content().string(not(containsString("Too many failed attempts"))));
     }
 
     @Test

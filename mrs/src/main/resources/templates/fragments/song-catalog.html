@@ -6,11 +6,7 @@
   Model:
     catalogBasePath   — form / pager / clear target
     browseMode        — true hides admin ops filters and upload-oriented empty copy
-    providers         — empty (or absent) hides the Provider group, which is
-                        ADMIN catalog work and not part of P-02 Zone B
-    topNFilter        — true adds the Top-N recommendation input (P-02 FT-05)
-    filterSubmitLabel — submit label; "Filter" when absent
-    filterError       — inline error shown against Top-N (FT-05 NAC-03)
+    providers         — empty (or absent) hides the Provider group
 */-->
 <body>
 
@@ -128,21 +124,6 @@
                placeholder="Title or artist"
                th:value="${filterQuery}">
       </div>
-      <!--/* P-02 Zone B: Top-N recommendation count. A positive integer only —
-             0 or a negative value is rejected inline (FT-05 NAC-03, BV-05). */-->
-      <div class="col-12 col-md-3" th:if="${topNFilter}">
-        <label class="form-label" for="filterTopN">Top-N</label>
-        <input class="form-control" type="number" id="filterTopN" name="topN"
-               min="1" step="1" inputmode="numeric" placeholder="All matches"
-               title="Keep only the N best-ranked matches"
-               th:classappend="${filterError != null} ? ' is-invalid'"
-               th:value="${filterTopN}">
-        <div class="invalid-feedback" th:text="${filterError}">Enter a positive count.</div>
-      </div>
-      <!-- Keeps the interpreted prompt with the query when filters are edited. -->
-      <input type="hidden" name="prompt"
-             th:if="${filterPrompt != null and !filterPrompt.isEmpty()}"
-             th:value="${filterPrompt}">
       <div class="col-12 col-md-3" th:if="${!browseMode}">
         <div class="form-check mt-md-4">
           <input class="form-check-input" type="checkbox" id="filterUntagged" name="untagged"
@@ -151,8 +132,7 @@
         </div>
       </div>
       <div class="col-12 col-md-3 d-flex gap-2">
-        <button type="submit" class="btn btn-primary flex-grow-1"
-                th:text="${filterSubmitLabel != null} ? ${filterSubmitLabel} : 'Filter'">Filter</button>
+        <button type="submit" class="btn btn-primary flex-grow-1">Filter</button>
         <a class="btn btn-ghost" th:href="@{${catalogBasePath}}" data-catalog-clear
            title="Clear filters">Clear</a>
       </div>
@@ -211,10 +191,10 @@
                 <div class="d-flex flex-column flex-grow-1 min-w-0">
                   <button type="button"
                           class="song-title-play"
-                          th:if="${song.audioUrl != null and !#strings.isEmpty(song.audioUrl)}"
+                          th:if="${song.audioUrl != null and !#strings.isEmpty(#strings.trim(song.audioUrl))}"
                           th:text="${song.title}"
                           th:data-preview-id="${song.id}"
-                          th:data-preview-url="${song.audioUrl}"
+                          th:data-preview-url="@{/songs/{id}/play(id=${song.id})}"
                           th:data-preview-title="${song.title}"
                           th:data-preview-artist="${song.artist}"
                           th:data-preview-cover="${song.coverUrl}"
@@ -222,8 +202,13 @@
                           th:data-preview-ambience-b="${song.ambienceB}"
                           th:data-preview-duration="${song.duration}"
                           th:aria-label="|Play ${song.title}|">Title</button>
-                  <span th:if="${song.audioUrl == null or #strings.isEmpty(song.audioUrl)}"
-                        th:text="${song.title}">Title</span>
+                  <span th:if="${song.audioUrl == null or #strings.isEmpty(#strings.trim(song.audioUrl))}"
+                        title="Audio is not available for this song.">
+                    <button type="button" class="song-title-play" disabled
+                            title="Audio is not available for this song."
+                            aria-label="Audio is not available for this song."
+                            th:text="${song.title}">Title</button>
+                  </span>
                   <!-- DC-03: a song with no tag cannot be found by a filter. -->
                   <span th:if="${song.tags.isEmpty()}"
                         class="small text-warning-emphasis d-inline-flex align-items-center gap-1">

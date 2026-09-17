@@ -222,7 +222,6 @@ export function initSongUpload(root) {
 
   function validateDrafts() {
     var articles = list.querySelectorAll("[data-song-draft]");
-    var seenIsrc = {};
     for (var i = 0; i < articles.length; i++) {
       var article = articles[i];
       var label = draftLabel(article, i);
@@ -234,11 +233,6 @@ export function initSongUpload(root) {
       if (!isrc) {
         return label + ": missing ISRC";
       }
-      var isrcKey = isrc.toUpperCase();
-      if (seenIsrc[isrcKey]) {
-        return label + ": duplicate ISRC";
-      }
-      seenIsrc[isrcKey] = true;
       if (!tagValues(article.querySelector("[data-field='genres']")).length) {
         return label + ": missing genres";
       }

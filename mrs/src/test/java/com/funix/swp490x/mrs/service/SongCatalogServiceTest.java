@@ -85,6 +85,17 @@ class SongCatalogServiceTest {
     }
 
     @Test
+    void previewRejectsMissingAndBlankAudioButReturnsPlayableTrack() {
+        given(songRepository.findById(1L)).willReturn(Optional.empty());
+        given(songRepository.findById(2L)).willReturn(Optional.of(playable(2L, "Silent", "  ")));
+        given(songRepository.findById(3L)).willReturn(Optional.of(playable(3L, "Track", "https://cdn.example/a.mp3")));
+        assertThat(service.preview(1L)).isEmpty();
+        assertThat(service.preview(2L)).isEmpty();
+        assertThat(service.preview(3L)).get().extracting(SongCatalogService.PreviewTrack::url)
+                .isEqualTo("https://cdn.example/a.mp3");
+    }
+
+    @Test
     void searchBindsSelectedProviders() {
         given(songRepository.searchIds(eq(false), eq(List.of("EpidemicSound", "NCS")),
                 eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)), eq(true), eq(List.of(-1L)),

@@ -25,8 +25,8 @@ import tools.jackson.databind.json.JsonMapper;
 /**
  * FT-04 Gemini adapter: structured JSON in, {@link InterpretedFilters} out.
  * Literal tag tokens are merged from {@link VocabularyMatchInterpreter}; Gemini
- * focuses on moods and genres. Timeout or bad JSON falls through to offline
- * {@link ScenarioMoodHints} plus vocabulary tags (BR-07).
+ * focuses on moods and genres. A failed request returns no interpretation so
+ * SearchService can use keyword search and record the failure (BR-07).
  */
 public class GeminiLlmInterpreter implements LlmInterpreter, DisposableBean {
 
@@ -89,10 +89,8 @@ public class GeminiLlmInterpreter implements LlmInterpreter, DisposableBean {
             InterpretedFilters merged = mergeForQuery(trimmed, gemini, literal);
             return merged.isEmpty() ? Optional.empty() : Optional.of(merged);
         } catch (RuntimeException e) {
-            log.warn("Gemini interpretation failed; using offline mood hints and vocabulary tags", e);
-            InterpretedFilters offline = mergeForQuery(trimmed,
-                    offlineMoods(trimmed, vocabulary), literal);
-            return offline.isEmpty() ? Optional.empty() : Optional.of(offline);
+            log.warn("Gemini interpretation failed; using keyword fallback", e);
+            return Optional.empty();
         }
     }
 

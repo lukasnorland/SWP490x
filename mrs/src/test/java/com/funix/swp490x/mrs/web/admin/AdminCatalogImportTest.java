@@ -546,6 +546,25 @@ class AdminCatalogImportTest {
     }
 
     @Test
+    void partialAjaxUploadKeepsRejectionsVisibleAfterRedirect() throws Exception {
+        var rejected = List.of(new SkippedRow("Entry 3", "duplicate ISRC"));
+        given(draftUploadService.upload(any(), any()))
+                .willReturn(new MediaUploadResult(9, rejected, null, false));
+        var result = mockMvc.perform(multipart(Routes.ADMIN_CATALOG_SONGS)
+                        .header("X-Requested-With", "XMLHttpRequest")
+                        .with(csrf()).with(user(admin())))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.uploaded").value(9))
+                .andExpect(jsonPath("$.rejected[0].reason").value("duplicate ISRC"))
+                .andReturn();
+        mockMvc.perform(get(Routes.ADMIN_CATALOG)
+                        .session((org.springframework.mock.web.MockHttpSession) result.getRequest().getSession())
+                        .with(user(admin())))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Entry 3 — duplicate ISRC")));
+    }
+
+    @Test
     void aMediaUploadCannotBeTriggeredWithoutACsrfToken() throws Exception {
         MockMultipartFile audio = new MockMultipartFile("drafts[0].audio", "track.mp3",
                 "audio/mpeg", new byte[] {1});

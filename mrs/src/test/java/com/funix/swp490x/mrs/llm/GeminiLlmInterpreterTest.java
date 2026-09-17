@@ -11,6 +11,51 @@ import org.junit.jupiter.api.Test;
 
 class GeminiLlmInterpreterTest {
 
+    @org.junit.jupiter.params.ParameterizedTest
+    @org.junit.jupiter.params.provider.ValueSource(ints = {400, 200})
+    void failedApiOrInvalidJsonDoesNotBecomeAnOfflineChipSuccess(int status) throws Exception {
+        var client = org.mockito.Mockito.mock(com.google.genai.Client.class);
+        var models = org.mockito.Mockito.mock(com.google.genai.Models.class);
+        org.springframework.test.util.ReflectionTestUtils.setField(client, "models", models);
+        var response = org.mockito.Mockito.mock(com.google.genai.types.GenerateContentResponse.class);
+        org.mockito.Mockito.when(response.text()).thenReturn("invalid JSON");
+        var generation = org.mockito.Mockito.when(models.generateContent(
+                org.mockito.ArgumentMatchers.anyString(), org.mockito.ArgumentMatchers.anyString(),
+                org.mockito.ArgumentMatchers.any(com.google.genai.types.GenerateContentConfig.class)));
+        if (status == 400) {
+            generation.thenThrow(new IllegalStateException("HTTP 400: invalid API key"));
+        } else {
+            generation.thenReturn(response);
+        }
+        var taxonomy = new CatalogTaxonomy();
+        var vocabulary = FilterVocabulary.of(List.of(new Tag(TagType.TAGS, "Summer")), taxonomy);
+        var interpreter = new GeminiLlmInterpreter(new LlmProperties(),
+                new VocabularyMatchInterpreter(taxonomy), client);
+        assertThat(interpreter.interpret("energetic music for a summer event", vocabulary)).isEmpty();
+        org.mockito.Mockito.verify(models).generateContent(org.mockito.ArgumentMatchers.anyString(),
+                org.mockito.ArgumentMatchers.anyString(),
+                org.mockito.ArgumentMatchers.any(com.google.genai.types.GenerateContentConfig.class));
+
+        var settings = org.mockito.Mockito.mock(com.funix.swp490x.mrs.service.SettingsService.class);
+        org.mockito.Mockito.when(settings.llmMinQueryChars()).thenReturn(10);
+        org.mockito.Mockito.when(settings.llmMaxQueryChars()).thenReturn(200);
+        var tags = org.mockito.Mockito.mock(com.funix.swp490x.mrs.repository.TagRepository.class);
+        org.mockito.Mockito.when(tags.findAllUsedOrderByTypeAscNameAsc()).thenReturn(List.of(new Tag(TagType.TAGS, "Summer")));
+        var catalog = org.mockito.Mockito.mock(com.funix.swp490x.mrs.service.SongCatalogService.class);
+        org.mockito.Mockito.when(catalog.searchRecommended(
+                List.of(), List.of(), List.of(), List.of(), "energetic music for a summer event", null, 0))
+                .thenReturn(org.springframework.data.domain.Page.empty());
+        var logs = org.mockito.Mockito.mock(com.funix.swp490x.mrs.repository.RecommendationLogRepository.class);
+        var search = new com.funix.swp490x.mrs.service.SearchService(interpreter, settings,
+                org.mockito.Mockito.mock(FilterMapper.class), tags, catalog, logs);
+        assertThat(search.interpretRedirect(1L, "energetic music for a summer event", null).fallback()).isTrue();
+        var logged = org.mockito.ArgumentCaptor.forClass(com.funix.swp490x.mrs.domain.RecommendationLog.class);
+        org.mockito.Mockito.verify(logs).save(logged.capture());
+        assertThat(logged.getValue().isLlmUsed()).isTrue();
+        assertThat(logged.getValue().getLlmSucceeded()).isFalse();
+        assertThat(logged.getValue().getInterpretedFilters()).contains("\"fallback\":true");
+    }
+
     @Test
     void buildPromptOmitsTagsAndListsMoodsFirst() {
         FilterVocabulary vocab = FilterVocabulary.of(
