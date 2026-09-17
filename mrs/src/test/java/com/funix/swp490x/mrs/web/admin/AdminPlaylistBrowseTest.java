@@ -120,6 +120,8 @@ class AdminPlaylistBrowseTest {
                 // BR-09: an ADMIN exports any playlist, including this Draft
                 // owned by someone else.
                 .andExpect(content().string(containsString("/playlists/7/export.csv")))
+                .andExpect(content().string(containsString(
+                        "data-export-success=\"Playlist exported successfully.\"")))
                 .andExpect(content().string(not(containsString("Rename playlist"))))
                 .andExpect(content().string(containsString("/playlists/7/collaborators")));
     }

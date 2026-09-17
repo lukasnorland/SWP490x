@@ -7,6 +7,7 @@ import com.funix.swp490x.mrs.service.PlaylistOwner;
 import com.funix.swp490x.mrs.service.PlaylistService;
 import com.funix.swp490x.mrs.service.PlaylistSummary;
 import com.funix.swp490x.mrs.web.Routes;
+import com.funix.swp490x.mrs.web.Messages;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -73,6 +74,7 @@ public class AdminPlaylistController {
         model.addAttribute("canDelete", false);
         // ADMIN-only screen, and an ADMIN may export any playlist.
         model.addAttribute("canExport", true);
+        model.addAttribute("exportSuccessMessage", Messages.PLAYLIST_EXPORTED);
         model.addAttribute("canManageCollaborators", true);
         model.addAttribute("collaborators", playlistService.collaborators(id));
         model.addAttribute("inviteCandidates", playlistService.inviteCandidates(id));

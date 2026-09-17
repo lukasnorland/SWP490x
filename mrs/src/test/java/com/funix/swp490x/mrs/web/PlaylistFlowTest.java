@@ -540,7 +540,9 @@ class PlaylistFlowTest {
 
         mockMvc.perform(get("/playlists/5").with(user(principal(Role.CONTENT_DESIGNER))))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Export CSV")));
+                .andExpect(content().string(containsString("Export CSV")))
+                .andExpect(content().string(containsString(
+                        "data-export-success=\"Playlist exported successfully.\"")));
     }
 
     @Test
