@@ -9,6 +9,9 @@ package com.funix.swp490x.mrs.web;
  */
 public final class Messages {
 
+    /** MSG_018. Shown after a CSV response has been downloaded successfully. */
+    public static final String PLAYLIST_EXPORTED = "Playlist exported successfully.";
+
     /** MSG_009. The login screen carries the same sentence as a literal. */
     public static final String LOGIN_INCORRECT = "Incorrect email or password.";
 
