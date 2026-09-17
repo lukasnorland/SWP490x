@@ -196,10 +196,11 @@ class AdminUserManagementTest {
         existing.setEmail("nina@mrs.local");
         given(userRepository.findByEmail(anyString())).willReturn(Optional.of(existing));
 
-        mockMvc.perform(createRequest("nina@mrs.local", STRONG_PASSWORD))
+        mockMvc.perform(createRequest("NINA@MRS.LOCAL", STRONG_PASSWORD))
                 .andExpect(status().isConflict())
                 .andExpect(content().string(containsString(Messages.DUPLICATE_EMAIL)));
 
+        then(sesIdentityService).should(never()).isVerified(anyString());
         then(userRepository).should(never()).save(any(User.class));
         then(mailTransport).should(never()).send(anyString(), anyString(), anyString());
     }

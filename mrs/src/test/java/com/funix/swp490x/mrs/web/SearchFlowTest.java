@@ -78,7 +78,6 @@ class SearchFlowTest {
                 nullable(List.class), nullable(List.class), nullable(String.class),
                 nullable(String.class), nullable(Integer.class)))
                 .willReturn(List.of());
-        given(searchService.filterTags()).willReturn(List.of());
         given(playlistService.editableDrafts(nullable(Long.class))).willReturn(List.of());
     }
 
@@ -104,23 +103,20 @@ class SearchFlowTest {
                 .andExpect(content().string(containsString("refine it first")));
     }
 
-    /**
-     * Zone A (the prompt) and Zone B (the metadata filter panel) both belong to
-     * P-02: UC-10 is filter-first, UC-11 only seeds the same filters.
-     */
+    /** Search uses a prompt; manual metadata controls belong to Songs/Catalog. */
     @Test
-    void searchRendersThePromptAndTheFilterPanelForCurators() throws Exception {
+    void searchRendersThePromptWithoutTheFilterPanelForCurators() throws Exception {
         mockMvc.perform(get(Routes.SEARCH).with(user(principal(Role.CONTENT_DESIGNER))))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Playlist need")))
                 .andExpect(content().string(containsString("/search/interpret")))
                 .andExpect(content().string(containsString("id=\"searchTopN\"")))
-                .andExpect(content().string(containsString("data-catalog-filters")))
-                .andExpect(content().string(containsString("id=\"filterGenre\"")))
-                .andExpect(content().string(containsString("id=\"filterMood\"")))
-                .andExpect(content().string(containsString("id=\"filterArtist\"")))
-                .andExpect(content().string(containsString("id=\"filterTag\"")))
-                .andExpect(content().string(containsString("id=\"filterTopN\"")))
+                .andExpect(content().string(not(containsString("data-catalog-filters"))))
+                .andExpect(content().string(not(containsString("id=\"filterGenre\""))))
+                .andExpect(content().string(not(containsString("id=\"filterMood\""))))
+                .andExpect(content().string(not(containsString("id=\"filterArtist\""))))
+                .andExpect(content().string(not(containsString("id=\"filterTag\""))))
+                .andExpect(content().string(not(containsString("id=\"filterTopN\""))))
                 // Provider is ADMIN catalog work, and untagged-only is P-06b.
                 .andExpect(content().string(not(containsString("id=\"filterProvider\""))))
                 .andExpect(content().string(not(containsString("id=\"filterUntagged\""))));
@@ -151,11 +147,32 @@ class SearchFlowTest {
                 .andExpect(status().isUnprocessableEntity())
                 .andExpect(content().string(containsString(Messages.SEARCH_TOP_N_POSITIVE)))
                 .andExpect(content().string(containsString("is-invalid")))
+                .andExpect(content().string(containsString("id=\"searchTopNError\"")))
                 .andExpect(content().string(containsString("value=\"" + topN + "\"")));
 
         then(searchService).should(org.mockito.Mockito.never())
-                .search(anyList(), anyList(), anyList(), anyList(), nullable(String.class),
+                .search(nullable(List.class), nullable(List.class), nullable(List.class), nullable(List.class), nullable(String.class),
                         nullable(Integer.class), anyInt());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"0", "-1"})
+    void interpretRejectsInvalidTopNWithoutInterpretingOrSearching(String topN) throws Exception {
+        mockMvc.perform(post(Routes.SEARCH_INTERPRET).with(csrf())
+                        .with(user(principal(Role.CONTENT_DESIGNER)))
+                        .param("q", "energetic pop playlist now").param("topN", topN))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(containsString("energetic pop playlist now")))
+                .andExpect(content().string(containsString("id=\"searchTopNError\"")))
+                .andExpect(content().string(containsString(Messages.SEARCH_TOP_N_POSITIVE)))
+                .andExpect(content().string(containsString("value=\"" + topN + "\"")))
+                .andExpect(content().string(not(containsString("data-catalog-filters"))));
+
+        then(searchService).should(org.mockito.Mockito.never())
+                .interpretRedirect(nullable(Long.class), nullable(String.class), nullable(Integer.class));
+        then(searchService).should(org.mockito.Mockito.never())
+                .search(nullable(List.class), nullable(List.class), nullable(List.class),
+                        nullable(List.class), nullable(String.class), nullable(Integer.class), anyInt());
     }
 
     @Test

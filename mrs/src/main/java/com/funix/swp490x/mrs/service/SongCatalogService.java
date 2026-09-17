@@ -128,8 +128,8 @@ public class SongCatalogService {
      * ({@code title}, {@code id}). Used by the preview bar so next/previous can
      * walk the full result, not just the current page of 20.
      *
-     * <p>Rows with no {@code audioUrl} are dropped — the table already hides a
-     * play control for those. Tags are not loaded, and the JSON is capped at
+     * <p>Rows with no {@code audioUrl} are dropped — their table play control is
+     * disabled. Tags are not loaded, and the JSON is capped at
      * {@link #PLAY_QUEUE_CAP} so a catalog-wide play cannot ship every row.
      */
     @Transactional(readOnly = true)
@@ -154,6 +154,14 @@ public class SongCatalogService {
                 .map(PreviewTrack::from)
                 .limit(PLAY_QUEUE_CAP)
                 .toList();
+    }
+
+    /** Resolve one preview without fetching its tag collection. */
+    @Transactional(readOnly = true)
+    public Optional<PreviewTrack> preview(Long songId) {
+        return songRepository.findById(songId)
+                .filter(song -> StringUtils.hasText(song.getAudioUrl()))
+                .map(PreviewTrack::from);
     }
 
     /**

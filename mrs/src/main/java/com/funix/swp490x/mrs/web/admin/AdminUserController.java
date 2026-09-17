@@ -99,6 +99,14 @@ public class AdminUserController {
         model.addAttribute("submittedEmail", email);
         model.addAttribute("submittedRole", role);
 
+        try {
+            userAccountService.validateNewEmail(email);
+        } catch (InvalidEmailException e) {
+            return reject(model, response, HttpStatus.UNPROCESSABLE_ENTITY, Messages.INVALID_EMAIL);
+        } catch (DuplicateEmailException e) {
+            return reject(model, response, HttpStatus.CONFLICT, Messages.DUPLICATE_EMAIL);
+        }
+
         if (outboundMailEnabled()) {
             String address = email == null ? "" : email.trim();
             try {

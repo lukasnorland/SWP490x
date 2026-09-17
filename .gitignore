@@ -1,6 +1,10 @@
+# Test-run evidence and exports (local only — outputs/ holds ~143 MB)
+outputs/
+
 # Project docs (local only — not committed)
 docs/*
 !docs/aws-setup.md
+!docs/search-interaction.md
 
 # Compiled class file
 *.class

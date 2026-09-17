@@ -54,7 +54,7 @@
           </th:block>
           <th:block th:if="${param.locked != null}">
             <div th:replace="~{fragments/components :: notice('danger', 'lock',
-                |Too many attempts — try again in ${lockoutWindowMinutes} minutes|)}"></div>
+                'Too many failed attempts. Your account is locked for 15 minutes.')}"></div>
           </th:block>
           <th:block th:if="${param.expired != null}">
             <div th:replace="~{fragments/components :: notice('info', 'info',
@@ -72,14 +72,14 @@
             <div>
               <label class="form-label" for="email">Email</label>
               <input class="form-control" type="email" id="email" name="email" autocomplete="username"
-                     required autofocus th:disabled="${param.locked != null}">
+                     required autofocus>
             </div>
 
             <div>
               <label class="form-label" for="password">Password</label>
               <div class="input-group">
                 <input class="form-control" type="password" id="password" name="password"
-                       autocomplete="current-password" required th:disabled="${param.locked != null}">
+                       autocomplete="current-password" required>
                 <button type="button" class="btn btn-outline-secondary" data-password-toggle="password"
                         aria-pressed="false" title="Show password">
                   <span class="visually-hidden">Show password</span>
@@ -93,8 +93,7 @@
               </div>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100"
-                    th:disabled="${param.locked != null}">Sign in</button>
+            <button type="submit" class="btn btn-primary w-100">Sign in</button>
           </form>
 
           <p class="small text-center mb-0">

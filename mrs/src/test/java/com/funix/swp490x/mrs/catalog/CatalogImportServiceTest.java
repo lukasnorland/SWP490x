@@ -62,6 +62,7 @@ class CatalogImportServiceTest {
     private CatalogImportService service;
     private CountingStore store;
     private TagRepository tagRepository;
+    private AuditLogRepository auditLogRepository;
 
     @BeforeEach
     void setUp() throws IOException {
@@ -125,8 +126,52 @@ class CatalogImportServiceTest {
         SongUpserter upserter = new SongUpserter(songRepository, tagRepository,
                 new SongJsonMapper(), TestCatalogProviders.stub(),
                 mock(PlaylistSongRepository.class), mock(PlaylistService.class));
+        auditLogRepository = mock(AuditLogRepository.class);
         service = new CatalogImportService(store, songRepository, runRepository,
-                mock(AuditLogRepository.class), upserter, mock(CoverAmbienceService.class));
+                auditLogRepository, upserter, mock(CoverAmbienceService.class));
+    }
+
+    @org.junit.jupiter.api.AfterEach
+    void stopImporter() {
+        service.shutdown();
+    }
+
+    @Test
+    void auditPreservesEachObjectKeyAndReasonAsValidJson() throws IOException {
+        write("missing-title.json", "{\"externalSourceId\":\"bad\",\"sourceProvider\":\"NCS\"}");
+        write("unknown-provider.json", "{\"externalSourceId\":\"bad2\",\"sourceProvider\":\"Unknown\",\"title\":\"Track\"}");
+        ImportSummary summary = sync();
+        var audit = org.mockito.ArgumentCaptor.forClass(com.funix.swp490x.mrs.domain.AuditLog.class);
+        verify(auditLogRepository).save(audit.capture());
+        var details = tools.jackson.databind.json.JsonMapper.builder().build()
+                .readTree(audit.getValue().getDetails());
+        assertThat(details.get("skipped").asInt()).isEqualTo(2);
+        assertThat(details.get("skippedRows").size()).isEqualTo(2);
+        assertThat(details.get("skippedRows").toString()).contains("MSG_019", "MSG_020", "Unknown");
+        for (var row : summary.skippedRows()) {
+            assertThat(details.get("skippedRows").toString()).contains(row.key(), row.reason());
+        }
+    }
+
+    @Test
+    void uploadRejectionsAreRecordedInTheSingleAsyncImport() throws Exception {
+        var rejection = new ImportSummary.SkippedRow("Song \"three\"", "duplicate ISRC");
+        CountDownLatch audited = new CountDownLatch(1);
+        java.util.concurrent.atomic.AtomicReference<String> details = new java.util.concurrent.atomic.AtomicReference<>();
+        given(auditLogRepository.save(any())).willAnswer(invocation -> {
+            com.funix.swp490x.mrs.domain.AuditLog audit = invocation.getArgument(0);
+            details.set(audit.getDetails());
+            audited.countDown();
+            return audit;
+        });
+        assertThat(service.startAsync(ImportTrigger.MANUAL, 1L, false, List.of(rejection))).isTrue();
+        assertThat(audited.await(5, TimeUnit.SECONDS)).isTrue();
+        var json = tools.jackson.databind.json.JsonMapper.builder().build().readTree(details.get());
+        assertThat(json.get("added").asInt()).isEqualTo(3);
+        assertThat(json.get("skipped").asInt()).isEqualTo(1);
+        assertThat(json.get("skippedRows").get(0).get("key").asText()).isEqualTo(rejection.key());
+        verify(auditLogRepository).save(any());
+        assertThat(runs).hasSize(1);
     }
 
     @Test

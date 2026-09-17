@@ -308,6 +308,31 @@ class SongBrowseTest {
         given(songCatalogService.total()).willReturn((long) songs.length);
     }
 
+    @Test
+    void missingAudioHasDisabledControlAndDirectPlayReturnsMessage() throws Exception {
+        Song missing = song("Silent track", "Artist");
+        missing.setId(42L);
+        missing.setAudioUrl(null);
+        showing(missing);
+        mockMvc.perform(get(Routes.SONGS).with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(content().string(containsString("disabled")))
+                .andExpect(content().string(containsString("title=\"" + Messages.AUDIO_NOT_AVAILABLE + "\"")));
+        mockMvc.perform(get(Routes.SONG_PLAY, 42L).with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").value(Messages.AUDIO_NOT_AVAILABLE));
+    }
+
+    @Test
+    void playableSongRedirectsToAudioAndCustomersCannotUseTheEndpoint() throws Exception {
+        given(songCatalogService.preview(12L)).willReturn(java.util.Optional.of(
+                new PreviewTrack(12L, "https://cdn.example/a.mp3", "Alpha", "Artist", null, null, null, 180)));
+        mockMvc.perform(get(Routes.SONG_PLAY, 12L).with(user(principal(Role.CONTENT_DESIGNER))))
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("https://cdn.example/a.mp3"));
+        mockMvc.perform(get(Routes.SONG_PLAY, 12L).with(user(principal(Role.CUSTOMER))))
+                .andExpect(status().isForbidden());
+    }
+
     private static MrsUserDetails principal(Role role) {
         User user = new User();
         user.setId(1L);

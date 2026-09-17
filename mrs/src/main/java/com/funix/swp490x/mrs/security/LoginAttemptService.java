@@ -3,10 +3,12 @@ package com.funix.swp490x.mrs.security;
 import com.funix.swp490x.mrs.service.SettingsService;
 import com.funix.swp490x.mrs.settings.SettingKey;
 import java.time.Duration;
+import java.time.Clock;
 import java.time.Instant;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,15 +23,22 @@ import org.springframework.stereotype.Service;
 public class LoginAttemptService {
 
     private final SettingsService settings;
+    private final Clock clock;
     private final Map<String, Attempts> attemptsByEmail = new ConcurrentHashMap<>();
 
+    @Autowired
     public LoginAttemptService(ObjectProvider<SettingsService> settings) {
-        this.settings = settings.getIfAvailable();
+        this(settings.getIfAvailable(), Clock.systemUTC());
     }
 
     /** Tests that do not exercise P-06d use the BV-06 defaults. */
     LoginAttemptService() {
-        this.settings = null;
+        this(null, Clock.systemUTC());
+    }
+
+    LoginAttemptService(SettingsService settings, Clock clock) {
+        this.settings = settings;
+        this.clock = clock;
     }
 
     public boolean isLocked(String email) {
@@ -49,7 +58,7 @@ public class LoginAttemptService {
             if (attempts.lockedUntil == null) {
                 return null;
             }
-            Duration remaining = Duration.between(Instant.now(), attempts.lockedUntil);
+            Duration remaining = Duration.between(clock.instant(), attempts.lockedUntil);
             if (remaining.isNegative() || remaining.isZero()) {
                 attemptsByEmail.remove(key(email));
                 return null;
@@ -65,7 +74,7 @@ public class LoginAttemptService {
         }
         Attempts attempts = attemptsByEmail.computeIfAbsent(key(email), ignored -> new Attempts());
         synchronized (attempts) {
-            Instant now = Instant.now();
+            Instant now = clock.instant();
             Duration window = lockoutWindow();
             if (attempts.windowStart == null || now.isAfter(attempts.windowStart.plus(window))) {
                 attempts.windowStart = now;

@@ -4,12 +4,14 @@ import com.funix.swp490x.mrs.service.SettingsService;
 import com.funix.swp490x.mrs.settings.SettingKey;
 import java.security.SecureRandom;
 import java.time.Duration;
+import java.time.Clock;
 import java.time.Instant;
 import java.util.Base64;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,16 +29,23 @@ public class PasswordResetTokenService {
             Duration.ofMinutes(SettingKey.RESET_LINK_MINUTES.defaultInt());
 
     private final SettingsService settings;
+    private final Clock clock;
     private final SecureRandom random = new SecureRandom();
     private final Map<String, Token> tokens = new ConcurrentHashMap<>();
 
+    @Autowired
     public PasswordResetTokenService(ObjectProvider<SettingsService> settings) {
-        this.settings = settings.getIfAvailable();
+        this(settings.getIfAvailable(), Clock.systemUTC());
     }
 
     /** Tests that do not exercise P-06d use the BV-01 default. */
     PasswordResetTokenService() {
-        this.settings = null;
+        this(null, Clock.systemUTC());
+    }
+
+    PasswordResetTokenService(SettingsService settings, Clock clock) {
+        this.settings = settings;
+        this.clock = clock;
     }
 
     public Duration validity() {
@@ -51,7 +60,7 @@ public class PasswordResetTokenService {
         byte[] bytes = new byte[32];
         random.nextBytes(bytes);
         String token = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
-        tokens.put(token, new Token(email, Instant.now().plus(validity())));
+        tokens.put(token, new Token(email, clock.instant().plus(validity())));
         return token;
     }
 
@@ -64,7 +73,7 @@ public class PasswordResetTokenService {
         if (issued == null) {
             return Optional.empty();
         }
-        if (Instant.now().isAfter(issued.expiresAt())) {
+        if (!clock.instant().isBefore(issued.expiresAt())) {
             tokens.remove(token);
             return Optional.empty();
         }

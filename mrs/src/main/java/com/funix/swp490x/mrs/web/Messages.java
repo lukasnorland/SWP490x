@@ -150,6 +150,9 @@ public final class Messages {
 
     public static final String SONG_NOT_FOUND = "That song is no longer in the catalog.";
 
+    /** MSG_029. */
+    public static final String AUDIO_NOT_AVAILABLE = "Audio is not available for this song.";
+
     public static final String SONG_DELETE_FAILED =
             "The song could not be removed because a playlist changed at the same time. Try again, or the next Sync Catalog will remove it.";
 

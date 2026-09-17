@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * Brings MySQL in step with the staged catalog (UC-28).
@@ -118,6 +119,13 @@ public class CatalogImportService {
      * @return false when another import already holds the lock
      */
     public boolean startAsync(ImportTrigger trigger, Long actorId, boolean force) {
+        return startAsync(trigger, actorId, force, List.of());
+    }
+
+    /** Carry upload validation failures into the same import audit and summary. */
+    public boolean startAsync(ImportTrigger trigger, Long actorId, boolean force,
+            List<SkippedRow> uploadRejections) {
+        List<SkippedRow> rejected = List.copyOf(uploadRejections);
         if (!running.compareAndSet(false, true)) {
             log.info("Catalog sync already in progress; {} trigger ignored", trigger);
             return false;
@@ -126,7 +134,7 @@ public class CatalogImportService {
         try {
             importExecutor.execute(() -> {
                 try {
-                    runLocked(trigger, actorId, force);
+                    runLocked(trigger, actorId, force, rejected);
                 } finally {
                     running.set(false);
                 }
@@ -148,16 +156,28 @@ public class CatalogImportService {
     }
 
     private ImportSummary runLocked(ImportTrigger trigger, Long actorId, boolean force) {
+        return runLocked(trigger, actorId, force, List.of());
+    }
+
+    private ImportSummary runLocked(ImportTrigger trigger, Long actorId, boolean force,
+            List<SkippedRow> uploadRejections) {
         publish(true, "listing", "Listing staged songs…", 0, 0, 0, 0, 0, 0, 3);
         CatalogImportRun run = runRepository.save(new CatalogImportRun(trigger, actorId));
         try {
             ImportSummary summary = doSync(force, actorId);
+            if (!uploadRejections.isEmpty()) {
+                List<SkippedRow> rejected = new ArrayList<>(uploadRejections);
+                rejected.addAll(summary.skippedRows());
+                summary = new ImportSummary(summary.listed(), summary.read(), summary.added(),
+                        summary.updated(), summary.removed(), List.copyOf(rejected),
+                        summary.alreadyRunning(), summary.error());
+            }
             record(run, summary);
             publishFinished(summary);
             return summary;
         } catch (RuntimeException e) {
             log.error("Catalog sync ({}) failed", trigger, e);
-            ImportSummary failed = new ImportSummary(0, 0, 0, 0, 0, List.of(), false, message(e));
+            ImportSummary failed = new ImportSummary(0, 0, 0, 0, 0, uploadRejections, false, message(e));
             try {
                 record(run, failed);
             } catch (RuntimeException recordFailure) {
@@ -180,10 +200,12 @@ public class CatalogImportService {
         if (run.getActorId() == null) {
             return;
         }
-        String details = "{\"listed\":%d,\"read\":%d,\"added\":%d,\"updated\":%d,\"skipped\":%d}"
-                .formatted(summary.listed(), summary.read(), summary.added(), summary.updated(),
-                        summary.skipped());
         try {
+            String details = JsonMapper.builder().build().writeValueAsString(Map.of(
+                    "listed", summary.listed(), "read", summary.read(),
+                    "added", summary.added(), "updated", summary.updated(),
+                    "skipped", summary.skipped(), "skippedRows", summary.skippedRows().stream()
+                            .map(CatalogImportService::auditRejection).toList()));
             auditLogRepository.save(new AuditLog(run.getActorId(),
                     AuditLog.ACTION_CATALOG_IMPORT,
                     AuditLog.ENTITY_CATALOG_IMPORT_RUN,
@@ -203,6 +225,18 @@ public class CatalogImportService {
      */
     public String sourceDescription() {
         return store.describe();
+    }
+
+    private static Map<String, String> auditRejection(SkippedRow row) {
+        if (row.reason().startsWith("missing ")) {
+            return Map.of("key", row.key(), "reason", row.reason(), "code", "MSG_019",
+                    "message", "This Sync Catalog row was missing a required field and was skipped.");
+        }
+        if (row.reason().startsWith("unregistered provider")) {
+            return Map.of("key", row.key(), "reason", row.reason(), "code", "MSG_020",
+                    "message", "Unregistered catalog provider. Please register the provider before importing.");
+        }
+        return Map.of("key", row.key(), "reason", row.reason());
     }
 
     /**
