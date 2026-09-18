@@ -34,7 +34,7 @@ MRS closes those gaps with centralized catalog + playlist management, metadata/L
 | FE-01 | Authentication & role-based access (ADMIN, Content Designer, Customer) |
 | FE-02 | Profile management (view account, display name, password) |
 | FE-03 | Multi-criteria metadata search (Genre, Mood, Artist, Tags) |
-| FE-04 | LLM-assisted contextual search (with fallback to plain filters) |
+| FE-04 | LLM-assisted contextual search (with keyword fallback over title/artist) |
 | FE-05 | Recommendation & ranking using metadata match (chip count, then title; optional Top-N) |
 | FE-06 | Playlist create / edit / save (Draft); owner can share edit rights with other Content Designers; concurrent saves are optimistically locked (UC-19) |
 | FE-07 | Publish to shared workspace; every internal user can view published playlists; Content Designers and ADMIN can duplicate one into their own Draft |
@@ -111,11 +111,9 @@ Detailed requirements and design live under [`docs/`](docs/):
 | Report 4 — TDS | Architecture, interfaces, data model, security |
 | Report 5.1 — Unit Test Report | Service and component test cases and results |
 | Report 5.2 — Integration Test Report | End-to-end procedures, expected results and execution records |
-| [Search interaction and test cases](docs/search-interaction.md) | Tracked P-02 interaction decision and revised Search test procedures |
 
 The reports themselves are Word and Excel files kept out of git (`.gitignore`
-excludes `docs/*` apart from [`docs/aws-setup.md`](docs/aws-setup.md) and
-[`docs/search-interaction.md`](docs/search-interaction.md)). Catalog
+excludes `docs/*` apart from [`docs/aws-setup.md`](docs/aws-setup.md)). Catalog
 behaviour, Add Song validation, and the P-06b routes live in this README. To
 read or diff a report against the code, convert the whole set:
 
@@ -128,6 +126,12 @@ python .\md\_xlsx_to_md.py ".\Report 3.1_MRS_RTW_luannnfx05543.xlsx" .\md\report
 
 `docs/md/` is gitignored along with the sources; it is a local reading aid, not
 a second copy of the deliverable.
+
+The `tools/` directory contains local test runners and evidence-processing
+scripts; `outputs/` contains generated reports and evidence packages. Both are
+gitignored. These directories and the local reports are not included in a fresh
+clone. The report-conversion example above also requires the local source files
+and `_xlsx_to_md.py` helper.
 
 The local Word/Excel reports track the as-built. Every leftover recorded here
 in September 2026 has since been closed: the Popularity columns, the Spotify
@@ -147,7 +151,7 @@ entry, any-chip matches, empty results, pagination, ranking, Top-N validation,
 immediate interpreted results, and chip/prompt refinement. Exact-count cases
 need an isolated fixture built on a single chip, since inclusion is any-chip.
 Report 5.1 service-level cases are unaffected. The reports themselves are not
-in Git; this README and the tracked Search note are.
+in Git; the tracked interaction summary is the Contextual search section below.
 
 ---
 
@@ -579,8 +583,10 @@ URL. The endpoint answers 302 to the audio recorded against the song, or HTTP
 404 with MSG_029 *Audio is not available for this song.* when the song carries
 none — so a row whose audio is missing renders as a disabled control with that
 tooltip, a hand-built request gets the same answer, and the preview queue skips
-the entry silently (UC-33 E1). It is a curation surface, so the route sits
-beside `/search` and `/songs` under the ADMIN / Content Designer rule.
+the entry silently (UC-33 E1). The playback route requires authentication and
+also serves Customer playback in the Shared Workspace. When a playlist is
+specified, the controller checks song membership using ADMIN inspection,
+Designer playlist visibility, or Customer access to a Published playlist.
 
 This restores the prompt-based interaction introduced in `6b1d4e5` and
 supersedes the panel added in `966e28d` to follow the older test design.
@@ -590,15 +596,26 @@ and create-from-results remain in place. Songs/Catalog retain their filter UI.
 
 Search UI regression coverage lives in `SearchFlowTest`; ranking, chip removal,
 preview queues and create-from-results coverage remain in `SearchServiceTest`.
-The current interaction contract and manual test procedures are recorded in
-[Search interaction and test cases](docs/search-interaction.md).
+Manual integration procedures and execution records live in the local Report
+5.2 workbook; the interaction contract is summarized in this section.
 
-The suite ran green on 17 September 2026: **728 tests, 0 failures, 2 skipped**.
-The 14 errors in that run are all environmental, not product defects —
-`CoverAmbienceServiceTest` (7) and `LoginPageSmokeTest` (5) cannot open a
-loopback socket in the sandbox, and `GeminiApiSmokeTest` (2) calls the live
-API. The revised browser integration procedures have not been rerun; evidence
-from the earlier panel UI does not carry over to them.
+Validation records from 18 September 2026 cover different scopes:
+
+- The focused `PlaylistServiceTest`, `PlaylistFlowTest`, and `SongBrowseTest`
+  run passed **173 tests with no failures or errors**, covering the playlist
+  access and ADMIN playback fixes committed in `3be6e40`.
+- The local Report 5.2 ledger records **93 cases Passed** after targeted
+  reruns. Cases were executed across multiple source revisions; this is not a
+  single full-suite run against `3be6e40`.
+- A later evidence-only review replaced **27 representative images** and
+  retained 66. Six replacements are labeled runner measurement reports rather
+  than application screenshots. This refresh did not rerun every case step.
+  It also found an open PUB-IT-03 navigation issue: ADMIN publish succeeds,
+  but redirects to `/playlists/{id}` rather than `/admin/playlists/{id}`.
+
+Use CI or a fresh `./mvnw verify` run for a full-suite verdict on the current
+revision. An older run containing test errors must not be treated as green,
+even when those errors appear environment-related.
 
 The key is a credential, so it belongs in `mrs/local.properties` beside the
 database account:
