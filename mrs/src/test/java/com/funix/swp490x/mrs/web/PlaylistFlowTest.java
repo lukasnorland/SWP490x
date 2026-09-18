@@ -437,6 +437,19 @@ class PlaylistFlowTest {
     }
 
     @Test
+    void anAdminDeletingAnotherOwnersPlaylistGetsTheOwnerOnlyMessage() throws Exception {
+        willThrow(new InvalidCollaboratorException("Only the owner can delete this playlist"))
+                .given(playlistService).delete(5L, 1, 1L);
+
+        mockMvc.perform(post("/playlists/5/delete")
+                        .param("expectedVersion", "1")
+                        .with(user(principal(Role.ADMIN)))
+                        .with(csrf()))
+                .andExpect(redirectedUrl("/admin/playlists/5"))
+                .andExpect(flash().attribute("flash", Messages.PLAYLIST_DELETE_NOT_OWNER));
+    }
+
+    @Test
     void theOwnerCanStillPublish() throws Exception {
         mockMvc.perform(post("/playlists/5/publish")
                         .param("expectedVersion", "1")

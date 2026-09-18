@@ -59,7 +59,8 @@ public class SongBrowseController {
         }
         if (playlistId != null) {
             try {
-                var entries = user.isCurator()
+                var entries = user.isAdmin() ? playlistService.inspectSongs(playlistId)
+                        : user.isCurator()
                         ? playlistService.songs(playlistId, user.getId())
                         : playlistService.publishedSongs(playlistId);
                 if (entries.stream().noneMatch(entry -> id.equals(entry.getSong().getId()))) {
