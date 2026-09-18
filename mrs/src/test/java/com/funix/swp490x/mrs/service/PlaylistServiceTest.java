@@ -592,6 +592,33 @@ class PlaylistServiceTest {
     }
 
     @Test
+    void deleteByAdminExplainsOwnerOnlyWithoutDeletingAnything() {
+        given(playlistRepository.findById(7L))
+                .willReturn(Optional.of(playlist(7L, PlaylistStatus.DRAFT)));
+        given(userRepository.findById(15L)).willReturn(Optional.of(admin(15L)));
+
+        assertThatThrownBy(() -> service.delete(7L, 1, 15L))
+                .isInstanceOf(InvalidCollaboratorException.class)
+                .hasMessage("Only the owner can delete this playlist");
+
+        then(playlistSongRepository).should(never()).deleteAllOf(any());
+        then(playlistRepository).should(never()).delete(any());
+    }
+
+    @Test
+    void deleteByAnUnrelatedDesignerStillHidesThePlaylist() {
+        given(playlistRepository.findById(7L))
+                .willReturn(Optional.of(playlist(7L, PlaylistStatus.DRAFT)));
+        given(userRepository.findById(15L)).willReturn(Optional.of(designer(15L)));
+
+        assertThatThrownBy(() -> service.delete(7L, 1, 15L))
+                .isInstanceOf(PlaylistNotFoundException.class);
+
+        then(playlistSongRepository).should(never()).deleteAllOf(any());
+        then(playlistRepository).should(never()).delete(any());
+    }
+
+    @Test
     void publishIsOwnerOnly() {
         Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
         given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist));

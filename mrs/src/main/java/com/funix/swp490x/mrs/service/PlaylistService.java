@@ -476,11 +476,16 @@ public class PlaylistService {
     /** Draft only, and only the owner — a collaborator cannot throw it away. */
     @Transactional
     public void delete(Long playlistId, int expectedVersion, Long userId) {
-        Playlist playlist = visible(playlistId, userId);
+        Playlist playlist = playlistRepository.findById(playlistId)
+                .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
+        // ADMIN can already view every playlist, but only its owner may delete it.
+        if (playlistRepository.countVisibleTo(playlistId, userId) == 0 && !isAdmin(userId)) {
+            throw new PlaylistNotFoundException(playlistId);
+        }
+        requireOwner(playlist, userId, "Only the owner can delete this playlist");
         if (playlist.isPublished()) {
             throw new InvalidPlaylistStateException("Playlist " + playlistId + " is published");
         }
-        requireOwner(playlist, userId, "Only the owner can delete this playlist");
         requireVersion(playlist, expectedVersion);
         playlistSongRepository.deleteAllOf(playlistId);
         try {
@@ -948,7 +953,16 @@ public class PlaylistService {
     }
 
     private Playlist editable(Long playlistId, Long userId) {
-        Playlist playlist = visible(playlistId, userId);
+        Playlist playlist = playlistRepository.findById(playlistId)
+                .orElseThrow(() -> new PlaylistNotFoundException(playlistId));
+        if (playlistRepository.countVisibleTo(playlistId, userId) == 0) {
+            // ADMIN oversight does not grant editing rights to another owner's playlist.
+            if (isAdmin(userId)) {
+                throw new org.springframework.security.access.AccessDeniedException(
+                        "You do not have permission to edit this playlist.");
+            }
+            throw new PlaylistNotFoundException(playlistId);
+        }
         if (playlist.isPublished()) {
             throw new PlaylistLockedException(playlistId);
         }

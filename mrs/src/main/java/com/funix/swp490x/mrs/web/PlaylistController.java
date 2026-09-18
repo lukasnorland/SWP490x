@@ -231,7 +231,7 @@ public class PlaylistController {
         } catch (PlaylistLockedException e) {
             flash(redirectAttributes, "warning", Messages.PLAYLIST_LOCKED);
         } catch (PlaylistNotFoundException e) {
-            flash(redirectAttributes, "danger", Messages.PLAYLIST_NOT_FOUND);
+            throw e;
         } catch (SongNotFoundException e) {
             flash(redirectAttributes, "danger", Messages.SONG_NOT_FOUND);
         }
@@ -307,7 +307,8 @@ public class PlaylistController {
                     Routes.PLAYLISTS + "/" + id);
         } catch (InvalidCollaboratorException e) {
             flash(redirectAttributes, "warning", Messages.PLAYLIST_DELETE_NOT_OWNER);
-            return "redirect:" + Routes.PLAYLISTS + "/" + id;
+            return "redirect:" + (user != null && user.isAdmin()
+                    ? "/admin/playlists/" + id : Routes.PLAYLISTS + "/" + id);
         } catch (InvalidPlaylistStateException e) {
             flash(redirectAttributes, "warning", Messages.PLAYLIST_DELETE_PUBLISHED);
         } catch (PlaylistNotFoundException e) {

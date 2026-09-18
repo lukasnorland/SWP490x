@@ -195,7 +195,7 @@ public final class Messages {
     public static final String SONG_REMOVED_FROM_PLAYLIST = "Song removed from the playlist.";
 
     public static final String PLAYLIST_LOCKED =
-            "Published playlists are locked — unpublish it first, then edit.";
+            "Unpublish to Draft before editing.";
 
     /**
      * MSG_014. Where a stale song save offers refresh alone, a playlist also
@@ -220,7 +220,7 @@ public final class Messages {
     public static final String PLAYLIST_DELETED = "Playlist deleted.";
 
     public static final String PLAYLIST_DELETE_PUBLISHED =
-            "A published playlist cannot be deleted. Unpublish it first.";
+            "Unpublish to Draft before deleting.";
 
     public static final String PLAYLIST_DELETE_NOT_OWNER =
             "Only the owner can delete this playlist.";
