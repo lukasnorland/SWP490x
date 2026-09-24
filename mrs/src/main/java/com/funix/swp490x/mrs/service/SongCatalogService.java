@@ -24,6 +24,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.Page;
@@ -38,6 +40,8 @@ import org.springframework.util.StringUtils;
 /** Reads and edits the catalog for P-06b (UC-29). */
 @Service
 public class SongCatalogService {
+
+    private static final Logger log = LoggerFactory.getLogger(SongCatalogService.class);
 
     /** Spec 4.10 Zone D. */
     public static final int PAGE_SIZE = 20;
@@ -485,6 +489,9 @@ public class SongCatalogService {
      */
     private void deleteHostedMedia(Song song) {
         Set<String> keys = new LinkedHashSet<>();
+        log.debug("Deleting hosted media for song {} externalId={} audioPrefix={} artworkPrefix={} store={}",
+                song.getId(), song.getExternalSourceId(), catalogProperties.getMedia().getAudioPrefix(),
+                catalogProperties.getMedia().getArtworkPrefix(), catalogStore.getClass().getSimpleName());
         addHostedKey(keys, song.getAudioUrl(), song.getExternalSourceId());
         addHostedKey(keys, song.getCoverUrl(), song.getExternalSourceId());
         if (StringUtils.hasText(song.getExternalSourceId())) {
@@ -496,8 +503,10 @@ public class SongCatalogService {
                     });
         }
         for (String key : keys) {
+            log.debug("Deleting hosted media key {} for song {}", key, song.getId());
             catalogStore.deleteBinary(key);
         }
+        log.debug("Deleted {} hosted media objects for song {}", keys.size(), song.getId());
     }
 
     private void addHostedKey(Set<String> keys, String url, String externalSourceId) {

@@ -13,6 +13,7 @@ var IDLE_TITLE = "Nothing playing";
 var IDLE_SUBTITLE = "Click a song title to play";
 var PLAYER_STATE_KEY = "mrs.previewPlayer.checked.v2";
 var PLAY_QUEUE_PATH = "/songs/play-queue";
+var PLAY_QUEUE_CAP = 100;
 var REPEAT_OFF = "off";
 var REPEAT_ALL = "all";
 var REPEAT_ONE = "one";
@@ -357,10 +358,11 @@ export function initPreviewPlayer(root) {
   function adoptQueue(tracks, current) {
     var next = (tracks || []).filter(function (item) {
       return item && item.url;
-    });
+    }).slice(0, PLAY_QUEUE_CAP);
     var idx = findTrackIndex(next, current);
     if (idx < 0 && current && current.url) {
-      next = [current].concat(next);
+      // A directly selected song outside the collection cap plays on its own.
+      next = [current];
       idx = 0;
     }
     queue = next;
@@ -689,7 +691,10 @@ export function initPreviewPlayer(root) {
     if (Array.isArray(state.queue) && state.queue.length) {
       queue = state.queue.map(normalizeTrack).filter(function (item) {
         return !!item.url;
-      });
+      }).slice(0, PLAY_QUEUE_CAP);
+      if (findTrackIndex(queue, currentTrack) < 0) {
+        queue = [currentTrack];
+      }
       if (Array.isArray(state.order) && state.order.length) {
         order = state.order.filter(function (index) {
           return index >= 0 && index < queue.length;

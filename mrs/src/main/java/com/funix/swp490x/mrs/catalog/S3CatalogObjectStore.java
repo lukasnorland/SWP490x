@@ -5,6 +5,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
@@ -22,6 +24,8 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
  * what changed costs one request per 1,000 keys and no object reads.
  */
 public class S3CatalogObjectStore implements CatalogObjectStore {
+
+    private static final Logger log = LoggerFactory.getLogger(S3CatalogObjectStore.class);
 
     private final S3Client s3;
     private final String bucket;
@@ -133,11 +137,13 @@ public class S3CatalogObjectStore implements CatalogObjectStore {
 
     private void deleteObject(String key) {
         try {
+            log.debug("Deleting catalog object bucket={} key={}", bucket, key);
             DeleteObjectRequest request = DeleteObjectRequest.builder()
                     .bucket(bucket)
                     .key(key)
                     .build();
             s3.deleteObject(request);
+            log.debug("Catalog object delete completed bucket={} key={}", bucket, key);
         } catch (RuntimeException e) {
             throw CatalogStoreException.of("Could not delete s3://" + bucket + "/" + key, e);
         }

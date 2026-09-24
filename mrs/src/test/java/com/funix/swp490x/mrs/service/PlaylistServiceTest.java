@@ -81,6 +81,66 @@ class PlaylistServiceTest {
         assertThat(saved.getValue().getId().getSongId()).isEqualTo(42L);
     }
 
+    private static org.springframework.dao.DataIntegrityViolationException constraintFailure(String key) {
+        return new org.springframework.dao.DataIntegrityViolationException("constraint",
+                new org.hibernate.exception.ConstraintViolationException("duplicate",
+                        new java.sql.SQLException("duplicate", "23000", 1062), key));
+    }
+
+    @Test
+    void createTranslatesNameRaceAtInsertWithoutWritingAudit() {
+        given(playlistRepository.save(any(Playlist.class)))
+                .willThrow(constraintFailure("playlist.uq_playlist_name"));
+        assertThatThrownBy(() -> service.create(1L, "Race"))
+                .isInstanceOf(DuplicatePlaylistNameException.class);
+        then(auditLogRepository).shouldHaveNoInteractions();
+    }
+
+    @Test
+    void createTranslatesNameRaceAtFlush() {
+        given(playlistRepository.save(any(Playlist.class))).willReturn(playlist(8L, PlaylistStatus.DRAFT));
+        org.mockito.BDDMockito.willThrow(constraintFailure("uq_playlist_name"))
+                .given(playlistRepository).flush();
+        assertThatThrownBy(() -> service.create(1L, "Race"))
+                .isInstanceOf(DuplicatePlaylistNameException.class);
+        then(auditLogRepository).shouldHaveNoInteractions();
+    }
+
+    @Test
+    void renameTranslatesNameRaceAtFlush() {
+        visible(playlist(7L, PlaylistStatus.DRAFT));
+        org.mockito.BDDMockito.willThrow(constraintFailure("playlist.uq_playlist_name"))
+                .given(playlistRepository).flush();
+        assertThatThrownBy(() -> service.rename(7L, 1, "Race", 1L))
+                .isInstanceOf(DuplicatePlaylistNameException.class);
+        then(auditLogRepository).shouldHaveNoInteractions();
+    }
+
+    @Test
+    void unrelatedIntegrityFailureIsNotReportedAsATakenName() {
+        var failure = constraintFailure("fk_playlist_owner");
+        given(playlistRepository.save(any(Playlist.class))).willThrow(failure);
+        assertThatThrownBy(() -> service.create(1L, "Race")).isSameAs(failure);
+    }
+
+    @Test
+    void duplicateTranslatesNameRaceThroughSharedCreate() {
+        given(playlistRepository.findById(7L)).willReturn(Optional.of(playlist(7L, PlaylistStatus.PUBLISHED)));
+        given(playlistRepository.save(any(Playlist.class)))
+                .willThrow(constraintFailure("uq_playlist_name"));
+        assertThatThrownBy(() -> service.duplicate(7L, "Race", 1L))
+                .isInstanceOf(DuplicatePlaylistNameException.class);
+    }
+
+    @Test
+    void cloneTranslatesNameRaceThroughSharedCreate() {
+        visible(playlist(7L, PlaylistStatus.DRAFT));
+        given(playlistRepository.save(any(Playlist.class)))
+                .willThrow(constraintFailure("uq_playlist_name"));
+        assertThatThrownBy(() -> service.cloneOnConflict(7L, "Race", 1L, null))
+                .isInstanceOf(DuplicatePlaylistNameException.class);
+    }
+
     /** An empty playlist starts at 1, which ck_plsong_position requires. */
     @Test
     void theFirstSongLandsAtPositionOne() {

@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -300,7 +302,14 @@ public class PlaylistService {
     @Transactional
     public Playlist create(Long userId, String name) {
         String clean = requireAvailableName(name, null);
-        Playlist playlist = playlistRepository.save(new Playlist(clean, userId));
+        Playlist playlist;
+        try {
+            playlist = playlistRepository.save(new Playlist(clean, userId));
+            // Surface the unique constraint inside this transaction, before audit/return.
+            playlistRepository.flush();
+        } catch (DataIntegrityViolationException e) {
+            throw translateNameConflict(e, clean);
+        }
         audit(userId, AuditLog.ACTION_PLAYLIST_CREATE, playlist.getId(),
                 "{\"name\":\"" + escape(clean) + "\"}");
         return playlist;
@@ -314,7 +323,11 @@ public class PlaylistService {
         String clean = requireAvailableName(name, playlistId);
         playlist.setName(clean);
         playlist.touch(userId);
-        saveChecked(playlist, expectedVersion);
+        try {
+            saveChecked(playlist, expectedVersion);
+        } catch (DataIntegrityViolationException e) {
+            throw translateNameConflict(e, clean);
+        }
         audit(userId, AuditLog.ACTION_PLAYLIST_RENAME, playlistId,
                 "{\"name\":\"" + escape(clean) + "\"}");
     }
@@ -689,11 +702,23 @@ public class PlaylistService {
         return csv.toString();
     }
 
-    /**
-     * Refuses the change when someone else has saved since the caller loaded
-     * the screen (BR-06). Checked before any write so the rejection costs
-     * nothing, and re-checked at flush time by {@link #saveChecked}.
-     */
+    /** Translate only the playlist-name constraint; other integrity failures keep their cause. */
+    private static RuntimeException translateNameConflict(DataIntegrityViolationException failure, String name) {
+        for (Throwable cause = failure; cause != null; cause = cause.getCause()) {
+            if (cause instanceof ConstraintViolationException constraint) {
+                String key = constraint.getConstraintName();
+                if ("uq_playlist_name".equals(key)
+                        || (key != null && key.endsWith(".uq_playlist_name"))) {
+                    DuplicatePlaylistNameException duplicate = new DuplicatePlaylistNameException(name);
+                    duplicate.initCause(failure);
+                    return duplicate;
+                }
+            }
+        }
+        return failure;
+    }
+
+    /** Refuses stale versions before writing; {@link #saveChecked} checks again at flush. */
     private static void requireVersion(Playlist playlist, int expectedVersion) {
         if (playlist.getVersion() != expectedVersion) {
             throw new StalePlaylistException(

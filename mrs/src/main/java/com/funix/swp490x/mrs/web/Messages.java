@@ -209,7 +209,7 @@ public final class Messages {
             "Your change is in this new Draft. The playlist you were editing was left as it is.";
 
     public static final String PLAYLIST_PUBLISH_EMPTY =
-            "Add at least one song before publishing.";
+            "Playlist must contain at least 1 song to publish.";
 
     public static final String PLAYLIST_PUBLISHED =
             "Playlist published. It is now read-only in the Shared Workspace.";
