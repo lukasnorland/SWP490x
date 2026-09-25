@@ -15,8 +15,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import com.funix.swp490x.mrs.config.SecurityConfig;
 import com.funix.swp490x.mrs.config.WebConfig;
@@ -205,17 +207,37 @@ class SearchFlowTest {
                 .andExpect(redirectedUrl("/search?genreId=2&moodId=1"));
     }
 
-    @Test
-    void interpretRejectsShortQueries() throws Exception {
-        willThrow(new InvalidSearchQueryException("too short"))
-                .given(searchService).interpretRedirect(eq(1L), eq("short"), nullable(Integer.class));
+    @ParameterizedTest
+    @ValueSource(ints = {9, 201})
+    void invalidPromptLengthRendersInlineAndPreservesTheForm(int length) throws Exception {
+        String query = "x".repeat(length);
+        willThrow(new InvalidSearchQueryException("invalid length"))
+                .given(searchService).interpretRedirect(1L, query, 7);
 
         mockMvc.perform(post(Routes.SEARCH_INTERPRET).with(csrf())
                         .with(user(principal(Role.CONTENT_DESIGNER)))
-                        .param("q", "short"))
-                .andExpect(status().isFound())
-                .andExpect(redirectedUrl(Routes.SEARCH))
-                .andExpect(flash().attribute("flash", Messages.SEARCH_QUERY_LENGTH));
+                        .param("q", query).param("topN", "7"))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(view().name("search/index"))
+                .andExpect(model().attribute("promptQuery", query))
+                .andExpect(content().string(containsString(Messages.SEARCH_QUERY_LENGTH)))
+                .andExpect(content().string(containsString(query + "</textarea>")))
+                .andExpect(model().attribute("filterTopN", "7"))
+                .andExpect(content().string(containsString("value=\"7\"")));
+    }
+
+    @Test
+    void rejectedPromptPreservesWhitespaceAndEscapesMarkup() throws Exception {
+        String query = "  <pop>  ";
+        willThrow(new InvalidSearchQueryException("too short"))
+                .given(searchService).interpretRedirect(eq(1L), eq(query), nullable(Integer.class));
+
+        mockMvc.perform(post(Routes.SEARCH_INTERPRET).with(csrf())
+                        .with(user(principal(Role.CONTENT_DESIGNER))).param("q", query))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(model().attribute("promptQuery", query))
+                .andExpect(content().string(containsString("  &lt;pop&gt;  </textarea>")))
+                .andExpect(content().string(not(containsString("<pop>"))));
     }
 
     @Test

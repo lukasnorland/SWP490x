@@ -88,10 +88,14 @@ public class SearchController {
             }
             return "redirect:" + result.path();
         } catch (InvalidSearchQueryException e) {
-            redirectAttributes.addFlashAttribute("flash", Messages.SEARCH_QUERY_LENGTH);
-            redirectAttributes.addFlashAttribute("flashVariant", "warning");
-            redirectAttributes.addFlashAttribute("promptQuery", q);
-            return "redirect:" + Routes.SEARCH;
+            response.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
+            populateResults(model, null, null, null, null, null, q, topN, 0);
+            populateShell(model, user);
+            model.addAttribute("flash", Messages.SEARCH_QUERY_LENGTH);
+            model.addAttribute("flashVariant", "warning");
+            // Keep even whitespace in the rejected input so the user can correct it.
+            model.addAttribute("promptQuery", q);
+            return "search/index";
         }
     }
 
