@@ -40,7 +40,7 @@ MRS closes those gaps with centralized catalog + playlist management, metadata/L
 | FE-07 | Publish to shared workspace; every internal user can view published playlists; Content Designers and ADMIN can duplicate one into their own Draft |
 | FE-08 | CSV export of playlists |
 | FE-09 | Admin: users, songs, metadata, catalog import, playlist oversight |
-| FE-10 | In-app audio playback while curating, continuing across navigation; the preview bar walks up to 100 tracks of the current filter or ranked result |
+| FE-10 | In-app audio playback while curating, continuing across navigation; the preview queue holds the first 100 tracks in display order from the current catalog filter, ranked search result, or playlist |
 
 **Out of scope (v1):** native mobile apps, public streaming, large-scale ML recommenders, commercial production infra, third-party chart or popularity APIs.
 
@@ -71,7 +71,7 @@ leftover (provider CSV/XLSX on P-06b) is called out in the screen table below.
 | CDN | CloudFront in front of the media prefixes; the player and the shell wash read through it |
 | LLM | Gemini through the Google GenAI SDK, for query interpretation only; optional |
 | CI | GitHub Actions (`./mvnw verify` + JaCoCo) against MySQL 8 |
-| Deployment target | AWS — one EC2 instance running the app and the database |
+| Deployment target | Local — application and MySQL on the development machine; deployment to AWS EC2 is optional |
 
 ---
 
@@ -126,12 +126,6 @@ python .\md\_xlsx_to_md.py ".\Report 3.1_MRS_RTW_luannnfx05543.xlsx" .\md\report
 
 `docs/md/` is gitignored along with the sources; it is a local reading aid, not
 a second copy of the deliverable.
-
-The `tools/` directory contains local test runners and evidence-processing
-scripts; `outputs/` contains generated reports and evidence packages. Both are
-gitignored. These directories and the local reports are not included in a fresh
-clone. The report-conversion example above also requires the local source files
-and `_xlsx_to_md.py` helper.
 
 The local Word/Excel reports track the as-built. Every leftover recorded here
 in September 2026 has since been closed: the Popularity columns, the Spotify
@@ -708,15 +702,17 @@ Password: `Admin@2026` (forced change on first login is intended by FT-09 / BR-1
 
 ---
 
-## Implementation roadmap
+## Development process
 
-Three two-week iterations after design:
+The project follows a Waterfall process:
 
-1. **Iteration 1** — Auth, users & roles, song & metadata admin  
-2. **Iteration 2** — Search/filter, recommendation & ranking, playlists, concurrency  
-3. **Iteration 3** — Web UI, LLM-assisted search, shared workspace, CSV export  
+1. **Requirements analysis** — Define scope, user roles, use cases, and business rules.
+2. **Design** — Define the architecture, database, interfaces, and screen flows.
+3. **Implementation** — Build authentication, administration, search, ranking, playlists, playback, and the web UI.
+4. **Testing** — Verify components, integrations, and complete user flows; correct defects and retest affected behaviour.
+5. **Deployment and handover** — Prepare the application for local use; AWS EC2 remains an optional deployment.
 
-All three slices have landed. Playlist history on P-05 was dropped from v1; the
+Playlist history on P-05 was dropped from v1; the
 provider CSV/XLSX leftover on P-06b is listed in the screen table below.
 
 ### UI implementation status
