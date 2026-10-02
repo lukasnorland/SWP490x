@@ -74,13 +74,23 @@ Open **http://localhost:8080**. Flyway creates the schema and initial administra
 
 The first login requires a password change. Use the admin screens to create other accounts. Stop the application with **Ctrl+C** in its terminal.
 
-These credentials apply only to a new database. Flyway does not reset an existing administrator's password. The migrations seed provider names but no songs or playlists; import catalog data before testing search and playback. Let Flyway apply the migrations rather than running the SQL files manually first.
+These credentials apply only to a new database. Flyway does not reset an existing administrator's password. Let Flyway apply the migrations rather than running the SQL files manually first.
+
+### Ready-to-test catalog
+
+Flyway's `V3__seed_song_catalog.sql` automatically loads the catalog snapshot from **October 2, 2026**: **5,741 songs** (3,008 EpidemicSound, 1,648 NCS, 1,085 OneOff), **4,899 tags**, and **64,168 song-tag links**. A new database can browse, filter, search, and build playlists immediately after startup; no S3 credentials or manual catalog import are required for these actions. After the first startup, no additional Sync Catalog action is required to use the seeded catalog. Create Content Designer accounts through the initial administrator to test playlist curation.
+
+On an existing database, V3 adds only songs missing by `(source_provider, external_source_id)`. It preserves existing song IDs, metadata, tag assignments, and playlists, and reuses tags by `(type, name)`. The snapshot contains catalog metadata and the existing audio/artwork URLs; playback still needs internet access and reachable media hosts. Media files and existing users, playlists, settings, or logs are not included.
+
+Keep `mrs.catalog.import-on-start=false` and `mrs.catalog.sync.enabled=false` (the defaults) when using the snapshot. Only use **Sync Catalog** with its matching staged catalog: a partial staging directory can remove seeded songs. Catalog add/edit/delete requires a configured local or S3 staging store as described below.
+
+To verify V3 on disposable MySQL databases, set `MRS_LIVE_DB=1`, `DB_URL`, `DB_USERNAME`, and `DB_PASSWORD`, then run `./mvnw -Dtest=SeedCatalogMigrationLiveTest test` from `mrs/`. The account must be allowed to create and drop test databases; the test never migrates the database named in `DB_URL`.
 
 ## Optional configuration
 
 Add the settings below to `mrs/local.properties` as needed. Keep real credentials out of version control.
 
-See [local test configuration](evaluation/local-test-config.txt) for the S3/CloudFront values, AWS `mrs-admin` test credentials, and Gemini API key. Follow its setup instructions; the app does not load this file automatically. For Git checkouts, start from the [configuration template](evaluation/local-test-config.example.txt).
+The private evaluation ZIP includes `evaluation/local-test-config.txt` with the S3/CloudFront values, AWS `mrs-admin` test credentials, Gemini API key, and optional SES SMTP settings. Follow its setup instructions; the app does not load this file automatically. For Git checkouts, start from the [configuration template](evaluation/local-test-config.example.txt); the file containing real test credentials is excluded from Git.
 
 ### Catalog and media
 

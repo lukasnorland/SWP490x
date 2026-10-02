@@ -1,7 +1,10 @@
-MRS local evaluation: S3 and Gemini
+MRS local evaluation: seeded catalog, S3, Gemini and SES email
 
 Fill local-test-config.txt with the agreed test credentials for the evaluation ZIP.
 This file is a setup reference; the app does not load it automatically.
+For testing the V3 snapshot, follow the database setup in README.md.
+The AWS setup below is optional for shared S3 catalog operations; seeded
+browsing, searching and playlist curation do not require AWS credentials.
 
 1. Install AWS CLI v2. Copy this profile into ~/.aws/credentials
    (Windows: %USERPROFILE%\.aws\credentials).
@@ -28,6 +31,42 @@ mrs.catalog.import-on-start=false
 mrs.catalog.sync.enabled=false
 mrs.llm.api-key=REPLACE_WITH_TEST_GEMINI_API_KEY
 
-4. Start the app, log in as an MRS ADMIN, and select Sync Catalog.
+4. Start the app and log in as an MRS ADMIN. Flyway V3 automatically loads
+   5,741 songs. No Sync Catalog action is required to test the seeded catalog.
+   Browsing, searching and playlist curation do not require AWS credentials;
+   audio previews still require internet access and reachable media URLs.
    AWS mrs-admin and the application's ADMIN are separate accounts.
-   Catalog add/edit/delete operations use the shared S3 catalog.
+   Catalog add/edit/delete operations use the shared S3 catalog configured above.
+   Only select Sync Catalog when updating from the complete shared S3 catalog.
+   A partial staging source can remove seeded songs and their playlist memberships.
+
+5. Optional: send real email using Amazon SES (SMTP).
+   Copy the following properties into mrs/local.properties and restart the app.
+   These SMTP credentials are separate from the AWS API credentials above.
+   The configured sender must be verified in the configured SES region.
+   If the SES account is in the sandbox, the recipient must also be verified:
+   use Verify for SES in user management, then open the email verification link.
+   After verification, create the user or select Resend credentials.
+   The AWS profile used by Verify for SES must have SES identity permissions;
+   S3 access alone does not grant those permissions.
+   To test password reset, use Forgot password for the created account and
+   follow the reset link received by email.
+   If accessing the app from another machine, update mrs.mail.base-url below.
+   For testing without real email, omit the spring.mail.* properties; the app
+   logs generated credentials and password-reset links instead.
+
+spring.mail.host=email-smtp.ap-southeast-1.amazonaws.com
+spring.mail.port=587
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.starttls.required=true
+spring.mail.username=REPLACE_WITH_TEST_SES_SMTP_USERNAME
+spring.mail.password=REPLACE_WITH_TEST_SES_SMTP_PASSWORD
+mrs.mail.from=REPLACE_WITH_VERIFIED_SES_SENDER
+mrs.mail.ses-region=ap-southeast-1
+mrs.mail.aws-profile=mrs-admin
+mrs.mail.base-url=http://localhost:8080
+
+   AWS references:
+   https://docs.aws.amazon.com/ses/latest/dg/smtp-credentials.html
+   https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html
