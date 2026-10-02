@@ -15,12 +15,7 @@ import software.amazon.awssdk.services.sesv2.SesV2Client;
 @EnableConfigurationProperties(MailProperties.class)
 public class MailConfig {
 
-    /**
-     * Boot only auto-configures a {@link JavaMailSender} once
-     * {@code spring.mail.host} is set, so its absence is the signal to fall
-     * back to logging. Choosing here rather than failing startup keeps a fresh
-     * checkout and the test suite runnable without a mail server.
-     */
+    /** Uses SMTP when {@code JavaMailSender} is configured, otherwise logs messages. */
     @Bean
     public MailTransport mailTransport(ObjectProvider<JavaMailSender> mailSender,
             MailProperties properties) {
@@ -32,15 +27,8 @@ public class MailConfig {
     }
 
     /**
-     * API client for declaring recipient identities from P-06a.
-     *
-     * <p>{@code mrs.mail.aws-profile} defaults to {@code mrs-admin}. That keeps
-     * local runs on the personal SES account; clearing the property (or setting
-     * it empty) falls back to the default credential chain, which is what EC2
-     * needs for the instance role. Never the SMTP username/password in
-     * {@code local.properties}.
-     *
-     * <p>{@link AwsCredentialsFactory} explains how a named profile is resolved.
+     * SES recipient-identity client; uses AWS API credentials, not SMTP credentials.
+     * A blank profile selects the default credential chain for the EC2 role.
      */
     @Bean(destroyMethod = "close")
     @ConditionalOnMissingBean(SesV2Client.class)

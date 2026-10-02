@@ -2,10 +2,7 @@ package com.funix.swp490x.mrs.service;
 
 import java.util.List;
 
-/**
- * UC-07 E2: the submitted password fails BR-12, so no account is created rather
- * than one created with a weak password.
- */
+/** Account creation rejected because the password fails BR-12 (UC-07 E2). */
 public class WeakPasswordException extends RuntimeException {
 
     private final List<String> violations;

@@ -8,13 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-/**
- * Where the song catalog is staged and which providers may enter it (UC-28).
- *
- * <p>One JSON object per song is written to
- * {@code s3://<bucket>/<prefix><externalSourceId>.json}; an import reads
- * that prefix and upserts into {@code song} / {@code tag} / {@code song_tag}.
- */
+/** Catalog staging, provider defaults and hosted-media settings (UC-28, UC-31). */
 @ConfigurationProperties("mrs.catalog")
 public class CatalogProperties {
 
@@ -26,24 +20,13 @@ public class CatalogProperties {
 
     private String region = "ap-southeast-1";
 
-    /**
-     * Named profile for the S3 client. Defaults to {@code mrs-admin} so a
-     * developer machine never silently reads another AWS account's bucket.
-     * Clear it (empty string) on EC2 so the instance role is used instead.
-     */
+    /** CLI profile for S3; blank uses the default credential chain, including the EC2 role. */
     private String awsProfile = "mrs-admin";
 
-    /**
-     * Set to a directory of {@code *.json} files to import from disk instead of
-     * S3. Lets a fresh checkout and the test suite run the whole import path
-     * with no AWS credentials.
-     */
+    /** Directory of staged JSON files to use instead of S3. */
     private String localDir = "";
 
-    /**
-     * Providers allowed into the catalog (SC-05). An object naming anything
-     * else is skipped and reported rather than silently accepted.
-     */
+    /** Provider defaults used when no database provider rows exist (SC-05). */
     private List<String> providers = List.of("EpidemicSound", "NCS", "OneOff");
 
     /** Import the whole prefix once at startup. Off by default. */
@@ -55,11 +38,7 @@ public class CatalogProperties {
 
     private final Media media = new Media();
 
-    /**
-     * Reading cover art to work out the shell's wash colours. Each import fills
-     * in a bounded number of songs, so a scheduled sync stays short and a large
-     * catalog finishes over several runs.
-     */
+    /** Settings for sampling a bounded batch of cover colors during each import. */
     public static class CoverArt {
 
         private boolean enabled = true;
@@ -112,11 +91,7 @@ public class CatalogProperties {
         /** Off by default so dev machines and CI never poll. */
         private boolean enabled = false;
 
-        /**
-         * Delay between the end of one sync and the start of the next. An
-         * unchanged prefix costs one listing and no object reads, so this can
-         * be short without meaningful cost.
-         */
+        /** Delay from the end of one scheduled sync to the start of the next. */
         private Duration interval = Duration.ofMinutes(15);
 
         public boolean isEnabled() {
@@ -204,18 +179,10 @@ public class CatalogProperties {
         return media;
     }
 
-    /**
-     * Company-hosted audio and cover art uploaded from Add Song on P-06b. JSON staging
-     * still lives on {@link #prefix}; this block is only the binaries and the
-     * public URL the staged JSON points at.
-     */
+    /** Upload prefixes and CDN URLs for hosted audio and artwork; JSON uses the catalog prefix. */
     public static class Media {
 
-        /**
-         * Origin the player and the shell load media from. CloudFront in
-         * production; a local store still writes the same URL shape so the
-         * JSON is identical to what an S3 upload produces.
-         */
+        /** Base URL stored in staged JSON for hosted media. */
         private String publicBaseUrl = "https://d34ixswlpjs53y.cloudfront.net";
 
         private String audioPrefix = "song-data/audio/";
@@ -231,10 +198,10 @@ public class CatalogProperties {
                 "NCS", "ncs",
                 "OneOff", "one-off"));
 
-        /** 100 MB — a full-length 16-bit WAV; 24-bit masters should be MP3. */
+        /** Maximum audio upload size: 100 MB. */
         private long maxAudioBytes = 100L * 1024 * 1024;
 
-        /** 5 MB — covers are JPEGs, not print masters. */
+        /** Maximum artwork upload size: 5 MB. */
         private long maxCoverBytes = 5L * 1024 * 1024;
 
         private List<String> audioTypes = List.of(
@@ -333,11 +300,7 @@ public class CatalogProperties {
             return base + path;
         }
 
-        /**
-         * Object key when {@code publicUrl} is company-hosted media
-         * ({@code song-data/audio|artwork/…}). Vendor CDN URLs yield empty:
-         * those bytes are not in our bucket and must not be deleted.
-         */
+        /** Resolves hosted-media URLs to object keys; external provider URLs are excluded from deletion. */
         public Optional<String> hostedObjectKey(String publicUrl) {
             if (publicUrl == null || publicUrl.isBlank()) {
                 return Optional.empty();

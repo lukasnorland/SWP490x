@@ -529,10 +529,7 @@ class PlaylistFlowTest {
                 .andExpect(status().isNotFound());
     }
 
-    /**
-     * BR-09: a collaborator edits the playlist on P-03b but has no Export
-     * button; the grant is edit rights, not a licence to take the data out.
-     */
+    /** BR-09: collaborators may edit but never see an Export control. */
     @Test
     void theDetailScreenHidesExportFromACollaborator() throws Exception {
         Playlist shared = draft("Morning coffee");
@@ -573,11 +570,7 @@ class PlaylistFlowTest {
                                 containsString("Morning-coffee.csv")));
     }
 
-    /**
-     * UC-19 normal flow: HTTP 409, MSG_014 and the current version, rendered in
-     * place rather than redirected, so the rejected change is still there to
-     * clone.
-     */
+    /** UC-19: renders HTTP 409 with MSG_014 and the rejected edit available for cloning. */
     @Test
     void aStaleSaveReturns409WithTheConflictScreen() throws Exception {
         willThrow(new StalePlaylistException(5L, 3, 7))

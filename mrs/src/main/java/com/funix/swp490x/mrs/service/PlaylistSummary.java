@@ -3,11 +3,7 @@ package com.funix.swp490x.mrs.service;
 import com.funix.swp490x.mrs.domain.PlaylistStatus;
 import java.time.LocalDateTime;
 
-/**
- * One row of the P-03a table. A read model rather than the entity, so the
- * template cannot reach a lazy association with the view already rendering
- * ({@code spring.jpa.open-in-view=false}).
- */
+/** Playlist list projection with display fields initialized for template rendering. */
 public record PlaylistSummary(
         Long id,
         String name,

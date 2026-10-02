@@ -11,12 +11,8 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 
 /**
- * One execution of the catalog import, kept so P-06b can report what the last
- * run did and BR-10 has a trail for unattended runs.
- *
- * <p>Separate from {@code audit_log}, which requires an actor: a scheduled sync
- * has none. A {@link ImportTrigger#MANUAL} run also writes {@code audit_log}
- * with the ADMIN who pressed the button.
+ * Import trigger, actor, times and outcome (UC-28).
+ * Manual runs also write an actor-bound {@code audit_log} entry.
  */
 @Entity
 @Table(name = "catalog_import_run")

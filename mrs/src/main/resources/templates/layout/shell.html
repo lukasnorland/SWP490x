@@ -1,33 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org" th:fragment="shell(content)">
-<!--/*
-  Authenticated shell — Screen Design Spec 4.0.
-
-  Fixed 240px sidebar, glass sticky top bar, content column capped at 1200px,
-  and the 72px preview bar above everything. Responsive behaviour lives in
-  shell.css (Part 5).
-
-  The sidebar is a Bootstrap offcanvas: below 768px it is a drawer with
-  Bootstrap's backdrop, focus trap, Escape handling and scroll lock, and above
-  that width shell.css pins it open as the permanent rail.
-
-  data-bs-theme="dark" puts Bootstrap into its dark mode; theme.css then points
-  that mode's variables at the tokens, so components arrive in the spec palette.
-
-  Pages use it like this:
-
-    <html th:replace="~{layout/shell :: shell(~{::content})}">
-      <body>
-        <div th:fragment="content"> … </div>
-      </body>
-    </html>
-
-  and set these model attributes:
-    pageTitle            — page heading and browser title
-    activeNav            — nav key of the current section
-    breadcrumbParent     — optional label of the parent level (deep pages)
-    breadcrumbParentUrl  — optional URL of that parent
-*/-->
+<!--/* Authenticated shell with responsive navigation and a persistent player.
+  Usage: layout/shell :: shell(~{::content})
+  Model: pageTitle, activeNav, optional breadcrumbParent and breadcrumbParentUrl. */-->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -51,8 +26,7 @@
 
 <svg th:replace="~{fragments/icons :: sprite}"></svg>
 
-<!-- Primary navigation (4.0). Only the sections this role can use are
-     rendered; the API rejects out-of-role requests regardless (2.1). -->
+<!-- Role-aware navigation; SecurityConfig enforces access server-side (2.1). -->
 <aside class="sidebar offcanvas offcanvas-start" tabindex="-1" id="sidebar"
        aria-label="Navigation">
   <a class="sidebar__brand" th:href="@{/}">
@@ -136,9 +110,7 @@
   </main>
 </div>
 
-<!-- Preview bar (4.0 / glossary): HTML5 player for the provider CDN preview
-     URL (Song.audioUrl). Internal curation listen only — not public streaming
-     (LI-02). -->
+<!-- Shared HTML5 player for the stored vendor/CDN audio URL (UC-33, BR-18). -->
 <div class="preview-bar fixed-bottom" data-preview-bar>
   <audio data-preview-audio preload="none"></audio>
   <div class="preview-bar__art" data-preview-art aria-hidden="true"></div>

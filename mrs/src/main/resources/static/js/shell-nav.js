@@ -1,9 +1,5 @@
-/* ==========================================================================
-   Soft-nav: sidebar only — swap main.content, keep the player mounted.
-   Catalog Prev/Next/Filter stay on the lighter results-only partial path.
-   Soft-nav must not listen on .shell__main or its popstate will restomp
-   catalog history with a full main swap.
-   ========================================================================== */
+/* Sidebar navigation swaps main content while preserving the player.
+   Catalog paging and filters use their separate results-only history path. */
 "use strict";
 
 import { enhanceForms } from "./forms.js";

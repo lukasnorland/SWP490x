@@ -2,11 +2,7 @@ package com.funix.swp490x.mrs.catalog;
 
 import java.util.List;
 
-/**
- * An ADMIN typed a genre or mood that is not on the allowlist. Bulk import
- * still demotes unknowns to Tags; the catalog form refuses them so the
- * vocabularies cannot drift again.
- */
+/** Admin input contains a genre or mood outside the allowed vocabulary. */
 public class InvalidClassificationException extends RuntimeException {
 
     private final List<String> unknownGenres;

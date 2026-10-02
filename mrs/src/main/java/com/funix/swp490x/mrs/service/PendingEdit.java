@@ -2,19 +2,10 @@ package com.funix.swp490x.mrs.service;
 
 import java.util.List;
 
-/**
- * The change a requester was making when the save was rejected as stale. It
- * rides through the conflict screen so "Clone as New Playlist" can reapply it
- * on the copy instead of asking the user to retype it (UC-19 A2, BR-11).
- */
+/** Content edit rejected as stale, carried into a new Draft through conflict cloning (UC-19, BR-11). */
 public record PendingEdit(Kind kind, List<Long> songIds, boolean up, String name) {
 
-    /**
-     * Only a content edit can be cloned. BR-11 is about carrying the
-     * requester's own in-progress work somewhere safe; publishing, deleting or
-     * resharing a playlist someone else has already changed has nothing to
-     * carry into a copy, so those offer refresh alone.
-     */
+    /** Only add, remove, move and rename can be cloned; lifecycle and grant changes offer refresh only. */
     public enum Kind {
         ADD_SONG(true),
         REMOVE_SONG(true),

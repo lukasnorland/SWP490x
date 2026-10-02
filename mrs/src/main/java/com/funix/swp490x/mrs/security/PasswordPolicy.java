@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * BR-12 / BV-02 password rules: 8–64 characters with at least one uppercase
- * letter, one digit and one special character.
- *
- * <p>The same four rules drive the live checklist on P-01, P-05 and P-06a. The
- * checklist in {@code forms.js} mirrors them for instant feedback; this class is
- * the authority, because the server is the boundary.
+ * Server-enforced BR-12/BV-02 rules: 8-64 characters, uppercase, digit and special character.
+ * {@code forms.js} mirrors these rules for the live checklist.
  */
 public final class PasswordPolicy {
 

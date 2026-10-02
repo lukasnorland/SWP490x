@@ -1,22 +1,5 @@
-/* ==========================================================================
-   MRS shell — the authenticated layout of spec 4.0, plus the responsive rules
-   of Part 5.
-
-   Bootstrap has no application shell, but most of its parts map onto Bootstrap
-   components that are configured here rather than reimplemented: the sidebar is
-   an offcanvas, its entries are nav-pills, the top bar is sticky-top and the
-   preview bar is fixed-bottom. What is left is the glass blur, the gradient
-   accents and the fixed dimensions of 1.4, none of which Bootstrap expresses.
-
-   Stacking follows Bootstrap's z-index scale so the shell cannot collide with
-   dropdowns, modals or offcanvas backdrops:
-     top bar 1020 (sticky-top) < sidebar rail 1025 < preview bar 1030
-     (fixed-bottom) < offcanvas drawer 1045 < modal 1055.
-
-   Do not put z-index on .shell__main. Bootstrap appends .modal-backdrop to
-   body while page modals stay nested in main.content; a stacking context on
-   .shell__main traps those dialogs under the backdrop (clicks/focus die).
-   ========================================================================== */
+/* Authenticated shell and responsive layouts (Screen Design Spec 4.0, Part 5).
+   Keep .shell__main free of z-index so nested modals remain above the body backdrop. */
 
 body.shell {
   /* The preview bar sits above all content, so the page reserves its height.

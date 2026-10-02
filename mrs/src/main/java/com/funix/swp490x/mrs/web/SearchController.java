@@ -100,10 +100,8 @@ public class SearchController {
     }
 
     /**
-     * "Create playlist from results": a new Draft holding every song the
-     * current filters match, across all pages, in recommendation order. The
-     * filters travel with the form (not the page's song ids) so the server
-     * re-runs the same search and Top-N the curator is looking at.
+     * Creates a Draft from all ranked matches, subject to Top-N.
+     * Submitted filters are searched again on the server; page-local song ids are not trusted.
      */
     @PostMapping(Routes.SEARCH_CREATE_PLAYLIST)
     public String createPlaylistFromResults(@AuthenticationPrincipal MrsUserDetails user,

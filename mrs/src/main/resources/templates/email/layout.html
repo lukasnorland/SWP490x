@@ -1,20 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="message(content)">
-<!--/*
-  Shared wrapper for the messages in NotificationService.
-
-  Mail clients strip <link> tags and most ignore custom properties, so this is
-  deliberately the one place in the project that hard-codes colours from
-  tokens.css rather than referencing them, and styles inline rather than by
-  class. It is also light rather than dark: a dark message renders
-  unpredictably across clients that impose their own background.
-
-  Used like the app shell:
-
-    <html th:replace="~{email/layout :: message(~{::content})}">
-      <body><div th:fragment="content"> … </div></body>
-    </html>
-*/-->
+<!--/* Shared email wrapper with inline colors/styles for mail-client compatibility.
+  Usage: email/layout :: message(~{::content}) */-->
 <head>
   <meta charset="UTF-8">
 </head>

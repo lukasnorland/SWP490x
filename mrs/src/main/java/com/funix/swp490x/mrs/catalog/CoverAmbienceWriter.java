@@ -7,15 +7,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Stores one batch of sampled wash colours in a single transaction.
- *
- * <p>Separate from {@link CoverAmbienceService} so that reading covers, which
- * is minutes of network, happens with no transaction open. The caller decides
- * how much to hand over at a time, the same way the import chunks its upserts.
- *
- * <p>The write is a targeted update rather than saving the entity: colours are
- * derived data, so recomputing them should neither hydrate a song's tags nor
- * bump the version that BR-06 uses to protect a designer's edit.
+ * Writes sampled colors in one transaction after network reads finish.
+ * Derived color updates leave tags and the optimistic-lock version unchanged (BR-06).
  */
 @Component
 public class CoverAmbienceWriter {

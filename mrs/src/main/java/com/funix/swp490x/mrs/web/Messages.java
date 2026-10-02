@@ -1,12 +1,6 @@
 package com.funix.swp490x.mrs.web;
 
-/**
- * User-facing strings the SRS fixes by code (5.2 Application Messages List).
- *
- * <p>Held here so a screen and the document cannot drift apart silently. Only
- * the codes the built screens use are listed; the rest arrive with their
- * screens.
- */
+/** Shared screen messages, including the SRS 5.2 message catalog. */
 public final class Messages {
 
     /** MSG_018. Shown after a CSV response has been downloaded successfully. */
@@ -31,19 +25,11 @@ public final class Messages {
     public static final String USER_CREATED_EMAIL_FAILED = "The account was created but the "
             + "notification email could not be sent. You can resend it from the User Account List.";
 
-    /**
-     * The catalogue has no code for a malformed address. It is worth its own
-     * message rather than folding into MSG_012, which would claim the address
-     * belongs to someone.
-     */
+    /** Email syntax/length validation message, distinct from duplicate-email rejection. */
     public static final String INVALID_EMAIL =
             "Enter a valid email address — the initial password is sent to it.";
 
-    /**
-     * The catalogue has no code for a resend either, so these two say what
-     * actually happened: a resend cannot repeat the original password (see
-     * {@code UserAccountService.reissueInitialPassword}).
-     */
+    /** Credential resend outcomes; each resend generates a new initial password. */
     public static final String CREDENTIALS_RESENT =
             "A new initial password has been sent to the user's registered address.";
 
@@ -51,7 +37,7 @@ public final class Messages {
             + "the notification email could not be sent. The previous password no longer works, "
             + "so please try resending.";
 
-    /** Soft-delete outcome (spec 4.9). Catalogue has no dedicated code yet. */
+    /** Account deactivation outcome (UC-08). */
     public static final String USER_DEACTIVATED =
             "Account deactivated. Any open session will end on the next request.";
 
@@ -75,11 +61,7 @@ public final class Messages {
     public static final String SELF_MODIFICATION_FORBIDDEN =
             "You cannot deactivate, change the role of, or resend credentials for your own account.";
 
-    /**
-     * Outcomes of the P-06a "Verify for SES" control. Not in the SRS catalogue —
-     * they exist because the sandbox forces recipient verification before BR-15
-     * can deliver, and the CLI is awkward for a live demo.
-     */
+    /** SES sandbox recipient-verification outcomes. */
     public static final String SES_VERIFICATION_SENT = "Amazon SES has emailed a verification "
             + "link to that address. Ask the owner to confirm it within 24 hours, then create "
             + "the account.";
@@ -96,7 +78,7 @@ public final class Messages {
                     + "'aws login --profile mrs-admin', confirm that profile still works, "
                     + "then try again.";
 
-    /** Landing-page self-registration request outcome messages. */
+    /** Account-request outcomes; no self-registration occurs (UC-38, BR-19). */
     public static final String REGISTER_REQUEST_SENT = "Your registration request has been sent. "
             + "An ADMIN will review it and contact you.";
 
@@ -110,11 +92,7 @@ public final class Messages {
     public static final String REGISTER_REQUEST_RATE_LIMITED =
             "Too many requests. Please try again later.";
 
-    /**
-     * Outcomes of the P-06b catalog import (UC-28). The catalogue has no codes
-     * for the S3 path, which reports counts rather than a fixed sentence, so
-     * these cover only the cases with nothing to count.
-     */
+    /** Catalog sync outcomes when no count summary is available (UC-28). */
     public static final String IMPORT_STARTED =
             "Import started. Keep this page open to watch progress; the summary appears when it finishes.";
 
@@ -159,10 +137,7 @@ public final class Messages {
     public static final String SONG_DELETE_FAILED =
             "The song could not be removed because a playlist changed at the same time. Try again, or the next Sync Catalog will remove it.";
 
-    /**
-     * Outcomes of P-03a / P-03b (FT-06 – FT-08). The catalogue has no codes for
-     * the playlist screens yet, so these say what happened in the same voice.
-     */
+    /** Playlist action outcomes (FT-06 through FT-08). */
     public static final String PLAYLIST_CREATED = "Playlist created.";
 
     public static final String PLAYLIST_CREATED_WITH_SONG =
@@ -248,13 +223,10 @@ public final class Messages {
     public static final String SUCCESSOR_REQUIRED =
             "Choose who should own each playlist before continuing.";
 
-    /** MSG_006. P-02 / no-results: nothing carries every category that is set. */
+    /** MSG_006. No song matches the interpreted chips or fallback keyword. */
     public static final String SEARCH_NO_MATCHES = "No songs match these filters.";
 
-    /**
-     * FT-05 NAC-03 (BV-05): a recommendation count is a positive integer, so
-     * 0 and negatives are rejected inline instead of being read as "no limit".
-     */
+    /** MSG_037 / BV-05: recommendation count must be a positive integer. */
     public static final String SEARCH_TOP_N_POSITIVE =
             "Enter a recommendation count of 1 or more.";
 
@@ -271,10 +243,7 @@ public final class Messages {
 
     public static final String SONGS_ADDED_TO_PLAYLIST = "Songs added to the playlist.";
 
-    /**
-     * Outcomes of P-05 / UC-05. The catalogue has no dedicated codes for the
-     * profile save, so these say what happened in the same voice.
-     */
+    /** Profile display-name and password outcomes (UC-05). */
     public static final String PROFILE_NAME_SAVED = "Display name updated.";
 
     public static final String PROFILE_PASSWORD_SAVED =

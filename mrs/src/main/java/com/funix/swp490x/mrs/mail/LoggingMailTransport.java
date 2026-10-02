@@ -4,12 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Stand-in used when no SMTP host is configured.
- *
- * <p>Writes the whole message to the log so a local run or the demo can still
- * follow a reset link and read an initial password. Every flow behaves exactly
- * as it would with a real server, including never failing, which is why this is
- * a development aid rather than something to leave on in production.
+ * Logs rendered messages for development when no SMTP host is configured.
+ * Does not deliver mail or simulate SMTP failures.
  */
 class LoggingMailTransport implements MailTransport {
 

@@ -14,7 +14,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface SongRepository extends JpaRepository<Song, Long> {
 
-    /** Update-in-place lookup for the import (DC-04). */
+    /** Looks up the existing provider/external-id row for update-in-place import (UC-28). */
     Optional<Song> findBySourceProviderAndExternalSourceId(String sourceProvider,
             String externalSourceId);
 
@@ -22,13 +22,7 @@ public interface SongRepository extends JpaRepository<Song, Long> {
 
     boolean existsByIsrcIgnoreCase(String isrc);
 
-    /**
-     * Everything the import diff needs, and nothing else.
-     *
-     * <p>A sync compares roughly 3,000 external ids against their stored ETags.
-     * Hydrating that many entities with their tag collections just to read two
-     * columns would dominate the run, so this returns the pairs directly.
-     */
+    /** Projects external ids and ETags without loading song entities or tags. */
     @Query("SELECT s.externalSourceId, s.sourceEtag FROM Song s WHERE s.externalSourceId IS NOT NULL")
     List<Object[]> findExternalIdAndEtagPairs();
 
@@ -49,20 +43,8 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     int deleteByExternalSourceIdIn(@Param("extIds") Collection<String> extIds);
 
     /**
-     * P-06b Zone B/C — ids of the songs on one page, filtered.
-     *
-     * <p>Ids rather than entities, and the tag filter is an EXISTS rather than a
-     * join, for two reasons: a join would need DISTINCT, which MySQL refuses to
-     * combine with an ORDER BY on a column outside the select list; and paging a
-     * query that also fetches a collection makes Hibernate apply the limit in
-     * memory, which over 3,000 songs means loading the whole catalog per page.
-     * {@link #findAllWithTags} then fetches just this page's tags.
-     *
-     * <p>Genre, mood and freeform tag filters are OR within a vocabulary and
-     * AND across them: a song must match at least one selected value in each
-     * category that has a selection. An empty list leaves that vocabulary
-     * unconstrained. Hibernate rejects {@code IN ()}, so an unused list is
-     * bound to a dummy value and skipped with a boolean flag.
+     * Pages catalog song ids without fetching tag collections.
+     * Filters use OR within a vocabulary and AND across vocabularies; empty lists use a skipped sentinel.
      */
     @Query("""
             SELECT s.id FROM Song s
@@ -172,14 +154,7 @@ public interface SongRepository extends JpaRepository<Song, Long> {
             @Param("q") String q,
             Pageable pageable);
 
-    /**
-     * Songs whose cover has never been sampled for the shell's wash, or whose
-     * cover has changed since it was.
-     *
-     * <p>Id and url rather than entities: an import may look at thousands of
-     * these, and hydrating a song with its tags to read one column would cost
-     * far more than the update that follows.
-     */
+    /** Projects songs with new or changed cover URLs without loading their tags. */
     @Query("""
             SELECT s.id, s.coverUrl FROM Song s
             WHERE s.coverUrl IS NOT NULL
@@ -188,11 +163,7 @@ public interface SongRepository extends JpaRepository<Song, Long> {
             """)
     List<Object[]> findCoversNeedingAmbience(Pageable pageable);
 
-    /**
-     * Records what a cover gave, deliberately without touching {@code version}:
-     * wash colours are derived, so recomputing them must not collide with a
-     * designer's own edit (BR-06).
-     */
+    /** Updates derived cover colors without advancing the optimistic-lock version (BR-06). */
     @Modifying
     @Query("""
             UPDATE Song s

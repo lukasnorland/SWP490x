@@ -9,11 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-/**
- * Holds an account on the change-password screen until it has set its own
- * password (FT-09, flow F-04). The login redirect alone is not enough — the
- * user could navigate away — so every request is checked.
- */
+/** Requires first-login password change before accessing other application pages (UC-34, F-04). */
 @Component
 public class ForcedPasswordChangeInterceptor implements HandlerInterceptor {
 

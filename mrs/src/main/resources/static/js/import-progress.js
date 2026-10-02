@@ -1,9 +1,4 @@
-/* ==========================================================================
-   P-06b catalog sync — progress panel.
-   The POST returns as soon as the sync is queued. This polls the status URL on
-   the modal and fills it in so a long run is not a frozen page. Without
-   JavaScript the forms still submit; the admin reloads to see the last run.
-   ========================================================================== */
+/* Polls asynchronous catalog sync status for the P-06b progress panel. */
 "use strict";
 
 var POLL_MS = 600;

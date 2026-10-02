@@ -15,25 +15,14 @@ import org.springframework.util.StringUtils;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 
-/**
- * Wires the catalog import to its source.
- *
- * <p>{@code mrs.catalog.local-dir} decides which store is used, the same way
- * {@code spring.mail.host} decides whether mail is sent or logged: setting it
- * keeps a developer machine off S3 entirely, so a fresh checkout and the test
- * suite need no credentials.
- */
+/** Selects the local catalog store when {@code mrs.catalog.local-dir} is set, otherwise S3. */
 @Configuration
 @EnableConfigurationProperties(CatalogProperties.class)
 public class CatalogConfig {
 
     private static final Logger log = LoggerFactory.getLogger(CatalogConfig.class);
 
-    /**
-     * Lazy so a run that never imports anything (every screen other than
-     * P-06b) does not pay for credential resolution, which shells out to
-     * the AWS CLI when a named profile is configured.
-     */
+    /** Defers AWS credential resolution until the S3 client is needed. */
     @Bean(destroyMethod = "close")
     @ConditionalOnMissingBean(S3Client.class)
     @Lazy

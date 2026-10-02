@@ -23,12 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Song browse for Content Designer. Reuses {@link SongCatalogService} and the
- * same preview-player wiring as P-06b, without admin import or metadata ops.
- * ADMIN is sent to {@link Routes#ADMIN_CATALOG}; Customers are closed out.
- *
- * <p>Full-page GETs render the shell. Requests with {@code X-MRS-Partial: results}
- * return only the table + pager fragment so the player bar stays mounted.
+ * Content Designer catalog browse and playback; ADMIN uses P-06b and Customers cannot browse.
+ * Partial requests replace only results, preserving the shell player.
  */
 @Controller
 public class SongBrowseController {
@@ -141,11 +137,7 @@ public class SongBrowseController {
         return values == null || values.isEmpty() ? List.of() : values;
     }
 
-    /**
-     * Only on a full-page GET: the Add-to-playlist dialog sits outside
-     * {@code #catalog-results}, so the partial response has no use for the list
-     * and should not pay for the query.
-     */
+    /** Loads dialog playlist choices only for full-page responses. */
     private void populateShell(Model model, MrsUserDetails user) {
         List<Tag> tags = tagRepository.findAllUsedOrderByTypeAscNameAsc();
         model.addAttribute("pageTitle", "Songs");

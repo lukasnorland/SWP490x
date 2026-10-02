@@ -12,16 +12,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 import java.time.LocalDateTime;
 
-/**
- * A curated ordered set of songs. Maps the {@code playlist} table created by
- * Flyway V1; the schema is owned by the migration and JPA only validates
- * against it.
- *
- * <p>Ownership and authorship are plain id columns rather than associations:
- * every screen that shows a playlist needs the modifier's display name, never
- * the whole account, and {@code spring.jpa.open-in-view=false} would make a
- * lazy association fail at render time.
- */
+/** An ordered Draft or Published playlist. Ownership and modifier fields store user ids. */
 @Entity
 @Table(name = "playlist")
 public class Playlist {
@@ -38,7 +29,7 @@ public class Playlist {
     @Column(nullable = false, length = 20)
     private PlaylistStatus status = PlaylistStatus.DRAFT;
 
-    /** Reassignable by ADMIN only (BR-14). */
+    /** Changes only during ADMIN-driven owner deactivation or demotion (BR-14). */
     @Column(name = "owner_id", nullable = false)
     private Long ownerId;
 
@@ -58,13 +49,7 @@ public class Playlist {
     @Column(name = "published_at")
     private LocalDateTime publishedAt;
 
-    /**
-     * Optimistic locking (DC-02, BR-06). Seeded at 1 rather than the 0 a
-     * primitive would default to, because DC-11 counts playlist versions from
-     * 1 and the conflict screen shows this number to the person who lost the
-     * race. Hibernate keeps a non-negative value it finds here instead of
-     * reseeding, so the field initializer is all it takes.
-     */
+    /** Optimistic-lock version starts at 1 and advances on each accepted mutation (BR-06, DC-11). */
     @Version
     @Column(nullable = false)
     private int version = 1;
@@ -79,11 +64,7 @@ public class Playlist {
         this.lastModifiedBy = actorId;
     }
 
-    /**
-     * The columns default to CURRENT_TIMESTAMP, but an insert from JPA sends
-     * every field explicitly and a null would be rejected outright rather than
-     * defaulted.
-     */
+    /** Initializes timestamps because JPA inserts explicit values instead of using database defaults. */
     @PrePersist
     void stampTimestamps() {
         LocalDateTime now = LocalDateTime.now();

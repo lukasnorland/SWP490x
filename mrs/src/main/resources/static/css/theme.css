@@ -1,16 +1,5 @@
-/* ==========================================================================
-   MRS theme — binds Bootstrap 5.3 to the design tokens of Screen Design
-   Spec Part 1.
-
-   Bootstrap ships its own dark palette under [data-bs-theme="dark"]. This file
-   loads after bootstrap.min.css and re-points those same custom properties at
-   the tokens, so every Bootstrap component inherits the spec palette instead of
-   being restyled component by component. tokens.css stays the single place a
-   spec value is written down.
-
-   Load order matters: bootstrap.min.css, tokens.css, theme.css,
-   tom-select.bootstrap5.min.css, mrs.css, shell.css.
-   ========================================================================== */
+/* Maps Bootstrap components to MRS design tokens.
+   Load before vendor Tom Select, mrs.css and shell.css. */
 
 /* --- Global palette and scale ------------------------------------------- */
 

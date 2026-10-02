@@ -13,12 +13,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
- * Applies the P-06d session inactivity window to the current HTTP session.
- *
- * <p>{@code server.servlet.session.timeout} is fixed at boot; this overlay
- * lets ADMIN shorten or restore the window without a restart. New sessions
- * still pick up the container default until their first authenticated
- * request hits this filter.
+ * Applies the live inactivity setting to authenticated sessions without a restart.
+ * New sessions initially use the servlet-container default.
  */
 @Component
 public class SessionTimeoutFilter extends OncePerRequestFilter {

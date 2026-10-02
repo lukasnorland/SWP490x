@@ -41,10 +41,7 @@ class CoverAmbienceTest {
         assertThat(ambience.get().a()).isNotEqualTo(ambience.get().b());
     }
 
-    /**
-     * A grey cover has no colour worth ranking, but it still gets a wash: the
-     * alternative is a song that looks like the player is broken.
-     */
+    /** Uses the whole-image average when no color bucket survives filtering. */
     @Test
     void fallsBackToTheAverageWhenNothingIsColourful() {
         Optional<CoverAmbience> ambience = CoverAmbience.from(solid(new Color(128, 128, 128)));

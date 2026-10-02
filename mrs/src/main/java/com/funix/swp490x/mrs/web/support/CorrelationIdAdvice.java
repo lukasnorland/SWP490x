@@ -5,11 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-/**
- * Exposes the request id to templates. Thymeleaf 3.1 no longer provides
- * {@code #request}, and the error dispatch skips {@link CorrelationIdFilter},
- * so the 500 page reads this attribute rather than the servlet API.
- */
+/** Exposes the request-id attribute to templates, including the 500 error page. */
 @ControllerAdvice
 public class CorrelationIdAdvice {
 

@@ -9,13 +9,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 /**
- * One song at one position in one playlist. Maps the {@code playlist_song}
- * table created by Flyway V1.
- *
- * <p>An entity rather than a {@code @ManyToMany} with {@code @OrderColumn}:
- * order columns are zero-based, which the {@code ck_plsong_position} check
- * forbids, and {@code uq_playlistsong_position} means every renumbering has to
- * be sequenced explicitly anyway (see {@code PlaylistService}).
+ * Playlist membership with a positive 1-based position (DC-04).
+ * Explicit renumbering preserves the unique-position constraint.
  */
 @Entity
 @Table(name = "playlist_song")
@@ -24,11 +19,7 @@ public class PlaylistSong {
     @EmbeddedId
     private PlaylistSongId id;
 
-    /**
-     * The catalog row, so the detail table can render a song without a second
-     * lookup. Read-only, because {@code song_id} is already written by the
-     * composite key.
-     */
+    /** Read-only song association; the composite key owns {@code song_id}. */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "song_id", nullable = false, insertable = false, updatable = false)
     private Song song;

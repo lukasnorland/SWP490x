@@ -2,13 +2,7 @@ package com.funix.swp490x.mrs.catalog;
 
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- * One song's worth of files and metadata from the P-06b Add Song form.
- *
- * <p>Field names match {@code drafts[i].*} so Spring can bind a batch of
- * sections from one multipart request. {@code externalSourceId} is not a
- * field: the service assigns it.
- */
+/** One P-06b Add Song entry bound from {@code drafts[i].*}; the service assigns its external id. */
 public class SongDraftForm {
 
     private MultipartFile audio;

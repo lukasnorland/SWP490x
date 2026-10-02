@@ -1,7 +1,4 @@
-/* ==========================================================================
-   Typeahead for Genre / Mood / Tags on P-06b. Genres and moods are closed
-   lists; tags stay freeform. Without Tom Select the inputs remain plain text.
-   ========================================================================== */
+/* P-06b typeahead: allowed genres/moods and freeform tags. */
 "use strict";
 
 function suggestUrlFrom(root) {

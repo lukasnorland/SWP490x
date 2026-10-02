@@ -62,12 +62,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.BDDMockito.given;
 
-/**
- * Renders every screen through the real Thymeleaf layouts, and checks the
- * role-based access rules of spec 2.1.
- *
- * <p>Runs on the web layer only, so no database is needed.
- */
+/** Tests real Thymeleaf layouts and role access in an MVC slice without a database. */
 @WebMvcTest(controllers = {AuthController.class, HomeController.class, SearchController.class,
         SongBrowseController.class, PlaylistController.class, WorkspaceController.class,
         ProfileController.class, AdminLogsController.class, AdminUserController.class,

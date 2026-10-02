@@ -5,11 +5,7 @@ import com.funix.swp490x.mrs.domain.User;
 import com.funix.swp490x.mrs.domain.UserStatus;
 import java.time.LocalDateTime;
 
-/**
- * Read model for an account. Services return this rather than the {@link User}
- * entity so a template or mailer cannot touch a lazy association or a password
- * hash (TDS Part 2.5).
- */
+/** Account view record without a password hash or lazy entity associations (TDS 2.5). */
 public record UserView(
         Long id,
         String username,

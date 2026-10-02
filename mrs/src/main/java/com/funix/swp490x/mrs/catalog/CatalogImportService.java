@@ -30,33 +30,18 @@ import org.springframework.stereotype.Service;
 import tools.jackson.databind.json.JsonMapper;
 
 /**
- * Brings MySQL in step with the staged catalog (UC-28).
- *
- * <p>Work is decided from the object listing alone. Every listing entry carries
- * an ETag, and {@code song.source_etag} records the hash each row was built
- * from, so an object is downloaded only when it is new or its content changed.
- * Rows whose object has left the prefix are removed, so MySQL does not keep
- * songs S3 no longer stages. A sync over an untouched prefix therefore costs
- * one listing and no reads, which is what makes it safe to run on a schedule.
- *
- * <p>Startup and the scheduled poller call {@link #sync} and wait. Sync Catalog
- * on P-06b calls {@link #startAsync} so the page can poll {@link #progress}
- * instead of sitting on a frozen POST. Only one may run at a time; a second
- * caller is told the catalog is already syncing rather than racing the first.
+ * Syncs staged JSON into MySQL using ETags and optimistic locking (UC-28, BR-06).
+ * Runs one import per process; manual imports expose asynchronous progress.
  */
 @Service
 public class CatalogImportService {
 
     private static final Logger log = LoggerFactory.getLogger(CatalogImportService.class);
 
-    /**
-     * Rows per transaction. Small enough that a failure loses little work, big
-     * enough that 3,000 songs do not mean 3,000 commits. The next run picks up
-     * whatever did not commit, because those objects still differ by ETag.
-     */
+    /** Commits each chunk independently; uncommitted objects are retried on the next sync. */
     private static final int CHUNK_SIZE = 200;
 
-    /** Concurrent object reads. Enough to hide latency, few enough to stay polite. */
+    /** Maximum concurrent object reads. */
     private static final int FETCH_THREADS = 8;
 
     private final CatalogObjectStore store;
@@ -66,16 +51,13 @@ public class CatalogImportService {
     private final SongUpserter upserter;
     private final CoverAmbienceService coverAmbience;
 
-    /**
-     * Single instance, single process, so a flag is enough. Scaling to more
-     * than one instance would need a shared lock instead.
-     */
+    /** Process-local import guard; multiple instances would require a shared lock. */
     private final AtomicBoolean running = new AtomicBoolean(false);
 
     private final AtomicReference<ImportProgress> snapshot =
             new AtomicReference<>(ImportProgress.idle());
 
-    /** One background import at a time; the HTTP request must not hold it. */
+    /** Background executor for the single asynchronous import. */
     private final ExecutorService importExecutor = Executors.newSingleThreadExecutor(r -> {
         Thread thread = new Thread(r, "catalog-import");
         thread.setDaemon(true);
@@ -96,10 +78,7 @@ public class CatalogImportService {
         this.coverAmbience = coverAmbience;
     }
 
-    /**
-     * @param force read and re-apply every object, ignoring stored ETags. For
-     *     recovering from a bad import; a normal run never needs it.
-     */
+    /** @param force reapply all objects, including those with unchanged ETags */
     public ImportSummary sync(ImportTrigger trigger, Long actorId, boolean force) {
         if (!running.compareAndSet(false, true)) {
             log.info("Catalog sync already in progress; {} trigger ignored", trigger);
@@ -113,10 +92,8 @@ public class CatalogImportService {
     }
 
     /**
-     * Starts a sync on a background thread so P-06b can return immediately and
-     * poll {@link #progress()}.
-     *
-     * @return false when another import already holds the lock
+     * Starts an asynchronous sync for P-06b progress polling.
+     * @return false when another import is running
      */
     public boolean startAsync(ImportTrigger trigger, Long actorId, boolean force) {
         return startAsync(trigger, actorId, force, List.of());
@@ -181,8 +158,7 @@ public class CatalogImportService {
             try {
                 record(run, failed);
             } catch (RuntimeException recordFailure) {
-                // The original cause is what matters; losing the record of it is
-                // not worth replacing the reported error with a second one.
+                // Preserve the import failure if recording its outcome also fails.
                 log.error("Could not record the failed catalog sync", recordFailure);
             }
             publish(false, "failed", "The import could not be completed.",
@@ -192,9 +168,7 @@ public class CatalogImportService {
     }
 
     /**
-     * BR-10 wants an actor against every state change. Only a run someone
-     * triggered has one, so the audit entry is written here rather than in the
-     * controller, and an unattended run relies on {@code catalog_import_run}.
+     * Records actor-triggered imports in {@code audit_log}; unattended runs use {@code catalog_import_run}.
      */
     private void audit(CatalogImportRun run, ImportSummary summary) {
         if (run.getActorId() == null) {
@@ -212,17 +186,13 @@ public class CatalogImportService {
                     run.getId(),
                     details));
         } catch (RuntimeException e) {
-            // Songs are already committed, so failing the call now would report a
-            // successful import as broken. catalog_import_run still holds the run.
+            // The import already committed; an audit failure must not change its reported outcome.
             log.error("Catalog import {} was applied but could not be written to the audit log",
                     run.getId(), e);
         }
     }
 
-    /**
-     * Where the staged catalog lives, for the last-sync line on P-06b. This is a
-     * configured string — it does not list the prefix or touch AWS.
-     */
+    /** Returns the configured staging location without accessing the object store. */
     public String sourceDescription() {
         return store.describe();
     }
@@ -239,10 +209,7 @@ public class CatalogImportService {
         return Map.of("key", row.key(), "reason", row.reason());
     }
 
-    /**
-     * What a sync would do right now, without changing anything. P-06b does not
-     * call this on GET; listing happens when the ADMIN presses Sync Catalog.
-     */
+    /** Previews the current sync changes without writing them; requires an object listing. */
     public PendingChanges pendingChanges() {
         List<CatalogObject> listed;
         try {
@@ -304,9 +271,7 @@ public class CatalogImportService {
                     updated += result.updated();
                     skipped.addAll(result.skipped());
                 } catch (RuntimeException e) {
-                    // One bad chunk must not lose the ones already committed.
-                    // Those objects stay unchanged by ETag, so the next run
-                    // retries exactly them.
+                    // Preserve committed chunks; the next sync retries objects whose ETags still differ.
                     log.error("Catalog sync: chunk of {} failed and was left for the next run",
                             chunk.size(), e);
                     for (Fetched item : fetched) {
@@ -317,9 +282,7 @@ public class CatalogImportService {
                         from + chunk.size(), added, updated, skipped.size());
             }
 
-            // After the rows exist, so songs this run added are covered, and a
-            // catalog imported before the wash existed fills in over a few runs
-            // even when every object is already in step.
+            // Sample covers after upsert, including unsampled covers on unchanged songs.
             publish(true, "covers", "Sampling cover colours…",
                     listed.size(), toRead.size(), toRead.size(),
                     added, updated, skipped.size(), 92);
@@ -340,11 +303,7 @@ public class CatalogImportService {
                 List.copyOf(skipped), false, null);
     }
 
-    /**
-     * Rows whose object left the prefix stay in MySQL otherwise, because upsert
-     * never deletes. An empty listing is treated as a failed or misconfigured
-     * store rather than an instruction to wipe the catalog.
-     */
+    /** Prunes missing staged songs; an empty listing never clears the catalog. */
     private int pruneMissing(List<CatalogObject> listed, Long actorId) {
         if (listed.isEmpty()) {
             log.warn("Catalog sync: listing was empty; not removing songs");
@@ -375,11 +334,7 @@ public class CatalogImportService {
         }
     }
 
-    /**
-     * The catalog is already in step by this point, so a cover host being down
-     * is not a failed import; those songs keep no wash and are offered again by
-     * the next run.
-     */
+    /** Cover sampling failures do not fail the catalog sync. */
     private void sampleCovers(ExecutorService pool) {
         try {
             coverAmbience.fillMissing(pool);
@@ -388,13 +343,7 @@ public class CatalogImportService {
         }
     }
 
-    /**
-     * Reads a chunk with a bounded width. The first bulk load is thousands of
-     * small HTTPS round trips to Singapore, which dominates the run when done
-     * one at a time; later syncs read only what changed. The width is capped
-     * rather than left to the common pool so a big load cannot crowd out the
-     * rest of the application or trip S3 request limits.
-     */
+    /** Reads changed objects with bounded concurrency using the import reader pool. */
     private List<Fetched> fetch(ExecutorService pool, List<CatalogObject> chunk,
             List<SkippedRow> skipped, Map<String, String> known) {
 
@@ -445,10 +394,7 @@ public class CatalogImportService {
         return Classification.UNCHANGED;
     }
 
-    /**
-     * Closes the run in its own transaction, so a failed sync is still on
-     * record even though its own work rolled back.
-     */
+    /** Records the run outcome in a separate transaction, including failed syncs. */
     private void record(CatalogImportRun run, ImportSummary summary) {
         run.setFinishedAt(LocalDateTime.now());
         run.setObjectsListed(summary.listed());
@@ -494,11 +440,8 @@ public class CatalogImportService {
     }
 
     /**
-     * One object and its body, ready to be mapped.
-     *
-     * @param listedSourceEtag {@code song.source_etag} at listing time, or
-     *     null when the row is new or the run is forced. Lets the upsert skip
-     *     a body that would overwrite a catalog write that landed after list.
+     * A fetched object with the ETag recorded when it was listed.
+     * @param listedSourceEtag stored ETag, or null for new/forced reads; guards concurrent edits
      */
     record Fetched(CatalogObject object, String json, String listedSourceEtag) {
 
@@ -507,11 +450,7 @@ public class CatalogImportService {
         }
     }
 
-    /**
-     * Live status for the P-06b progress modal. {@code running} is the signal
-     * to keep polling; the counts are whatever the current (or last) run has
-     * applied so far.
-     */
+    /** Current or last import progress; {@code running} controls P-06b polling. */
     public record ImportProgress(
             boolean running,
             String phase,

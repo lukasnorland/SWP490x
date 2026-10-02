@@ -1,8 +1,4 @@
-/* ==========================================================================
-   Form enhancements shared by the auth pages and the authenticated shell.
-   Everything here is additive: with JavaScript disabled the forms still
-   submit and render, since the server is the boundary (design principle 5).
-   ========================================================================== */
+/* Shared form enhancements; validation and submission remain server-controlled. */
 "use strict";
 
 /* --- Password show/hide (P-00 Zone B) --------------------------------- */
@@ -122,10 +118,7 @@ export function initAutoShownModals(root) {
   });
 }
 
-/* --- SES sandbox recipient verification (P-06a) ------------------------
-   Calls CreateEmailIdentity through the app so ADMIN does not need the CLI.
-   When real SMTP is on, Create account stays disabled until SES reports
-   already_verified (server enforces the same rule). */
+/* SES sandbox verification; the server also requires a verified recipient when SMTP is enabled. */
 export function initSesRecipientPreparation(root) {
   root.querySelectorAll("[data-ses-prepare-recipient]").forEach(function (button) {
     var input = document.getElementById(button.getAttribute("data-ses-prepare-recipient"));

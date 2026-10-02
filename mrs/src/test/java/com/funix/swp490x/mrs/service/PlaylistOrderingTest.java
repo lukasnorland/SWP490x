@@ -18,14 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * The renumbering in {@link PlaylistService} against a real MySQL, because
- * {@code uq_playlistsong_position} is what it is written to survive and a
- * mocked repository cannot reject anything.
- *
- * <p>Runs inside the test transaction, so every row written here is rolled
- * back.
- */
+/** Tests playlist ordering and version changes against MySQL; test transactions roll back. */
 @SpringBootTest
 @Transactional
 class PlaylistOrderingTest {
@@ -78,11 +71,7 @@ class PlaylistOrderingTest {
         assertThat(titles(id)).containsExactly("Third", "Second", "Fourth", "First");
     }
 
-    /**
-     * DC-11: a new playlist is v1, and each accepted change adds exactly one.
-     * Hibernate would otherwise seed a primitive at 0, and the number is what
-     * the conflict screen shows the person who lost the race.
-     */
+    /** DC-11: creation starts at version 1 and each accepted mutation increments it once. */
     @Test
     void aNewPlaylistStartsAtVersionOneAndCountsUpByOne() {
         Playlist playlist = playlistService.create(ownerId, "Ordering check");
@@ -97,11 +86,7 @@ class PlaylistOrderingTest {
         assertThat(version(id)).isEqualTo(3);
     }
 
-    /**
-     * BR-06 against a real database: the version has to actually move on every
-     * accepted write, or the check would pass forever and the second writer
-     * would silently win.
-     */
+    /** BR-06: real database writes advance the version and reject stale submissions. */
     @Test
     void everyAcceptedChangeMovesTheVersionAndAStaleOneIsRefused() {
         Playlist playlist = playlistService.create(ownerId, "Ordering check");

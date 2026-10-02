@@ -87,18 +87,8 @@ public class SongCatalogService {
     }
 
     /**
-     * One page of songs with their tags loaded.
-     *
-     * <p>Genre, mood and freeform tag filters are OR within a vocabulary and
-     * AND across them: a song must match at least one selected value in each
-     * category that has a selection. A null or empty list leaves that
-     * vocabulary unconstrained.
-     *
-     * <p>Two queries by design: the page of ids, then that page's rows with
-     * tags. Fetching tags and paging in a single query would make Hibernate
-     * apply the limit in memory. Transactional because
-     * {@code spring.jpa.open-in-view=false} means the collections have to be
-     * initialised before the view renders.
+     * Pages songs using OR within each vocabulary and AND across selected vocabularies.
+     * Loads page ids before tags to avoid collection-fetch pagination in memory.
      */
     @Transactional(readOnly = true)
     public Page<Song> search(List<String> providers, List<Long> genreIds, List<Long> moodIds,
@@ -128,13 +118,8 @@ public class SongCatalogService {
     }
 
     /**
-     * Every playable song matching the Songs / catalog filters, in table order
-     * ({@code title}, {@code id}). Used by the preview bar so next/previous can
-     * walk the full result, not just the current page of 20.
-     *
-     * <p>Rows with no {@code audioUrl} are dropped — their table play control is
-     * disabled. Tags are not loaded, and the JSON is capped at
-     * {@link #PLAY_QUEUE_CAP} so a catalog-wide play cannot ship every row.
+     * Returns playable catalog matches in title/id order, capped at {@link #PLAY_QUEUE_CAP}.
+     * The queue spans pages and excludes songs without audio.
      */
     @Transactional(readOnly = true)
     public List<PreviewTrack> playQueue(List<String> providers, List<Long> genreIds,
@@ -342,19 +327,9 @@ public class SongCatalogService {
     }
 
     /**
-     * Applies an ADMIN edit of classification only (explicit, genres, moods,
-     * tags). Licensed identity — title, artist, duration, ISRC, media URLs —
-     * is left untouched. The submitted version must still match (DC-02);
-     * a mismatch is HTTP 409 with refresh only — songs have no clone (BR-06).
-     *
-     * <p>Writes the staged JSON first so the next import cannot overwrite the
-     * edit. Unknown provider fields on an existing object are kept; a missing
-     * object is created from the catalog row. {@code source_etag} is updated
-     * to the written hash so an unchanged object is skipped on the next sync.
-     * A song with no {@code externalSourceId} is refused — that would be a
-     * MySQL-only write.
-     *
-     * @throws CatalogStoreException when the staged object could not be written
+     * Updates admin-editable classification under the song version check (UC-29, BR-06).
+     * Writes staged JSON first, preserves provider fields and records its ETag; stale saves offer refresh only.
+     * @throws CatalogStoreException when staging cannot be written
      */
     @Transactional
     public void update(Long id, int expectedVersion, SongEdit edit, Long actorId) {
@@ -388,13 +363,8 @@ public class SongCatalogService {
     }
 
     /**
-     * Patches (or creates) the staged object before the MySQL write. S3 is
-     * outside the transaction: if MySQL then fails, the next import reapplies
-     * the JSON. The other order would let a later import restore the old
-     * classification over a successful MySQL edit.
-     *
-     * @throws CatalogStoreException when the song cannot be named in the store
-     *     or the object could not be written
+     * Writes staged classification before MySQL; a later sync repairs a failed database write.
+     * @throws CatalogStoreException when the song cannot be staged
      */
     private void writeStagedClassification(Song song, boolean explicit, List<String> genres,
             List<String> moods, List<String> tags) {
@@ -434,16 +404,9 @@ public class SongCatalogService {
     }
 
     /**
-     * Drops hosted media, then the staged JSON, then the catalog row, so
-     * nothing of the song remains in the object store or MySQL. Vendor CDN
-     * URLs are left alone — those bytes are not ours.
-     *
-     * <p>Object-store deletes run once, outside the MySQL transaction. The
-     * membership compact can lose an optimistic lock, which marks a transaction
-     * rollback-only, so the row delete lives in a nested transaction that is
-     * retried once.
-     *
-     * @throws CatalogStoreException when a hosted object could not be removed
+     * Deletes hosted media and staged JSON before removing the song and compacting playlists (UC-29 A1).
+     * Vendor media is untouched; the database phase retries once on an optimistic-lock failure.
+     * @throws CatalogStoreException when an object-store deletion fails
      */
     public void delete(Long id, Long actorId) {
         Song song = songRepository.findById(id)
@@ -461,11 +424,7 @@ public class SongCatalogService {
         }
     }
 
-    /**
-     * Detach, compact remaining playlist positions to 1..N, delete the row.
-     * A separate transaction from the S3 deletes so a lock failure can be
-     * retried; {@code REQUIRED} still joins a test transaction.
-     */
+    /** Detaches the song, compacts affected playlists and deletes its row in one database transaction. */
     @Transactional
     public void deleteCatalogRow(Long id, Long actorId, String title, String artist) {
         Song song = songRepository.findById(id)
@@ -482,11 +441,7 @@ public class SongCatalogService {
                         jsonString(title), jsonString(artist), jsonIds(playlistIds)));
     }
 
-    /**
-     * Audio/cover we host live under {@code song-data/audio|artwork/}. Collect
-     * keys from the row and from the staged JSON (in case they differ) and
-     * remove those objects before the JSON itself.
-     */
+    /** Deletes hosted-media keys found in either the song row or staged JSON before removing that JSON. */
     private void deleteHostedMedia(Song song) {
         Set<String> keys = new LinkedHashSet<>();
         log.debug("Deleting hosted media for song {} externalId={} audioPrefix={} artworkPrefix={} store={}",

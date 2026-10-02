@@ -8,13 +8,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
-/**
- * Imports the whole prefix at startup when {@code mrs.catalog.import-on-start}
- * is set, which is how the catalog is first populated on a fresh database.
- *
- * <p>Off by default. Leaving it on is harmless but pointless: the ETag diff
- * makes every later boot a single listing with nothing to read.
- */
+/** Runs startup sync when {@code mrs.catalog.import-on-start} is enabled; off by default. */
 @Component
 @ConditionalOnProperty(name = "mrs.catalog.import-on-start", havingValue = "true")
 public class CatalogImportRunner implements ApplicationRunner {
@@ -33,8 +27,7 @@ public class CatalogImportRunner implements ApplicationRunner {
         ImportSummary summary = importService.sync(ImportTrigger.STARTUP, null, false);
 
         if (summary.isFailed()) {
-            // Deliberately not fatal: the app is still usable with whatever
-            // catalog is already in the database, and P-06b can retry.
+            // Keep the existing catalog available; ADMIN can retry sync from P-06b.
             log.error("Startup catalog import failed: {}", summary.error());
             return;
         }

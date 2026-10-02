@@ -42,13 +42,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-/**
- * P-01 / UC-02 delivery. The link used to be written to the log, where only a
- * developer watching the console could find it.
- *
- * <p>{@link MailTransport} is the only thing mocked, so the body asserted on
- * here is produced by the real template through the real engine.
- */
+/** Tests reset-link email rendering with real templates and a mocked mail transport (UC-02). */
 @WebMvcTest(controllers = AuthController.class)
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
         LoginFailureHandler.class, LoginAttemptService.class, MrsUserDetailsService.class,

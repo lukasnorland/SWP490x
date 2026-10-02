@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--/*
-  Reusable pieces of the design language (Part 1) shared by the screens in
-  Part 4. Fragments read `activeNav` and `currentUser` from the model, which
-  ShellModelAdvice and each controller supply.
-
-  These are composed from Bootstrap components and utilities; only the handful
-  of properties Bootstrap cannot express carry an MRS class (see mrs.css).
-*/-->
+<!--/* Shared Bootstrap-based screen fragments themed with MRS tokens. */-->
 <body>
 
 <!--/*
@@ -90,11 +83,7 @@
   </div>
 </div>
 
-<!--/*
-  Marks a screen zone that is specified but not yet built. Keeps the spec's
-  zone breakdown visible in the running app, so what is outstanding on each
-  screen is obvious. Delete each one as its zone is implemented.
-*/-->
+<!--/* Placeholder for a screen zone awaiting implementation. */-->
 <section th:fragment="zonePlaceholder(zone, title, description)"
          class="zone-placeholder d-flex flex-column gap-1 p-4 rounded-3">
   <p class="label zone-placeholder__zone" th:text="${zone}">Zone A</p>

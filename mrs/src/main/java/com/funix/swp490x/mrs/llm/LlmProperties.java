@@ -4,12 +4,8 @@ import java.time.Duration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * How contextual Search talks to an LLM (FT-04). The key stays out of git —
- * empty here, set in {@code local.properties} when Gemini is enabled.
- *
- * <p>When {@code api-key} is blank, {@link LlmConfig} wires vocabulary matching
- * only. When set, {@link GeminiLlmInterpreter} calls Gemini and falls back on
- * failure.
+ * Contextual-search defaults (FT-04); the API key stays in local configuration.
+ * Without a key, use vocabulary matching; failed Gemini calls trigger keyword search.
  */
 @ConfigurationProperties("mrs.llm")
 public class LlmProperties {
@@ -21,10 +17,7 @@ public class LlmProperties {
     /** Empty until Gemini is enabled. Never commit a real value. */
     private String apiKey = "";
 
-    /**
-     * Default and ceiling for {@link com.funix.swp490x.mrs.settings.SettingKey#LLM_TIMEOUT_SECONDS}.
-     * Live Search calls use the System Settings value when that bean is wired.
-     */
+    /** Default timeout; live calls use System Settings when available (UC-31). */
     private Duration timeout = Duration.ofSeconds(30);
 
     private int minQueryChars = 10;

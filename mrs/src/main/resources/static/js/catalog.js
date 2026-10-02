@@ -1,8 +1,4 @@
-/* ==========================================================================
-   P-06b catalog: swap the results table + pager without remounting the player.
-   A full navigation would tear down the audio element mid-track, so the pager
-   and the filter form fetch a results-only fragment and replace it in place.
-   ========================================================================== */
+/* Replaces catalog results and pagination without remounting the shell player. */
 "use strict";
 
 import { syncPlayingTitleHighlight } from "./player.js";
@@ -76,9 +72,7 @@ export function initCatalogPartialPaging(root) {
     return root.querySelector("[data-catalog-filters]");
   }
 
-  /* Only swallow further clicks while a swap is in flight. Disabling the
-     filter controls greys the whole card for the length of the fetch, which
-     reads as a flash on every page step. */
+  /* Ignore repeat clicks during fetch without disabling the filter controls. */
   function setBusy(busy) {
     var current = root.querySelector("[data-catalog-results]");
     if (current) {
@@ -218,11 +212,7 @@ export function initCatalogPartialPaging(root) {
   });
 }
 
-/* UC-29: fill the edit modal from the row that opened it.
-
-   Bound on document (once) so it still works after shell soft-nav swaps
-   main.content and after catalog.js replaces the results table. Looking up
-   #editSong at click time avoids a stale node from a previous page. */
+/* Delegate edit-modal clicks so catalog and shell content swaps do not leave stale bindings (UC-29). */
 var songEditBound = false;
 
 export function initCatalogSongEdit(root) {

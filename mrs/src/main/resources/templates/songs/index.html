@@ -15,8 +15,7 @@
 
   <div class="d-flex flex-column gap-4">
 
-    <!-- Outcome of the Add-to-playlist dialog and of Interpret, which both
-         redirect back here (UC-03 / NFR-U01). -->
+    <!-- Flash outcome from add-to-playlist actions (UC-14). -->
     <th:block th:if="${flash != null}">
       <div th:replace="~{fragments/components :: notice(${flashVariant},
           ${flashVariant == 'success'} ? 'circle-check'

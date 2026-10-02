@@ -13,15 +13,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface PlaylistSongRepository extends JpaRepository<PlaylistSong, PlaylistSongId> {
 
-    /**
-     * Position to park a row at while its neighbours are renumbered.
-     *
-     * <p>{@code uq_playlistsong_position} is checked per row as a statement
-     * runs, so writing 3 -> 2 while some other row still holds 2 fails even
-     * though the finished state would be valid. Every renumbering therefore
-     * moves rows out to this disjoint range first and brings them back second.
-     * It stays positive, so {@code ck_plsong_position} holds throughout.
-     */
+    /** Positive temporary offset used before renumbering to avoid unique-position collisions. */
     int PARK_OFFSET = 1_000_000;
 
     /** One playlist's songs in order, with the tags the detail table shows. */
@@ -32,11 +24,7 @@ public interface PlaylistSongRepository extends JpaRepository<PlaylistSong, Play
 
     Optional<PlaylistSong> findByIdPlaylistIdAndIdSongId(Long playlistId, Long songId);
 
-    /**
-     * Playlist ids that hold this catalog song, before a detach, so remaining
-     * rows can be compacted to 1..N (DC-04). Position is not needed: compact
-     * rewrites the whole sequence.
-     */
+    /** Finds affected playlists before song removal so positions can be compacted (DC-04). */
     @Query("SELECT DISTINCT ps.id.playlistId FROM PlaylistSong ps WHERE ps.id.songId = :songId")
     List<Long> findPlaylistIdsBySongId(@Param("songId") Long songId);
 
@@ -57,13 +45,8 @@ public interface PlaylistSongRepository extends JpaRepository<PlaylistSong, Play
     long totalDuration(@Param("playlistId") Long playlistId);
 
     /**
-     * Shifts every row past {@code after} by {@code delta}. See
-     * {@link #PARK_OFFSET}.
-     *
-     * <p>{@code flushAutomatically} on this and the writes below because they
-     * run as a sequence whose intermediate states matter: a pending insert
-     * still sitting in the persistence context would land after the
-     * renumbering and take a position that is no longer free.
+     * Shifts positions after {@code after}; see {@link #PARK_OFFSET}.
+     * Flush pending inserts before renumbering to preserve unique positions.
      */
     @Modifying(flushAutomatically = true)
     @Query("UPDATE PlaylistSong ps SET ps.position = ps.position + :delta "
@@ -81,11 +64,8 @@ public interface PlaylistSongRepository extends JpaRepository<PlaylistSong, Play
             @Param("to") int to);
 
     /**
-     * Writes dense 1..N in current position order. Call after parking so the
-     * new values cannot collide with rows still sitting on 1..N.
-     *
-     * <p>Native because JPQL has no window functions, and a loop of
-     * {@link #moveOne} would be one statement per remaining song.
+     * Writes contiguous 1..N in current order after parking rows.
+     * Uses a native window-function query for bulk renumbering.
      */
     @Modifying(flushAutomatically = true)
     @Query(value = """

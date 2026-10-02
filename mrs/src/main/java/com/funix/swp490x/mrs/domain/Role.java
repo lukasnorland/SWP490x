@@ -1,12 +1,6 @@
 package com.funix.swp490x.mrs.domain;
 
-/**
- * The three system roles (BR-01: exactly one role per account).
- *
- * <p>Each role also carries the landing page it lands on after login and the
- * label shown in the top-bar role badge, both defined by Screen Design Spec
- * section 2.1.
- */
+/** One role per account, with its login landing page and shell badge label (Screen Design Spec 2.1). */
 public enum Role {
 
     ADMIN("ADMIN", "/admin/users"),

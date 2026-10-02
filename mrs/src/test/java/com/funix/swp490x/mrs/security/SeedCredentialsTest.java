@@ -5,11 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-/**
- * Guards the dev-only seed credential in migration V2 against the password the
- * README documents. A mismatch here means nobody can sign in to a freshly
- * migrated database.
- */
+/** Verifies that the development seed hash matches the password documented in README. */
 class SeedCredentialsTest {
 
     /** The admin hash in V2__seed_admin_account.sql. */

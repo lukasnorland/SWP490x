@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--/*
-  Add-to-playlist dialog, opened by the + button in the Songs table (FT-06).
-
-  Included by the page rather than by the results fragment: catalog.js replaces
-  #catalog-results on every filter and pager step, and a modal inside it would
-  be torn down while the user was still in it.
-
-  Model:
-    myPlaylists — editable Drafts the song may be added to (PlaylistOption)
-*/-->
+<!--/* Shared dialog outside results fragments so paging preserves it.
+  myPlaylists contains editable Draft choices and their versions (PlaylistOption). */-->
 <body>
 
 <div th:fragment="dialog" class="modal fade" id="addToPlaylist" tabindex="-1"
@@ -26,10 +18,7 @@
 
       <div class="modal-body d-flex flex-column gap-4">
 
-        <!--/* Two modes, one dialog. Each mode sits in a plain wrapper that the
-               script toggles with [hidden]: the forms inside carry .d-flex, and
-               Bootstrap's display utilities out-rank its [hidden] reset, so a
-               hidden flex form would stay visible. */-->
+        <!--/* Toggle [hidden] on wrappers so Bootstrap .d-flex cannot override it. */-->
         <div class="mode-stack" data-add-song-mode>
 
         <!--/* Existing Drafts. Published playlists are locked (DC-08), so they
@@ -39,11 +28,7 @@
               data-add-existing-form
               th:if="${myPlaylists != null and !myPlaylists.isEmpty()}">
           <input type="hidden" name="returnTo" data-add-return-to value="">
-          <!--/* BR-06: the version of whichever Draft is picked. The dialog
-                 sits outside #catalog-results so it survives filter and pager
-                 steps, which also means this value is as old as the page: a
-                 playlist edited elsewhere meanwhile lands on the conflict
-                 screen rather than being overwritten. */-->
+          <!--/* BR-06: submit the selected Draft's displayed version; stale saves must conflict. */-->
           <input type="hidden" name="expectedVersion" data-add-playlist-version value="0">
           <div data-add-song-ids>
             <input type="hidden" name="songId" data-add-song-id value="">

@@ -12,21 +12,8 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
- * Materialises the CSRF token before rendering begins.
- *
- * <p>Spring Security defers the token: it is only generated when something asks
- * for it, and generating it creates the HTTP session that stores it. Thymeleaf
- * asks while processing {@code th:action}, which sits partway down a page. Any
- * page whose earlier markup exceeds the container's response buffer — the icon
- * sprite alone is several kilobytes — has already been flushed by then, so the
- * response is committed, no {@code Set-Cookie} can be added, and session
- * creation fails with {@code IllegalStateException}. The container has already
- * sent HTTP 200, so the browser receives a truncated page: on P-00 the heading
- * and banner arrive and the credential form does not.
- *
- * <p>Touching the token here, before the servlet writes anything, moves session
- * creation to a point where the response is still uncommitted. It also keeps the
- * page's byte size from being something templates have to stay under.
+ * Resolves the deferred CSRF token before rendering, so any session cookie is set
+ * before the response commits. Static assets are excluded.
  */
 public class EagerCsrfTokenFilter extends OncePerRequestFilter {
 

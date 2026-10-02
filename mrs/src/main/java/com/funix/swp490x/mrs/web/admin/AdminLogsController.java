@@ -9,12 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- * P-06e — Audit & Recommendation Log (UC-32).
- *
- * <p>Access is granted by SecurityConfig on {@code /admin/**}, so a non-ADMIN
- * request is rejected before any handler here runs (FT-09 NAC-02, BR-01).
- */
+/** Admin-only audit and recommendation log viewer (UC-32); route access is enforced by SecurityConfig. */
 @Controller
 public class AdminLogsController {
 

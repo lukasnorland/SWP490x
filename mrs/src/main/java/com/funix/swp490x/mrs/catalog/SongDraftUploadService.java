@@ -23,26 +23,15 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * Stages audio, cover art and a generated song-data JSON from the P-06b Add
- * Song form, then queues the ETag sync so the songs land in MySQL the same
- * way a CLI dump of JSON would. The object store is written first; MySQL is
- * never inserted here — import is the only path that creates catalog rows.
- *
- * <p>Each entry is validated before its files are written. Rejected entries
- * do not prevent valid entries from being staged. A failure partway through the writes
- * themselves is reported rather than rolled back; {@code DeleteObject} is
- * available, but this path does not attempt a compensating delete.
+ * Stages media and JSON for Add Song, then starts catalog sync (UC-36, UC-37).
+ * Valid entries proceed independently; partial object-store writes are not rolled back.
  */
 @Service
 public class SongDraftUploadService {
 
     private static final Logger log = LoggerFactory.getLogger(SongDraftUploadService.class);
 
-    /**
-     * Soft cap so one request stays inside
-     * {@code spring.servlet.multipart.max-request-size} (10 × 100 MB audio +
-     * 10 × 5 MB covers).
-     */
+    /** Batch limit matching BV-08 and the multipart request-size budget. */
     static final int MAX_DRAFTS = 10;
 
     private static final Map<String, String> AUDIO_EXTENSIONS = Map.of(
@@ -318,12 +307,7 @@ public class SongDraftUploadService {
         return type == null ? "" : type.toLowerCase(Locale.ROOT).trim();
     }
 
-    /**
-     * A specific content type must be on the allowlist (or an alias of one).
-     * Browsers often send an empty type or {@code application/octet-stream}
-     * for a dropped file; those fall back to the type implied by the
-     * extension, which has already been checked.
-     */
+    /** Validates MIME types against the allowlist; blank/octet-stream types use the checked extension. */
     private static boolean typeAllowed(String contentType, List<String> declared,
             Set<String> aliases, String impliedByExtension) {
         if (!StringUtils.hasText(contentType) || "application/octet-stream".equals(contentType)) {
@@ -376,11 +360,10 @@ public class SongDraftUploadService {
     }
 
     /**
-     * @param uploaded songs that were written to staging
-     * @param rejected songs that never left the browser/server (with reasons)
-     * @param sync outcome of the auto-sync when it was refused, or null when
-     *     the sync was queued in the background (or nothing was staged)
-     * @param tooMany true when the whole batch was refused for size
+     * @param uploaded entries staged successfully
+     * @param rejected failed entries with reasons; partial media may remain
+     * @param sync refused sync outcome, or null when queued/no entries were staged
+     * @param tooMany true when the batch exceeds the entry limit
      */
     public record MediaUploadResult(
             int uploaded,

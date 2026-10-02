@@ -12,21 +12,8 @@ import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.ProcessCredentialsProvider;
 
 /**
- * Resolves credentials for every AWS client in the app, so SES and S3 cannot
- * drift apart on which account they talk to.
- *
- * <p>A named profile is resolved through {@code aws configure
- * export-credentials} rather than
- * {@link software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider}:
- * {@code aws login} stores a {@code login_session} that the profile provider
- * cannot read.
- *
- * <p>On Windows, {@code aws} is resolved to a full path when the JVM's PATH
- * does not include the CLI (common when the app is started from an IDE). When
- * only a bare name is available, the export is launched via {@code cmd /c}.
- *
- * <p>An empty profile falls back to the default credential chain, which is what
- * the EC2 instance role needs.
+ * Shared AWS credentials for SES and S3. Named profiles use CLI export to support
+ * {@code aws login}; a blank profile uses the default credential chain.
  */
 public final class AwsCredentialsFactory {
 
@@ -39,9 +26,8 @@ public final class AwsCredentialsFactory {
     }
 
     /**
-     * @param profile named CLI profile, or blank for the default chain
-     * @param propertyName the property the profile came from, named in the
-     *     exception so a typo points at the setting that caused it
+     * @param profile CLI profile, or blank for the default credential chain
+     * @param propertyName configuration key to include in credential errors
      */
     public static AwsCredentialsProvider forProfile(String profile, String propertyName) {
         if (!StringUtils.hasText(profile)) {

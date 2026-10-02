@@ -35,17 +35,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * P-03a My Playlists and P-03b Playlist Detail / Editor (FT-06 – FT-08).
- *
- * <p>Every mutation redirects with a flash rather than re-rendering, so a
- * refresh cannot repeat it. The Add-to-playlist dialog is opened from the Songs
- * table, so add and create-and-add carry a {@code returnTo} and send the user
- * back to the row they came from.
- *
- * <p>The exception is a version conflict: every mutation submits the
- * {@code expectedVersion} its screen was rendered at, and a stale one renders
- * the conflict screen with HTTP 409 instead of redirecting, so the status
- * survives and the rejected change is still in hand to clone (UC-19, BR-11).
+ * Handles playlist forms using redirects and flash messages.
+ * Stale mutations render HTTP 409 with the rejected edit for refresh or clone (UC-19, BR-11).
  */
 @Controller
 public class PlaylistController {
@@ -504,13 +495,8 @@ public class PlaylistController {
     }
 
     /**
-     * Renders the conflict screen instead of redirecting, because a redirect
-     * would drop both the 409 and the rejected change the clone button needs
-     * (UC-19 normal flow, MSG_014).
-     *
-     * <p>Reads the playlist with {@link PlaylistService#inspect}: the service
-     * settles who may touch it before it compares versions, so anything that
-     * reaches here is already allowed to see it.
+     * Renders HTTP 409 with the rejected edit preserved (UC-19, MSG_014).
+     * The service has already checked visibility before comparing versions.
      */
     private String conflict(Model model, HttpServletResponse response,
             StalePlaylistException e, PendingEdit pending, String returnTo) {
@@ -553,11 +539,7 @@ public class PlaylistController {
         return "playlist/conflict";
     }
 
-    /**
-     * A rename carries its own name; everything else copies under "(copy)".
-     * Playlist names are unique system-wide, so this is a starting point the
-     * user can edit rather than a name that is guaranteed to be free.
-     */
+    /** Suggests the rejected rename or a copy suffix; the user must choose a globally unique name. */
     private static String suggestedCloneName(Playlist playlist, PendingEdit pending) {
         if (pending.kind() == PendingEdit.Kind.RENAME && pending.name() != null
                 && !pending.name().isBlank()) {

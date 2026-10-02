@@ -75,10 +75,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-/**
- * P-06b's song table together with the Add Song and Sync Catalog controls it
- * absorbed from the retired import screen (UC-28, UC-29, spec 4.10).
- */
+/** Tests the P-06b catalog, Add Song and staged-JSON sync controls. */
 @WebMvcTest(controllers = AdminCatalogController.class)
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, MultipartUploadAdvice.class,
         LoginSuccessHandler.class, LoginFailureHandler.class, LoginAttemptService.class,
@@ -475,10 +472,7 @@ class AdminCatalogImportTest {
                 .andExpect(flash().attribute("flash", Messages.UPLOAD_SYNC_SKIPPED));
     }
 
-    /**
-     * FT-09 NAC-03: the catalog has no rejection table, so a partly rejected
-     * batch has to name the offender in the notice itself.
-     */
+    /** FT-09 NAC-03: partial upload rejection identifies failed entries in the notice. */
     @Test
     void aPartlyRejectedUploadNamesTheRejectedSongInTheFlash() throws Exception {
         given(draftUploadService.upload(any(), eq(7L)))

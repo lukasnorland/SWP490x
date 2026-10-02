@@ -1,10 +1,4 @@
-/* ==========================================================================
-   FT-06: open the Add-to-playlist dialog from a row of the Songs table.
-
-   The dialog is a plain pair of POST forms, so the server stays the boundary
-   (design principle 5). All this does is say which song the click meant, and
-   point the "add to existing" form at the playlist the select is showing.
-   ========================================================================== */
+/* Opens the shared playlist dialog for a song or ranked Search results (FT-06). */
 "use strict";
 
 var bound = false;
@@ -15,10 +9,7 @@ export function initPlaylistAdd() {
   }
   bound = true;
 
-  /* Bound on document, like initCatalogSongEdit: the + buttons live inside
-     #catalog-results, which catalog.js replaces on every filter and pager
-     step, and shell-nav swaps main.content underneath both. Looking the
-     dialog up at click time avoids holding a node from a previous page. */
+  /* Delegate clicks and resolve the dialog each time so content swaps do not leave stale nodes. */
   document.addEventListener("click", function (event) {
     var trigger = event.target.closest("[data-add-to-playlist]");
     if (!trigger) {
@@ -58,8 +49,7 @@ export function initPlaylistAdd() {
     }
   });
 
-  /* Belt and braces: if the change listener never ran — the user submitted
-     without touching the select — the action still names the right playlist. */
+  /* Set the action on submit even if the playlist selection never changed. */
   document.addEventListener("submit", function (event) {
     var form = event.target.closest("[data-add-existing-form]");
     if (!form) {

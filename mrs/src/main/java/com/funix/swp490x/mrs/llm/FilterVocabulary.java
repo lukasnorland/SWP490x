@@ -10,10 +10,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * Names the interpreter may emit: MusicBrainz genres, product moods, and tag
- * values already attached to at least one song.
- */
+/** Interpreter vocabulary: MusicBrainz genres, product moods and existing dictionary names. */
 public final class FilterVocabulary {
 
     private final Map<String, String> genres;
@@ -35,8 +32,8 @@ public final class FilterVocabulary {
     }
 
     /**
-     * Taxonomy lists plus names currently on songs. Synonyms fold through
-     * {@link CatalogTaxonomy} when a leftover token is resolved.
+     * Combines taxonomy values with existing dictionary entries, including unused names.
+     * Synonyms resolve through {@link CatalogTaxonomy}.
      */
     public static FilterVocabulary of(List<Tag> usedOnSongs, CatalogTaxonomy taxonomy) {
         Map<String, String> genres = new LinkedHashMap<>();
@@ -91,7 +88,7 @@ public final class FilterVocabulary {
         return tags;
     }
 
-    /** Genres attached to at least one song; kept out of the Gemini prompt's giant MB list. */
+    /** Catalog genre names, kept separate from the full MusicBrainz prompt vocabulary. */
     public Collection<String> catalogGenreNames() {
         return catalogGenreNames;
     }

@@ -17,12 +17,8 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.stereotype.Component;
 
 /**
- * Counts failed attempts and picks which P-00 banner to show.
- *
- * <p>Every non-lockout failure lands on the same generic banner, so the screen
- * never reveals whether an email is registered or an account is deactivated
- * (spec 4.1). When the address is registered, a {@code LOGIN_FAILED} audit
- * row is stored against that account (actor_id stays NOT NULL).
+ * Counts login failures and selects a generic or lockout banner.
+ * Audits failures for registered accounts without exposing their existence (FT-01).
  */
 @Component
 public class LoginFailureHandler implements AuthenticationFailureHandler {

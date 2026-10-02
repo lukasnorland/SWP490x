@@ -1,10 +1,8 @@
 package com.funix.swp490x.mrs.domain;
 
 /**
- * Playlist lifecycle state (spec 4.4, DC-01). A Draft is editable by its owner
- * and collaborators; the owner or an administrator can publish or unpublish.
- * Only the owner can delete. Publishing locks song edits until unpublished
- * (FT-06 NAC-06, DC-08).
+ * Draft content is editable by owner/collaborators; Published content is locked (DC-08).
+ * Owner or ADMIN may publish/unpublish; only the owner may delete a Draft (BR-03, BR-16).
  */
 public enum PlaylistStatus {
     DRAFT,

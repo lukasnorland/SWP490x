@@ -16,12 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-/**
- * The registered catalog sources P-06d maintains and Add Song / import consult.
- *
- * <p>Replaces {@code mrs.catalog.providers} plus {@code vendor-slugs}: a
- * provider is one row with a display name and an S3 folder slug.
- */
+/** Manages database provider names and media slugs for P-06d, Add Song and import (UC-31). */
 @Service
 public class CatalogProviderService {
 

@@ -12,12 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Brute-force lockout for the login screen. Threshold and window come from
- * System Settings (P-06d / UC-31); the defaults match BV-06 (5 / 15 min).
- *
- * <p>State is in-memory, so it is per instance. That is adequate for the
- * single-instance deployment target; a shared store would be needed before
- * running more than one node.
+ * Process-local login lockout configured through System Settings; defaults to 5 attempts/15 minutes (BV-06).
  */
 @Service
 public class LoginAttemptService {

@@ -107,8 +107,7 @@
           'Viewing as administrator. You can publish, unpublish or export; song edits stay with the owner and collaborators.')}"></div>
     </th:block>
 
-    <!-- Locked state: every mutating control above and below is already gone;
-         this says why (FT-06 NAC-06, DC-08). -->
+    <!-- Published content is locked; owner/ADMIN lifecycle and grant controls remain available (DC-08). -->
     <th:block th:if="${playlist.published}">
       <div th:if="${inspecting != true}"
            th:replace="~{fragments/components :: notice('info', 'lock',

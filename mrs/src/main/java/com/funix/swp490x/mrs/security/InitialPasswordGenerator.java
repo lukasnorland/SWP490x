@@ -5,14 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Builds an initial password that satisfies {@link PasswordPolicy} by
- * construction, so the generate button on P-06a can never hand ADMIN something
- * the server will then reject.
- *
- * <p>The alphabets leave out characters that are easy to confuse — {@code I l 1
- * O 0} — because this password is read out of an email and typed by hand once.
- */
+/** Generates BR-12-compliant passwords without ambiguous I/l/1/O/0 characters. */
 public final class InitialPasswordGenerator {
 
     private static final String UPPERCASE = "ABCDEFGHJKLMNPQRSTUVWXYZ";

@@ -3,18 +3,15 @@ package com.funix.swp490x.mrs.catalog;
 import java.util.List;
 
 /**
- * What one import did, as reported on P-06b (FT-09 NAC-03).
- *
- * @param listed objects found under the prefix
- * @param read objects whose body was actually downloaded — the rest matched
- *     their stored ETag and were skipped without a read
+ * Catalog import counts and rejection reasons for P-06b (UC-28).
+ * @param listed staged objects found
+ * @param read object bodies downloaded
  * @param added songs created
- * @param updated songs updated in place (DC-04)
- * @param removed songs whose staged object is no longer under the prefix
- * @param skippedRows rows that were rejected, each with a reason
- * @param alreadyRunning true when another import held the lock and this call
- *     did nothing
- * @param error message when the run failed outright, otherwise null
+ * @param updated songs updated
+ * @param removed songs pruned after staging deletion
+ * @param skippedRows rejected entries and reasons
+ * @param alreadyRunning true if this call was refused because another import is running
+ * @param error failure message, or null
  */
 public record ImportSummary(
         int listed,

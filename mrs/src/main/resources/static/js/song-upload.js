@@ -1,9 +1,4 @@
-/* ==========================================================================
-   P-06b Add Song — audio & artwork upload.
-   Drop audio files to spawn one metadata section each. Duration is read from
-   the file in the browser. The form still posts multipart; XHR is used only
-   so a large batch can show upload progress.
-   ========================================================================== */
+/* P-06b Add Song: audio dropzone, metadata sections and XHR multipart upload progress. */
 "use strict";
 
 import { initTagSuggest } from "./tag-suggest.js";
@@ -172,10 +167,7 @@ export function initSongUpload(root) {
     xhr.open("POST", panel.getAttribute("data-upload-url") || form.getAttribute("action"));
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
     xhr.setRequestHeader("Accept", "application/json");
-    // CSRF must be a header. CsrfFilter runs before the multipart body is
-    // parsed, so a token that only lives in FormData is invisible. Tomcat
-    // then cannot drain a song larger than 2 MB and Chrome shows
-    // net::ERR_CONNECTION_RESET instead of 403.
+    // Send CSRF in a header because the filter runs before multipart form parsing.
     var csrf = form.querySelector("input[name='_csrf']");
     if (csrf && csrf.value) {
       xhr.setRequestHeader("X-CSRF-TOKEN", csrf.value);

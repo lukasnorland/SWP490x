@@ -38,18 +38,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 /**
- * P-03a / P-03b playlists (FT-06). Owns the ordered contents of a playlist and
- * the state machine around Draft and Published.
- *
- * <p>Song edits go through {@link #editable}: the caller must own the playlist
- * or hold a collaborator grant (BR-03), and a Published playlist is read-only
- * until the owner or an administrator unpublishes it (DC-08). Publish and
- * unpublish are owner or ADMIN; delete is owner-only.
- *
- * <p>Every mutation takes the version the caller last saw and is refused with
- * {@link StalePlaylistException} if the stored one has moved on (UC-19,
- * BR-06). Nothing is merged: the second writer picks refresh or clone on the
- * conflict screen (BR-11), so neither person's work disappears (NFR-A02).
+ * Manages playlist content and Draft/Published transitions (FT-06).
+ * Mutations enforce actor rights and optimistic locking; content conflicts may be cloned (BR-03, BR-06, BR-11).
  */
 @Service
 public class PlaylistService {
@@ -78,15 +68,7 @@ public class PlaylistService {
         this.auditLogRepository = auditLogRepository;
     }
 
-    /**
-     * One page of the playlists a user owns or collaborates on, newest change
-     * first.
-     *
-     * <p>Two queries by design, as in {@link SongCatalogService#search}: the
-     * page of ids, then everything those rows display. Counting songs and
-     * collaborators per row inside the paged query would need joins that drop
-     * empty playlists.
-     */
+    /** Pages owned/shared playlists by newest change, then loads display projections for those ids. */
     @Transactional(readOnly = true)
     public Page<PlaylistSummary> search(Long userId, PlaylistStatus status, String query, int page) {
         Pageable pageable = PageRequest.of(Math.max(page, 0), PAGE_SIZE);
@@ -115,12 +97,7 @@ public class PlaylistService {
         return new PageImpl<>(ordered, pageable, ids.getTotalElements());
     }
 
-    /**
-     * One page of every playlist in the system, any owner and either status,
-     * for the ADMIN All Playlists screen. Same two-query shape as
-     * {@link #search}; {@code sharedWithMe} is always false here because the
-     * rows are not the viewer's.
-     */
+    /** Pages all playlists for ADMIN oversight; inspection rows are not marked {@code sharedWithMe}. */
     @Transactional(readOnly = true)
     public Page<PlaylistSummary> searchAll(Long ownerId, PlaylistStatus status, String query,
             int page) {
@@ -239,12 +216,8 @@ public class PlaylistService {
     }
 
     /**
-     * Export: the owner in either status, or an ADMIN on any playlist.
-     *
-     * <p>Narrower than {@link #view}: a collaborator grant carries edit
-     * rights on the screen, not the right to take a copy of the catalogue out
-     * of the system, and a Published playlist is readable in the Shared
-     * Workspace by every curator without being theirs to export.
+     * Export is allowed for the owner in either status, or ADMIN on any playlist (BR-09).
+     * Visibility and collaborator grants alone do not permit export.
      */
     @Transactional(readOnly = true)
     public Playlist viewExportable(Long playlistId, Long userId) {
@@ -282,11 +255,7 @@ public class PlaylistService {
         return visible(playlistId, userId);
     }
 
-    /**
-     * The playlist's songs in position order, with the tags the detail table
-     * shows. Read-only and transactional so the collections are initialised
-     * before the view renders.
-     */
+    /** Loads ordered playlist songs and tags within a transaction before view rendering. */
     @Transactional(readOnly = true)
     public List<PlaylistSong> songs(Long playlistId, Long userId) {
         visible(playlistId, userId);
@@ -342,12 +311,7 @@ public class PlaylistService {
         return createWithSongs(userId, name, List.of(songId));
     }
 
-    /**
-     * A new independent Draft owned by {@code userId}, with the source's songs
-     * in the same order. Published sources are copyable by any curator; Drafts
-     * still have to be visible. The copy is distinguished only by its unique
-     * name; there is no lineage back to the source.
-     */
+    /** Duplicates visible Drafts or Published playlists into an independent owned Draft (DC-07). */
     @Transactional
     public Playlist duplicate(Long sourceId, String name, Long userId) {
         Playlist source = duplicatable(sourceId, userId);
@@ -369,18 +333,9 @@ public class PlaylistService {
     }
 
     /**
-     * The clone half of UC-19: the requester's rejected change lands in a new
-     * Draft of their own instead of being thrown away (BR-11, NFR-A02). The
-     * source is read, never written (POST-1, AC-04).
-     *
-     * <p>The copy starts from the source as it stands now and then takes the
-     * pending change on top. There is no version history to rebuild the
-     * snapshot the requester was looking at, and a copy of stale content would
-     * be the silent data loss BR-11 exists to prevent. No lineage is recorded
-     * either way (UC-19 A2) — the unique name is what tells the copies apart.
-     *
-     * @throws PlaylistNotFoundException when the source has since been deleted,
-     *     rather than leaving an orphaned copy behind (UC-19 E2, NAC-05)
+     * Creates an owned Draft from the current source plus the rejected content edit (UC-19, BR-11).
+     * The source is unchanged; no stale snapshot or lineage is stored.
+     * @throws PlaylistNotFoundException when the source has been deleted
      */
     @Transactional
     public Playlist cloneOnConflict(Long sourceId, String name, Long userId, PendingEdit edit) {
@@ -418,11 +373,8 @@ public class PlaylistService {
     }
 
     /**
-     * Appends a song at the end of the playlist.
-     *
-     * @throws DuplicatePlaylistSongException when the song is already present —
-     *     {@code playlist_song} is keyed by (playlist, song), so a second copy
-     *     has nowhere to go
+     * Appends a song to the playlist.
+     * @throws DuplicatePlaylistSongException when it is already present
      */
     @Transactional
     public void addSong(Long playlistId, int expectedVersion, Long songId, Long userId) {
@@ -433,12 +385,8 @@ public class PlaylistService {
     }
 
     /**
-     * A multi-select from Search, appended in one go. One version check for the
-     * whole batch: adding them one call at a time would move the version past
-     * the one the dialog submitted and make the second song conflict with the
-     * first.
-     *
-     * @return how many were appended — the rest were already in the playlist
+     * Appends a selection using one version check for the whole batch.
+     * @return number of songs appended; existing members are skipped
      */
     @Transactional
     public int addSongs(Long playlistId, int expectedVersion, List<Long> songIds, Long userId) {
@@ -540,15 +488,12 @@ public class PlaylistService {
     }
 
     /**
-     * Moves each playlist {@code fromUserId} owns to the successor named for
-     * that id. A successor is the acting ADMIN, or a current collaborator who
-     * is still an ACTIVE Content Designer. The leaving user's grants on other
-     * people's drafts are dropped either way.
+     * Transfers owned playlists before owner deactivation/demotion (BR-14).
+     * Each successor is the acting ADMIN or an active Content Designer collaborator;
+     * the leaving account's collaboration grants are removed.
      *
-     * @throws PlaylistSuccessorRequiredException when they own playlists and
-     *     the map does not name every one
-     * @throws InvalidSuccessorException when a chosen user may not take that
-     *     playlist
+     * @throws PlaylistSuccessorRequiredException when a successor is missing
+     * @throws InvalidSuccessorException when a successor is ineligible
      */
     @Transactional
     public int transferOwnedPlaylists(Long fromUserId, Map<Long, Long> successorByPlaylistId,
@@ -694,9 +639,7 @@ public class PlaylistService {
                     .append(tagField(song.getFreeformTags())).append(',')
                     .append(song.getDuration() == null ? "" : song.getDuration()).append(',')
                     .append(csvField(song.getSourceProvider())).append(',')
-                    // Company-hosted media is public-read behind CloudFront
-                    // (infra/assets-bucket-media-policy.json), so the stored
-                    // URL is exported as-is and never expires.
+                    // Export the stored provider/CDN URL unchanged; no signing or audio download (BR-13).
                     .append(csvField(song.getAudioUrl())).append("\r\n");
         }
         return csv.toString();
@@ -726,12 +669,7 @@ public class PlaylistService {
         }
     }
 
-    /**
-     * Flushes inside the method so a lost race surfaces here, while the
-     * controller can still offer refresh or clone. Left to the commit it would
-     * escape as a raw {@code OptimisticLockingFailureException} after the
-     * response was already on its way.
-     */
+    /** Flushes here so optimistic-lock failures can be translated to the conflict response before commit. */
     private void saveChecked(Playlist playlist, int expectedVersion) {
         try {
             playlistRepository.save(playlist);
@@ -815,14 +753,8 @@ public class PlaylistService {
     }
 
     /**
-     * After a catalog song (or import prune) left a playlist, restore contiguous
-     * 1..N and record that the contents changed (DC-04, DC-11, BR-06). Runs on
-     * Published playlists too — the song no longer exists.
-     *
-     * <p>{@code saveAndFlush} so an optimistic lock fails here, not at commit
-     * after the HTTP response is already on its way. Not wrapped as
-     * {@link StalePlaylistException}: the catalog delete screen maps that to
-     * {@code SONG_DELETE_FAILED}.
+     * Compacts affected playlists and advances their versions after catalog song removal (DC-04, DC-11).
+     * Also applies to Published playlists; lock failures propagate to the catalog operation.
      */
     @Transactional
     public void compactAfterRemoval(Long playlistId, Long actorId) {
@@ -833,12 +765,7 @@ public class PlaylistService {
         playlistRepository.saveAndFlush(playlist);
     }
 
-    /**
-     * Parks every remaining row, then writes 1..N in current order. Parking
-     * first keeps {@code uq_playlistsong_position} happy: assigning dense
-     * numbers in one statement would collide if a later row still held 3
-     * while an earlier row moved onto 3.
-     */
+    /** Parks rows before writing 1..N to avoid transient unique-position collisions. */
     private void renumber(Long playlistId) {
         playlistSongRepository.shiftAfter(playlistId, 0, PlaylistSongRepository.PARK_OFFSET);
         playlistSongRepository.assignDensePositions(playlistId);

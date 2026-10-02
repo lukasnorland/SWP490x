@@ -26,17 +26,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 /**
- * Works out the shell's background wash for each song by reading its cover.
- *
- * <p>The browser cannot do this. Sampling an image into a canvas taints it
- * unless the host sends CORS headers, and several vendor CDNs do not — the
- * OneOff covers on {@code d3tw6r1ume3z4m}, {@code dtlqw9i1yvzdo} and
- * {@code wpfvk11.mep-cdn.net} send none at all, so more than half of that
- * catalog never got a wash. A server has no such restriction, so the colours
- * are read once and stored on the song.
- *
- * <p>An import fills in a bounded batch rather than the whole catalog, so a
- * scheduled sync stays short; whatever is left is picked up by the next run.
+ * Samples cover colors on the server to avoid browser CORS restrictions.
+ * Each import processes a bounded batch and records attempted cover URLs.
  */
 @Service
 public class CoverAmbienceService {
@@ -71,12 +62,9 @@ public class CoverAmbienceService {
     }
 
     /**
-     * Gives wash colours to songs whose cover has not been sampled yet, and to
-     * songs whose cover has changed since it was.
-     *
-     * @param pool the import's bounded reader pool, reused so cover reads
-     *     cannot widen past what the run already allows itself
-     * @return how many songs came away with colours
+     * Samples covers that are new or have changed.
+     * @param pool shared bounded import reader pool
+     * @return number of songs with sampled colors
      */
     public int fillMissing(ExecutorService pool) {
         CoverArt config = properties.getCoverArt();
@@ -134,11 +122,7 @@ public class CoverAmbienceService {
         return resolved;
     }
 
-    /**
-     * Reads one cover. Never throws: a cover that cannot be fetched or decoded
-     * simply leaves that song without a wash, which is the state it was in
-     * before, and must not fail the import that asked for it.
-     */
+    /** Returns sampled cover colors, or empty on fetch/decode failure; never fails the import. */
     public Optional<CoverAmbience> read(String coverUrl) {
         CoverArt config = properties.getCoverArt();
         URI uri;

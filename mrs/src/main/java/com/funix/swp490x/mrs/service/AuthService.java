@@ -15,14 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Authentication use cases that sit outside Spring Security's form-login chain:
- * the public account request (UC-38), password reset (UC-02 / UC-03), the
- * forced first-login change (UC-34), and profile self-service (UC-05).
- *
- * <p>The web layer must not call {@link UserRepository} for these flows (TDS
- * Part 1.3); this service owns the transaction and the mail side-effects.
- */
+/** Handles account requests, password reset/change and profile updates (UC-38, UC-02/03, UC-34, UC-05). */
 @Service
 public class AuthService {
 
@@ -45,11 +38,7 @@ public class AuthService {
     }
 
     /**
-     * UC-38: notify ADMIN of a registration intent. Creates nothing.
-     *
-     * <p>A malformed address is rejected before mail is attempted. A delivery
-     * failure is returned rather than thrown so the login screen can keep the
-     * same confirmation shape without depending on the mail package.
+     * Notifies ADMIN of an account request without creating a record; returns validation/delivery outcomes.
      */
     public AccountRequestResult requestAccount(String email) {
         String address = email == null ? "" : email.trim();
@@ -65,12 +54,7 @@ public class AuthService {
         }
     }
 
-    /**
-     * UC-02: issue a reset link when the address is registered.
-     *
-     * <p>Unknown addresses and delivery failures are swallowed so the screen
-     * never discloses whether an account exists (FT-01).
-     */
+    /** Requests a reset link; unknown addresses and delivery failures keep the same confirmation. */
     public void requestPasswordReset(String email) {
         if (email == null || email.isBlank()) {
             return;
@@ -82,12 +66,7 @@ public class AuthService {
         return tokenService.emailFor(token).isPresent();
     }
 
-    /**
-     * UC-03: set a new password from an emailed link.
-     *
-     * <p>A password that fails BR-12 is rejected while the link stays usable
-     * for the rest of its 30-minute window (FT-01 NAC-04).
-     */
+    /** Resets the password from a valid token; BR-12 rejection leaves the token usable until expiry. */
     @Transactional
     public PasswordResetResult completePasswordReset(String token, String password,
             String confirmPassword) {
@@ -108,12 +87,7 @@ public class AuthService {
         return PasswordResetResult.ok();
     }
 
-    /**
-     * UC-34: replace the ADMIN-issued password after first login.
-     *
-     * @param email the authenticated account; looked up rather than trusted
-     *              from the session principal's other fields
-     */
+    /** Changes the authenticated account password after checking the current password (UC-34, UC-05). */
     @Transactional
     public PasswordChangeResult changePassword(String email, String currentPassword,
             String password, String confirmPassword) {
@@ -133,10 +107,7 @@ public class AuthService {
         return PasswordChangeResult.ok(user.getRole().getLandingPath());
     }
 
-    /**
-     * UC-05: replace the signed-in account's display name. Role and email are
-     * not accepted here — only ADMIN changes those (BR-01, NAC-01).
-     */
+    /** Updates only the signed-in account display name; role and email remain unchanged. */
     @Transactional
     public DisplayNameResult updateDisplayName(String email, String displayName) {
         String name = displayName == null ? "" : displayName.trim();

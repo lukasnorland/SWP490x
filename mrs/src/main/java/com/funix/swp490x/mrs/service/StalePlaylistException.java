@@ -1,10 +1,8 @@
 package com.funix.swp490x.mrs.service;
 
 /**
- * UC-19 / BR-06: the submitted version is not the one currently stored, so the
- * change must not overwrite whoever saved first. Unlike a song, a playlist
- * conflict also offers a clone (BR-11), so the stored version travels with the
- * exception for the conflict screen to report (NAC-02).
+ * Carries the submitted/current versions for a rejected playlist update (UC-19, BR-06).
+ * Content edits may be cloned into a new Draft (BR-11).
  */
 public class StalePlaylistException extends RuntimeException {
 

@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/auth :: auth(~{::content})}">
-<!--/*
-  Generic forbidden page. Deliberately says nothing about what was requested:
-  a Customer following a link outside their granted scope must not be able to
-  infer that the playlist exists (SC-06 exception, spec 4.7).
-*/-->
+<!--/* Generic forbidden page without resource-existence details. */-->
 <body>
 <div th:fragment="content">
   <div class="card">

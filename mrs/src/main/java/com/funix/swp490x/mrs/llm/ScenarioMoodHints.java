@@ -7,10 +7,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Offline mood hints when Gemini is slow or unavailable. Names must exist in
- * {@link FilterVocabulary#moods()}.
- */
+/** Supplies known mood hints when a successful Gemini interpretation still has no moods. */
 final class ScenarioMoodHints {
 
     private ScenarioMoodHints() {

@@ -18,13 +18,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * A catalog track. Maps the {@code song} table created by Flyway V1; the
- * schema is owned by the migration and JPA only validates against it.
- *
- * <p>{@code (sourceProvider, externalSourceId)} is unique (DC-04), which is
- * what lets an import update in place rather than duplicating a song.
- */
+/** Catalog track, unique by provider and external source id for update-in-place import (UC-28). */
 @Entity
 @Table(name = "song")
 public class Song {
@@ -40,7 +34,7 @@ public class Song {
     @Column(length = 255)
     private String artist;
 
-    /** Seconds; positive when present. */
+    /** Required positive duration in seconds. */
     private Integer duration;
 
     /** Must name a registered provider (SC-05). */
@@ -50,29 +44,21 @@ public class Song {
     @Column(name = "external_source_id", length = 100)
     private String externalSourceId;
 
-    /** Public HTTPS mp3: a vendor CDN, or a copy we host ourselves. */
+    /** Stored audio URL for vendor-hosted or company-hosted playback; may be absent (DC-13). */
     @Column(name = "audio_url", length = 500)
     private String audioUrl;
 
     @Column(name = "cover_url", length = 500)
     private String coverUrl;
 
-    /**
-     * Wash colours sampled from the cover, as CSS rgba() values. Worked out on
-     * the server because reading pixels in the browser needs a canvas, and a
-     * canvas needs CORS headers that several vendor CDNs do not send.
-     */
+    /** Server-sampled CSS cover colors for the shell background. */
     @Column(name = "ambience_a", length = 40)
     private String ambienceA;
 
     @Column(name = "ambience_b", length = 40)
     private String ambienceB;
 
-    /**
-     * The cover the colours above were read from. Lets a changed cover be
-     * recomputed, and a cover that could not be read be left alone rather than
-     * retried by every import.
-     */
+    /** Cover URL last sampled; prevents repeated attempts until the URL changes. */
     @Column(name = "ambience_source_url", length = 500)
     private String ambienceSourceUrl;
 
@@ -84,11 +70,7 @@ public class Song {
     @Column(length = 20)
     private String isrc;
 
-    /**
-     * Hash of the staged object this row was last built from. A sync compares it
-     * against the ETag in the S3 listing and skips the object when they match,
-     * so an unchanged prefix is never downloaded.
-     */
+    /** ETag last applied to this row; matching staged objects are skipped during sync. */
     @Column(name = "source_etag", length = 64)
     private String sourceEtag;
 
@@ -101,11 +83,8 @@ public class Song {
     private int version;
 
     /**
-     * A song needs at least one tag to appear in filtered results (DC-03).
-     *
-     * <p>Cascades persist so a brand-new tag saves with the song, but never
-     * remove, since tags are shared vocabulary: detaching a tag from one song
-     * must not delete it from the dictionary.
+     * Shared tag membership for metadata search (DC-03).
+     * Persist new tags, but never cascade deletion of shared dictionary entries.
      */
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "song_tag",

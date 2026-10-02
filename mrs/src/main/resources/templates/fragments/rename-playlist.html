@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--/*
-  Rename-playlist dialog. Opened by a [data-rename-playlist] pencil; JS fills
-  the current name and version and points the form at /playlists/{id}/rename.
-*/-->
+<!--/* Rename dialog; JS supplies the current name, version and playlist action. */-->
 <body>
 
 <div th:fragment="dialog" class="modal fade" id="renamePlaylist" tabindex="-1"

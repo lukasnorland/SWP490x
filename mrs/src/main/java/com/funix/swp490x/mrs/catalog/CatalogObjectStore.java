@@ -5,22 +5,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-/**
- * The staged song JSON, wherever it lives.
- *
- * <p>Listing is deliberately separate from reading: {@link #list()} carries an
- * ETag per object, which lets a sync work out what changed without downloading
- * a single body. Over an untouched prefix that makes a sync one listing and no
- * reads at all.
- */
+/** Staged catalog storage. Listing ETags separately from bodies supports incremental sync. */
 public interface CatalogObjectStore {
 
     /**
-     * Every object under the configured prefix.
-     *
-     * @throws CatalogStoreException when the listing could not be completed;
-     *     a partial listing is never returned, since it would look to a sync
-     *     like the missing objects had been deleted
+     * Lists staged song JSON objects under the configured prefix.
+     * @throws CatalogStoreException on an incomplete listing; partial results could trigger incorrect pruning
      */
     List<CatalogObject> list();
 
@@ -31,46 +21,30 @@ public interface CatalogObjectStore {
     String readJson(String key);
 
     /**
-     * Body of one object, or empty when it is not there. A missing object is
-     * not an error: an edit may write a new staged file from the catalog row.
-     *
-     * @throws CatalogStoreException when the store could not be contacted
+     * Reads a staged object, or returns empty if absent.
+     * @throws CatalogStoreException when the store cannot be contacted
      */
     Optional<String> findJson(String key);
 
     /**
-     * Writes (or overwrites) one staged song object.
-     *
-     * <p>The key must be the same shape {@link #list()} returns for that
-     * object, so a put is immediately visible to the next ETag diff.
-     *
-     * @return the ETag of the written object, the same hash {@link #list()}
-     *     would report, so the catalog row can skip the next import
-     * @throws CatalogStoreException when the object could not be written
+     * Writes staged JSON under its listing key.
+     * @return the ETag to record on the catalog row
+     * @throws CatalogStoreException when the object cannot be written
      */
     String putJson(String key, String json);
 
     /**
-     * Removes one staged song object. A missing object is not an error: the
-     * next listing will not recreate the catalog row.
-     *
-     * @throws CatalogStoreException when the object could not be deleted
+     * Deletes staged JSON; an absent object is allowed.
+     * @throws CatalogStoreException when deletion fails
      */
     void deleteJson(String key);
 
-    /**
-     * The key under which a song with this external id is staged — the same
-     * form {@link #list()} would report after a put.
-     */
+    /** Returns the staging key for the external source id. */
     String stagingKey(String externalSourceId);
 
     /**
-     * Writes (or overwrites) one binary object — audio or cover art.
-     *
-     * <p>{@code length} is the known size of {@code body}. S3 needs it up front;
-     * a local store uses it only as a sanity check.
-     *
-     * @throws CatalogStoreException when the object could not be written
+     * Writes audio or artwork with the known body length.
+     * @throws CatalogStoreException when the object cannot be written
      */
     void putBinary(String key, String contentType, InputStream body, long length);
 
@@ -82,19 +56,12 @@ public interface CatalogObjectStore {
     void deleteBinary(String key);
 
     /**
-     * Every object key under {@code keyPrefix}, recursively. Used when a
-     * provider is removed so leftover media under its slug is not orphaned
-     * after the catalog rows are gone.
-     *
-     * @throws CatalogStoreException when the listing could not be completed
+     * Lists keys recursively for provider media cleanup.
+     * @throws CatalogStoreException when the listing fails
      */
     List<String> listKeys(String keyPrefix);
 
-    /**
-     * Canonical key for company-hosted media, matching the CloudFront prefixes
-     * in {@code infra/cloudfront-audio.yaml}:
-     * {@code song-data/{audio|artwork}/<slug>/<id>.<ext>}.
-     */
+    /** Returns {@code song-data/{audio|artwork}/<slug>/<id>.<ext>} for hosted media. */
     default String mediaKey(MediaKind kind, String providerSlug, String externalSourceId,
             String extension) {
         String ext = extension == null ? "" : extension;

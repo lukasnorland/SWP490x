@@ -1,8 +1,4 @@
-/* ==========================================================================
-   MRS design tokens — Screen Design Spec v1.0.0, Part 1
-   Every value here traces back to a row in Part 1.2 / 1.3 / 1.4.
-   Screens must consume tokens, never raw hex values.
-   ========================================================================== */
+/* Shared design tokens from Screen Design Spec Part 1. */
 
 :root {
   /* --- 1.2 Brand / primary ---------------------------------------------- */

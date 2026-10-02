@@ -461,11 +461,7 @@ class PlaylistServiceTest {
         given(playlistRepository.findById(playlist.getId())).willReturn(Optional.of(playlist));
     }
 
-    /**
-     * The copy {@link PlaylistService#create} persists. Filling it needs no
-     * further read: the songs go onto the entity already in hand, which is also
-     * why a brand-new playlist has no version to check.
-     */
+    /** The newly persisted playlist can receive songs without another read or version check. */
     private void stubNewDraft(Long copyId) {
         given(playlistRepository.save(any(Playlist.class))).willAnswer(invocation -> {
             Playlist saved = invocation.getArgument(0);
@@ -1226,11 +1222,7 @@ class PlaylistServiceTest {
                 .isInstanceOf(InvalidCollaboratorException.class);
     }
 
-    /**
-     * BR-06 across the whole mutation surface: whoever submits the older
-     * version is refused, and refused before anything is written, so the save
-     * that got there first stands untouched.
-     */
+    /** BR-06: every stale mutation is rejected before changing the winning save. */
     @Test
     void rename_whenVersionStale_shouldThrowWithoutWriting() {
         visible(atVersion(4));
@@ -1336,10 +1328,7 @@ class PlaylistServiceTest {
                 });
     }
 
-    /**
-     * A collaborator grant is not part of the content, but it decides who may
-     * change the content, so revoking one has to move the version too.
-     */
+    /** Revoking collaboration changes edit access and advances the version (BR-06). */
     @Test
     void revoke_shouldTouchThePlaylistSoTheVersionMoves() {
         Playlist playlist = playlist(7L, PlaylistStatus.DRAFT);
@@ -1391,10 +1380,7 @@ class PlaylistServiceTest {
                 .isInstanceOf(PlaylistNotFoundException.class);
     }
 
-    /**
-     * BR-09: a collaborator grant carries edit rights, not the right to take a
-     * copy of the catalogue out of the system.
-     */
+    /** BR-09: collaboration permits content edits but never export. */
     @Test
     void exportCsv_whenCallerIsOnlyACollaborator_shouldThrow() {
         given(playlistRepository.findById(7L))

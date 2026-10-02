@@ -15,12 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Issues the time-limited reset links behind P-01. Validity is the P-06d
- * setting (default BV-01: 30 minutes).
- *
- * <p>Tokens live in memory, so they do not survive a restart. That is a
- * deliberate placeholder: a {@code password_reset_token} table replaces this
- * class without touching the screens.
+ * Issues single-use reset tokens with configured validity, default 30 minutes (BV-01).
+ * Tokens are process-local and are lost on restart (TDS 2.2).
  */
 @Service
 public class PasswordResetTokenService {

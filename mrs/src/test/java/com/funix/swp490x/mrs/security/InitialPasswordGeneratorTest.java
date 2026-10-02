@@ -7,11 +7,7 @@ import java.util.Set;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 
-/**
- * The generated password is emailed straight to a new user (BR-15), so a run
- * that happened to miss a character class would lock that account out behind a
- * server-side rejection nobody sees.
- */
+/** Generated initial passwords must satisfy BR-12 before they are emailed. */
 class InitialPasswordGeneratorTest {
 
     private static final int SAMPLES = 500;

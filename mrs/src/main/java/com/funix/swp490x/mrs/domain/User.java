@@ -11,10 +11,7 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 
-/**
- * An MRS account. Maps the {@code users} table created by Flyway migration V1;
- * the schema is owned by the migration and JPA only validates against it.
- */
+/** Internal MRS account mapped to {@code users}. */
 @Entity
 @Table(name = "users")
 public class User {
@@ -53,11 +50,7 @@ public class User {
     @Column(name = "updated_at", nullable = false, insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
-    /**
-     * The column defaults to CURRENT_TIMESTAMP, but an insert from JPA sends
-     * the field explicitly and a null would be rejected outright rather than
-     * defaulted.
-     */
+    /** Initializes the timestamp because JPA sends an explicit value on insert. */
     @PrePersist
     void stampCreatedAt() {
         if (createdAt == null) {

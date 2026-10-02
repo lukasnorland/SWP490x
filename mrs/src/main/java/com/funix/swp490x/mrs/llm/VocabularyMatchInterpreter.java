@@ -10,8 +10,8 @@ import java.util.Set;
 import org.springframework.util.StringUtils;
 
 /**
- * BR-07 keyword fallback: map prompt tokens onto genre / mood / artist / tag
- * names with no network call. Gemini will sit in front of this later.
+ * Matches literal catalog vocabulary without network calls.
+ * Used without a Gemini key and to supplement successful Gemini interpretations.
  */
 public class VocabularyMatchInterpreter implements LlmInterpreter {
 

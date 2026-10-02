@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--/*
-  Duplicate-playlist dialog. Opened by a [data-duplicate-playlist] control; JS
-  fills a suggested "{name} (copy)" and points the form at
-  /playlists/{id}/duplicate.
-*/-->
+<!--/* Duplicate dialog; JS supplies the suggested name and /playlists/{id}/duplicate action. */-->
 <body>
 
 <div th:fragment="dialog" class="modal fade" id="duplicatePlaylist" tabindex="-1"

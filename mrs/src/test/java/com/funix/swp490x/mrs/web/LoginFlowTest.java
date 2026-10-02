@@ -50,11 +50,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
-/**
- * Exercises the P-00 sign-in round trip through the real filter chain: the
- * form must carry a CSRF token, correct credentials must reach the right
- * landing page, and a wrong password must come back with the generic banner.
- */
+/** Tests CSRF-protected login, role landing pages and generic failure banners through the filter chain. */
 @WebMvcTest(controllers = {AuthController.class, HomeController.class, SearchController.class,
         PlaylistController.class, AccountPasswordController.class})
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
@@ -95,11 +91,7 @@ class LoginFlowTest {
         return user;
     }
 
-    /**
-     * Without this hidden field the browser POST is rejected before
-     * authentication runs and the user is bounced back to a pristine login
-     * page — no error banner, no explanation.
-     */
+    /** Login submission must include the CSRF token before authentication runs. */
     @Test
     void loginFormCarriesACsrfToken() throws Exception {
         mockMvc.perform(get(Routes.LOGIN))
@@ -266,12 +258,7 @@ class LoginFlowTest {
                 .andExpect(content().string(containsString("Include an uppercase letter")));
     }
 
-    /**
-     * The interceptor holds a pending account on the change-password screen by
-     * redirecting everything else, so assets have to be exempt. When
-     * {@code /vendor/**} was missing from the exemptions, Bootstrap's stylesheet
-     * answered with a redirect to that screen and it rendered unstyled.
-     */
+    /** Static assets remain accessible during forced password change so that the screen stays styled. */
     @ParameterizedTest
     @ValueSource(strings = {"/vendor/bootstrap/bootstrap.min.css", "/css/tokens.css", "/js/mrs.js"})
     void assetsStayReachableWhileAPasswordChangeIsPending(String asset) throws Exception {

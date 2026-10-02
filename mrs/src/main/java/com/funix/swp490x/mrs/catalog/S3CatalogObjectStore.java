@@ -17,12 +17,7 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 
-/**
- * Reads the staged catalog from the S3 assets bucket.
- *
- * <p>{@code ListObjectsV2} already reports an ETag per object, so working out
- * what changed costs one request per 1,000 keys and no object reads.
- */
+/** S3 staged catalog store; listings provide ETags without downloading object bodies. */
 public class S3CatalogObjectStore implements CatalogObjectStore {
 
     private static final Logger log = LoggerFactory.getLogger(S3CatalogObjectStore.class);
@@ -44,10 +39,7 @@ public class S3CatalogObjectStore implements CatalogObjectStore {
             ListObjectsV2Request request = ListObjectsV2Request.builder()
                     .bucket(bucket)
                     .prefix(prefix)
-                    // Without a delimiter, ListObjectsV2 is recursive. Media
-                    // under song-data/audio/ and any extra vendor trees then
-                    // appear as songs. The nested copy is applied after the
-                    // real object and can wipe fields the copy does not have.
+                    // A delimiter excludes nested media and duplicate vendor trees from song imports.
                     .delimiter("/")
                     .build();
 
@@ -173,12 +165,7 @@ public class S3CatalogObjectStore implements CatalogObjectStore {
         return "s3://" + bucket + "/" + prefix;
     }
 
-    /**
-     * Staged songs live at {@code {prefix}{externalSourceId}.json}, the same
-     * one-level listing {@link LocalDirectoryCatalogObjectStore} uses. JSON
-     * under a subfolder is media metadata or a duplicate vendor tree, not a
-     * catalog object of its own.
-     */
+    /** Only top-level {@code {prefix}<externalSourceId>.json} files are catalog entries. */
     static boolean isStagedSongKey(String prefix, String key) {
         if (key == null || prefix == null || !key.startsWith(prefix) || !key.endsWith(".json")) {
             return false;

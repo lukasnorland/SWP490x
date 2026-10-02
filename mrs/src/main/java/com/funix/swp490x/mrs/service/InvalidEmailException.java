@@ -1,9 +1,6 @@
 package com.funix.swp490x.mrs.service;
 
-/**
- * The submitted address cannot reach a mailbox, so no account is created for
- * it (see {@link EmailPolicy}).
- */
+/** The submitted address fails {@link EmailPolicy} syntax or length validation. */
 public class InvalidEmailException extends RuntimeException {
 
     private final String email;

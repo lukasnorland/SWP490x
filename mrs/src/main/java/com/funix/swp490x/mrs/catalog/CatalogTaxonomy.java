@@ -12,11 +12,8 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
- * Closed vocabularies so Genre, Mood and Tags do not mix.
- *
- * <p>Genres are the cached MusicBrainz list. Moods are the product-owned
- * adjectives. Everything else is a freeform Tag, Title Cased. Admin save
- * refuses unknown genres and moods; bulk remap demotes them to Tags.
+ * Separates MusicBrainz genres, product moods and freeform tags.
+ * Admin input validates genres/moods; import maps unknown names to tags.
  */
 public final class CatalogTaxonomy {
 
@@ -241,11 +238,7 @@ public final class CatalogTaxonomy {
         return titleCase(cleaned);
     }
 
-    /**
-     * Sends every name to one vocabulary. A name listed under the wrong JSON
-     * field still lands in Genre or Mood when the taxonomy knows it. Unknown
-     * names become Tags so a bulk remap of vendor dumps does not fail.
-     */
+    /** Classifies known names as genres or moods; unknown names become freeform tags. */
     public Buckets classify(List<String> genres, List<String> moods, List<String> tags) {
         LinkedHashSet<String> outGenres = new LinkedHashSet<>();
         LinkedHashSet<String> outMoods = new LinkedHashSet<>();

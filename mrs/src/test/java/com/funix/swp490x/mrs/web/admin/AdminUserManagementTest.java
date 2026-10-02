@@ -71,13 +71,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
-/**
- * P-06a account creation and the credentials message it must send (UC-07,
- * BR-15).
- *
- * <p>Only the repository and the mail transport are mocked, so the rules of
- * UC-07 and the rendered message are both exercised for real.
- */
+/** Tests account creation and rendered credentials mail; repository and mail transport are mocked (UC-07). */
 @WebMvcTest(controllers = AdminUserController.class)
 @Import({SecurityConfig.class, WebConfig.class, ShellModelAdvice.class, LoginSuccessHandler.class,
         LoginFailureHandler.class, LoginAttemptService.class, MrsUserDetailsService.class,
@@ -205,11 +199,7 @@ class AdminUserManagementTest {
         then(mailTransport).should(never()).send(anyString(), anyString(), anyString());
     }
 
-    /**
-     * BR-15 posts the only password the account will ever be given to this
-     * address, so an unreachable one produces an account nobody can sign in to.
-     * The browser's email field is not the boundary; this is.
-     */
+    /** Invalid email syntax is rejected server-side before account creation (BR-15). */
     @Test
     void anAddressThatCannotReachAMailboxIsRejected() throws Exception {
         given(userRepository.findByEmail(anyString())).willReturn(Optional.empty());

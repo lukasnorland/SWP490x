@@ -49,19 +49,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * P-06b — Song Catalog & Metadata (spec 4.10, UC-29, UC-28).
- *
- * <p>Read is the Songs table. Update covers classification only (explicit,
- * genres, moods, tags) on both MySQL and the staged song-data JSON; licensed
- * identity is immutable. Delete runs from the same screen.
- *
- * <p>Create is Add Song: ADMIN drops audio + artwork + metadata, the server
- * writes song-data JSON and queues the ETag sync into MySQL. Sync Catalog
- * converts JSON already under the prefix (CLI dumps, previous uploads). The
- * provider CSV/XLSX upload of the original flow is still outstanding.
- *
- * <p>Full-page GETs render the shell. Requests with {@code X-MRS-Partial: results}
- * return only the table + pager fragment so the player bar stays mounted.
+ * Admin catalog browse, staged-JSON sync and classification edits (UC-28, UC-29).
+ * Add Song stages media/JSON and queues sync (UC-36, UC-37); partial results preserve the player.
  */
 @Controller
 public class AdminCatalogController {
@@ -172,11 +161,7 @@ public class AdminCatalogController {
         return Map.of("items", tagSuggestionService.suggest(type, q, limit));
     }
 
-    /**
-     * Add Song. Without JavaScript this is an ordinary multipart POST that
-     * redirects; the modal sends the same body over XHR so a large batch can
-     * show upload progress, and reads the JSON reply for the rejection detail.
-     */
+    /** Handles Add Song multipart upload; XHR receives JSON while ordinary forms redirect. */
     @PostMapping(Routes.ADMIN_CATALOG_SONGS)
     public Object uploadSongs(@ModelAttribute SongDraftBatchForm form,
             @AuthenticationPrincipal MrsUserDetails actor,
@@ -255,11 +240,7 @@ public class AdminCatalogController {
         return "redirect:" + Routes.ADMIN_CATALOG;
     }
 
-    /**
-     * FT-09 NAC-03: a rejected song is named with its reason rather than
-     * silently dropped. The catalog has no room for a rejection table, so the
-     * reasons ride along in the notice.
-     */
+    /** Includes rejected entry names and reasons in the import notice (FT-09 NAC-03). */
     private static String withRejections(String message, List<SkippedRow> rejected) {
         if (rejected.isEmpty()) {
             return message;
@@ -292,11 +273,7 @@ public class AdminCatalogController {
         return values == null || values.isEmpty() ? List.of() : values;
     }
 
-    /**
-     * Only on a full-page GET: the Add-to-playlist dialog sits outside
-     * {@code #catalog-results}, so the partial response has no use for the list
-     * and should not pay for the query.
-     */
+    /** Loads dialog playlist choices only for full-page responses. */
     private void populateShell(Model model, MrsUserDetails actor) {
         List<Tag> tags = tagRepository.findAllUsedOrderByTypeAscNameAsc();
         model.addAttribute("myPlaylists", actor == null

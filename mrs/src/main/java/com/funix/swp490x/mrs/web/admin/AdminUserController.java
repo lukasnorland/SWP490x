@@ -49,11 +49,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * P-06a — User Management (UC-06, UC-07).
- *
- * <p>Rejections of Create re-render the screen under the status code the SRS
- * names rather than redirecting, so the response says what happened and the
- * form keeps what ADMIN typed. Status and role changes redirect with a flash.
+ * Admin account management (UC-06 through UC-09).
+ * Create failures preserve submitted fields; status and role changes redirect with flash messages.
  */
 @Controller
 public class AdminUserController {

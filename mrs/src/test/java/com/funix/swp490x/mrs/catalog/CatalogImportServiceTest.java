@@ -39,12 +39,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.springframework.core.io.ClassPathResource;
 
-/**
- * The sync contract, driven through the real object store, mapper and upsert
- * logic over real staged JSON. Only the persistence boundary is faked, by an
- * in-memory map standing in for the tables, which keeps the interesting part —
- * which objects a run decides to read — under test without needing MySQL.
- */
+/** Tests incremental sync with real staging files, mapper and upsert logic; persistence is simulated. */
 class CatalogImportServiceTest {
 
     private static final String ICE_CREAM = "003c5571-5014-387b-978c-2836125178a4.json";
@@ -192,10 +187,7 @@ class CatalogImportServiceTest {
         verify(tagRepository).deleteUnused();
     }
 
-    /**
-     * The claim the scheduled poller rests on: polling an unchanged prefix reads
-     * no object bodies and writes nothing.
-     */
+    /** Unchanged valid objects are not downloaded or written again. */
     @Test
     void anUnchangedSecondRunReadsNothingAndWritesNothing() {
         sync();
@@ -310,10 +302,7 @@ class CatalogImportServiceTest {
                 });
     }
 
-    /**
-     * A skipped object stores no ETag, so it is offered again rather than being
-     * quietly forgotten — the same property that makes a failed chunk resume.
-     */
+    /** Rejected objects have no stored ETag and are read again on the next sync. */
     @Test
     void aSkippedObjectIsRetriedByTheNextRun() throws IOException {
         write("stranger.json", """
@@ -342,10 +331,7 @@ class CatalogImportServiceTest {
         assertThat(run.isFailed()).isFalse();
     }
 
-    /**
-     * The songs are already committed by then, so a failing audit write must not
-     * report a successful import as broken.
-     */
+    /** Audit failure must not report an already-committed import as failed. */
     @Test
     void anImportStillSucceedsWhenTheAuditWriteFails() {
         AuditLogRepository auditLog = mock(AuditLogRepository.class);

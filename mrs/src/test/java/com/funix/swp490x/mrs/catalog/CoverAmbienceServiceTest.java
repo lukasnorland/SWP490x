@@ -28,13 +28,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
-/**
- * Reading covers over HTTP, against a local server rather than a vendor CDN.
- *
- * <p>The behaviour that matters is that nothing here is ever allowed to fail an
- * import: a cover that 404s, is not an image, or is too big leaves the song
- * without a wash and the run untouched.
- */
+/** Tests cover sampling against a local HTTP server; fetch/decode failures must not fail import. */
 class CoverAmbienceServiceTest {
 
     private HttpServer server;
@@ -97,10 +91,7 @@ class CoverAmbienceServiceTest {
         assertThat(service().read(baseUrl + "/cover.png")).isEmpty();
     }
 
-    /**
-     * The attempt is recorded whether or not it produced colours, which is what
-     * keeps an unreadable cover out of every later import's batch.
-     */
+    /** Failed cover attempts are recorded and retried only after the source URL changes. */
     @Test
     @SuppressWarnings("unchecked")
     void recordsWhatEachCoverGaveIncludingNothing() {

@@ -10,11 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.util.Objects;
 
-/**
- * One metadata value, unique per {@code (type, name)}. Maps the {@code tag}
- * table created by Flyway V1; the schema is owned by the migration and JPA only
- * validates against it.
- */
+/** Metadata dictionary entry, unique by {@code (type, name)}. */
 @Entity
 @Table(name = "tag")
 public class Tag {

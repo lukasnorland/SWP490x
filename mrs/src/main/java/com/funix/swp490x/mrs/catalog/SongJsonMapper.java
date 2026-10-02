@@ -14,14 +14,7 @@ import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.databind.node.ObjectNode;
 
-/**
- * Turns one staged JSON object into the values an upsert needs, rejecting what
- * the catalog rules do not allow in (SC-05).
- *
- * <p>Rejection is a returned reason rather than an exception: a batch of 3,000
- * objects should import the good ones and report the rest, not stop at the
- * first bad row.
- */
+/** Validates staged song JSON and returns values or a per-entry rejection reason (SC-05). */
 @Component
 public class SongJsonMapper {
 
@@ -32,10 +25,7 @@ public class SongJsonMapper {
     private static final int MAX_ISRC = 20;
     private static final int MAX_TAG_NAME = 100;
 
-    /**
-     * Its own mapper rather than the web layer's: this reads third-party files,
-     * so its leniency should not shift when the HTTP JSON settings change.
-     */
+    /** Keeps catalog JSON parsing independent of web JSON settings. */
     private final ObjectMapper objectMapper = JsonMapper.builder().build();
     private final CatalogTaxonomy taxonomy = new CatalogTaxonomy();
 
@@ -90,10 +80,7 @@ public class SongJsonMapper {
         return Result.mapped(values);
     }
 
-    /**
-     * Writes one song in the staged shape, pretty-printed so a human can read
-     * the object the same way the vendor dumps are read.
-     */
+    /** Serializes a song in the staged JSON format. */
     public String write(StagedSong staged) {
         CatalogTaxonomy.Buckets buckets = taxonomy.classify(
                 staged.genres(), staged.moods(), staged.tags());
@@ -123,11 +110,7 @@ public class SongJsonMapper {
         }
     }
 
-    /**
-     * Overwrites classification on an existing staged object and leaves every
-     * other field — licensed identity and unknown provider extras — as they
-     * were, so an admin edit does not strip vendor dumps.
-     */
+    /** Updates classification while preserving licensed identity and unknown provider fields. */
     public String patchClassification(String json, boolean explicit, List<String> genres,
             List<String> moods, List<String> tags) {
         JsonNode tree;
@@ -148,11 +131,7 @@ public class SongJsonMapper {
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
     }
 
-    /**
-     * Rebuilds {@code genres}/{@code moods}/{@code tags} when names sit in the
-     * wrong array or the casing drifted. Empty when the object is already in
-     * step, so a bulk rewrite can skip the put.
-     */
+    /** Normalizes classification arrays; returns empty when no rewrite is needed. */
     public Optional<String> reclassifyJson(String json) {
         Optional<StagedSong> staged = readStaged(json);
         if (staged.isEmpty()) {
@@ -188,21 +167,12 @@ public class SongJsonMapper {
         return cleaned;
     }
 
-    /**
-     * Genres, moods and freeform descriptors become tags of their own type; the
-     * artist is additionally tagged so search can group by it while the
-     * free-text name stays on the song. Known subgenres or moods that arrived
-     * under {@code tags} are attached as GENRE / MOOD so the filters stay
-     * unmixed even before the staged JSON is rewritten.
-     */
-    /**
-     * ADMIN save/upload: refuse names that are not a MusicBrainz genre or a
-     * listed mood. Import still classifies unknowns as Tags.
-     */
+    /** Validates admin genres and moods; import may classify unknown names as tags. */
     public void requireAllowlisted(List<String> genres, List<String> moods) {
         taxonomy.requireAllowlisted(genres, moods);
     }
 
+    /** Classifies genre/mood/tag names and adds the artist as an ARTIST tag. */
     public Set<TagRef> tagRefs(List<String> genres, List<String> moods, List<String> tags,
             String artist) {
         CatalogTaxonomy.Buckets buckets = taxonomy.classify(genres, moods, tags);

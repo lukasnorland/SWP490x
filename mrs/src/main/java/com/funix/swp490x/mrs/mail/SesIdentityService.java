@@ -1,14 +1,6 @@
 package com.funix.swp490x.mrs.mail;
 
-/**
- * Declares a mailbox with Amazon SES so the sandbox will accept mail to it.
- *
- * <p>SMTP credentials cannot do this — only the SES API can — which is why the
- * verify button on P-06a is a separate path from the credentials message of
- * BR-15. Production access removes the need for recipient verification
- * entirely; until then every real inbox has to pass through here (or the
- * equivalent CLI) before {@code Create account}.
- */
+/** Prepares recipient verification for the SES sandbox through the API, separately from account creation. */
 public interface SesIdentityService {
 
     /**

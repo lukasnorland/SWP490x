@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--/*
-  Icon set for spec 1.5 — Lucide geometry, 24x24 viewBox, 2px stroke, served
-  locally so the app has no external icon dependency.
-
-  Stroke colour, width and size come from the .icon class on the consuming
-  <svg>, so symbols carry geometry only.
-
-  Usage:  <svg th:replace="~{fragments/icons :: icon('search', '')}"></svg>
-          <svg th:replace="~{fragments/icons :: icon('trash-2', 'icon--sm')}"></svg>
-*/-->
+<!--/* Local Lucide geometry (24x24); .icon supplies stroke and sizing.
+  Usage: fragments/icons :: icon(name, cssClass) */-->
 <body>
 
 <svg th:fragment="sprite" xmlns="http://www.w3.org/2000/svg" class="icon-sprite" aria-hidden="true" focusable="false">

@@ -7,18 +7,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-/**
- * Picks up songs uploaded straight to S3, so adding to the catalog needs nothing
- * but the upload.
- *
- * <p>Polling rather than S3 event notifications: the diff is listing-only, which
- * over an unchanged prefix is one request and no reads, so the saving from an
- * event-driven path would not pay for the queue and consumer it needs. If
- * near-real-time is ever wanted, this class is the seam to replace.
- *
- * <p>Registered only when {@code mrs.catalog.sync.enabled} is true, so developer
- * machines and the test suite never poll.
- */
+/** Runs scheduled staged-JSON sync when {@code mrs.catalog.sync.enabled} is true (UC-28). */
 @Component
 @ConditionalOnProperty(name = "mrs.catalog.sync.enabled", havingValue = "true")
 public class CatalogSyncJob {

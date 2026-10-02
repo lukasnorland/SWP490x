@@ -21,13 +21,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Account administration for P-06a (UC-06, UC-07).
- *
- * <p>Every public method returns a {@link UserView}, never the {@link User}
- * entity (TDS Part 2.5). Sending the credentials message is deliberately not
- * done here. BR-15 wants the account to survive a failed delivery (UC-07 E3),
- * so the caller sends only once the transaction opened by these methods has
- * committed.
+ * Admin account management using password-safe view records.
+ * Callers send notifications after transaction commit so delivery failure preserves the change (UC-07 E3).
  */
 @Service
 public class UserAccountService {
@@ -57,12 +52,7 @@ public class UserAccountService {
         this.auditLogRepository = auditLogRepository;
     }
 
-    /**
-     * P-06a account list with Zone B filters and Zone D pagination. Newest
-     * accounts first so a freshly created row is visible without hunting.
-     * ADMIN accounts are omitted — P-06a manages Content Designers and
-     * Customers only.
-     */
+    /** Pages Content Designer and Customer accounts newest first; ADMIN accounts are excluded. */
     @Transactional(readOnly = true)
     public Page<UserView> search(Role role, UserStatus status, String query, int page) {
         String q = query == null || query.isBlank() ? null : query.trim();
@@ -73,12 +63,10 @@ public class UserAccountService {
     }
 
     /**
-     * UC-07: the only path to a new account, since there is no public
-     * self-registration (BR-01).
-     *
-     * @throws InvalidEmailException when the address could not reach a mailbox
-     * @throws DuplicateEmailException when the address is already registered
-     * @throws WeakPasswordException when the initial password fails BR-12
+     * Creates an account through ADMIN; public requests do not create accounts (BR-01, BR-19).
+     * @throws InvalidEmailException when email syntax or length is invalid
+     * @throws DuplicateEmailException when the email is registered
+     * @throws WeakPasswordException when the password fails BR-12
      * @throws InvalidRoleAssignmentException when the role is not assignable
      */
     @Transactional
@@ -119,14 +107,11 @@ public class UserAccountService {
     }
 
     /**
-     * Soft-delete (spec 4.9): accounts are never hard-deleted. Marks the row
-     * DEACTIVATED and expires every open session (FT-01 AC-03). Playlists the
-     * account owns go to the successor named for each one (a collaborator, or
-     * the acting ADMIN).
+     * Deactivates the account and revokes sessions after playlist succession (UC-08, BR-14).
+     * Accounts are never hard-deleted.
      *
-     * @throws SelfModificationException when {@code actorUserId} is the target
-     * @throws PlaylistSuccessorRequiredException when they own playlists and
-     *     {@code successors} does not cover every one
+     * @throws SelfModificationException when the actor is the target
+     * @throws PlaylistSuccessorRequiredException when a required successor is missing
      */
     @Transactional
     public Deactivation deactivate(Long userId, Long actorUserId) {
@@ -168,17 +153,10 @@ public class UserAccountService {
     }
 
     /**
-     * UC-06 role change. Only Content Designer and Customer are assignable;
-     * ADMIN rows keep their role (they are not created from this screen either).
-     *
-     * <p>Demoting a Content Designer to Customer reassigns every playlist they
-     * own to the successor named for each one, since a Customer can neither
-     * edit nor unpublish.
-     *
-     * @throws SelfModificationException when {@code actorUserId} is the target
-     * @throws InvalidRoleAssignmentException when the new role is not allowed
-     * @throws PlaylistSuccessorRequiredException when they own playlists and
-     *     {@code successors} does not cover every one
+     * Changes a managed role; Designer demotion transfers owned playlists to selected successors (BR-14).
+     * @throws SelfModificationException when the actor is the target
+     * @throws InvalidRoleAssignmentException when the role is not allowed
+     * @throws PlaylistSuccessorRequiredException when required successors are missing
      */
     @Transactional
     public RoleChange changeRole(Long userId, Role newRole, Long actorUserId) {
@@ -242,14 +220,9 @@ public class UserAccountService {
     }
 
     /**
-     * Prepares a resend of the credentials message (UC-07 E3).
-     *
-     * <p>Only the BCrypt hash is stored, so the original password cannot be
-     * repeated. Resending therefore issues a fresh one and invalidates what was
-     * sent before — which also means a resend whose delivery fails leaves the
-     * account reachable only by resending again.
-     *
-     * @throws SelfModificationException when {@code actorUserId} is the target
+     * Replaces the hashed password with a fresh initial password for resend (UC-07 E3).
+     * The original cannot be recovered; a failed delivery can be retried or followed by password reset.
+     * @throws SelfModificationException when the actor is the target
      */
     @Transactional
     public InitialCredentials reissueInitialPassword(Long userId, Long actorUserId) {

@@ -1,10 +1,5 @@
-/* ==========================================================================
-   Preview bar (4.0): resolve a checked play URL from any row button.
-   One global HTML5 audio element. Row controls carry a checked URL + metadata;
-   the server verifies access and redirects to the audio resource. Next/previous
-   walk the list the title was clicked in (catalog JSON queue, or the playlist
-   table). State survives a full navigation through sessionStorage.
-   ========================================================================== */
+/* Shared HTML5 player with access-checked URLs and context-specific queues (UC-33).
+   Preserves playback state across navigation using sessionStorage. */
 "use strict";
 
 import { extractCoverAmbience } from "./color.js";
@@ -195,10 +190,7 @@ export function initPreviewPlayer(root) {
     document.body.style.removeProperty("--shell-ambience-b");
   }
 
-  /* The import samples each cover and stores the result on the song, because
-     sampling here needs a canvas and a canvas needs CORS headers that several
-     vendor CDNs never send. Reading the image is kept as the fallback, for
-     songs imported before the colours were stored. */
+  /* Prefer stored cover colors; browser sampling is a fallback when the image allows CORS. */
   function applyShellAmbience(coverUrl, ambience) {
     if (ambience && ambience.a && ambience.b) {
       ambienceRequestId += 1;

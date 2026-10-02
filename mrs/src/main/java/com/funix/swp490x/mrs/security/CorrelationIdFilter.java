@@ -11,13 +11,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
- * Stamps every request with {@code X-Request-Id} and puts the same value on
- * the MDC so log lines from one call can be grepped together.
- *
- * <p>The id also lives as a request attribute: {@code OncePerRequestFilter}
- * skips the error dispatch, and the MDC is cleared in {@code finally}, but
- * Spring Boot's {@code BasicErrorController} forward keeps attributes, so
- * {@code error/500.html} can print it as an opaque reference (SYS_001).
+ * Sets {@code X-Request-Id}, MDC and a request attribute for log correlation.
+ * The request attribute survives error dispatch for the 500-page reference (SYS_001).
  */
 public class CorrelationIdFilter extends OncePerRequestFilter {
 

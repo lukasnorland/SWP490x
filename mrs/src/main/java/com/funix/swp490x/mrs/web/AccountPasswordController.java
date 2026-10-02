@@ -17,13 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- * Forced password change on first login (FT-09, flow F-04).
- *
- * <p>ForcedPasswordChangeInterceptor funnels every other request here until the
- * account has set its own password. On success the session principal is
- * refreshed so the stale must-change flag cannot bounce the user back here.
- */
+/** Handles the forced first-login password change and refreshes the session principal (UC-34, F-04). */
 @Controller
 public class AccountPasswordController {
 
@@ -59,9 +53,7 @@ public class AccountPasswordController {
             return "auth/password-change";
         }
 
-        // Flow F-04 continues straight to the role landing page, so the session
-        // is kept and its principal refreshed — otherwise the stale
-        // must-change flag would bounce every request back here.
+        // Refresh the principal so F-04 can continue to the role landing page.
         refreshAuthentication(principal.withoutForcedPasswordChange(), request, response);
         return "redirect:" + result.landingPath();
     }

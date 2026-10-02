@@ -79,10 +79,7 @@ public class WorkspaceController {
         return "workspace/detail";
     }
 
-    /**
-     * Spec 4.7: an unpublished or unknown id is a generic 403, not a 404 that
-     * would confirm a Draft exists.
-     */
+    /** Unknown or unpublished ids return a generic 403 without disclosing Draft existence. */
     @ExceptionHandler(PlaylistNotFoundException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public String forbidden() {

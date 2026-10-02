@@ -28,16 +28,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
     /**
-     * Writes one chunk of staged songs in a single transaction.
-     *
-     * <p>Separate from {@link CatalogImportService} so the transaction boundary is
-     * a real bean call: a chunk either commits whole or leaves the previous chunks
-     * intact, and the objects it did not manage to write still differ by ETag, so
-     * the following sync retries exactly those.
-     *
-     * <p>This class never writes the object store. S3 is applied onto MySQL, and
-     * a row whose {@code source_etag} has already moved (an ADMIN edit that put
-     * JSON after this run listed) is left alone rather than rolled back.
+     * Commits one import chunk atomically; failed chunks can be retried by ETag.
+     * Concurrent admin edits are skipped, and the object store is never written here (BR-06).
      */
 @Component
 public class SongUpserter {
@@ -110,11 +102,7 @@ public class SongUpserter {
         return new ChunkResult(added, updated, skipped);
     }
 
-    /**
-     * Drops catalog rows whose staged object is gone. Playlist membership is
-     * cleared first because {@code playlist_song} does not cascade, then each
-     * affected playlist is compacted to contiguous 1..N (DC-04).
-     */
+    /** Removes missing staged songs and compacts affected playlists to 1..N (DC-04). */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public int removeMissing(Collection<String> externalSourceIds, Long actorId) {
         if (externalSourceIds.isEmpty()) {
@@ -192,11 +180,7 @@ public class SongUpserter {
         return isNew;
     }
 
-    /**
-     * True when MySQL already records a different object than the one this
-     * fetch carried — typically an ADMIN edit that put JSON after we listed.
-     * Applying would walk the row back and leave S3 ahead until another run.
-     */
+    /** Detects a stored ETag that changed after this fetch, so concurrent edits are not overwritten. */
     static boolean hasNewerWrite(String currentEtag, String applyingEtag,
             String listedSourceEtag) {
         if (currentEtag == null || currentEtag.equals(applyingEtag)) {
@@ -205,10 +189,7 @@ public class SongUpserter {
         return listedSourceEtag == null || !currentEtag.equals(listedSourceEtag);
     }
 
-    /**
-     * Get-or-create against the shared vocabulary. The cache spans the chunk
-     * because a genre like "Traditional Country" recurs across most of it.
-     */
+    /** Resolves shared tags with a cache scoped to the import chunk. */
     private Set<Tag> resolveTags(Set<TagRef> refs, Map<String, Tag> tagCache) {
         Set<Tag> tags = new LinkedHashSet<>();
         for (TagRef ref : refs) {

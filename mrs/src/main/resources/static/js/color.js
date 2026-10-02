@@ -1,7 +1,4 @@
-/* ==========================================================================
-   Cover art -> ambience colors.
-   Samples a song cover into 1-2 wash colors for the shell ambience layer.
-   ========================================================================== */
+/* Samples cover art into shell background colors when server-sampled colors are unavailable. */
 "use strict";
 
 function rgbToCss(r, g, b, alpha) {

@@ -4,13 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.util.StringUtils;
 
-/**
- * Gemini text models P-06d may pick for FT-04 interpretation.
- *
- * <p>Listed from {@code models.list} against the configured API key. Image,
- * TTS, research, computer-use and Gemma ids are omitted: Search needs
- * structured JSON, not those modalities.
- */
+/** Text models supported by the P-06d interpreter setting; excludes incompatible model types. */
 public final class GeminiModels {
 
     public record Option(String id, String label) {

@@ -17,13 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * P-06f — All Playlists. Read-only oversight of every playlist in the system,
- * Draft or Published, whoever owns it.
- *
- * <p>Access is granted by SecurityConfig on {@code /admin/**}. Song edits stay
- * with the owner and collaborators. ADMIN can publish, unpublish or export from
- * inspect through the shared playlist routes, and can grant collaborators there
- * too.
+ * Admin playlist oversight without content edit/delete controls (UC-20).
+ * ADMIN may still publish, unpublish, export and manage collaborators through playlist routes.
  */
 @Controller
 public class AdminPlaylistController {

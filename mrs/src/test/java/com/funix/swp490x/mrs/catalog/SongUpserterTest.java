@@ -77,7 +77,7 @@ class SongUpserterTest {
         assertThat(savedSong().getSourceEtag()).isEqualTo("etag-a");
     }
 
-    /** DC-04: the same external id updates in place rather than duplicating. */
+    /** UC-28: an existing provider/external-id pair updates in place. */
     @Test
     void countsAKnownExternalIdAsAnUpdate() {
         Song existing = new Song();
@@ -114,10 +114,7 @@ class SongUpserterTest {
         verify(tagRepository, never()).save(any(Tag.class));
     }
 
-    /**
-     * BR-06: a concurrent edit wins. The row is reported as skipped and keeps its
-     * old ETag, so the next sync offers the object again.
-     */
+    /** BR-06: concurrent edits are skipped without replacing their stored ETag. */
     @Test
     void reportsAVersionConflictInsteadOfOverwritingTheEdit() {
         given(songRepository.save(any(Song.class)))

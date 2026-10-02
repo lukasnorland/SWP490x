@@ -26,22 +26,12 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
-/**
- * Authentication and role-based access.
- *
- * <p>This is the real security boundary (NFR-SEC03). The sidebar hides sections
- * a role cannot use, but that is a usability measure only — every rule below is
- * enforced server-side regardless of what the UI renders.
- */
+/** Enforces authentication and role access server-side (NFR-SEC03). */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    /**
-     * Bootstrap's JS sets inline widths on progress bars and modals, so
-     * {@code style-src} keeps {@code 'unsafe-inline'}. Scripts and fonts are
-     * self-hosted.
-     */
+    /** Allows inline styles required by Bootstrap; scripts and fonts remain self-hosted. */
     static final String CONTENT_SECURITY_POLICY = String.join("; ",
             "default-src 'self'",
             "script-src 'self'",
@@ -54,7 +44,7 @@ public class SecurityConfig {
             "base-uri 'self'",
             "form-action 'self'");
 
-    /** TDS 5.5 — the application uses none of these. */
+    /** Disables unused browser capabilities (TDS 5.5). */
     static final String PERMISSIONS_POLICY = "camera=(), microphone=(), geolocation=()";
 
     /** BCrypt only (NFR-SEC02); cost 12. Seeded V2 hashes are {@code $2a$10$}
@@ -64,19 +54,13 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder(12);
     }
 
-    /**
-     * Tracks signed-in principals so P-06a can expire sessions when an account
-     * is deactivated (FT-01 AC-03 / spec 4.9).
-     */
+    /** Registers active sessions for account deactivation and role-change revocation. */
     @Bean
     public SessionRegistry sessionRegistry() {
         return new SessionRegistryImpl();
     }
 
-    /**
-     * Publishes create/destroy events into {@link SessionRegistry}. Without it
-     * the registry never learns about sessions that end outside Spring Security.
-     */
+    /** Publishes servlet session lifecycle events to {@link SessionRegistry}. */
     @Bean
     public HttpSessionEventPublisher httpSessionEventPublisher() {
         return new HttpSessionEventPublisher();
@@ -105,9 +89,7 @@ public class SecurityConfig {
 
         http
                 .addFilterBefore(new CorrelationIdFilter(), CsrfFilter.class)
-                // CsrfFilter publishes the deferred token; this reads it while the
-                // response is still uncommitted, so no template can trigger session
-                // creation mid-render.
+                // Resolve CSRF before rendering can commit the response.
                 .addFilterAfter(new EagerCsrfTokenFilter(), CsrfFilter.class)
                 // nosniff, DENY and HSTS come from the Spring Security defaults;
                 // HSTS only goes out on a secure request, so it appears once TLS
@@ -136,10 +118,7 @@ public class SecurityConfig {
                         .hasAnyRole("ADMIN", "CONTENT_DESIGNER")
                         // The play controller checks playlist visibility for Customers.
                         .requestMatchers(Routes.SONG_PLAY).authenticated()
-                        // P-03 is a curation surface. A Customer reads shared work
-                        // through the Shared Workspace only (FT-06 NAC-03), owns no
-                        // playlists (demotion hands them to ADMIN) and never
-                        // creates or changes one.
+                        // Customers use only the Shared Workspace and never own or edit playlists (BR-04).
                         .requestMatchers(Routes.PLAYLISTS, Routes.PLAYLISTS + "/**")
                         .hasAnyRole("ADMIN", "CONTENT_DESIGNER")
                         .anyRequest().authenticated())
@@ -157,9 +136,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl(Routes.LOGIN + "?logout")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID"))
-                // FT-01: after the 8 h inactivity window the user returns to P-00
-                // with the session-expired notice. Concurrency is unbounded; the
-                // registry exists so ADMIN can expire another user's sessions.
+                // Expired sessions return to login; the registry also supports ADMIN-triggered revocation.
                 .sessionManagement(session -> session
                         .invalidSessionUrl(Routes.LOGIN + "?expired")
                         .sessionConcurrency(concurrency -> concurrency

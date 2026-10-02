@@ -12,11 +12,8 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 /**
- * An immutable record of an action that changed state (BR-10, NFR-SEC04). Maps
- * the {@code audit_log} table created by Flyway V1.
- *
- * <p>{@code actorId} is required, so only actions with a real actor belong here.
- * An unattended catalog sync is recorded in {@code catalog_import_run} instead.
+ * Audit entry for actor-driven changes and security events (BR-10, NFR-SEC04).
+ * Unattended catalog syncs are recorded in {@code catalog_import_run}.
  */
 @Entity
 @Table(name = "audit_log")

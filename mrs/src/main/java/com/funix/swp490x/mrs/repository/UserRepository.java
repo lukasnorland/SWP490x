@@ -19,12 +19,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     Optional<User> findByEmail(String email);
 
-    /**
-     * P-06a Zone B/D — filter by role, status and a name/email fragment, then
-     * page. ADMIN rows are never listed (the sole admin does not manage
-     * themselves here). Null filters mean "all" among non-ADMIN accounts;
-     * blank {@code q} is treated as null by the caller.
-     */
+    /** Pages non-ADMIN accounts by role, status and name/email; null filters mean all managed accounts. */
     @Query("""
             SELECT u FROM User u
             WHERE u.role <> 'ADMIN'

@@ -44,10 +44,7 @@ class CatalogSyncJobTest {
                 .run(context -> assertThat(context).hasSingleBean(CatalogSyncJob.class));
     }
 
-    /**
-     * Scheduling stays on so the 12-month log purge can run. The poller is still
-     * gated by {@code mrs.catalog.sync.enabled} on {@link CatalogSyncJob}.
-     */
+    /** Log retention stays scheduled even when catalog polling is disabled. */
     @Test
     void schedulingIsEnabledEvenWhenThePollerIsOff() {
         contextRunner
@@ -56,10 +53,7 @@ class CatalogSyncJobTest {
                         .hasSingleBean(ScheduledAnnotationBeanPostProcessor.class));
     }
 
-    /**
-     * ADMIN pressing the button mid-poll must be refused rather than run a second
-     * import over the same objects.
-     */
+    /** Manual sync is refused while another import is running. */
     @Test
     void aSecondCallIsRefusedWhileTheFirstIsStillRunning() throws Exception {
         CountDownLatch listing = new CountDownLatch(1);

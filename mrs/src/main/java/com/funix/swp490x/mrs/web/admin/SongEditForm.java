@@ -1,9 +1,6 @@
 package com.funix.swp490x.mrs.web.admin;
 
-/**
- * Classification posted by the P-06b edit modal. Licensed identity (title,
- * artist, duration, ISRC, media) is not accepted — the service ignores it.
- */
+/** Admin-editable song classification; licensed identity and media fields are excluded (UC-29). */
 public class SongEditForm {
 
     private Boolean explicit;

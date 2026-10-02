@@ -13,14 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 /**
- * Fixed-window request cap for the unauthenticated account-request form
- * (BR-19, NFR-SEC07). Limit and window come from System Settings
- * (P-06d / UC-31); the defaults match BV-12 (3 per hour per origin).
- *
- * <p>State is in-memory, so it is per instance, exactly as
- * {@link LoginAttemptService}. That is adequate for the single-instance
- * deployment target; a shared store would be needed before running more than
- * one node.
+ * Process-local account-request limiter configured through System Settings (BR-19, BV-12).
+ * Defaults to 3 attempts per origin per hour.
  */
 @Service
 public class RequestRateLimiter {
@@ -51,12 +45,8 @@ public class RequestRateLimiter {
     }
 
     /**
-     * Records one attempt against {@code key} and reports whether it is within
-     * the limit. Counts attempts rather than successes, so the caller has to
-     * call this before validating the request: otherwise a malformed-input
-     * loop would never be capped.
-     *
-     * @return {@code true} when the attempt is allowed
+     * Counts attempts before validation so malformed submissions also consume the limit.
+     * @return true when the attempt is allowed
      */
     public boolean tryAcquire(String key) {
         String bucket = StringUtils.hasText(key) ? key.trim() : UNKNOWN_KEY;

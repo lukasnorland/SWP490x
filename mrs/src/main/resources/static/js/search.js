@@ -1,6 +1,4 @@
-/* ==========================================================================
-   P-02 Search: live 10–200 character counter, and the sticky multi-select bar.
-   ========================================================================== */
+/* Contextual-query counter and Search multi-select bar (P-02). */
 "use strict";
 
 export function initSearchPrompt(root) {

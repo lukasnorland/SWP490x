@@ -17,12 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 /**
- * Runtime values for P-06d (UC-31). Rows in {@code system_setting} override
- * the defaults on {@link SettingKey}; an empty table means every default.
- *
- * <p>The in-process map is dropped on every save so a change is visible on
- * the next request (BR-17). A 5-minute ceiling stops a quiet database from
- * being hit on every login check.
+ * Database settings override {@link SettingKey} defaults (UC-31).
+ * The process-local cache expires after five minutes and is cleared on save (BR-17).
  */
 @Service
 public class SettingsService {

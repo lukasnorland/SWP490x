@@ -1,6 +1,6 @@
 package com.funix.swp490x.mrs.catalog;
 
-/** The staged catalog could not be listed or read. */
+/** A catalog object-store operation failed. */
 public class CatalogStoreException extends RuntimeException {
 
     public CatalogStoreException(String message, Throwable cause) {
@@ -11,11 +11,7 @@ public class CatalogStoreException extends RuntimeException {
         super(message);
     }
 
-    /**
-     * Wraps an unexpected failure from the AWS client or a local store. Credential
-     * refresh throws {@link IllegalStateException}, not {@code SdkException}, so
-     * callers that only catch SDK errors would otherwise 500 the admin page.
-     */
+    /** Wraps store failures, including credential refresh errors outside the SDK exception hierarchy. */
     public static CatalogStoreException of(String action, RuntimeException e) {
         if (e instanceof CatalogStoreException cse) {
             return cse;

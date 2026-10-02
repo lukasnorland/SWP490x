@@ -29,11 +29,7 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
     /** True when a different playlist already uses this name. */
     boolean existsByNameAndIdNot(String name, Long id);
 
-    /**
-     * Drops every collaborator grant held by one account. Used when the
-     * account leaves the Content Designer role, since grants go to Content
-     * Designers only (BR-03).
-     */
+    /** Removes grants when an account leaves the Content Designer role (BR-03). */
     @Modifying
     @Query(value = "DELETE FROM playlist_collaborator WHERE user_id = :userId", nativeQuery = true)
     int deleteCollaboratorGrantsOf(@Param("userId") Long userId);
@@ -70,16 +66,8 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
     long countCollaboratorGrant(@Param("playlistId") Long playlistId, @Param("userId") Long userId);
 
     /**
-     * Ids of the playlists on one page of P-03a: owned, or shared as a
-     * collaborator (BR-03).
-     *
-     * <p>Ids rather than entities for the same reason as
-     * {@link SongRepository#searchIds}, and native because
-     * {@code playlist_collaborator} is a grant table with no entity of its own.
-     *
-     * <p>{@code status} and {@code q} are empty strings rather than nulls when
-     * unset. A null bound into a native comparison leaves Hibernate without a
-     * type to infer, and an empty sentinel needs no cast.
+     * Pages playlists owned by or shared with the user (BR-03).
+     * Empty strings represent unset text/status filters in native queries.
      */
     @Query(value = """
             SELECT p.id FROM playlist p
@@ -137,11 +125,7 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
             """, nativeQuery = true)
     List<OwnerOption> findPlaylistOwners();
 
-    /**
-     * Everything one page of the P-03a table shows, in a single query. The
-     * counts are correlated subqueries rather than joins so a playlist with no
-     * songs and no collaborators still returns a row.
-     */
+    /** Projects playlist rows with song/collaborator counts; preserves empty playlists. */
     @Query(value = """
             SELECT p.id               AS id,
                    p.name             AS name,
@@ -173,13 +157,7 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
             """, nativeQuery = true)
     List<Long> findEditableDraftIds(@Param("userId") Long userId);
 
-    /**
-     * Non-zero when the user owns the playlist or holds a collaborator grant.
-     *
-     * <p>A count rather than a {@code COUNT(*) > 0} predicate: MySQL returns
-     * that as a BIGINT, and Spring Data has no converter from the resulting
-     * {@code Long} to a {@code boolean}.
-     */
+    /** Returns a count for owner/collaborator visibility; avoids native numeric-to-boolean conversion. */
     @Query(value = """
             SELECT COUNT(*) FROM playlist p
             WHERE p.id = :playlistId
@@ -190,12 +168,8 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
     long countVisibleTo(@Param("playlistId") Long playlistId, @Param("userId") Long userId);
 
     /**
-     * P-04a: published playlists, newest publish first. {@code ownerId} is 0
-     * when the owner filter is off — same empty-sentinel trick as
-     * {@link #searchVisibleIds}.
-     *
-     * <p>There is no customer-grant table in V1, so BR-04 cannot yet narrow
-     * the list; every published playlist is in the Shared Workspace.
+     * Pages all Published playlists, visible to every internal user (BR-04).
+     * {@code ownerId} is 0 when no owner filter is selected.
      */
     @Query(value = """
             SELECT p.id FROM playlist p
@@ -283,11 +257,7 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
 
         String getOwnerName();
 
-        /**
-         * Raw, rather than a {@code owner_id <> :userId} comparison: MySQL
-         * returns that as an integer and no standard converter turns one into a
-         * {@code Boolean}. The service compares it instead.
-         */
+        /** Returns the owner id so the service can derive {@code sharedWithMe}. */
         Long getOwnerId();
     }
 

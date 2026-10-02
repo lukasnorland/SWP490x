@@ -171,11 +171,7 @@ class WorkspaceFlowTest {
                 .andExpect(content().string(containsString("Unpublish")));
     }
 
-    /**
-     * BR-09: a non-owner curator reads the playlist but cannot export it.
-     * Duplicate is a separate right and must survive that restriction, or the
-     * Shared Workspace loses the reason it exists.
-     */
+    /** A non-owner curator may duplicate a Published playlist but cannot export it (BR-09). */
     @Test
     void aNonOwnerDesignerCanDuplicateButNotExportFromTheWorkspace() throws Exception {
         Playlist shared = published("Morning coffee");

@@ -1,19 +1,4 @@
-/* ==========================================================================
-   MRS components that Bootstrap cannot express.
-
-   Everything Bootstrap covers is either themed in theme.css or composed from
-   utility classes in the templates. What remains here needs a CSS property or
-   selector Bootstrap has no utility for:
-
-     - SVG stroke and sizing for the icon set (1.5)
-     - arbitrary linear-gradient fills (--gradient-accent)
-     - border-style: dashed (zone placeholders)
-     - font-variant-numeric: tabular-nums (numeric table columns)
-     - hover-revealed row actions
-     - fixed pixel dimensions off Bootstrap's spacing scale
-
-   Loads after theme.css and vendor Tom Select so those overrides win.
-   ========================================================================== */
+/* MRS components and vendor overrides beyond Bootstrap utilities (Screen Design Spec Part 1). */
 
 /* --- 1.5 Iconography ---------------------------------------------------- */
 
@@ -331,7 +316,7 @@
   }
 }
 
-/* --- Stepper (P-06c catalog import) ------------------------------------- */
+/* Import stepper. */
 
 .stepper__step[aria-current="step"] {
   color: var(--color-primary-bright);
@@ -353,9 +338,7 @@
   background-color: var(--color-border-strong);
 }
 
-/* --- Zone placeholder --------------------------------------------------
-   Temporary scaffolding for specified-but-unbuilt zones. Dashed outline so it
-   never reads as finished UI. Delete each one as its zone is implemented. */
+/* Dashed placeholder for unfinished screen zones. */
 
 .zone-placeholder {
   border: 1px dashed var(--color-border-strong);
@@ -366,8 +349,7 @@
   color: var(--color-primary-bright);
 }
 
-/* --- P-06c audio dropzone ----------------------------------------------
-   Dashed outline like a zone placeholder, but this one is finished UI. */
+/* P-06b Add Song audio dropzone. */
 
 .dropzone {
   border: 1px dashed var(--color-border-strong);
@@ -541,9 +523,7 @@ form[data-busy="true"] .search-prompt-field::after {
   }
 }
 
-/* Add-to-playlist dialog modes. A plain flex stack, deliberately without
-   .d-flex: Bootstrap's display utilities are !important and declared after its
-   [hidden] reset, so [hidden] on a .d-flex element does nothing. */
+/* Use flex rules without !important so [hidden] can switch playlist dialog modes. */
 .mode-stack {
   display: flex;
   flex-direction: column;

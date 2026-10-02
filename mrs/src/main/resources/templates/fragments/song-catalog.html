@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--/*
-  Shared song list UI for P-06b (/admin/catalog) and authenticated browse (/songs).
-
-  Model:
-    catalogBasePath   — form / pager / clear target
-    browseMode        — true hides admin ops filters and upload-oriented empty copy
-    providers         — empty (or absent) hides the Provider group
-*/-->
+<!--/* Shared catalog results for P-06b and Content Designer browse.
+  catalogBasePath supplies filter/pager URLs; browseMode hides admin-only controls. */-->
 <body>
 
 <!-- P-06b Songs | Tags. Hidden on designer browse (that page does not include this). -->

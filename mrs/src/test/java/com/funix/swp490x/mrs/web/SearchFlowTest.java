@@ -83,11 +83,7 @@ class SearchFlowTest {
         given(playlistService.editableDrafts(nullable(Long.class))).willReturn(List.of());
     }
 
-    /**
-     * "Create and add" from a search row and a failed "Create playlist from
-     * results" both redirect back here with a flash; the page has to show it,
-     * or the outcome is invisible and the form looks like it did nothing.
-     */
+    /** Search displays flash outcomes from playlist creation and add-to-playlist redirects. */
     @Test
     void searchShowsTheFlashItWasRedirectedBackWith() throws Exception {
         mockMvc.perform(get(Routes.SEARCH)
@@ -288,11 +284,7 @@ class SearchFlowTest {
                 .andExpect(content().string(containsString("/search/create-playlist")));
     }
 
-    /**
-     * The two dialog modes toggle [hidden] on plain wrappers. Putting it on the
-     * .d-flex forms themselves left both "Create and add" and "Create" showing
-     * at once, and the wrong one posted with no criteria.
-     */
+    /** Dialog modes use [hidden] wrappers so Bootstrap .d-flex does not expose both forms. */
     @Test
     void theDialogModesAreWrappedSoOnlyOneShowsAtATime() throws Exception {
         mockMvc.perform(get(Routes.SEARCH).with(user(principal(Role.CONTENT_DESIGNER))))

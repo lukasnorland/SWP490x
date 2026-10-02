@@ -15,11 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 /**
- * ADMIN vocabulary on P-06b. Staged song JSON remains source of truth, so
- * names already on songs cannot be renamed or deleted here — that would strip
- * {@code song_tag} without patching S3. Unused rows are MySQL-only dictionary
- * entries (typeahead / the next song edit). Catalog sync still drops unused
- * names after an import, which is the same cleanup as orphan JSON detach.
+ * Admin dictionary CRUD; only unused names may be renamed/deleted (BR-02).
+ * Staged JSON owns song tags; sync removes unused dictionary rows.
  */
 @Service
 public class TagVocabularyService {

@@ -12,19 +12,12 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * The two colours a cover contributes to the shell's background wash, as CSS
- * {@code rgba()} values ready to drop into the {@code --shell-ambience-*}
- * custom properties.
- *
- * <p>The sampling mirrors what the browser used to do in {@code color.js}, so
- * a song looks the same whether its colours came from the server or from the
- * canvas fallback: reduce the cover to 32x32, bucket the pixels by their top
- * four bits per channel, ignore anything near black, near white or grey, and
- * take the two commonest buckets darkened into something a page can sit on.
+ * Samples two darkened cover colors for the shell background, matching the browser fallback.
+ * Returns CSS {@code rgba()} values for {@code --shell-ambience-*}.
  */
 public record CoverAmbience(String a, String b) {
 
-    /** Sampling grid. Big enough to survive a busy cover, small enough to be free. */
+    /** Fixed cover sampling grid. */
     private static final int SIZE = 32;
 
     /** Below this the pixel is transparent enough to say nothing about the art. */
@@ -97,10 +90,7 @@ public record CoverAmbience(String a, String b) {
                 wash(secondary, "0.75")));
     }
 
-    /**
-     * Redraws the cover into a fixed grid. Sampling every pixel of a 3000x3000
-     * cover would cost far more than it tells us.
-     */
+    /** Scales the cover to a fixed sampling grid. */
     private static int[] scaleToGrid(BufferedImage source) {
         BufferedImage grid = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = grid.createGraphics();
@@ -114,10 +104,7 @@ public record CoverAmbience(String a, String b) {
         return grid.getRGB(0, 0, SIZE, SIZE, null, 0, SIZE);
     }
 
-    /**
-     * Darkens towards the page background. The raw cover colour is far too
-     * bright to sit behind text, so it is pulled down and nudged blue.
-     */
+    /** Darkens sampled colors for readable background contrast. */
     private static String wash(Bucket bucket, String alpha) {
         long r = Math.round(bucket.red() * 0.45 + 8);
         long g = Math.round(bucket.green() * 0.45 + 8);

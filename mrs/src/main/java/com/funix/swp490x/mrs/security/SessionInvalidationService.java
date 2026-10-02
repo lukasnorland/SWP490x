@@ -6,13 +6,7 @@ import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-/**
- * Ends every active HTTP session for an account (FT-01 AC-03).
- *
- * <p>Used when ADMIN deactivates a user (spec 4.9): the account cannot sign in
- * again, and any session already open is marked expired so the next request
- * through {@code ConcurrentSessionFilter} tears it down.
- */
+/** Marks account sessions expired; the next request invalidates them (FT-01 AC-03). */
 @Service
 public class SessionInvalidationService {
 
