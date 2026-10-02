@@ -1,0 +1,33 @@
+MRS local evaluation: S3 and Gemini
+
+Fill local-test-config.txt with the agreed test credentials for the evaluation ZIP.
+This file is a setup reference; the app does not load it automatically.
+
+1. Install AWS CLI v2. Copy this profile into ~/.aws/credentials
+   (Windows: %USERPROFILE%\.aws\credentials).
+
+[mrs-admin]
+aws_access_key_id = REPLACE_WITH_TEST_ACCESS_KEY_ID
+aws_secret_access_key = REPLACE_WITH_TEST_SECRET_ACCESS_KEY
+# For temporary credentials, also add: aws_session_token = YOUR_SESSION_TOKEN
+
+2. Set the profile region:
+
+aws configure set region ap-southeast-1 --profile mrs-admin
+
+3. Add these settings to mrs/local.properties alongside your own DB credentials.
+   Leave mrs.catalog.local-dir blank to select S3 instead of local staging.
+
+mrs.catalog.local-dir=
+mrs.catalog.bucket=mrs-133857166188-assets
+mrs.catalog.region=ap-southeast-1
+mrs.catalog.aws-profile=mrs-admin
+mrs.catalog.prefix=song-data/
+mrs.catalog.media.public-base-url=https://d34ixswlpjs53y.cloudfront.net
+mrs.catalog.import-on-start=false
+mrs.catalog.sync.enabled=false
+mrs.llm.api-key=REPLACE_WITH_TEST_GEMINI_API_KEY
+
+4. Start the app, log in as an MRS ADMIN, and select Sync Catalog.
+   AWS mrs-admin and the application's ADMIN are separate accounts.
+   Catalog add/edit/delete operations use the shared S3 catalog.

@@ -10,7 +10,7 @@ Graduation project for **SWP490x — FUNiX**, developed by **Nguyễn Ngọc Lu�
 2. **Find music.** Browse by genre, mood, artist, and tags, or describe a playlist need in natural language. Gemini can translate the prompt into catalog criteria. Without an API key, the app uses vocabulary matching; keyword search provides a fallback.
 3. **Review recommendations.** Search includes songs matching any selected criterion, ranks them by the number of matches and then title, and optionally limits the results with Top-N. Catalog browsing combines filters across categories.
 4. **Curate together.** Create a Draft playlist, add and reorder songs, and invite other Content Designers to edit. Concurrent edits are checked against the playlist version so stale changes cannot silently overwrite another user's work.
-5. **Publish and reuse.** Publish a playlist containing at least one song to the shared workspace. Curators can duplicate playlists into independent Drafts and export CSV. Audio preview continues across navigation, with queues limited to the first 100 tracks in display order from a catalog filter, search result, or playlist.
+5. **Publish and reuse.** Publish a playlist containing at least one song to the shared workspace. Curators can duplicate playlists into independent Drafts; the owner or an ADMIN can export CSV. Audio preview continues across navigation, with queues limited to the first 100 tracks in display order from a catalog filter, search result, or playlist.
 
 | Role | Access |
 |------|--------|
@@ -24,14 +24,14 @@ MRS is intended for internal curation over licensed music, not public streaming.
 
 - **Backend:** Java 25, Spring Boot 4.1, Spring Security, Spring Data JPA, Flyway.
 - **Frontend:** Thymeleaf, Bootstrap, Tom Select, and JavaScript; no Node build step required.
-- **Database:** MySQL.
+- **Database:** MySQL 8.x.
 - **Integrations:** Amazon S3 / CloudFront for media, Amazon SES for email, and Gemini for prompt interpretation.
 
 The application and database run locally. AWS EC2 is an optional deployment target.
 
 ## Run locally
 
-Install **JDK 25** and **MySQL**. The Maven Wrapper is included in `mrs/`.
+Install **JDK 25** and **MySQL 8.x**. The Maven Wrapper is included in `mrs/`; its first run downloads Maven and project dependencies.
 
 Create an empty database:
 
@@ -59,7 +59,13 @@ cd mrs
 .\mvnw.cmd spring-boot:run
 ```
 
-On Linux or macOS, use `./mvnw spring-boot:run` instead.
+On Linux or macOS:
+
+```bash
+cd mrs
+chmod +x mvnw
+./mvnw spring-boot:run
+```
 
 Open **http://localhost:8080**. Flyway creates the schema and initial administrator on a new database:
 
@@ -68,13 +74,17 @@ Open **http://localhost:8080**. Flyway creates the schema and initial administra
 
 The first login requires a password change. Use the admin screens to create other accounts. Stop the application with **Ctrl+C** in its terminal.
 
+These credentials apply only to a new database. Flyway does not reset an existing administrator's password. The migrations seed provider names but no songs or playlists; import catalog data before testing search and playback. Let Flyway apply the migrations rather than running the SQL files manually first.
+
 ## Optional configuration
 
 Add the settings below to `mrs/local.properties` as needed. Keep real credentials out of version control.
 
+See [local test configuration](evaluation/local-test-config.txt) for the S3/CloudFront values, AWS `mrs-admin` test credentials, and Gemini API key. Follow its setup instructions; the app does not load this file automatically. For Git checkouts, start from the [configuration template](evaluation/local-test-config.example.txt).
+
 ### Catalog and media
 
-The local staging setting stores catalog JSON and uploaded media on disk. Playable audio still requires URLs reachable by the browser; local staging alone does not publish those files as a media server.
+The local staging setting stores catalog JSON and uploaded media on disk. Place staged song JSON directly in `mrs/catalog-staging/`, one `<externalSourceId>.json` file per song, then select **Sync Catalog** as ADMIN. Playable audio still requires URLs reachable by the browser; local staging alone does not publish those files as a media server.
 
 To use S3 and a media host instead:
 
@@ -87,7 +97,13 @@ mrs.catalog.prefix=song-data/
 mrs.catalog.media.public-base-url=https://your-media-host
 ```
 
-Configure the named AWS profile with access to your bucket and make the media URLs available through your media host. Use **Sync Catalog** to import staged song JSON. Automatic startup import and scheduled synchronization are off by default; enable them with `mrs.catalog.import-on-start=true` and `mrs.catalog.sync.enabled=true` if needed.
+Install AWS CLI v2 and configure the named profile with access to your bucket. The app resolves named profiles through `aws configure export-credentials`; an AWS console password alone is not enough. A blank `mrs.catalog.aws-profile` uses the SDK's default credential chain instead.
+
+Keep the S3 bucket private. CloudFront reads company-hosted audio and artwork through Origin Access Control (OAC); staged JSON is excluded from that access. Browser playback uses CloudFront URLs without AWS credentials. See [AWS setup](docs/aws-setup.md) for the optional deployment configuration.
+
+Use **Sync Catalog** to import staged song JSON into the local MySQL database. Import needs S3 List/Get access; catalog add, edit, and delete also need Put/Delete access. Automatic startup import and scheduled synchronization are off by default; enable them with `mrs.catalog.import-on-start=true` and `mrs.catalog.sync.enabled=true` if needed.
+
+Sync treats the staged catalog as its source: a non-empty listing can remove database songs whose staged JSON is missing, including their playlist memberships. Keep synchronization disabled when evaluating a database snapshot unless its matching staged catalog is available.
 
 ### Gemini
 

@@ -92,8 +92,8 @@ prefix), plus `s3:GetObject`, `s3:PutObject` and `s3:DeleteObject` on
 `arn:aws:s3:::mrs-133857166188-assets/song-data/*`. `ListBucket` is a
 bucket-level action and is what returns the ETags the import diffs against, so
 `GetObject` alone is not enough — without it every run reports the prefix as
-empty. `PutObject` is what the Add Song modal on P-06b uses; without it the form
-can validate files but cannot stage them. `DeleteObject` is what P-06b uses to
+empty. `PutObject` is what the Add Song modal on the Song Catalog & Metadata screen uses; without it the form
+can validate files but cannot stage them. `DeleteObject` is what the Song Catalog & Metadata screen uses to
 remove a song's JSON and hosted audio/cover; without it the catalog row would
 stay because a failed store delete never reaches MySQL. A direct `aws s3 cp`
 remains a valid way to stage JSON as well.
@@ -117,12 +117,14 @@ under `song-data/audio/ncs/`; other vendors can share that prefix later). NCS
 cover art is the same idea under `song-data/artwork/ncs/`. The player and the
 shell wash load those files through CloudFront (stack `mrs-audio-cdn`, Price
 Class 200) so a first request hits a nearby edge instead of the Singapore S3
-origin. Catalog JSON stays private; the bucket policy allows public GET on
-`song-data/audio/*` and `song-data/artwork/*` (see
-`infra/assets-bucket-media-policy.json`). The import lists only `*.json`, so
-the MP3s and JPEGs are not treated as songs.
+origin. S3 stays private. The CloudFormation stack owns the bucket policy and
+allows only its CloudFront distribution to read `song-data/audio/*` and
+`song-data/artwork/*` through OAC. Catalog JSON is not exposed through the CDN.
+CloudFront viewer URLs remain accessible without signing; OAC protects the S3
+origin, not viewer access. The import lists only top-level `*.json`, so media
+and nested verification objects are not treated as songs.
 
-Create or update the distribution:
+Create or update the distribution and its bucket policy in the bucket's region:
 
 ```bash
 aws cloudformation deploy --profile mrs-admin --region ap-southeast-1 \
@@ -130,8 +132,36 @@ aws cloudformation deploy --profile mrs-admin --region ap-southeast-1 \
   --template-file infra/cloudfront-audio.yaml
 ```
 
-After a template change, run catalog import so MySQL picks up any URL
-rewrites in the staged JSON.
+Before updating an existing stack, back up the live bucket policy, public-access
+block and ownership controls, and inspect the change set. If a bucket policy
+already exists outside CloudFormation, import it as `AudioBucketPolicy` first
+using resource identifier `Bucket`. The import template must preserve the live
+policy and the existing resources and Outputs, including their YAML intrinsic
+syntax. Then update to the private policy. Creating a new policy resource over
+an existing manual policy fails with "The bucket policy already exists".
+The final change set should modify only `AudioBucketPolicy`, with no resource
+replacement. Preserve any unrelated bucket-policy grants in the template before
+deployment. The policy
+is retained on stack deletion; the bucket itself is managed outside this stack.
+
+After the private policy is deployed and OAC is confirmed on the live origin,
+apply the existing bucket's public-access and ownership settings:
+
+```bash
+aws s3api put-public-access-block --profile mrs-admin --region ap-southeast-1 \
+  --bucket mrs-133857166188-assets \
+  --public-access-block-configuration file://infra/assets-bucket-public-access-block.json
+aws s3api put-bucket-ownership-controls --profile mrs-admin --region ap-southeast-1 \
+  --bucket mrs-133857166188-assets \
+  --ownership-controls file://infra/assets-bucket-ownership-controls.json
+```
+
+Check the existing bucket ACL first: `BucketOwnerEnforced` requires that the
+bucket ACL grants access only to its owner. The app uploads without ACL headers,
+so its Get/Put/Delete requests continue to use the EC2 role's IAM policy.
+
+The OAC migration preserves CloudFront URLs; it needs no catalog reimport or
+application restart. Reimport only if staged URL values actually change.
 
 Catalog and search settings, on the instance:
 
@@ -149,7 +179,7 @@ what makes uploading a JSON file to `song-data/` all you have to do to add a
 song. Full list of `mrs.catalog.*` settings in the README's *Song catalog*
 section.
 
-`mrs.llm.api-key` is what makes FT-04 do real interpretation on P-02. It is not
+`mrs.llm.api-key` is what makes FT-04 do real interpretation on the Search & Recommendation screen. It is not
 an AWS credential and does not come from the instance role — it is a Gemini key,
 and it belongs in the instance's property file, never in git. Leave it out and
 contextual search silently falls back to vocabulary matching: the screen still
@@ -158,7 +188,7 @@ unnoticed. See the README's *Contextual search* section.
 
 SES: EC2 role inline policy `mrs-ses-send` allows send (`ses:SendEmail` /
 `ses:SendRawEmail`), identity read, and identity manage
-(`ses:CreateEmailIdentity`, `ses:DeleteEmailIdentity`) so P-06a's
+(`ses:CreateEmailIdentity`, `ses:DeleteEmailIdentity`) so the User Management screen's
 *Verify for SES* button works on the instance. Still verify a from-address in
 SES (sandbox) before the app can send mail; recipients need the same until
 production access is approved.

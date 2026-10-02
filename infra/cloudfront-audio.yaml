@@ -1,9 +1,8 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: >
   CloudFront in front of catalog audio and artwork on the MRS assets bucket.
-  Catalog JSON stays private. Viewers fetch song-data/audio/* and
-  song-data/artwork/* through the CDN. The bucket already has a public-read
-  policy on those prefixes, so this stack does not manage AWS::S3::BucketPolicy.
+  The bucket stays private. Only this distribution can read audio and artwork
+  through OAC; catalog JSON is not exposed through the CDN.
 
 Parameters:
   BucketName:
@@ -56,8 +55,29 @@ Resources:
           Compress: false
           # CachingOptimizedForUncompressedObjects - MP3s should not be gzipped.
           CachePolicyId: b2884449-e4de-46a7-ac36-70bc7f1ddd6d
-          # SimpleCORS so the player can issue Range requests from any origin.
+          # SimpleCORS for browser media requests.
           ResponseHeadersPolicyId: 60669652-455b-4ae9-85a4-c4c02393f86c
+
+  AudioBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      Bucket: !Ref BucketName
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AllowCloudFrontCatalogMedia
+            Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource:
+              - !Sub "arn:${AWS::Partition}:s3:::${BucketName}/song-data/audio/*"
+              - !Sub "arn:${AWS::Partition}:s3:::${BucketName}/song-data/artwork/*"
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub "arn:${AWS::Partition}:cloudfront::${AWS::AccountId}:distribution/${AudioDistribution}"
 
 Outputs:
   DistributionId:

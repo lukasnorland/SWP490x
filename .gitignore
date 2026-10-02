@@ -36,6 +36,9 @@ replay_pid*
 .env.*
 !.env.example
 
+# Test credentials supplied only with the private evaluation ZIP.
+/evaluation/local-test-config.txt
+
 # Epidemic page dumps / converted song JSON (local import workspace)
 epidemic-pages/
 song-data/
