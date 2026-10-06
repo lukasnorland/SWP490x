@@ -9,7 +9,7 @@ This workspace is wired to that profile via:
 - `.env` / `.env.example` → `AWS_PROFILE=mrs-admin`
 - `.vscode/settings.json` → integrated terminal env (`AWS_PROFILE`, region)
 
-The one-time `~/.aws/config` profile is in [local test template](../evaluation/local-test-config.example.txt). Sign in in the browser before local AWS calls:
+The `mrs-admin` profile and console password are in `evaluation/local-test-config.txt`. That file is not in Git. Sign in in the browser before local AWS calls:
 
 ```bash
 aws login --profile mrs-admin

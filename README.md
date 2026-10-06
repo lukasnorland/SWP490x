@@ -39,17 +39,9 @@ Create an empty database:
 CREATE DATABASE mrs CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 ```
 
-Create `mrs/local.properties` with your database credentials:
+In `mrs/local.properties`, fill the database username and password. Paste the Gemini API key from [evaluation/local-test-config.txt](evaluation/local-test-config.txt) into that file. Leave the key blank to use vocabulary matching. `local.properties` is ignored by Git. Database settings can also be supplied through `DB_URL`, `DB_USERNAME`, and `DB_PASSWORD`. Other defaults are in [application.properties](mrs/src/main/resources/application.properties).
 
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/mrs?useSSL=false&serverTimezone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true
-spring.datasource.username=your_user
-spring.datasource.password=your_password
-```
-
-`local.properties` is ignored by Git. Database settings can also be supplied through `DB_URL`, `DB_USERNAME`, and `DB_PASSWORD`. Other defaults are in [application.properties](mrs/src/main/resources/application.properties).
-
-Catalog changes and **Verify for SES** use IAM user `mrs-admin`. Add that profile once from the [local test template](evaluation/local-test-config.example.txt), and record the console password there for other testers. The app does not load the template. Before those actions, sign in in the browser:
+The AWS console account for `aws login` is in the same local test file. The app does not load it. Before catalog changes or **Verify for SES**, sign in as `mrs-admin` in the browser:
 
 ```bash
 aws login --profile mrs-admin
@@ -107,7 +99,7 @@ Sync treats the staged catalog as its source: a non-empty listing can remove dat
 
 ### Gemini
 
-Copy `mrs.llm.api-key` from `evaluation/local-test-config.txt` into `mrs/local.properties`. That file is not in Git. Leave the key blank to use vocabulary matching. Administrators configure the model, timeout, and prompt-length limits in **System Settings**.
+The API key is in `evaluation/local-test-config.txt`, as described in [Run locally](#run-locally). Administrators configure the model, timeout, and prompt-length limits in **System Settings**.
 
 ### Email
 
