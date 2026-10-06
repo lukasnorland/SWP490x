@@ -9,25 +9,15 @@ This workspace is wired to that profile via:
 - `.env` / `.env.example` → `AWS_PROFILE=mrs-admin`
 - `.vscode/settings.json` → integrated terminal env (`AWS_PROFILE`, region)
 
-Open a **new** terminal in Cursor after pulling these settings. Confirm with:
-
-```bash
-aws sts get-caller-identity
-# expect: arn:aws:iam::133857166188:user/mrs-admin
-```
-
-If that command says `Unable to locate credentials`, run
-`aws login --profile mrs-admin` and retry **with** `--profile mrs-admin`.
-Do not point the AWS CLI `default` profile at a company account while working
-on MRS — a past misconfiguration silently routed SES API calls to account
-`945185781776`. Company keys, if kept at all, belong under a named profile
-such as `musictech`, never `[default]`.
-
-Refresh CLI session (after password change / expiry):
+The one-time `~/.aws/config` profile is in [local test template](../evaluation/local-test-config.example.txt). Sign in in the browser before local AWS calls:
 
 ```bash
 aws login --profile mrs-admin
+aws sts get-caller-identity --profile mrs-admin
+# expect: arn:aws:iam::133857166188:user/mrs-admin
 ```
+
+Run `aws login --profile mrs-admin` again after a password change or when the session expires.
 
 ## Account
 
@@ -43,7 +33,7 @@ Console login (IAM): https://133857166188.signin.aws.amazon.com/console
 
 Local secrets (not in git): `%USERPROFILE%\.mrs-aws\`
 
-- `mrs-admin-console.txt` — console temp password / access key notes  
+- `mrs-admin-console.txt` — console password for the browser sign-in  
 - `mrs-db-credentials.txt` — local DB username/password for the app  
 
 ## Resources created
@@ -176,7 +166,7 @@ role, exactly as `mrs.mail.aws-profile` does for SES; leaving it as the local
 default `mrs-admin` would have the app shell out to an AWS CLI profile that does
 not exist there. `mrs.catalog.sync.enabled=true` registers the poller, which is
 what makes uploading a JSON file to `song-data/` all you have to do to add a
-song. Full list of `mrs.catalog.*` settings in the README's *Song catalog*
+song. Full list of `mrs.catalog.*` settings is in the README's *Catalog and media*
 section.
 
 `mrs.llm.api-key` is what makes FT-04 do real interpretation on the Search & Recommendation screen. It is not
@@ -184,7 +174,7 @@ an AWS credential and does not come from the instance role — it is a Gemini ke
 and it belongs in the instance's property file, never in git. Leave it out and
 contextual search silently falls back to vocabulary matching: the screen still
 works and returns results, which is exactly why the omission survives a demo
-unnoticed. See the README's *Contextual search* section.
+unnoticed. See the README's *Gemini* section.
 
 SES: EC2 role inline policy `mrs-ses-send` allows send (`ses:SendEmail` /
 `ses:SendRawEmail`), identity read, and identity manage
@@ -264,11 +254,10 @@ aws budgets delete-budget --account-id 133857166188 --budget-name mrs-monthly-5u
 aws cloudwatch delete-alarms --region us-east-1 --alarm-names mrs-estimated-charges-5usd --profile mrs-admin
 ```
 
-Optional: delete IAM user `mrs-admin` access keys / the user itself from the root account when finished.
+Optional: delete IAM user `mrs-admin` from the root account when finished.
 
 ## Security notes
 
-- Day-to-day: `mrs-admin`, not root. Enable **MFA** on root and on `mrs-admin`.
-- Prefer `aws login --profile mrs-admin` long-term; delete long-lived access keys when you no longer need them.
+- Day-to-day sign-in is `aws login --profile mrs-admin`. Enable **MFA** on root and on `mrs-admin`.
 - Port **3306** is bound to localhost and not opened in the security group.
 - S3 bucket has Block Public Access and SSE-S3 encryption.

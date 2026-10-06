@@ -6,7 +6,7 @@ Graduation project for **SWP490x — FUNiX**, developed by **Nguyễn Ngọc Lu�
 
 ## How it works
 
-1. **Prepare the catalog.** An administrator manages providers, imports song metadata, and uploads audio and artwork. Catalog files are stored in Amazon S3 or a local staging directory; MySQL stores the searchable data.
+1. **Prepare the catalog.** An administrator manages providers, imports song metadata, and uploads audio and artwork. Catalog files are stored in Amazon S3; MySQL stores the searchable data.
 2. **Find music.** Browse by genre, mood, artist, and tags, or describe a playlist need in natural language. Gemini can translate the prompt into catalog criteria. Without an API key, the app uses vocabulary matching; keyword search provides a fallback.
 3. **Review recommendations.** Search includes songs matching any selected criterion, ranks them by the number of matches and then title, and optionally limits the results with Top-N. Catalog browsing combines filters across categories.
 4. **Curate together.** Create a Draft playlist, add and reorder songs, and invite other Content Designers to edit. Concurrent edits are checked against the playlist version so stale changes cannot silently overwrite another user's work.
@@ -45,12 +45,17 @@ Create `mrs/local.properties` with your database credentials:
 spring.datasource.url=jdbc:mysql://localhost:3306/mrs?useSSL=false&serverTimezone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true
 spring.datasource.username=your_user
 spring.datasource.password=your_password
-
-# Use local catalog staging without S3 credentials.
-mrs.catalog.local-dir=./catalog-staging
 ```
 
 `local.properties` is ignored by Git. Database settings can also be supplied through `DB_URL`, `DB_USERNAME`, and `DB_PASSWORD`. Other defaults are in [application.properties](mrs/src/main/resources/application.properties).
+
+Catalog changes and **Verify for SES** use IAM user `mrs-admin`. Add that profile once from the [local test template](evaluation/local-test-config.example.txt), and record the console password there for other testers. The app does not load the template. Before those actions, sign in in the browser:
+
+```bash
+aws login --profile mrs-admin
+```
+
+The app reads that profile with `aws configure export-credentials`. Bucket, region, and CloudFront are already set in `application.properties`.
 
 Start from the `mrs/` directory so the local configuration is loaded:
 
@@ -82,7 +87,7 @@ Flyway's `V3__seed_song_catalog.sql` automatically loads the catalog snapshot fr
 
 On an existing database, V3 adds only songs missing by `(source_provider, external_source_id)`. It preserves existing song IDs, metadata, tag assignments, and playlists, and reuses tags by `(type, name)`. The snapshot contains catalog metadata and the existing audio/artwork URLs; playback still needs internet access and reachable media hosts. Media files and existing users, playlists, settings, or logs are not included.
 
-Keep `mrs.catalog.import-on-start=false` and `mrs.catalog.sync.enabled=false` (the defaults) when using the snapshot. Only use **Sync Catalog** with its matching staged catalog: a partial staging directory can remove seeded songs. Catalog add/edit/delete requires a configured local or S3 staging store as described below.
+Keep `mrs.catalog.import-on-start=false` and `mrs.catalog.sync.enabled=false` (the defaults) when using the snapshot. Only use **Sync Catalog** with the complete shared S3 catalog. A partial source can remove seeded songs. Catalog add, edit, and delete use that catalog after `aws login --profile mrs-admin`.
 
 To verify V3 on disposable MySQL databases, set `MRS_LIVE_DB=1`, `DB_URL`, `DB_USERNAME`, and `DB_PASSWORD`, then run `./mvnw -Dtest=SeedCatalogMigrationLiveTest test` from `mrs/`. The account must be allowed to create and drop test databases; the test never migrates the database named in `DB_URL`.
 
@@ -90,26 +95,11 @@ To verify V3 on disposable MySQL databases, set `MRS_LIVE_DB=1`, `DB_URL`, `DB_U
 
 Add the settings below to `mrs/local.properties` as needed. Keep real credentials out of version control.
 
-The private evaluation ZIP includes `evaluation/local-test-config.txt` with the S3/CloudFront values, AWS `mrs-admin` test credentials, Gemini API key, and optional SES SMTP settings. Follow its setup instructions; the app does not load this file automatically. For Git checkouts, start from the [configuration template](evaluation/local-test-config.example.txt); the file containing real test credentials is excluded from Git.
-
 ### Catalog and media
 
-The local staging setting stores catalog JSON and uploaded media on disk. Place staged song JSON directly in `mrs/catalog-staging/`, one `<externalSourceId>.json` file per song, then select **Sync Catalog** as ADMIN. Playable audio still requires URLs reachable by the browser; local staging alone does not publish those files as a media server.
+Catalog add, edit, delete, and **Sync Catalog** use bucket `mrs-133857166188-assets`, prefix `song-data/`, and region `ap-southeast-1` through the `mrs-admin` profile. Playback uses `https://d34ixswlpjs53y.cloudfront.net`. Those values are already set in `application.properties`.
 
-To use S3 and a media host instead:
-
-```properties
-mrs.catalog.local-dir=
-mrs.catalog.bucket=your_bucket
-mrs.catalog.region=ap-southeast-1
-mrs.catalog.aws-profile=your_aws_profile
-mrs.catalog.prefix=song-data/
-mrs.catalog.media.public-base-url=https://your-media-host
-```
-
-Install AWS CLI v2 and configure the named profile with access to your bucket. The app resolves named profiles through `aws configure export-credentials`; an AWS console password alone is not enough. A blank `mrs.catalog.aws-profile` uses the SDK's default credential chain instead.
-
-Keep the S3 bucket private. CloudFront reads company-hosted audio and artwork through Origin Access Control (OAC); staged JSON is excluded from that access. Browser playback uses CloudFront URLs without AWS credentials. See [AWS setup](docs/aws-setup.md) for the optional deployment configuration.
+The bucket stays private. CloudFront reads company-hosted audio and artwork through Origin Access Control (OAC); staged JSON is excluded from that access. Browser playback uses CloudFront URLs without an AWS session. See [AWS setup](docs/aws-setup.md) for the EC2 deployment, where the instance role replaces the `mrs-admin` profile.
 
 Use **Sync Catalog** to import staged song JSON into the local MySQL database. Import needs S3 List/Get access; catalog add, edit, and delete also need Put/Delete access. Automatic startup import and scheduled synchronization are off by default; enable them with `mrs.catalog.import-on-start=true` and `mrs.catalog.sync.enabled=true` if needed.
 
@@ -140,9 +130,9 @@ spring.mail.password=your_ses_smtp_password
 mrs.mail.from=your_verified_sender
 mrs.mail.base-url=http://localhost:8080
 mrs.mail.ses-region=ap-southeast-1
-mrs.mail.aws-profile=your_aws_profile
+mrs.mail.aws-profile=mrs-admin
 ```
 
-Use SES SMTP credentials for delivery. The named AWS profile is used separately by **Verify for SES** in user management. In the SES sandbox, verify the recipient before creating the account; the mailbox owner must follow the verification link. If credentials were not delivered, verify the address and use **Resend credentials**.
+Use SES SMTP credentials for delivery. **Verify for SES** uses the same `aws login --profile mrs-admin` session. In the SES sandbox, verify the recipient before creating the account; the mailbox owner must follow the verification link. If credentials were not delivered, verify the address and use **Resend credentials**.
 
 Set `mrs.mail.base-url` to the address users open when the application is accessed from another machine.
