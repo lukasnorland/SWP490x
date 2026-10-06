@@ -1,7 +1,8 @@
 MRS local test
 
 The app does not load this file. Copy it to local-test-config.txt and fill the
-account below for testers. Database setup and how to start the app are in README.md.
+account and Gemini key below for testers. Database setup and how to start the
+app are in README.md. Copy the Gemini line into mrs/local.properties.
 
 1. Install AWS CLI v2.32.0 or later.
 
@@ -27,3 +28,9 @@ Account ID: 133857166188
 IAM user: mrs-admin
 Password: REPLACE_WITH_MRS_ADMIN_PASSWORD
 Sign-in URL: https://133857166188.signin.aws.amazon.com/console
+
+Gemini
+
+Copy this line into mrs/local.properties. Leave it blank to use vocabulary matching.
+
+mrs.llm.api-key=REPLACE_WITH_GEMINI_API_KEY

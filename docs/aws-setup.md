@@ -174,7 +174,7 @@ an AWS credential and does not come from the instance role — it is a Gemini ke
 and it belongs in the instance's property file, never in git. Leave it out and
 contextual search silently falls back to vocabulary matching: the screen still
 works and returns results, which is exactly why the omission survives a demo
-unnoticed. See the README's *Gemini* section.
+unnoticed. Copy the key from `evaluation/local-test-config.txt` into the instance property file. That file is not in Git.
 
 SES: EC2 role inline policy `mrs-ses-send` allows send (`ses:SendEmail` /
 `ses:SendRawEmail`), identity read, and identity manage

@@ -107,11 +107,7 @@ Sync treats the staged catalog as its source: a non-empty listing can remove dat
 
 ### Gemini
 
-```properties
-mrs.llm.api-key=your_gemini_key
-```
-
-Leave the key blank to use deterministic vocabulary matching without Gemini calls. Administrators can configure the model, timeout, and prompt-length limits in **System Settings**. The API key stays in local configuration.
+Copy `mrs.llm.api-key` from `evaluation/local-test-config.txt` into `mrs/local.properties`. That file is not in Git. Leave the key blank to use vocabulary matching. Administrators configure the model, timeout, and prompt-length limits in **System Settings**.
 
 ### Email
 
