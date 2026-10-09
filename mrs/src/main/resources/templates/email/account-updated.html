@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{email/layout :: message(~{::content})}">
+<!--/* P-06a — tells the holder which account details ADMIN edited. */-->
+<body>
+<div th:fragment="content">
+
+  <p style="margin:0 0 16px; font-size:20px; font-weight:600;">
+    Your MRS account details have changed
+  </p>
+
+  <p style="margin:0 0 16px;">
+    Hello <span th:text="${name}">Name</span>, an administrator has updated your
+    account on the Music Recommendation System:
+  </p>
+
+  <ul style="margin:0 0 24px; padding-left:20px;">
+    <li th:if="${previousName != null}">
+      Name: <span th:text="${previousName}">Old name</span> &rarr;
+      <strong th:text="${name}">New name</strong>
+    </li>
+    <li th:if="${previousEmail != null}">
+      Sign-in email: <span th:text="${previousEmail}">old@mrs.local</span> &rarr;
+      <strong th:text="${email}">new@mrs.local</strong>
+    </li>
+    <li th:if="${previousRole != null}">
+      Role: <span th:text="${previousRole}">Content Designer</span> &rarr;
+      <strong th:text="${role}">Customer</strong>
+    </li>
+  </ul>
+
+  <p th:if="${transferredPlaylists > 0}" style="margin:0 0 24px;">
+    The <span th:text="${transferredPlaylists}">2</span>
+    <span th:text="${transferredPlaylists == 1 ? 'playlist' : 'playlists'}">playlists</span>
+    you owned were reassigned. Anything already published stays available in
+    the Shared Workspace.
+  </p>
+
+  <p style="margin:0 0 24px;">
+    Any session that was still open has been closed. Sign in again with
+    <strong th:text="${email}">new@mrs.local</strong>
+    and your current password — it has not changed.
+  </p>
+
+  <p style="margin:0 0 24px;">
+    <a th:href="${loginUrl}"
+       style="display:inline-block; padding:12px 24px; background-color:#6366f1;
+              color:#ffffff; text-decoration:none; border-radius:8px; font-weight:600;">
+      Sign in to MRS
+    </a>
+  </p>
+
+  <p style="margin:0; color:#475569;">
+    If you were not expecting this change, please contact your administrator.
+  </p>
+
+</div>
+</body>
+</html>

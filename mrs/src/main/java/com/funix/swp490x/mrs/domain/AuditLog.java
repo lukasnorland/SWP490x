@@ -61,6 +61,9 @@ public class AuditLog {
     /** P-06a / UC-07–UC-09, UC-35. */
     public static final String ACTION_USER_CREATE = "USER_CREATE";
 
+    /** Name and/or email edited by ADMIN; a role change in the same save is logged separately. */
+    public static final String ACTION_USER_UPDATE = "USER_UPDATE";
+
     public static final String ACTION_USER_DEACTIVATE = "USER_DEACTIVATE";
 
     public static final String ACTION_USER_REACTIVATE = "USER_REACTIVATE";
@@ -99,6 +102,7 @@ public class AuditLog {
     public static List<String> knownActions() {
         return List.of(
                 ACTION_USER_CREATE,
+                ACTION_USER_UPDATE,
                 ACTION_USER_DEACTIVATE,
                 ACTION_USER_REACTIVATE,
                 ACTION_USER_ROLE_CHANGE,

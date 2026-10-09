@@ -76,6 +76,28 @@ public class NotificationService {
                 templateEngine.process("email/role-changed", context));
     }
 
+    /**
+     * Notifies {@code recipient} after an ADMIN edit of name, email or role.
+     * Each {@code previous*} argument is null when that field did not change,
+     * so the message lists only what moved. The password is never included.
+     */
+    public void sendAccountUpdated(String recipient, String name, String previousName,
+            String email, String previousEmail, String roleDisplayName,
+            String previousRoleDisplayName, int transferredPlaylists) {
+        Context context = new Context(Locale.ENGLISH);
+        context.setVariable("name", name);
+        context.setVariable("previousName", previousName);
+        context.setVariable("email", email);
+        context.setVariable("previousEmail", previousEmail);
+        context.setVariable("role", roleDisplayName);
+        context.setVariable("previousRole", previousRoleDisplayName);
+        context.setVariable("transferredPlaylists", transferredPlaylists);
+        context.setVariable("loginUrl", absolute(Routes.LOGIN));
+
+        transport.send(recipient, "Your MRS account details have changed",
+                templateEngine.process("email/account-updated", context));
+    }
+
     /** Sends an account-request notice to the configured ADMIN mailbox; creates no account (UC-38). */
     public void sendRegistrationRequest(String requesterEmail) {
         Context context = new Context(Locale.ENGLISH);

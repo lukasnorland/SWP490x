@@ -52,6 +52,20 @@ public final class Messages {
     public static final String USER_ROLE_CHANGED_EMAIL_FAILED = "Role updated, but the "
             + "notification email could not be sent. The user has not been told.";
 
+    /** ADMIN edit of name / email / role from the P-06a dialog. */
+    public static final String USER_UPDATED = "Account updated. The user must sign in again, "
+            + "with their current password, before the change applies.";
+
+    public static final String USER_UPDATED_EMAIL_FAILED = "Account updated, but the "
+            + "notification email could not be sent. The user has not been told.";
+
+    public static final String USER_UNCHANGED = "No changes to save.";
+
+    public static final String USER_DETAILS_SAVED_ROLE_PENDING = "Name and email saved. "
+            + "Choose who should own each playlist to finish the role change.";
+
+    public static final String INVALID_NAME = "Enter a name of 1–100 characters.";
+
     /** Appended to the role-change or deactivation flash when owned playlists were reassigned. */
     public static String playlistsTransferred(int count) {
         return count + (count == 1 ? " playlist" : " playlists")
@@ -59,7 +73,7 @@ public final class Messages {
     }
 
     public static final String SELF_MODIFICATION_FORBIDDEN =
-            "You cannot deactivate, change the role of, or resend credentials for your own account.";
+            "You cannot edit, deactivate, or resend credentials for your own account.";
 
     /** SES sandbox recipient-verification outcomes. */
     public static final String SES_VERIFICATION_SENT = "Amazon SES has emailed a verification "
@@ -71,6 +85,10 @@ public final class Messages {
 
     public static final String SES_RECIPIENT_NOT_VERIFIED =
             "Verify that address with SES before creating the account. Click Verify for SES, "
+                    + "wait for the owner to confirm the AWS link, then click Verify for SES again.";
+
+    public static final String SES_NEW_EMAIL_NOT_VERIFIED =
+            "Verify the new address with SES before saving. Click Verify for SES, "
                     + "wait for the owner to confirm the AWS link, then click Verify for SES again.";
 
     public static final String SES_VERIFICATION_FAILED =

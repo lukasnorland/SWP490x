@@ -34,6 +34,9 @@ public class UserAccountService {
     public static final Set<Role> ASSIGNABLE_ROLES =
             EnumSet.of(Role.CONTENT_DESIGNER, Role.CUSTOMER);
 
+    /** {@code users.username} is VARCHAR(100). */
+    public static final int NAME_MAX_LENGTH = 100;
+
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final SessionInvalidationService sessionInvalidationService;
@@ -96,14 +99,76 @@ public class UserAccountService {
     /** Validate before recipient preparation; create repeats this check before writing. */
     @Transactional(readOnly = true)
     public String validateNewEmail(String email) {
+        return validateEmailFor(null, email);
+    }
+
+    /**
+     * As {@link #validateNewEmail}, except the address may already belong to
+     * {@code userId} itself — the edit dialog submits the current address
+     * when only the name or role changes.
+     */
+    @Transactional(readOnly = true)
+    public String validateEmailFor(Long userId, String email) {
         String address = email == null ? "" : email.trim();
         if (!EmailPolicy.isWellFormed(address)) {
             throw new InvalidEmailException(address);
         }
-        if (userRepository.findByEmail(address).isPresent()) {
-            throw new DuplicateEmailException(address);
-        }
+        userRepository.findByEmail(address)
+                .filter(owner -> userId == null || !userId.equals(owner.getId()))
+                .ifPresent(owner -> {
+                    throw new DuplicateEmailException(address);
+                });
         return address;
+    }
+
+    /**
+     * ADMIN edit of name, email and role. Only fields that differ are written;
+     * the password is untouched. Any change expires the holder's sessions so
+     * the next request signs them out and they sign in with the current
+     * password. SES verification of a new address is the caller's job.
+     *
+     * @throws SelfModificationException when the actor is the target
+     * @throws InvalidRoleAssignmentException when the target is ADMIN or the role is not assignable
+     * @throws InvalidNameException when the name is blank or too long
+     * @throws InvalidEmailException when email syntax or length is invalid
+     * @throws DuplicateEmailException when another account holds the email
+     * @throws PlaylistSuccessorRequiredException when a demotion needs successors; nothing is written
+     */
+    @Transactional
+    public AccountUpdate update(Long userId, String name, String email, Role role,
+            Long actorUserId) {
+        User user = requireUser(userId);
+        rejectSelf(user, actorUserId);
+        if (user.getRole() == Role.ADMIN) {
+            throw new InvalidRoleAssignmentException(
+                    "ADMIN accounts are not edited from User Management.");
+        }
+        String newName = name == null ? "" : name.trim();
+        if (newName.isEmpty() || newName.length() > NAME_MAX_LENGTH) {
+            throw new InvalidNameException(newName);
+        }
+        String newEmail = validateEmailFor(userId, email);
+        String previousName = user.getUsername();
+        String previousEmail = user.getEmail();
+
+        // Role first: a demotion that still needs successors throws before
+        // the name or email is touched.
+        RoleChange roleChange = changeRole(userId, role, actorUserId);
+
+        boolean nameChanged = !newName.equals(previousName);
+        boolean emailChanged = !newEmail.equals(previousEmail);
+        if (nameChanged || emailChanged) {
+            user.setUsername(newName);
+            user.setEmail(newEmail);
+            User saved = userRepository.save(user);
+            // Registry principals are keyed by the address they signed in with.
+            sessionInvalidationService.invalidateSessionsForEmail(previousEmail);
+            audit(actorUserId, AuditLog.ACTION_USER_UPDATE, saved.getId(),
+                    userDetails(saved, "\"before\":{\"email\":%s,\"name\":%s}"
+                            .formatted(jsonString(previousEmail), jsonString(previousName))));
+        }
+        return new AccountUpdate(UserView.of(user), previousName, previousEmail,
+                roleChange.previousRole(), roleChange.transferredPlaylists());
     }
 
     /**
@@ -298,6 +363,30 @@ public class UserAccountService {
     public record RoleChange(UserView user, Role previousRole, int transferredPlaylists) {
         public boolean changed() {
             return previousRole != user.role();
+        }
+    }
+
+    /**
+     * Outcome of {@link #update}: the account as it now stands and what each
+     * edited field held before, so callers can tell the holder what moved.
+     */
+    public record AccountUpdate(UserView user, String previousName, String previousEmail,
+            Role previousRole, int transferredPlaylists) {
+
+        public boolean nameChanged() {
+            return !user.username().equals(previousName);
+        }
+
+        public boolean emailChanged() {
+            return !user.email().equals(previousEmail);
+        }
+
+        public boolean roleChanged() {
+            return previousRole != user.role();
+        }
+
+        public boolean changed() {
+            return nameChanged() || emailChanged() || roleChanged();
         }
     }
 }

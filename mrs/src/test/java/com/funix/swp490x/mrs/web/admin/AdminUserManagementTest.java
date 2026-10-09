@@ -708,6 +708,179 @@ class AdminUserManagementTest {
         assertThat(existing.getRole()).isEqualTo(Role.CUSTOMER);
     }
 
+    private MockHttpServletRequestBuilder editRequest(String name, String email, Role role) {
+        return post("/admin/users/42")
+                .param("name", name)
+                .param("email", email)
+                .param("role", role.name())
+                .with(user(admin()))
+                .with(csrf());
+    }
+
+    @Test
+    void theListOffersAnEditButtonCarryingTheAccountForTheSharedDialog() throws Exception {
+        given(userRepository.search(nullable(Role.class), nullable(UserStatus.class),
+                nullable(String.class), any(Pageable.class)))
+                .willReturn(new PageImpl<>(List.of(activeDesigner(42L))));
+
+        mockMvc.perform(get(Routes.ADMIN_USERS).with(user(admin())))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("data-user-action=\"/admin/users/42\"")))
+                .andExpect(content().string(containsString("data-user-email=\"nina@mrs.local\"")))
+                .andExpect(content().string(containsString(
+                        "data-user-role=\"" + Role.CONTENT_DESIGNER.name() + "\"")));
+    }
+
+    @Test
+    void editingNameAndEmailKeepsThePasswordAndTellsBothAddresses() throws Exception {
+        User existing = activeDesigner(42L);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+
+        mockMvc.perform(editRequest("Nina Nguyen", "nina.n@example.com", Role.CONTENT_DESIGNER))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(Routes.ADMIN_USERS))
+                .andExpect(flash().attribute("flash", Messages.USER_UPDATED));
+
+        assertThat(existing.getUsername()).isEqualTo("Nina Nguyen");
+        assertThat(existing.getEmail()).isEqualTo("nina.n@example.com");
+        assertThat(existing.getPasswordHash()).isEqualTo("{noop}the-old-one");
+        assertThat(existing.getRole()).isEqualTo(Role.CONTENT_DESIGNER);
+        then(sesIdentityService).should().isVerified("nina.n@example.com");
+        then(sessionInvalidationService).should().invalidateSessionsForEmail("nina@mrs.local");
+
+        ArgumentCaptor<String> body = ArgumentCaptor.forClass(String.class);
+        then(mailTransport).should().send(eq("nina.n@example.com"),
+                eq("Your MRS account details have changed"), body.capture());
+        then(mailTransport).should().send(eq("nina@mrs.local"),
+                eq("Your MRS account details have changed"), anyString());
+        assertThat(body.getValue())
+                .contains("Nina Designer").contains("Nina Nguyen")
+                .contains("nina@mrs.local").contains("nina.n@example.com")
+                .contains("current password")
+                .doesNotContain("Role:")
+                .doesNotContain("the-old-one");
+    }
+
+    @Test
+    void editingOnlyTheRoleNeedsNoSesCheckAndMailsTheSameAddress() throws Exception {
+        User existing = activeDesigner(42L);
+        existing.setRole(Role.CUSTOMER);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+        given(userRepository.findByEmail("nina@mrs.local")).willReturn(Optional.of(existing));
+
+        mockMvc.perform(editRequest("Nina Designer", "nina@mrs.local", Role.CONTENT_DESIGNER))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(flash().attribute("flash", Messages.USER_UPDATED));
+
+        assertThat(existing.getRole()).isEqualTo(Role.CONTENT_DESIGNER);
+        then(sesIdentityService).should(never()).isVerified(anyString());
+        then(sessionInvalidationService).should().invalidateSessionsForEmail("nina@mrs.local");
+        ArgumentCaptor<String> body = ArgumentCaptor.forClass(String.class);
+        then(mailTransport).should().send(eq("nina@mrs.local"), anyString(), body.capture());
+        assertThat(body.getValue()).contains("Role:").doesNotContain("Sign-in email:");
+    }
+
+    @Test
+    void editingToAnUnverifiedAddressIsBlockedAndReopensTheEditDialog() throws Exception {
+        User existing = activeDesigner(42L);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+        given(sesIdentityService.isVerified("nina.n@example.com")).willReturn(false);
+
+        mockMvc.perform(editRequest("Nina Designer", "nina.n@example.com", Role.CONTENT_DESIGNER))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(containsString(Messages.SES_NEW_EMAIL_NOT_VERIFIED)))
+                .andExpect(content().string(containsString("action=\"/admin/users/42\"")))
+                .andExpect(content().string(containsString("Save changes")));
+
+        assertThat(existing.getEmail()).isEqualTo("nina@mrs.local");
+        then(userRepository).should(never()).save(any(User.class));
+        then(mailTransport).should(never()).send(anyString(), anyString(), anyString());
+    }
+
+    @Test
+    void editingToAnotherAccountsEmailIsRejected() throws Exception {
+        User existing = activeDesigner(42L);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+        User other = activeDesigner(43L);
+        other.setEmail("dana@mrs.local");
+        given(userRepository.findByEmail("dana@mrs.local")).willReturn(Optional.of(other));
+
+        mockMvc.perform(editRequest("Nina Designer", "dana@mrs.local", Role.CONTENT_DESIGNER))
+                .andExpect(status().isConflict())
+                .andExpect(content().string(containsString(Messages.DUPLICATE_EMAIL)));
+
+        then(userRepository).should(never()).save(any(User.class));
+    }
+
+    @Test
+    void savingTheDialogUnchangedSendsNothing() throws Exception {
+        User existing = activeDesigner(42L);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+        given(userRepository.findByEmail("nina@mrs.local")).willReturn(Optional.of(existing));
+
+        mockMvc.perform(editRequest("Nina Designer", "nina@mrs.local", Role.CONTENT_DESIGNER))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(flash().attribute("flash", Messages.USER_UNCHANGED));
+
+        then(sessionInvalidationService).should(never()).invalidateSessionsForEmail(anyString());
+        then(mailTransport).should(never()).send(anyString(), anyString(), anyString());
+    }
+
+    @Test
+    void editingWithADemotionThatNeedsSuccessorsSavesTheNameThenAsksForThem() throws Exception {
+        User existing = activeDesigner(42L);
+        given(userRepository.findById(42L)).willReturn(Optional.of(existing));
+        given(userRepository.findByEmail("nina@mrs.local")).willReturn(Optional.of(existing));
+        givenOwnedPlaylistsNeedSuccessors();
+
+        mockMvc.perform(editRequest("Nina Nguyen", "nina@mrs.local", Role.CUSTOMER))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/admin/users/42/reassign?intent=demote"))
+                .andExpect(flash().attribute("flash", Messages.USER_DETAILS_SAVED_ROLE_PENDING));
+
+        assertThat(existing.getUsername()).isEqualTo("Nina Nguyen");
+        assertThat(existing.getRole()).isEqualTo(Role.CONTENT_DESIGNER);
+    }
+
+    @Test
+    void anAdminCannotEditThemselves() throws Exception {
+        User self = new User();
+        self.setId(1L);
+        self.setUsername("System Admin");
+        self.setEmail("admin@mrs.local");
+        self.setRole(Role.ADMIN);
+        self.setStatus(UserStatus.ACTIVE);
+        given(userRepository.findById(1L)).willReturn(Optional.of(self));
+        given(userRepository.findByEmail("admin@mrs.local")).willReturn(Optional.of(self));
+
+        mockMvc.perform(post("/admin/users/1")
+                        .param("name", "Someone Else")
+                        .param("email", "admin@mrs.local")
+                        .param("role", Role.CUSTOMER.name())
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(flash().attribute("flash", Messages.SELF_MODIFICATION_FORBIDDEN));
+
+        assertThat(self.getUsername()).isEqualTo("System Admin");
+    }
+
+    @Test
+    void preparingTheEditedAccountsOwnAddressIsNotADuplicate() throws Exception {
+        User existing = activeDesigner(42L);
+        given(userRepository.findByEmail("nina@mrs.local")).willReturn(Optional.of(existing));
+        given(sesIdentityService.prepareRecipient("nina@mrs.local"))
+                .willReturn(Outcome.ALREADY_VERIFIED);
+
+        mockMvc.perform(post(Routes.ADMIN_USER_PREPARE_RECIPIENT)
+                        .param("email", "nina@mrs.local")
+                        .param("userId", "42")
+                        .with(user(admin()))
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("already_verified"));
+    }
+
     private static User activeDesigner(Long id) {
         User existing = new User();
         existing.setId(id);

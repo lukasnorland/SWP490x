@@ -69,6 +69,8 @@ public final class Routes {
 
     /** P-06a Admin — User Management. */
     public static final String ADMIN_USERS = "/admin/users";
+    /** P-06a — save the edit dialog: name, email, role (password untouched). */
+    public static final String ADMIN_USER = "/admin/users/{id}";
     /** P-06a — resend the credentials message for an account (UC-07 E3). */
     public static final String ADMIN_USER_RESEND = "/admin/users/{id}/resend-credentials";
     /** P-06a — soft-delete an account (spec 4.9 / FT-01 AC-03). */

@@ -7,7 +7,7 @@ package com.funix.swp490x.mrs.service;
 public class SelfModificationException extends RuntimeException {
 
     public SelfModificationException() {
-        super("An ADMIN cannot deactivate, change the role of, or resend credentials "
+        super("An ADMIN cannot edit, deactivate, or resend credentials "
                 + "for their own account.");
     }
 }

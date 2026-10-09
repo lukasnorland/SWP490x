@@ -19,6 +19,7 @@ import com.funix.swp490x.mrs.repository.AuditLogRepository;
 import com.funix.swp490x.mrs.repository.UserRepository;
 import com.funix.swp490x.mrs.security.PasswordPolicy;
 import com.funix.swp490x.mrs.security.SessionInvalidationService;
+import com.funix.swp490x.mrs.service.UserAccountService.AccountUpdate;
 import com.funix.swp490x.mrs.service.UserAccountService.Deactivation;
 import com.funix.swp490x.mrs.service.UserAccountService.InitialCredentials;
 import com.funix.swp490x.mrs.service.UserAccountService.RoleChange;
@@ -471,6 +472,129 @@ class UserAccountServiceTest {
         then(auditLogRepository).should().save(audit.capture());
         assertThat(audit.getValue().getAction()).isEqualTo(AuditLog.ACTION_USER_CREDENTIALS_RESEND);
         assertThat(audit.getValue().getDetails()).doesNotContain(result.password());
+    }
+
+    @Test
+    void update_whenOnlyNameChanges_shouldKeepPasswordAndSignTheHolderOut() {
+        User user = account(7L, Role.CUSTOMER, UserStatus.ACTIVE);
+        given(userRepository.findById(7L)).willReturn(Optional.of(user));
+        given(userRepository.findByEmail(EMAIL)).willReturn(Optional.of(user));
+
+        AccountUpdate result = service.update(7L, "  Nina Nguyen ", EMAIL, Role.CUSTOMER, 1L);
+
+        assertThat(result.nameChanged()).isTrue();
+        assertThat(result.emailChanged()).isFalse();
+        assertThat(result.roleChanged()).isFalse();
+        assertThat(user.getUsername()).isEqualTo("Nina Nguyen");
+        assertThat(user.getPasswordHash()).isEqualTo("{bcrypt}old");
+        assertThat(user.isMustChangePassword()).isFalse();
+        then(sessionInvalidationService).should().invalidateSessionsForEmail(EMAIL);
+        ArgumentCaptor<AuditLog> audit = ArgumentCaptor.forClass(AuditLog.class);
+        then(auditLogRepository).should().save(audit.capture());
+        assertThat(audit.getValue().getAction()).isEqualTo(AuditLog.ACTION_USER_UPDATE);
+        assertThat(audit.getValue().getDetails()).contains("Nina Nguyen").contains("Nina Designer");
+    }
+
+    @Test
+    void update_whenEmailChanges_shouldExpireSessionsUnderThePreviousAddress() {
+        User user = account(7L, Role.CUSTOMER, UserStatus.ACTIVE);
+        given(userRepository.findById(7L)).willReturn(Optional.of(user));
+        given(userRepository.findByEmail("nina.n@mrs.local")).willReturn(Optional.empty());
+
+        AccountUpdate result = service.update(7L, "Nina Designer", "nina.n@mrs.local",
+                Role.CUSTOMER, 1L);
+
+        assertThat(result.emailChanged()).isTrue();
+        assertThat(result.previousEmail()).isEqualTo(EMAIL);
+        assertThat(user.getEmail()).isEqualTo("nina.n@mrs.local");
+        then(sessionInvalidationService).should().invalidateSessionsForEmail(EMAIL);
+        then(sessionInvalidationService).should(never()).invalidateSessionsForEmail("nina.n@mrs.local");
+    }
+
+    @Test
+    void update_whenRoleAndEmailChange_shouldAuditEach() {
+        User user = account(7L, Role.CUSTOMER, UserStatus.ACTIVE);
+        given(userRepository.findById(7L)).willReturn(Optional.of(user));
+
+        AccountUpdate result = service.update(7L, "Nina Designer", "nina.n@mrs.local",
+                Role.CONTENT_DESIGNER, 1L);
+
+        assertThat(result.roleChanged()).isTrue();
+        assertThat(result.previousRole()).isEqualTo(Role.CUSTOMER);
+        assertThat(user.getRole()).isEqualTo(Role.CONTENT_DESIGNER);
+        ArgumentCaptor<AuditLog> audit = ArgumentCaptor.forClass(AuditLog.class);
+        then(auditLogRepository).should(org.mockito.Mockito.times(2)).save(audit.capture());
+        assertThat(audit.getAllValues()).extracting(AuditLog::getAction)
+                .containsExactly(AuditLog.ACTION_USER_ROLE_CHANGE, AuditLog.ACTION_USER_UPDATE);
+    }
+
+    @Test
+    void update_whenNothingDiffers_shouldWriteNothing() {
+        User user = account(7L, Role.CUSTOMER, UserStatus.ACTIVE);
+        given(userRepository.findById(7L)).willReturn(Optional.of(user));
+        given(userRepository.findByEmail(EMAIL)).willReturn(Optional.of(user));
+
+        AccountUpdate result = service.update(7L, "Nina Designer", EMAIL, Role.CUSTOMER, 1L);
+
+        assertThat(result.changed()).isFalse();
+        then(userRepository).should(never()).save(any());
+        then(sessionInvalidationService).shouldHaveNoInteractions();
+        then(auditLogRepository).shouldHaveNoInteractions();
+    }
+
+    @Test
+    void update_whenEmailBelongsToAnotherAccount_shouldThrowDuplicate() {
+        User user = account(7L, Role.CUSTOMER, UserStatus.ACTIVE);
+        given(userRepository.findById(7L)).willReturn(Optional.of(user));
+        given(userRepository.findByEmail("dana@mrs.local"))
+                .willReturn(Optional.of(account(8L, Role.CUSTOMER, UserStatus.ACTIVE)));
+
+        assertThatThrownBy(() -> service.update(7L, "Nina", "dana@mrs.local", Role.CUSTOMER, 1L))
+                .isInstanceOf(DuplicateEmailException.class);
+
+        then(userRepository).should(never()).save(any());
+    }
+
+    @Test
+    void update_whenNameIsBlank_shouldThrowInvalidName() {
+        User user = account(7L, Role.CUSTOMER, UserStatus.ACTIVE);
+        given(userRepository.findById(7L)).willReturn(Optional.of(user));
+
+        assertThatThrownBy(() -> service.update(7L, "   ", EMAIL, Role.CUSTOMER, 1L))
+                .isInstanceOf(InvalidNameException.class);
+
+        then(userRepository).should(never()).save(any());
+    }
+
+    @Test
+    void update_whenDemotionNeedsSuccessors_shouldLeaveNameAndEmailAlone() {
+        User user = account(7L, Role.CONTENT_DESIGNER, UserStatus.ACTIVE);
+        given(userRepository.findById(7L)).willReturn(Optional.of(user));
+        willThrow(new PlaylistSuccessorRequiredException())
+                .given(playlistService).transferOwnedPlaylists(eq(7L), any(), eq(1L));
+
+        assertThatThrownBy(() -> service.update(7L, "Nina Nguyen", "nina.n@mrs.local",
+                Role.CUSTOMER, 1L))
+                .isInstanceOf(PlaylistSuccessorRequiredException.class);
+
+        assertThat(user.getUsername()).isEqualTo("Nina Designer");
+        assertThat(user.getEmail()).isEqualTo(EMAIL);
+        then(userRepository).should(never()).save(any());
+    }
+
+    @Test
+    void update_whenTargetIsSelfOrAdmin_shouldThrow() {
+        User self = account(1L, Role.CUSTOMER, UserStatus.ACTIVE);
+        given(userRepository.findById(1L)).willReturn(Optional.of(self));
+        User admin = account(2L, Role.ADMIN, UserStatus.ACTIVE);
+        given(userRepository.findById(2L)).willReturn(Optional.of(admin));
+
+        assertThatThrownBy(() -> service.update(1L, "Me", EMAIL, Role.CUSTOMER, 1L))
+                .isInstanceOf(SelfModificationException.class);
+        assertThatThrownBy(() -> service.update(2L, "Admin", EMAIL, Role.CUSTOMER, 1L))
+                .isInstanceOf(InvalidRoleAssignmentException.class);
+
+        then(userRepository).should(never()).save(any());
     }
 
     @Test

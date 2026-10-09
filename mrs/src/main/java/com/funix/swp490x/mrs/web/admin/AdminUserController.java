@@ -12,12 +12,14 @@ import com.funix.swp490x.mrs.security.MrsUserDetails;
 import com.funix.swp490x.mrs.service.DuplicateEmailException;
 import com.funix.swp490x.mrs.service.EmailPolicy;
 import com.funix.swp490x.mrs.service.InvalidEmailException;
+import com.funix.swp490x.mrs.service.InvalidNameException;
 import com.funix.swp490x.mrs.service.InvalidSuccessorException;
 import com.funix.swp490x.mrs.service.InvalidRoleAssignmentException;
 import com.funix.swp490x.mrs.service.PlaylistSuccessorChoice;
 import com.funix.swp490x.mrs.service.PlaylistSuccessorRequiredException;
 import com.funix.swp490x.mrs.service.SelfModificationException;
 import com.funix.swp490x.mrs.service.UserAccountService;
+import com.funix.swp490x.mrs.service.UserAccountService.AccountUpdate;
 import com.funix.swp490x.mrs.service.UserAccountService.Deactivation;
 import com.funix.swp490x.mrs.service.UserAccountService.InitialCredentials;
 import com.funix.swp490x.mrs.service.UserAccountService.RoleChange;
@@ -154,10 +156,11 @@ public class AdminUserController {
     @PostMapping(path = Routes.ADMIN_USER_PREPARE_RECIPIENT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Map<String, String>> prepareRecipient(@RequestParam String email) {
+    public ResponseEntity<Map<String, String>> prepareRecipient(@RequestParam String email,
+            @RequestParam(required = false) Long userId) {
         final String address;
         try {
-            address = userAccountService.validateNewEmail(email);
+            address = userAccountService.validateEmailFor(userId, email);
         } catch (DuplicateEmailException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of(
                     "status", "error", "message", Messages.DUPLICATE_EMAIL));
@@ -183,6 +186,124 @@ public class AdminUserController {
                     "status", "error",
                     "message", Messages.SES_VERIFICATION_FAILED));
         }
+    }
+
+    /**
+     * P-06a edit dialog — name, email and role, each written only when it
+     * differs. A new address must be SES-verified first, as on Create. The
+     * password is untouched; any change signs the holder out.
+     */
+    @PostMapping(Routes.ADMIN_USER)
+    public String update(@PathVariable Long id,
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam Role role,
+            @AuthenticationPrincipal MrsUserDetails actor,
+            Model model,
+            HttpServletResponse response,
+            RedirectAttributes redirectAttributes) {
+
+        model.addAttribute("editUserId", id);
+        model.addAttribute("submittedName", name);
+        model.addAttribute("submittedEmail", email);
+        model.addAttribute("submittedRole", role);
+
+        UserView current;
+        String address;
+        try {
+            current = userAccountService.get(id);
+            model.addAttribute("editOriginalEmail", current.email());
+            address = userAccountService.validateEmailFor(id, email);
+        } catch (UserNotFoundException e) {
+            return "redirect:" + Routes.ADMIN_USERS;
+        } catch (InvalidEmailException e) {
+            return reject(model, response, HttpStatus.UNPROCESSABLE_ENTITY, Messages.INVALID_EMAIL);
+        } catch (DuplicateEmailException e) {
+            return reject(model, response, HttpStatus.CONFLICT, Messages.DUPLICATE_EMAIL);
+        }
+
+        if (!address.equals(current.email()) && outboundMailEnabled()) {
+            try {
+                if (!sesIdentityService.isVerified(address)) {
+                    return reject(model, response, HttpStatus.UNPROCESSABLE_ENTITY,
+                            Messages.SES_NEW_EMAIL_NOT_VERIFIED);
+                }
+            } catch (SesIdentityException e) {
+                log.error("Could not confirm SES verification for {}", address, e);
+                return reject(model, response, HttpStatus.BAD_GATEWAY, Messages.SES_VERIFICATION_FAILED);
+            }
+        }
+
+        AccountUpdate outcome;
+        try {
+            outcome = userAccountService.update(id, name, address, role, actor.getId());
+        } catch (SelfModificationException e) {
+            flash(redirectAttributes, "danger", Messages.SELF_MODIFICATION_FORBIDDEN);
+            return "redirect:" + Routes.ADMIN_USERS;
+        } catch (InvalidRoleAssignmentException e) {
+            flash(redirectAttributes, "danger", e.getMessage());
+            return "redirect:" + Routes.ADMIN_USERS;
+        } catch (InvalidNameException e) {
+            return reject(model, response, HttpStatus.UNPROCESSABLE_ENTITY, Messages.INVALID_NAME);
+        } catch (InvalidEmailException e) {
+            return reject(model, response, HttpStatus.UNPROCESSABLE_ENTITY, Messages.INVALID_EMAIL);
+        } catch (DuplicateEmailException e) {
+            return reject(model, response, HttpStatus.CONFLICT, Messages.DUPLICATE_EMAIL);
+        } catch (PlaylistSuccessorRequiredException e) {
+            // Save the name and email now; the reassign page finishes the demotion.
+            AccountUpdate details =
+                    userAccountService.update(id, name, address, current.role(), actor.getId());
+            if (details.changed()) {
+                if (notifyAccountUpdated(details)) {
+                    flash(redirectAttributes, "success", Messages.USER_DETAILS_SAVED_ROLE_PENDING);
+                } else {
+                    flash(redirectAttributes, "warning",
+                            Messages.USER_UPDATED_EMAIL_FAILED + " " + Messages.SUCCESSOR_REQUIRED);
+                }
+            }
+            return "redirect:" + Routes.ADMIN_USERS + "/" + id + "/reassign?intent=demote";
+        }
+
+        if (!outcome.changed()) {
+            flash(redirectAttributes, "success", Messages.USER_UNCHANGED);
+            return "redirect:" + Routes.ADMIN_USERS;
+        }
+        String transferNote = outcome.transferredPlaylists() == 0
+                ? ""
+                : " " + Messages.playlistsTransferred(outcome.transferredPlaylists());
+        if (notifyAccountUpdated(outcome)) {
+            flash(redirectAttributes, "success", Messages.USER_UPDATED + transferNote);
+        } else {
+            flash(redirectAttributes, "warning", Messages.USER_UPDATED_EMAIL_FAILED + transferNote);
+        }
+        return "redirect:" + Routes.ADMIN_USERS;
+    }
+
+    /**
+     * Tells the holder at the address they now sign in with and, when that
+     * moved, at the old one too. False when either message did not go out.
+     */
+    private boolean notifyAccountUpdated(AccountUpdate outcome) {
+        UserView account = outcome.user();
+        String previousName = outcome.nameChanged() ? outcome.previousName() : null;
+        String previousEmail = outcome.emailChanged() ? outcome.previousEmail() : null;
+        String previousRole = outcome.roleChanged()
+                ? outcome.previousRole().getDisplayName() : null;
+        List<String> recipients = previousEmail == null
+                ? List.of(account.email())
+                : List.of(account.email(), previousEmail);
+        boolean delivered = true;
+        for (String recipient : recipients) {
+            try {
+                notificationService.sendAccountUpdated(recipient, account.username(), previousName,
+                        account.email(), previousEmail, account.role().getDisplayName(),
+                        previousRole, outcome.transferredPlaylists());
+            } catch (MailDeliveryException e) {
+                reportUndelivered("Account update", recipient, e);
+                delivered = false;
+            }
+        }
+        return delivered;
     }
 
     /** UC-07 E3 — send the credentials message again after a failed delivery. */

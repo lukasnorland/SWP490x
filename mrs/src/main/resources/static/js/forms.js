@@ -118,6 +118,77 @@ export function initAutoShownModals(root) {
   });
 }
 
+/* --- One dialog for New user and Edit user (P-06a Zone A) --------------
+   The button that opens it decides the mode. An auto-shown reopen after a
+   rejected submission has no trigger and keeps the server-rendered state. */
+export function initUserDialog(root) {
+  root.querySelectorAll("[data-user-dialog]").forEach(function (modal) {
+    var form = modal.querySelector("form");
+    if (!form) {
+      return;
+    }
+    var title = modal.querySelector(".modal-title");
+    var submit = form.querySelector("[type='submit']");
+    var name = form.elements.namedItem("name");
+    var email = form.elements.namedItem("email");
+    var role = form.elements.namedItem("role");
+    var gated = form.getAttribute("data-ses-gate-create") === "true";
+
+    modal.addEventListener("show.bs.modal", function (event) {
+      var trigger = event.relatedTarget;
+      if (!trigger) {
+        return;
+      }
+      var editing = trigger.hasAttribute("data-user-edit");
+
+      form.action = editing
+          ? trigger.getAttribute("data-user-action")
+          : form.getAttribute("data-create-action");
+      form.setAttribute("data-busy-label", editing ? "Saving…" : "Creating…");
+      setOrRemove(form, "data-edit-user-id", editing ? trigger.getAttribute("data-user-id") : null);
+      setOrRemove(form, "data-original-email",
+          editing ? trigger.getAttribute("data-user-email") : null);
+
+      name.value = editing ? trigger.getAttribute("data-user-name") : "";
+      email.value = editing ? trigger.getAttribute("data-user-email") : "";
+      role.value = editing ? trigger.getAttribute("data-user-role") : role.options[0].value;
+
+      title.textContent = editing ? "Edit user" : "New user";
+      submit.textContent = editing ? "Save changes" : "Create account";
+      submit.disabled = gated && !editing;
+
+      modal.querySelectorAll("[data-create-only]").forEach(function (section) {
+        section.hidden = editing;
+        section.querySelectorAll("input").forEach(function (field) {
+          field.disabled = editing;
+        });
+      });
+      modal.querySelectorAll("[data-edit-only]").forEach(function (section) {
+        section.hidden = !editing;
+      });
+      // Feedback from a previous rejected submission belongs to that attempt.
+      modal.querySelectorAll("[data-user-dialog-feedback]").forEach(function (feedback) {
+        feedback.remove();
+      });
+      modal.querySelectorAll("[data-ses-status-target]").forEach(function (button) {
+        var status = document.getElementById(button.getAttribute("data-ses-status-target"));
+        if (status) {
+          status.hidden = true;
+          status.textContent = "";
+        }
+      });
+    });
+  });
+}
+
+function setOrRemove(element, attribute, value) {
+  if (value) {
+    element.setAttribute(attribute, value);
+  } else {
+    element.removeAttribute(attribute);
+  }
+}
+
 /* SES sandbox verification; the server also requires a verified recipient when SMTP is enabled. */
 export function initSesRecipientPreparation(root) {
   root.querySelectorAll("[data-ses-prepare-recipient]").forEach(function (button) {
@@ -138,8 +209,14 @@ export function initSesRecipientPreparation(root) {
       submit.disabled = !enabled;
     }
 
+    // Editing an account: its own address is already verified.
+    function keepsOriginalEmail() {
+      var original = form.getAttribute("data-original-email");
+      return !!original && input.value.trim() === original;
+    }
+
     input.addEventListener("input", function () {
-      setCreateEnabled(false);
+      setCreateEnabled(keepsOriginalEmail());
       status.hidden = true;
       status.textContent = "";
     });
@@ -168,6 +245,10 @@ export function initSesRecipientPreparation(root) {
       var body = new URLSearchParams();
       body.set("email", email);
       body.set("_csrf", csrf.value);
+      var editUserId = form.getAttribute("data-edit-user-id");
+      if (editUserId) {
+        body.set("userId", editUserId);
+      }
 
       fetch("/admin/users/prepare-recipient", {
         method: "POST",
@@ -188,14 +269,15 @@ export function initSesRecipientPreparation(root) {
           var variant = result.ok ? (verified ? "success" : "info") : "error";
           var message = result.payload.message || "Unexpected response from the server.";
           if (result.ok && result.payload.status === "sent") {
-            message += " After they confirm, click Verify for SES again to unlock Create account.";
+            message += " After they confirm, click Verify for SES again to unlock "
+                + (submit ? submit.textContent.trim() : "Create account") + ".";
           }
           showSesStatus(status, variant, message);
-          setCreateEnabled(verified);
+          setCreateEnabled(verified || keepsOriginalEmail());
         })
         .catch(function () {
           showSesStatus(status, "error", "Could not reach the server. Try again.");
-          setCreateEnabled(false);
+          setCreateEnabled(keepsOriginalEmail());
         })
         .finally(function () {
           button.disabled = false;
@@ -298,6 +380,7 @@ export function enhanceForms(scope) {
   initPasswordToggles(scope);
   initPasswordPolicy(scope);
   initPasswordGenerators(scope);
+  initUserDialog(scope);
   initAutoShownModals(scope);
   initSesRecipientPreparation(scope);
   initConfirmSubmits();

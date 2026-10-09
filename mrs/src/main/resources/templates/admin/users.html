@@ -103,25 +103,20 @@
                     </button>
                   </form>
 
-                  <!-- UC-06: change role — Content Designer / Customer only. -->
-                  <div class="dropdown" th:if="${account.role.name() != 'ADMIN'
-                      and currentUser != null and currentUser.id != account.id}">
-                    <button type="button" class="btn btn-icon" data-bs-toggle="dropdown"
-                            aria-expanded="false" title="Change role">
-                      <svg th:replace="~{fragments/icons :: icon('pencil', 'icon--sm')}"></svg>
-                      <span class="visually-hidden">Change role</span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li th:each="role : ${assignableRoles}">
-                        <form th:action="@{|/admin/users/${account.id}/role|}" method="post">
-                          <input type="hidden" name="role" th:value="${role.name()}">
-                          <button type="submit" class="dropdown-item"
-                                  th:classappend="${role == account.role} ? 'active'"
-                                  th:text="${role.displayName}">Role</button>
-                        </form>
-                      </li>
-                    </ul>
-                  </div>
+                  <!-- Edit name / email / role (UC-06) in the Zone A dialog. -->
+                  <button type="button" class="btn btn-icon"
+                          th:if="${account.role.name() != 'ADMIN'
+                              and currentUser != null and currentUser.id != account.id}"
+                          data-bs-toggle="modal" data-bs-target="#createUser" data-user-edit
+                          th:attr="data-user-action=@{|/admin/users/${account.id}|},
+                                   data-user-id=${account.id},
+                                   data-user-name=${account.username},
+                                   data-user-email=${account.email},
+                                   data-user-role=${account.role.name()}"
+                          title="Edit name, email or role">
+                    <svg th:replace="~{fragments/icons :: icon('pencil', 'icon--sm')}"></svg>
+                    <span class="visually-hidden">Edit user</span>
+                  </button>
 
                   <!-- Spec 4.9: soft-delete / restore. Never self. -->
                   <form th:if="${account.status.name() == 'ACTIVE'
@@ -159,24 +154,37 @@
     <nav th:replace="~{fragments/components :: pager(${users}, '/admin/users')}"></nav>
   </div>
 
-  <!-- Zone A: the 600px create dialog. Reopens itself when the submission came
-       back rejected, so the message sits with the fields that caused it. -->
+  <!-- Zone A: the 600px create / edit dialog. Reopens itself when the
+       submission came back rejected, so the message sits with the fields that
+       caused it. The trigger button picks the mode (forms.js initUserDialog);
+       a rejected edit renders straight into edit mode. -->
   <div class="modal modal--create-user" id="createUser" tabindex="-1"
-       aria-labelledby="createUserTitle" aria-hidden="true"
+       aria-labelledby="createUserTitle" aria-hidden="true" data-user-dialog
+       th:with="editing=${editUserId != null}"
        th:attr="data-modal-autoshow=${reopenCreateForm}">
     <div class="modal-dialog modal-dialog-centered">
-      <form class="modal-content" th:action="@{/admin/users}" method="post"
-            data-busy-label="Creating…"
-            th:attr="data-ses-gate-create=${requireSesRecipient}">
+      <form class="modal-content" method="post"
+            th:action="${editing} ? @{|/admin/users/${editUserId}|} : @{/admin/users}"
+            th:attr="data-busy-label=${editing} ? 'Saving…' : 'Creating…',
+                     data-create-action=@{/admin/users},
+                     data-ses-gate-create=${requireSesRecipient},
+                     data-edit-user-id=${editUserId},
+                     data-original-email=${editOriginalEmail}">
         <div class="modal-header">
-          <h2 class="modal-title h4" id="createUserTitle">New user</h2>
+          <h2 class="modal-title h4" id="createUserTitle"
+              th:text="${editing} ? 'Edit user' : 'New user'">New user</h2>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <div class="modal-body d-flex flex-column gap-3">
-          <th:block th:if="${violations != null}">
+          <div th:if="${violations != null}" data-user-dialog-feedback>
             <div th:replace="~{fragments/components :: violations(${violations})}"></div>
-          </th:block>
+          </div>
+
+          <p class="small text-secondary mb-0" data-edit-only th:hidden="${!editing}">
+            Saving a change signs the user out. They sign in again with their
+            current password; only the fields you change here are updated.
+          </p>
 
           <div>
             <label class="form-label" for="newUserName">Name</label>
@@ -202,7 +210,8 @@
               <th:block th:if="${requireSesRecipient}">
                 Click <em>Verify for SES</em>, wait for the owner to confirm the
                 AWS link, then click <em>Verify for SES</em> again until it says
-                the address is verified — only then can you create the account.
+                the address is verified — only then can you save. An unchanged
+                address needs no verification.
               </th:block>
             </p>
             <p id="newUserEmailStatus" class="small mb-0" role="status" aria-live="polite" hidden></p>
@@ -218,29 +227,36 @@
             </select>
           </div>
 
-          <div>
-            <label class="form-label" for="newUserPassword">Initial password</label>
-            <div class="input-group">
-              <input class="form-control font-monospace" type="text" id="newUserPassword"
-                     name="password" autocomplete="off" required th:value="${suggestedPassword}">
-              <button type="button" class="btn btn-outline-secondary"
-                      data-password-generate="newUserPassword" title="Generate another password">
-                <svg th:replace="~{fragments/icons :: icon('refresh', 'icon--sm')}"></svg>
-                <span class="visually-hidden">Generate another password</span>
-              </button>
+          <!-- Create only: an edit never touches the password. Disabled while
+               hidden so it is neither required nor submitted. No display
+               utility here: d-flex is !important and would beat [hidden]. -->
+          <div data-create-only th:hidden="${editing}">
+            <div class="mb-3">
+              <label class="form-label" for="newUserPassword">Initial password</label>
+              <div class="input-group">
+                <input class="form-control font-monospace" type="text" id="newUserPassword"
+                       name="password" autocomplete="off" required th:value="${suggestedPassword}"
+                       th:disabled="${editing}">
+                <button type="button" class="btn btn-outline-secondary"
+                        data-password-generate="newUserPassword" title="Generate another password">
+                  <svg th:replace="~{fragments/icons :: icon('refresh', 'icon--sm')}"></svg>
+                  <span class="visually-hidden">Generate another password</span>
+                </button>
+              </div>
+              <p class="form-text">
+                Emailed to the new user, who must replace it at first login (BR-15, FT-09).
+              </p>
             </div>
-            <p class="form-text">
-              Emailed to the new user, who must replace it at first login (BR-15, FT-09).
-            </p>
-          </div>
 
-          <div th:replace="~{fragments/components :: passwordChecklist('newUserPassword')}"></div>
+            <div th:replace="~{fragments/components :: passwordChecklist('newUserPassword')}"></div>
+          </div>
         </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button>
           <button type="submit" class="btn btn-primary"
-                  th:disabled="${requireSesRecipient}">Create account</button>
+                  th:disabled="${requireSesRecipient and !editing}"
+                  th:text="${editing} ? 'Save changes' : 'Create account'">Create account</button>
         </div>
       </form>
     </div>

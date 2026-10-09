@@ -48,3 +48,4 @@ song-data/
 .cursor/*
 !.cursor/rules/
 !.cursor/rules/**
+.DS_Store
